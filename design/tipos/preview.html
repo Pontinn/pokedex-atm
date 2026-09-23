@@ -1,0 +1,24 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Tipos - preview</title>
+<style>body{margin:0;background:#1d2430;color:#fff;font-family:sans-serif;padding:24px}
+h1{font-size:18px;font-weight:600;margin:0 0 16px}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;max-width:960px}
+.i{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:14px;text-transform:capitalize}
+.c{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.c img{width:58%}
+.chip{text-transform:capitalize;display:inline-flex;align-items:center;gap:6px;background:#2b3444;border-radius:999px;padding:4px 12px 4px 4px;margin-top:24px}
+.chip .c{width:26px;height:26px}
+</style></head><body>
+<h1>Icones dos tipos (SVG branco + circulo colorido em CSS)</h1>
+<div class="g" id="g"></div>
+<div id="chips"></div>
+<script>
+const c={bug:'#92bc2c',dark:'#595761',dragon:'#0c69c8',electric:'#f2d94e',fairy:'#ee90e6',fighting:'#d3425f',fire:'#fba54c',flying:'#a1bbec',ghost:'#5f6dbc',grass:'#5fbd58',ground:'#da7c4d',ice:'#75d0c1',normal:'#a0a29f',poison:'#b763cf',psychic:'#fa8581',rock:'#c9bb8a',steel:'#5695a3',water:'#539ddf'};
+(()=>{
+ for(const t in c){
+  const w=document.createElement('div');w.className='i';
+  w.innerHTML=`<div class="c" style="background:${c[t]};box-shadow:0 0 22px ${c[t]}"><img src="svg/${t}.svg"></div>${t}`;
+  g.appendChild(w);
+ }
+ chips.innerHTML=['fire','water','grass'].map(t=>`<span class="chip"><span class="c" style="background:${c[t]}"><img src="svg/${t}.svg"></span>${t}</span> `).join('');
+})();
+</script></body></html>

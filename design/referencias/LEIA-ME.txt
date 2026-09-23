@@ -1,0 +1,7 @@
+Referencias visuais do Pontindex
+
+- desktop/  : prints, imagens ou telas que o layout de PC deve seguir
+- mobile/   : prints, imagens ou telas que o layout de celular deve seguir
+- Se a referencia for um site, crie um arquivo links.txt aqui com uma URL por linha
+  (pode comentar ao lado o que gostou, ex: "https://... - gostei do menu lateral")
+- Referencia que vale para os dois layouts pode ficar direto nesta pasta

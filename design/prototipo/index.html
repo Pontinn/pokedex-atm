@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="classico">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pontindex - Protótipo de design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ BOOT / SPLASH (tampa da Pokédex) ============ -->
+<div id="boot" class="boot" aria-hidden="true">
+  <div class="boot-lid boot-lid-top">
+    <div class="boot-device">
+      <div class="lens lens-lg"><span></span></div>
+      <div class="leds"><i class="led led-red"></i><i class="led led-yellow"></i><i class="led led-green"></i></div>
+    </div>
+  </div>
+  <div class="boot-lid boot-lid-bottom">
+    <img class="boot-ball" src="../pokebola.webp" alt="">
+    <div class="boot-title">Pontindex</div>
+    <div class="boot-sub" data-i18n="boot.loading">Carregando dados...</div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="app">
+
+  <!-- Sidebar (desktop) -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="lens lens-md"><span></span></div>
+      <div class="leds"><i class="led led-red"></i><i class="led led-yellow"></i><i class="led led-green"></i></div>
+      <div class="brand-name">Pontindex</div>
+    </div>
+    <nav class="nav" id="side-nav">
+      <button class="nav-item active" data-go="home"><span class="ico">&#8962;</span><span data-i18n="nav.home">Início</span></button>
+      <button class="nav-item" data-go="dex"><span class="ico">&#9776;</span><span data-i18n="nav.dex">Pokédex</span></button>
+      <button class="nav-item" data-go="captured"><span class="ico"><img src="../pokebola.webp" alt=""></span><span data-i18n="nav.captured">Capturados</span></button>
+      <button class="nav-item" data-go="compare"><span class="ico">&#8644;</span><span data-i18n="nav.compare">Comparar</span></button>
+      <button class="nav-item" data-go="settings"><span class="ico">&#9881;</span><span data-i18n="nav.settings">Configurações</span></button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="toggles">
+        <button class="tgl" id="tgl-sound" title="Som" aria-label="Som"><span class="tgl-ico">&#128264;</span></button>
+        <button class="tgl" id="tgl-lang" title="Idioma"><span class="tgl-txt">PT</span></button>
+        <button class="tgl" id="tgl-theme" title="Tema"><span class="tgl-ico">&#127912;</span></button>
+      </div>
+      <div class="sidebar-version"><span data-i18n="settings.data">Dados: Cobblemon 1.7.3</span></div>
+    </div>
+  </aside>
+
+  <!-- Topbar (mobile, moldura do "aparelho") -->
+  <header class="topbar">
+    <div class="topbar-shell">
+      <div class="lens lens-sm"><span></span></div>
+      <div class="leds"><i class="led led-red"></i><i class="led led-yellow"></i><i class="led led-green"></i></div>
+      <div class="topbar-title">Pontindex</div>
+      <div class="topbar-actions">
+        <button class="tgl" id="tgl-sound-m" aria-label="Som"><span class="tgl-ico">&#128264;</span></button>
+        <button class="tgl" id="tgl-lang-m"><span class="tgl-txt">PT</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+
+    <!-- ===== HOME ===== -->
+    <section class="screen active" data-screen="home">
+      <div class="hero">
+        <div class="hero-deco"></div>
+        <div class="hero-text">
+          <div class="eyebrow" data-i18n="home.eyebrow">All the Mons · Cobblemon</div>
+          <h1 data-i18n="home.title">Qual Pokémon você procura?</h1>
+        </div>
+        <div class="search" id="search">
+          <span class="search-ico">&#9906;</span>
+          <input id="search-input" type="text" value="char" autocomplete="off" data-i18n-ph="home.searchPh" placeholder="Buscar por nome ou número da Pokédex...">
+          <button class="search-btn" data-i18n="home.search">Buscar</button>
+          <div class="search-dd" id="search-dd"></div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="btn-random"><img class="btn-ball" src="../pokebola.webp" alt=""><span data-i18n="home.random">Pokémon aleatório</span></button>
+          <button class="btn btn-ghost" data-go="dex"><span data-i18n="home.openDex">Abrir Pokédex</span> &rarr;</button>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="card card-summary" id="home-summary">
+          <div class="card-head"><h3 data-i18n="home.caught">Capturados</h3><button class="link" data-go="captured" data-i18n="home.seeAll">Ver todos</button></div>
+          <div class="summary-big"><strong>87</strong> <span data-i18n="home.of">de</span> 1.025</div>
+          <div class="progress"><div class="progress-bar" style="--p:8.5%"></div></div>
+          <div class="summary-foot"><span>8,5%</span><span data-i18n="home.lastCaught">Último: Lucario, hoje</span></div>
+        </div>
+
+        <div class="card card-team">
+          <div class="card-head"><h3 data-i18n="home.team">Meu time</h3><span class="pill">4/6</span></div>
+          <div class="team-slots" id="team-slots"></div>
+        </div>
+      </div>
+
+      <div class="section-head"><h3 data-i18n="home.history">Histórico</h3><span class="muted" data-i18n="home.historyHint">Últimos 20 consultados</span></div>
+      <div class="history-row" id="history-row"></div>
+    </section>
+
+    <!-- ===== POKÉDEX / LISTA ===== -->
+    <section class="screen" data-screen="dex">
+      <div class="page-head">
+        <h2 data-i18n="nav.dex">Pokédex</h2>
+        <div class="page-head-right"><span class="muted"><span id="dex-count">12</span> <span data-i18n="dex.results">resultados</span></span></div>
+      </div>
+      <div class="filters" id="filters">
+        <div class="filter-group">
+          <label data-i18n="dex.type">Tipo</label>
+          <div class="chips-scroll" id="filter-types"></div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label data-i18n="dex.gen">Geração</label>
+            <select id="f-gen"><option value="all" data-i18n="dex.all">Todas</option><option>Gen 1</option><option>Gen 2</option><option>Gen 3</option><option>Gen 4</option><option>Gen 5</option><option>Gen 6</option><option>Gen 7</option><option>Gen 8</option><option>Gen 9</option></select>
+          </div>
+          <div class="filter-group">
+            <label data-i18n="dex.evo">Evolução</label>
+            <select id="f-evo"><option value="all" data-i18n="dex.all">Todas</option><option value="level" data-i18n="evo.level">Nível</option><option value="stone" data-i18n="evo.stone">Pedra</option><option value="trade" data-i18n="evo.trade">Troca</option><option value="friendship" data-i18n="evo.friendship">Amizade</option></select>
+          </div>
+          <div class="filter-group">
+            <label data-i18n="dex.sort">Ordenar</label>
+            <select id="f-sort"><option value="num" data-i18n="dex.byNum">Número</option><option value="name" data-i18n="dex.byName">Nome</option><option value="bst" data-i18n="dex.byBst">Total de atributos</option></select>
+          </div>
+          <div class="filter-group filter-seg">
+            <label data-i18n="dex.status">Status</label>
+            <div class="seg" id="f-status">
+              <button class="active" data-v="all" data-i18n="dex.all">Todos</button>
+              <button data-v="caught" data-i18n="dex.onlyCaught">Só capturados</button>
+              <button data-v="missing" data-i18n="dex.onlyMissing">Só faltando</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="poke-grid" id="dex-grid"></div>
+    </section>
+
+    <!-- ===== FICHA ===== -->
+    <section class="screen" data-screen="detail">
+      <div id="detail"></div>
+    </section>
+
+    <!-- ===== CAPTURADOS ===== -->
+    <section class="screen" data-screen="captured">
+      <div class="page-head">
+        <h2 data-i18n="nav.captured">Capturados</h2>
+      </div>
+      <div class="card captured-summary">
+        <div class="captured-ball"><img src="../pokebola.webp" alt=""></div>
+        <div class="captured-info">
+          <div class="summary-big"><strong>87</strong> <span data-i18n="home.of">de</span> 1.025</div>
+          <div class="progress"><div class="progress-bar" style="--p:8.5%"></div></div>
+          <div class="summary-foot"><span data-i18n="captured.progress">8,5% da Pokédex nacional</span><span data-i18n="captured.gen1">Gen 1: 41/151</span></div>
+        </div>
+      </div>
+      <div class="seg seg-tabs" id="captured-tabs">
+        <button class="active" data-i18n="dex.all">Todos</button>
+        <button>Gen 1</button><button>Gen 2</button><button>Gen 4</button>
+        <button data-i18n="rarity.legendary">Lendários</button>
+        <button data-i18n="captured.recent">Recentes</button>
+      </div>
+      <div class="poke-grid" id="captured-grid"></div>
+    </section>
+
+    <!-- ===== COMPARAR ===== -->
+    <section class="screen" data-screen="compare">
+      <div class="page-head"><h2 data-i18n="nav.compare">Comparar</h2></div>
+      <div id="compare"></div>
+    </section>
+
+    <!-- ===== CONFIGURAÇÕES ===== -->
+    <section class="screen" data-screen="settings">
+      <div class="page-head"><h2 data-i18n="nav.settings">Configurações</h2></div>
+      <div class="settings">
+        <div class="card">
+          <h3 data-i18n="settings.theme">Tema</h3>
+          <p class="muted" data-i18n="settings.themeHint">Cor principal da carcaça e cor secundária da lente e detalhes.</p>
+          <div class="theme-grid" id="theme-grid"></div>
+        </div>
+        <div class="card">
+          <h3 data-i18n="settings.language">Idioma</h3>
+          <p class="muted" data-i18n="settings.languageHint">Nomes de golpes, habilidades e tipos aparecem no idioma escolhido. O jogo é em inglês.</p>
+          <div class="seg" id="lang-seg"><button data-v="pt" class="active">Português (BR)</button><button data-v="en">English</button></div>
+        </div>
+        <div class="card">
+          <div class="setting-row">
+            <div><h3 data-i18n="settings.sound">Som (bipe da Pokédex)</h3><p class="muted" data-i18n="settings.soundHint">Bipe curto ao abrir uma ficha ou capturar.</p></div>
+            <label class="switch"><input type="checkbox" id="sw-sound"><span></span></label>
+          </div>
+          <div class="setting-row">
+            <div><h3 data-i18n="settings.motion">Reduzir animações</h3><p class="muted" data-i18n="settings.motionHint">Desliga transições e efeitos. Também segue a preferência do sistema.</p></div>
+            <label class="switch"><input type="checkbox" id="sw-motion"><span></span></label>
+          </div>
+        </div>
+        <div class="card card-info">
+          <div class="info-line"><span class="dot"></span><span data-i18n="settings.data">Dados: Cobblemon 1.7.3</span></div>
+          <div class="info-line"><span class="dot"></span><span data-i18n="settings.local">Tudo local neste aparelho. Sem conta, sem servidor.</span></div>
+          <div class="info-line"><span class="dot"></span><span data-i18n="settings.images">Imagens: PokeAPI (online)</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Tab bar (mobile) -->
+  <nav class="tabbar" id="tabbar">
+    <button class="tab active" data-go="home"><span class="ico">&#8962;</span><span data-i18n="nav.home">Início</span></button>
+    <button class="tab" data-go="dex"><span class="ico">&#9776;</span><span data-i18n="nav.dex">Pokédex</span></button>
+    <button class="tab tab-ball" data-go="captured"><span class="ico"><img src="../pokebola.webp" alt=""></span><span data-i18n="nav.captured">Capturados</span></button>
+    <button class="tab" data-go="compare"><span class="ico">&#8644;</span><span data-i18n="nav.compare">Comparar</span></button>
+    <button class="tab" data-go="settings"><span class="ico">&#9881;</span><span data-i18n="nav.settingsShort">Ajustes</span></button>
+  </nav>
+</div>
+
+<!-- ============ CAPTURA (overlay) ============ -->
+<div id="capture" class="capture" aria-hidden="true">
+  <div class="cap-bg"></div>
+  <div class="cap-stage">
+    <img class="cap-ball" src="../pokebola.webp" alt="">
+    <div class="cap-burst"></div>
+    <img class="cap-art" src="" alt="">
+    <div class="cap-flash"></div>
+  </div>
+  <div class="cap-text">
+    <div class="cap-name"></div>
+    <div class="cap-caught" data-i18n="capture.caught">Capturado!</div>
+    <button class="btn btn-light cap-close" data-i18n="capture.close">Fechar</button>
+  </div>
+  <div class="cap-skip" data-i18n="capture.skip">Toque para pular</div>
+</div>
+
+<!-- ============ MENU FLUTUANTE DO PROTÓTIPO ============ -->
+<div class="proto" id="proto">
+  <button class="proto-fab" id="proto-fab" title="Menu do protótipo">&#9881;</button>
+  <div class="proto-panel">
+    <div class="proto-title">Protótipo</div>
+    <div class="proto-sec">Telas</div>
+    <div class="proto-links">
+      <button data-go="home">Início</button>
+      <button data-go="dex">Pokédex</button>
+      <button data-go="detail">Ficha</button>
+      <button data-go="captured">Capturados</button>
+      <button data-go="compare">Comparar</button>
+      <button data-go="settings">Configurações</button>
+    </div>
+    <div class="proto-sec">Visual</div>
+    <div class="proto-links">
+      <button id="p-phone">Celular 390px</button>
+      <button id="p-lang">PT / EN</button>
+      <button id="p-theme">Próximo tema</button>
+      <button id="p-boot">Replay abertura</button>
+    </div>
+    <div class="proto-sec">Animação de captura</div>
+    <div class="proto-links">
+      <button data-cap="6">Charizard (outros)</button>
+      <button data-cap="150">Mewtwo (lendário)</button>
+      <button data-cap="151">Mew (mítico)</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
