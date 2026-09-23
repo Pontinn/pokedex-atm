@@ -78,6 +78,9 @@
     'stat.spd': { pt: 'Def. Esp.', en: 'Sp. Def' },
     'stat.spe': { pt: 'Velocidade', en: 'Speed' },
     'detail.weak': { pt: 'Fraquezas & resistências', en: 'Weaknesses & resistances' },
+    'weak.all': { pt: 'Todos', en: 'All' },
+    'weak.weak': { pt: 'Fraquezas', en: 'Weaknesses' },
+    'weak.res': { pt: 'Resistências', en: 'Resistances' },
     'detail.evo': { pt: 'Evoluções', en: 'Evolutions' },
     'detail.abilities': { pt: 'Habilidades', en: 'Abilities' },
     'detail.hidden': { pt: 'Oculta', en: 'Hidden' },
@@ -318,11 +321,13 @@
      ------------------------------------------------------------------ */
   const state = {
     lang: 'pt', theme: 'classico', sound: false, phone: false, screen: 'home',
-    detailId: 6, shiny: false, moveTab: 'level', formIdx: 0, teamAdded: {},
+    detailId: 6, shiny: false, moveTab: 'level', formIdx: 0, teamAdded: {}, weakFilter: 'all',
     filters: { types: [], gen: 'all', evo: 'all', sort: 'num', status: 'all' },
     capTimers: []
   };
 
+  /* Ícones Lucide: converte <i data-lucide> em SVG após cada render */
+  const icons = () => { if (window.lucide) window.lucide.createIcons(); };
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const t = (k) => (I18N[k] ? I18N[k][state.lang] : k);
@@ -339,7 +344,7 @@
   const badge = (p) => {
     const r = p.rarity;
     const cls = { common: 'badge-common', uncommon: 'badge-uncommon', rare: 'badge-rare', ultra: 'badge-ultra', legendary: 'badge-legendary', mythical: 'badge-mythical' }[r];
-    const ico = r === 'legendary' ? '&#9733; ' : r === 'mythical' ? '&#10022; ' : '';
+    const ico = r === 'legendary' ? '<i data-lucide="star"></i>' : r === 'mythical' ? '<i data-lucide="sparkle"></i>' : '';
     return `<span class="badge ${cls}">${ico}${t('rarity.' + r)}</span>`;
   };
   const imgArt = (id, cls, extra) => `<img class="${cls || ''}" src="${art(id)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${art(6)}'" ${extra || ''}>`;
@@ -360,7 +365,7 @@
      ------------------------------------------------------------------ */
   function renderHome() {
     $('#team-slots').innerHTML = DATA.team.map(id => {
-      if (!id) return `<div class="slot" title="${t('home.empty')}"><span class="slot-plus">+</span></div>`;
+      if (!id) return `<div class="slot" title="${t('home.empty')}"><span class="slot-plus"><i data-lucide="plus"></i></span></div>`;
       const p = byId(id);
       return `<div class="slot filled" style="--tc:var(--t-${p.types[0]})" data-open="${id}" title="${p.name}">${imgArt(id)}<span class="slot-name">${p.name}</span></div>`;
     }).join('');
@@ -390,7 +395,7 @@
      ------------------------------------------------------------------ */
   function renderFilters() {
     $('#filter-types').innerHTML = Object.keys(TYPES).map(k =>
-      `<button class="chip sm t-${k} ${state.filters.types.includes(k) ? 'on' : ''}" data-ftype="${k}">${typeIcon(k)}<span>${tn(k)}</span></button>`).join('');
+      `<button class="chip sm t-${k} ${state.filters.types.includes(k) ? 'on' : ''}" data-ftype="${k}">${typeIcon(k)}<span>${tn(k)}</span><i data-lucide="check" class="chip-check"></i></button>`).join('');
   }
   function renderDex() {
     const f = state.filters;
@@ -402,7 +407,7 @@
     const bst = p => p.stats.reduce((a, b) => a + b, 0);
     list.sort((a, b) => f.sort === 'name' ? a.name.localeCompare(b.name) : f.sort === 'bst' ? bst(b) - bst(a) : a.id - b.id);
     $('#dex-count').textContent = list.length;
-    $('#dex-grid').innerHTML = list.length ? list.map((p, i) => pcard(p, i)).join('') : `<p class="muted">${t('dex.none')}</p>`;
+    $('#dex-grid').innerHTML = list.length ? list.map((p, i) => pcard(p, i)).join('') : `<p class="muted">${t('dex.none')}</p>`; icons();
   }
 
   /* ------------------------------------------------------------------
@@ -442,7 +447,7 @@
     return `<table>
       <thead><tr><th>${t('col.level')}</th><th>${t('col.move')}</th><th>${t('col.type')}</th><th>${t('col.cat')}</th><th>${t('col.power')}</th><th>${t('col.acc')}</th></tr></thead>
       <tbody>${moves.map((m, i) => `<tr class="mv-row ${m.desc ? 'has-desc' : ''}" data-mv="${i}"><td class="num">${typeof m.lv === 'number' ? m.lv : t('tab.' + state.moveTab)}</td>
-        <td><span class="mv-name">${state.lang === 'pt' ? m.pt : m.en}${m.desc ? '<span class="mv-caret">&#9660;</span>' : ''}</span><span class="mv-en">${state.lang === 'pt' ? m.en : m.pt}</span></td>
+        <td><span class="mv-name">${state.lang === 'pt' ? m.pt : m.en}${m.desc ? '<span class="mv-caret"><i data-lucide="chevron-down"></i></span>' : ''}</span><span class="mv-en">${state.lang === 'pt' ? m.en : m.pt}</span></td>
         <td>${chip(m.type, 'sm')}</td><td><span class="cat cat-${m.cat}"><i></i>${t('cat.' + m.cat)}</span></td>
         <td class="num">${m.pow == null ? '-' : m.pow}</td><td class="num">${m.acc == null ? '-' : m.acc + '%'}</td></tr>${m.desc ? `<tr class="mv-desc"><td colspan="6"><div class="desc-wrap"><div class="desc-inner"><p class="desc-text">${state.lang === 'pt' ? m.desc.pt : m.desc.en}</p></div></div></td></tr>` : ''}`).join('')}</tbody>
     </table>`;
@@ -461,13 +466,21 @@
     return DATA.forms[p.id] || [{ key: 'form.normal', id: p.id, types: p.types, ability: [abilities[0].pt, abilities[0].en], stats: p.stats }];
   }
   /* Troca o conteúdo de um componente com uma pequena transição (sem re-renderizar a tela) */
-  function swapIn(el, html) { el.innerHTML = html; el.classList.remove('part-in'); void el.offsetWidth; el.classList.add('part-in'); }
+  function swapIn(el, html) { el.innerHTML = html; el.classList.remove('part-in'); void el.offsetWidth; el.classList.add('part-in'); icons(); }
   function updateDetailButtons() {
     const p = byId(state.detailId); const bc = $('#btn-caught'), bt = $('#btn-team'); if (!bc || !bt) return;
     const inTeam = DATA.team.includes(p.id) || state.teamAdded[p.id];
     bc.classList.toggle('done', !!p.caught); bc.querySelector('span').textContent = p.caught ? t('detail.caughtDone') : t('detail.caught');
-    bt.classList.toggle('done', !!inTeam); bt.innerHTML = inTeam ? '&#10003; ' + t('detail.inTeam') : '+ ' + t('detail.addTeam');
+    bt.classList.toggle('done', !!inTeam); bt.innerHTML = inTeam ? '<i data-lucide="check"></i> ' + t('detail.inTeam') : '<i data-lucide="plus"></i> ' + t('detail.addTeam'); icons();
     bt.classList.remove('part-in'); void bt.offsetWidth; bt.classList.add('part-in');
+  }
+
+  /* Painel de fraquezas: só as linhas do filtro escolhido (Todos / Fraquezas / Resistências) */
+  function weakGridHTML() {
+    const wk = weaknesses(byId(state.detailId).types);
+    const rows = [[4, 'x4', 'mult-4'], [2, 'x2', 'mult-2'], [0.5, 'x½', 'mult-half'], [0.25, 'x¼', 'mult-quarter'], [0, 'x0', 'mult-0']]
+      .filter(r => wk[r[0]] && (state.weakFilter === 'all' || (state.weakFilter === 'weak' ? r[0] > 1 : r[0] < 1)));
+    return rows.length ? rows.map(r => `<div class="weak-row"><span class="mult ${r[2]}">${r[1]}</span><div class="chips">${wk[r[0]].map(x => chip(x, 'sm')).join('')}</div></div>`).join('') : `<p class="muted">-</p>`;
   }
 
   function renderDetail() {
@@ -477,20 +490,18 @@
     const abilities = DATA.abilities[p.id] || DATA.abilities._;
     const where = DATA.where[p.id] || DATA.where._;
     const forms = formsOf(p);
-    const wk = weaknesses(p.types);
-    const multRows = [[4, 'x4', 'mult-4'], [2, 'x2', 'mult-2'], [0.5, 'x½', 'mult-half'], [0.25, 'x¼', 'mult-quarter'], [0, 'x0', 'mult-0']];
     const isSpecial = p.rarity === 'legendary' || p.rarity === 'mythical';
     const inTeam = DATA.team.includes(p.id) || state.teamAdded[p.id];
 
     const html = `
-    <button class="detail-back" data-go="dex">&larr; ${t('detail.back')}</button>
+    <button class="detail-back" data-go="dex"><i data-lucide="arrow-left"></i> ${t('detail.back')}</button>
     <div class="detail" style="--tc:var(--t-${p.types[0]})">
       <div class="detail-left">
         <div class="card hero-card g-${p.types[0]} ${p.rarity === 'legendary' ? 'hero-legendary' : p.rarity === 'mythical' ? 'hero-mythical' : ''}">
           <div class="hero-art">
             ${isSpecial ? `<div class="sheen"></div><div class="sparkles">${[[12,18],[30,70],[52,12],[70,40],[86,22],[80,78],[20,46],[60,84]].map(([x, y], i) => `<i style="left:${x}%;top:${y}%;animation-delay:${(i * 0.37).toFixed(2)}s"></i>`).join('')}</div>` : ''}
             ${isSpecial ? `<div class="seal">${badge(p)}</div>` : ''}
-            <button class="shiny-btn ${state.shiny ? 'on' : ''}" id="shiny-btn" title="${t('detail.shiny')}">&#10024;</button>
+            <button class="shiny-btn ${state.shiny ? 'on' : ''}" id="shiny-btn" title="${t('detail.shiny')}"><i data-lucide="sparkles"></i></button>
             <div class="hero-title"><div class="dex-num">${pad(p.id)}</div><h2>${p.name}</h2></div>
             <img id="detail-art" src="${art(p.id, state.shiny)}" alt="${p.name}" onerror="this.onerror=null;this.src='${art(p.id)}'">
           </div>
@@ -499,21 +510,22 @@
             <div class="badges">${isSpecial ? `<span class="badge badge-rare">${t('rarity.rare')}</span>` : badge(p)}${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <div class="hero-actions-2">
               <button class="btn btn-accent ${p.caught ? 'done' : ''}" id="btn-caught"><img class="ball-ico" src="../pokebola.webp" alt=""><span>${p.caught ? t('detail.caughtDone') : t('detail.caught')}</span></button>
-              <button class="btn btn-ghost ${inTeam ? 'done' : ''}" id="btn-team">${inTeam ? '&#10003; ' + t('detail.inTeam') : '+ ' + t('detail.addTeam')}</button>
+              <button class="btn btn-ghost ${inTeam ? 'done' : ''}" id="btn-team">${inTeam ? '<i data-lucide="check"></i> ' + t('detail.inTeam') : '<i data-lucide="plus"></i> ' + t('detail.addTeam')}</button>
             </div>
           </div>
         </div>
-        ${p.noSpawn ? `<div class="notice"><span>&#9888;</span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : ''}
+        ${p.noSpawn ? `<div class="notice"><span><i data-lucide="triangle-alert"></i></span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : ''}
         <div class="panel" style="--i:1"><h3>${t('detail.stats')}</h3>${statsBlock(p.stats)}</div>
       </div>
 
       <div class="detail-right">
-        <div class="panel" style="--i:2"><h3>${t('detail.weak')}</h3>
-          <div class="weak-grid">${multRows.filter(r => wk[r[0]]).map(r => `<div class="weak-row"><span class="mult ${r[2]}">${r[1]}</span><div class="chips">${wk[r[0]].map(x => chip(x, 'sm')).join('')}</div></div>`).join('')}</div>
+        <div class="panel" style="--i:2"><div class="panel-head"><h3>${t('detail.weak')}</h3>
+            <div class="seg seg-sm" id="weak-seg">${[['all', 'weak.all'], ['weak', 'weak.weak'], ['res', 'weak.res']].map(([v, k]) => `<button class="${state.weakFilter === v ? 'active' : ''}" data-wf="${v}">${t(k)}</button>`).join('')}</div></div>
+          <div class="weak-grid" id="weak-grid">${weakGridHTML()}</div>
         </div>
 
         <div class="panel" style="--i:3"><h3>${t('detail.evo')}</h3>
-          ${chain ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr">&rarr;</span><span class="method">${t(chain.methods[i - 1].k)}${chain.methods[i - 1].v ? ' ' + chain.methods[i - 1].v : ''}</span></div>` : ''}
+          ${chain ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr"><i data-lucide="arrow-right"></i></span><span class="method">${t(chain.methods[i - 1].k)}${chain.methods[i - 1].v ? ' ' + chain.methods[i - 1].v : ''}</span></div>` : ''}
             <div class="evo ${id === p.id ? 'current' : ''}" ${byId(id) ? `data-open="${id}"` : ''}>${imgArt(id)}<span class="dex-num">${pad(id)}</span><span class="evo-name">${chain.names[i]}</span></div>`).join('')}</div>`
           : `<p class="muted">${t('evo.none')}</p>`}
           <div class="evo-methods"><span>${t('evo.methods')}</span><span>${t('evo.level')} 16</span><span>${t('evo.fireStone')}</span><span>${t('evo.friendshipDay')}</span><span>${t('evo.trade')}</span></div>
@@ -531,11 +543,11 @@
         </div>
 
         <div class="panel" style="--i:6"><h3>${t('detail.where')}</h3>
-          ${p.noSpawn ? `<div class="notice"><span>&#9888;</span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : `<div class="where">
+          ${p.noSpawn ? `<div class="notice"><span><i data-lucide="triangle-alert"></i></span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : `<div class="where">
             <div class="kv"><span class="k">${t('where.bucket')}</span><span class="v">${badge(p)}</span></div>
             <div class="kv"><span class="k">${t('where.level')}</span><span class="v">${where.levels}</span></div>
             <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${state.lang === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
-            <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '&#9728;' : c === 'cond.night' ? '&#9790;' : '&#9729;'} ${t(c)}</span>`).join('')}</div></div>
+            <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${t(c)}</span>`).join('')}</div></div>
             <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
               ${where.drops.map(d => `<div class="drop"><span>${state.lang === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
           </div>`}
@@ -547,7 +559,7 @@
         </div>
 
         <details class="panel calc" style="--i:8" id="calc">
-          <summary>${t('detail.calc')}<span class="caret">&#9660;</span></summary>
+          <summary>${t('detail.calc')}<span class="caret"><i data-lucide="chevron-down"></i></span></summary>
           <div class="calc-body">
             <div class="calc-inputs">
               <label>${t('calc.level')}<input type="number" id="c-lv" value="50" min="1" max="100"></label>
@@ -577,7 +589,7 @@
      ------------------------------------------------------------------ */
   function renderCaptured() {
     const list = DATA.pokemon.filter(p => p.caught).sort((a, b) => b.date.split('/').reverse().join('').localeCompare(a.date.split('/').reverse().join('')));
-    $('#captured-grid').innerHTML = list.map((p, i) => pcard(p, i, true)).join('');
+    $('#captured-grid').innerHTML = list.map((p, i) => pcard(p, i, true)).join(''); icons();
   }
 
   function renderCompare() {
@@ -596,7 +608,7 @@
           <div class="bar left"><i style="--w:${Math.min(100, ta / 8)}%;--bc:var(--t-${a.types[0]});--d:500ms"></i></div><span class="lbl">${t('compare.total')}</span>
           <div class="bar"><i style="--w:${Math.min(100, tb / 8)}%;--bc:var(--t-${b.types[0]});--d:500ms"></i></div><span class="v r ${tb > ta ? 'win' : ''}">${tb}</span></div>
       </div>
-      <div style="display:flex;justify-content:center;margin-top:14px"><button class="btn btn-ghost" id="cmp-swap">&#8644; ${t('compare.swap')}</button></div></div>
+      <div style="display:flex;justify-content:center;margin-top:14px"><button class="btn btn-ghost" id="cmp-swap"><i data-lucide="arrow-left-right"></i> ${t('compare.swap')}</button></div></div>
     </div>`;
   }
 
@@ -616,7 +628,7 @@
     document.documentElement.lang = state.lang === 'pt' ? 'pt-BR' : 'en';
   }
   function renderAll() {
-    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes();
+    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes(); icons();
   }
   function setLang(l) { state.lang = l; renderAll(); }
   function setTheme(id) {
@@ -626,7 +638,7 @@
   function nextTheme() { const i = DATA.themes.findIndex(x => x.id === state.theme); setTheme(DATA.themes[(i + 1) % DATA.themes.length].id); }
   function setSound(on) {
     state.sound = on; $('#sw-sound').checked = on;
-    $$('#tgl-sound, #tgl-sound-m').forEach(b => b.classList.toggle('off', !on));
+    $$('#tgl-sound, #tgl-sound-m').forEach(b => { b.classList.toggle('off', !on); const i = b.querySelector('[data-lucide]'); if (i) i.setAttribute('data-lucide', on ? 'volume-2' : 'volume-x'); }); icons();
   }
   function updateLayout() {
     document.body.classList.toggle('phone', state.phone);
@@ -649,7 +661,7 @@
   function openDetail(id) {
     state.detailId = id; state.shiny = false; state.moveTab = 'level'; state.formIdx = 0;
     DATA.history = [id].concat(DATA.history.filter(x => x !== id)).slice(0, 6);
-    renderHome(); renderDetail(); go('detail');
+    renderHome(); renderDetail(); go('detail'); icons();
   }
 
   /* ------------------------------------------------------------------
@@ -721,6 +733,8 @@
     if (th) { setTheme(th.dataset.themePick); return; }
     const ft = e.target.closest('[data-ftype]');
     if (ft) { const k = ft.dataset.ftype; const i = state.filters.types.indexOf(k); i >= 0 ? state.filters.types.splice(i, 1) : state.filters.types.push(k); ft.classList.toggle('on', i < 0); renderDex(); return; }
+    const wf = e.target.closest('[data-wf]');
+    if (wf) { state.weakFilter = wf.dataset.wf; $$('#weak-seg button').forEach(b => b.classList.toggle('active', b === wf)); swapIn($('#weak-grid'), weakGridHTML()); return; }
     const mt = e.target.closest('[data-mtab]');
     if (mt) { state.moveTab = mt.dataset.mtab; $$('#move-tabs button').forEach(b => b.classList.toggle('active', b === mt)); swapIn($('#moves-table'), movesTableHTML()); return; }
     const mr = e.target.closest('.mv-row.has-desc');
@@ -735,8 +749,8 @@
     if (ls) { setLang(ls.dataset.v); return; }
     if (e.target.closest('#shiny-btn')) { state.shiny = !state.shiny; const img = $('#detail-art'); img.src = art(state.detailId, state.shiny); img.classList.remove('swap'); void img.offsetWidth; img.classList.add('swap'); $('#shiny-btn').classList.toggle('on', state.shiny); return; }
     if (e.target.closest('#btn-caught')) { startCapture(state.detailId); return; }
-    if (e.target.closest('#btn-team')) { state.teamAdded[state.detailId] = !state.teamAdded[state.detailId]; const empty = DATA.team.indexOf(null); if (state.teamAdded[state.detailId] && empty >= 0 && !DATA.team.includes(state.detailId)) DATA.team[empty] = state.detailId; else if (!state.teamAdded[state.detailId]) DATA.team = DATA.team.map(x => x === state.detailId ? null : x); renderHome(); updateDetailButtons(); return; }
-    if (e.target.closest('#cmp-swap')) { DATA.compare.reverse(); renderCompare(); return; }
+    if (e.target.closest('#btn-team')) { state.teamAdded[state.detailId] = !state.teamAdded[state.detailId]; const empty = DATA.team.indexOf(null); if (state.teamAdded[state.detailId] && empty >= 0 && !DATA.team.includes(state.detailId)) DATA.team[empty] = state.detailId; else if (!state.teamAdded[state.detailId]) DATA.team = DATA.team.map(x => x === state.detailId ? null : x); renderHome(); updateDetailButtons(); icons(); return; }
+    if (e.target.closest('#cmp-swap')) { DATA.compare.reverse(); renderCompare(); icons(); return; }
     if (e.target.closest('#btn-random')) { openDetail(DATA.pokemon[Math.floor(Math.random() * DATA.pokemon.length)].id); return; }
     if (e.target.closest('#tgl-lang, #tgl-lang-m, #p-lang')) { setLang(state.lang === 'pt' ? 'en' : 'pt'); return; }
     if (e.target.closest('#tgl-theme, #p-theme')) { nextTheme(); return; }
