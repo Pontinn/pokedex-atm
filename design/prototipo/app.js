@@ -345,7 +345,7 @@
   const imgArt = (id, cls, extra) => `<img class="${cls || ''}" src="${art(id)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${art(6)}'" ${extra || ''}>`;
 
   function pcard(p, i, showDate) {
-    return `<button class="pcard" style="--i:${i};--tc:var(--t-${p.types[0]})" data-open="${p.id}">
+    return `<button class="pcard g-${p.types[0]} rar-${p.rarity}" style="--i:${i};--tc:var(--t-${p.types[0]})" data-open="${p.id}">
       <div class="pcard-top"><span class="dex-num">${pad(p.id)}</span>${badge(p)}</div>
       ${p.caught ? `<img class="caught-mark" src="../pokebola.webp" alt="" title="${t('detail.caughtDone')}">` : ''}
       ${imgArt(p.id)}
@@ -486,15 +486,15 @@
     <button class="detail-back" data-go="dex">&larr; ${t('detail.back')}</button>
     <div class="detail" style="--tc:var(--t-${p.types[0]})">
       <div class="detail-left">
-        <div class="card hero-card">
+        <div class="card hero-card g-${p.types[0]} ${p.rarity === 'legendary' ? 'hero-legendary' : p.rarity === 'mythical' ? 'hero-mythical' : ''}">
           <div class="hero-art">
+            ${isSpecial ? `<div class="sheen"></div><div class="sparkles">${[[12,18],[30,70],[52,12],[70,40],[86,22],[80,78],[20,46],[60,84]].map(([x, y], i) => `<i style="left:${x}%;top:${y}%;animation-delay:${(i * 0.37).toFixed(2)}s"></i>`).join('')}</div>` : ''}
             ${isSpecial ? `<div class="seal">${badge(p)}</div>` : ''}
             <button class="shiny-btn ${state.shiny ? 'on' : ''}" id="shiny-btn" title="${t('detail.shiny')}">&#10024;</button>
+            <div class="hero-title"><div class="dex-num">${pad(p.id)}</div><h2>${p.name}</h2></div>
             <img id="detail-art" src="${art(p.id, state.shiny)}" alt="${p.name}" onerror="this.onerror=null;this.src='${art(p.id)}'">
           </div>
           <div class="hero-body">
-            <div class="dex-num">${pad(p.id)}</div>
-            <h2>${p.name}</h2>
             <div class="types">${p.types.map(x => chip(x, 'lg')).join('')}</div>
             <div class="badges">${isSpecial ? `<span class="badge badge-rare">${t('rarity.rare')}</span>` : badge(p)}${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <div class="hero-actions-2">

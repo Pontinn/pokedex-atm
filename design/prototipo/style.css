@@ -23,7 +23,7 @@
   --ease-out: cubic-bezier(.2, .8, .2, 1);
   --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
   --dur: .35s;
-  --wm-opacity: .05;
+  --wm-opacity: .03;
 
   /* 18 tipos Pokémon (paleta oficial dos ícones, ../tipos/cores.json) */
   --t-bug: #92bc2c; --t-dark: #595761; --t-dragon: #0c69c8; --t-electric: #f2d94e;
@@ -31,6 +31,26 @@
   --t-ghost: #5f6dbc; --t-grass: #5fbd58; --t-ground: #da7c4d; --t-ice: #75d0c1;
   --t-normal: #a0a29f; --t-poison: #b763cf; --t-psychic: #fa8581; --t-rock: #c9bb8a;
   --t-steel: #5695a3; --t-water: #539ddf;
+
+  /* Pares de gradiente por tipo (uma única paleta: chips, card hero e tinta dos cards) */
+  --type-fire-a: #ff5a00; --type-fire-b: #ffd000;
+  --type-water-a: #0066ff; --type-water-b: #00e5ff;
+  --type-grass-a: #00b34a; --type-grass-b: #b6ff2e;
+  --type-electric-a: #ffb300; --type-electric-b: #fff200;
+  --type-ice-a: #00c2ff; --type-ice-b: #c8fbff;
+  --type-psychic-a: #ff2d7a; --type-psychic-b: #ff9ec4;
+  --type-ghost-a: #4b2bd6; --type-ghost-b: #a06bff;
+  --type-dragon-a: #1a2dff; --type-dragon-b: #5ce1ff;
+  --type-dark-a: #23233a; --type-dark-b: #6b6b9e;
+  --type-fairy-a: #ff4fd8; --type-fairy-b: #ffc2f2;
+  --type-fighting-a: #e6003d; --type-fighting-b: #ff7a3d;
+  --type-poison-a: #8a1fff; --type-poison-b: #e55cff;
+  --type-ground-a: #d96a00; --type-ground-b: #ffcc66;
+  --type-rock-a: #a88a2a; --type-rock-b: #e6cf7a;
+  --type-bug-a: #5fd400; --type-bug-b: #d4ff3d;
+  --type-steel-a: #2f7fa6; --type-steel-b: #9be3ff;
+  --type-flying-a: #3d8bff; --type-flying-b: #b3e0ff;
+  --type-normal-a: #8a8a8a; --type-normal-b: #dcdcdc;
 
   /* Estatísticas */
   --s-hp: #FF5959; --s-atk: #F5AC78; --s-def: #FAE078; --s-spa: #9DB7F5; --s-spd: #A7DB8D; --s-spe: #FA92B2;
@@ -49,13 +69,13 @@ html[data-theme="classico"] {
   --shell-text: #FFFFFF; --nav-active: rgba(255,255,255,.18);
 }
 html[data-theme="preto"] {
-  --wm-opacity: .07;
+  --wm-opacity: .04;
   --scroll-thumb: var(--secondary); --scroll-thumb-hover: #D9AD10;
   --primary: #17171C; --primary-dark: #0B0B0E; --on-primary: #F5C518;
   --secondary: #F5C518; --secondary-soft: #3A3210; --on-secondary: #1A1400;
   --accent: #F5C518; --on-accent: #1A1400;
-  --screen: #2A2410; --surface: #363018; --surface-2: #423B1E;
-  --text: #F4F2EA; --muted: #A9A594; --border: #524A28; --lens: #F5C518;
+  --screen: #2A2410; --surface: #111111; --surface-2: #1C1B15;
+  --text: #F4F2EA; --muted: #B3AE9C; --border: #3D3820; --lens: #F5C518;
   --shell-text: #F5C518; --nav-active: rgba(245,197,24,.16);
 }
 html[data-theme="verde"] {
@@ -202,7 +222,7 @@ html[data-theme="branco"] .tgl { background: rgba(0,0,0,.06); }
 .main { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 28px 36px 60px; scroll-behavior: smooth; position: relative; z-index: 1; }
 /* Marca d'água: pokébola grande girando devagar atrás de toda a interface (só transform, sem eventos) */
 .watermark { position: fixed; right: -14vmin; bottom: -14vmin; width: 70vmin; height: 70vmin; z-index: 0; pointer-events: none; opacity: var(--wm-opacity); will-change: transform; animation: wmSpin 60s linear infinite; }
-.watermark img { width: 100%; height: 100%; }
+.watermark img { width: 100%; height: 100%; filter: grayscale(1) contrast(.6); }
 body.phone .watermark { position: absolute; }
 @keyframes wmSpin { to { transform: rotate(360deg); } }
 /* Atualização parcial de componentes */
@@ -245,7 +265,7 @@ html[data-theme="verde"] .link, html[data-theme="azul"] .link { color: var(--pri
 /* Chips de tipo */
 .chip {
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; font-weight: 800; font-size: 12px; color: #fff; letter-spacing: .02em;
-  background: var(--tc, #888); text-shadow: 0 1px 1px rgba(0,0,0,.25); position: relative; overflow: hidden; box-shadow: inset 0 -2px 0 rgba(0,0,0,.14);
+  background: linear-gradient(135deg, var(--g1, var(--tc, #888)) 0%, color-mix(in srgb, var(--g1, var(--tc, #888)) 40%, var(--g2, var(--tc, #888))) 100%); text-shadow: 0 1px 2px rgba(0,0,0,.35); position: relative; overflow: hidden; box-shadow: inset 0 -2px 0 rgba(0,0,0,.14);
   transition: transform .2s var(--ease-bounce);
 }
 .chip::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); transform: translateX(-120%); }
@@ -254,7 +274,7 @@ html[data-theme="verde"] .link, html[data-theme="azul"] .link { color: var(--pri
 .chip.sm { padding: 2px 8px 2px 2px; font-size: 11px; gap: 5px; }
 .chip.lg { padding: 5px 16px 5px 6px; font-size: 14px; gap: 8px; }
 /* Ícone do tipo: círculo na cor do tipo com o SVG branco (../tipos/svg/<tipo>.svg) a ~60% */
-.ti { width: 22px; height: 22px; border-radius: 50%; flex: none; display: inline-grid; place-items: center; background: var(--tc, #888);
+.ti { width: 22px; height: 22px; border-radius: 50%; flex: none; display: inline-grid; place-items: center; background: color-mix(in srgb, var(--g1, var(--tc, #888)) 82%, #000);
   box-shadow: 0 0 0 1.5px rgba(255,255,255,.9), 0 0 8px color-mix(in srgb, var(--tc, #888) 70%, transparent); position: relative; overflow: hidden; }
 .ti img { width: 60% !important; height: 60% !important; margin: 0 !important; display: block; object-fit: contain; filter: none !important; animation: none !important; transform: none !important; position: static !important; }
 .chip .ti { box-shadow: 0 0 0 1.5px rgba(255,255,255,.9), inset 0 0 0 1px rgba(0,0,0,.08); }
@@ -262,13 +282,26 @@ html[data-theme="verde"] .link, html[data-theme="azul"] .link { color: var(--pri
 .chip.lg .ti { width: 28px; height: 28px; }
 .chip { padding-left: 4px; }
 .chip > span:not(.ti) { text-transform: capitalize; }
-.chip.t-electric, .chip.t-ice, .chip.t-rock, .chip.t-flying, .chip.t-normal, .chip.t-fairy { color: #1C1F2B; text-shadow: none; }
+.chip.t-electric, .chip.t-ice, .chip.t-normal, .chip.t-fairy { color: #1C1F2B; text-shadow: 0 1px 0 rgba(255,255,255,.35); }
 @keyframes chipShine { to { transform: translateX(120%); } }
-.t-normal { --tc: var(--t-normal); } .t-fire { --tc: var(--t-fire); } .t-water { --tc: var(--t-water); } .t-electric { --tc: var(--t-electric); }
-.t-grass { --tc: var(--t-grass); } .t-ice { --tc: var(--t-ice); } .t-fighting { --tc: var(--t-fighting); } .t-poison { --tc: var(--t-poison); }
-.t-ground { --tc: var(--t-ground); } .t-flying { --tc: var(--t-flying); } .t-psychic { --tc: var(--t-psychic); } .t-bug { --tc: var(--t-bug); }
-.t-rock { --tc: var(--t-rock); } .t-ghost { --tc: var(--t-ghost); } .t-dragon { --tc: var(--t-dragon); } .t-dark { --tc: var(--t-dark); }
-.t-steel { --tc: var(--t-steel); } .t-fairy { --tc: var(--t-fairy); }
+.t-fire { --tc: var(--t-fire); --g1: var(--type-fire-a); --g2: var(--type-fire-b); }
+.t-water { --tc: var(--t-water); --g1: var(--type-water-a); --g2: var(--type-water-b); }
+.t-grass { --tc: var(--t-grass); --g1: var(--type-grass-a); --g2: var(--type-grass-b); }
+.t-electric { --tc: var(--t-electric); --g1: var(--type-electric-a); --g2: var(--type-electric-b); }
+.t-ice { --tc: var(--t-ice); --g1: var(--type-ice-a); --g2: var(--type-ice-b); }
+.t-psychic { --tc: var(--t-psychic); --g1: var(--type-psychic-a); --g2: var(--type-psychic-b); }
+.t-ghost { --tc: var(--t-ghost); --g1: var(--type-ghost-a); --g2: var(--type-ghost-b); }
+.t-dragon { --tc: var(--t-dragon); --g1: var(--type-dragon-a); --g2: var(--type-dragon-b); }
+.t-dark { --tc: var(--t-dark); --g1: var(--type-dark-a); --g2: var(--type-dark-b); }
+.t-fairy { --tc: var(--t-fairy); --g1: var(--type-fairy-a); --g2: var(--type-fairy-b); }
+.t-fighting { --tc: var(--t-fighting); --g1: var(--type-fighting-a); --g2: var(--type-fighting-b); }
+.t-poison { --tc: var(--t-poison); --g1: var(--type-poison-a); --g2: var(--type-poison-b); }
+.t-ground { --tc: var(--t-ground); --g1: var(--type-ground-a); --g2: var(--type-ground-b); }
+.t-rock { --tc: var(--t-rock); --g1: var(--type-rock-a); --g2: var(--type-rock-b); }
+.t-bug { --tc: var(--t-bug); --g1: var(--type-bug-a); --g2: var(--type-bug-b); }
+.t-steel { --tc: var(--t-steel); --g1: var(--type-steel-a); --g2: var(--type-steel-b); }
+.t-flying { --tc: var(--t-flying); --g1: var(--type-flying-a); --g2: var(--type-flying-b); }
+.t-normal { --tc: var(--t-normal); --g1: var(--type-normal-a); --g2: var(--type-normal-b); }
 
 /* Selos de raridade */
 .badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; flex: none; }
@@ -357,7 +390,7 @@ select { background: var(--surface-2); border: 1.5px solid var(--border); border
   box-shadow: var(--shadow-sm); transition: transform .25s var(--ease-out), box-shadow .25s; text-align: left; width: 100%;
   animation: cardIn .5s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms);
 }
-.pcard::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 25%, color-mix(in srgb, var(--tc) 28%, transparent), transparent 60%); opacity: .9; }
+.pcard::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--g1, var(--tc)) 42%, transparent) 0%, color-mix(in srgb, var(--g2, var(--tc)) 16%, transparent) 55%, transparent 100%); }
 .pcard::after { content: ""; position: absolute; right: -30px; bottom: -30px; width: 130px; height: 130px; border-radius: 50%; border: 14px solid color-mix(in srgb, var(--tc) 18%, transparent); }
 .pcard:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
 .pcard > * { position: relative; }
@@ -376,20 +409,58 @@ select { background: var(--surface-2); border: 1.5px solid var(--border); border
 .detail-left { position: sticky; top: 0; display: grid; gap: 14px; }
 .detail-back { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; color: var(--muted); margin-bottom: 12px; transition: transform .2s; }
 .detail-back:hover { transform: translateX(-3px); color: var(--text); }
-.hero-card { padding: 0; overflow: hidden; }
-.hero-art { position: relative; padding: 18px 18px 8px; background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--tc) 45%, var(--surface)) 0%, var(--surface) 72%); }
-.hero-art::before { content: ""; position: absolute; inset: 0; background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--tc) 12%, transparent) 0 8deg, transparent 8deg 16deg); opacity: .55; }
+/* Gradientes por tipo (card hero da ficha e tinta dos cards compactos) */
+.g-fire { --g1: var(--type-fire-a); --g2: var(--type-fire-b); }
+.g-water { --g1: var(--type-water-a); --g2: var(--type-water-b); }
+.g-grass { --g1: var(--type-grass-a); --g2: var(--type-grass-b); }
+.g-electric { --g1: var(--type-electric-a); --g2: var(--type-electric-b); }
+.g-ice { --g1: var(--type-ice-a); --g2: var(--type-ice-b); }
+.g-psychic { --g1: var(--type-psychic-a); --g2: var(--type-psychic-b); }
+.g-ghost { --g1: var(--type-ghost-a); --g2: var(--type-ghost-b); }
+.g-dragon { --g1: var(--type-dragon-a); --g2: var(--type-dragon-b); }
+.g-dark { --g1: var(--type-dark-a); --g2: var(--type-dark-b); }
+.g-fairy { --g1: var(--type-fairy-a); --g2: var(--type-fairy-b); }
+.g-fighting { --g1: var(--type-fighting-a); --g2: var(--type-fighting-b); }
+.g-poison { --g1: var(--type-poison-a); --g2: var(--type-poison-b); }
+.g-ground { --g1: var(--type-ground-a); --g2: var(--type-ground-b); }
+.g-rock { --g1: var(--type-rock-a); --g2: var(--type-rock-b); }
+.g-bug { --g1: var(--type-bug-a); --g2: var(--type-bug-b); }
+.g-steel { --g1: var(--type-steel-a); --g2: var(--type-steel-b); }
+.g-flying { --g1: var(--type-flying-a); --g2: var(--type-flying-b); }
+.g-normal { --g1: var(--type-normal-a); --g2: var(--type-normal-b); }
+.hero-card { padding: 0; overflow: hidden; border: 0; box-shadow: 0 18px 40px color-mix(in srgb, var(--g1) 35%, transparent), var(--shadow-md); }
+.hero-art { position: relative; padding: 18px 18px 6px; background: linear-gradient(160deg, var(--g1) 0%, var(--g2) 100%); }
+/* Raios: círculo de 240% da largura do card (maior que 1,2x a diagonal), centrado; gira devagar sem mostrar borda */
+.hero-art::before { content: ""; position: absolute; left: 50%; top: 56%; width: 240%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%) rotate(0deg); will-change: transform; background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.16) 0 8deg, transparent 8deg 16deg); opacity: .7; animation: raysSlow 50s linear infinite; }
+@keyframes raysSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.hero-art::after { content: ""; position: absolute; left: 50%; bottom: -40px; width: 340px; height: 200px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(ellipse, rgba(255,255,255,.45), transparent 65%); }
+/* Lendário / Mítico: gradiente próprio, brilho metálico varrendo e faíscas (só transform/opacity) */
+.hero-card.hero-legendary { --g1: #d99a1a; --g2: #f7c948; box-shadow: 0 0 0 2px #f1c85a, 0 18px 44px rgba(217,154,26,.5); }
+.hero-legendary .hero-art { background: linear-gradient(160deg, #d99a1a 0%, #f7c948 42%, #fff1b8 60%, #f0b93a 78%, #c8871a 100%); }
+.hero-card.hero-mythical { --g1: #7b4dff; --g2: #4aa8ff; box-shadow: 0 0 0 2px #9d7cff, 0 18px 44px rgba(102,240,255,.4); }
+.hero-mythical .hero-art { background: radial-gradient(circle at 50% 58%, rgba(102,240,255,.8) 0%, rgba(102,240,255,.25) 28%, transparent 50%), linear-gradient(160deg, #7b4dff 0%, #5d7dff 55%, #4aa8ff 100%); }
+.sheen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.sheen::before { content: ""; position: absolute; top: -30%; bottom: -30%; left: 0; width: 42%; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-160%) skewX(-14deg); will-change: transform; animation: sheen 6s ease-in-out infinite; }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-14deg); } 55%, 100% { transform: translateX(330%) skewX(-14deg); } }
+.sparkles { position: absolute; inset: 0; pointer-events: none; }
+.sparkles i { position: absolute; width: 7px; height: 7px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px 2px rgba(255,255,255,.85); opacity: 0; transform: scale(.4); animation: twinkle 2.6s ease-in-out infinite; }
+.sparkles i:nth-child(3n) { width: 12px; height: 12px; border-radius: 0; box-shadow: none; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+.hero-mythical .sparkles i:nth-child(even) { background: #9ff6ff; box-shadow: 0 0 8px 2px rgba(102,240,255,.9); }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1); } }
+.pcard.rar-legendary { --g1: #d99a1a; --g2: #f7c948; }
+.pcard.rar-mythical { --g1: #7b4dff; --g2: #66f0ff; }
+.hero-title { position: relative; text-align: center; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.18), 0 6px 18px rgba(0,0,0,.25); padding: 6px 48px 0; }
+.hero-title .dex-num { color: rgba(255,255,255,.85); font-size: 12px; }
+.hero-title h2 { font-size: 30px; margin: 0; color: #fff; }
 .hero-art > img { position: relative; width: 260px; height: 260px; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); animation: floatY 4s ease-in-out infinite; }
 .hero-art > img.swap { animation: artSwap .5s var(--ease-bounce); }
 @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes artSwap { from { transform: scale(.6) rotate(-10deg); opacity: 0; } to { transform: none; opacity: 1; } }
-.shiny-btn { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); font-size: 18px; transition: transform .25s var(--ease-bounce); z-index: 1; }
+.shiny-btn { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.9); border: 1.5px solid rgba(255,255,255,.6); box-shadow: var(--shadow-sm); color: #1C1F2B; font-size: 18px; transition: transform .25s var(--ease-bounce); z-index: 1; }
 .shiny-btn:hover { transform: rotate(20deg) scale(1.1); }
 .shiny-btn.on { background: linear-gradient(135deg, #FFE27A, #FFB300); border-color: #FFB300; }
 .seal { position: absolute; top: 14px; left: 14px; z-index: 1; }
-.hero-body { padding: 8px 18px 18px; text-align: center; }
-.hero-body .dex-num { font-size: 12px; }
-.hero-body h2 { font-size: 30px; margin: 2px 0 8px; }
+.hero-body { position: relative; padding: 16px 18px 18px; text-align: center; background: var(--surface); border-radius: 22px 22px 0 0; margin-top: -18px; }
 .hero-body .types { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .hero-body .badges { display: flex; gap: 6px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
 .hero-actions-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
@@ -698,6 +769,7 @@ html[data-theme="verde"] .tab.active, html[data-theme="azul"] .tab.active { colo
 .app.mobile .detail { grid-template-columns: 1fr; gap: 14px; }
 .app.mobile .detail-left { position: static; }
 .app.mobile .hero-art > img { width: 210px; height: 210px; }
+.app.mobile .hero-title h2 { font-size: 26px; }
 .app.mobile .panel { padding: 14px; }
 .app.mobile .stat { grid-template-columns: 70px 36px 1fr; font-size: 12px; }
 .app.mobile .stat-total { grid-template-columns: 70px 36px 1fr; }

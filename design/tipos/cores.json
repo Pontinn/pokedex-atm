@@ -1,7 +1,92 @@
 {
-  "bug": "#92bc2c", "dark": "#595761", "dragon": "#0c69c8", "electric": "#f2d94e",
-  "fairy": "#ee90e6", "fighting": "#d3425f", "fire": "#fba54c", "flying": "#a1bbec",
-  "ghost": "#5f6dbc", "grass": "#5fbd58", "ground": "#da7c4d", "ice": "#75d0c1",
-  "normal": "#a0a29f", "poison": "#b763cf", "psychic": "#fa8581", "rock": "#c9bb8a",
-  "steel": "#5695a3", "water": "#539ddf"
+  "bug": {
+    "base": "#92bc2c",
+    "a": "#5fd400",
+    "b": "#d4ff3d"
+  },
+  "dark": {
+    "base": "#595761",
+    "a": "#23233a",
+    "b": "#6b6b9e"
+  },
+  "dragon": {
+    "base": "#0c69c8",
+    "a": "#1a2dff",
+    "b": "#5ce1ff"
+  },
+  "electric": {
+    "base": "#f2d94e",
+    "a": "#ffb300",
+    "b": "#fff200"
+  },
+  "fairy": {
+    "base": "#ee90e6",
+    "a": "#ff4fd8",
+    "b": "#ffc2f2"
+  },
+  "fighting": {
+    "base": "#d3425f",
+    "a": "#e6003d",
+    "b": "#ff7a3d"
+  },
+  "fire": {
+    "base": "#fba54c",
+    "a": "#ff5a00",
+    "b": "#ffd000"
+  },
+  "flying": {
+    "base": "#a1bbec",
+    "a": "#3d8bff",
+    "b": "#b3e0ff"
+  },
+  "ghost": {
+    "base": "#5f6dbc",
+    "a": "#4b2bd6",
+    "b": "#a06bff"
+  },
+  "grass": {
+    "base": "#5fbd58",
+    "a": "#00b34a",
+    "b": "#b6ff2e"
+  },
+  "ground": {
+    "base": "#da7c4d",
+    "a": "#d96a00",
+    "b": "#ffcc66"
+  },
+  "ice": {
+    "base": "#75d0c1",
+    "a": "#00c2ff",
+    "b": "#c8fbff"
+  },
+  "normal": {
+    "base": "#a0a29f",
+    "a": "#8a8a8a",
+    "b": "#dcdcdc"
+  },
+  "poison": {
+    "base": "#b763cf",
+    "a": "#8a1fff",
+    "b": "#e55cff"
+  },
+  "psychic": {
+    "base": "#fa8581",
+    "a": "#ff2d7a",
+    "b": "#ff9ec4"
+  },
+  "rock": {
+    "base": "#c9bb8a",
+    "a": "#a88a2a",
+    "b": "#e6cf7a"
+  },
+  "steel": {
+    "base": "#5695a3",
+    "a": "#2f7fa6",
+    "b": "#9be3ff"
+  },
+  "water": {
+    "base": "#539ddf",
+    "a": "#0066ff",
+    "b": "#00e5ff"
+  }
 }
