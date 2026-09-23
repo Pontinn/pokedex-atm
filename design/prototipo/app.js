@@ -24,6 +24,8 @@
     'home.search': { pt: 'Buscar', en: 'Search' },
     'home.random': { pt: 'Pokémon aleatório', en: 'Random Pokémon' },
     'home.openDex': { pt: 'Abrir Pokédex', en: 'Open Pokédex' },
+    'home.randomShort': { pt: 'Aleatório', en: 'Random' },
+    'home.openDexShort': { pt: 'Pokédex', en: 'Pokédex' },
     'home.caught': { pt: 'Capturados', en: 'Caught' },
     'home.seeAll': { pt: 'Ver todos', en: 'See all' },
     'home.of': { pt: 'de', en: 'of' },

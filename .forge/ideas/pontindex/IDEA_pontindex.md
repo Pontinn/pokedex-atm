@@ -58,6 +58,7 @@ Ele nao domina ainda a mecanica de stats/IV/EV e pediu que eu pesquisasse ("de u
 - [2026-09-23] **Filtro no painel Fraquezas & resistencias** (usuario): seletor Todos / Fraquezas / Resistencias; padrao mostra os dois; atualiza so o painel.
 - [2026-09-23] **Icones de interface: biblioteca Lucide** (usuario autorizou). Vale para o prototipo e para a implementacao (pacote `lucide-react`). Icones de tipo e Pokebola continuam sendo os assets proprios.
 - [2026-09-23] **Secao "Como obter"** na ficha (usuario perguntou; pesquisa confirmou fontes): substitui o aviso "Nao nasce no mundo" por um bloco com o metodo, em camadas: evolucao, fossil, spawn adicionado pelo All the Mons, addon (Legendary Monuments / Raid Dens / breeding via Cobbreeding quando o egg group permite), fallback honesto. Dados do repo do All the Mons entram no pacote do app.
+- [2026-09-23] **Breeding existe no All the Mons 1.3.0** (usuario confirmou: da para criar Pokemon no pasture). "Breeding" entra em "Como obter" quando o egg group nao e Undiscovered. Qual mod fornece o breeding (Cobbreeding nao esta nos jars): descobrir na implementacao lendo a instancia; o Just Enough Breeding 3.2.1 esta presente.
 - [2026-09-23] **Silhueta** da captura = artwork oficial do Pokemon (PokeAPI) totalmente preta, estilo "quem e esse Pokemon?" (usuario: ok).
 - [2026-09-23] **Animacao de captura pode ser pulada com um toque** (usuario).
 - [2026-09-23] **Pasta de referencias** criada a pedido do usuario: `design/referencias/` (desktop/, mobile/, LEIA-ME.txt). Como ele nao achou referencias, pediu um prototipo HTML proposto por mim (ver secao 9).
@@ -223,7 +224,6 @@ Outras:
 - Fonte dos dados: PokeAPI (geral) + JSON de especies do Cobblemon (nivel de evolucao real do modpack)? Ou so Cobblemon? Confirmar versao do Cobblemon usada pelo All the Mons.
 - Ordem de prioridade entre as features (tudo entra, mas o que vem primeiro).
 - **IVs e EVs recomendados por Pokemon** (usuario perguntou "conseguimos de alguma forma?"): NAO existe no Cobblemon nem na PokeAPI. Opcoes: (a) heuristica a partir dos stats base (investir nos 2 melhores atributos; IV 31); (b) sets competitivos do Smogon (publicos; verificar se ha dataset gratuito consumivel pelo app, ex. pacote @pkmn/smogon ou JSON no GitHub). Pesquisar no PRD e decidir com o usuario.
-- Breeding existe no All the Mons 1.3.0? (Cobbreeding nao esta nos mods; so Just Enough Breeding). Perguntar ao usuario se da para criar Pokemon no pasture.
 - Especies custom do pack (Creepyon, Piglich): mostrar na Pokedex? (sem artwork na PokeAPI; precisaria do sprite do proprio mod.)
 - Referencia visual: prototipo HTML em construcao (2026-09-23); a ideia fecha quando o usuario aprovar o prototipo. Sem isso, o forge-ui-recon nao tem o que capturar; fallback = Pokedex classica vermelha/azul desenhada do zero e aprovada em prototipo.
 - Dados sao locais em cada aparelho ou compartilhados?

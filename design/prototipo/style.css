@@ -791,7 +791,10 @@ html[data-theme="verde"] .tab.active, html[data-theme="azul"] .tab.active { colo
 .app.mobile .search { padding: 4px 4px 4px 14px; }
 .app.mobile .search-btn { padding: 9px 14px; font-size: 13px; }
 .app.mobile .search input { font-size: 15px; }
-.app.mobile .hero-actions .btn { flex: 1; justify-content: center; padding: 11px 10px; font-size: 13px; }
+.app.mobile .hero-actions .btn { flex: 1; justify-content: center; padding: 11px 8px; font-size: 13.5px; min-width: 0; }
+.lbl-short { display: none; }
+.app.mobile .hero-actions .lbl-long { display: none; }
+.app.mobile .hero-actions .lbl-short { display: inline; }
 .app.mobile .home-grid { grid-template-columns: 1fr; gap: 12px; }
 .app.mobile .team-slots { gap: 8px; }
 .app.mobile .slot .slot-name { display: none; }
