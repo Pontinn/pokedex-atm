@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemodium:vibranium_plate"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:vibranium_ball_base"
+    }
+  ],
+  "time": 200
+}

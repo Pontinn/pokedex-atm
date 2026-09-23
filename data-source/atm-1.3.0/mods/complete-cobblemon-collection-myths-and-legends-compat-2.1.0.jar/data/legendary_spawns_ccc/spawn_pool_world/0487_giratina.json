@@ -1,0 +1,27 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "giratina-1",
+      "pokemon": "giratina",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70-80",
+      "weight": 6.0,
+      "condition": {
+        "biomes": [
+             "#cobblemon:is_end",
+    "#cobblemon:nether/is_soul_sand",
+    "#cobblemon:nether/is_wasteland",
+    "#cobblemon:is_spooky"
+        ]
+      }
+    }
+  ]
+}

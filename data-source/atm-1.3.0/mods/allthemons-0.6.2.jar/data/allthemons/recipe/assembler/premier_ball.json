@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:copper_ball_mechanism"
+    },
+    {
+      "item": "createmonballsoverhaul:white_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:premier_ball"
+    }
+  ],
+  "time": 120
+}

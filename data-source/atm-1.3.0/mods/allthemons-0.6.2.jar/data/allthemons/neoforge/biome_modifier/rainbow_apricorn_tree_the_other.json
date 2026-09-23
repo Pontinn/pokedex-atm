@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#allthemons:has_rainbow_apricorn",
+  "features": "allthemons:rainbow_apricorn_tree",
+  "step": "vegetal_decoration"
+}

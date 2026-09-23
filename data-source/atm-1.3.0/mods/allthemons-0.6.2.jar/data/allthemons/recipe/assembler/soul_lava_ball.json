@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:sturdy_ball_mechanism"
+    },
+    {
+      "item": "allthemons:soul_lava_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:soul_lava_ball"
+    }
+  ],
+  "time": 120
+}

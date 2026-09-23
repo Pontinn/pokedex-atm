@@ -1,0 +1,12 @@
+{
+  "showdown_id": "mewtwonitex",
+  "pokemons": ["Mewtwo"],
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["mega_evolution=mega_x"]
+    },
+    "revert": {
+      "aspects": ["mega_evolution=none"]
+    }
+  }
+}

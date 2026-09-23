@@ -1,0 +1,10 @@
+{
+  "pokemons": ["Terapagos"],
+  "showdown_form_change_id": "stellar",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["tera_form=stellar"]
+    }
+  },
+  "effect": "mega_showdown:end_rod"
+}

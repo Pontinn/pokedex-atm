@@ -1,0 +1,41 @@
+{
+  "criteria": {
+    "defeat_rival_terry_2": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "rival_terry_01b2",
+          "rival_terry_01b1",
+          "rival_terry_01b0"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_rival_terry_2.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_rival_terry_2.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_boss_giovanni_1",
+  "requirements": [
+    [
+      "defeat_rival_terry_2"
+    ]
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "allthemons:fossil",
+  "input": [
+    {
+      "item": "cobblemon:fossilized_dino"
+    },
+    {
+      "item": "cobblemon:fossilized_bird"
+    }
+  ],
+  "output": "cobblemon:arctozolt"
+}

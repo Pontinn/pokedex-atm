@@ -1,0 +1,101 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": false,
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "cobblemon:exp_candy_xl"
+    },
+    "A": {
+      "item": "allthemons:the_vortex_badge"
+    },
+    "B": {
+      "item": "allthemons:the_drunk_badge"
+    },
+    "C": {
+      "item": "allthemons:the_skyblock_badge"
+    },
+    "D": {
+      "item": "allthemons:the_lobster_badge"
+    },
+    "E": {
+      "item": "allthemons:the_kitty_badge"
+    },
+    "F": {
+      "item": "allthemons:the_helpful_badge"
+    },
+    "G": {
+      "item": "allthemons:the_unknown_badge"
+    },
+    "H": {
+      "item": "allthemons:the_microwave_badge"
+    },
+    "I": {
+      "item": "allthemons:the_toblerone_badge"
+    },
+    "J": {
+      "item": "allthemons:the_notch_badge"
+    },
+    "K": {
+      "item": "allthemons:the_artist_badge"
+    },
+    "L": {
+      "item": "allthemons:the_ralph_badge"
+    },
+    "M": {
+      "item": "cobblemon:custap_berry"
+    },
+    "O": {
+      "item": "productivetrees:star_fruit"
+    },
+    "P": {
+      "item": "cobblemon:liechi_berry"
+    },
+    "1": {
+      "item": "mega_showdown:pink_nectar"
+    },
+    "2": {
+      "item": "mega_showdown:purple_nectar"
+    },
+    "3": {
+      "item": "mega_showdown:red_nectar"
+    },
+    "4": {
+      "item": "mega_showdown:yellow_nectar"
+    },
+    "5": {
+      "item": "mega_showdown:red_orb"
+    },
+    "6": {
+      "item": "mega_showdown:blue_orb"
+    },
+    "7": {
+      "item": "mega_showdown:electric_tera_shard"
+    },
+    "8": {
+      "item": "mega_showdown:stellar_tera_shard"
+    },
+    "9": {
+      "item": "simpletms:tm_thunder"
+    },
+    "S": {
+      "item": "allthemons:imbued_pokemon_egg"
+    }
+  },
+  "pattern": [
+    "XXX   XXX",
+    "XE7X X7HX",
+    " X9MXOPX ",
+    "  XB4CX  ",
+    " X82S3KX ",
+    "XLFG1JAIX",
+    "XXX576XXX",
+    "   XDX   ",
+    "    X    "
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemons:pika_star"
+  },
+  "show_notification": false
+}

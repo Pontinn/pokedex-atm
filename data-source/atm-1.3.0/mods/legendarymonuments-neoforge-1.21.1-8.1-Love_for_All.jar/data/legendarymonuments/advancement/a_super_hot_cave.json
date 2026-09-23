@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:magma_stone"
+    },
+    "title": {
+      "text": "A Super Hot Cave"
+    },
+    "description": {
+      "text": "Summon Heatran with a Magma Stone"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "heatran_summoned": {
+      "trigger": "legendarymonuments:heatran_summoned",
+      "conditions": {}
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": [
+    "legendarymonuments:plains_of_death"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin",
+  "start_pool": "legendarymonuments:thalic_pyramid",
+  "size": 1,
+  "start_height": {
+    "absolute": -13
+  },
+  "project_start_to_heightmap": "MOTION_BLOCKING_NO_LEAVES",
+  "max_distance_from_center": 80,
+  "use_expansion_hack": false,
+  "liquid_settings": "ignore_waterlogging"
+}

@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_title_defense_zeph": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "title_defense_zeph_05ea"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_title_defense_zeph.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_title_defense_zeph.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_light_of_ruin_aklove_3",
+  "requirements": [
+    [
+      "defeat_title_defense_zeph"
+    ]
+  ]
+}

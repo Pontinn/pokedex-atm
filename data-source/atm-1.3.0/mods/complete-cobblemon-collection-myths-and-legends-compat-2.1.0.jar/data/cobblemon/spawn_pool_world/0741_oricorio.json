@@ -1,0 +1,80 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ccc-oricorio-1",
+      "pokemon": "oricorio dance_style=baile",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "18-33",
+      "weight": 3.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "#cobblemon:is_plains",
+          "#cobblemon:is_hills"
+        ]
+      }
+    },
+    {
+      "id": "ccc-oricorio-2",
+      "pokemon": "oricorio dance_style=pom-pom",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "18-33",
+      "weight": 3.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "#cobblemon:is_mountain",
+          "#cobblemon:is_jungle"
+        ]
+      }
+    },
+    {
+      "id": "ccc-oricorio-3",
+      "pokemon": "oricorio dance_style=pau",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "18-33",
+      "weight": 3.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "#cobblemon:is_floral"
+        ]
+      }
+    },
+    {
+      "id": "ccc-oricorio-4",
+      "pokemon": "oricorio dance_style=sensu",
+      "presets": [
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "18-33",
+      "weight": 3.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "#cobblemon:is_forest"
+        ]
+      }
+    }
+  ]
+}

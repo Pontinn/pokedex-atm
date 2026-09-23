@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:sawing",
+  "input": {
+    "count": 1,
+    "item": "createmonballsoverhaul:half_white_apricorn"
+  },
+  "main_output": {
+    "count": 1,
+    "id": "createmonballsoverhaul:white_apricorn_bits"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "distortion-dusknoir-1",
+      "pokemon": "dusknoir",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "ultra-rare",
+      "level": "41-53",
+      "weight": 0.04,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ]
+      }
+    }
+  ]
+}

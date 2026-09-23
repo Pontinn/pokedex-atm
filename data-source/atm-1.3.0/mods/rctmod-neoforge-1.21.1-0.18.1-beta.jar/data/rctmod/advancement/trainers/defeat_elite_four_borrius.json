@@ -1,0 +1,87 @@
+{
+  "criteria": {
+    "defeat_elite_four_arabella": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_arabella_05b5"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_elias": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_elias_05b4"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_moleman": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_moleman_05b3"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_penny": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_penny_05b6"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_elite_four_borrius.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_elite_four_borrius.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_benjamin",
+  "requirements": [
+    [
+      "defeat_elite_four_elias"
+    ],
+    [
+      "defeat_elite_four_moleman"
+    ],
+    [
+      "defeat_elite_four_penny"
+    ],
+    [
+      "defeat_elite_four_arabella"
+    ]
+  ]
+}

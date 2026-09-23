@@ -1,0 +1,13 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": { "id": "legendarymonuments:aurora_essence_jar" },
+    "title": { "text": "Xerneas" },
+    "description": { "text": "Summon Xerneas" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": { "xerneas_summoned": { "trigger": "legendarymonuments:xerneas_summoned", "conditions": {} } }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:sturdy_ball_mechanism"
+    },
+    {
+      "item": "createmonballsoverhaul:dream_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:blue_ball_lid"
+    },
+    {
+      "item": "create:polished_rose_quartz"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:dream_ball"
+    }
+  ],
+  "time": 120
+}

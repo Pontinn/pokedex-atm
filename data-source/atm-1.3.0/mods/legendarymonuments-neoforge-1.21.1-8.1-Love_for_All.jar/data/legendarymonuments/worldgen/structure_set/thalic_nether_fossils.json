@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 14357922,
+    "separation": 2,
+    "spacing": 4
+  },
+  "structures": [
+    {
+      "structure": "legendarymonuments:thalic_nether_fossil",
+      "weight": 1
+    }
+  ]
+}

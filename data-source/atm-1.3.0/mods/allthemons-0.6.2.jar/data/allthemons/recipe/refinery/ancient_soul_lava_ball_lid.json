@@ -1,0 +1,18 @@
+{
+  "type": "oritech:refinery",
+  "fluidInput": {
+    "fluid": "allthemodium:soul_lava"
+  },
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:ancient_great_ball_lid"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:ancient_soul_lava_ball_lid"
+    }
+  ],
+  "time": 80
+}

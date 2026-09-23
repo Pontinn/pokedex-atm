@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:unsealing_a_great_evil",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:grasswither_shrine"
+    },
+    "title": {
+      "text": "The Tablet of Ruin"
+    },
+    "description": {
+      "text": "Summon Wo-Chien"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wo_chien_summoned": {
+      "trigger": "legendarymonuments:wo_chien_summoned",
+      "conditions": {}
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_elite_four_moleman": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_moleman_05b3"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_elite_four_moleman.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_elite_four_moleman.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_benjamin",
+  "requirements": [
+    [
+      "defeat_elite_four_moleman"
+    ]
+  ]
+}

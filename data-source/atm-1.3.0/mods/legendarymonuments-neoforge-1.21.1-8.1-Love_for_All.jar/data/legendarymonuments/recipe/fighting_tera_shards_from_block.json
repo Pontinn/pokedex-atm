@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:fighting_tera_block"
+    }
+  ],
+  "result": {
+    "id": "mega_showdown:fighting_tera_shard",
+    "count": 9
+  }
+}

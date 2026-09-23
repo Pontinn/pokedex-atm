@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "SDS",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:magma_block"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:magma_stone",
+    "count": 1
+  }
+}

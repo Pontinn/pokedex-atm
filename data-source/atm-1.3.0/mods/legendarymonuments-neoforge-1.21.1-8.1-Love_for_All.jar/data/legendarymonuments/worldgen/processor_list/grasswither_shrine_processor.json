@@ -1,0 +1,11 @@
+{
+  "processors": [
+    {
+      "processor_type": "legendarymonuments:nether_open_area",
+      "horizontal_radius": 3,
+      "vertical_radius": 2,
+      "min_open_percentage": 0.3
+    }
+  ]
+}
+

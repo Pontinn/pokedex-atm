@@ -1,0 +1,22 @@
+{
+  "target": "cobblemon:rayquaza",
+"drops": {
+    "amount": 5,
+    "entries": [
+      {
+        "item": "minecraft:dragon_breath",
+        "quantityRange": "3-5"
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 50.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 50.0
+      }
+    ]
+  }
+}
+
+

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:justice_is_served",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:special_spices"
+    },
+    "title": {
+      "text": "Someone Cooked Here"
+    },
+    "description": {
+      "text": "Cook the Curry of Justice"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "curry_obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:curry_of_justice"]
+          }
+        ]
+      }
+    }
+  }
+}

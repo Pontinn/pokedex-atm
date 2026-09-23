@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:monster_under_the_bed",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:newmoon_whistle"
+    },
+    "title": {
+      "text": "Dark Side of the Moon"
+    },
+    "description": {
+      "text": "Summon Darkrai"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "darkrai_summoned": {
+      "trigger": "legendarymonuments:darkrai_summoned",
+      "conditions": {}
+    }
+  }
+}

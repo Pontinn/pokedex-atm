@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:nether_fossil",
+  "biomes": "legendarymonuments:plains_of_death",
+  "height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "below_top": 2
+    },
+    "min_inclusive": {
+      "absolute": 32
+    }
+  },
+  "spawn_overrides": {},
+  "step": "underground_decoration",
+  "terrain_adaptation": "beard_thin"
+}

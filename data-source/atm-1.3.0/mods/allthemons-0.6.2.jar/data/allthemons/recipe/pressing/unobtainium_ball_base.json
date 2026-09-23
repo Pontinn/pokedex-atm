@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "allthemons:unobtainium_stamped_plate_lid"
+    }
+  ],
+  "results": [
+    {
+      "id": "allthemons:unobtainium_ball_base"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "legendarymonuments:dyna_planks"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:dyna_trapdoor",
+    "count": 2
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:cover_fossil"
+  },
+  "output": "cobblemon:tirtouga"
+}

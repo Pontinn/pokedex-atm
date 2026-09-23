@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Cherrim"],
+  "showdown_form_change_id": "sunshine",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["blossom_form=sunshine"]
+    },
+    "revert": {
+      "aspects": ["blossom_form=overcast"]
+    }
+  },
+  "effect": "mega_showdown:end_rod"
+}

@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:gougingfire",
+  "implemented": true,
+  "hitbox": {
+    "width": 1.7,
+    "height": 2,
+    "fixed": false
+  }
+}

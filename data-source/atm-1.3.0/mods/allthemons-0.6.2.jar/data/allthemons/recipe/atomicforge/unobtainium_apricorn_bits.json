@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemons:half_unobtainium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:unobtainium_apricorn_bits"
+    }
+  ],
+  "time": 200
+}

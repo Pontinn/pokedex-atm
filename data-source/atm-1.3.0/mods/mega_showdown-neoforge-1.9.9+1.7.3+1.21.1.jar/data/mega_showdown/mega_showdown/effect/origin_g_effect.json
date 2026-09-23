@@ -1,0 +1,22 @@
+{
+  "snowstorm": {
+    "source_apply": ["target"],
+    "source_revert": ["target"],
+    "particle_apply": "cobblemon:origin_g_effect",
+    "apply_after": 3.8,
+    "particle_revert": "cobblemon:origin_g_effect",
+    "revert_after": 3.8,
+    "sound_apply": {
+      "sound_id": "mega_showdown:giratina"
+    },
+    "sound_revert": {
+      "sound_id": "mega_showdown:giratina"
+    },
+    "animations": {
+      "animations_apply": ["cry"],
+      "apply_delay": 3.8,
+      "animations_revert": ["cry"],
+      "revert_delay": 3.8
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:so_many_choices",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:latios_treat"
+    },
+    "title": {
+      "text": "Soul Dew-o"
+    },
+    "description": {
+      "text": "Summon Latias or Latios"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "latias_or_latios_summoned": {
+      "trigger": "legendarymonuments:latias_or_latios_summoned",
+      "conditions": {}
+    }
+  }
+}

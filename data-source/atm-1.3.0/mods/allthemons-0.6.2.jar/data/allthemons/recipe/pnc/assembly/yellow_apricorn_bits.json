@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "item": "createmonballsoverhaul:half_yellow_apricorn"
+  },
+  "program": "drill",
+  "result": {
+    "count": 2,
+    "id": "createmonballsoverhaul:yellow_apricorn_bits"
+  }
+}

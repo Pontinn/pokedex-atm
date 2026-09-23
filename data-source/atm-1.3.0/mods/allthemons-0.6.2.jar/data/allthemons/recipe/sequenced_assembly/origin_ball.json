@@ -1,0 +1,109 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:ancient_unobtainium_ball"
+  },
+  "results": [
+    {
+      "id": "cobblemon:ancient_origin_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        },
+        {
+          "item": "createmonballsoverhaul:ancient_origin_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        },
+        {
+          "item": "allthemodium:unobtainium_allthemodium_alloy_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        },
+        {
+          "tag": "c:nether_stars"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        },
+        {
+          "item": "allthemodium:unobtainium_allthemodium_alloy_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        },
+        {
+          "item": "createmonballsoverhaul:blank_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_ancient_origin_ball"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "description": {
+    "translatable": "series.rctmod.unbound.description"
+  },
+  "difficulty": 8,
+  "requiredSeries": [
+    [
+      "bdsp",
+      "radicalred"
+    ]
+  ],
+  "title": {
+    "translatable": "series.rctmod.unbound.title"
+  }
+}

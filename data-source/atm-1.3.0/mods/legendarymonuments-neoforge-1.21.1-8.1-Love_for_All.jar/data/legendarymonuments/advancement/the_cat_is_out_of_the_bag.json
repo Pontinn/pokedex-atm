@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:cosmic_potential_detected",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:cosmic_bag"
+    },
+    "title": {
+      "text": "The Cat Is Out Of The Bag"
+    },
+    "description": {
+      "text": "Summon Cosmog"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cosmog_summoned": {
+      "trigger": "legendarymonuments:cosmog_summoned",
+      "conditions": {}
+    }
+  }
+}

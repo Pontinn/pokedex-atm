@@ -1,0 +1,40 @@
+{
+  "criteria": {
+    "defeat_trainer_blue": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "trainer_92_0605",
+          "trainer_77_05f6"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_trainer_blue.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_trainer_blue.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_battleground_borrius",
+  "requirements": [
+    [
+      "defeat_trainer_blue"
+    ]
+  ]
+}

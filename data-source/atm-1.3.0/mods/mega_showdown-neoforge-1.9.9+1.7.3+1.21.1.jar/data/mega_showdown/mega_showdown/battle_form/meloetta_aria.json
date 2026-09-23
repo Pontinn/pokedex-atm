@@ -1,0 +1,10 @@
+{
+  "pokemons": ["Meloetta"],
+  "showdown_form_change_id": "meloetta",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["song_forme=aria"]
+    }
+  },
+  "effect": "mega_showdown:meloetta_music"
+}

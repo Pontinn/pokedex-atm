@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:sturdy_ball_mechanism"
+    },
+    {
+      "count": 2,
+      "item": "createmonballsoverhaul:beast_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:nuggets/gold"
+    }
+  ],
+  "pressure": 4.8,
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:beast_ball"
+    }
+  ]
+}

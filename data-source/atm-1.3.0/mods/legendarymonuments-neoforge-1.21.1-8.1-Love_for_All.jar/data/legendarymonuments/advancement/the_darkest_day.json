@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:eternatus_cocoon"
+    },
+    "title": {
+      "text": "The Darkest Day"
+    },
+    "description": {
+      "text": "Summon Eternatus"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "eternatus_summoned": {
+      "trigger": "legendarymonuments:eternatus_summoned",
+      "conditions": {}
+    }
+  }
+}

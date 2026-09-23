@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 50,
+  "experience": 0.0,
+  "ingredient": [
+    {
+      "item": "createmonballsoverhaul:red_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:blue_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:black_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:yellow_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:pink_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:green_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:white_ball_lid"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmonballsoverhaul:blank_ball_lid"
+  }
+}

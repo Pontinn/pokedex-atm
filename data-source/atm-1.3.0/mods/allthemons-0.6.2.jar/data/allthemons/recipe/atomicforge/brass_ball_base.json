@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "tag": "c:nuggets/brass"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:brass_ball_base"
+    }
+  ],
+  "time": 200
+}

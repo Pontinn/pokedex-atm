@@ -1,0 +1,18 @@
+{
+  "type": "productivebees:item_conversion",
+  "bees": ["productivebees:water"],
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:half_green_apricorn"
+    }
+  ],
+  "result": {
+    "id": "createmonballsoverhaul:green_ball_lid"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "productivebees:bee_exists",
+      "bee": "productivebees:water"
+    }
+  ]
+}

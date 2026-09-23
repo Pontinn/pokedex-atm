@@ -1,0 +1,20 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:dyes/red"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:red_ball_lid"
+    }
+  ]
+}

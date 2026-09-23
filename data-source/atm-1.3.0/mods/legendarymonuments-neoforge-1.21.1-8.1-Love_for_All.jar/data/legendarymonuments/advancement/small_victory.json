@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:someone_lost_their_wallet",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:victini_lock"
+    },
+    "title": {
+      "text": "Small Victory"
+    },
+    "description": {
+      "text": "Summon Victini"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "victini_summoned": {
+      "trigger": "legendarymonuments:victini_summoned",
+      "conditions": {}
+    }
+  }
+}

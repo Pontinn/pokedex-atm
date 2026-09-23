@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:brass_ball_mechanism"
+    },
+    {
+      "count": 2,
+      "item": "createmonballsoverhaul:quick_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:rods/iron"
+    }
+  ],
+  "pressure": 4.8,
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:quick_ball"
+    }
+  ]
+}

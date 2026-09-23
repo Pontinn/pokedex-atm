@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W  ",
+    "WW ",
+    "PPP"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:red_wool"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:red_couch",
+    "count": 4
+  }
+}

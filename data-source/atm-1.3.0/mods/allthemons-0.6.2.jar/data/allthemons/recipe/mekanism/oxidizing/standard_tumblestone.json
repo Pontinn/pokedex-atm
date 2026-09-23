@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "item": "cobblemon:tumblestone"
+  },
+  "output": {
+    "amount": 800,
+    "id": "allthemons:standard_tumblestone"
+  }
+}

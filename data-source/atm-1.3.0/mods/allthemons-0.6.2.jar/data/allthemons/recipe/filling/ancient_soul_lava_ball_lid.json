@@ -1,0 +1,18 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:ancient_great_ball_lid"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 1000,
+      "fluid": "allthemodium:soul_lava"
+    }
+  ],
+  "results": [
+    {
+      "id": "allthemons:ancient_soul_lava_ball_lid"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "allthemons:pokemon_egg_incubator",
+    {
+      "id": "simpletms:machine_tm",
+      "required": false
+    }
+  ]
+}

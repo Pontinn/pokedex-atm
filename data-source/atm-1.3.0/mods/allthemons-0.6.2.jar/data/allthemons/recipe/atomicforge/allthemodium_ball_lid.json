@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "item": "allthemons:allthemodium_apricorn_bits"
+    },
+    {
+      "item": "allthemodium:allthemodium_block"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:allthemodium_ball_lid"
+    }
+  ],
+  "time": 200
+}

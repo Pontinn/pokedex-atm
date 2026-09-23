@@ -1,0 +1,30 @@
+{
+  "enabled": true,
+  "spawns": [
+    {
+      "id": "regigigas-1",
+      "pokemon": "regigigas",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 8.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 3.5,
+          "condition": {
+            "timeRange": "day"
+          }
+        }
+       ],
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_savanna"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#cobblemon:nether/is_basalt",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin",
+  "start_pool": "legendarymonuments:icerend_shrine",
+  "size": 1,
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "below_top": 40
+    },
+    "min_inclusive": {
+      "absolute": 33
+    }
+  },
+  "max_distance_from_center": 80,
+  "use_expansion_hack": false
+}
+
+

@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_leader_sabrina": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "leader_sabrina_01a4"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_leader_sabrina.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_leader_sabrina.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_boss_giovanni_2",
+  "requirements": [
+    [
+      "defeat_leader_sabrina"
+    ]
+  ]
+}

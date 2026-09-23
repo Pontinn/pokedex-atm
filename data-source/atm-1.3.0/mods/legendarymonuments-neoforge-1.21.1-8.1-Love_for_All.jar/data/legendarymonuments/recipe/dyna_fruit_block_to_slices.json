@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:dyna_fruit"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:dyna_fruit_slice",
+    "count": 9
+  }
+}

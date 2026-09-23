@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MMM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "legendarymonuments:dream_string"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:dream_catcher",
+    "count": 1
+  }
+}

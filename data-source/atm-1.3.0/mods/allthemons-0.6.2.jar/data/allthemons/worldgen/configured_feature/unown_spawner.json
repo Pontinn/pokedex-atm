@@ -1,0 +1,6 @@
+{
+  "type": "allthemons:unown_spawner",
+  "config": {
+    "spawn_count": 5
+  }
+}

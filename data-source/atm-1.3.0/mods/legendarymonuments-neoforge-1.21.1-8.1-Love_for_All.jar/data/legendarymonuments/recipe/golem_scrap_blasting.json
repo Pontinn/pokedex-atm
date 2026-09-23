@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "blocks",
+  "ingredient": {
+    "item": "legendarymonuments:ancient_rubble_ore"
+  },
+  "result": {
+    "id": "legendarymonuments:golem_scrap"
+  },
+  "experience": 2,
+  "cookingtime": 100
+}

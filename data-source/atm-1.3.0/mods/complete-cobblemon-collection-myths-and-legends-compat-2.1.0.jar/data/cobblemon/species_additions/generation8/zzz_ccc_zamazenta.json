@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:zamazenta",
+  "implemented": true,
+  "hitbox": {
+    "width": 2,
+    "height": 2.5,
+    "fixed": false
+  }
+}

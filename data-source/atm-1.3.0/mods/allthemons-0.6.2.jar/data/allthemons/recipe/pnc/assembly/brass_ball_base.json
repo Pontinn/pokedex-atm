@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "tag": "c:nuggets/brass"
+  },
+  "program": "drill",
+  "result": {
+    "count": 1,
+    "id": "createmonballsoverhaul:brass_ball_base"
+  }
+}

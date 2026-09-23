@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:love_letter"
+    },
+    "title": {
+      "text": "Love is in the Air"
+    },
+    "description": {
+      "text": "Summon Enamorus"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "enamorus_summoned": {
+      "trigger": "legendarymonuments:enamorus_summoned",
+      "conditions": {}
+    }
+  }
+}

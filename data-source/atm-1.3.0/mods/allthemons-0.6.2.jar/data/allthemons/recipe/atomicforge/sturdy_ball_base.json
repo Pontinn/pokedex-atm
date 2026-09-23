@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "create:sturdy_sheet"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:sturdy_ball_base"
+    }
+  ],
+  "time": 200
+}

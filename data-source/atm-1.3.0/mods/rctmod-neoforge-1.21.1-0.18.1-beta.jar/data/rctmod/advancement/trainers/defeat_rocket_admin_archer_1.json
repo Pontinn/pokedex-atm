@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_rocket_admin_archer_1": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "rocket_admin_archer_002e"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_1.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_1.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_brock",
+  "requirements": [
+    [
+      "defeat_rocket_admin_archer_1"
+    ]
+  ]
+}

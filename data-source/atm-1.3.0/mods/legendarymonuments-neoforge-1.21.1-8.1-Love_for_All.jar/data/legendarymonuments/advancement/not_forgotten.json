@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:gs_ball"
+    },
+    "title": {
+      "text": "Not Forgotten!"
+    },
+    "description": {
+      "text": "Craft a GS Ball"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "gs_ball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:gs_ball"]
+          }
+        ]
+      }
+    }
+  }
+}

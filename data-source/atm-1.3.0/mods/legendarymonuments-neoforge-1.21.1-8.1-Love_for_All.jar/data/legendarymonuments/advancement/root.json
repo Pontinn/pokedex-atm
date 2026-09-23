@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:arc_phone"
+    },
+    "title": {
+      "text": "A Legendary Call"
+    },
+    "description": {
+      "text": "Craft the Arc Phone"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "legendarymonuments:textures/block/dyna_log_side.png"
+  },
+  "criteria": {
+    "arc_phone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:arc_phone"]
+          }
+        ]
+      }
+    }
+  }
+}

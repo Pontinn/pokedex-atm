@@ -1,0 +1,14 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "allthemons:pika_star"
+    }
+  ],
+  "results": [
+    {
+      "count": 5,
+      "id": "allthemons:pika_star_chunk"
+    }
+  ]
+}

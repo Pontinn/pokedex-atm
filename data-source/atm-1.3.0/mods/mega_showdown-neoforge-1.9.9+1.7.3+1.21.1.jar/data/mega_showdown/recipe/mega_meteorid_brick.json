@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": {
+      "item": "mega_showdown:polished_mega_meteorid_block"
+    }
+  },
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "result": {
+    "count": 4,
+    "id": "mega_showdown:mega_meteorid_brick"
+  }
+}

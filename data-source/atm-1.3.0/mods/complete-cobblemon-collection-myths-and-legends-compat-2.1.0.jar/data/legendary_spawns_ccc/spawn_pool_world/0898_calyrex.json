@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "calyrex-1",
+      "pokemon": "calyrex",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 3.0,
+      "condition": {
+        "biomes": [
+    "#cobblemon:has_season/autumn",
+    "#cobblemon:is_floral"]
+      }
+    }
+  ]
+}

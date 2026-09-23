@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "allthemons:birth_island",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 84217093,
+    "spacing": 250,
+    "separation": 150,
+    "spread_type": "triangular"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SPS",
+    "SPS"
+  ],
+  "key": {
+    "P": { "item": "legendarymonuments:distortion_planks" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "id": "legendarymonuments:distortion_fence_gate"
+  }
+}

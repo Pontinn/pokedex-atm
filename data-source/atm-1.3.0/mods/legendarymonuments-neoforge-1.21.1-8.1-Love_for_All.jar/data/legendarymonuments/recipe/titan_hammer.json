@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NTN",
+    " B ",
+    " B "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "B": {
+      "item": "minecraft:breeze_rod"
+    },
+    "T": {
+      "item": "legendarymonuments:titan_core"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:titan_hammer"
+  }
+}

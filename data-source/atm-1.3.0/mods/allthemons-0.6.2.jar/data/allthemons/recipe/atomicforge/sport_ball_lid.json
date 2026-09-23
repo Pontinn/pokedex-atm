@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:red_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:white_apricorn_bits"
+    },
+    {
+      "item": "createmonballsoverhaul:white_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:sport_ball_lid"
+    }
+  ],
+  "time": 200
+}

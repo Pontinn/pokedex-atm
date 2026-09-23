@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:red_means_go",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:celestica_flute"
+    },
+    "title": {
+      "text": "Magic Flute"
+    },
+    "description": {
+      "text": "Obtain the Celestica Flute"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "celestica_flute": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:celestica_flute"]
+          }
+        ]
+      }
+    }
+  }
+}

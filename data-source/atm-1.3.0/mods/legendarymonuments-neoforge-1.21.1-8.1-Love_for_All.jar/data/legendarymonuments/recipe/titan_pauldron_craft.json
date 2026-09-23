@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EDR",
+    "ICS"
+  ],
+  "key": {
+    "I": {
+      "item": "legendarymonuments:ice_pauldron"
+    },
+    "D": {
+      "item": "legendarymonuments:dragon_pauldron"
+    },
+    "R": {
+      "item": "legendarymonuments:rock_pauldron"
+    },
+    "S": {
+      "item": "legendarymonuments:steel_pauldron"
+    },
+    "E": {
+      "item": "legendarymonuments:electric_pauldron"
+    },
+    "C": {
+      "item": "legendarymonuments:titan_core"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:titan_pauldron",
+    "count": 1
+  }
+}

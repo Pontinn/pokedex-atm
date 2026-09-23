@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "allthemons:vibranium_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "allthemons:unobtainium_apricorn_bits"
+    },
+    {
+      "count": 1,
+      "item": "allthemodium:unobtainium_block"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:unobtainium_ball_lid"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:black_ball_lid"
+    },
+    {
+      "tag": "c:dyes/white"
+    },
+    {
+      "item": "createmonballsoverhaul:red_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:timer_ball_lid"
+    }
+  ],
+  "time": 200
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:unsealing_a_great_evil",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:groundblight_shrine"
+    },
+    "title": {
+      "text": "The Vessel of Ruin"
+    },
+    "description": {
+      "text": "Summon Ting-Lu"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ting_lu_summoned": {
+      "trigger": "legendarymonuments:ting_lu_summoned",
+      "conditions": {}
+    }
+  }
+}

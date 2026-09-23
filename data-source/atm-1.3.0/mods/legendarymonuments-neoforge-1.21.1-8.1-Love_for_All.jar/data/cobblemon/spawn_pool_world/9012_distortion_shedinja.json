@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "distortion-shedinja-1",
+      "pokemon": "shedinja",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "ultra-rare",
+      "level": "20-24",
+      "weight": 0.06,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 70
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "minecraft": {
+    "particle_revert": "minecraft:end_rod",
+    "sound_revert": {
+      "sound_id": "minecraft:block.amethyst_block.chime"
+    },
+    "animations": {
+      "animations_revert": ["cry"]
+    }
+  },
+  "snowstorm": {
+    "source_apply": ["target"],
+    "particle_apply": "cobblemon:silvally_ice_effect",
+    "apply_after": 0.4,
+    "sound_apply": {
+      "sound_id": "minecraft:block.amethyst_block.chime"
+    },
+    "animations": {
+      "animations_apply": ["cry"]
+    }
+  }
+}

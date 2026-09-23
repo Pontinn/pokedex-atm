@@ -1,0 +1,17 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "allthemodium:unobtainium_plate"
+    },
+    {
+      "item": "createmonballsoverhaul:rubber_stamp_lid"
+    }
+  ],
+  "keep_held_item": true,
+  "results": [
+    {
+      "id": "allthemons:unobtainium_stamped_plate_lid"
+    }
+  ]
+}

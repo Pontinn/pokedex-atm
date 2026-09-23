@@ -1,0 +1,61 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ccc-helioptile-1",
+      "pokemon": "helioptile",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "10-30",
+      "weight": 7,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "minecraft:desert"
+        ],
+        "isRaining": false,
+        "timeRange": "day"
+      }
+    },
+    {
+      "id": "ccc-helioptile-2",
+      "pokemon": "helioptile",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "10-30",
+      "weight": 7,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "minecraft:savanna"
+        ],
+        "isRaining": false,
+        "timeRange": "day"
+      }
+    },
+    {
+      "id": "ccc-helioptile-3",
+      "pokemon": "helioptile",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "uncommon",
+      "level": "10-30",
+      "weight": 7,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "minecraft:badlands"
+        ],
+        "isRaining": false,
+        "timeRange": "day"
+      }
+    }
+  ]
+}

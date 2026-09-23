@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NB ",
+    "BB ",
+    "  B"
+  ],
+  "key": {
+    "N": {
+      "item": "cobblemon:ice_gem"
+    },
+    "B": {
+      "item": "legendarymonuments:ice_golem_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:ice_golem_key"
+  }
+}

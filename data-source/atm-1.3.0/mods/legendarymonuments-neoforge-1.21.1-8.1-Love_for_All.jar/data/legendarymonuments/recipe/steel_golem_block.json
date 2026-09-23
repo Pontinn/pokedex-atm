@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "legendarymonuments:steel_golem_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:steel_golem_block"
+  }
+}

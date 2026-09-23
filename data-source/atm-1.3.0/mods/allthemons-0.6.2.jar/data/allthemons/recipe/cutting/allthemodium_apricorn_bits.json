@@ -1,0 +1,13 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "allthemons:half_allthemodium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "id": "allthemons:allthemodium_apricorn_bits"
+    }
+  ]
+}

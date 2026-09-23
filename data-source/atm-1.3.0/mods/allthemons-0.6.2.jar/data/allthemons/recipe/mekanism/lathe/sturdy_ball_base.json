@@ -1,0 +1,11 @@
+{
+  "type": "mekmm:lathe",
+  "input": {
+    "count": 1,
+    "item": "createmonballsoverhaul:stamped_sturdy_sheet_lid"
+  },
+  "output": {
+    "count": 1,
+    "id": "createmonballsoverhaul:sturdy_ball_base"
+  }
+}

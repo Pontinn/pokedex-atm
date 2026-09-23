@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "ASA",
+    "UUU"
+  ],
+  "key": {
+    "W": {
+      "item": "cobblemon:liechi_berry"
+    },
+    "S": {
+      "item": "legendarymonuments:poketreat_box"
+    },
+    "A": {
+      "item": "cobblemon:occa_berry"
+    },
+    "P": {
+      "item": "cobblemon:lansat_berry"
+    },
+    "U": {
+      "item": "cobblemon:razz_berry"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:entei_treat"
+  }
+}

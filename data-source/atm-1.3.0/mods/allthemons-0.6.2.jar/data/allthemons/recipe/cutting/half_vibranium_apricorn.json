@@ -1,0 +1,14 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "allthemons:vibranium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "id": "allthemons:half_vibranium_apricorn"
+    }
+  ]
+}

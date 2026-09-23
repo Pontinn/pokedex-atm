@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:enamorus",
+  "implemented": true,
+  "hitbox": {
+    "width": 0.8,
+    "height": 2.5,
+    "fixed": false
+  }
+}

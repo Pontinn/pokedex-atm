@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W W",
+    "ASA",
+    "WUW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:brick"
+    },
+    "S": {
+      "item": "cobblemon:ice_stone"
+    },
+    "A": {
+      "item": "minecraft:gunpowder"
+    },
+    "U": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:urn_of_frost"
+  }
+}

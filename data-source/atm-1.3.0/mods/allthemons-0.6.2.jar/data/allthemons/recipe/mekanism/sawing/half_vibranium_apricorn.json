@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:sawing",
+  "input": {
+    "count": 1,
+    "item": "allthemons:vibranium_apricorn"
+  },
+  "main_output": {
+    "count": 2,
+    "id": "allthemons:half_vibranium_apricorn"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "cosmog-1",
+      "pokemon": "cosmog",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "15-36",
+      "weight": 10.0,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_end",
+          "#cobblemon:is_floral"
+        ]
+      }
+    }
+  ]
+}

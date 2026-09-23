@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 251158,
+    "separation": 100,
+    "spacing": 150
+  },
+  "structures": [
+    {
+      "structure": "legendarymonuments:tree_of_life",
+      "weight": 1
+    }
+  ]
+}

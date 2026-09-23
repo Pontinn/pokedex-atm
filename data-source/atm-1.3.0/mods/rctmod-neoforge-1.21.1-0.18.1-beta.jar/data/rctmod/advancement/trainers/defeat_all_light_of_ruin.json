@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "defeat_all_ligh_of_ruin": {
+      "conditions": {
+        "count": -1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": "ligh_of_ruin"
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_all_light_of_ruin.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_all_light_of_ruin.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_light_of_ruin_aklove_3",
+  "requirements": [
+    [
+      "defeat_all_ligh_of_ruin"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "ASA",
+    "UUU"
+  ],
+  "key": {
+    "W": {
+      "item": "cobblemon:apicot_berry"
+    },
+    "S": {
+      "item": "legendarymonuments:poketreat_box"
+    },
+    "A": {
+      "item": "cobblemon:passho_berry"
+    },
+    "P": {
+      "item": "cobblemon:ganlon_berry"
+    },
+    "U": {
+      "item": "cobblemon:wepear_berry"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:suicune_treat"
+  }
+}

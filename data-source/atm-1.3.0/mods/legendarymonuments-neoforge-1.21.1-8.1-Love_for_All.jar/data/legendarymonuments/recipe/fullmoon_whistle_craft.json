@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    " MM"
+  ],
+  "key": {
+    "M": {
+      "item": "legendarymonuments:lunar_feather"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:fullmoon_whistle",
+    "count": 1
+  }
+}

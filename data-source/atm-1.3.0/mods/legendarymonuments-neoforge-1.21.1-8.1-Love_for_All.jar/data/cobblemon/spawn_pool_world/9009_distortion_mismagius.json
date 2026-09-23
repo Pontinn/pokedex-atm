@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "distortion-mismagius-1",
+      "pokemon": "mismagius",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "39-50",
+      "weight": 0.24,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ]
+      }
+    }
+  ]
+}

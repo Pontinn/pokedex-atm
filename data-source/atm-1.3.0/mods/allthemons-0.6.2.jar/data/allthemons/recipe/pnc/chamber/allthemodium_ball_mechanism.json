@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 2,
+      "item": "allthemons:allthemodium_ball_base"
+    },
+    {
+      "count": 1,
+      "item": "allthemodium:allthemodium_nugget"
+    },
+    {
+      "count": 1,
+      "item": "create:shaft"
+    }
+  ],
+  "pressure": 4.0,
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:allthemodium_ball_mechanism"
+    }
+  ]
+}

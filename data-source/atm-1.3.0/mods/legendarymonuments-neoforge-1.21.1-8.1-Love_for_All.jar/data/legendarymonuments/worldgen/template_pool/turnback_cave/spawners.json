@@ -1,0 +1,159 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_01",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_01",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_02",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_03",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_04",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_05",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_06",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_07",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_08",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_09",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_10",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_11",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_12",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:turnback_cave/spawners/spawner_13",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

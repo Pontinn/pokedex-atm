@@ -1,0 +1,31 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "latias-1",
+      "pokemon": "latias",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "65",
+      "weight": 9.0,
+      "condition": {
+        "minY": 120,
+        "isRaining": false,
+        "biomes": [
+    "#cobblemon:is_mirage_island",
+    "#cobblemon:has_block/birch_log",
+    "#minecraft:is_hill",
+    "#minecraft:is_mountain",
+    "#cobblemon:is_highlands",
+    "#cobblemon:is_peak"
+        ]
+      }
+    }
+  ]
+}

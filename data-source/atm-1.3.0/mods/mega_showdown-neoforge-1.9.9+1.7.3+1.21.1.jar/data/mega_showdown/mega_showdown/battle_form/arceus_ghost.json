@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Arceus"],
+  "showdown_form_change_id": "ghost",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["multitype=ghost"]
+    },
+    "revert": {
+      "aspects": ["multitype=normal"]
+    }
+  },
+  "effect": "mega_showdown:arceus_ghost"
+}

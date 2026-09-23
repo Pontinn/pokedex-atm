@@ -1,0 +1,43 @@
+{
+  "comment": "Disabled until restoration - Gito",
+  "enabled": false,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "lugia-shadow-1",
+      "pokemon": "lugia shadow",
+      "presets": [
+        "water"
+      ],
+      "type": "pokemon",
+      "context": "submerged",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+          "#cobblemon:is_warm_ocean"
+        ]
+      }
+    },
+    {
+      "id": "lugia-shadow-2",
+      "pokemon": "lugia shadow",
+      "presets": [
+        "water"
+      ],
+      "type": "pokemon",
+      "context": "submerged",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_ocean"
+        ]
+      }
+    }
+  ]
+}

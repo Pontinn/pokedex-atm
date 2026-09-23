@@ -1,0 +1,15 @@
+{
+	"name": "legendarymonuments:swsh_temple/shield_entrance/main_curve_r",
+	"fallback": "minecraft:empty",
+	"elements": [
+		{
+			"weight": 1,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/shield_curve_r",
+				"processors": "minecraft:empty"
+			}
+		}
+	]
+}

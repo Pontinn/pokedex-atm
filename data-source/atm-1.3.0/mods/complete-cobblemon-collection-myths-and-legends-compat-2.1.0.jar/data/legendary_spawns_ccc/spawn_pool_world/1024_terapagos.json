@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "terapagos-1",
+      "pokemon": "terapagos",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30",
+      "weight": 0.1,
+      "weightMultiplier": {
+        "multiplier": 1.5,
+        "condition": {
+          "maxY": -32
+        }
+      },
+      "condition": {
+        "minSkyLight": 0,
+        "maxSkyLight": 7,
+        "maxY": 0,
+        "biomes": [
+    "#cobblemon:is_mountain",
+    "#cobblemon:is_magical",
+    "#cobblemon:is_river",
+    "#cobblemon:is_jungle",
+    "#cobblemon:is_cave"
+        ]
+      }
+    }
+  ]
+}

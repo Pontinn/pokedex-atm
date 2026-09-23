@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "shaymin-1",
+      "pokemon": "shaymin",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 8.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+    "#cobblemon:is_floral",
+    "#cobblemon:is_highlands"
+        ],
+        "timeRange": "night",
+        "isRaining": false
+      }
+    }
+  ]
+}

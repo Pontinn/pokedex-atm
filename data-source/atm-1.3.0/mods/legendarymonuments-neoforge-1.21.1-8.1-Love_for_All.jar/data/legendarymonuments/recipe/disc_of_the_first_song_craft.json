@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "legendarymonuments:disc_of_the_first_song_fragment"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:disc_of_the_first_song"
+  }
+}

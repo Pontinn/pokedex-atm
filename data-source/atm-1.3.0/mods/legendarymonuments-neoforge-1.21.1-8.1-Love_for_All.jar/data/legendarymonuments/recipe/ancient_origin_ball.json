@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    "NBN",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "item": "legendarymonuments:origin_ingot"
+    },
+    "B": {
+      "item": "legendarymonuments:red_chain"
+    }
+  },
+  "result": {
+    "id": "cobblemon:ancient_origin_ball"
+  }
+}

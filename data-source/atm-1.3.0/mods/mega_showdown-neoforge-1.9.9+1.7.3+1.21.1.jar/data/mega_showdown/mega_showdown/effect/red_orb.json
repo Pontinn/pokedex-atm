@@ -1,0 +1,21 @@
+{
+  "minecraft": {
+    "particle_revert": "minecraft:campfire_cosy_smoke",
+    "sound_revert": {
+      "sound_id": "minecraft:block.amethyst_block.chime"
+    },
+    "animations": {
+      "animations_revert": ["cry"]
+    }
+  },
+  "snowstorm": {
+    "source_apply": ["target"],
+    "particle_apply": "cobblemon:primal_groudon",
+    "apply_after": 4.8,
+    "animations": {
+      "apply_delay": 4.8,
+      "animations_apply": ["cry"]
+    }
+  },
+  "battle_pause_apply": 4
+}

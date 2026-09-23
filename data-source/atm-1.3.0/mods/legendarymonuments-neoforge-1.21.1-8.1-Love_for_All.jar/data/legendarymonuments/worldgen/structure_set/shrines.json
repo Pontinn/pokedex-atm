@@ -1,0 +1,27 @@
+{
+  "structures": [
+    {
+      "structure": "legendarymonuments:firescourge_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "legendarymonuments:grasswither_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "legendarymonuments:icerend_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "legendarymonuments:groundblight_shrine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 79583,
+    "spread_type": "triangular",
+    "spacing": 60,
+    "separation": 40
+  }
+}

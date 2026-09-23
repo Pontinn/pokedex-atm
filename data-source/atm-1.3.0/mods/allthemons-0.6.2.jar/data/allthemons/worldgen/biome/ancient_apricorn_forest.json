@@ -1,0 +1,54 @@
+{
+  "carvers": {},
+  "downfall": 0.9,
+  "scale": 0.5,
+  "effects": {
+    "fog_color": 12638463,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.overworld.bamboo_jungle"
+    },
+    "sky_color": 7842047,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "surface_builder": "allthemodium:warped_forest",
+  "features": [
+    [],
+    [],
+    [
+      "minecraft:amethyst_geode"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "allthemons:patch_ancient_fern"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.2
+}

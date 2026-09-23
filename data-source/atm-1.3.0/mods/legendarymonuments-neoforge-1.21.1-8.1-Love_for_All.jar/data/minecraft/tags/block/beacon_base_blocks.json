@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:origin_block",
+    "legendarymonuments:steel_golem_block",
+    "legendarymonuments:electric_golem_block",
+    "legendarymonuments:dragon_golem_block",
+    "legendarymonuments:ice_golem_block",
+    "legendarymonuments:rock_golem_block"
+  ]
+}

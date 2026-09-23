@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D D",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:chain"
+    },
+    "S": {
+      "item": "legendarymonuments:distortion_planks"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:distortion_hanging_sign",
+    "count": 6
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "oritech:grinder",
+  "ingredients": [
+    {
+      "item": "cobblemon:stripped_apricorn_log"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "createmonballsoverhaul:apricorn_ball_lid"
+    }
+  ],
+  "time": 40
+}

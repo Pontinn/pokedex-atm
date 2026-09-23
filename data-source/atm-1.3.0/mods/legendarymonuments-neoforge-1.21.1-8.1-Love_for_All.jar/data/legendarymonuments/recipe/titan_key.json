@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AB ",
+    "CD ",
+    "  E"
+  ],
+  "key": {
+    "A": {
+      "item": "legendarymonuments:registeel_tablet"
+    },
+    "B": {
+      "item": "legendarymonuments:regirock_tablet"
+    },
+    "C": {
+      "item": "legendarymonuments:regice_tablet"
+    },
+    "D": {
+      "item": "legendarymonuments:regieleki_tablet"
+    },
+    "E": {
+      "item": "legendarymonuments:regidrago_tablet"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:titan_key"
+  }
+}

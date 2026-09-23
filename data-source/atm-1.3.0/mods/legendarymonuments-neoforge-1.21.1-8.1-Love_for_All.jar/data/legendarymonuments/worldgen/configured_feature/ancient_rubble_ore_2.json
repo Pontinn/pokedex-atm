@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:scattered_ore",
+  "config": {
+    "size": 1,
+    "discard_chance_on_air_exposure": 0.0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        },
+        "state": {
+          "Name": "legendarymonuments:ancient_rubble_ore"
+        }
+      }
+    ]
+  }
+}
+

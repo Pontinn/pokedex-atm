@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:sail_fossil"
+  },
+  "output": "cobblemon:amaura"
+}

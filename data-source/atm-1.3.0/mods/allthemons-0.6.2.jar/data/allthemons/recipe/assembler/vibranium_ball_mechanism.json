@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "allthemons:vibranium_ball_base"
+    },
+    {
+      "item": "allthemodium:vibranium_nugget"
+    },
+    {
+      "item": "create:shaft"
+    },
+    {
+      "item": "allthemons:vibranium_ball_base"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:vibranium_ball_mechanism"
+    }
+  ],
+  "time": 120
+}

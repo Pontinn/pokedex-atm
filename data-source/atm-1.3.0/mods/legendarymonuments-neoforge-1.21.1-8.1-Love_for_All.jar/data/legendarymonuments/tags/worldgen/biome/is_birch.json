@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+	"minecraft:birch_forest",
+	"minecraft:old_growth_birch_forest",
+    {
+      "id": "wythers:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "terralith:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:aspen_glade",
+      "required": false
+    },
+    {
+      "id": "terralith:white_cliffs",
+      "required": false
+    },
+    {
+      "id": "byg:temperate_grove",
+      "required": false
+    }
+  ]
+}

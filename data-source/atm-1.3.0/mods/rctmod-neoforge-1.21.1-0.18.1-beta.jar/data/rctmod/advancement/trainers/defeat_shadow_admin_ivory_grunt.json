@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_shadow_admin_ivory_grunt": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "shadow_admin_ivory_grunt_m00f"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_shadow_admin_ivory_grunt.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_shadow_admin_ivory_grunt.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_mel",
+  "requirements": [
+    [
+      "defeat_shadow_admin_ivory_grunt"
+    ]
+  ]
+}

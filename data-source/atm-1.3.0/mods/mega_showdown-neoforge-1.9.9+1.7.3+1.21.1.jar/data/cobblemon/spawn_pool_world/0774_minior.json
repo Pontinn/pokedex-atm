@@ -1,0 +1,362 @@
+{
+  "enabled": "true",
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "minior-1",
+      "pokemon": "minior meteor_shield=meteor",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 1.5,
+      "condition": {
+        "timeRange": "day",
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-2",
+      "pokemon": "minior meteor_shield=meteor",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 6.0,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 0,
+        "maxSkyLight": 7,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-3",
+      "pokemon": "minior meteor_shield=core core_color=red",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-4",
+      "pokemon": "minior meteor_shield=core core_color=orange",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-5",
+      "pokemon": "minior meteor_shield=core core_color=yellow",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-6",
+      "pokemon": "minior meteor_shield=core core_color=green",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-7",
+      "pokemon": "minior meteor_shield=core core_color=blue",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-8",
+      "pokemon": "minior meteor_shield=core core_color=indigo",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-9",
+      "pokemon": "minior meteor_shield=core core_color=violet",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "timeRange": "night",
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_desert",
+          "#cobblemon:is_mountain"
+        ]
+      }
+    },
+    {
+      "id": "minior-10",
+      "pokemon": "minior meteor_shield=core core_color=red",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-11",
+      "pokemon": "minior meteor_shield=core core_color=orange",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-12",
+      "pokemon": "minior meteor_shield=core core_color=yellow",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-13",
+      "pokemon": "minior meteor_shield=core core_color=green",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-14",
+      "pokemon": "minior meteor_shield=core core_color=blue",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-15",
+      "pokemon": "minior meteor_shield=core core_color=indigo",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    },
+    {
+      "id": "minior-16",
+      "pokemon": "minior meteor_shield=core core_color=violet",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "22-47",
+      "weight": 0.85,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_end"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+          "minecraft:the_end"
+        ]
+      }
+    }
+  ]
+}

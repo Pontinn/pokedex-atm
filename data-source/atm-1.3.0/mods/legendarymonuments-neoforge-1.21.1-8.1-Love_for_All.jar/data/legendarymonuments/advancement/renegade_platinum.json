@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:a_world_of_nothingness",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:antimatter_globe"
+    },
+    "title": {
+      "text": "Renegade Platinum"
+    },
+    "description": {
+      "text": "Summon Giratina"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "giratina_summoned": {
+      "trigger": "legendarymonuments:giratina_summoned",
+      "conditions": {}
+    }
+  }
+}

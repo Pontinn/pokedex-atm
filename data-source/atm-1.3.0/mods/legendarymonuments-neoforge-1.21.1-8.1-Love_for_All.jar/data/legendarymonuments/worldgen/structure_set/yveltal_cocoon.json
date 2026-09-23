@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "legendarymonuments:yveltal_cocoon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 187915,
+    "spread_type": "triangular",
+    "spacing": 50,
+    "separation": 30
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_battleground_tessy": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "battleground_tessy_05f8"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_battleground_tessy.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_battleground_tessy.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_title_defense_borrius",
+  "requirements": [
+    [
+      "defeat_battleground_tessy"
+    ]
+  ]
+}

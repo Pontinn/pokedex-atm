@@ -1,0 +1,11 @@
+{
+  "target": "cobblemon:seismitoad",
+  "implemented": true,
+  "hitbox": {
+    "width": 1.2,
+    "height": 1.8,
+    "fixed": false
+  },
+  "standingEyeHeight": 0.8,
+  "swimmingEyeHeight": 0.8
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:totem_of_undying"
+    },
+    "title": {
+      "text": "Dead Heroes"
+    },
+    "description": {
+      "text": "Obtain a Totem of Undying"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "totem_of_undying": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:totem_of_undying"]
+          }
+        ]
+      }
+    }
+  }
+}

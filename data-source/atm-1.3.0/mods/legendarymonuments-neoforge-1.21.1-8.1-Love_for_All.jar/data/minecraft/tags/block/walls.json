@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:distortion_deepslate_bricks_wall",
+    "legendarymonuments:distortion_cobblestone_bricks_wall",
+    "legendarymonuments:thalic_sandstone_wall"
+  ]
+}

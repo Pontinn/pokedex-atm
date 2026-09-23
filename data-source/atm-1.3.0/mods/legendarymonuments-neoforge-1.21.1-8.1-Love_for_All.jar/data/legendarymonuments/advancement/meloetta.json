@@ -1,0 +1,13 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": { "id": "legendarymonuments:disc_of_the_first_song" },
+    "title": { "text": "Meloetta" },
+    "description": { "text": "Summon Meloetta" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": { "meloetta_summoned": { "trigger": "legendarymonuments:meloetta_summoned", "conditions": {} } }
+}

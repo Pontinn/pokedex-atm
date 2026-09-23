@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:skull_fossil"
+  },
+  "output": "cobblemon:cranidos"
+}

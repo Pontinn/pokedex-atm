@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WSW",
+    "WUW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:brick"
+    },
+    "S": {
+      "item": "minecraft:coal"
+    },
+    "U": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:galarian_urn_of_embers_block"
+  }
+}

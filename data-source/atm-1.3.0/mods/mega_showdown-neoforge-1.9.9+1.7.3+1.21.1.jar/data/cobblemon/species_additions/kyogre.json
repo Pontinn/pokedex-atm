@@ -1,0 +1,45 @@
+{
+  "implemented": true,
+  "target": "cobblemon:kyogre",
+  "riding": {
+    "behaviours": {
+      "LIQUID": {
+        "key": "cobblemon:liquid/dolphin",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "55-85",
+          "JUMP": "30-65",
+          "SKILL": "10-40",
+          "SPEED": "55-85",
+          "STAMINA": "80-135"
+        }
+      }
+    },
+    "seats": [
+      {
+        "locator": "seat_1"
+      }
+    ]
+  },
+  "baseScale": 0.8,
+  "hitbox": {
+    "width": 5.8,
+    "height": 2.1,
+    "fixed": false
+  },
+  "behaviour": {
+    "moving": {
+      "canLook": true,
+      "walk": {
+        "walkSpeed": 0.2,
+        "canWalk": true,
+        "avoidsLand": false
+      },
+      "swim": {
+        "swimSpeed": 1.2,
+        "canSwimInWater": true,
+        "canBreatheUnderwater": true
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "volcanion-1",
+      "pokemon": "volcanion",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 15.0,
+       "weightMultipliers": [
+        {
+          "multiplier": 2.5,
+          "condition": {
+            "timeRange": "day"
+          }
+        }
+       ],
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_nether",
+          "#cobblemon:is_volcanic"
+        ],
+        "canSeeSky": true
+      }
+    },
+    {
+      "id": "volcanion-2",
+      "pokemon": "volcanion",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 10.0,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_glacial"
+        ],
+        "canSeeSky": true
+      }
+    }
+  ]
+}

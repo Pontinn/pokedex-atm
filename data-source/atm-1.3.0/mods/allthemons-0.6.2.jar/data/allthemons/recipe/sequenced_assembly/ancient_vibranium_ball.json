@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:ancient_vibranium_ball_mechanism"
+  },
+  "results": [
+    {
+      "id": "allthemons:ancient_vibranium_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_vibranium_ball"
+        },
+        {
+          "item": "allthemons:ancient_vibranium_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_vibranium_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_vibranium_ball"
+        },
+        {
+          "item": "createmonballsoverhaul:apricorn_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_vibranium_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_vibranium_ball"
+        },
+        {
+          "tag": "c:rods/iron"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_vibranium_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_ancient_vibranium_ball"
+  }
+}

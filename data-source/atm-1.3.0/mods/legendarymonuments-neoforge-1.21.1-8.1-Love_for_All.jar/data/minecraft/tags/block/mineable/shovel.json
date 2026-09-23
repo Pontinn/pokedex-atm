@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:thalic_dirt",
+    "legendarymonuments:thalic_farmland",
+    "legendarymonuments:thalic_sand"
+  ]
+}

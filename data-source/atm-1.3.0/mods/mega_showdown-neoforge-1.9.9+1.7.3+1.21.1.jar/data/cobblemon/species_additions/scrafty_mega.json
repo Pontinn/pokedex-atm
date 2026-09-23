@@ -1,0 +1,25 @@
+{
+  "target": "cobblemon:scrafty",
+  "forms": [
+    {
+      "name": "Mega",
+      "pokedex": ["cobblemon.species.scrafty-mega.desc"],
+      "abilities": ["intimidate", "intimidate", "h:intimidate"],
+      "labels": ["gen5", "mega"],
+      "aspects": ["mega"],
+      "battleOnly": true,
+      "dynamaxBlocked": true,
+      "baseStats": {
+        "hp": 65,
+        "attack": 130,
+        "defence": 135,
+        "special_attack": 55,
+        "special_defence": 135,
+        "speed": 68
+      },
+      "baseScale": 1.05,
+      "height": 11,
+      "weight": 310
+    }
+  ]
+}

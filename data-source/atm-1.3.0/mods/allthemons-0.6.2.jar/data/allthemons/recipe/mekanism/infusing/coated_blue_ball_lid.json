@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemical_input": {
+    "amount": 200,
+    "chemical": "allthemons:standard_tumblestone"
+  },
+  "item_input": {
+    "count": 1,
+    "item": "createmonballsoverhaul:blue_ball_lid"
+  },
+  "output": {
+    "count": 1,
+    "id": "createmonballsoverhaul:coated_blue_ball_lid"
+  },
+  "per_tick_usage": false
+}

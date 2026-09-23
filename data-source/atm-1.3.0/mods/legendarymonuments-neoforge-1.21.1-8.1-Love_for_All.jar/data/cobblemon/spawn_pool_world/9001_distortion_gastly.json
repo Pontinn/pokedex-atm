@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "distortion-gastly-1",
+      "pokemon": "gastly",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "6-31",
+      "weight": 7.2,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ]
+      }
+    }
+  ]
+}

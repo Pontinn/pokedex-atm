@@ -1,0 +1,9 @@
+{
+  "entryId": "cobblemon:floette",
+  "forms": [
+    {
+      "displayForm": "Mega",
+      "unlockForms": ["Mega"]
+    }
+  ]
+}

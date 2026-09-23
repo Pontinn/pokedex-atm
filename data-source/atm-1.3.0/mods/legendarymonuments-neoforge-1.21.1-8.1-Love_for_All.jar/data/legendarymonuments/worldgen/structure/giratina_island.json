@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "legendarymonuments:distortion_world_biome",
+  "spawn_overrides": {},
+  "start_pool": "legendarymonuments:giratina_island/main/222",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "max_distance_from_center": 116,
+  "start_jigsaw_name": "legendarymonuments:giratina_island/start",
+  "size": 7,
+  "start_height": { "absolute": 100 },
+  "use_expansion_hack": false,
+  "project_start_to_heightmap": "WORLD_SURFACE_WG"
+}

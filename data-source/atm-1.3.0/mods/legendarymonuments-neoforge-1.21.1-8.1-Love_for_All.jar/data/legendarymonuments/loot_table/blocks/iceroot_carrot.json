@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "legendarymonuments:iceroot_carrot",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ],
+              "name": "legendarymonuments:iceroot_carrot"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "legendarymonuments:iceroot_carrot_seeds"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "legendarymonuments:blocks/iceroot_carrot"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:dense_coated_black_ball_lid"
+    },
+    {
+      "tag": "c:dyes/gray"
+    },
+    {
+      "item": "createmonballsoverhaul:black_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:ancient_heavy_ball_lid"
+    }
+  ],
+  "time": 200
+}

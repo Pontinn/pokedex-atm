@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "fezandipti-1",
+      "pokemon": "fezandipiti",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 5.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+    "#cobblemon:is_peak"        ]
+      }
+    }
+  ]
+}

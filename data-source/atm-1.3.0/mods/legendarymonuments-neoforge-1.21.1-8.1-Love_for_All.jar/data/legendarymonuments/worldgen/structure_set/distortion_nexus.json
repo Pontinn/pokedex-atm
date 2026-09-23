@@ -1,0 +1,11 @@
+{
+  "structures": [
+    { "structure": "legendarymonuments:distortion_nexus", "weight": 1 }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 14231,
+    "spacing": 100,
+    "separation":50
+  }
+}

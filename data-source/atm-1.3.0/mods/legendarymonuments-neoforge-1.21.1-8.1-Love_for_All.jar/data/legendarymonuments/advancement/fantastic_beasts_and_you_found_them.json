@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:so_many_choices",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:raikou_treat"
+    },
+    "title": {
+      "text": "Fantastic Beasts, And You Found Them!"
+    },
+    "description": {
+      "text": "Summon a Legendary Beast"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "legendary_beast_summoned": {
+      "trigger": "legendarymonuments:legendary_beast_summoned",
+      "conditions": {}
+    }
+  }
+}

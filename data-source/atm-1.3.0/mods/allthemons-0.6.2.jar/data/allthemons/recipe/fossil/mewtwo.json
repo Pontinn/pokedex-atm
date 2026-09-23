@@ -1,0 +1,12 @@
+{
+  "type": "allthemons:fossil",
+  "input": [
+    {
+      "item": "allthemons:pika_star"
+    },
+    {
+      "item": "allthemons:ancient_dna_sample"
+    }
+  ],
+  "output": "cobblemon:mewtwo"
+}

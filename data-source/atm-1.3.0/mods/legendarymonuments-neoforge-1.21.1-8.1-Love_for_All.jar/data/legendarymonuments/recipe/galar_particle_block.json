@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "legendarymonuments:galar_particle"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:galar_particle_block",
+    "count": 1
+  }
+}

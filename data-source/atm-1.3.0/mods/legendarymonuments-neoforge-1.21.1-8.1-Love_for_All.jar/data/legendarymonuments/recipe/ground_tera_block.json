@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "mega_showdown:ground_tera_shard"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:ground_tera_block",
+    "count": 1
+  }
+}

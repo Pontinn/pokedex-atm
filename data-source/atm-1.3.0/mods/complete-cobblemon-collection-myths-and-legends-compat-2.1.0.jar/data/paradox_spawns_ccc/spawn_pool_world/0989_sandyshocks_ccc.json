@@ -1,0 +1,31 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "sandyshocks-1",
+      "pokemon": "sandyshocks",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "rare",
+      "level": "47-67",
+      "weight": 2.12,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_dripstone",
+    "#cobblemon:is_deep_dark"
+        ]
+      },
+      "anticondition": {
+        "biomes": [
+    "#cobblemon:is_hills",
+    "#cobblemon:is_mountain"
+        ]
+      }
+    }
+  ]
+}

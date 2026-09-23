@@ -1,0 +1,15 @@
+{
+  "type": "lithostitched:replace_partially",
+  "dimension": "minecraft:overworld",
+  "priority": 1000,
+  "targets": [
+    "minecraft:desert"
+  ],
+  "replacement": "legendarymonuments:plains_of_death",
+  "parameters": {
+    "continentalness": {
+      "min_inclusive": 0.3,
+      "max_inclusive": 0.42
+    }
+  }
+}

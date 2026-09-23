@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lid": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#createmonballsoverhaul:blastable_ball_lids"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "allthemons:blasting/blank_lid_basic"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lid"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "allthemons:blasting/blank_lid_basic"
+    ]
+  }
+}

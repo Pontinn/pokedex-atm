@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Arceus"],
+  "showdown_form_change_id": "electric",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["multitype=electric"]
+    },
+    "revert": {
+      "aspects": ["multitype=normal"]
+    }
+  },
+  "effect": "mega_showdown:arceus_electric"
+}

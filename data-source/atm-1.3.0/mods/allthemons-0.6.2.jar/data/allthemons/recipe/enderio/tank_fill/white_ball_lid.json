@@ -1,0 +1,15 @@
+{
+  "type": "enderio:tank",
+  "fluid": {
+    "amount": 100,
+    "fluid": "minecraft:water"
+  },
+  "input": {
+    "item": "createmonballsoverhaul:half_white_apricorn"
+  },
+  "mode": "fill",
+  "output": {
+    "count": 1,
+    "id": "createmonballsoverhaul:white_ball_lid"
+  }
+}

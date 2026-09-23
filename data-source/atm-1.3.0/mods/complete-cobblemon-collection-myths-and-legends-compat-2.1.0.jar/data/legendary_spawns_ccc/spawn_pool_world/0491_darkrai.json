@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "darkrai-1",
+      "pokemon": "darkrai",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 6.0,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_swamp",
+    "#cobblemon:is_spooky",
+    "#cobblemon:is_deep_dark"
+        ]
+      }
+    }
+  ]
+}

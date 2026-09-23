@@ -1,0 +1,13 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:half_red_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmonballsoverhaul:red_apricorn_bits"
+    }
+  ]
+}

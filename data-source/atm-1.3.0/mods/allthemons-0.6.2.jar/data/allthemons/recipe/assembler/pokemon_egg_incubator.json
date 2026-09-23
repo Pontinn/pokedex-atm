@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/copper"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "tag": "c:glass_blocks/colorless"
+    },
+    {
+      "item": "cobblemon:protein"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:pokemon_egg_incubator"
+    }
+  ],
+  "time": 120
+}

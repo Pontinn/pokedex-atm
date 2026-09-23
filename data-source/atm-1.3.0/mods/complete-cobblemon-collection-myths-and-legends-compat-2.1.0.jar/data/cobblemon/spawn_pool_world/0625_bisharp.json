@@ -1,0 +1,57 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ccc-bisharp-1",
+      "pokemon": "bisharp",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "rare",
+      "level": "38-65",
+      "weight": 1.7,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_bamboo"
+        ]
+      },
+      "weightMultipliers": [
+        {
+          "multiplier": 3.2,
+          "condition": {
+            "timeRange": "night"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ccc-bisharp-1",
+      "pokemon": "bisharp held_item=cobblemon:kings_rock",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "rare",
+      "level": "38-65",
+      "weight": 0.3,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_bamboo"
+        ]
+      },
+      "weightMultipliers": [
+        {
+          "multiplier": 3.2,
+          "condition": {
+            "timeRange": "night"
+          }
+        }
+      ]
+    }
+  ]
+}

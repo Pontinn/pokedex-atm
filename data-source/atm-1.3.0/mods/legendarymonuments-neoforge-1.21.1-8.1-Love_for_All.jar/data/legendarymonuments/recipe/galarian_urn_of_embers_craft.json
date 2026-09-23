@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:urn_of_embers"
+    },
+    {
+      "item": "legendarymonuments:dyna_fruit"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:galarian_urn_of_embers"
+  }
+}

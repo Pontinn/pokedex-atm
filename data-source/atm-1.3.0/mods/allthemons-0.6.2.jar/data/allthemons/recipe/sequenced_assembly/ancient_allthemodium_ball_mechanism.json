@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:allthemodium_ball_base"
+  },
+  "results": [
+    {
+      "id": "allthemons:ancient_allthemodium_ball_mechanism"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_allthemodium_ball_base"
+        },
+        {
+          "item": "allthemodium:allthemodium_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_allthemodium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_allthemodium_ball_base"
+        },
+        {
+          "item": "create:shaft"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_allthemodium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_allthemodium_ball_base"
+        },
+        {
+          "item": "allthemons:allthemodium_ball_base"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_allthemodium_ball_base"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_allthemodium_ball_base"
+  }
+}

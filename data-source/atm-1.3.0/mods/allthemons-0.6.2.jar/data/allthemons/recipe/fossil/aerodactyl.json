@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:old_amber_fossil"
+  },
+  "output": "cobblemon:aerodactyl"
+}

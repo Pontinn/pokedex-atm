@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_champion_jax": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "champion_jax_05b7"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_champion_jax.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_champion_jax.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_elite_four_borrius",
+  "requirements": [
+    [
+      "defeat_champion_jax"
+    ]
+  ]
+}

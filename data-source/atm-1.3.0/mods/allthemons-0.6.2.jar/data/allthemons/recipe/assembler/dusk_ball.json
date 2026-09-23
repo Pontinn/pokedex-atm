@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:brass_ball_mechanism"
+    },
+    {
+      "item": "createmonballsoverhaul:dusk_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:dusk_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:dusk_ball"
+    }
+  ],
+  "time": 120
+}

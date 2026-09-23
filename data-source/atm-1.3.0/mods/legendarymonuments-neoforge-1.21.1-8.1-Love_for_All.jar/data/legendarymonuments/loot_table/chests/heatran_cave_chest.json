@@ -1,0 +1,162 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 6,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:relic_coin",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 4,
+              "add": false,
+              "conditions": []
+            }
+          ],
+          "conditions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:fire_gem",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:steel_gem",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:hyper_potion",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_poke_ball",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_gigaton_ball",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_leaden_ball",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_heavy_ball",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_ultra_ball",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:ancient_great_ball",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:magmarizer",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:max_revive",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:revive",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:burn_heal",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:relic_coin_pouch",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:max_potion",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_scrap",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:protector",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:heat_rock",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:quartz",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gilded_blackstone",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ancient_debris",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_pickaxe",
+          "weight": 1,
+          "conditions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "legendarymonuments:medallion_of_renewal_fragment",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "legendarymonuments:disc_of_the_first_song_fragment",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "legendarymonuments:tablet_of_reawakening",
+          "weight": 1
+        }
+      ],
+      "conditions": []
+    }
+  ],
+  "functions": []
+}

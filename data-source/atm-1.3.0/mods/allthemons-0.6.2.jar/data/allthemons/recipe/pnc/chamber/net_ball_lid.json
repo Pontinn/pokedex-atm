@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:blue_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:dyes/cyan"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:black_apricorn_bits"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:net_ball_lid"
+    }
+  ]
+}

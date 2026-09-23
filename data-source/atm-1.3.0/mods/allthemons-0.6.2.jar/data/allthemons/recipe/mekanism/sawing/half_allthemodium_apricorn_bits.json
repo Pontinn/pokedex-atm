@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:sawing",
+  "input": {
+    "count": 1,
+    "item": "allthemons:half_allthemodium_apricorn"
+  },
+  "main_output": {
+    "count": 1,
+    "id": "allthemons:allthemodium_apricorn_bits"
+  }
+}

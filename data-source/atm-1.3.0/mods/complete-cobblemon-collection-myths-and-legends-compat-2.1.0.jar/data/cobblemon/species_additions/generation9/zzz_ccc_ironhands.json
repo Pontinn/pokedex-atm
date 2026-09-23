@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:ironhands",
+  "implemented": true,
+  "hitbox": {
+    "width": 1.8,
+    "height": 2.5,
+    "fixed": false
+  }
+}

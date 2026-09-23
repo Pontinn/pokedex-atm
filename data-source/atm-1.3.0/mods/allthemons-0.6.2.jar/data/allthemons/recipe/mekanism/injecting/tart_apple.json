@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:injecting",
+  "chemical_input": {
+    "amount": 1000,
+    "chemical": "mekanism:sulfuric_acid"
+  },
+  "item_input": {
+    "count": 1,
+    "item": "cobblemon:sweet_apple"
+  },
+  "output": {
+    "count": 1,
+    "id": "cobblemon:tart_apple"
+  },
+  "per_tick_usage": false
+}

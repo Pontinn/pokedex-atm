@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:red_means_go",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:space_globe"
+    },
+    "title": {
+      "text": "Shining Pearl"
+    },
+    "description": {
+      "text": "Summon Palkia"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "palkia_summoned": {
+      "trigger": "legendarymonuments:palkia_summoned",
+      "conditions": {}
+    }
+  }
+}

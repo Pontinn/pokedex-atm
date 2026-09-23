@@ -1,0 +1,17 @@
+{
+  "implemented": true,
+  "target": "cobblemon:coalossal",
+  "hitbox": {
+    "width": 1,
+    "height": 2,
+    "fixed": false
+  },
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.22
+      }
+    }
+  },
+  "baseScale": 1.2
+}

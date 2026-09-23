@@ -1,0 +1,511 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "distortion-unown-a-1",
+      "pokemon": "unown character=a",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-b-1",
+      "pokemon": "unown character=b",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-c-1",
+      "pokemon": "unown character=c",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-d-1",
+      "pokemon": "unown character=d",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-e-1",
+      "pokemon": "unown character=e",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-f-1",
+      "pokemon": "unown character=f",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-g-1",
+      "pokemon": "unown character=g",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-h-1",
+      "pokemon": "unown character=h",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-i-1",
+      "pokemon": "unown character=i",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-j-1",
+      "pokemon": "unown character=j",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-k-1",
+      "pokemon": "unown character=k",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-l-1",
+      "pokemon": "unown character=l",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-m-1",
+      "pokemon": "unown character=m",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-n-1",
+      "pokemon": "unown character=n",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-o-1",
+      "pokemon": "unown character=o",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-p-1",
+      "pokemon": "unown character=p",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-q-1",
+      "pokemon": "unown character=q",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-r-1",
+      "pokemon": "unown character=r",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-s-1",
+      "pokemon": "unown character=s",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-t-1",
+      "pokemon": "unown character=t",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-u-1",
+      "pokemon": "unown character=u",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-v-1",
+      "pokemon": "unown character=v",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-w-1",
+      "pokemon": "unown character=w",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-x-1",
+      "pokemon": "unown character=x",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-y-1",
+      "pokemon": "unown character=y",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-z-1",
+      "pokemon": "unown character=z",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.05,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-exclamation-1",
+      "pokemon": "unown character=!",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.03,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    },
+    {
+      "id": "distortion-unown-question-1",
+      "pokemon": "unown character=?",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "1-100",
+      "weight": 0.03,
+      "condition": {
+        "biomes": [
+          "legendarymonuments:distortion_world_biome"
+        ],
+        "neededBaseBlocks": [
+          "#cobblemon:natural"
+        ],
+        "minY": 80
+      }
+    }
+  ]
+}

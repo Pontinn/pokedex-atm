@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:pink_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:gems/rose_quartz"
+    },
+    {
+      "count": 1,
+      "tag": "create:sandpaper"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:dream_ball_lid"
+    }
+  ]
+}

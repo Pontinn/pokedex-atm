@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP"
+  ],
+  "key": {
+    "P": { "item": "legendarymonuments:distortion_planks" }
+  },
+  "result": {
+    "id": "legendarymonuments:distortion_pressure_plate"
+  }
+}

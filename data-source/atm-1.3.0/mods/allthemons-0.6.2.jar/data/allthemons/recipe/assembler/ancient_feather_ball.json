@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:copper_ancient_ball_mechanism"
+    },
+    {
+      "item": "createmonballsoverhaul:ancient_feather_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:apricorn_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:ancient_feather_ball"
+    }
+  ],
+  "time": 120
+}

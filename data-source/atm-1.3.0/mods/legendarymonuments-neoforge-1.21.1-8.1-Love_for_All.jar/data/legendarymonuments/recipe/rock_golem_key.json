@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NB ",
+    "BB ",
+    "  B"
+  ],
+  "key": {
+    "N": {
+      "item": "cobblemon:rock_gem"
+    },
+    "B": {
+      "item": "legendarymonuments:rock_golem_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:rock_golem_key"
+  }
+}

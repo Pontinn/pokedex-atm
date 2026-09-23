@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:ice_golem_block"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:ice_golem_ingot",
+    "count": 9
+  }
+}

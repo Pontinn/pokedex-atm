@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_leader_mel": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "leader_mel_05ad"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_leader_mel.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_leader_mel.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_alice",
+  "requirements": [
+    [
+      "defeat_leader_mel"
+    ]
+  ]
+}

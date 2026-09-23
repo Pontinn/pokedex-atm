@@ -1,0 +1,11 @@
+{
+  "type": "lithostitched:replace_partially",
+  "dimension": "minecraft:overworld",
+  "priority": 1000,
+  "targets": [
+    "minecraft:plains"
+  ],
+  "replacement": "legendarymonuments:dyna_plains",
+  "parameters": {},
+  "region": "legendarymonuments:dyna_plains"
+}

@@ -1,0 +1,27 @@
+{
+  "target": "cobblemon:bergmite",
+  "implemented": true,
+  "standingEyeHeight": 0.4,
+  "swimmingEyeHeight": 0.4,
+  "evolutions": [
+    {
+      "id": "bergmite_avalugg_hisuian",
+      "variant": "level_up",
+      "result": "avalugg hisuian",
+      "consumeHeldItem": false,
+      "learnableMoves": [
+        "rockslide"
+      ],
+      "requirements": [
+        {
+          "variant": "level",
+          "minLevel": 37
+        },
+        {
+          "variant": "biome",
+          "biomeCondition": "#cobblemon:is_mountain"
+        }
+      ]
+    }
+  ]
+}

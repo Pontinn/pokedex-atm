@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:sweet_dreams_are_made_of_this",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:lunar_feather"
+    },
+    "title": {
+      "text": "Suspiciously Sweet Dreams"
+    },
+    "description": {
+      "text": "Have a sweet dream"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sweet_dream": {
+      "trigger": "legendarymonuments:sweet_dream",
+      "conditions": {}
+    }
+  }
+}

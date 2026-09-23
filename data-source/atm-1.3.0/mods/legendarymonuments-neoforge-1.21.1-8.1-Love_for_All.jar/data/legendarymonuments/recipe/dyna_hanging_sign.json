@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C C",
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "legendarymonuments:stripped_dyna_log"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:dyna_hanging_sign",
+    "count": 6
+  }
+}

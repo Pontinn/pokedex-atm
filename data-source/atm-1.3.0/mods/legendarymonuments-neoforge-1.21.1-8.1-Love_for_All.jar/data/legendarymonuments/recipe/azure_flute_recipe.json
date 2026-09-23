@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:space_globe"
+    },
+    {
+      "item": "legendarymonuments:time_globe"
+    },
+    {
+      "item": "legendarymonuments:antimatter_globe"
+    },
+    {
+      "item": "legendarymonuments:celestica_flute"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:azure_flute"
+  }
+}

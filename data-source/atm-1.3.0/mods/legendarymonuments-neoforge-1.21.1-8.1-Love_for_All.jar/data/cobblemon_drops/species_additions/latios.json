@@ -1,0 +1,22 @@
+{
+  "target": "cobblemon:latios",
+"drops": {
+    "amount": 4,
+    "entries": [
+      {
+        "item": "minecraft:feather",
+        "quantityRange": "2-4"
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 50.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 50.0
+      }
+    ]
+  }
+}
+
+

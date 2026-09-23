@@ -1,0 +1,41 @@
+{
+  "implemented": true,
+  "target": "cobblemon:groudon",
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "30-60",
+          "JUMP": "30-65",
+          "SKILL": "20-50",
+          "SPEED": "20-40",
+          "STAMINA": "80-135"
+        }
+      }
+    },
+    "seats": [
+      {
+        "locator": "seat_1"
+      }
+    ]
+  },
+  "behaviour": {
+    "moving": {
+      "canLook": true,
+      "walk": {
+        "walkSpeed": 0.27
+      },
+      "swim": {
+        "canSwimInLava": true
+      }
+    }
+  },
+  "baseScale": 1,
+  "hitbox": {
+    "width": 5.5,
+    "height": 6,
+    "fixed": false
+  }
+}

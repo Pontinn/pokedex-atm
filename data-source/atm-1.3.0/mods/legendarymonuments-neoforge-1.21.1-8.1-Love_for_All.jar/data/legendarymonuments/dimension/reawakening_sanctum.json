@@ -1,0 +1,13 @@
+{
+  "type": "legendarymonuments:reawakening_sanctum_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "legendarymonuments:reawakening_sanctum_biome",
+      "lakes": false,
+      "features": false,
+      "structure_overrides": [],
+      "layers": []
+    }
+  }
+}

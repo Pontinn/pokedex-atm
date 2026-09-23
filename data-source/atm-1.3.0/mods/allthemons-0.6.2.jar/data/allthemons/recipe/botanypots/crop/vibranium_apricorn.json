@@ -1,0 +1,41 @@
+{
+  "type": "botanypots:crop",
+  "input": {
+    "item": "allthemons:vibranium_apricorn_seed"
+  },
+  "soil": {
+    "tag": "botanypots:soil/dirt"
+  },
+  "grow_time": 1200,
+  "display": {
+    "type": "botanypots:aging",
+    "block": "allthemons:vibranium_apricorn_sapling"
+  },
+  "drops": [
+    {
+      "type": "botanypots:loot_table",
+      "table_id":"botanypots:cobblemon/crop/apricorn_log"
+    },
+    {
+      "type": "botanypots:items",
+      "items": [
+        {
+          "result": {
+            "id": "allthemons:vibranium_apricorn"
+          },
+          "chance": 0.40
+        },
+        {
+          "result": {
+            "id": "allthemons:vibranium_apricorn_seed"
+          },
+          "chance": 0.05
+        }
+      ]
+    }
+  ],
+  "neoforge:conditions": [{
+    "type": "neoforge:mod_loaded",
+    "modid": "botanypots"
+  }]
+}

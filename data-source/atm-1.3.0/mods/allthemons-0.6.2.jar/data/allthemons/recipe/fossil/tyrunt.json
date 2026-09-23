@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:jaw_fossil"
+  },
+  "output": "cobblemon:tyrunt"
+}

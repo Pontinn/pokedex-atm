@@ -1,0 +1,28 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:iron_ball_mechanism"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:level_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "count": 1,
+      "tag": "c:rods/iron"
+    }
+  ],
+  "pressure": 4.8,
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:level_ball"
+    }
+  ]
+}

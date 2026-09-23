@@ -1,0 +1,60 @@
+{
+	"name": "legendarymonuments:swsh_temple/shield_entrance/entrance",
+	"fallback": "minecraft:empty",
+	"elements": [
+		{
+			"weight": 1,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/fwd1",
+				"processors": "minecraft:empty"
+			}
+		},
+		{
+			"weight": 1,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/fwd1b",
+				"processors": "minecraft:empty"
+			}
+		},
+		{
+			"weight": 2,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/fwd2",
+				"processors": "minecraft:empty"
+			}
+		},
+		{
+			"weight": 2,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/r1",
+				"processors": "minecraft:empty"
+			}
+		},
+		{
+			"weight": 2,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/l1",
+				"processors": "minecraft:empty"
+			}
+		},
+		{
+			"weight": 2,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:throneroom_of_knightly_heroes/shield_entrance/l2",
+				"processors": "minecraft:empty"
+			}
+		}
+	]
+}

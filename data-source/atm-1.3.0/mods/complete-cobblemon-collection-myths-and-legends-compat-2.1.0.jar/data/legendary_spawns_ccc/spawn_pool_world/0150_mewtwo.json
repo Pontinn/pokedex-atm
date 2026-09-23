@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mewtwo-1",
+      "pokemon": "mewtwo",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70-75",
+      "weight": 5.0,
+      "condition": {
+        "biomes": [
+    "minecraft:deep_dark",
+    "#cobblemon:is_cave",
+    "#cobblemon:is_deep_dark",
+    "#cobblemon:is_spooky"
+        ]
+      }
+    }
+  ]
+}

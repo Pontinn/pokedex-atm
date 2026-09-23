@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:unobtainium_ball_mechanism"
+  },
+  "results": [
+    {
+      "id": "allthemons:unobtainium_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball"
+        },
+        {
+          "item": "allthemons:unobtainium_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball"
+        },
+        {
+          "item": "allthemons:unobtainium_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball"
+        },
+        {
+          "tag": "c:rods/iron"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_unobtainium_ball"
+  }
+}

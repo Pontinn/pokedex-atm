@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "defeat_all_champ": {
+      "conditions": {
+        "count": -1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": "champ"
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_all_champion.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_all_champion.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_title_defense_borrius",
+  "requirements": [
+    [
+      "defeat_all_champ"
+    ]
+  ]
+}

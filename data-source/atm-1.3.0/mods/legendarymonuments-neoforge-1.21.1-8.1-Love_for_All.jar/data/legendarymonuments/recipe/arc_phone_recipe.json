@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BCB",
+    "CAC",
+    "BDB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:end_crystal"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:gold_ingot"
+    },
+    "D": {
+      "tag": "cobblemon:pokedex_screen"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:arc_phone"
+  }
+}

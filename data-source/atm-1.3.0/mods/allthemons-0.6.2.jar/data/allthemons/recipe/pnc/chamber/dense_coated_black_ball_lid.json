@@ -1,0 +1,20 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:black_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:black_tumblestone_dust"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:dense_coated_black_ball_lid"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:lightstone_shard"
+    },
+    "title": {
+      "text": "Traces of Truth and Ideals"
+    },
+    "description": {
+      "text": "Get a Lightstone or Darkstone Shard"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "proof_of_conquest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#legendarymonuments:shards"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "azelf-1",
+      "pokemon": "azelf",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 8.0,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_swamp",
+    "#cobblemon:is_river"        ]
+      }
+    }
+  ]
+}

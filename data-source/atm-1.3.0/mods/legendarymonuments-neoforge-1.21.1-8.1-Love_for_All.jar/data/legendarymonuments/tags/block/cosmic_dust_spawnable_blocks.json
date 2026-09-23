@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:end_stone",
+    "minecraft:obsidian",
+    { "id": "betterend:shadow_grass", "required": false },
+    { "id": "betterend:end_moss", "required": false },
+    { "id": "betterend:pink_moss", "required": false },
+    { "id": "betterend:flavolite", "required": false },
+    { "id": "betterend:rutiscus", "required": false },
+    { "id": "betterend:umbralith", "required": false },
+    { "id": "betterend:chorus_nylium", "required": false },
+    { "id": "betterend:brimstone", "required": false },
+    { "id": "betterend:endstone_dust", "required": false },
+    { "id": "betterend:sangum", "required": false },
+    { "id": "betterend:jungle_moss", "required": false },
+    { "id": "enderscape:corrupt_overgrowth", "required": false },
+    { "id": "enderscape:mirestone", "required": false },
+    { "id": "enderscape:repulsive_magnia", "required": false },
+    { "id": "enderscape:mirestone_nebulite_ore", "required": false },
+    { "id": "enderscape:shadoline_ore", "required": false },
+    { "id": "enderscape:celestial_overgrowth", "required": false },
+    { "id": "enderscape:celestial_path", "required": false },
+    { "id": "enderscape:void_shale", "required": false },
+    { "id": "enderscape:veradite", "required": false },
+    { "id": "enderscape:alluring_magnia", "required": false },
+    { "id": "enderscape:corrupt_path", "required": false },
+    { "id": "enderscape:kurodite", "required": false },
+    { "id": "enderscape:veiled_end_stone", "required": false }
+  ]
+}

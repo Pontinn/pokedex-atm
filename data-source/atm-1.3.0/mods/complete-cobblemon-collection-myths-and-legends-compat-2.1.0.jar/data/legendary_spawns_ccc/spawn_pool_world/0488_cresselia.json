@@ -1,0 +1,32 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "cresselia-1",
+      "pokemon": "cresselia",
+      "presets": [
+        "natural",
+        "wild"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 7.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 3.5,
+          "condition": {
+            "timeRange": "night"
+          }
+        }
+       ],
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_mushroom"] 
+      }
+    }
+  ]
+}

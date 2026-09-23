@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_champion_cynthia_1": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "champion_cynthia_03a5"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_champion_cynthia_1.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_champion_cynthia_1.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_elite_four_lucian_1",
+  "requirements": [
+    [
+      "defeat_champion_cynthia_1"
+    ]
+  ]
+}

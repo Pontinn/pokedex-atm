@@ -1,0 +1,24 @@
+{
+  "minecraft": {
+    "particle_revert": "minecraft:ash",
+    "sound_revert": {
+      "sound_id": "minecraft:block.amethyst_block.chime"
+    },
+    "animations": {
+	  "revert_delay": 0.5,	
+      "animations_revert": ["cry"]
+    }
+  },
+  "snowstorm": {
+    "source_apply": ["target"],
+    "particle_apply": "cobblemon:kyurem_w_effect",
+    "apply_after": 4,
+    "sound_apply": {
+      "sound_id": "mega_showdown:kyurem_fusion"
+    },
+    "animations": {
+      "apply_delay": 4.4,
+      "animations_apply": ["cry"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:hot_floor",
+    "minecraft:in_fire",
+    "minecraft:on_fire",
+    "minecraft:lava",
+    "minecraft:cactus",
+    "minecraft:sweet_berry_bush",
+    "minecraft:lightning_bolt"
+  ]
+}

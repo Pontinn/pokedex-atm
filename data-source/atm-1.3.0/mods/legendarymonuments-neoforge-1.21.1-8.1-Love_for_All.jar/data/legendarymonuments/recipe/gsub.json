@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WSW",
+    "WUW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:brick"
+    },
+    "S": {
+      "item": "minecraft:redstone_block"
+    },
+    "U": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:galarian_urn_of_storms_block"
+  }
+}

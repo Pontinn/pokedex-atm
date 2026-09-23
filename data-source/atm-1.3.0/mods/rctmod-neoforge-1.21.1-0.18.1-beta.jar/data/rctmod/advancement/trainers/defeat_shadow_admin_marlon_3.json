@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_shadow_admin_marlon_3": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "shadow_admin_marlon_3_05c0"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_shadow_admin_marlon_3.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_shadow_admin_marlon_3.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_light_of_ruin_aklove_2",
+  "requirements": [
+    [
+      "defeat_shadow_admin_marlon_3"
+    ]
+  ]
+}

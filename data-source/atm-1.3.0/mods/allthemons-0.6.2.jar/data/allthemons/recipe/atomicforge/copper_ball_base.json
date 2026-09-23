@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "tag": "c:nuggets/copper"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:copper_ball_base"
+    }
+  ],
+  "time": 200
+}

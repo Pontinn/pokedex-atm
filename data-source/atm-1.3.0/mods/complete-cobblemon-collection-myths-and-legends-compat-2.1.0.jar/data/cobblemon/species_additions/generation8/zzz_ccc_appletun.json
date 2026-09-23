@@ -1,0 +1,12 @@
+{
+  "target": "cobblemon:appletun",
+  "implemented": true,
+  "baseScale": 1.2,
+  "hitbox": {
+    "width": 1,
+    "height": 1,
+    "fixed": false
+  },
+  "standingEyeHeight": 0.3,
+  "swimmingEyeHeight": 0.3
+}

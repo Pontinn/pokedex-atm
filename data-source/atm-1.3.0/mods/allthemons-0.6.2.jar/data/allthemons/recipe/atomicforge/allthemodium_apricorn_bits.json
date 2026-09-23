@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemons:half_allthemodium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:allthemodium_apricorn_bits"
+    }
+  ],
+  "time": 200
+}

@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:claw_fossil"
+  },
+  "output": "cobblemon:anorith"
+}

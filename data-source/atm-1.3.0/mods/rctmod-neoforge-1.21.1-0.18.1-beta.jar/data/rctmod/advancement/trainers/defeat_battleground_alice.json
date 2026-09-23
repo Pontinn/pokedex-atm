@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_battleground_alice": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "battleground_alice_05f4"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_battleground_alice.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_battleground_alice.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_title_defense_borrius",
+  "requirements": [
+    [
+      "defeat_battleground_alice"
+    ]
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "tag": "c:nuggets/iron"
+  },
+  "program": "drill",
+  "result": {
+    "count": 1,
+    "id": "createmonballsoverhaul:iron_ball_base"
+  }
+}

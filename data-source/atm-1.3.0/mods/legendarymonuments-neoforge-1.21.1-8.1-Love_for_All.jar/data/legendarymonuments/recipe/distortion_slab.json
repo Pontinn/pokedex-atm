@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP"
+  ],
+  "key": {
+    "P": { "item": "legendarymonuments:distortion_planks" }
+  },
+  "result": {
+    "id": "legendarymonuments:distortion_slab",
+    "count": 6
+  }
+}

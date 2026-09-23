@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:brass_ball_mechanism"
+    },
+    {
+      "item": "createmonballsoverhaul:luxury_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "tag": "c:nuggets/gold"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:luxury_ball"
+    }
+  ],
+  "time": 120
+}

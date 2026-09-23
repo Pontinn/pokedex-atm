@@ -1,0 +1,9 @@
+{
+  "__comment": "Assigns Iron Charge property to Meltan. Required for evolution to Melmetal.",
+  "pokemon": [
+    "meltan"
+  ],
+  "features": [
+    "meltan_iron_charge"
+  ]
+}

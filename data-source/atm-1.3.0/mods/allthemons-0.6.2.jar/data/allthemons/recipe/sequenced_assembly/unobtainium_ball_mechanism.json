@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:unobtainium_ball_base"
+  },
+  "results": [
+    {
+      "id": "allthemons:unobtainium_ball_mechanism"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball_base"
+        },
+        {
+          "item": "allthemodium:unobtainium_nugget"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball_base"
+        },
+        {
+          "item": "create:shaft"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_unobtainium_ball_base"
+        },
+        {
+          "item": "allthemons:unobtainium_ball_base"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_unobtainium_ball_base"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_unobtainium_ball_base"
+  }
+}

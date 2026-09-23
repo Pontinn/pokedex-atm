@@ -1,0 +1,20 @@
+ {
+  "target": "cobblemon:frigibax",
+"drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "item": "cobblemon:haban_berry",
+        "percentage": 2.5
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 2.0
+      }
+    ]
+  }
+  }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 60,
+  "experience": 0.0,
+  "ingredient": {
+    "item": "allthemons:valuable_token"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:gold_ingot"
+  }
+}

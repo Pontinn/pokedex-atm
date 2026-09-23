@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:traces_of_truth_and_ideals",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:lightstone"
+    },
+    "title": {
+      "text": "Blue Eyes White Dragon"
+    },
+    "description": {
+      "text": "Summon the Dragon of Truths Reshiram"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reshiram_summoned": {
+      "trigger": "legendarymonuments:reshiram_summoned",
+      "conditions": {}
+    }
+  }
+}

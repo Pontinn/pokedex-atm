@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "tapubulu-1",
+      "pokemon": "tapubulu",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 5.0,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_jungle",
+    "#cobblemon:is_tropical_island",
+    "#cobblemon:is_beach"
+        ]
+      }
+    }
+  ]
+} 

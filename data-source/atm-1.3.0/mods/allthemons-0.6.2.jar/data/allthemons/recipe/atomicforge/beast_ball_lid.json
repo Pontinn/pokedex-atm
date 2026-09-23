@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:blue_ball_lid"
+    },
+    {
+      "tag": "c:nuggets/gold"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:beast_ball_lid"
+    }
+  ],
+  "time": 200
+}

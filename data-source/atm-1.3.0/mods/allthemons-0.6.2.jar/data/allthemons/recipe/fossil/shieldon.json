@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:armor_fossil"
+  },
+  "output": "cobblemon:shieldon"
+}

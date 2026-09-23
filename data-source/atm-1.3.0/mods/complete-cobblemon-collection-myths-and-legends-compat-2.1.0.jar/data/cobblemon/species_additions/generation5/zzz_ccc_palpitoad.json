@@ -1,0 +1,11 @@
+{
+  "target": "cobblemon:palpitoad",
+  "implemented": true,
+  "hitbox": {
+    "width": 1,
+    "height": 1.8,
+    "fixed": false
+  },
+  "standingEyeHeight": 0.7,
+  "swimmingEyeHeight": 0.7
+}

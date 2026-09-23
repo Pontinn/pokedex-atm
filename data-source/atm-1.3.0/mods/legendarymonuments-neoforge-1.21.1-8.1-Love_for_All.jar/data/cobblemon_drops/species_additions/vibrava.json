@@ -1,0 +1,26 @@
+{
+  "target": "cobblemon:vibrava",
+"drops": {
+    "amount": 2,
+    "entries": [
+      {
+        "item": "cobblemon:soft_sand",
+        "percentage": 5.0
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "cobblemon:yache_berry",
+        "percentage": 5.0
+      }
+    ]
+  }
+  }
+
+

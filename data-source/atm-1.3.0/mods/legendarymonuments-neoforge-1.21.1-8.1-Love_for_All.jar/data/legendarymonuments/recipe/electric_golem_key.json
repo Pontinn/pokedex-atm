@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NB ",
+    "BB ",
+    "  B"
+  ],
+  "key": {
+    "N": {
+      "item": "cobblemon:electric_gem"
+    },
+    "B": {
+      "item": "legendarymonuments:electric_golem_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:electric_golem_key"
+  }
+}

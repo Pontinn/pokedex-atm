@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "mega_showdown:water_tera_shard"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:water_tera_block",
+    "count": 1
+  }
+}

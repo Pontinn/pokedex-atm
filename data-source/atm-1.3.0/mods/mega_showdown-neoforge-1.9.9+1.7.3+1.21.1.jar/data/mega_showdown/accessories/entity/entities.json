@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "entities": [
+    "minecraft:player"
+  ],
+  "slots": [
+    "mega_slot",
+    "dynamax_slot",
+    "z_slot",
+    "tera_slot"
+  ]
+}

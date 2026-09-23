@@ -1,0 +1,72 @@
+
+
+
+
+
+
+modLoader = "javafml" #mandatory
+loaderVersion = "[2,)" #mandatory
+license = "MPL-2.0" # Review your options at https://choosealicense.com/.
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+[[mods]] #mandatory
+modId = "legendarymonuments" #mandatory
+version = "8.1-Love-for-All" #mandatory
+displayName = "Legendary Monuments" #mandatory
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional (see https://docs.neoforged.net/docs/misc/updatechecker/)
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional (displayed in the mod UI)
+logoFile="legendarymonuments.png" #optional
+credits="JorgaoMC" #optional
+authors = "JorgaoMC" #optional
+description = '''Adds special spawning methods for Legendaries and Mythicals (Zacian, Zamazenta, Reshiram, Zekrom, Kyurem, Hoopa, Cosmog, Keldeo, Regigigas, All Regis, Cobalion...''' #mandatory (Supports multiline text)
+[[mixins]]
+config = "legendarymonuments.mixins.json"
+[[mixins]]
+config = "legendarymonuments.neoforge.mixins.json"
+[[dependencies.legendarymonuments]] #optional
+modId = "neoforge" #mandatory
+type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
+versionRange = "[21.1.80,)" #mandatory
+ordering = "NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
+side = "BOTH" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
+[[dependencies.legendarymonuments]]
+modId = "minecraft"
+type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
+versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.legendarymonuments]]
+modId = "cobblemon"
+type="required"
+versionRange = "[1.7.0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.legendarymonuments]]
+modId = "chipped"
+type="required"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.legendarymonuments]]
+modId = "mega_showdown"
+type="required"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.legendarymonuments]]
+modId = "lithostitched"
+type="required"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.legendarymonuments]]
+modId = "accessories"
+type="required"
+versionRange = "[1.1.0-beta.52+1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+# Features are specific properties of the game environment, that you may want to declare you require. This example declares
+# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
+# stop your mod loading on the server for example.
+#[features.legendarymonuments]
+#openGLVersion="[3.2,)"

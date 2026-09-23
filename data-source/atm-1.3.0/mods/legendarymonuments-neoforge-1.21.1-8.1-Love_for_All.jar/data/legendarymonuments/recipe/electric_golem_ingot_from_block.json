@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:electric_golem_block"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:electric_golem_ingot",
+    "count": 9
+  }
+}

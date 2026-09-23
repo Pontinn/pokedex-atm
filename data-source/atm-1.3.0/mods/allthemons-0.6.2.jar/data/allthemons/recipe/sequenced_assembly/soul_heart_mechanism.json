@@ -1,0 +1,62 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "zamega:magearnite"
+  },
+  "loops": 4,
+  "results": [
+    {
+      "id": "allthemons:soul_heart_mechanism"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_soul_mechanism_0"
+        },
+        {
+          "item": "alltheores:brass_plate"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_soul_mechanism_0"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_soul_mechanism_0"
+        },
+        {
+          "item": "enderio:dark_bimetal_gear"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_soul_mechanism_0"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_soul_mechanism_0"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_soul_mechanism_0"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_soul_mechanism_0"
+  }
+}

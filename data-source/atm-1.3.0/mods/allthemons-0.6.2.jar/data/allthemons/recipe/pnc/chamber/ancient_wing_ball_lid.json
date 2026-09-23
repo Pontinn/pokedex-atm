@@ -1,0 +1,20 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:light_coated_blue_ball_lid"
+    },
+    {
+      "count": 2,
+      "item": "createmonballsoverhaul:blue_apricorn_bits"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:ancient_wing_ball_lid"
+    }
+  ]
+}

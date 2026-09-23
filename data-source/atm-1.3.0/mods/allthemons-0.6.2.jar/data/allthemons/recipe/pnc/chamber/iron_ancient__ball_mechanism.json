@@ -1,0 +1,24 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 2,
+      "item": "createmonballsoverhaul:iron_ball_base"
+    },
+    {
+      "count": 1,
+      "item": "create:andesite_alloy"
+    },
+    {
+      "count": 1,
+      "item": "create:shaft"
+    }
+  ],
+  "pressure": 4.0,
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:iron_ancient_ball_mechanism"
+    }
+  ]
+}

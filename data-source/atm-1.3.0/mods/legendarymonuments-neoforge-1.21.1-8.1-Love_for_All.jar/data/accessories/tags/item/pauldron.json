@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:steel_pauldron",
+    "legendarymonuments:electric_pauldron",
+    "legendarymonuments:rock_pauldron",
+    "legendarymonuments:titan_pauldron",
+    "legendarymonuments:ice_pauldron",
+    "legendarymonuments:dragon_pauldron"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "kyogre-1",
+      "pokemon": "kyogre",
+      "type": "pokemon",
+      "context": "fishing",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 10.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 8.0,
+          "condition": {
+            "isRaining": true
+          }
+        }
+      ],
+      "condition": {
+        "isRaining": true,
+        "biomes": [
+    "#cobblemon:is_deep_ocean",
+    "#cobblemon:is_ocean",
+    "#cobblemon:is_frozen_ocean"
+        ],
+        "minLureLevel": 3
+      }
+    },
+    {
+            "id": "kyogre-2",
+            "pokemon": "kyogre",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "surface",
+            "bucket": "ultra-rare",
+            "level": "70",
+            "weight": 7.0,
+            "weightMultipliers": [
+        {
+          "multiplier": 8.0,
+          "condition": {
+            "isRaining": true
+          }
+        }
+      ],
+            "condition": {
+                "biomes": [
+    "#cobblemon:is_deep_ocean",
+    "#cobblemon:is_ocean",
+    "#cobblemon:is_frozen_ocean"
+                ]
+            }
+        },
+        {
+            "id": "kyogre-3",
+            "pokemon": "kyogre",
+            "presets": [
+                "natural"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "surface",
+            "bucket": "ultra-rare",
+            "level": "70",
+            "weight": 14.0,
+            "condition": {
+                "biomes": [
+    "#cobblemon:is_deep_ocean",
+    "#cobblemon:is_ocean",
+    "#cobblemon:is_frozen_ocean"
+                ]
+            }
+        }
+  ]
+}

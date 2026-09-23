@@ -1,0 +1,14 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "allthemons:unobtainium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "id": "allthemons:half_unobtainium_apricorn"
+    }
+  ]
+}

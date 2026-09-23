@@ -1,0 +1,22 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 10387312,
+    "separation": 75,
+    "spacing": 150,
+		"exclusion_zone": {
+			"other_set": "minecraft:villages",
+			"chunk_count": 7
+		}
+  },
+  "structures": [
+    {
+      "structure": "legendarymonuments:traditional_village/ecruteak",
+      "weight": 2
+    },
+    {
+      "structure": "legendarymonuments:traditional_village/nonlegendary",
+      "weight": 6
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemodium:unobtainium_plate"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:unobtainium_ball_base"
+    }
+  ],
+  "time": 200
+}

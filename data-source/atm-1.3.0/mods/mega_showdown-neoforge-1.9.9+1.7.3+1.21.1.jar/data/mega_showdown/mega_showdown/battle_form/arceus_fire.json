@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Arceus"],
+  "showdown_form_change_id": "fire",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["multitype=fire"]
+    },
+    "revert": {
+      "aspects": ["multitype=normal"]
+    }
+  },
+  "effect": "mega_showdown:arceus_fire"
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:a_world_of_nothingness",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:origin_ingot"
+    },
+    "title": {
+      "text": "I See Red"
+    },
+    "description": {
+      "text": "Obtain an Origin Ingot"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "origin_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:origin_ingot"]
+          }
+        ]
+      }
+    }
+  }
+}

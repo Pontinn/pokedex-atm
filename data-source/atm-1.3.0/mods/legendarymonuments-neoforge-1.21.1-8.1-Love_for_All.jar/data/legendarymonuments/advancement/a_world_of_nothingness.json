@@ -1,0 +1,26 @@
+{
+  "parent": "legendarymonuments:red_means_go",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:distortion_stone"
+    },
+    "title": {
+      "text": "A World of Nothingness"
+    },
+    "description": {
+      "text": "Enter the Distortion World"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "distortion_world": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "legendarymonuments:distortion_world"
+      }
+    }
+  }
+}

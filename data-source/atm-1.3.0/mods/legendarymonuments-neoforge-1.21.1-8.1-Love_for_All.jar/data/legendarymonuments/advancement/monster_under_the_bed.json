@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:sweet_dreams_are_made_of_this",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:nightmare_essence"
+    },
+    "title": {
+      "text": "Monster under the bed"
+    },
+    "description": {
+      "text": "Have a nightmare"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "nightmare": {
+      "trigger": "legendarymonuments:nightmare",
+      "conditions": {}
+    }
+  }
+}

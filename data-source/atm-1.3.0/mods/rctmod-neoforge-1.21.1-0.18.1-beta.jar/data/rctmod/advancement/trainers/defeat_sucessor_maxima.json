@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_sucessor_maxima": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "sucessor_maxima_05ae"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_sucessor_maxima.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_sucessor_maxima.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_shadow_admin_ivory_grunt",
+  "requirements": [
+    [
+      "defeat_sucessor_maxima"
+    ]
+  ]
+}

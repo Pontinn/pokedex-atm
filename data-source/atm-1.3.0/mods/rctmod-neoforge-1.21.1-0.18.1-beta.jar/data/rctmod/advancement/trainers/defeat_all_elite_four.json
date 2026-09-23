@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "defeat_all_e4": {
+      "conditions": {
+        "count": -1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": "e4"
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_all_elite_four.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_all_elite_four.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_elite_four_lucian_3",
+  "requirements": [
+    [
+      "defeat_all_e4"
+    ]
+  ]
+}

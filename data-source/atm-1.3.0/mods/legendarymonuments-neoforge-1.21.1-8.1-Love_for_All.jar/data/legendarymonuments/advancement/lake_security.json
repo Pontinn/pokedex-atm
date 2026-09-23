@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:proof_of_conquest_u"
+    },
+    "title": {
+      "text": "Lake Security"
+    },
+    "description": {
+      "text": "Complete a Lake Guardian Trial"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "proof_of_conquest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#legendarymonuments:proofs_of_conquest"
+          }
+        ]
+      }
+    }
+  }
+}

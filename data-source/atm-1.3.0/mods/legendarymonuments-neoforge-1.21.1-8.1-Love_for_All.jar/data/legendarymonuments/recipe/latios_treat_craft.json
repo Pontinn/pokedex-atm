@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "ASP",
+    "UUU"
+  ],
+  "key": {
+    "W": {
+      "item": "cobblemon:petaya_berry"
+    },
+    "S": {
+      "item": "legendarymonuments:poketreat_box"
+    },
+    "A": {
+      "item": "cobblemon:payapa_berry"
+    },
+    "P": {
+      "item": "cobblemon:haban_berry"
+    },
+    "U": {
+      "item": "cobblemon:wepear_berry"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:latios_treat"
+  }
+}

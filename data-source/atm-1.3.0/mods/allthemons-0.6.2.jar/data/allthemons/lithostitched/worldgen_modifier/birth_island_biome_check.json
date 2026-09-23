@@ -1,0 +1,35 @@
+{
+  "type": "lithostitched:set_structure_spawn_condition",
+  "structures": "allthemons:birth_island",
+  "spawn_condition": {
+    "type": "lithostitched:all_of",
+    "conditions": [
+      {
+        "type": "lithostitched:offset",
+        "offset": [0, 0, -48],
+        "condition": { "type": "lithostitched:in_biome", "biomes": "eternal_starlight:starlit_sea" }
+      },
+      {
+        "type": "lithostitched:offset",
+        "offset": [64, 0, -48],
+        "condition": { "type": "lithostitched:in_biome", "biomes": "eternal_starlight:starlit_sea" }
+      },
+      {
+        "type": "lithostitched:offset",
+        "offset": [0, 0, 69],
+        "condition": { "type": "lithostitched:in_biome", "biomes": "eternal_starlight:starlit_sea" }
+      },
+      {
+        "type": "lithostitched:offset",
+        "offset": [64, 0, 69],
+        "condition": { "type": "lithostitched:in_biome", "biomes": "eternal_starlight:starlit_sea" }
+      },
+      {
+        "type": "lithostitched:offset",
+        "offset": [32, 0, 10],
+        "condition": { "type": "lithostitched:in_biome", "biomes": "eternal_starlight:starlit_sea" }
+      }
+    ]
+  },
+  "append": false
+}

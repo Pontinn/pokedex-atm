@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.allthemons.verdanturf_town"
+  },
+  "length_in_seconds": 221.0,
+  "sound_event": "allthemons:music_disc.gamechops.poke_ambient.verdanturf_town"
+}

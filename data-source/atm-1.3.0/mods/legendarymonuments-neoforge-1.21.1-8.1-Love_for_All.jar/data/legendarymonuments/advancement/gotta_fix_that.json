@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:i_see_red",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:fragmented_red_chain"
+    },
+    "title": {
+      "text": "Gotta Fix that"
+    },
+    "description": {
+      "text": "Obtain a Fragmented Red Chain"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "fragmented_red_chain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:fragmented_red_chain"]
+          }
+        ]
+      }
+    }
+  }
+}

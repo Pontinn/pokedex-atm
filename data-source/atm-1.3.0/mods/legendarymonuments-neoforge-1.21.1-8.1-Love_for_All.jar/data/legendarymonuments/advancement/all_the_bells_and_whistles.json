@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:upgrades_people_upgrades",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:arc_phone"
+    },
+    "title": {
+      "text": "All the bells and whistles!"
+    },
+    "description": {
+      "text": "Buy all Arc Phone system upgrades"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "all_apps": {
+      "trigger": "legendarymonuments:all_apps_purchased",
+      "conditions": {}
+    }
+  }
+}

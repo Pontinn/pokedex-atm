@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "eternatus-1",
+      "pokemon": "eternatus",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "80",
+      "weight": 5.0,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_swamp",
+          "#cobblemon:is_end"
+        ]
+      }
+    }
+  ]
+}

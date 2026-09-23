@@ -1,0 +1,8 @@
+{
+  "minecraft": {
+    "particle_revert": "minecraft:end_rod",
+    "sound_revert": {
+      "sound_id": "minecraft:block.amethyst_block.chime"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:liberty_pass"
+    },
+    "title": {
+      "text": "Someone Lost Their Wallet"
+    },
+    "description": {
+      "text": "Find a Liberty Pass"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "liberty_pass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:liberty_pass"]
+          }
+        ]
+      }
+    }
+  }
+}

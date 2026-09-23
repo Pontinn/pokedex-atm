@@ -1,0 +1,60 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "entei-1",
+      "pokemon": "entei",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 2.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 1.5,
+          "condition": {
+            "timeRange": "day"
+          }
+        },
+        {
+          "multiplier": 3.0,
+          "condition": {
+            "biomes": [
+              "#cobblemon:is_arid"
+            ]
+          }
+        },
+        {
+          "multiplier": 5.0,
+          "condition": {
+            "neededNearbyBlocks": [
+              "minecraft:lava"
+            ]
+          }
+        },
+        {
+          "multiplier": 0.5,
+          "condition": {
+            "isRaining": true
+          },
+          "anticondition": {
+            "biomes": [
+              "#cobblemon:is_arid"
+            ]
+          }
+        }
+      ],
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_volcanic",
+    "#cobblemon:is_thermal",
+    "#cobblemon:is_badlands"        ]
+      }
+    }
+  ]
+}

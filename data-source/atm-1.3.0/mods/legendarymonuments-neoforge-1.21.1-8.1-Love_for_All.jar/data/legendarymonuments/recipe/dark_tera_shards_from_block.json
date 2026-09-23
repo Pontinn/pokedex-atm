@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:dark_tera_block"
+    }
+  ],
+  "result": {
+    "id": "mega_showdown:dark_tera_shard",
+    "count": 9
+  }
+}

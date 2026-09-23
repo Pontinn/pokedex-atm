@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Terapagos"],
+  "showdown_form_change_id": "terastal",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["tera_form=terastal"]
+    },
+    "revert": {
+      "aspects": ["tera_form=normal"]
+    }
+  },
+  "effect": "mega_showdown:terapagos_effect"
+}

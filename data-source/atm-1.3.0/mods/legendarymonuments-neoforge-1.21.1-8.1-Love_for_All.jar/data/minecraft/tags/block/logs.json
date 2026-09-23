@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:dyna_log",
+    "legendarymonuments:stripped_dyna_log",
+    "legendarymonuments:dyna_wood",
+    "legendarymonuments:distortion_log"
+  ]
+}

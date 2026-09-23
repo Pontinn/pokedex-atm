@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "legendarymonuments:raw_origin"
+  },
+  "result": {
+    "id": "legendarymonuments:origin_ingot"
+  },
+  "experience": 2,
+  "cookingtime": 200
+}

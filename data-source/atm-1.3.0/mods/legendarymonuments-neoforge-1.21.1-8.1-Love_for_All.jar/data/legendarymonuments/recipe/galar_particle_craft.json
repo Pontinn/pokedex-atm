@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:galar_particle_block"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:galar_particle",
+    "count": 9
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "legendarymonuments:medallion_of_renewal_fragment"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:medallion_of_renewal",
+    "count": 1
+  }
+}

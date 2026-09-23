@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cobblemon:rock_gem"
+    },
+    {
+      "item": "legendarymonuments:golem_scrap"
+    },
+    {
+      "item": "legendarymonuments:golem_scrap"
+    },
+    {
+      "item": "legendarymonuments:golem_scrap"
+    },
+    {
+      "item": "legendarymonuments:golem_scrap"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:rock_golem_ingot",
+    "count": 4
+  }
+}

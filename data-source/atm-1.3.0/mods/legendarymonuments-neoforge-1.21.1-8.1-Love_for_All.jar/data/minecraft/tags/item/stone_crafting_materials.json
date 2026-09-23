@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "legendarymonuments:distortion_cobblestone",
+    "legendarymonuments:distortion_stone",
+    "legendarymonuments:distortion_deepslate"
+  ]
+}

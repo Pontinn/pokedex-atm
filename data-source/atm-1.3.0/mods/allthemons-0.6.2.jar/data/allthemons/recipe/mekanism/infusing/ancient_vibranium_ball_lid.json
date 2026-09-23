@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemical_input": {
+    "amount": 400,
+    "chemical": "allthemons:standard_tumblestone"
+  },
+  "item_input": {
+    "count": 1,
+    "item": "allthemons:vibranium_ball_lid"
+  },
+  "output": {
+    "count": 1,
+    "id": "allthemons:ancient_vibranium_ball_lid"
+  },
+  "per_tick_usage": false
+}

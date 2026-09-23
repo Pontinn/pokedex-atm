@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:drinks/milk"
+    },
+    "B": {
+      "item": "minecraft:sugar"
+    },
+    "C": {
+      "item": "minecraft:wheat"
+    },
+    "E": {
+      "type": "neoforge:components",
+      "items": "allthemons:pokemon_egg",
+      "components": {
+        "allthemons:species": "cobblemon:togepi",
+        "allthemons:egg_level": 2
+      },
+      "strict": false
+    }
+  },
+  "pattern": [
+    "AAA",
+    "BEB",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemons:togepie"
+  }
+}

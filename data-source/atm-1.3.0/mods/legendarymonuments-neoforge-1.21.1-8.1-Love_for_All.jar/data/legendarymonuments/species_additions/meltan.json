@@ -1,0 +1,18 @@
+{
+  "target": "cobblemon:meltan",
+  "evolutions": [
+    {
+      "id": "meltan_melmetal_candy",
+      "variant": "level_up",
+      "result": "melmetal",
+      "optional": true,
+      "consumeHeldItem": false,
+      "requirements": [
+        {
+          "variant": "legendarymonuments:meltan_candy_count",
+          "amount": 64
+        }
+      ]
+    }
+  ]
+}

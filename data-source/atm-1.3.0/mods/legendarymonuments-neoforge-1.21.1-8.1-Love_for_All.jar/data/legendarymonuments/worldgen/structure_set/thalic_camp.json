@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 693002,
+    "separation": 25,
+    "spacing": 50
+  },
+  "structures": [
+    {
+      "structure": "legendarymonuments:thalic_camp",
+      "weight": 1
+    }
+  ]
+}

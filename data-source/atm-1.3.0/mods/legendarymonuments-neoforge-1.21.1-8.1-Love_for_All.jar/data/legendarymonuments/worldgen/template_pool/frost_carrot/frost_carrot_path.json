@@ -1,0 +1,24 @@
+{
+	"name": "legendarymonuments:frost_carrot/frost_carrot_path",
+	"fallback": "minecraft:empty",
+	"elements": [
+		{
+			"weight": 5,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:frost_carrot/safe_path1",
+				"processors": "minecraft:empty"
+			}
+		},
+        {
+			"weight": 1,
+			"element": {
+				"element_type": "minecraft:single_pool_element",
+				"projection": "rigid",
+				"location": "legendarymonuments:frost_carrot/evil_trap",
+				"processors": "minecraft:empty"
+			}
+		}
+	]
+}

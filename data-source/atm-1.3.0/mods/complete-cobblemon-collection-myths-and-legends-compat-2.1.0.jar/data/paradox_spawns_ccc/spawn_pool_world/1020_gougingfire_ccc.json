@@ -1,0 +1,32 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "gougingfire-1",
+      "pokemon": "gougingfire",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "65-80",
+      "weight": 15.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 2.5,
+          "condition": {
+            "timeRange": "day"
+          }
+        }
+       ],
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_volcanic"
+        ]
+      }
+    }
+  ]
+}

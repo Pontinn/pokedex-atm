@@ -1,0 +1,11 @@
+{
+  "type": "mekmm:lathe",
+  "input": {
+    "count": 1,
+    "item": "allthemons:vibranium_stamped_plate_lid"
+  },
+  "output": {
+    "count": 1,
+    "id": "allthemons:vibranium_ball_base"
+  }
+}

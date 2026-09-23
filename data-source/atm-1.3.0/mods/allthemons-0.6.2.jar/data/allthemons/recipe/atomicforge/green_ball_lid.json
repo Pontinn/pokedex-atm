@@ -1,0 +1,18 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "tag": "c:dyes/green"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:green_ball_lid"
+    }
+  ],
+  "time": 200
+}

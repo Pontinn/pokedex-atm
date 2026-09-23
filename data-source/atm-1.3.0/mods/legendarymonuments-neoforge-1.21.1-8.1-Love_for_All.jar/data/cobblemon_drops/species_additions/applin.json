@@ -1,0 +1,23 @@
+{
+  "target": "cobblemon:applin",
+ "drops": {
+    "amount": 2,
+    "entries": [
+      {
+        "item": "minecraft:apple"
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "cobblemon:yache_berry",
+        "percentage": 2.5
+      }
+    ]
+  }
+  }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "create:cogwheel"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "G": {
+      "item": "create:gearbox"
+    },
+    "L": {
+      "item": "cobblemon:light_ball"
+    },
+    "R": {
+      "item": "minecraft:lightning_rod"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "pattern": [
+    "SRS",
+    "CGC",
+    "LEL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemons:pika_power_base"
+  }
+}

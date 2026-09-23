@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:ironjugulis",
+  "implemented": true,
+  "hitbox": {
+    "width": 1.2,
+    "height": 2.5,
+    "fixed": false
+  }
+}

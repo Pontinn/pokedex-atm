@@ -1,0 +1,13 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": { "id": "legendarymonuments:soul_jar" },
+    "title": { "text": "The Dark Wings Descend" },
+    "description": { "text": "Summon Yveltal" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": { "yveltal_summoned": { "trigger": "legendarymonuments:yveltal_summoned", "conditions": {} } }
+}

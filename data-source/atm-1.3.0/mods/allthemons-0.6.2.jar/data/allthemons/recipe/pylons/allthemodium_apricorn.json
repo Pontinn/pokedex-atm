@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "cobblemon"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "pylons"
+    }
+  ],
+  "type": "pylons:harvesting",
+  "block": "allthemons:allthemodium_apricorn",
+  "output": {
+    "id": "allthemons:allthemodium_apricorn"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:groundblight_stake"
+    },
+    "title": {
+      "text": "Unsealing a Great Evil"
+    },
+    "description": {
+      "text": "Find an Ominous Stake"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ominous_stake_found": {
+      "trigger": "legendarymonuments:ominous_stake_found",
+      "conditions": {}
+    }
+  }
+}

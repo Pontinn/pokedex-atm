@@ -1,0 +1,11 @@
+{
+  "target": "cobblemon:rolycoly",
+  "implemented": true,
+  "hitbox": {
+    "width": 0.8,
+    "height": 0.6,
+    "fixed": false
+  },
+  "standingEyeHeight": 0.5,
+  "swimmingEyeHeight": 0.5
+}

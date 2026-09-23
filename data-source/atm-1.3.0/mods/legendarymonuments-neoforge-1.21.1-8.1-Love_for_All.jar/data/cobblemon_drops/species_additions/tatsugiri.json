@@ -1,0 +1,27 @@
+{
+  "target": "cobblemon:tatsugiri",
+ "drops": {
+    "amount": 3,
+    "entries": [
+      {
+        "item": "minecraft:salmon"
+      },
+      {
+        "item": "minecraft:bone_meal",
+        "percentage": 5.0
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 2.0
+      },
+      {
+        "item": "cobblemon:haban_berry",
+        "percentage": 5.0
+      }
+    ]
+  }
+  }

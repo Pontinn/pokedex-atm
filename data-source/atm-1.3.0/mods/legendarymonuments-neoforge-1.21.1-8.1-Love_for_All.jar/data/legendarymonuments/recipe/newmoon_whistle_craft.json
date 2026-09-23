@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    " MM"
+  ],
+  "key": {
+    "M": {
+      "item": "legendarymonuments:nightmare_essence"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:newmoon_whistle",
+    "count": 1
+  }
+}

@@ -1,0 +1,45 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "GNU-LGPL-3"
+#issueTrackerURL = ""
+
+[[mods]]
+modId = "rctapi"
+version = "0.15.2-beta"
+displayName = "Radical Cobblemon Trainers API"
+authors = "HDainester"
+logoFile = "assets/rctapi/icon.png"
+description = '''
+Trainer management and battle API for Cobblemon.
+'''
+
+[[dependencies.rctapi]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.rctapi]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.rctapi]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.rctapi]]
+modId="cobblemon"
+type = "required"
+versionRange="[1.7,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config = "rctapi.mixins.json"

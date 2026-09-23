@@ -1,0 +1,6 @@
+{
+  "type": "legendarymonuments:distortion_island_decoration",
+  "config": {
+    "water_fall_chance": 0.2
+  }
+}

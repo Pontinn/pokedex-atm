@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "walkingwake-1",
+      "pokemon": "walkingwake",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "65-80",
+      "weight": 3.15,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_deep_dark"        ]
+      }
+    }
+  ]
+}

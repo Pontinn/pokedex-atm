@@ -1,0 +1,10 @@
+{
+  "implemented": true,
+  "target": "cobblemon:archaludon",
+  "baseScale": 1.0,
+  "hitbox": {
+    "width": 1.2,
+    "height": 2.2,
+    "fixed": false
+  }
+}

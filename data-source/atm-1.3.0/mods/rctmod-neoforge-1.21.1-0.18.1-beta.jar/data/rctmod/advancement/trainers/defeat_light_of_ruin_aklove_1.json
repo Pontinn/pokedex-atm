@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_light_of_ruin_aklove_1": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "light_of_ruin_aklove_1_05c2"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_light_of_ruin_aklove_1.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_light_of_ruin_aklove_1.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_boss_zeph_2",
+  "requirements": [
+    [
+      "defeat_light_of_ruin_aklove_1"
+    ]
+  ]
+}

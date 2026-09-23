@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " U ",
+    "URU",
+    " U "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "U": {
+      "item": "cobblemon:yellow_apricorn"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:gs_ball"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_rocket_admin_archer_and_ariana": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "rocket_admin_archer_ariana_m000"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_and_ariana.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_and_ariana.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_rival_terry_2",
+  "requirements": [
+    [
+      "defeat_rocket_admin_archer_and_ariana"
+    ]
+  ]
+}

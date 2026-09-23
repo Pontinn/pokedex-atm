@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_leader_galavan": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "leader_galavan_05af"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_leader_galavan.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_leader_galavan.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_rival_wayne_3",
+  "requirements": [
+    [
+      "defeat_leader_galavan"
+    ]
+  ]
+}

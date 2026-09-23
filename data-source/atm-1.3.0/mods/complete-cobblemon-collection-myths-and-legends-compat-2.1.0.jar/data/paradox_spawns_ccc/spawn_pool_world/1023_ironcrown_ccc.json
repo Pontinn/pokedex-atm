@@ -1,0 +1,26 @@
+{
+  "enabled": "true",
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ironcrown-1",
+      "pokemon": "ironcrown",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60-88",
+      "weight": 8.0,
+      "condition": {
+        "timeRange": "night",
+        "biomes": [
+              "#cobblemon:is_lush",
+              "#cobblemon:is_forest"
+        ]
+      }
+    }
+  ]
+}

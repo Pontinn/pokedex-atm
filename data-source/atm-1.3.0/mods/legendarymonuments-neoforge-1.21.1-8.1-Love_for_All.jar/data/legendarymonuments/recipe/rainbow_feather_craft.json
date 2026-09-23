@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:red_feather"
+    },
+    {
+      "item": "legendarymonuments:blue_feather"
+    },
+    {
+      "item": "legendarymonuments:yellow_feather"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:rainbow_feather"
+  }
+}

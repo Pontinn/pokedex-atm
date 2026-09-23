@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.allthemons.water_type"
+  },
+  "length_in_seconds": 139.0,
+  "sound_event": "allthemons:music_disc.gamechops.poke_ambient.water_type"
+}

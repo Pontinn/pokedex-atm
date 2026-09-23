@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "allthemons:unobtainium_ball_mechanism"
+    },
+    {
+      "item": "allthemons:unobtainium_ball_lid"
+    },
+    {
+      "item": "allthemons:unobtainium_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:unobtainium_ball"
+    }
+  ],
+  "time": 120
+}

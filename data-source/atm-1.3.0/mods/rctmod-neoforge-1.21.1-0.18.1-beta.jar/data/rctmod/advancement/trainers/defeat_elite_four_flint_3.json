@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_elite_four_flint_3": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_flint_05a5"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_elite_four_flint_3.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_elite_four_flint_3.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_elite_four_bertha_3",
+  "requirements": [
+    [
+      "defeat_elite_four_flint_3"
+    ]
+  ]
+}

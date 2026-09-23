@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.allthemons.poke_league"
+  },
+  "length_in_seconds": 154.0,
+  "sound_event": "allthemons:music_disc.gamechops.poke_ambient.poke_league"
+}

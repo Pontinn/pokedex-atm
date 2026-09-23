@@ -1,0 +1,25 @@
+{
+  "enabled": "true",
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ironjugulis-1",
+      "pokemon": "ironjugulis",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "65-75",
+      "weight": 7.0,
+      "condition": {
+        "timeRange": "night",
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ]
+      }
+    }
+  ]
+}

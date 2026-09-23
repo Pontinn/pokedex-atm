@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "item": "allthemodium:vibranium_plate"
+  },
+  "program": "drill",
+  "result": {
+    "count": 1,
+    "id": "allthemons:vibranium_ball_base"
+  }
+}

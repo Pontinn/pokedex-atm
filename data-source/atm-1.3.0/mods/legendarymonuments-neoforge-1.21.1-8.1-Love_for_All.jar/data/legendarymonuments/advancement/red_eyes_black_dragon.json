@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:traces_of_truth_and_ideals",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:darkstone"
+    },
+    "title": {
+      "text": "Red Eyes Black Dragon"
+    },
+    "description": {
+      "text": "Summon the Dragon of Ideals Zekrom"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "zekrom_summoned": {
+      "trigger": "legendarymonuments:zekrom_summoned",
+      "conditions": {}
+    }
+  }
+}

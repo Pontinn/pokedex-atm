@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:dense_coated_black_ball_lid"
+    },
+    {
+      "tag": "c:dyes/white"
+    },
+    {
+      "item": "createmonballsoverhaul:white_apricorn_bits"
+    },
+    {
+      "item": "createmonballsoverhaul:black_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:ancient_gigaton_ball_lid"
+    }
+  ],
+  "time": 120
+}

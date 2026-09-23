@@ -1,0 +1,26 @@
+{
+  "parent": "legendarymonuments:magic_flute",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:azure_flute"
+    },
+    "title": {
+      "text": "Where it all began"
+    },
+    "description": {
+      "text": "Enter the Hall of Origin"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "hall_of_origin": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "legendarymonuments:hall_of_origin_world"
+      }
+    }
+  }
+}

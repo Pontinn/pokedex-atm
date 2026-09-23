@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:step_by_step",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:cosmic_dust_block"
+    },
+    "title": {
+      "text": "Cosmic Potential Detected"
+    },
+    "description": {
+      "text": "Collect Cosmic Dust"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cosmic_dust_collected": {
+      "trigger": "legendarymonuments:cosmic_dust_collected",
+      "conditions": {}
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "ASA",
+    "UUU"
+  ],
+  "key": {
+    "W": {
+      "item": "cobblemon:salac_berry"
+    },
+    "S": {
+      "item": "legendarymonuments:poketreat_box"
+    },
+    "A": {
+      "item": "cobblemon:wacan_berry"
+    },
+    "P": {
+      "item": "cobblemon:petaya_berry"
+    },
+    "U": {
+      "item": "cobblemon:nanab_berry"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:raikou_treat"
+  }
+}

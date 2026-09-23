@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:uxie_claw"
+    },
+    {
+      "item": "legendarymonuments:azelf_fang"
+    },
+    {
+      "item": "legendarymonuments:mesprit_plume"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:red_chain"
+  }
+}

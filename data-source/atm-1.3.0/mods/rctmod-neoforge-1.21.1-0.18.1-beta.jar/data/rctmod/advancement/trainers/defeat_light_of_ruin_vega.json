@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_light_of_ruin_vega": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "light_of_ruin_vega_05c1"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_light_of_ruin_vega.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_light_of_ruin_vega.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_galavan",
+  "requirements": [
+    [
+      "defeat_light_of_ruin_vega"
+    ]
+  ]
+}

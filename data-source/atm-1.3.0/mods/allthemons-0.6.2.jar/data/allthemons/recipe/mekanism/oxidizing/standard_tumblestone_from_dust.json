@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "item": "createmonballsoverhaul:tumblestone_dust"
+  },
+  "output": {
+    "amount": 200,
+    "id": "allthemons:standard_tumblestone"
+  }
+}

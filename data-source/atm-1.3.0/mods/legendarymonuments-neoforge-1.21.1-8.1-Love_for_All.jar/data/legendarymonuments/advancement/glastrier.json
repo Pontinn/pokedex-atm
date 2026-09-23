@@ -1,0 +1,19 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": { "id": "legendarymonuments:iceroot_carrot" },
+    "title": { "text": "Summon a Legendary Steed" },
+    "description": { "text": "Summon Glastrier or Spectrier" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "glastrier_summoned": { "trigger": "legendarymonuments:glastrier_summoned", "conditions": {} },
+    "spectrier_summoned": { "trigger": "legendarymonuments:spectrier_summoned", "conditions": {} }
+  },
+  "requirements": [
+    ["glastrier_summoned", "spectrier_summoned"]
+  ]
+}

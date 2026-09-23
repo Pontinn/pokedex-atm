@@ -1,0 +1,12 @@
+{
+  "type": "allthemons:fossil",
+  "input": [
+    {
+      "item": "cobblemon:fossilized_fish"
+    },
+    {
+      "item": "cobblemon:fossilized_drake"
+    }
+  ],
+  "output": "cobblemon:dracovish"
+}

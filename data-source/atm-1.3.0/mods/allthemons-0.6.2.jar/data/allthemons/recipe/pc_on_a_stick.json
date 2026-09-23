@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "cobblemon:pc"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "  #",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemons:pc_on_a_stick"
+  }
+}

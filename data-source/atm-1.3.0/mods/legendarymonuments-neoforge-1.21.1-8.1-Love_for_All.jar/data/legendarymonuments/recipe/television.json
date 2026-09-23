@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CGC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:gray_concrete"
+    },
+    "G": {
+      "item": "minecraft:black_stained_glass_pane"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:television",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:copper_ball_base"
+    },
+    {
+      "item": "create:andesite_alloy"
+    },
+    {
+      "item": "create:shaft"
+    },
+    {
+      "item": "createmonballsoverhaul:copper_ball_base"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:copper_ancient_ball_mechanism"
+    }
+  ],
+  "time": 120
+}

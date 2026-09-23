@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemons:ancient_vibranium_ball_lid"
+    },
+    {
+      "item": "allthemons:unobtainium_apricorn_bits"
+    },
+    {
+      "item": "allthemodium:unobtainium_block"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:ancient_unobtainium_ball_lid"
+    }
+  ],
+  "time": 200
+}

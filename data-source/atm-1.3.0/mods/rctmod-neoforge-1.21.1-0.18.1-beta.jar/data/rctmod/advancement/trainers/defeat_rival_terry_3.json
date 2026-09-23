@@ -1,0 +1,41 @@
+{
+  "criteria": {
+    "defeat_rival_terry_3": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "champion_terry_02e5",
+          "champion_terry_02e4",
+          "champion_terry_02e3"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_rival_terry_3.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_rival_terry_3.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_trainer_may",
+  "requirements": [
+    [
+      "defeat_rival_terry_3"
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:light_coated_blue_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:white_apricorn_bits"
+    },
+    {
+      "item": "createmonballsoverhaul:blue_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:ancient_jet_ball_lid"
+    }
+  ],
+  "time": 200
+}

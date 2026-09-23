@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:step_by_step",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:cobalion_footprints"
+    },
+    "title": {
+      "text": "Justice is Served"
+    },
+    "description": {
+      "text": "Summon a Sword of Justice"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sword_of_justice_summoned": {
+      "trigger": "legendarymonuments:sword_of_justice_summoned",
+      "conditions": {}
+    }
+  }
+}

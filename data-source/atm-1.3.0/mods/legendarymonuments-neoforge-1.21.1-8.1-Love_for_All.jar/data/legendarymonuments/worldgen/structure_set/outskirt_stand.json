@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "legendarymonuments:outskirt_stand",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1522002,
+    "spread_type": "triangular",
+    "spacing": 70,
+    "separation": 40
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:pre_packaged",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:meltan_box"
+    },
+    "title": {
+      "text": "Unpackaged"
+    },
+    "description": {
+      "text": "Summon Meltan"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "meltan_summoned": {
+      "trigger": "legendarymonuments:meltan_summoned",
+      "conditions": {}
+    }
+  }
+}

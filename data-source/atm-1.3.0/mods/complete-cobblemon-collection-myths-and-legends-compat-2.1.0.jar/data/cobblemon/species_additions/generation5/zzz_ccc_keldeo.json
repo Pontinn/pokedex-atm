@@ -1,0 +1,12 @@
+{
+  "target": "cobblemon:keldeo",
+  "implemented": true,
+  "baseScale": 1,
+  "hitbox": {
+    "width": 1,
+    "height": 2,
+    "fixed": false
+  },
+  "standingEyeHeight": 0.7,
+  "swimmingEyeHeight": 0.7
+}

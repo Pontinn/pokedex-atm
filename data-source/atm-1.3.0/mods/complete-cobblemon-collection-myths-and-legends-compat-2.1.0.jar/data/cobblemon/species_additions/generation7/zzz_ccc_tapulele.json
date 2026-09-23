@@ -1,0 +1,10 @@
+{
+  "target": "cobblemon:tapulele",
+  "implemented": true,
+  "baseScale": 0.5,
+  "hitbox": {
+    "width": 0.9,
+    "height": 2,
+    "fixed": false
+  }
+}

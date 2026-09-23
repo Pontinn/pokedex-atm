@@ -1,0 +1,15 @@
+{
+  "type": "mekmm:stamper",
+  "input": {
+    "count": 1,
+    "tag": "c:nuggets/iron"
+  },
+  "mold": {
+    "count": 1,
+    "item": "createmonballsoverhaul:rubber_stamp_lid"
+  },
+  "output": {
+    "count": 1,
+    "id": "createmonballsoverhaul:stamped_iron_nugget_lid"
+  }
+}

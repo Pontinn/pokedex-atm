@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:lake_security",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:red_chain"
+    },
+    "title": {
+      "text": "Red means go"
+    },
+    "description": {
+      "text": "Craft a Red Chain"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "red_chain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:red_chain"]
+          }
+        ]
+      }
+    }
+  }
+}

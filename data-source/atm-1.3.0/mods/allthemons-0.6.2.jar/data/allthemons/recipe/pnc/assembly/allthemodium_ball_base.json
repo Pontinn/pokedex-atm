@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "item": "allthemodium:allthemodium_plate"
+  },
+  "program": "drill",
+  "result": {
+    "count": 1,
+    "id": "allthemons:allthemodium_ball_base"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "feature": "allthemons:birth_island_coral_2",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 4
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": 39
+        },
+        "max_inclusive": {
+          "absolute": 45
+        }
+      }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          { "type": "minecraft:matching_blocks", "offset": [0, 6, 0],
+            "blocks": ["eternal_starlight:nightfall_dirt", "eternal_starlight:tenacious_nightfall_grass_block"] },
+          { "type": "minecraft:matching_blocks", "offset": [5, 6, 0],
+            "blocks": ["eternal_starlight:nightfall_dirt", "eternal_starlight:tenacious_nightfall_grass_block"] },
+          { "type": "minecraft:matching_blocks", "offset": [0, 6, 3],
+            "blocks": ["eternal_starlight:nightfall_dirt", "eternal_starlight:tenacious_nightfall_grass_block"] },
+          { "type": "minecraft:matching_blocks", "offset": [5, 6, 3],
+            "blocks": ["eternal_starlight:nightfall_dirt", "eternal_starlight:tenacious_nightfall_grass_block"] }
+        ]
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:poketreat_box"
+    },
+    "title": {
+      "text": "So Many Choices"
+    },
+    "description": {
+      "text": "Obtain a PokéTreat Box"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "poketreat_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:poketreat_box"]
+          }
+        ]
+      }
+    }
+  }
+}

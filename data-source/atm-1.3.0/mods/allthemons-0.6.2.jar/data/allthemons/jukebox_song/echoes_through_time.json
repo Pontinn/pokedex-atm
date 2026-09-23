@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.allthemons.echoes_through_time"
+  },
+  "length_in_seconds": 138.0,
+  "sound_event": "allthemons:music_disc.gamechops.poke_ambient.echoes_through_time"
+}

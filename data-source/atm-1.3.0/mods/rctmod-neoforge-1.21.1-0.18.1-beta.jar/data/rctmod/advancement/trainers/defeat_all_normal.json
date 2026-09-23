@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "defeat_all_normal": {
+      "conditions": {
+        "count": -1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": "normal"
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_all_normal.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_all_normal.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_any",
+  "requirements": [
+    [
+      "defeat_all_normal"
+    ]
+  ]
+}

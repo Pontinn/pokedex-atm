@@ -1,0 +1,91 @@
+{
+  "criteria": {
+    "defeat_elite_four_agatha": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_agatha_0054",
+          "elite_four_agatha_0053"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_bruno": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_bruno_0051",
+          "elite_four_bruno_0050"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_lance": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_lance_0057",
+          "elite_four_lance_0056"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    },
+    "defeat_elite_four_lorelei": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "elite_four_lorelei_004e",
+          "elite_four_lorelei_004d"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_elite_four_kanto.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_elite_four_kanto.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_trainer_brendan_3",
+  "requirements": [
+    [
+      "defeat_elite_four_bruno"
+    ],
+    [
+      "defeat_elite_four_lance"
+    ],
+    [
+      "defeat_elite_four_lorelei"
+    ],
+    [
+      "defeat_elite_four_agatha"
+    ]
+  ]
+}

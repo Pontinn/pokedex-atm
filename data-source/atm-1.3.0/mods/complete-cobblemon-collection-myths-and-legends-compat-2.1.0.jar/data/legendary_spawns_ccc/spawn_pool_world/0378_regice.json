@@ -1,0 +1,39 @@
+{
+  "enabled": true,
+  "spawns": [
+    {
+      "id": "regice-1",
+      "pokemon": "regice",
+      "type": "pokemon",
+      "context": "fishing",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 6.0,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_cold"
+        ],
+        "canSeeSky": true,
+        "minLureLevel": 3
+      }
+    },
+    {
+      "id": "regice-2",
+      "pokemon": "regice",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 6.0,
+      "condition": {
+        "isRaining": true,
+        "biomes": [
+          "#cobblemon:is_freezing"
+        ]
+      }
+    }
+  ]
+}

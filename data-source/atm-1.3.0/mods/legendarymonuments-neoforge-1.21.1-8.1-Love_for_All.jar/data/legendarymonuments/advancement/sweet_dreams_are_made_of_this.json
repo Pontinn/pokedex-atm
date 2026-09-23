@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:dream_catcher"
+    },
+    "title": {
+      "text": "Sweet Dreams are made of this"
+    },
+    "description": {
+      "text": "Craft a Dream Catcher"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dream_catcher": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:dream_catcher"]
+          }
+        ]
+      }
+    }
+  }
+}

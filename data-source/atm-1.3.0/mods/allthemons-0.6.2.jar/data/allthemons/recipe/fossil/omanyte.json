@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:helix_fossil"
+  },
+  "output": "cobblemon:omanyte"
+}

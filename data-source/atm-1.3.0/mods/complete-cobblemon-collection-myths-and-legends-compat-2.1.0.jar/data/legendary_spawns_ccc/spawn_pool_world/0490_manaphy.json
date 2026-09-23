@@ -1,0 +1,41 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "manaphy-1",
+      "pokemon": "manaphy",
+      "type": "pokemon",
+      "context": "fishing",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 14.0,
+      "condition": {
+        "biomes": [
+              "#cobblemon:is_ocean",
+              "#cobblemon:is_deep_ocean"
+        ],
+        "minLureLevel": 2
+      }
+    },
+    {
+            "id": "manaphy-2",
+            "pokemon": "manaphy",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "surface",
+            "bucket": "ultra-rare",
+            "level": "50",
+            "weight": 7.0,
+            "condition": {
+                "biomes": [
+                        "#cobblemon:is_ocean",
+                        "#cobblemon:is_deep_ocean"
+                ]
+            }
+        }
+  ]
+}

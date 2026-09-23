@@ -1,0 +1,8 @@
+{
+  "type": "lithostitched:structure_template",
+  "config": {
+    "template": "allthemons:birth_island_coral_1",
+    "processors": "minecraft:empty",
+    "liquid_settings": "apply_waterlogging"
+  }
+}

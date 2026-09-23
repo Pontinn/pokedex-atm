@@ -1,0 +1,50 @@
+{
+  "enabled": "true",
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "duraludon-1",
+      "pokemon": "duraludon",
+      "type": "pokemon",
+      "presets": [
+        "natural"
+      ],
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "24-49",
+      "weight": 10.0,
+      "condition": {
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+          "#cobblemon:is_cold"
+        ]
+      },
+      "anticondition": {
+          "biomes": [
+              "#cobblemon:is_peak"
+          ]
+      }
+    },
+    {
+      "id": "duraludon-2",
+      "pokemon": "duraludon",
+      "type": "pokemon",
+      "presets": [
+        "natural"
+      ],
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "24-49",
+      "weight": 10.0,
+      "condition": {
+        "minSkyLight": 0,
+        "maxSkyLight": 7,
+        "biomes": [
+          "#cobblemon:is_peak"
+        ]
+      }
+    }
+  ]
+}

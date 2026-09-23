@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_laser",
+  "input": {
+    "count": 1,
+    "item": "cobblemon:stripped_apricorn_log"
+  },
+  "program": "laser",
+  "result": {
+    "count": 4,
+    "id": "createmonballsoverhaul:apricorn_ball_lid"
+  }
+}

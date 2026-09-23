@@ -1,0 +1,34 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:vibranium_ball_lid"
+  },
+  "results": [
+    {
+      "id": "allthemons:ancient_vibranium_ball_lid"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_vibranium_ball_lid"
+        },
+        {
+          "type": "neoforge:single",
+          "amount": 400,
+          "fluid": "createmonballsoverhaul:source_standard_tumblestone_coating"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_vibranium_ball_lid"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_ancient_vibranium_ball_lid"
+  }
+}

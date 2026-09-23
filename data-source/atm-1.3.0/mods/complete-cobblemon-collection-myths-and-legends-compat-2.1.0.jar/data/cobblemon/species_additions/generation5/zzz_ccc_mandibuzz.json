@@ -1,0 +1,10 @@
+{
+  "target": "cobblemon:mandibuzz",
+  "implemented": true,
+  "baseScale": 0.5,
+  "hitbox": {
+    "width": 1.2,
+    "height": 2.1,
+    "fixed": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:pink_ball_lid"
+    },
+    {
+      "tag": "c:dyes/white"
+    },
+    {
+      "item": "createmonballsoverhaul:blue_apricorn_bits"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:heal_ball_lid"
+    }
+  ],
+  "time": 200
+}

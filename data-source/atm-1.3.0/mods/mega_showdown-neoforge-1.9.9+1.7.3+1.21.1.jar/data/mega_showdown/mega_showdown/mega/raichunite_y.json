@@ -1,0 +1,15 @@
+{
+  "showdown_id": "raichunitey",
+  "pokemons": ["Raichu"],
+  "aspect_conditions": {
+    "apply": {
+      "aspect": {
+        "blacklist_aspects": [["alolan"]]
+      },
+      "aspects": ["mega_evolution=mega_y"]
+    },
+    "revert": {
+      "aspects": ["mega_evolution=none"]
+    }
+  }
+}

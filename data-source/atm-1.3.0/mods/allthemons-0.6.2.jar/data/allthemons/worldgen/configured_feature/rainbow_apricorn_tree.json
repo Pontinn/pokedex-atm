@@ -1,0 +1,204 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "allthemons:apricorn",
+        "probability": 0.3,
+        "apricorns": [
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:red_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:black_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:blue_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:green_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:pink_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:white_apricorn"
+            }
+          },
+          {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "cobblemon:yellow_apricorn"
+            }
+          }
+        ]
+      },
+      {
+        "type": "allthemodium:bottom_branch",
+        "probability": 0.2,
+        "max_blocks": 2,
+        "layers": [
+          {
+            "height": {
+              "type": "minecraft:weighted_list",
+              "distribution": [
+                {
+                  "data": {
+                    "type": "minecraft:uniform",
+                    "max_inclusive": 2,
+                    "min_inclusive": 0
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "type": "minecraft:uniform",
+                    "max_inclusive": 1,
+                    "min_inclusive": 0
+                  },
+                  "weight": 1
+                }
+              ]
+            },
+            "provider": {
+              "type": "minecraft:weighted_state_provider",
+              "entries": [
+                {
+                  "data": {
+                    "Name": "allthemodium:ancient_cavevines_plant",
+                    "Properties": {
+                      "berries": "false"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "allthemodium:ancient_cavevines_plant",
+                    "Properties": {
+                      "berries": "true"
+                    }
+                  },
+                  "weight": 1
+                }
+              ]
+            }
+          },
+          {
+            "height": 1,
+            "provider": {
+              "type": "minecraft:randomized_int_state_provider",
+              "property": "age",
+              "source": {
+                "type": "minecraft:weighted_state_provider",
+                "entries": [
+                  {
+                    "data": {
+                      "Name": "allthemodium:ancient_cavevines",
+                      "Properties": {
+                        "age": "0",
+                        "berries": "false"
+                      }
+                    },
+                    "weight": 2
+                  },
+                  {
+                    "data": {
+                      "Name": "allthemodium:ancient_cavevines",
+                      "Properties": {
+                        "age": "0",
+                        "berries": "true"
+                      }
+                    },
+                    "weight": 1
+                  }
+                ]
+              },
+              "values": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 25,
+                "min_inclusive": 23
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "minecraft:alter_ground",
+        "provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "allthemodium:ancient_podzol",
+            "Properties": {
+              "snowy": "false"
+            }
+          }
+        }
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "allthemodium:ancient_dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:fancy_foliage_placer",
+      "height": 4,
+      "offset": 4,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cobblemon:apricorn_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 0,
+      "lower_size": 0,
+      "min_clipped_height": 4,
+      "upper_size": 0
+    },
+    "trunk_placer": {
+      "type": "minecraft:fancy_trunk_placer",
+      "base_height": 3,
+      "height_rand_a": 11,
+      "height_rand_b": 0
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cobblemon:apricorn_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

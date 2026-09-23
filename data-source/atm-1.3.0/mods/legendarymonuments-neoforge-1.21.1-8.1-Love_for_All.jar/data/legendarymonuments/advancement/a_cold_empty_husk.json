@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:traces_of_truth_and_ideals",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:idealsbottle"
+    },
+    "title": {
+      "text": "A Cold Empty Husk"
+    },
+    "description": {
+      "text": "Summon Kyurem"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kyurem_summoned": {
+      "trigger": "legendarymonuments:kyurem_summoned",
+      "conditions": {}
+    }
+  }
+}

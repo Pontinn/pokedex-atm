@@ -1,0 +1,1971 @@
+{
+  "low_level_cap": [
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.low_level_cap.15"
+    }
+  ],
+  "missing_pokemon": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_pokemon.15"
+    }
+  ],
+  "missing_required_series": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_series.15"
+    }
+  ],
+  "missing_required_trainer": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.15"
+    }
+  ],
+  "missing_required_trainer_champ": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.champ.15"
+    }
+  ],
+  "missing_required_trainer_e4": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.e4.15"
+    }
+  ],
+  "missing_required_trainer_leader": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.leader.15"
+    }
+  ],
+  "missing_required_trainer_light_of_ruin": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.light_of_ruin.15"
+    }
+  ],
+  "missing_required_trainer_rival": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.rival.15"
+    }
+  ],
+  "missing_required_trainer_team_galactic": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_galactic.15"
+    }
+  ],
+  "missing_required_trainer_team_rocket": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_rocket.15"
+    }
+  ],
+  "missing_required_trainer_team_shadow": [
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.missing_required_trainer.team_shadow.15"
+    }
+  ],
+  "on_battle_lost": [
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_lost.63"
+    }
+  ],
+  "on_battle_start": [
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_start.63"
+    }
+  ],
+  "on_battle_won": [
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_battle_won.63"
+    }
+  ],
+  "on_cooldown": [
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.on_cooldown.63"
+    }
+  ],
+  "over_level_cap": [
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.over_level_cap.15"
+    }
+  ],
+  "player_busy": [
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.player_busy.15"
+    }
+  ],
+  "trainer_busy": [
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_busy.15"
+    }
+  ],
+  "trainer_lost": [
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_lost.63"
+    }
+  ],
+  "trainer_won": [
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.15"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.16"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.17"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.18"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.19"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.20"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.21"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.22"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.23"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.24"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.25"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.26"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.27"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.28"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.29"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.30"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.31"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.32"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.33"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.34"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.35"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.36"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.37"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.38"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.39"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.40"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.41"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.42"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.43"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.44"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.45"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.46"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.47"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.48"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.49"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.50"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.51"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.52"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.53"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.54"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.55"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.56"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.57"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.58"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.59"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.60"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.61"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.62"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.trainer_won.63"
+    }
+  ],
+  "unknown_reason": [
+    {
+      "translatable": "dialogs.rctmod.default.unknown_reason"
+    }
+  ],
+  "wrong_series": [
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.0"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.1"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.2"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.3"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.4"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.5"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.6"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.7"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.8"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.9"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.10"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.11"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.12"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.13"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.14"
+    },
+    {
+      "translatable": "dialogs.rctmod.default.wrong_series.15"
+    }
+  ]
+}

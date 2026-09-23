@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Wishiwashi"],
+  "showdown_form_change_id": "school",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["schooling_form=school"]
+    },
+    "revert": {
+      "aspects": ["schooling_form=solo"]
+    }
+  },
+  "effect": "mega_showdown:wishiwashi_effect"
+}

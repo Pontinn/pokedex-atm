@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:molten_stone"
+    },
+    {
+      "item": "legendarymonuments:zap_stone"
+    },
+    {
+      "item": "legendarymonuments:arctic_stone"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:vortex_stone"
+  }
+}

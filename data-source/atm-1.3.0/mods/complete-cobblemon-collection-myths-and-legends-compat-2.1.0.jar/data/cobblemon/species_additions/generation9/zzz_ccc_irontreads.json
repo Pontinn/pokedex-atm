@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:irontreads",
+  "implemented": true,
+  "hitbox": {
+    "width": 1.2,
+    "height": 2,
+    "fixed": false
+  }
+}

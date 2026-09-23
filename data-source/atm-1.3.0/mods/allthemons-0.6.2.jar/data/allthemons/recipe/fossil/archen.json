@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:plume_fossil"
+  },
+  "output": "cobblemon:archen"
+}

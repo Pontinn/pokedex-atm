@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "allthemons:souls"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "allthemons:soul_heart_mechanism"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "allthemons:blocks/soul_heart_mechanism"
+}

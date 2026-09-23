@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "defeat_any": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "rctmod:textures/gui/advancements/backgrounds/rctmod.png",
+    "description": {
+      "translate": "advancements.rctmod.defeat_any.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "rctmod:trainer_card"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_any.title"
+    }
+  },
+  "requirements": [
+    [
+      "defeat_any"
+    ]
+  ]
+}

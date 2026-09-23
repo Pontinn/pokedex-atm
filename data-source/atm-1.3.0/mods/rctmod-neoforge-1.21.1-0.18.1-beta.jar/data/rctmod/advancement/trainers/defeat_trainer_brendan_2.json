@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_trainer_brendan_2": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "trainer_brendan_0039"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_trainer_brendan_2.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_trainer_brendan_2.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_sabrina",
+  "requirements": [
+    [
+      "defeat_trainer_brendan_2"
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "msd_id": "silverwing",
+  "item_id": "legendarymonuments:silver_wing",
+  "item_name": "Silver Wing",
+  "custom_model_data": 0,
+  "item_description": [
+   "<gray>Increases special attack and special defense by 50% if equipped on Lugia"
+  ],
+  "showdown_item_id": "silverwing"
+}

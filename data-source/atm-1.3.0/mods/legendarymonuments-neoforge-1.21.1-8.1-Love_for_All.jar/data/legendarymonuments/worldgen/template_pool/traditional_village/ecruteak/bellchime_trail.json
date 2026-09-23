@@ -1,0 +1,16 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "legendarymonuments:traditional_village/ecruteak/bellchime_trail",
+        "processors": {
+          "processors": []
+        },
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

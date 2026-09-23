@@ -21,6 +21,7 @@ A revisao da SPEC deu NEEDS-CHANGES. Um agente estava aplicando as correcoes aba
 6. THEME_IDS: ordem canonica append-only = ordem do RF-79, em `src/styles/themes.ts`, enumerada em 5.3 e citada em B7.2.
 7. F2.1 Done-when: tirar `mobile-boot-splash.png` (e a tampa do boot); marcar "sem captura de referencia".
 8. Nits: B2.2 ignorar prefixos `legacy`/`special`/`form_change`; B2.4 mega = 81 arquivos; F1.3 historico = 40 no prototipo (app.js:1223); UiState com compare/sync/settings/home; QR modo byte v24-M (914), cabecalho dentro dos 900, parser corta so nos 3 primeiros pontos; uniao de derrotados: menor `at` vence; `fast-check` e `msw` na tabela de dependencias; linha do store `backups` no mapa 2b.
+10. [NOVO, decisao do orquestrador] O Pontin NAO tem o modpack no outro PC. Os dados da instancia foram copiados para `data-source/atm-1.3.0/` (69 MB, ver `data-source/README.md`). A SPEC deve fazer o pipeline aceitar essa pasta como fonte (jars ja abertos em `mods/<nome-do-jar>/`) alem da instancia real; `ATM_INSTANCE_DIR` com default `data-source/atm-1.3.0`. Ajustar B1/B2 e o CONTEXT.
 9. Baseline do SPEC: PRD c22a97f1, CONTEXT fc72ef60 (reconferir com git hash-object).
 Depois: commitar, `forge-checklist` (haiku) gera o CHECKLIST, commitar/push e PARAR antes da implementacao.
 
@@ -34,7 +35,7 @@ Depois: commitar, `forge-checklist` (haiku) gera o CHECKLIST, commitar/push e PA
 
 ## O que o PC novo precisa ter
 
-- A instancia do modpack instalada (CurseForge): All the Mons 1.3.0 (Cobblemon 1.7.3). O pipeline de dados le os jars em `mods/`, `kubejs/data/` e `config/` dessa instancia. No PC original o caminho e `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`; em outro PC o caminho muda e a SPEC preve a variavel `ATM_INSTANCE_DIR` para apontar para ela.
+- NAO precisa do modpack: os dados usados estao em `data-source/atm-1.3.0/` (copia extraida em 2026-09-23). A instancia original ficou no PC de casa (`C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`).
 - Node 24 + npm 11 (versoes usadas aqui), Git, Playwright instalado globalmente.
 - Para a Fase 2 (apps, futura): JDK 21 e Android SDK 36 (ANDROID_HOME).
 - `ui-refs/` (50 prints de referencia) e `STATE_pontindex.md` vem no clone. Se precisar refazer os prints: `/forge --ui-recon pontindex`, servindo a pasta `design/` como raiz (nao `design/prototipo/`).

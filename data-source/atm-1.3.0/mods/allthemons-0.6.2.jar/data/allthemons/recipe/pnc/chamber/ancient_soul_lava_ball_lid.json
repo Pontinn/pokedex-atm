@@ -1,0 +1,20 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:ancient_great_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "allthemodium:soul_lava_bucket"
+    }
+  ],
+  "pressure": 3.5,
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:ancient_soul_lava_ball_lid"
+    }
+  ]
+}

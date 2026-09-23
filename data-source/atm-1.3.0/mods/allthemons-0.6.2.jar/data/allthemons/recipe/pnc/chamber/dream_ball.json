@@ -1,0 +1,28 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "inputs": [
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:sturdy_ball_mechanism"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:dream_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "createmonballsoverhaul:blue_ball_lid"
+    },
+    {
+      "count": 1,
+      "item": "create:polished_rose_quartz"
+    }
+  ],
+  "pressure": 4.8,
+  "results": [
+    {
+      "count": 1,
+      "id": "cobblemon:dream_ball"
+    }
+  ]
+}

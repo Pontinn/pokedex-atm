@@ -1,0 +1,13 @@
+{
+  "parent": "legendarymonuments:glastrier",
+  "display": {
+    "icon": { "id": "legendarymonuments:steed_pedestal" },
+    "title": { "text": "The King of Bountiful Harvests" },
+    "description": { "text": "Earn Calyrex" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": { "calyrex_summoned": { "trigger": "legendarymonuments:calyrex_summoned", "conditions": {} } }
+}

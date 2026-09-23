@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "zamazenta-1",
+      "pokemon": "zamazenta",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 5.0,
+      "weightMultipliers": [
+        {
+          "multiplier": 4,
+          "condition": {
+            "isRaining": true
+          }
+        }
+      ],
+      "condition": {
+        "isRaining": true,
+        "minSkyLight": 8,
+        "maxSkyLight": 15,
+        "biomes": [
+    "#cobblemon:is_taiga",
+    "#cobblemon:is_plateau",
+    "#cobblemon:is_savanna",
+    "#cobblemon:is_highlands",
+    "#cobblemon:is_magical"        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "implemented": true,
+  "target": "cobblemon:typenull",
+  "riding": {
+  "behaviours": {
+    "LAND": {
+      "key": "cobblemon:land/horse",
+      "rideSounds": [],
+      "stats": {
+        "ACCELERATION": "30-60",
+        "JUMP": "30-65",
+        "SKILL": "40-70",
+        "SPEED": "20-40",
+        "STAMINA": "60-95"
+      }
+    }
+  },
+  "seats": [
+    {
+      "locator": "seat_1"
+    }
+  ]
+},
+  "baseScale": 1,
+  "behaviour": {
+    "moving": {
+      "canLook": true,
+      "walk": {
+        "walkSpeed": 0.4,
+        "canWalk": true,
+        "avoidsLand": false
+      },
+      "fly": {
+        "canFly": false
+      },
+      "swim": {
+        "swimSpeed": 0.3,
+        "canSwimInWater": false,
+        "canBreatheUnderwater": false
+      }
+    }
+  },
+  "hitbox": {
+    "width": 2,
+    "height": 3,
+    "fixed": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "legendarymonuments:plains_of_death",
+  "max_distance_from_center": 116,
+  "size": 1,
+  "spawn_overrides": {},
+  "start_height": {
+    "absolute": -14
+  },
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
+  "start_pool": "legendarymonuments:yveltal_cocoon",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "use_expansion_hack": false,
+  "liquid_settings": "ignore_waterlogging"
+}

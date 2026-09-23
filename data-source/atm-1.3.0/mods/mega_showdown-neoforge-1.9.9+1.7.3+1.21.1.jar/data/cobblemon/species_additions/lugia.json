@@ -1,0 +1,77 @@
+{
+  "implemented": true,
+  "target": "cobblemon:lugia",
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
+        ],
+        "stats": {
+          "SPEED": "70-95",
+          "ACCELERATION": "20-100",
+          "SKILL": "50-100",
+          "JUMP": "25-50",
+          "STAMINA": "130-150"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "10-20",
+          "ACCELERATION": "90-100",
+          "SKILL": "15-30",
+          "JUMP": "10-20",
+          "STAMINA": "15-30"
+        }
+      },
+	  "LIQUID": {
+        "key": "cobblemon:liquid/dolphin",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "55-85",
+          "JUMP": "30-65",
+          "SKILL": "10-40",
+          "SPEED": "55-85",
+          "STAMINA": "80-135"
+        }
+      }
+    },
+    "seats": [
+      {
+        "locator": "seat_1"
+      }
+    ]
+  },
+  "hitbox": {
+    "width": 2,
+    "height": 7,
+    "fixed": false
+  },
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.28
+      },
+      "fly": {
+        "canFly": true,
+        "flySpeedHorizontal": 0.7
+      },
+      "swim": {
+        "swimSpeed": 0.7,
+        "canBreatheUnderwater": true,
+        "canWalkOnWater": false,
+        "canSwimInWater": true,
+        "canSwimInLava": false
+      }
+    }
+  },
+  "baseScale": 1.1
+}

@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:sturdy_ancient_ball_mechanism"
+  },
+  "results": [
+    {
+      "id": "allthemons:ancient_soul_lava_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_soul_lava_ball"
+        },
+        {
+          "item": "allthemons:ancient_soul_lava_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_soul_lava_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_soul_lava_ball"
+        },
+        {
+          "item": "createmonballsoverhaul:apricorn_ball_lid"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_soul_lava_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_ancient_soul_lava_ball"
+        },
+        {
+          "tag": "c:rods/iron"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_ancient_soul_lava_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_ancient_soul_lava_ball"
+  }
+}

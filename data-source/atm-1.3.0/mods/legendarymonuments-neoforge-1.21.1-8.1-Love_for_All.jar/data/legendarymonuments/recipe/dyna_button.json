@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legendarymonuments:dyna_planks"
+    }
+  ],
+  "result": {
+    "id": "legendarymonuments:dyna_button",
+    "count": 1
+  }
+}

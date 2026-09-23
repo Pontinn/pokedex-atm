@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:meltan_box"
+    },
+    "title": {
+      "text": "Pre-Packaged"
+    },
+    "description": {
+      "text": "Craft a Meltan Box"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "meltan_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["legendarymonuments:meltan_box"]
+          }
+        ]
+      }
+    }
+  }
+}

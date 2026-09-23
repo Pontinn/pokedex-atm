@@ -1,0 +1,28 @@
+{
+  "target": "cobblemon:kommoo",
+"drops": {
+    "amount": 5,
+    "entries": [
+      {
+        "item": "cobblemon:dragon_scale",
+        "quantityRange": "0-3"
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 10.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 10.0
+      },
+      {
+        "item": "cobblemon:razor_claw",
+        "percentage": 10.0
+      },
+      {
+        "item": "cobblemon:roseli_berry",
+        "percentage": 2.5
+      }
+    ]
+  }
+  }

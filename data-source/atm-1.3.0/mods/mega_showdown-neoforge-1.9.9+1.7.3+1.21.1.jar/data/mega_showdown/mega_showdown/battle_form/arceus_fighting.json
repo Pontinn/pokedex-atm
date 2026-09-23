@@ -1,0 +1,13 @@
+{
+  "pokemons": ["Arceus"],
+  "showdown_form_change_id": "fighting",
+  "aspect_conditions": {
+    "apply": {
+      "aspects": ["multitype=fighting"]
+    },
+    "revert": {
+      "aspects": ["multitype=normal"]
+    }
+  },
+  "effect": "mega_showdown:arceus_fighting"
+}

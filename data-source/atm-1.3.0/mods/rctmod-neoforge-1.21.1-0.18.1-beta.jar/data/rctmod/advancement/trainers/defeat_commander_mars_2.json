@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_commander_mars_2": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "commander_mars_041c"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_commander_mars_2.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_commander_mars_2.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_commander_saturn_1",
+  "requirements": [
+    [
+      "defeat_commander_mars_2"
+    ]
+  ]
+}

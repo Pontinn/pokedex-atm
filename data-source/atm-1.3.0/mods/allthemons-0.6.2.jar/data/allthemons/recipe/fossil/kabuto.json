@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:dome_fossil"
+  },
+  "output": "cobblemon:kabuto"
+}

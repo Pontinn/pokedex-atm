@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:dead_heroes",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:zacian_pedestal"
+    },
+    "title": {
+      "text": "Problem Solving Device"
+    },
+    "description": {
+      "text": "Summon Zacian"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "zacian_summoned": {
+      "trigger": "legendarymonuments:zacian_summoned",
+      "conditions": {}
+    }
+  }
+}

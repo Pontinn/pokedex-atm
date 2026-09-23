@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_gym_leader_byron_1": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "gym_leader_byron_0399"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_gym_leader_byron_1.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_gym_leader_byron_1.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_pokemon_trainer_cedric_3",
+  "requirements": [
+    [
+      "defeat_gym_leader_byron_1"
+    ]
+  ]
+}

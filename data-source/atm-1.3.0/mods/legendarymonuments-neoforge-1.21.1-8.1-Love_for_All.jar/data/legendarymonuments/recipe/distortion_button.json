@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legendarymonuments:distortion_planks" }
+  ],
+  "result": {
+    "id": "legendarymonuments:distortion_button"
+  }
+}

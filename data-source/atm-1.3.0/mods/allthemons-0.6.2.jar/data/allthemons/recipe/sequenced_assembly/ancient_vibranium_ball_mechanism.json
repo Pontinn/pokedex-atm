@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "allthemons:vibranium_ball_base"
+  },
+  "results": [
+    {
+      "id": "allthemons:ancient_vibranium_ball_mechanism"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_vibranium_ball_base"
+        },
+        {
+          "item": "allthemodium:vibranium_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_vibranium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_vibranium_ball_base"
+        },
+        {
+          "item": "create:shaft"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_vibranium_ball_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "allthemons:unfinished_vibranium_ball_base"
+        },
+        {
+          "item": "allthemons:vibranium_ball_base"
+        }
+      ],
+      "results": [
+        {
+          "id": "allthemons:unfinished_vibranium_ball_base"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "allthemons:unfinished_vibranium_ball_base"
+  }
+}

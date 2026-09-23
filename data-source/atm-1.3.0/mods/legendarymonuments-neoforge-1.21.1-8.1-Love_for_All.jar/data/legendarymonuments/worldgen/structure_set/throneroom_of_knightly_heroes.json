@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 86456386,
+    "separation": 100,
+    "spacing": 150
+  },
+  "structures": [
+    {
+      "structure": "legendarymonuments:throneroom_of_knightly_heroes",
+      "weight": 1
+    }
+  ]
+}

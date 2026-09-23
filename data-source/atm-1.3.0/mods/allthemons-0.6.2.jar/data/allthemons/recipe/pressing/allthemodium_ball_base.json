@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "allthemons:allthemodium_stamped_plate_lid"
+    }
+  ],
+  "results": [
+    {
+      "id": "allthemons:allthemodium_ball_base"
+    }
+  ]
+}

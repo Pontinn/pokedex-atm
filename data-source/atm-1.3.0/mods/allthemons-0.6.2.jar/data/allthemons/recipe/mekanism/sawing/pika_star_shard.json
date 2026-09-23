@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:sawing",
+  "input": {
+    "count": 1,
+    "item": "allthemons:pika_star"
+  },
+  "main_output": {
+    "count": 5,
+    "id": "allthemons:pika_star_chunk"
+  }
+}

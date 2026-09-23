@@ -1,0 +1,11 @@
+{
+  "type": "lithostitched:add_features",
+  "biomes": "eternal_starlight:starlit_sea",
+  "step": "vegetal_decoration",
+  "features": [
+    "allthemons:birth_island_vines",
+    "allthemons:birth_island_coral_1",
+    "allthemons:birth_island_coral_2",
+    "allthemons:birth_island_coral_3"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:paper" },
+    { "item": "legendarymonuments:essence_of_love" },
+    { "item": "legendarymonuments:essence_of_friendship" },
+    { "item": "legendarymonuments:essence_of_altruism" }
+  ],
+  "result": {
+    "id": "legendarymonuments:love_letter",
+    "count": 1
+  }
+}

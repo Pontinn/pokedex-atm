@@ -1,0 +1,12 @@
+{
+  "type": "pneumaticcraft:assembly_drill",
+  "input": {
+    "count": 1,
+    "tag": "c:nuggets/copper"
+  },
+  "program": "drill",
+  "result": {
+    "count": 1,
+    "id": "createmonballsoverhaul:copper_ball_base"
+  }
+}

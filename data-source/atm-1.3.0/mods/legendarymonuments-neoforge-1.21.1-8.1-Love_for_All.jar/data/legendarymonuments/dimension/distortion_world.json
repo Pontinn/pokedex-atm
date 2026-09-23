@@ -1,0 +1,26 @@
+{
+  "type": "legendarymonuments:distortion_world_type",
+  "generator": {
+    "type": "legendarymonuments:distortion_chunk_generator",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "legendarymonuments:distortion_world_biome"
+    },
+    "island_config": {
+      "ores": [
+        {
+          "ore": "minecraft:diamond_ore",
+          "chance": 0.05,
+          "min_y": -20,
+          "max_y": -5
+        },
+        {
+          "ore": "minecraft:emerald_ore",
+          "chance": 0.03,
+          "min_y": -15,
+          "max_y": -3
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:suspisciously_sweet_dreams",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:fullmoon_whistle"
+    },
+    "title": {
+      "text": "Light Side of the Moon"
+    },
+    "description": {
+      "text": "Summon Cresselia"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cresselia_summoned": {
+      "trigger": "legendarymonuments:cresselia_summoned",
+      "conditions": {}
+    }
+  }
+}

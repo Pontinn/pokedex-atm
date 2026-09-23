@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "DDD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "legendarymonuments:lightstone_shard"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:lightstone"
+  }
+}

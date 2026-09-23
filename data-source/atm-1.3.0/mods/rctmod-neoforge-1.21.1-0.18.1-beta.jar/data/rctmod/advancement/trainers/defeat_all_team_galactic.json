@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "defeat_all_team_galactic": {
+      "conditions": {
+        "count": -1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [],
+        "trainer_type": "team_galactic"
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_all_team_galactic.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_all_team_galactic.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_team_galactic_boss_cyrus_2",
+  "requirements": [
+    [
+      "defeat_all_team_galactic"
+    ]
+  ]
+}

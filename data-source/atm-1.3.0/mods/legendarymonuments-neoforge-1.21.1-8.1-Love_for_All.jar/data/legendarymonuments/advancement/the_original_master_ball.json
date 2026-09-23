@@ -1,0 +1,30 @@
+{
+  "parent": "legendarymonuments:i_see_red",
+  "display": {
+    "icon": {
+      "id": "cobblemon:ancient_origin_ball"
+    },
+    "title": {
+      "text": "The Original Master Ball"
+    },
+    "description": {
+      "text": "Obtain an Ancient Origin Ball"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "origin_ball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["cobblemon:ancient_origin_ball"]
+          }
+        ]
+      }
+    }
+  }
+}

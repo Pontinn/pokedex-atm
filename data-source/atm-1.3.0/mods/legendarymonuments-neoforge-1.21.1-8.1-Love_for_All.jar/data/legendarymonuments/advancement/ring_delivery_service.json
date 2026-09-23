@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:root",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:hoopa_pedestal"
+    },
+    "title": {
+      "text": "Ring Delivery Service"
+    },
+    "description": {
+      "text": "Summon Hoopa"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "hoopa_summoned": {
+      "trigger": "legendarymonuments:hoopa_summoned",
+      "conditions": {}
+    }
+  }
+}

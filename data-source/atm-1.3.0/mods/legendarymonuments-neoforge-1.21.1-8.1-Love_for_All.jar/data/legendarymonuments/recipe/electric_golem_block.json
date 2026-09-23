@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "legendarymonuments:electric_golem_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:electric_golem_block"
+  }
+}

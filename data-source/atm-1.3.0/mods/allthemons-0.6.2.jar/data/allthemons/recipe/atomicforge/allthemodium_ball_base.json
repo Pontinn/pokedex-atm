@@ -1,0 +1,15 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemodium:allthemodium_plate"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:allthemodium_ball_base"
+    }
+  ],
+  "time": 200
+}

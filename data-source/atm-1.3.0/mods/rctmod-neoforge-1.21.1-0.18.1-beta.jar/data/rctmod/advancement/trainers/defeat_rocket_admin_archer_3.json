@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_rocket_admin_archer_3": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "rocket_admin_archer_0043"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_3.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_rocket_admin_archer_3.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_blaine",
+  "requirements": [
+    [
+      "defeat_rocket_admin_archer_3"
+    ]
+  ]
+}

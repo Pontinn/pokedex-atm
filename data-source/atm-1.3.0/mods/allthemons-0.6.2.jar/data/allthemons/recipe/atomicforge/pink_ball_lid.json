@@ -1,0 +1,18 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:blank_ball_lid"
+    },
+    {
+      "tag": "c:dyes/pink"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:pink_ball_lid"
+    }
+  ],
+  "time": 200
+}

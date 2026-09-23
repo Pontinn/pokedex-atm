@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "celesteela-1",
+      "pokemon": "celesteela",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70-100",
+      "weight": 8.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+    "#cobblemon:is_bamboo"
+        ]
+      }
+    },
+    {
+      "id": "celesteela-2",
+      "pokemon": "celesteela",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70-100",
+      "weight": 8.0,
+      "condition": {
+        "canSeeSky": true,
+        "biomes": [
+    "#cobblemon:is_end"
+        ]
+      }
+    }
+  ]
+}

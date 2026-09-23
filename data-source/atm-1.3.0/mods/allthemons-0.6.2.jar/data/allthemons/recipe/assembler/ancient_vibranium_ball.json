@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "allthemons:ancient_vibranium_ball_mechanism"
+    },
+    {
+      "item": "allthemons:ancient_vibranium_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:apricorn_ball_lid"
+    },
+    {
+      "tag": "c:rods/iron"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:ancient_vibranium_ball"
+    }
+  ],
+  "time": 120
+}

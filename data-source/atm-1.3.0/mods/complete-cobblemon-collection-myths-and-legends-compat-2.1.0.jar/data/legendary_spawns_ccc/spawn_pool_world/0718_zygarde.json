@@ -1,0 +1,107 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "zygarde-1",
+      "pokemon": "zygarde percent_cells=core",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "1-10",
+      "weight": 5.0,
+      "weightMultiplier": {
+        "multiplier": 1.5,
+        "condition": {
+          "maxY": -16
+        }
+      },
+      "condition": {
+        "minSkyLight": 0,
+        "maxSkyLight": 7,
+        "maxY": 0,
+        "biomes": [
+    "#cobblemon:is_forest",
+    "#cobblemon:is_cave",
+    "#cobblemon:is_swamp"        ]
+      }
+    },
+    {
+      "id": "zygarde-2",
+      "pokemon": "zygarde percent_cells=10",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "10-50",
+      "weight": 5.0,
+      "weightMultiplier": {
+        "multiplier": 1.5,
+        "condition": {
+          "maxY": -32
+        }
+      },
+      "condition": {
+        "minSkyLight": 0,
+        "maxSkyLight": 7,
+        "maxY": -16,
+        "biomes": [
+    "#cobblemon:is_forest",
+    "#cobblemon:is_cave",
+    "#cobblemon:is_swamp"        ]
+      }
+    },
+    {
+      "id": "zygarde-3",
+      "pokemon": "zygarde percent_cells=50",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-80",
+      "weight": 5.0,
+      "weightMultiplier": {
+        "multiplier": 1.5,
+        "condition": {
+          "maxY": -48
+        }
+      },
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ]
+      }
+    },
+    {
+      "id": "zygarde-3",
+      "pokemon": "zygarde percent_cells=complete",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-80",
+      "weight": 9.5,
+      "weightMultiplier": {
+        "multiplier": 3.0,
+        "condition": {
+          "maxY": -48
+        }
+      },
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ]
+      }
+    }
+  ]
+}

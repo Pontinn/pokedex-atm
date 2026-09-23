@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:not_forgotten",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:ilex_shrine"
+    },
+    "title": {
+      "text": "Gotta Save Em' All!"
+    },
+    "description": {
+      "text": "Summon Celebi"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "celebi_summoned": {
+      "trigger": "legendarymonuments:celebi_summoned",
+      "conditions": {}
+    }
+  }
+}

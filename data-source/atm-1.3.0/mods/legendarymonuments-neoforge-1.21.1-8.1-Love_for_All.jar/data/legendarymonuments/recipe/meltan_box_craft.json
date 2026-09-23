@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RWB",
+    "USU",
+    "UUU"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "S": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "B": {
+      "item": "minecraft:lapis_block"
+    },
+    "W": {
+      "tag": "legendarymonuments:golem_ingots"
+    },
+    "U": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:meltan_box"
+  }
+}

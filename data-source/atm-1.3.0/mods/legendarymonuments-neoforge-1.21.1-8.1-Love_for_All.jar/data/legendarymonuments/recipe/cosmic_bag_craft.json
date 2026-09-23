@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "ASA",
+    "WUW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "cobblemon:star_sweet"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "P": {
+      "item": "cobblemon:psychic_gem"
+    },
+    "U": {
+      "item": "cobblemon:ultra_ball"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:cosmic_bag"
+  }
+}

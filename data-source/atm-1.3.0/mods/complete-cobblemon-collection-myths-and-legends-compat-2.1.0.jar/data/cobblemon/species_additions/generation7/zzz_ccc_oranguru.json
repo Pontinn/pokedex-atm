@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:oranguru",
+  "implemented": true,
+  "hitbox": {
+    "width": 1,
+    "height": 1.8,
+    "fixed": false
+  }
+}

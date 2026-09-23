@@ -1,0 +1,15 @@
+{
+  "type": "oritech:grinder",
+  "ingredients": [
+    {
+      "item": "allthemons:allthemodium_apricorn"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "id": "allthemons:half_allthemodium_apricorn"
+    }
+  ],
+  "time": 40
+}

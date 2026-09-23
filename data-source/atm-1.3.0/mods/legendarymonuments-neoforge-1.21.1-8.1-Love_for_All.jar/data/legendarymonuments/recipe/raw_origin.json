@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "ingredient": {
+    "item": "legendarymonuments:distortion_origin_ore"
+  },
+  "result": {
+    "id": "legendarymonuments:raw_origin"
+  },
+  "experience": 2,
+  "cookingtime": 200
+}

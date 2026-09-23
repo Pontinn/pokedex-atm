@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "kill_trainer": {
+      "conditions": {
+        "count": null,
+        "entity": {
+          "type": "rctmod:trainer"
+        },
+        "trainer_ids": [],
+        "trainer_type": null
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.kill_any.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.kill_any.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_any",
+  "requirements": [
+    [
+      "kill_trainer"
+    ]
+  ]
+}

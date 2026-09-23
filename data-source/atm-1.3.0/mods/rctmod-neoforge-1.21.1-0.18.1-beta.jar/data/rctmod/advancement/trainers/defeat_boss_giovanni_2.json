@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_boss_giovanni_2": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "boss_giovanni_015d"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_boss_giovanni_2.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_boss_giovanni_2.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_rocket_admin_archer_and_ariana",
+  "requirements": [
+    [
+      "defeat_boss_giovanni_2"
+    ]
+  ]
+}

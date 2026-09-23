@@ -1,0 +1,10 @@
+{
+  "description": {
+    "translatable": "series.rctmod.radicalred.description"
+  },
+  "difficulty": 9,
+  "requiredSeries": [],
+  "title": {
+    "translatable": "series.rctmod.radicalred.title"
+  }
+}

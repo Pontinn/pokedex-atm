@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ogerpon-1",
+      "pokemon": "ogerpon",
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "65",
+      "weight": 5,
+      "condition": {
+        "biomes": [
+    "#cobblemon:is_floral",
+    "#cobblemon:is_bamboo",
+    "#cobblemon:is_jungle"
+        ]
+      }
+    }
+  ]
+}

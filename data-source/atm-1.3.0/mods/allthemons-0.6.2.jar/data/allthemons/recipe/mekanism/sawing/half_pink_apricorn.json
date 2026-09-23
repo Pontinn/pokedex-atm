@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:sawing",
+  "input": {
+    "count": 1,
+    "item": "cobblemon:pink_apricorn"
+  },
+  "main_output": {
+    "count": 2,
+    "id": "createmonballsoverhaul:half_pink_apricorn"
+  }
+}

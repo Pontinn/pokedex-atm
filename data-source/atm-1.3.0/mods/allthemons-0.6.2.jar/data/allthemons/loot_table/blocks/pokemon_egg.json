@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "allthemons:species",
+                "allthemons:nature",
+                "allthemons:moves",
+                "allthemons:features",
+                "allthemons:aspects",
+                "allthemons:ivs",
+                "allthemons:egg_level",
+                "allthemons:egg_time",
+                "allthemons:shiny_modifier"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "allthemons:pokemon_egg"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "allthemons:blocks/pokemon_egg"
+}

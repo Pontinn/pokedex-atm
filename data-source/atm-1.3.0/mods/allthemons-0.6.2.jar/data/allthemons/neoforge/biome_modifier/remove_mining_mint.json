@@ -1,0 +1,7 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "allthemodium:mining",
+  "features": [
+    "cobblemon:mints"
+  ]
+}

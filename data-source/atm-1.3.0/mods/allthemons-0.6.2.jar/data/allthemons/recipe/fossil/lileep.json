@@ -1,0 +1,7 @@
+{
+  "type": "allthemons:fossil",
+  "input": {
+    "item": "cobblemon:root_fossil"
+  },
+  "output": "cobblemon:lileep"
+}

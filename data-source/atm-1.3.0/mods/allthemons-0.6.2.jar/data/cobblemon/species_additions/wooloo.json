@@ -1,0 +1,19 @@
+{
+  "target": "cobblemon:wooloo",
+  "drops": {
+    "amount": 4,
+    "entries": [
+      {
+        "item": "minecraft:mutton",
+        "quantityRange": "1-2"
+      },
+      {
+        "item": "minecraft:white_wool"
+      },
+      {
+        "item": "silentgear:sinew",
+        "percentage": 30
+      }
+    ]
+  }
+}

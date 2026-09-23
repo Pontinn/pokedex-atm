@@ -1,0 +1,10 @@
+{
+  "description": {
+    "translatable": "series.rctmod.bdsp.description"
+  },
+  "difficulty": 5,
+  "requiredSeries": [],
+  "title": {
+    "translatable": "series.rctmod.bdsp.title"
+  }
+}

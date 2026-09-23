@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_leader_giovanni": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "leader_giovanni_015e"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_leader_giovanni.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_leader_giovanni.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_leader_erika",
+  "requirements": [
+    [
+      "defeat_leader_giovanni"
+    ]
+  ]
+}

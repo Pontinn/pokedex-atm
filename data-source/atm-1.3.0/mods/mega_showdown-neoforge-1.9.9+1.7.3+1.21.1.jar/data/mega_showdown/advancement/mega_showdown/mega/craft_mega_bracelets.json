@@ -1,0 +1,130 @@
+{
+  "display": {
+    "icon": {
+      "id": "mega_showdown:maxie_glasses"
+    },
+    "title": {
+      "translate": "advancement.mega_showdown.craft_mega_bracelets.title",
+      "fallback": "Rainbow of Power, Ready to Mega!"
+    },
+    "description": {
+      "translate": "advancement.mega_showdown.craft_mega_bracelets.description",
+      "fallback": "Collect every variant of Mega Bracelets"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "mega_showdown:mega_showdown/mega/mega_evolve",
+  "criteria": {
+    "megabracelet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_black": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_black"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_pink": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_pink"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_green": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_green"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_red"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_blue": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_blue"
+            ]
+          }
+        ]
+      }
+    },
+    "megabracelet_yellow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mega_showdown:mega_bracelet_yellow"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "megabracelet"
+    ],
+    [
+      "megabracelet_black"
+    ],
+    [
+      "megabracelet_pink"
+    ],
+    [
+      "megabracelet_green"
+    ],
+    [
+      "megabracelet_red"
+    ],
+    [
+      "megabracelet_blue"
+    ],
+    [
+      "megabracelet_yellow"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

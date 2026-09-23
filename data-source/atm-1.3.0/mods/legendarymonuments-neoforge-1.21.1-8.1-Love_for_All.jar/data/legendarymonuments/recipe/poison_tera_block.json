@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "mega_showdown:poison_tera_shard"
+    }
+  },
+  "result": {
+    "id": "legendarymonuments:poison_tera_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "legendarymonuments:someone_cooked_here",
+  "display": {
+    "icon": {
+      "id": "legendarymonuments:curry_of_justice"
+    },
+    "title": {
+      "text": "The Unicorn's out of the bag"
+    },
+    "description": {
+      "text": "Summon Keldeo"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "keldeo_summoned": {
+      "trigger": "legendarymonuments:keldeo_summoned",
+      "conditions": {}
+    }
+  }
+}

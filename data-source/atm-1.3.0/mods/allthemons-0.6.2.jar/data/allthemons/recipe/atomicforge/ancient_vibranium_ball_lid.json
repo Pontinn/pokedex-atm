@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "allthemons:vibranium_ball_lid"
+    },
+    {
+      "item": "createmonballsoverhaul:tumblestone_dust"
+    },
+    {
+      "item": "createmonballsoverhaul:tumblestone_dust"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:ancient_vibranium_ball_lid"
+    }
+  ],
+  "time": 200
+}

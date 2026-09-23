@@ -1,0 +1,21 @@
+{
+  "type": "oritech:atomic_forge",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:pink_ball_lid"
+    },
+    {
+      "tag": "c:gems/rose_quartz"
+    },
+    {
+      "tag": "create:sandpaper"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "createmonballsoverhaul:dream_ball_lid"
+    }
+  ],
+  "time": 200
+}

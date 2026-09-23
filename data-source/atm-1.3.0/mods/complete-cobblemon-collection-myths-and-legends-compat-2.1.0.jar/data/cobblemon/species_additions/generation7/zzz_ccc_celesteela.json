@@ -1,0 +1,9 @@
+{
+  "target": "cobblemon:celesteela",
+  "implemented": true,
+  "hitbox": {
+    "width": 2,
+    "height": 3,
+    "fixed": false
+  }
+}

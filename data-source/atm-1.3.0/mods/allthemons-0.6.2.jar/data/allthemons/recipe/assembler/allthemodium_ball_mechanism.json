@@ -1,0 +1,24 @@
+{
+  "type": "oritech:assembler",
+  "ingredients": [
+    {
+      "item": "allthemons:allthemodium_ball_base"
+    },
+    {
+      "item": "allthemodium:allthemodium_nugget"
+    },
+    {
+      "item": "create:shaft"
+    },
+    {
+      "item": "allthemons:allthemodium_ball_base"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "allthemons:allthemodium_ball_mechanism"
+    }
+  ],
+  "time": 120
+}

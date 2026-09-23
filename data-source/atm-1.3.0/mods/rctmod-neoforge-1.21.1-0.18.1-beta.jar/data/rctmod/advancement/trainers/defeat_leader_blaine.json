@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "defeat_leader_blaine": {
+      "conditions": {
+        "count": 1,
+        "entity": {
+          "type": null
+        },
+        "trainer_ids": [
+          "leader_blaine_01a3"
+        ],
+        "trainer_type": null
+      },
+      "trigger": "rctmod:defeat_count"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": null,
+    "description": {
+      "translate": "advancements.rctmod.defeat_leader_blaine.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cobblemon:poke_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rctmod.defeat_leader_blaine.title"
+    }
+  },
+  "parent": "rctmod:trainers/defeat_trainer_may",
+  "requirements": [
+    [
+      "defeat_leader_blaine"
+    ]
+  ]
+}

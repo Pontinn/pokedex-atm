@@ -1,0 +1,15 @@
+{
+  "name": "legendarymonuments:distortion_portal/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "legendarymonuments:distortion_portal",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

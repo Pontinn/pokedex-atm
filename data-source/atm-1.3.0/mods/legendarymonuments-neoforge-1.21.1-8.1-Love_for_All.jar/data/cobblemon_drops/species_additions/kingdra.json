@@ -1,0 +1,30 @@
+{
+  "target": "cobblemon:kingdra",
+"drops": {
+    "amount": 7,
+    "entries": [
+      {
+        "item": "minecraft:ink_sac",
+        "quantityRange": "0-3"
+      },
+      {
+        "item": "minecraft:prismarine_shard",
+        "quantityRange": "0-3"
+      },
+      {
+        "item": "legendarymonuments:lightstone_shard",
+        "percentage": 6.0
+      },
+      {
+        "item": "legendarymonuments:darkstone_shard",
+        "percentage": 6.0
+      },
+      {
+        "item": "cobblemon:dragon_scale",
+        "percentage": 10.0
+      }
+    ]
+  }
+  }
+
+

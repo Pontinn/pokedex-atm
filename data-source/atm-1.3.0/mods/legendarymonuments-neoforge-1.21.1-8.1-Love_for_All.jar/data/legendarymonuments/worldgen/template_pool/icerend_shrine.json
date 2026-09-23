@@ -1,0 +1,15 @@
+{
+  "name": "legendarymonuments:icerend_shrine",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "legendarymonuments:icerend_shrine",
+        "processors": "legendarymonuments:icerend_shrine_processor"
+      }
+    }
+  ]
+}

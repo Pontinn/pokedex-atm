@@ -1,0 +1,13 @@
+{
+  "type": "legendarymonuments:hall_of_origin_world_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "legendarymonuments:hall_of_origin_world_biome",
+      "lakes": false,
+      "features": false,
+      "structure_overrides": [],
+      "layers": []
+    }
+  }
+}

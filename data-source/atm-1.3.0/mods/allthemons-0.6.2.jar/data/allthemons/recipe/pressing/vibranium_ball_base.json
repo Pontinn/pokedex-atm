@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "allthemons:vibranium_stamped_plate_lid"
+    }
+  ],
+  "results": [
+    {
+      "id": "allthemons:vibranium_ball_base"
+    }
+  ]
+}
