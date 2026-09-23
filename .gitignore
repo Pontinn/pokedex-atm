@@ -13,10 +13,5 @@ Thumbs.db
 .env
 .env.*
 
-# forge: estado efemero (a IDEA/CONTEXT/PRD/SPEC sao versionados)
-.forge/**/CHECKLIST_*.md
-.forge/**/CHECKLIST_MANUAL_*.md
-.forge/**/REPORT_TEST_*.md
-.forge/**/HANDOFF_*.md
-.forge/**/STATE_*.md
-.forge/**/ui-refs/
+# forge: neste projeto TODOS os artefatos do .forge sao versionados (STATE, checklists, relatorios, handoffs, ui-refs),
+# a pedido do usuario, para continuar o trabalho em outro PC sem perder nada.

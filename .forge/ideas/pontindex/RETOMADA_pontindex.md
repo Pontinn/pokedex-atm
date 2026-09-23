@@ -1,6 +1,6 @@
 # Retomada do Pontindex (para continuar em outro PC)
 
-Atualizado em 2026-09-23. Este arquivo e versionado de proposito: o `STATE_pontindex.md` e a memoria do Claude ficam so no PC original (gitignored / fora do repo). Em um PC novo, leia ESTE arquivo primeiro. A secao 13 da IDEA ficou desatualizada (descreve o fim da Stage 1) e nao foi editada para nao disparar o drift check.
+Atualizado em 2026-09-23. Neste projeto TODOS os artefatos do `.forge` sao versionados (inclusive `STATE_pontindex.md`, checklists, relatorios e `ui-refs/`); so a memoria do Claude fica no PC original (fora do repo), por isso as regras dela estao copiadas abaixo. Em um PC novo, leia ESTE arquivo primeiro. A secao 13 da IDEA ficou desatualizada (descreve o fim da Stage 1) e nao foi editada para nao disparar o drift check.
 
 ## Onde estamos
 
@@ -23,5 +23,4 @@ Atualizado em 2026-09-23. Este arquivo e versionado de proposito: o `STATE_ponti
 - A instancia do modpack instalada (CurseForge): All the Mons 1.3.0 (Cobblemon 1.7.3). O pipeline de dados le os jars em `mods/`, `kubejs/data/` e `config/` dessa instancia. No PC original o caminho e `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`; em outro PC o caminho muda e a SPEC preve a variavel `ATM_INSTANCE_DIR` para apontar para ela.
 - Node 24 + npm 11 (versoes usadas aqui), Git, Playwright instalado globalmente.
 - Para a Fase 2 (apps, futura): JDK 21 e Android SDK 36 (ANDROID_HOME).
-- `ui-refs/` (prints de referencia) e gitignored: no PC novo regenere com `/forge --ui-recon pontindex` (o prototipo `design/prototipo/` esta versionado; servir a pasta `design/` como raiz, nao `design/prototipo/`).
-- `STATE_pontindex.md` nao vem no clone: o forge reconstroi a partir das pastas e dos blocos Baseline de cada artefato.
+- `ui-refs/` (50 prints de referencia) e `STATE_pontindex.md` vem no clone. Se precisar refazer os prints: `/forge --ui-recon pontindex`, servindo a pasta `design/` como raiz (nao `design/prototipo/`).
