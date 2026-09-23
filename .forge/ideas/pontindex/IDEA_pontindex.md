@@ -145,7 +145,7 @@ Pesquisa feita em 2026-09-23 (fontes no fim da secao):
 - **Stats** (jogos oficiais): 6 stats base por especie; IV 0-31 por stat; EV 0-252 por stat, 510 total, 4 EV = +1 ponto no nivel 100; 25 naturezas (20 dao +10%/-10%, 5 neutras).
   - HP = floor((2*Base + IV + floor(EV/4)) * Nivel / 100) + Nivel + 10
   - Outros = floor((floor((2*Base + IV + floor(EV/4)) * Nivel / 100) + 5) * Natureza)
-  - Exemplo confirmado: base 100, nivel 100, IV 31, EV 252 -> 328 (natureza neutra) ou 361 (natureza favoravel).
+  - Exemplo confirmado: base 100, nivel 100, IV 31, EV 252 -> 299 (natureza neutra), 328 (favoravel) ou 269 (desfavoravel). Corrigido em 2026-09-23 no Stage 3: o exemplo anterior (328/361) nao batia com a formula.
   - Cobblemon usar exatamente as mesmas formulas: amplamente reportado, NAO confirmado em fonte primaria.
 - **PokeAPI**: gratuita, sem chave, CORS liberado, sem rate limit explicito (pede cache local). Endpoints: `pokemon/{id}` (stats, sprites, tipos), `pokemon-species/{id}` (nomes localizados), `evolution-chain/{id}`, `type/{name}`. Dataset offline em CSV no repo oficial (`data/v2/csv/`).
 - **Capacitor + Electron** no mesmo Vite/React: viavel, uma unica pasta `dist/` consumida pelos dois; separar bem os scripts de build; abstrair APIs nativas atras de uma camada comum. Capacitor 8 + Electron especificamente: sem relatos, testar no projeto.
