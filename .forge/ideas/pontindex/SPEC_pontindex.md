@@ -754,7 +754,7 @@ Regras gerais (auto-fill por categoria, valem em todas as features abaixo):
 
 ### Sprint B4: Pipeline de dados, parte 3 (itens, receitas, loot, bolas)
 
-- **Descricao**: catalogo de itens com categoria, textura, descricao oficial, rotas de obtencao (receitas, drops, plantio, loot, pesca, fossil), indice "Usado em", e catalogo das 51 Pokebolas com regras de multiplicador.
+- **Descricao**: catalogo de itens com categoria, textura, descricao oficial, rotas de obtencao (receitas, drops, plantio, loot, pesca, fossil), indice "Usado em", e catalogo das Pokebolas (contagem derivada das texturas, 48 hoje) com regras de multiplicador.
 - **Deliverable**: `items.json` e `balls.json` validados.
 - **Risco**: medio.
 - **Prerequisito**: B2, B3.4.
@@ -1476,7 +1476,7 @@ Mocks: `fetch` (dataset e artwork) via `msw` ou stub por teste; `Audio` (spy em 
 | `tests/unit/sync/codec.test.ts` | round-trip aleatorio; caso maximo multi-frame; CRC -> corrupted; magic -> foreignApp; versao 9 -> unsupportedVersion; texto com quebras de linha; frames fora de ordem/repetidos/sessao diferente; bits alem de maxDex -> orfaos. |
 | `tests/unit/sync/merge.test.ts` | exemplo A/B do PRD; time nao vazio mantido; historico 20 mais recentes; prefs do receptor; replace. |
 | `tests/unit/data/loaders.test.ts` | cache hit; retry 2x; JSON invalido; `current.json` ausente. |
-| `tests/unit/dataset/*.test.ts` (pipeline, com jars sinteticos) | merge precedencia (charizard base x mega); spawns/rarity; fossils 16; evolutions Eevee; forms + mega items; moves com alias e com falha (503x2, 404); balls 51; trainers Roark/Cedric/Maylene; series/order; toml ausente; instancia ausente -> `E_INSTANCE_NOT_FOUND`; jar faltando; escrita atomica (crash simulado deixa `out/` e nao `public/data`). |
+| `tests/unit/dataset/*.test.ts` (pipeline, com jars sinteticos) | merge precedencia (charizard base x mega); spawns/rarity; fossils 16; evolutions Eevee; forms + mega items; moves com alias e com falha (503x2, 404); balls = numero de texturas em poke_balls (48 hoje); trainers Roark/Cedric/Maylene; series/order; toml ausente; instancia ausente -> `E_INSTANCE_NOT_FOUND`; jar faltando; escrita atomica (crash simulado deixa `out/` e nao `public/data`). |
 | `tests/unit/components/*.test.tsx` | `TypeChip` capitaliza; `TermsToggle` override; `PokemonCard` placeholder custom; `ArtworkImage` onerror -> placeholder; `WeaknessPanel` seletor; `MovesTable` aba vazia; `SearchBox` vazio; `Modal` confirmacao; `Toast` erro de storage persistente; snapshot pt/en sem literais. |
 | `tests/e2e/navigation.spec.ts` | criterio Charizard > TM > scroll > item > Voltar; Dex filtro + scroll > ficha > Voltar; Alt+Left; profundidade Pokemon > item > Pokemon > item. |
 | `tests/e2e/search-detail.spec.ts` | busca por numero/nome pt/en; ficha completa carrega; Eevee 8 ramos; Mewtwo sem badge "nao nasce"; placeholder custom Creepyon com aviso. |
