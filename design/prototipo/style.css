@@ -476,6 +476,9 @@ select { background: var(--surface-2); border: 1.5px solid var(--border); border
 @keyframes artSwap { from { transform: scale(.6) rotate(-10deg); opacity: 0; } to { transform: none; opacity: 1; } }
 .shiny-btn { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.9); border: 1.5px solid rgba(255,255,255,.6); box-shadow: var(--shadow-sm); color: #1C1F2B; font-size: 18px; transition: transform .25s var(--ease-bounce); z-index: 1; }
 .shiny-btn:hover { transform: rotate(20deg) scale(1.1); }
+.cry-btn { right: 62px; }
+.cry-btn.playing { animation: cryPulse .6s ease-in-out infinite; background: var(--secondary); color: var(--on-secondary); border-color: transparent; }
+@keyframes cryPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--secondary) 55%, transparent); } 50% { transform: scale(1.12); box-shadow: 0 0 0 10px transparent; } }
 .shiny-btn.on { background: linear-gradient(135deg, #FFE27A, #FFB300); border-color: #FFB300; }
 .seal { position: absolute; top: 14px; left: 14px; z-index: 2; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; max-width: calc(100% - 76px); }
 .hero-art.stacked .hero-title { padding-top: 40px; }
@@ -1053,6 +1056,13 @@ html[data-theme="verde"] .tr-cap-v, html[data-theme="azul"] .tr-cap-v { color: v
 .tr-moves { display: flex; flex-wrap: wrap; gap: 4px; }
 .mv-chip { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
 .tr-foot { display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px; align-items: start; }
+.tr-spawn { margin-top: 4px; }
+.tr-spawn-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.tr-spawn-chip { font-size: 13px; padding: 4px 12px 4px 4px; gap: 8px; }
+.tr-spawn-how { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.tr-spawn-how svg.lucide { width: 16px; height: 16px; flex: none; color: var(--secondary); }
+.tr-spawn-mini { display: inline-flex; align-items: center; }
+.tr-spawn-mini .it-tile.xs { background: var(--surface-2); border: 1px solid var(--border); }
 .tr-foot .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 .tr-tip { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius-md); background: var(--secondary-soft); font-size: 13px; font-weight: 600; margin-top: 10px; }
 .tr-tip svg.lucide { flex: none; width: 18px; height: 18px; margin-top: 1px; }

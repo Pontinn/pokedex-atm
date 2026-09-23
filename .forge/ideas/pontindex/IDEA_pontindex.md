@@ -2,7 +2,7 @@
 feature: pontindex
 language: pt-BR
 type: create
-status: in-progress
+status: done
 created: 2026-09-23
 ---
 
@@ -68,6 +68,9 @@ Ele nao domina ainda a mecanica de stats/IV/EV e pediu que eu pesquisasse ("de u
 - [2026-09-23] **Pagina individual de item + links** (usuario): todo item citado no app (bola no painel Melhor Pokebola, drop, pedra de evolucao, item de forma, mochila do treinador, cards de Itens/Pokebolas) e clicavel e abre a pagina do item com: nome (PT/EN), descricao oficial, imagem real, categoria, e **como obter** (so o metodo, sem mostrar crafting): craftavel (existe receita nos dados: Cobblemon 750 recipes), drop de Pokemon (indice invertido dos `drops` das especies, com % e link para a ficha), plantavel (biomas preferidos das berries/apricorns; mints em montanha), loot de estrutura (loot tables do Cobblemon + injecoes do pack em baus), pesca; se nada se aplica, "sem rota confirmada". Secao "Usado em" quando fizer sentido (pedra -> quais Pokemon evoluem com ela).
 - [2026-09-23] **NAVEGACAO DINAMICA COM HISTORICO REAL (requisito fixo, usuario)**: "Voltar" sempre retorna EXATAMENTE para onde o usuario estava antes: mesma tela, mesmo Pokemon/item, mesma posicao de scroll, mesmas abas/filtros/toggles selecionados. Ex.: estou no Charizard, aba Golpes em TM, rolado ate os golpes, clico na Pedra do Fogo -> pagina do item -> Voltar -> Charizard, aba TM, mesma rolagem. Vale para qualquer profundidade (Pokemon -> item -> Pokemon que dropa -> item ...), para o botao Voltar do app, o botao fisico/gesto de voltar do Android e Alt+Seta no desktop. Implementacao: pilha de navegacao propria (rota + estado da tela + scroll) integrada ao roteador; nunca "voltar para a lista" generico.
 - [2026-09-23] **Plano de encerramento da Stage 1** (usuario): apos ele ver a pagina de itens e aprovar a IDEA, o orquestrador anota TODO o contexto (IDEA completa, STATE, nota de retomada) e PARA. O desenvolvimento continua em uma NOVA sessao, comecando pelo PRD (`/forge --prd pontindex`).
+- [2026-09-23] **SONS** (usuario perguntou apos aprovar; fonte = jar do Cobblemon 1.7.3, `assets/cobblemon/sounds/`, 2.776 .ogg, 38,8 MB; `sounds.json` com 2.408 eventos): **1.072 gritos de Pokemon** (`pokemon/<nome>/<nome>_cry.ogg`), Pokebola (`poke_ball.throw/shake/shake.critical/open/shut/capture_succeeded/bounce`), Pokedex do jogo (`item.pokedex.open/close/click/click_short/scan_open`), `gui/click`, `gui/levelup`, `evolution/*`, `shiny/*`. Plano: grito na ficha (botao + ao abrir), brilho no shiny, sequencia completa na animacao de captura (arremesso, 3 balancos, captura ou critica), abrir/fechar Pokedex ao entrar/sair do app, clique curto na navegacao, level up ao marcar treinador-chave derrotado (cap sobe), som de evolucao na cadeia. **Som LIGADO por padrao** (usuario, 2026-09-23, revoga a premissa 12); toggle para desligar, escolha persistida. Arquivos extraidos da instancia no build, como as imagens. **Tamanho medido**: 1.072 gritos = 16,5 MB (media 15 KB); bola + Pokedex + gui + evolucao + shiny = 1,75 MB (60 arquivos). Decisao (usuario perguntou se ficaria pesado; nao fica): **todos os gritos entram**; total de midia do app ~20 MB com as texturas. **Botao de grito no card principal** (usuario): um botao de alto-falante ao lado do shiny toca o grito do Pokemon; acao explicita, toca mesmo com o toggle global desligado (o toggle governa so os sons automaticos; padrao = ligado). Sons de UI usados: `item/pokedex/pokedex_open|close|click|click_short|scan_open`, `gui/click|levelup|levelup_start`, `poke_ball/poke_ball_throw_1-4|shake_1-4|shake_critical|open|shut|capture_succeeded`, `evolution/*`, `shiny/*`.
+- [2026-09-23] **DADOS 100% NATIVOS NO APP (regra explicita, usuario)**: "quero que todas as informacoes estejam nativamente ja no app, porque o celular nao tem acesso aos mods". A instancia do All the Mons e lida UMA vez, no PC do usuario, em BUILD time, por um script que gera o pacote de dados (JSON + texturas + sons + lang PT/EN). Esse pacote vai dentro do .exe e do .apk. Em runtime o app NUNCA le mods, jars ou pastas do Minecraft; funciona sem o modpack instalado. Unica rede: artwork grande da PokeAPI (com cache local apos a 1a vez). Melhoria decidida: empacotar tambem os sprites pequenos da PokeAPI (96px, ~3 MB no total) no build, para lista/historico/time/capturados funcionarem sem internet. Atualizacao do pack = novo build no PC + novo instalador para os amigos.
+- [2026-09-23] **PROTOTIPO APROVADO** (usuario: "Tudo aprovado, achei incrivel"). `design/prototipo/` v9 (commit eb197ca) e a referencia visual oficial.
 - [2026-09-23] **Silhueta** da captura = artwork oficial do Pokemon (PokeAPI) totalmente preta, estilo "quem e esse Pokemon?" (usuario: ok).
 - [2026-09-23] **Animacao de captura pode ser pulada com um toque** (usuario).
 - [2026-09-23] **Pasta de referencias** criada a pedido do usuario: `design/referencias/` (desktop/, mobile/, LEIA-ME.txt). Como ele nao achou referencias, pediu um prototipo HTML proposto por mim (ver secao 9).
@@ -189,6 +192,7 @@ Inspecao 2 da instancia (2026-09-23): TREINADORES, POKEBOLAS, ITENS
 - **Comida / cozinha (Cobblemon 1.7)**: 76 `seasonings` (ingrediente -> cor/sabor), receitas de Poke Puff (Frosted/Fancy/Deluxe), Cream Puff, Poke Cake, Poke Snack, Berry Juice, Aprijuice (7 cores), Leek and Potato Stew, Smoked Tail Curry, Open-faced Sandwich, Lava Cookie; qualidades plain/tasty/delicious. 78 `spawn_bait_effects` (iscas: ex. Aguav Berry = 50% de chance de natureza com foco em Sp. Def). 70 `berries` com dados de plantio (bioma preferido, mulch, tempo de crescimento). O que cada prato faz ao Pokemon: pesquisa em andamento (wiki).
 - **Regra do level cap (doc oficial do RCT 0.18, srcmc.gitlab.io/rct/docs)**: Pokemon no nivel do cap ou acima NAO ganham exp; treinadores recusam batalha se o time do jogador tiver Pokemon acima do cap. Para subir o cap, o jogador derrota os **treinadores-chave em ordem**; o cap = **nivel do Pokemon mais forte do proximo treinador-chave** da serie ativa, mais `relativeLevelCap` (no pack = 0, sem folga). `initialLevelCap` = 15 (piso). `requiredDefeats` e AND entre as sublistas e OR dentro de cada sublista. Series escolhida na **Trainer Association**; o item **Trainer Card** aponta quem e o proximo treinador-chave. `initialSeries = "empty"`: comportamento exato nao confirmado (modo livre).
   - **Regra VALIDADA com dado real + memoria do usuario** (2026-09-23): cadeia BDSP calculada dos arquivos da instancia (43 treinadores-chave): Roark (max 14) -> Mars (16) -> Jupiter (20) -> Gardenia (22) -> Cedric x3 (21) -> Maylene (30) -> Wake (30) -> Cedric x3 (31) -> Fantina (36)... O usuario lembra "cap inicial 15, depois do Roark vai a 16, depois 20": bate exatamente com cap = nivel max do PROXIMO treinador-chave (cap inicial = max(initialLevelCap 15, exigencia do primeiro)). Exemplo canonico para o PRD/SPEC e para os testes.
+  - **Item de spawn do treinador (signatureItem)** (usuario pediu em 2026-09-23): 116 treinadores do mod tem `signatureItem` (110 chave; ex. Brock = `cobblemon:hard_stone`; os do pack usam `allthemodium:allthemodium_ingot`, `allthemodium:unobtainium_block`, `minecraft:white_concrete`). Uso (doc oficial, pagina Blocks): o bloco **Trainer Spawner** e craftavel; o jogador clica nele com o signature item e o bloco passa a spawnar aquele treinador naquele ponto (aceita varios itens; com redstone forca o spawn ignorando condicoes; nunca duplica um treinador ja vivo no mundo). O Trainer Card mostra o item na aba "Spawning". O app mostra em cada treinador-chave: o item (chip clicavel -> pagina do item) e a instrucao "use no Trainer Spawner", alem dos biomas de spawn natural.
   - Consequencia para o app: a secao Treinadores mostra, por serie, a cadeia de treinadores-chave em ordem com o **cap que cada vitoria libera** (= nivel max do time do proximo), o time de cada um (especie, nivel, golpes, habilidade), tipo (lider/E4/campeao/rival/chefe) e bioma de spawn. Tudo calculado dos JSON locais.
 - **Pokebolas: formula e captura critica** (Cobblemon): formulas de captura gen 1 a 9 configuraveis; se a taxa modificada passa de 255, captura garantida; **captura critica** com chance que cresce com o progresso da Pokedex (0.5x a partir de 31 capturados, 1x a 151, 1.5x a 301, 2x a 451, 2.5x acima de 600). Valores exatos de Level/Heavy/Moon/Love Ball: usar os tooltips oficiais do lang (fonte primaria) e nao a wiki.
 - **Cozinha 1.7 (wiki)**: Campfire Pot com 3 slots de tempero; 4 tipos de seasoning: Nutricao (Ponigiri: fome/saturacao), Efeito (Sinister Tea: efeitos de pocao), Sabor (Aprijuice: bonus de stats de montaria), Isca (Poke Bait/Snacks: atrai Pokemon). Amizade: Poke Puff bonus fixo; Malasada varia pela natureza. Mints mudam o efeito da natureza nos stats (natureza em si nao muda). Ability Patch: obtencao "nao por meios normais" (nao confirmado se mudou na 1.7.3).
@@ -199,7 +203,23 @@ Fontes: curseforge.com/minecraft/modpacks/all-the-mons, github.com/AllTheMods/Al
 
 ## 8. Casos de borda / caminhos tristes
 
-(a levantar)
+Levantados ao longo da conversa e nas pesquisas:
+- **Sem internet**: dados, textos, imagens de itens e sons sao locais; so o artwork/sprite da PokeAPI falha -> placeholder, resto da ficha funciona. (Na pratica o app fica quase todo offline, embora o usuario tenha dito que nao precisa.)
+- **PokeAPI fora do ar ou lenta**: nao bloquear a ficha; imagem carrega depois; cache local das imagens ja baixadas.
+- **Pokemon sem spawn natural** (201 na 1.7.3, menos os 23 que o pack adiciona): sem aviso laranja; secao "Como obter" em camadas; fallback honesto "sem rota confirmada".
+- **Especie em varios buckets de spawn**: mostrar o mais comum como principal e listar os demais.
+- **Item sem metodo de obtencao nos dados**: texto neutro de fallback; nunca inventar.
+- **Especies custom do pack** (Creepyon 9902, Piglich): sem artwork na PokeAPI -> usar sprite/texture do proprio mod ou placeholder; decidir no PRD.
+- **Time cheio** (6): avisar; **historico** rotaciona nos 20 sem apagar manual.
+- **Capturado desmarcado / marcado de novo**: animacao repete (premissa 18).
+- **Nomes longos** (Fighting, Fantasma, Ultra-raro): chips quebram linha, badges nao quebram; testado a 360/390px.
+- **Reduzir animacoes** (sistema ou switch): tudo estatico, inclusive captura, marca d'agua, cards lendario/mitico.
+- **Termos PT/EN por card**: override por card persiste; texto da interface nunca muda com o toggle do card.
+- **Navegacao**: Voltar (app, hardware Android, teclado) restaura tela + estado + scroll em qualquer profundidade; nunca "voltar para a lista".
+- **Level cap**: cap inicial = max(initialLevelCap, exigencia do 1o treinador); grupos OR em requiredDefeats ("requer um de"); series com pre-requisito (ATM Team requer BDSP); `initialSeries = "empty"` (comportamento a confirmar no PRD).
+- **Dados locais x atualizacao**: migracao de esquema; nunca perder; backup/restauracao; escrita atomica (requisito duro).
+- **Versao do pack muda** (Cobblemon/ATM): dataset regenerado no build a partir da instancia; app mostra a versao dos dados ("Dados: All the Mons 1.3.0 / Cobblemon 1.7.3").
+- **Desempenho no celular**: animacoes so transform/opacity; 1.025 Pokemon + 1.500 treinadores + 1.100 texturas + sons precisam de indice local e carregamento preguicoso (lista virtualizada).
 
 ## 9. Referencia de UI
 
@@ -227,7 +247,7 @@ Premissas listadas ao usuario em 2026-09-23 e ACEITAS EM BLOCO ("concordo com tu
 9. Time de 6 na tela inicial.
 10. Tema padrao vermelho/azul e idioma padrao pt-BR; escolhas persistem.
 11. Mobile so retrato; desktop redimensionavel com tamanho minimo.
-12. Som (beep) desligado por padrao, com botao para ligar.
+12. ~~Som desligado por padrao~~ REVOGADA em 2026-09-23: som LIGADO por padrao, com botao para desligar.
 13. Animacoes respeitam "reduzir movimento" do sistema.
 14. Stack: React + TypeScript + Vite; Electron (Windows); Capacitor (Android).
 15. Entrega: instalador .exe (Windows) + .apk (Android, sem Play Store), distribuidos pelo usuario aos amigos.
@@ -248,10 +268,20 @@ Outras:
 ## 12. Pontos em aberto
 
 - Fonte dos dados: PokeAPI (geral) + JSON de especies do Cobblemon (nivel de evolucao real do modpack)? Ou so Cobblemon? Confirmar versao do Cobblemon usada pelo All the Mons.
-- Ordem de prioridade entre as features (tudo entra, mas o que vem primeiro).
 - **IVs e EVs recomendados por Pokemon** (usuario perguntou "conseguimos de alguma forma?"): NAO existe no Cobblemon nem na PokeAPI. Opcoes: (a) heuristica a partir dos stats base (investir nos 2 melhores atributos; IV 31); (b) sets competitivos do Smogon (publicos; verificar se ha dataset gratuito consumivel pelo app, ex. pacote @pkmn/smogon ou JSON no GitHub). Pesquisar no PRD e decidir com o usuario.
 - Especies custom do pack (Creepyon, Piglich): mostrar na Pokedex? (sem artwork na PokeAPI; precisaria do sprite do proprio mod.)
-- Referencia visual: prototipo HTML em construcao (2026-09-23); a ideia fecha quando o usuario aprovar o prototipo. Sem isso, o forge-ui-recon nao tem o que capturar; fallback = Pokedex classica vermelha/azul desenhada do zero e aprovada em prototipo.
+- Referencia visual: RESOLVIDO (prototipo aprovado em 2026-09-23).
+- Para o PRD decidir: (a) IV/EV recomendados: heuristica pelos stats base vs sets do Smogon (verificar dataset gratuito); (b) especies custom do pack na Pokedex (Creepyon, Piglich) e a fonte da imagem; (c) qual mod fornece o breeding no pack (Cobbreeding ausente; Just Enough Breeding presente) para descrever o "como usar"; (d) comportamento de `initialSeries = "empty"` no RCT; (e) RESOLVIDO: todos os gritos entram (16,5 MB). Sem isso, o forge-ui-recon nao tem o que capturar; fallback = Pokedex classica vermelha/azul desenhada do zero e aprovada em prototipo.
 - Dados sao locais em cada aparelho ou compartilhados?
 - Precisa funcionar offline?
 - Quais geracoes / quantos Pokemon o All the Mons inclui?
+
+## 13. Retomada (para a proxima sessao)
+
+- **Onde estamos**: Stage 1 (IDEA) CONCLUIDA em 2026-09-23, prototipo aprovado. Proximo passo: `/forge --prd pontindex` (Stage 2). O branch de feature (`feature/pontindex`) ainda NAO existe: criar a partir de `main` no inicio do PRD.
+- **Git**: repositorio local em `main`, sem remoto. Commits ate `eb197ca`. `.forge/ideas/pontindex/IDEA_pontindex.md` e `design/` versionados; `STATE_*.md` ignorado.
+- **Referencia visual**: `design/prototipo/index.html` (abrir no navegador; menu do prototipo na engrenagem inferior direita). `design/tipos/svg/` + `cores.json` (paleta por tipo), `design/capture/` (referencia dos fundos), `design/pokebola.webp`, `design/prototipo/assets/itens/` (1.134 texturas), `design/referencias/card-pokemon-gradiente.png`.
+- **Fontes de dados (todas locais)**: instancia `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons` (ATM 1.3.0, Cobblemon 1.7.3): jars em `mods/` (Cobblemon, complete-cobblemon-collection-myths-and-legends-compat, allthemons, mega_showdown, zamega, legendarymonuments, rctmod, rctapi) + `kubejs/data/{cobblemon,rctmod,legendary_spawns_ccc}` + `config/{cobblemon,rctmod-server.toml}`. Lang PT/EN em `assets/<mod>/lang/`. PokeAPI so para artwork/sprites e detalhes de golpe (tipo/poder/precisao).
+- **Stack decidida**: React + TypeScript + Vite; Electron (Windows .exe); Capacitor 8 (Android .apk, SDK 36 ja instalado, ANDROID_HOME configurado); Lucide icons; sem backend; tudo must-have.
+- **Nao existe CONTEXT_pontindex.md**: projeto sem codigo; no PRD, rodar `forge-context` sobre `design/prototipo/` + esta IDEA + as fontes de dados acima.
+- **Regras de trabalho do usuario nesta feature**: respostas em texto (nao gosta de widgets de pergunta), ver o resultado no navegador antes de aprovar, "tudo e must-have", sem travessao, commits sem assinatura do Claude, nada de push sem pedir.

@@ -6,6 +6,6 @@ PONTINDEX - protótipo de design (referência visual, não é o app)
 5. Tema: botão de paleta na lateral (cicla) ou em Configurações (7 temas: Clássico, Preto, Verde, Azul, Roxo, Branco, Laranja).
 6. Celular: reduza a janela para menos de 900px OU use "Celular 390px" no menu do protótipo.
 7. Captura: na Ficha, clique em "Capturei" (Charizard usa o fundo azul; Mewtwo e Mew usam lendário/mítico pelo menu do protótipo). Toque na tela pula a animação.
-8. O que é de mentira: todos os dados (12 Pokémon, 87 de 1.025, datas, biomas, drops, golpes, calculadora), o som (só o ícone) e os filtros (funcionam só sobre os 12 exemplos).
+8. O que é de mentira: todos os dados (Pokémon, 87 de 1.025, datas, biomas, drops, golpes, treinadores, rotas de itens). Sons sao os .ogg oficiais em assets/sons (toggle ligado por padrao; o botao de grito no card toca sempre).
 9. O que funciona de verdade: navegação com histórico real (Voltar restaura tela, abas e scroll; botão físico também), busca, filtros, shiny, abas, calculadora, temas, idiomas, página de item (clique em qualquer item), level cap dos treinadores e a animação de captura.
 10. Arquivos: index.html + style.css + app.js + assets/itens/ (texturas reais dos itens e manifest.js). Imagens usadas: ../pokebola.webp e ../tipos/svg/*.svg (fundos de captura sao CSS/SVG).

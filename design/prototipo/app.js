@@ -69,6 +69,7 @@
     'detail.addTeam': { pt: 'Adicionar ao time', en: 'Add to team' },
     'detail.inTeam': { pt: 'No time', en: 'In team' },
     'detail.shiny': { pt: 'Shiny', en: 'Shiny' },
+    'detail.cry': { pt: 'Ouvir o grito', en: 'Play cry' },
     'detail.noSpawn': { pt: 'Não nasce no mundo', en: 'Does not spawn in the world' },
     'obtain.title': { pt: 'Como obter', en: 'How to obtain' },
     'obtain.evo': { pt: 'Evolução', en: 'Evolution' },
@@ -161,6 +162,8 @@
     'tr.team': { pt: 'Time', en: 'Team' },
     'tr.bag': { pt: 'Mochila', en: 'Bag' },
     'tr.tip': { pt: 'Sugestão', en: 'Tip' },
+    'tr.spawnItem': { pt: 'Item de spawn', en: 'Spawn item' },
+    'tr.spawnHow': { pt: 'Clique com este item em um Trainer Spawner (bloco craftável) para spawnar este treinador onde quiser; com redstone o spawn é forçado.', en: 'Use this item on a Trainer Spawner (craftable block) to spawn this trainer wherever you want; with redstone the spawn is forced.' },
     'tr.done': { pt: 'de', en: 'of' },
     'tr.keyTrainers': { pt: 'treinadores-chave derrotados', en: 'key trainers defeated' },
     'role.leader': { pt: 'Líder', en: 'Gym Leader' },
@@ -452,50 +455,50 @@
        group = alternativas (qualquer um do grupo conta). */
     trainers: {
       rr: [
-        { name: 'Brock', role: 'leader', cap: 21, where: [['Pewter City', 'Pewter City'], ['Montanhas', 'Mountains']],
+        { name: 'Brock', spawnItem: 'Hard Stone', role: 'leader', cap: 21, where: [['Pewter City', 'Pewter City'], ['Montanhas', 'Mountains']],
           team: [TM(74, 'Geodude', 12, ['rock', 'ground'], 'Sturdy', ['Tackle', 'Rock Throw', 'Defense Curl', 'Rock Polish']), TM(95, 'Onix', 14, ['rock', 'ground'], 'Sturdy', ['Rock Throw', 'Bind', 'Rock Tomb', 'Harden'])],
           bag: ['Potion x2'], tip: { pt: 'Leve Pokémon de Água/Planta: o time é Pedra/Terra.', en: 'Bring Water/Grass Pokémon: the team is Rock/Ground.' } },
-        { group: [{ name: 'Archer', role: 'rocket' }, { name: 'Terry', role: 'rival' }], name: 'Archer', role: 'rocket', cap: 27, where: [['Mt. Moon', 'Mt. Moon'], ['Cavernas', 'Caves']],
+        { group: [{ name: 'Archer', role: 'rocket' }, { name: 'Terry', role: 'rival' }], name: 'Archer', spawnItem: 'Black Sludge', role: 'rocket', cap: 27, where: [['Mt. Moon', 'Mt. Moon'], ['Cavernas', 'Caves']],
           team: [TM(42, 'Golbat', 19, ['poison', 'flying'], 'Inner Focus', ['Wing Attack', 'Bite', 'Confuse Ray', 'Astonish']), TM(228, 'Houndour', 21, ['dark', 'fire'], 'Flash Fire', ['Ember', 'Bite', 'Howl', 'Smog'])],
           bag: ['Super Potion x2'], tip: { pt: 'Terry (rival) também conta para este passo. Golpes de Pedra/Elétrico contra o Golbat.', en: 'Terry (rival) also counts for this step. Rock/Electric moves against Golbat.' } },
-        { name: 'Misty', role: 'leader', cap: 29, where: [['Cerulean City', 'Cerulean City'], ['Rios', 'Rivers']],
+        { name: 'Misty', spawnItem: 'Mystic Water', role: 'leader', cap: 29, where: [['Cerulean City', 'Cerulean City'], ['Rios', 'Rivers']],
           team: [TM(120, 'Staryu', 24, ['water'], 'Natural Cure', ['Water Pulse', 'Swift', 'Rapid Spin', 'Recover']), TM(121, 'Starmie', 27, ['water', 'psychic'], 'Illuminate', ['Water Pulse', 'Psybeam', 'Swift', 'Recover'])],
           bag: ['Super Potion x2', 'X Defense'], tip: { pt: 'Planta/Elétrico. Cuidado com Recover do Starmie.', en: 'Grass/Electric. Watch out for Starmie\'s Recover.' } },
-        { name: 'Brendan', role: 'rival', cap: 34, where: [['Rota 24', 'Route 24']],
+        { name: 'Brendan', spawnItem: 'Miracle Seed', role: 'rival', cap: 34, where: [['Rota 24', 'Route 24']],
           team: [TM(253, 'Grovyle', 27, ['grass'], 'Overgrow', ['Leaf Blade', 'Quick Attack', 'Pursuit', 'Fury Cutter']), TM(259, 'Marshtomp', 29, ['water', 'ground'], 'Torrent', ['Mud Shot', 'Water Gun', 'Bide', 'Rock Smash'])],
           bag: ['Potion x3'], tip: { pt: 'Voador/Fogo contra o Grovyle; Planta contra o Marshtomp.', en: 'Flying/Fire against Grovyle; Grass against Marshtomp.' } },
-        { name: 'Lt. Surge', role: 'leader', cap: 44, where: [['Vermilion City', 'Vermilion City'], ['Praias', 'Beaches']],
+        { name: 'Lt. Surge', spawnItem: 'Magnet', role: 'leader', cap: 44, where: [['Vermilion City', 'Vermilion City'], ['Praias', 'Beaches']],
           team: [TM(100, 'Voltorb', 30, ['electric'], 'Static', ['Spark', 'Sonic Boom', 'Rollout', 'Screech']), TM(82, 'Magneton', 32, ['electric', 'steel'], 'Sturdy', ['Thunderbolt', 'Flash Cannon', 'Thunder Wave', 'Magnet Bomb']), TM(26, 'Raichu', 34, ['electric'], 'Static', ['Thunderbolt', 'Quick Attack', 'Double Team', 'Thunder Wave'])],
           bag: ['Hyper Potion x2'], tip: { pt: 'Terra anula Elétrico: leve um Pokémon de Terra.', en: 'Ground is immune to Electric: bring a Ground type.' } },
-        { name: 'Erika', role: 'leader', cap: 46, where: [['Celadon City', 'Celadon City'], ['Floresta', 'Forest']],
+        { name: 'Erika', spawnItem: 'Miracle Seed', role: 'leader', cap: 46, where: [['Celadon City', 'Celadon City'], ['Floresta', 'Forest']],
           team: [TM(114, 'Tangela', 40, ['grass'], 'Chlorophyll', ['Giga Drain', 'Sleep Powder', 'Ancient Power', 'Knock Off']), TM(71, 'Victreebel', 42, ['grass', 'poison'], 'Chlorophyll', ['Leaf Blade', 'Sludge Bomb', 'Sleep Powder', 'Sunny Day']), TM(45, 'Vileplume', 44, ['grass', 'poison'], 'Effect Spore', ['Petal Dance', 'Sludge Bomb', 'Moonlight', 'Sleep Powder'])],
           bag: ['Hyper Potion x2', 'Full Heal'], tip: { pt: 'Fogo/Voador/Gelo. Leve Awakening: muito Sleep Powder.', en: 'Fire/Flying/Ice. Bring Awakenings: lots of Sleep Powder.' } },
-        { name: 'Giovanni', role: 'rocket', cap: 52, where: [['Silph Co.', 'Silph Co.'], ['Cidade', 'City']],
+        { name: 'Giovanni', spawnItem: 'Soft Sand', role: 'rocket', cap: 52, where: [['Silph Co.', 'Silph Co.'], ['Cidade', 'City']],
           team: [TM(31, 'Nidoqueen', 43, ['poison', 'ground'], 'Poison Point', ['Earth Power', 'Sludge Bomb', 'Ice Beam', 'Superpower']), TM(112, 'Rhydon', 44, ['ground', 'rock'], 'Rock Head', ['Earthquake', 'Stone Edge', 'Megahorn', 'Fire Punch']), TM(34, 'Nidoking', 46, ['poison', 'ground'], 'Sheer Force', ['Earth Power', 'Sludge Wave', 'Ice Beam', 'Thunderbolt'])],
           bag: ['Full Restore x2'], tip: { pt: 'Água/Planta/Gelo contra o time Terra.', en: 'Water/Grass/Ice against the Ground team.' } },
-        { name: 'Lorelei', role: 'elite', cap: 58, where: [['Indigo Plateau', 'Indigo Plateau']],
+        { name: 'Lorelei', spawnItem: 'Never-Melt Ice', role: 'elite', cap: 58, where: [['Indigo Plateau', 'Indigo Plateau']],
           team: [TM(87, 'Dewgong', 50, ['water', 'ice'], 'Thick Fat', ['Surf', 'Ice Beam', 'Rest', 'Sleep Talk']), TM(91, 'Cloyster', 51, ['water', 'ice'], 'Skill Link', ['Icicle Spear', 'Rock Blast', 'Shell Smash', 'Hydro Pump']), TM(131, 'Lapras', 52, ['water', 'ice'], 'Water Absorb', ['Freeze-Dry', 'Surf', 'Thunderbolt', 'Ice Shard'])],
           bag: ['Full Restore x3'], tip: { pt: 'Elétrico/Lutador/Pedra. Shell Smash do Cloyster é perigoso.', en: 'Electric/Fighting/Rock. Cloyster\'s Shell Smash is dangerous.' } },
-        { name: 'Blue', role: 'champion', cap: 100, where: [['Indigo Plateau', 'Indigo Plateau']],
+        { name: 'Blue', spawnItem: 'Expert Belt', role: 'champion', cap: 100, where: [['Indigo Plateau', 'Indigo Plateau']],
           team: [TM(18, 'Pidgeot', 56, ['normal', 'flying'], 'No Guard', ['Hurricane', 'Brave Bird', 'Heat Wave', 'Roost']), TM(65, 'Alakazam', 56, ['psychic'], 'Magic Guard', ['Psychic', 'Focus Blast', 'Shadow Ball', 'Calm Mind']), TM(112, 'Rhydon', 56, ['ground', 'rock'], 'Rock Head', ['Earthquake', 'Stone Edge', 'Megahorn', 'Swords Dance']), TM(130, 'Gyarados', 57, ['water', 'flying'], 'Intimidate', ['Waterfall', 'Crunch', 'Ice Fang', 'Dragon Dance']), TM(59, 'Arcanine', 57, ['fire'], 'Intimidate', ['Flare Blitz', 'Extreme Speed', 'Wild Charge', 'Close Combat']), TM(6, 'Charizard', 58, ['fire', 'flying'], 'Solar Power', ['Fire Blast', 'Air Slash', 'Solar Beam', 'Dragon Pulse'])],
           bag: ['Full Restore x4'], tip: { pt: 'Time balanceado nível 56-58. Leve Pedra para o Charizard e Elétrico para o Gyarados.', en: 'Balanced level 56-58 team. Bring Rock for Charizard and Electric for Gyarados.' } }
       ],
       bdsp: [
-        { name: 'Roark', role: 'leader', cap: 20, where: [['Oreburgh', 'Oreburgh'], ['Minas', 'Mines']], team: [TM(74, 'Geodude', 12, ['rock', 'ground'], 'Sturdy', ['Tackle', 'Rock Throw', 'Stealth Rock', 'Defense Curl']), TM(95, 'Onix', 12, ['rock', 'ground'], 'Sturdy', ['Rock Throw', 'Bind', 'Screech', 'Harden']), TM(408, 'Cranidos', 14, ['rock'], 'Mold Breaker', ['Headbutt', 'Pursuit', 'Leer', 'Take Down'])], bag: ['Potion x2'], tip: { pt: 'Água/Planta/Lutador.', en: 'Water/Grass/Fighting.' } },
-        { name: 'Gardenia', role: 'leader', cap: 30, where: [['Eterna', 'Eterna'], ['Floresta', 'Forest']], team: [TM(420, 'Cherubi', 19, ['grass'], 'Chlorophyll', ['Magical Leaf', 'Leech Seed', 'Growth', 'Safeguard']), TM(387, 'Turtwig', 19, ['grass'], 'Overgrow', ['Razor Leaf', 'Reflect', 'Withdraw', 'Absorb']), TM(407, 'Roserade', 22, ['grass', 'poison'], 'Natural Cure', ['Magical Leaf', 'Poison Sting', 'Grass Knot', 'Stun Spore'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Voador. Cuidado com Stun Spore.', en: 'Fire/Flying. Watch out for Stun Spore.' } },
-        { name: 'Cynthia', role: 'champion', cap: 100, where: [['Pokémon League', 'Pokémon League']], team: [TM(442, 'Spiritomb', 61, ['ghost', 'dark'], 'Pressure', ['Dark Pulse', 'Psychic', 'Silver Wind', 'Embargo']), TM(445, 'Garchomp', 66, ['dragon', 'ground'], 'Sand Veil', ['Dragon Rush', 'Earthquake', 'Brick Break', 'Giga Impact']), TM(350, 'Milotic', 63, ['water'], 'Marvel Scale', ['Surf', 'Ice Beam', 'Mirror Coat', 'Aqua Ring'])], bag: ['Full Restore x4'], tip: { pt: 'Gelo contra Garchomp; Fada contra Spiritomb.', en: 'Ice against Garchomp; Fairy against Spiritomb.' } }
+        { name: 'Roark', spawnItem: 'Smooth Rock', role: 'leader', cap: 20, where: [['Oreburgh', 'Oreburgh'], ['Minas', 'Mines']], team: [TM(74, 'Geodude', 12, ['rock', 'ground'], 'Sturdy', ['Tackle', 'Rock Throw', 'Stealth Rock', 'Defense Curl']), TM(95, 'Onix', 12, ['rock', 'ground'], 'Sturdy', ['Rock Throw', 'Bind', 'Screech', 'Harden']), TM(408, 'Cranidos', 14, ['rock'], 'Mold Breaker', ['Headbutt', 'Pursuit', 'Leer', 'Take Down'])], bag: ['Potion x2'], tip: { pt: 'Água/Planta/Lutador.', en: 'Water/Grass/Fighting.' } },
+        { name: 'Gardenia', spawnItem: 'Miracle Seed', role: 'leader', cap: 30, where: [['Eterna', 'Eterna'], ['Floresta', 'Forest']], team: [TM(420, 'Cherubi', 19, ['grass'], 'Chlorophyll', ['Magical Leaf', 'Leech Seed', 'Growth', 'Safeguard']), TM(387, 'Turtwig', 19, ['grass'], 'Overgrow', ['Razor Leaf', 'Reflect', 'Withdraw', 'Absorb']), TM(407, 'Roserade', 22, ['grass', 'poison'], 'Natural Cure', ['Magical Leaf', 'Poison Sting', 'Grass Knot', 'Stun Spore'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Voador. Cuidado com Stun Spore.', en: 'Fire/Flying. Watch out for Stun Spore.' } },
+        { name: 'Cynthia', spawnItem: 'Dragon Fang', role: 'champion', cap: 100, where: [['Pokémon League', 'Pokémon League']], team: [TM(442, 'Spiritomb', 61, ['ghost', 'dark'], 'Pressure', ['Dark Pulse', 'Psychic', 'Silver Wind', 'Embargo']), TM(445, 'Garchomp', 66, ['dragon', 'ground'], 'Sand Veil', ['Dragon Rush', 'Earthquake', 'Brick Break', 'Giga Impact']), TM(350, 'Milotic', 63, ['water'], 'Marvel Scale', ['Surf', 'Ice Beam', 'Mirror Coat', 'Aqua Ring'])], bag: ['Full Restore x4'], tip: { pt: 'Gelo contra Garchomp; Fada contra Spiritomb.', en: 'Ice against Garchomp; Fairy against Spiritomb.' } }
       ],
       unbound: [
-        { name: 'Mirskle', role: 'leader', cap: 25, where: [['Frozen Heights', 'Frozen Heights']], team: [TM(215, 'Sneasel', 18, ['dark', 'ice'], 'Inner Focus', ['Icy Wind', 'Feint Attack', 'Quick Attack', 'Taunt']), TM(459, 'Snover', 20, ['grass', 'ice'], 'Snow Warning', ['Razor Leaf', 'Icy Wind', 'Ingrain', 'Mist'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Lutador/Aço.', en: 'Fire/Fighting/Steel.' } },
-        { name: 'Alice', role: 'champion', cap: 100, where: [['Borrius League', 'Borrius League']], team: [TM(6, 'Charizard', 72, ['fire', 'flying'], 'Blaze', ['Fire Blast', 'Air Slash', 'Focus Blast', 'Roost']), TM(149, 'Dragonite', 74, ['dragon', 'flying'], 'Multiscale', ['Dragon Dance', 'Outrage', 'Fire Punch', 'Extreme Speed'])], bag: ['Full Restore x4'], tip: { pt: 'Pedra e Gelo resolvem quase tudo aqui.', en: 'Rock and Ice solve most of this fight.' } }
+        { name: 'Mirskle', spawnItem: 'Never-Melt Ice', role: 'leader', cap: 25, where: [['Frozen Heights', 'Frozen Heights']], team: [TM(215, 'Sneasel', 18, ['dark', 'ice'], 'Inner Focus', ['Icy Wind', 'Feint Attack', 'Quick Attack', 'Taunt']), TM(459, 'Snover', 20, ['grass', 'ice'], 'Snow Warning', ['Razor Leaf', 'Icy Wind', 'Ingrain', 'Mist'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Lutador/Aço.', en: 'Fire/Fighting/Steel.' } },
+        { name: 'Alice', spawnItem: 'Dragon Fang', role: 'champion', cap: 100, where: [['Borrius League', 'Borrius League']], team: [TM(6, 'Charizard', 72, ['fire', 'flying'], 'Blaze', ['Fire Blast', 'Air Slash', 'Focus Blast', 'Roost']), TM(149, 'Dragonite', 74, ['dragon', 'flying'], 'Multiscale', ['Dragon Dance', 'Outrage', 'Fire Punch', 'Extreme Speed'])], bag: ['Full Restore x4'], tip: { pt: 'Pedra e Gelo resolvem quase tudo aqui.', en: 'Rock and Ice solve most of this fight.' } }
       ],
       atm: [
-        { name: 'Pontin', role: 'rival', cap: 30, where: [['Spawn do servidor', 'Server spawn']], team: [TM(448, 'Lucario', 25, ['fighting', 'steel'], 'Inner Focus', ['Aura Sphere', 'Bone Rush', 'Metal Claw', 'Quick Attack'])], bag: ['Potion x3'], tip: { pt: 'Fogo/Lutador/Terra contra Lucario.', en: 'Fire/Fighting/Ground against Lucario.' } },
-        { name: 'Time ATM', role: 'elite', cap: 100, where: [['Arena da base', 'Base arena']], team: [TM(94, 'Gengar', 55, ['ghost', 'poison'], 'Cursed Body', ['Shadow Ball', 'Sludge Bomb', 'Focus Blast', 'Nasty Plot']), TM(143, 'Snorlax', 55, ['normal'], 'Thick Fat', ['Body Slam', 'Rest', 'Curse', 'Earthquake'])], bag: ['Full Restore x2'], tip: { pt: 'Sombrio contra Gengar; Lutador contra Snorlax.', en: 'Dark against Gengar; Fighting against Snorlax.' } }
+        { name: 'Pontin', spawnItem: 'Black Belt', role: 'rival', cap: 30, where: [['Spawn do servidor', 'Server spawn']], team: [TM(448, 'Lucario', 25, ['fighting', 'steel'], 'Inner Focus', ['Aura Sphere', 'Bone Rush', 'Metal Claw', 'Quick Attack'])], bag: ['Potion x3'], tip: { pt: 'Fogo/Lutador/Terra contra Lucario.', en: 'Fire/Fighting/Ground against Lucario.' } },
+        { name: 'Time ATM', spawnItem: 'ATM Trainer Token', role: 'elite', cap: 100, where: [['Arena da base', 'Base arena']], team: [TM(94, 'Gengar', 55, ['ghost', 'poison'], 'Cursed Body', ['Shadow Ball', 'Sludge Bomb', 'Focus Blast', 'Nasty Plot']), TM(143, 'Snorlax', 55, ['normal'], 'Thick Fat', ['Body Slam', 'Rest', 'Curse', 'Earthquake'])], bag: ['Full Restore x2'], tip: { pt: 'Sombrio contra Gengar; Lutador contra Snorlax.', en: 'Dark against Gengar; Fighting against Snorlax.' } }
       ],
       cc: [
-        { name: 'Cherry', role: 'leader', cap: 35, where: [['Vila dos criadores', 'Creators village']], team: [TM(133, 'Eevee', 28, ['normal'], 'Adaptability', ['Quick Attack', 'Bite', 'Swift', 'Baby-Doll Eyes']), TM(25, 'Pikachu', 30, ['electric'], 'Static', ['Thunderbolt', 'Quick Attack', 'Iron Tail', 'Nuzzle'])], bag: ['Super Potion x2'], tip: { pt: 'Lutador contra Eevee; Terra contra Pikachu.', en: 'Fighting against Eevee; Ground against Pikachu.' } },
-        { name: 'Lucas', role: 'champion', cap: 100, where: [['Estúdio', 'Studio']], team: [TM(150, 'Mewtwo', 70, ['psychic'], 'Pressure', ['Psystrike', 'Aura Sphere', 'Ice Beam', 'Recover'])], bag: ['Full Restore x3'], tip: { pt: 'Sombrio/Inseto/Fantasma contra Mewtwo.', en: 'Dark/Bug/Ghost against Mewtwo.' } }
+        { name: 'Cherry', spawnItem: 'Silk Scarf', role: 'leader', cap: 35, where: [['Vila dos criadores', 'Creators village']], team: [TM(133, 'Eevee', 28, ['normal'], 'Adaptability', ['Quick Attack', 'Bite', 'Swift', 'Baby-Doll Eyes']), TM(25, 'Pikachu', 30, ['electric'], 'Static', ['Thunderbolt', 'Quick Attack', 'Iron Tail', 'Nuzzle'])], bag: ['Super Potion x2'], tip: { pt: 'Lutador contra Eevee; Terra contra Pikachu.', en: 'Fighting against Eevee; Ground against Pikachu.' } },
+        { name: 'Lucas', spawnItem: 'Twisted Spoon', role: 'champion', cap: 100, where: [['Estúdio', 'Studio']], team: [TM(150, 'Mewtwo', 70, ['psychic'], 'Pressure', ['Psystrike', 'Aura Sphere', 'Ice Beam', 'Recover'])], bag: ['Full Restore x3'], tip: { pt: 'Sombrio/Inseto/Fantasma contra Mewtwo.', en: 'Dark/Bug/Ghost against Mewtwo.' } }
       ]
     },
     /* Pokébolas: cores do ícone (b1 topo, b2 base, b3 detalhe), multiplicador, efeito e situações */
@@ -541,7 +544,7 @@
     },
     itemNames: { charcoal: ['Carvão', 'Charcoal'], blaze_powder: ['Pó de Blaze', 'Blaze Powder'], star_piece: ['Fragmento de Estrela', 'Star Piece'], comet_shard: ['Estilhaço de Cometa', 'Comet Shard'], iron_ingot: ['Barra de Ferro', 'Iron Ingot'], bone: ['Osso', 'Bone'], oran_berry: ['Oran Berry', 'Oran Berry'],
       old_amber_fossil: ['Âmbar Antigo', 'Old Amber'], ancient_dna_sample: ['Amostra de DNA Antigo', 'Ancient DNA Sample'], charizardite_x: ['Charizardite X', 'Charizardite X'], charizardite_y: ['Charizardite Y', 'Charizardite Y'], keystone: ['Pedra-Chave', 'Key Stone'], max_soup: ['Sopa Max', 'Max Soup'], gigantamax_factor: ['Fator Gigantamax', 'Gigantamax Factor'],
-      hyper_potion: ['Hiper Poção', 'Hyper Potion'], full_heal: ['Cura Total', 'Full Heal'], x_defense: ['X Defesa', 'X Defense'], honey: ['Mel', 'Honey'] },
+      hyper_potion: ['Hiper Poção', 'Hyper Potion'], hard_stone: ['Pedra Dura', 'Hard Stone'], mystic_water: ['Água Mística', 'Mystic Water'], black_sludge: ['Lodo Negro', 'Black Sludge'], miracle_seed: ['Semente Milagrosa', 'Miracle Seed'], magnet: ['Ímã', 'Magnet'], soft_sand: ['Areia Macia', 'Soft Sand'], never_melt_ice: ['Gelo Eterno', 'Never-Melt Ice'], expert_belt: ['Cinto de Perito', 'Expert Belt'], smooth_rock: ['Rocha Lisa', 'Smooth Rock'], dragon_fang: ['Presa de Dragão', 'Dragon Fang'], black_belt: ['Faixa Preta', 'Black Belt'], silk_scarf: ['Lenço de Seda', 'Silk Scarf'], twisted_spoon: ['Colher Torcida', 'Twisted Spoon'], atm_trainer_token: ['Ficha de Treinador ATM', 'ATM Trainer Token'], full_heal: ['Cura Total', 'Full Heal'], x_defense: ['X Defesa', 'X Defense'], honey: ['Mel', 'Honey'] },
     items: [
       { cat: 'med', ico: 'heart-pulse', pt: 'Poção', en: 'Potion', dpt: 'Recupera 20 HP.', den: 'Restores 20 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
       { cat: 'med', ico: 'heart-pulse', pt: 'Super Poção', en: 'Super Potion', dpt: 'Recupera 60 HP.', den: 'Restores 60 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
@@ -622,6 +625,26 @@
     capTimers: []
   };
 
+  /* ------------------------------------------------------------------
+     SONS (arquivos oficiais em assets/sons). SFX de UI respeitam o toggle (padrão ligado, salvo no
+     localStorage); o grito do Pokémon é ação explícita e toca sempre. Nunca sobrepõe o mesmo som.
+     Autoplay bloqueado antes do 1º gesto: o som fica pendente e toca no 1º clique, sem erro no console.
+     ------------------------------------------------------------------ */
+  const SFX = {}; let pendingSfx = null; window.__sfx = SFX; /* exposto só para o self-check do protótipo */
+  const CRIES = ['bulbasaur', 'charmander', 'charmeleon', 'charizard', 'pikachu', 'eevee', 'vaporeon', 'jolteon', 'flareon', 'espeon', 'umbreon', 'leafeon', 'glaceon', 'sylveon', 'mewtwo', 'mew', 'lucario', 'riolu', 'gengar', 'snorlax', 'dragonite', 'aerodactyl', 'jirachi', 'staryu', 'starmie', 'geodude', 'onix', 'cranidos'];
+  function sfxEl(name, dir) {
+    const key = (dir || 'ui') + '/' + name;
+    if (!SFX[key]) { const a = new Audio(`assets/sons/${dir || 'ui'}/${name}.ogg`); a.preload = 'auto'; a.volume = 0.5; SFX[key] = a; }
+    return SFX[key];
+  }
+  function playRaw(name, dir) {
+    const a = sfxEl(name, dir); if (!a.paused) return a;
+    a.currentTime = 0; const p = a.play();
+    if (p && p.catch) p.catch(() => { pendingSfx = pendingSfx || { name, dir }; });
+    return a;
+  }
+  const sfx = (name) => { if (state.sound) playRaw(name, 'ui'); };
+  document.addEventListener('pointerdown', () => { if (pendingSfx && state.sound) { const q = pendingSfx; pendingSfx = null; playRaw(q.name, q.dir); } }, true);
   /* Ícones Lucide: converte <i data-lucide> em SVG após cada render */
   const icons = () => { if (window.lucide) window.lucide.createIcons(); };
   const $ = (s, r) => (r || document).querySelector(s);
@@ -635,7 +658,7 @@
   /* Traduções de termos usados nos times dos treinadores e nas bolas */
   const MOVE_PT = { 'Tackle': 'Investida', 'Rock Throw': 'Lançamento de Pedra', 'Defense Curl': 'Enrolar Defensivo', 'Rock Polish': 'Polir Pedra', 'Bind': 'Amarrar', 'Rock Tomb': 'Tumba de Pedra', 'Harden': 'Endurecer', 'Wing Attack': 'Ataque de Asa', 'Bite': 'Mordida', 'Confuse Ray': 'Raio Confuso', 'Astonish': 'Assombrar', 'Ember': 'Brasa', 'Howl': 'Uivo', 'Smog': 'Fumaça', 'Water Pulse': 'Pulso de Água', 'Swift': 'Rajada Certeira', 'Rapid Spin': 'Giro Rápido', 'Recover': 'Recuperar', 'Psybeam': 'Psicorraio', 'Leaf Blade': 'Lâmina de Folha', 'Quick Attack': 'Ataque Rápido', 'Pursuit': 'Perseguição', 'Fury Cutter': 'Corte de Fúria', 'Mud Shot': 'Tiro de Lama', 'Water Gun': 'Jato de Água', 'Bide': 'Aguardar', 'Rock Smash': 'Quebra-Pedra', 'Spark': 'Faísca', 'Sonic Boom': 'Estrondo Sônico', 'Rollout': 'Rolamento', 'Screech': 'Guincho', 'Thunderbolt': 'Relâmpago', 'Flash Cannon': 'Canhão de Luz', 'Thunder Wave': 'Onda de Trovão', 'Magnet Bomb': 'Bomba Magnética', 'Double Team': 'Duplo Time', 'Giga Drain': 'Giga Dreno', 'Sleep Powder': 'Pó do Sono', 'Ancient Power': 'Poder Ancestral', 'Knock Off': 'Derrubar', 'Sludge Bomb': 'Bomba de Lodo', 'Sunny Day': 'Dia Ensolarado', 'Petal Dance': 'Dança das Pétalas', 'Moonlight': 'Luar', 'Earth Power': 'Poder da Terra', 'Ice Beam': 'Raio de Gelo', 'Superpower': 'Superpoder', 'Earthquake': 'Terremoto', 'Stone Edge': 'Gume de Pedra', 'Megahorn': 'Megachifre', 'Fire Punch': 'Soco de Fogo', 'Sludge Wave': 'Onda de Lodo', 'Surf': 'Surfar', 'Rest': 'Descanso', 'Sleep Talk': 'Falar Dormindo', 'Icicle Spear': 'Lança de Gelo', 'Rock Blast': 'Explosão de Pedra', 'Shell Smash': 'Quebra-Casco', 'Hydro Pump': 'Hidrobomba', 'Freeze-Dry': 'Congelar a Seco', 'Ice Shard': 'Estilhaço de Gelo', 'Hurricane': 'Furacão', 'Brave Bird': 'Pássaro Bravo', 'Heat Wave': 'Onda de Calor', 'Roost': 'Empoleirar', 'Psychic': 'Psíquico', 'Focus Blast': 'Explosão Focada', 'Shadow Ball': 'Bola Sombria', 'Calm Mind': 'Mente Calma', 'Swords Dance': 'Dança das Espadas', 'Waterfall': 'Cachoeira', 'Crunch': 'Mastigada', 'Ice Fang': 'Presa de Gelo', 'Dragon Dance': 'Dança do Dragão', 'Flare Blitz': 'Investida de Fogo', 'Extreme Speed': 'Velocidade Extrema', 'Wild Charge': 'Carga Selvagem', 'Close Combat': 'Combate Corporal', 'Fire Blast': 'Rajada de Fogo', 'Air Slash': 'Corte de Ar', 'Solar Beam': 'Raio Solar', 'Dragon Pulse': 'Pulso do Dragão', 'Stealth Rock': 'Pedras Furtivas', 'Headbutt': 'Cabeçada', 'Leer': 'Encarar', 'Take Down': 'Derrubada', 'Magical Leaf': 'Folha Mágica', 'Leech Seed': 'Semente Sanguessuga', 'Growth': 'Crescimento', 'Safeguard': 'Salvaguarda', 'Razor Leaf': 'Folha Navalha', 'Reflect': 'Refletir', 'Withdraw': 'Recolher', 'Absorb': 'Absorver', 'Poison Sting': 'Ferrão Venenoso', 'Grass Knot': 'Nó de Grama', 'Stun Spore': 'Esporo Paralisante', 'Dark Pulse': 'Pulso Sombrio', 'Silver Wind': 'Vento Prateado', 'Embargo': 'Embargo', 'Dragon Rush': 'Investida do Dragão', 'Brick Break': 'Quebra-Tijolo', 'Giga Impact': 'Giga Impacto', 'Mirror Coat': 'Manto Espelhado', 'Aqua Ring': 'Anel de Água', 'Icy Wind': 'Vento Gelado', 'Feint Attack': 'Ataque Fingido', 'Taunt': 'Provocar', 'Ingrain': 'Enraizar', 'Mist': 'Névoa', 'Outrage': 'Fúria', 'Aura Sphere': 'Esfera de Aura', 'Bone Rush': 'Investida de Osso', 'Metal Claw': 'Garra de Metal', 'Nasty Plot': 'Plano Maligno', 'Body Slam': 'Pancada Corporal', 'Curse': 'Maldição', 'Baby-Doll Eyes': 'Olhos de Boneca', 'Iron Tail': 'Cauda de Ferro', 'Nuzzle': 'Afago', 'Psystrike': 'Psicogolpe' };
   const ABIL_PT = { 'Sturdy': 'Robustez', 'Inner Focus': 'Força Interior', 'Flash Fire': 'Fogo Instantâneo', 'Natural Cure': 'Cura Natural', 'Illuminate': 'Iluminar', 'Overgrow': 'Crescimento Excessivo', 'Torrent': 'Torrente', 'Static': 'Estática', 'Chlorophyll': 'Clorofila', 'Effect Spore': 'Esporo de Efeito', 'Poison Point': 'Ponto Venenoso', 'Rock Head': 'Cabeça de Pedra', 'Sheer Force': 'Força Bruta', 'Thick Fat': 'Gordura Espessa', 'Skill Link': 'Elo de Habilidade', 'Water Absorb': 'Absorver Água', 'No Guard': 'Sem Guarda', 'Magic Guard': 'Guarda Mágica', 'Intimidate': 'Intimidar', 'Solar Power': 'Poder Solar', 'Mold Breaker': 'Quebra-Molde', 'Pressure': 'Pressão', 'Sand Veil': 'Véu de Areia', 'Marvel Scale': 'Escama Maravilha', 'Snow Warning': 'Aviso de Neve', 'Blaze': 'Chama', 'Multiscale': 'Multiescama', 'Cursed Body': 'Corpo Amaldiçoado', 'Adaptability': 'Adaptabilidade' };
-  const ITEM_PT = { 'Potion': 'Poção', 'Super Potion': 'Super Poção', 'Hyper Potion': 'Hiper Poção', 'Full Restore': 'Restaurar Total', 'Full Heal': 'Cura Total', 'X Defense': 'X Defesa', 'Old Amber': 'Âmbar Antigo', 'Ancient DNA Sample': 'Amostra de DNA Antigo', 'Master Ball': 'Bola Mestra', 'Charcoal': 'Carvão', 'Fire Stone': 'Pedra do Fogo' };
+  const ITEM_PT = { 'Hard Stone': 'Pedra Dura', 'Mystic Water': 'Água Mística', 'Black Sludge': 'Lodo Negro', 'Miracle Seed': 'Semente Milagrosa', 'Magnet': 'Ímã', 'Soft Sand': 'Areia Macia', 'Never-Melt Ice': 'Gelo Eterno', 'Expert Belt': 'Cinto de Perito', 'Smooth Rock': 'Rocha Lisa', 'Dragon Fang': 'Presa de Dragão', 'Black Belt': 'Faixa Preta', 'Silk Scarf': 'Lenço de Seda', 'Twisted Spoon': 'Colher Torcida', 'ATM Trainer Token': 'Ficha de Treinador ATM', 'Potion': 'Poção', 'Super Potion': 'Super Poção', 'Hyper Potion': 'Hiper Poção', 'Full Restore': 'Restaurar Total', 'Full Heal': 'Cura Total', 'X Defense': 'X Defesa', 'Old Amber': 'Âmbar Antigo', 'Ancient DNA Sample': 'Amostra de DNA Antigo', 'Master Ball': 'Bola Mestra', 'Charcoal': 'Carvão', 'Fire Stone': 'Pedra do Fogo' };
   const EGG_PT = { 'Field': 'Campo', 'Human-like': 'Humanoide', 'Monster': 'Monstro', 'Dragon': 'Dragão', 'Flying': 'Voador', 'Undiscovered': 'Desconhecido' };
   const BALL_PT = { poke: 'Pokébola', great: 'Grande Bola', ultra: 'Ultra Bola', master: 'Bola Mestra', net: 'Bola de Rede', dusk: 'Bola do Crepúsculo', fast: 'Bola Rápida', heavy: 'Bola Pesada', love: 'Bola do Amor', beast: 'Bola Fera', quick: 'Bola Veloz', timer: 'Bola Temporizada', repeat: 'Bola de Repetição', level: 'Bola de Nível', lure: 'Bola Isca', moon: 'Bola Lunar', dive: 'Bola de Mergulho', nest: 'Bola Ninho', friend: 'Bola da Amizade', luxury: 'Bola de Luxo', heal: 'Bola de Cura', premier: 'Bola Premier', safari: 'Bola Safári' };
   const term = (en, map, L) => (L === 'pt' && map[en]) ? map[en] : en;
@@ -919,6 +942,7 @@
             ${isSpecial ? `<div class="sheen"></div><div class="sparkles">${[[12,18],[30,70],[52,12],[70,40],[86,22],[80,78],[20,46],[60,84]].map(([x, y], i) => `<i style="left:${x}%;top:${y}%;animation-delay:${(i * 0.37).toFixed(2)}s"></i>`).join('')}</div>` : ''}
             <div class="seal">${isSpecial ? badge(p) : ''}<span class="badge badge-${p.bucket || (isSpecial ? 'rare' : p.rarity)}">${t('rarity.' + (p.bucket || (isSpecial ? 'rare' : p.rarity)))}</span>${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <button class="shiny-btn ${state.shiny ? 'on' : ''}" id="shiny-btn" title="${t('detail.shiny')}"><i data-lucide="sparkles"></i></button>
+            ${CRIES.includes(p.name.toLowerCase()) ? `<button class="shiny-btn cry-btn" id="cry-btn" title="${t('detail.cry')}" data-cry="${p.name.toLowerCase()}"><i data-lucide="volume-2"></i></button>` : ''}
             <div class="hero-title"><div class="dex-num">${pad(p.id)}</div><h2>${p.name}</h2></div>
             <img id="detail-art" src="${art(p.id, state.shiny)}" alt="${p.name}" onerror="this.onerror=null;this.src='${art(p.id)}'">
           </div>
@@ -1040,7 +1064,7 @@
   }
   function nextTheme() { const i = DATA.themes.findIndex(x => x.id === state.theme); setTheme(DATA.themes[(i + 1) % DATA.themes.length].id); }
   function setSound(on) {
-    state.sound = on; $('#sw-sound').checked = on;
+    state.sound = on; $('#sw-sound').checked = on; try { localStorage.setItem('pontindex.sound', on ? '1' : '0'); } catch (e) {}
     $$('#tgl-sound, #tgl-sound-m').forEach(b => { b.classList.toggle('off', !on); const i = b.querySelector('[data-lucide]'); if (i) i.setAttribute('data-lucide', on ? 'volume-2' : 'volume-x'); }); icons();
   }
   function updateLayout() {
@@ -1074,6 +1098,7 @@
       <div class="tr-team">${tr.team.map(m => `<div class="tr-mon"><img src="${spr(m.id)}" alt="" onerror="this.onerror=null;this.src='${art(m.id)}'"><div class="tr-mon-info"><div class="tr-mon-name">${m.name} <span class="tr-lv">Lv. ${m.lv}</span></div>
         <div class="chips">${m.types.map(x => chip(x, 'sm', L)).join('')}</div><div class="tr-ab"><span class="muted">${state.lang === 'pt' ? 'Habilidade' : 'Ability'}:</span> <b>${term(m.ability, ABIL_PT, L)}</b></div>
         <div class="tr-moves">${m.moves.map(mv => `<span class="mv-chip">${term(mv, MOVE_PT, L)}</span>`).join('')}</div></div></div>`).join('')}</div>
+      <div class="tr-spawn"><span class="tr-sec">${t('tr.spawnItem')}</span><div class="tr-spawn-row"><button class="biome biome-item it-link tr-spawn-chip" data-item-open="${slug(tr.spawnItem)}">${itemImg(tr.spawnItem, 'package', 'sm')}${term(tr.spawnItem, ITEM_PT, L)}</button><div class="tr-spawn-how"><i data-lucide="box"></i><span>${t('tr.spawnHow')}</span></div></div></div>
       <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<button class="biome biome-item it-link" data-item-open="${slug(b.replace(/ x\d+$/, ''))}">${itemImg(b.replace(/ x\d+$/, ''), 'package', 'xs')}${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</button>`).join('')}</div></div>
       <div class="tr-tip"><i data-lucide="lightbulb"></i><div><b>${t('tr.tip')}:</b> ${state.lang === 'pt' ? tr.tip.pt : tr.tip.en}</div></div></div></div>`;
   }
@@ -1086,7 +1111,7 @@
         <div class="tr-head" data-tr="${i}">
           <div class="tr-main"><div class="tr-name">${tr.name} ${roleBadge(tr.role)}</div>
             ${tr.group ? `<div class="tr-group">${t('tr.requires')}: ${tr.group.map(g => `<span>${g.name} <em>(${t('role.' + g.role)})</em></span>`).join(' / ')}</div>` : ''}
-            <div class="tr-meta"><span class="muted">Lv. max ${strongest}</span><span class="tr-where"><i data-lucide="map-pin"></i>${tr.where.map(w => `<span class="biome">${L === 'pt' ? w[0] : w[1]}</span>`).join('')}</span></div></div>
+            <div class="tr-meta"><span class="muted">Lv. max ${strongest}</span><span class="tr-spawn-mini" title="${t('tr.spawnItem')}: ${term(tr.spawnItem, ITEM_PT, L)}">${itemImg(tr.spawnItem, 'package', 'xs')}</span><span class="tr-where"><i data-lucide="map-pin"></i>${tr.where.map(w => `<span class="biome">${L === 'pt' ? w[0] : w[1]}</span>`).join('')}</span></div></div>
           <div class="tr-capchip"><span>${t('tr.cap')}</span><i data-lucide="arrow-right"></i><b>${tr.cap}</b></div>
           <label class="tr-check" title="${t('tr.defeated')}"><input type="checkbox" data-trd="${i}" ${d[i] ? 'checked' : ''}><span></span><em>${t('tr.defeated')}</em></label>
           <span class="tr-caret"><i data-lucide="chevron-down"></i></span>
@@ -1225,6 +1250,7 @@
   try { history.replaceState({ pontindex: 0 }, ''); } catch (e) {}
 
   function openDetail(id) {
+    if (DATA.chainOf[id]) setTimeout(() => sfx('evolution_notification'), 350);
     navigate('detail', () => {
       state.detailId = id; state.shiny = false; state.moveTab = 'level'; state.formIdx = 0;
       DATA.history = [id].concat(DATA.history.filter(x => x !== id)).slice(0, 6);
@@ -1261,26 +1287,28 @@
     cap.className = 'capture on';
     const at = (ms, fn) => state.capTimers.push(setTimeout(fn, ms));
     at(450, () => capStage(''));
-    at(1000, () => capStage('s-ball'));
-    at(1700, () => capStage('s-shake'));
-    at(3200, () => capStage('s-open'));
+    at(1000, () => { capStage('s-ball'); sfx('poke_ball_throw_1'); });
+    at(1700, () => { capStage('s-shake'); sfx('poke_ball_shake_1'); });
+    at(2150, () => sfx('poke_ball_shake_2'));
+    at(2600, () => sfx('poke_ball_shake_3'));
+    at(3200, () => { capStage('s-open'); sfx('poke_ball_open'); });
     at(3550, () => capStage('s-grow'));
-    at(5250, () => capStage('s-flash'));
+    at(5250, () => { capStage('s-flash'); sfx('poke_ball_shake_critical'); });
     at(5450, () => finishCapture());
   }
   function finishCapture() {
-    clearCap(); capStage('s-final');
+    clearCap(); capStage('s-final'); sfx('poke_ball_capture_succeeded');
     const p = byId(+cap.dataset.id);
     if (!p.caught) { p.caught = true; p.date = '23/09/2026'; DATA.caughtCount += 1; }
     renderDex(); renderCaptured(); if (state.screen === 'detail' && state.detailId === p.id) updateDetailButtons();
   }
-  function closeCapture() { clearCap(); cap.className = 'capture'; }
+  function closeCapture() { clearCap(); cap.className = 'capture'; sfx('pokedex_close'); }
 
   /* ------------------------------------------------------------------
      BOOT
      ------------------------------------------------------------------ */
   function boot() {
-    const b = $('#boot'); b.classList.remove('done');
+    const b = $('#boot'); b.classList.remove('done'); sfx('pokedex_open');
     setTimeout(() => b.classList.add('done'), 2300);
   }
   function replayBoot() {
@@ -1291,6 +1319,10 @@
      EVENTOS
      ------------------------------------------------------------------ */
   document.addEventListener('click', (e) => {
+    const cryBtn = e.target.closest('#cry-btn');
+    if (cryBtn) { const a = playRaw(cryBtn.dataset.cry, 'cries'); cryBtn.classList.add('playing'); a.onended = () => cryBtn.classList.remove('playing'); setTimeout(() => cryBtn.classList.remove('playing'), 2500); return; }
+    if (e.target.closest('[data-go], .tab, .nav-item, [data-back], [data-item-open], [data-open], [data-mtab], [data-ftab], [data-icat], [data-bf], [data-series], [data-wf], [data-tl], [data-more]')) sfx('pokedex_click_short');
+    else if (e.target.closest('button, .switch, .pcard, .item-card, .tr-head')) sfx('click');
     const io = e.target.closest('[data-item-open]');
     if (io) { e.preventDefault(); openItem(io.dataset.itemOpen); return; }
     if (e.target.closest('[data-back]')) { goBack(false); return; }
@@ -1314,7 +1346,7 @@
     const sr = e.target.closest('[data-series]');
     if (sr) { state.series = sr.dataset.series; state.trainerOpen = null; $$('#tr-series button').forEach(b => b.classList.toggle('active', b === sr)); swapIn($('#tr-header'), trHeaderHTML()); swapIn($('#tr-list'), trList().map(trStepHTML).join('')); return; }
     const trd = e.target.closest('[data-trd]');
-    if (trd) { trDefeated()[+trd.dataset.trd] = trd.checked; refreshTrainerStates(); icons(); return; }
+    if (trd) { const before = currentCap(); trDefeated()[+trd.dataset.trd] = trd.checked; refreshTrainerStates(); icons(); if (currentCap() > before) sfx('levelup'); return; }
     if (e.target.closest('.tr-check')) return;
     const trh = e.target.closest('[data-tr]');
     if (trh) { const i = +trh.dataset.tr; const was = state.trainerOpen; if (was !== null && was !== i) { $('#tr-step-' + was).classList.remove('open'); $('#tr-body-' + was).innerHTML = ''; }
@@ -1339,7 +1371,7 @@
     if (ct) { $$('#captured-tabs button').forEach(b => b.classList.toggle('active', b === ct)); renderCaptured(); return; }
     const ls = e.target.closest('#lang-seg button');
     if (ls) { setLang(ls.dataset.v); return; }
-    if (e.target.closest('#shiny-btn')) { state.shiny = !state.shiny; const img = $('#detail-art'); img.src = art(state.detailId, state.shiny); img.classList.remove('swap'); void img.offsetWidth; img.classList.add('swap'); $('#shiny-btn').classList.toggle('on', state.shiny); return; }
+    if (e.target.closest('#shiny-btn')) { sfx('shiny'); state.shiny = !state.shiny; const img = $('#detail-art'); img.src = art(state.detailId, state.shiny); img.classList.remove('swap'); void img.offsetWidth; img.classList.add('swap'); $('#shiny-btn').classList.toggle('on', state.shiny); return; }
     if (e.target.closest('#btn-caught')) { startCapture(state.detailId); return; }
     if (e.target.closest('#btn-team')) { state.teamAdded[state.detailId] = !state.teamAdded[state.detailId]; const empty = DATA.team.indexOf(null); if (state.teamAdded[state.detailId] && empty >= 0 && !DATA.team.includes(state.detailId)) DATA.team[empty] = state.detailId; else if (!state.teamAdded[state.detailId]) DATA.team = DATA.team.map(x => x === state.detailId ? null : x); renderHome(); updateDetailButtons(); icons(); return; }
     if (e.target.closest('#cmp-swap')) { DATA.compare.reverse(); renderCompare(); icons(); return; }
@@ -1372,6 +1404,7 @@
   /* ------------------------------------------------------------------
      INIT
      ------------------------------------------------------------------ */
-  renderAll(); setSound(false); updateLayout(); boot();
+  let soundPref = true; try { soundPref = localStorage.getItem('pontindex.sound') !== '0'; } catch (e) {}
+  renderAll(); setSound(soundPref); updateLayout(); boot();
   setTimeout(() => { if (state.screen === 'home') { $('#search-input').focus(); renderSearch(); } }, 2400);
 })();
