@@ -68,6 +68,17 @@
     'detail.inTeam': { pt: 'No time', en: 'In team' },
     'detail.shiny': { pt: 'Shiny', en: 'Shiny' },
     'detail.noSpawn': { pt: 'Não nasce no mundo', en: 'Does not spawn in the world' },
+    'obtain.title': { pt: 'Como obter', en: 'How to obtain' },
+    'obtain.evo': { pt: 'Evolução', en: 'Evolution' },
+    'obtain.fossil': { pt: 'Fóssil / Reviver', en: 'Fossil / Revive' },
+    'obtain.spawn': { pt: 'Spawn adicionado pelo All the Mons', en: 'Spawn added by All the Mons' },
+    'obtain.addon': { pt: 'Addon', en: 'Addon' },
+    'obtain.breed': { pt: 'Breeding (Cobbreeding)', en: 'Breeding (Cobbreeding)' },
+    'obtain.breedText': { pt: 'Crie a partir de pais do grupo de ovo {g} no pasture', en: 'Breed from parents in the {g} egg group in the pasture' },
+    'obtain.none': { pt: 'Sem rota confirmada no All the Mons nesta versão', en: 'No confirmed route in All the Mons in this version' },
+    'obtain.noneHint': { pt: 'Assim que o pack ganhar uma forma de obter, ela aparece aqui.', en: 'Once the pack adds a way to obtain it, it will show up here.' },
+    'obtain.packTag': { pt: 'Adicionado pelo pack', en: 'Added by the pack' },
+    'obtain.open': { pt: 'Abrir ficha', en: 'Open entry' },
     'detail.noSpawnDesc': { pt: 'Este Pokémon não aparece naturalmente no All the Mons. Só por eventos, comandos ou troca.', en: 'This Pokémon does not spawn naturally in All the Mons. Only via events, commands or trade.' },
     'detail.stats': { pt: 'Atributos base', en: 'Base stats' },
     'detail.total': { pt: 'Total', en: 'Total' },
@@ -204,15 +215,17 @@
       { id: 1, name: 'Bulbasaur', types: ['grass', 'poison'], gen: 1, rarity: 'common', evo: 'level', caught: true, date: '02/09/2026', stats: [45, 49, 49, 65, 65, 45] },
       { id: 4, name: 'Charmander', types: ['fire'], gen: 1, rarity: 'common', evo: 'level', caught: true, date: '05/09/2026', stats: [39, 52, 43, 60, 50, 65] },
       { id: 5, name: 'Charmeleon', types: ['fire'], gen: 1, rarity: 'uncommon', evo: 'level', caught: true, date: '11/09/2026', stats: [58, 64, 58, 80, 65, 80] },
-      { id: 6, name: 'Charizard', types: ['fire', 'flying'], gen: 1, rarity: 'rare', evo: 'level', caught: false, stats: [78, 84, 78, 109, 85, 100] },
+      { id: 6, name: 'Charizard', types: ['fire', 'flying'], gen: 1, rarity: 'rare', evo: 'level', caught: false, egg: ['Monster', 'Dragon'], stats: [78, 84, 78, 109, 85, 100] },
       { id: 25, name: 'Pikachu', types: ['electric'], gen: 1, rarity: 'uncommon', evo: 'stone', caught: true, date: '03/09/2026', stats: [35, 55, 40, 50, 50, 90] },
       { id: 94, name: 'Gengar', types: ['ghost', 'poison'], gen: 1, rarity: 'rare', evo: 'trade', caught: true, date: '15/09/2026', stats: [60, 65, 60, 130, 75, 110] },
       { id: 133, name: 'Eevee', types: ['normal'], gen: 1, rarity: 'uncommon', evo: 'stone', caught: true, date: '08/09/2026', stats: [55, 55, 50, 45, 65, 55] },
       { id: 143, name: 'Snorlax', types: ['normal'], gen: 1, rarity: 'rare', evo: 'friendship', caught: false, stats: [160, 110, 65, 65, 110, 30] },
       { id: 149, name: 'Dragonite', types: ['dragon', 'flying'], gen: 1, rarity: 'ultra', evo: 'level', caught: false, stats: [91, 134, 95, 100, 100, 80] },
-      { id: 150, name: 'Mewtwo', types: ['psychic'], gen: 1, rarity: 'legendary', evo: 'none', caught: false, stats: [106, 110, 90, 154, 90, 130] },
+      { id: 142, name: 'Aerodactyl', types: ['rock', 'flying'], gen: 1, rarity: 'rare', evo: 'none', caught: false, noSpawn: true, egg: ['Flying'], stats: [80, 105, 65, 60, 75, 130] },
+      { id: 150, name: 'Mewtwo', types: ['psychic'], gen: 1, rarity: 'legendary', evo: 'none', caught: false, noSpawn: true, stats: [106, 110, 90, 154, 90, 130] },
       { id: 151, name: 'Mew', types: ['psychic'], gen: 1, rarity: 'mythical', evo: 'none', caught: false, noSpawn: true, stats: [100, 100, 100, 100, 100, 100] },
-      { id: 448, name: 'Lucario', types: ['fighting', 'steel'], gen: 4, rarity: 'rare', evo: 'friendship', caught: true, date: '23/09/2026', stats: [70, 110, 70, 115, 70, 90] }
+      { id: 385, name: 'Jirachi', types: ['steel', 'psychic'], gen: 3, rarity: 'mythical', bucket: 'ultra', evo: 'none', caught: false, packSpawn: true, stats: [100, 100, 100, 100, 100, 100] },
+      { id: 448, name: 'Lucario', types: ['fighting', 'steel'], gen: 4, rarity: 'rare', evo: 'friendship', caught: true, date: '23/09/2026', egg: ['Field', 'Human-like'], stats: [70, 110, 70, 115, 70, 90] }
     ],
     team: [6, 448, 94, 149, null, null],
     history: [6, 448, 25, 150, 133, 94],
@@ -287,9 +300,24 @@
     where: {
       6: { levels: '36-56', biomes: [['Montanhas', 'Mountains'], ['Savana', 'Savanna'], ['Terras Áridas', 'Badlands'], ['Colinas Rochosas', 'Stony Peaks']], conds: ['cond.day', 'cond.sky'],
         drops: [['Carvão', 'Charcoal', 50], ['Pó de Blaze', 'Blaze Powder', 25], ['Pedra do Fogo', 'Fire Stone', 5]] },
-      150: { levels: '70-70', biomes: [['Cavernas Profundas', 'Deep Caves'], ['Deep Dark', 'Deep Dark']], conds: ['cond.night'], drops: [['Master Ball', 'Master Ball', 1], ['Poção Máxima', 'Max Potion', 30]] },
+      385: { levels: '60-80', biomes: [['Bioma especial: Picos Estrelados', 'Special biome: Starry Peaks']], conds: ['cond.night', 'cond.sky'], drops: [['Star Piece', 'Star Piece', 20], ['Comet Shard', 'Comet Shard', 5]] },
       448: { levels: '30-50', biomes: [['Montanhas', 'Mountains'], ['Picos Nevados', 'Snowy Peaks'], ['Taiga', 'Taiga']], conds: ['cond.any'], drops: [['Barra de Ferro', 'Iron Ingot', 40], ['Osso', 'Bone', 20]] },
       _: { levels: '5-30', biomes: [['Floresta', 'Forest'], ['Planície', 'Plains']], conds: ['cond.any'], drops: [['Berry Oran', 'Oran Berry', 40]] }
+    },
+    /* Como obter: métodos por Pokémon (k: evo | fossil | addon | spawn é derivado de where + packSpawn; breed é derivado de egg) */
+    obtain: {
+      6: [{ k: 'evo', pre: 5, preName: 'Charmeleon', pt: 'Evolua Charmeleon no nível 36', en: 'Evolve Charmeleon at level 36' }],
+      448: [{ k: 'evo', pre: 447, preName: 'Riolu', pt: 'Evolua Riolu (amizade alta + dia)', en: 'Evolve Riolu (high friendship + daytime)' }],
+      142: [{ k: 'fossil', item: 'Old Amber', pt: 'Reviva o fóssil Old Amber na máquina de fósseis', en: 'Revive the Old Amber fossil in the fossil machine' }],
+      151: [{ k: 'addon', name: 'Legendary Monuments', pt: 'Invoque no altar Tree of Beginning com o item Mythic Flute', en: 'Summon at the Tree of Beginning altar with the Mythic Flute item' },
+        { k: 'addon', name: 'Raid Dens', pt: 'Pode aparecer como recompensa de raid tier 5+', en: 'Can appear as a tier 5+ raid reward' }],
+      150: [{ k: 'fossil', item: 'Ancient DNA Sample', pt: 'Reviva o item Ancient DNA Sample (ou Pika Star) na máquina de fósseis (All the Mons 1.3.0)', en: 'Revive the Ancient DNA Sample (or Pika Star) item in the fossil machine (All the Mons 1.3.0)' },
+        { k: 'addon', name: 'Legendary Monuments', pt: 'Invoque no altar Cerulean Cave com o item Berserk Gene', en: 'Summon at the Cerulean Cave altar with the Berserk Gene item' }],
+      5: [{ k: 'evo', pre: 4, preName: 'Charmander', pt: 'Evolua Charmander no nível 16', en: 'Evolve Charmander at level 16' }],
+      94: [{ k: 'evo', pre: 93, preName: 'Haunter', pt: 'Evolua Haunter por troca', en: 'Evolve Haunter by trading' }],
+      149: [{ k: 'evo', pre: 148, preName: 'Dragonair', pt: 'Evolua Dragonair no nível 55', en: 'Evolve Dragonair at level 55' }],
+      143: [{ k: 'evo', pre: 446, preName: 'Munchlax', pt: 'Evolua Munchlax (amizade alta)', en: 'Evolve Munchlax (high friendship)' }],
+      25: [{ k: 'evo', pre: 172, preName: 'Pichu', pt: 'Evolua Pichu (amizade alta)', en: 'Evolve Pichu (high friendship)' }]
     },
     forms: {
       6: [
@@ -483,12 +511,30 @@
     return rows.length ? rows.map(r => `<div class="weak-row"><span class="mult ${r[2]}">${r[1]}</span><div class="chips">${wk[r[0]].map(x => chip(x, 'sm')).join('')}</div></div>`).join('') : `<p class="muted">-</p>`;
   }
 
+  /* Bloco "Como obter": métodos aplicáveis com ícone Lucide; fallback neutro quando nada se aplica */
+  function obtainHTML(p, where) {
+    const ico = { evo: 'arrow-up-circle', fossil: 'bone', spawn: 'map-pin', addon: 'puzzle', breed: 'egg' };
+    const rows = [];
+    if (p.packSpawn && where) rows.push({ k: 'spawn', html: `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span> <b>${t('where.level')} ${where.levels}</b> · ${where.biomes.map(b => state.lang === 'pt' ? b[0] : b[1]).join(', ')} <span class="tag">${t('obtain.packTag')}</span>` });
+    (DATA.obtain[p.id] || []).forEach(m => {
+      const txt = state.lang === 'pt' ? m.pt : m.en;
+      if (m.k === 'evo') rows.push({ k: 'evo', html: txt, extra: `<button class="ob-link" data-open="${m.pre}"><img src="${spr(m.pre)}" alt="" onerror="this.onerror=null;this.src='${art(m.pre)}'"><span>${m.preName}</span><i data-lucide="arrow-right"></i></button>` });
+      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag">${m.item}</span>` });
+      else rows.push({ k: 'addon', title: m.name, html: txt, icon: m.name === 'Raid Dens' ? 'swords' : 'puzzle' });
+    });
+    if (p.egg && p.egg[0] !== 'Undiscovered') rows.push({ k: 'breed', html: t('obtain.breedText').replace('{g}', p.egg.join(' / ')) });
+    const list = rows.length ? rows.map(r => `<div class="ob-row"><span class="ob-ico"><i data-lucide="${r.icon || ico[r.k]}"></i></span>
+        <div class="ob-body"><div class="ob-title">${r.title ? t('obtain.addon') + ': ' + r.title : t('obtain.' + r.k)}</div><div class="ob-text">${r.html}</div></div>${r.extra || ''}</div>`).join('')
+      : `<div class="ob-row ob-none"><span class="ob-ico"><i data-lucide="info"></i></span><div class="ob-body"><div class="ob-title">${t('obtain.none')}</div><div class="ob-text">${t('obtain.noneHint')}</div></div></div>`;
+    return `<div class="obtain"><div class="ob-head">${t('obtain.title')}</div><div class="ob-list">${list}</div></div>`;
+  }
+
   function renderDetail() {
     const p = byId(state.detailId);
     const chainKey = DATA.chainOf[p.id];
     const chain = chainKey ? DATA.chains[chainKey] : null;
     const abilities = DATA.abilities[p.id] || DATA.abilities._;
-    const where = DATA.where[p.id] || DATA.where._;
+    const where = p.noSpawn ? null : (DATA.where[p.id] || DATA.where._);
     const forms = formsOf(p);
     const isSpecial = p.rarity === 'legendary' || p.rarity === 'mythical';
     const inTeam = DATA.team.includes(p.id) || state.teamAdded[p.id];
@@ -507,14 +553,13 @@
           </div>
           <div class="hero-body">
             <div class="types">${p.types.map(x => chip(x, 'lg')).join('')}</div>
-            <div class="badges">${isSpecial ? `<span class="badge badge-rare">${t('rarity.rare')}</span>` : badge(p)}${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
+            <div class="badges">${isSpecial ? `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span>` : badge(p)}${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <div class="hero-actions-2">
               <button class="btn btn-accent ${p.caught ? 'done' : ''}" id="btn-caught"><img class="ball-ico" src="../pokebola.webp" alt=""><span>${p.caught ? t('detail.caughtDone') : t('detail.caught')}</span></button>
               <button class="btn btn-ghost ${inTeam ? 'done' : ''}" id="btn-team">${inTeam ? '<i data-lucide="check"></i> ' + t('detail.inTeam') : '<i data-lucide="plus"></i> ' + t('detail.addTeam')}</button>
             </div>
           </div>
         </div>
-        ${p.noSpawn ? `<div class="notice"><span><i data-lucide="triangle-alert"></i></span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : ''}
         <div class="panel" style="--i:1"><h3>${t('detail.stats')}</h3>${statsBlock(p.stats)}</div>
       </div>
 
@@ -543,14 +588,15 @@
         </div>
 
         <div class="panel" style="--i:6"><h3>${t('detail.where')}</h3>
-          ${p.noSpawn ? `<div class="notice"><span><i data-lucide="triangle-alert"></i></span><div><strong>${t('detail.noSpawn')}</strong>${t('detail.noSpawnDesc')}</div></div>` : `<div class="where">
-            <div class="kv"><span class="k">${t('where.bucket')}</span><span class="v">${badge(p)}</span></div>
+          ${p.noSpawn ? '' : `<div class="where">
+            <div class="kv"><span class="k">${t('where.bucket')}</span><span class="v">${isSpecial ? `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span>` : badge(p)}</span></div>
             <div class="kv"><span class="k">${t('where.level')}</span><span class="v">${where.levels}</span></div>
             <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${state.lang === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
             <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${t(c)}</span>`).join('')}</div></div>
             <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
               ${where.drops.map(d => `<div class="drop"><span>${state.lang === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
           </div>`}
+          ${obtainHTML(p, where)}
         </div>
 
         <div class="panel" style="--i:7"><h3>${t('detail.forms')}</h3>
