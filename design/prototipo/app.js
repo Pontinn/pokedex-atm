@@ -192,7 +192,7 @@
   const art = (id, shiny) => ART + (shiny ? 'shiny/' : '') + id + '.png';
   const spr = (id) => SPR + id + '.png';
 
-  const MV = (lv, pt, en, type, cat, pow, acc) => ({ lv, pt, en, type, cat, pow, acc });
+  const MV = (lv, pt, en, type, cat, pow, acc, desc) => ({ lv, pt, en, type, cat, pow, acc, desc });
 
   const DATA = {
     total: 1025,
@@ -243,13 +243,13 @@
     moves: {
       6: {
         level: [
-          MV(1, 'Arranhão', 'Scratch', 'normal', 'physical', 40, 100),
-          MV(1, 'Rosnado', 'Growl', 'normal', 'status', null, 100),
-          MV(4, 'Brasa', 'Ember', 'fire', 'special', 40, 100),
+          MV(1, 'Arranhão', 'Scratch', 'normal', 'physical', 40, 100, { pt: 'Garras afiadas e duras arranham o alvo para causar dano.', en: 'Hard, pointed, sharp claws rake the target to inflict damage.' }),
+          MV(1, 'Rosnado', 'Growl', 'normal', 'status', null, 100, { pt: 'O usuário rosna de forma fofa, baixando o Ataque dos oponentes.', en: 'The user growls in an endearing way, lowering the Attack stat of opposing Pokémon.' }),
+          MV(4, 'Brasa', 'Ember', 'fire', 'special', 40, 100, { pt: 'O alvo é atacado com pequenas chamas. Pode causar queimadura.', en: 'The target is attacked with small flames. This may also leave the target with a burn.' }),
           MV(12, 'Sopro do Dragão', 'Dragon Breath', 'dragon', 'special', 60, 100),
           MV(19, 'Presa de Fogo', 'Fire Fang', 'fire', 'physical', 65, 95),
           MV(24, 'Talho', 'Slash', 'normal', 'physical', 70, 100),
-          MV(36, 'Lança-Chamas', 'Flamethrower', 'fire', 'special', 90, 100),
+          MV(36, 'Lança-Chamas', 'Flamethrower', 'fire', 'special', 90, 100, { pt: 'O alvo é atingido por uma intensa rajada de fogo. Pode causar queimadura.', en: 'The target is scorched with an intense blast of fire. This may also leave the target with a burn.' }),
           MV(54, 'Inferno', 'Inferno', 'fire', 'special', 100, 50)
         ],
         tm: [
@@ -269,8 +269,8 @@
       },
       _: {
         level: [
-          MV(1, 'Investida', 'Tackle', 'normal', 'physical', 40, 100),
-          MV(1, 'Rosnado', 'Growl', 'normal', 'status', null, 100),
+          MV(1, 'Investida', 'Tackle', 'normal', 'physical', 40, 100, { pt: 'Um ataque físico no qual o usuário avança e bate no alvo com todo o corpo.', en: 'A physical attack in which the user charges and slams into the target with its whole body.' }),
+          MV(1, 'Rosnado', 'Growl', 'normal', 'status', null, 100, { pt: 'O usuário rosna de forma fofa, baixando o Ataque dos oponentes.', en: 'The user growls in an endearing way, lowering the Attack stat of opposing Pokémon.' }),
           MV(10, 'Ataque Rápido', 'Quick Attack', 'normal', 'physical', 40, 100),
           MV(20, 'Confusão', 'Confusion', 'psychic', 'special', 50, 100),
           MV(30, 'Desmaio', 'Swift', 'normal', 'special', 60, null),
@@ -436,15 +436,47 @@
         <div class="bar"><i style="--w:${Math.min(100, total / 8)}%;--d:520ms"></i></div></div></div>`;
   }
 
+  /* Componentes parciais da ficha: só eles são re-renderizados ao trocar aba/forma */
+  function movesTableHTML() {
+    const moves = (DATA.moves[state.detailId] || DATA.moves._)[state.moveTab];
+    return `<table>
+      <thead><tr><th>${t('col.level')}</th><th>${t('col.move')}</th><th>${t('col.type')}</th><th>${t('col.cat')}</th><th>${t('col.power')}</th><th>${t('col.acc')}</th></tr></thead>
+      <tbody>${moves.map((m, i) => `<tr class="mv-row ${m.desc ? 'has-desc' : ''}" data-mv="${i}"><td class="num">${typeof m.lv === 'number' ? m.lv : t('tab.' + state.moveTab)}</td>
+        <td><span class="mv-name">${state.lang === 'pt' ? m.pt : m.en}${m.desc ? '<span class="mv-caret">&#9660;</span>' : ''}</span><span class="mv-en">${state.lang === 'pt' ? m.en : m.pt}</span></td>
+        <td>${chip(m.type, 'sm')}</td><td><span class="cat cat-${m.cat}"><i></i>${t('cat.' + m.cat)}</span></td>
+        <td class="num">${m.pow == null ? '-' : m.pow}</td><td class="num">${m.acc == null ? '-' : m.acc + '%'}</td></tr>${m.desc ? `<tr class="mv-desc"><td colspan="6"><div class="desc-wrap"><div class="desc-inner"><p class="desc-text">${state.lang === 'pt' ? m.desc.pt : m.desc.en}</p></div></div></td></tr>` : ''}`).join('')}</tbody>
+    </table>`;
+  }
+  function formBodyHTML(forms) {
+    const form = forms[Math.min(state.formIdx, forms.length - 1)];
+    return `${imgArt(form.id)}
+      <div class="form-info">
+        <div class="types">${form.types.map(x => chip(x)).join('')}</div>
+        <div><span class="muted">${t('form.ability')}:</span> <strong>${state.lang === 'pt' ? form.ability[0] : form.ability[1]}</strong> <span class="muted">(${state.lang === 'pt' ? form.ability[1] : form.ability[0]})</span></div>
+        <div class="show-bars">${statsBlock(form.stats)}</div>
+      </div>`;
+  }
+  function formsOf(p) {
+    const abilities = DATA.abilities[p.id] || DATA.abilities._;
+    return DATA.forms[p.id] || [{ key: 'form.normal', id: p.id, types: p.types, ability: [abilities[0].pt, abilities[0].en], stats: p.stats }];
+  }
+  /* Troca o conteúdo de um componente com uma pequena transição (sem re-renderizar a tela) */
+  function swapIn(el, html) { el.innerHTML = html; el.classList.remove('part-in'); void el.offsetWidth; el.classList.add('part-in'); }
+  function updateDetailButtons() {
+    const p = byId(state.detailId); const bc = $('#btn-caught'), bt = $('#btn-team'); if (!bc || !bt) return;
+    const inTeam = DATA.team.includes(p.id) || state.teamAdded[p.id];
+    bc.classList.toggle('done', !!p.caught); bc.querySelector('span').textContent = p.caught ? t('detail.caughtDone') : t('detail.caught');
+    bt.classList.toggle('done', !!inTeam); bt.innerHTML = inTeam ? '&#10003; ' + t('detail.inTeam') : '+ ' + t('detail.addTeam');
+    bt.classList.remove('part-in'); void bt.offsetWidth; bt.classList.add('part-in');
+  }
+
   function renderDetail() {
     const p = byId(state.detailId);
     const chainKey = DATA.chainOf[p.id];
     const chain = chainKey ? DATA.chains[chainKey] : null;
     const abilities = DATA.abilities[p.id] || DATA.abilities._;
-    const moves = (DATA.moves[p.id] || DATA.moves._)[state.moveTab];
     const where = DATA.where[p.id] || DATA.where._;
-    const forms = DATA.forms[p.id] || [{ key: 'form.normal', id: p.id, types: p.types, ability: [abilities[0].pt, abilities[0].en], stats: p.stats }];
-    const form = forms[Math.min(state.formIdx, forms.length - 1)];
+    const forms = formsOf(p);
     const wk = weaknesses(p.types);
     const multRows = [[4, 'x4', 'mult-4'], [2, 'x2', 'mult-2'], [0.5, 'x½', 'mult-half'], [0.25, 'x¼', 'mult-quarter'], [0, 'x0', 'mult-0']];
     const isSpecial = p.rarity === 'legendary' || p.rarity === 'mythical';
@@ -495,13 +527,7 @@
 
         <div class="panel" style="--i:5"><h3>${t('detail.moves')}</h3>
           <div class="tabs" id="move-tabs">${['level', 'tm', 'egg', 'tutor'].map(k => `<button class="${state.moveTab === k ? 'active' : ''}" data-mtab="${k}">${t('tab.' + k)}</button>`).join('')}</div>
-          <div class="table-wrap"><table>
-            <thead><tr><th>${t('col.level')}</th><th>${t('col.move')}</th><th>${t('col.type')}</th><th>${t('col.cat')}</th><th>${t('col.power')}</th><th>${t('col.acc')}</th></tr></thead>
-            <tbody>${moves.map(m => `<tr><td class="num">${typeof m.lv === 'number' ? m.lv : t('tab.' + state.moveTab)}</td>
-              <td><span class="mv-name">${state.lang === 'pt' ? m.pt : m.en}</span><span class="mv-en">${state.lang === 'pt' ? m.en : m.pt}</span></td>
-              <td>${chip(m.type, 'sm')}</td><td><span class="cat cat-${m.cat}"><i></i>${t('cat.' + m.cat)}</span></td>
-              <td class="num">${m.pow == null ? '-' : m.pow}</td><td class="num">${m.acc == null ? '-' : m.acc + '%'}</td></tr>`).join('')}</tbody>
-          </table></div>
+          <div class="table-wrap" id="moves-table">${movesTableHTML()}</div>
         </div>
 
         <div class="panel" style="--i:6"><h3>${t('detail.where')}</h3>
@@ -517,12 +543,7 @@
 
         <div class="panel" style="--i:7"><h3>${t('detail.forms')}</h3>
           <div class="tabs" id="form-tabs">${forms.map((f, i) => `<button class="${i === state.formIdx ? 'active' : ''}" data-ftab="${i}">${f.key.startsWith('form.') ? t(f.key) : f.key}</button>`).join('')}</div>
-          <div class="forms">${imgArt(form.id, '', `key="${form.id}"`)}
-            <div class="form-info">
-              <div class="types">${form.types.map(x => chip(x)).join('')}</div>
-              <div><span class="muted">${t('form.ability')}:</span> <strong>${state.lang === 'pt' ? form.ability[0] : form.ability[1]}</strong> <span class="muted">(${state.lang === 'pt' ? form.ability[1] : form.ability[0]})</span></div>
-              <div class="show-bars">${statsBlock(form.stats)}</div>
-            </div></div>
+          <div class="forms" id="form-body">${formBodyHTML(forms)}</div>
         </div>
 
         <details class="panel calc" style="--i:8" id="calc">
@@ -635,18 +656,15 @@
      ANIMAÇÃO DE CAPTURA
      ------------------------------------------------------------------ */
   const cap = $('#capture');
-  /* Camadas vetoriais dos fundos de captura (relâmpagos do lendário, faíscas do mítico) */
-  const bolt = (x, y, r, sc, fill, op) => `<polygon points="0,-60 14,-14 40,-22 6,60 -6,12 -34,20" fill="${fill}" opacity="${op}" transform="translate(${x} ${y}) rotate(${r}) scale(${sc})"/>`;
+  /* Camadas vetoriais dos fundos de captura: raios/brilho/pontilhado em divs + SVG com
+     relâmpagos (lendário, classe .bolt: piscam e derivam) e faíscas (mítico, classe .spark: derivam para fora e cintilam) */
+  const LAYERS = '<div class="cap-boost"><div class="cap-rays"></div><div class="cap-glow"></div></div><div class="cap-dots"></div>';
+  const bolt = (x, y, r, sc, fill, op, delay, dur) => `<g class="bolt" style="animation-delay:-${delay}s;animation-duration:${dur}s"><polygon points="0,-60 14,-14 40,-22 6,60 -6,12 -34,20" fill="${fill}" opacity="${op}" transform="translate(${x} ${y}) rotate(${r}) scale(${sc})"/></g>`;
+  const spark = (x, y, r, dx, dy, delay) => `<g class="spark" style="--dx:${dx}px;--dy:${dy}px;animation-delay:-${delay}s"><polygon points="-4,-120 4,-120 1,90 -1,90" fill="#fff" opacity=".6" transform="translate(${x} ${y}) rotate(${r})"/><polygon points="-12,-100 12,-100 3,60 -3,60" fill="#d9c8ff" opacity=".35" transform="translate(${x} ${y}) rotate(${r + 12})"/></g>`;
+  const dot = (x, y, dx, dy, delay) => `<g class="spark" style="--dx:${dx}px;--dy:${dy}px;animation-delay:-${delay}s"><circle cx="${x}" cy="${y}" r="5" fill="#fff" opacity=".85"/><circle cx="${x + 30}" cy="${y + 22}" r="3" fill="#fff" opacity=".6"/></g>`;
   const CAP_SVG = {
-    'bg-lendario': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
-      ${bolt(90, 90, -35, 1.3, '#fff', .95)}${bolt(150, 40, -50, .9, '#5a2a00', .9)}${bolt(880, 70, 40, 1.2, '#fff', .95)}${bolt(940, 150, 25, .8, '#5a2a00', .9)}
-      ${bolt(80, 520, -140, 1.1, '#fff', .95)}${bolt(170, 560, -120, .8, '#5a2a00', .85)}${bolt(900, 530, 145, 1.3, '#fff', .95)}${bolt(830, 570, 160, .9, '#5a2a00', .9)}
-      ${bolt(500, 40, 0, .7, '#5a2a00', .8)}${bolt(500, 570, 180, .7, '#fff', .9)}${bolt(40, 300, -90, .8, '#5a2a00', .8)}${bolt(960, 300, 90, .8, '#fff', .9)}
-      ${bolt(300, 110, -20, .6, '#fff', .8)}${bolt(700, 500, 160, .6, '#5a2a00', .8)}${bolt(190, 250, -70, .9, '#fff', .9)}${bolt(810, 240, 70, .9, '#5a2a00', .85)}${bolt(210, 430, -115, .8, '#5a2a00', .85)}${bolt(790, 440, 115, .9, '#fff', .9)}${bolt(640, 90, 15, .7, '#fff', .85)}${bolt(360, 520, -170, .7, '#5a2a00', .8)}</svg>`,
-    'bg-mitico': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
-      ${[[70,60,-40],[930,50,40],[60,540,-140],[940,550,140],[500,30,0],[500,575,180],[200,80,-25],[800,520,155],[30,300,-90],[970,300,90],[250,540,-155],[760,70,30]].map(([x,y,r]) =>
-        `<polygon points="-4,-120 4,-120 1,90 -1,90" fill="#fff" opacity=".55" transform="translate(${x} ${y}) rotate(${r})"/><polygon points="-12,-100 12,-100 3,60 -3,60" fill="#d9c8ff" opacity=".35" transform="translate(${x} ${y}) rotate(${r + 12})"/>`).join('')}
-      ${[[120,180],[880,140],[160,470],[840,460],[330,60],[680,560]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="5" fill="#fff" opacity=".8"/><circle cx="${x + 30}" cy="${y + 22}" r="3" fill="#fff" opacity=".6"/>`).join('')}</svg>`,
+    'bg-lendario': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">${bolt(90, 90, -35, 1.3, '#fff', 0.95, 0.0, 3.1)}${bolt(150, 40, -50, 0.9, '#5a2a00', 0.9, 0.53, 3.47)}${bolt(880, 70, 40, 1.2, '#fff', 0.95, 1.06, 3.84)}${bolt(940, 150, 25, 0.8, '#5a2a00', 0.9, 1.59, 4.21)}${bolt(80, 520, -140, 1.1, '#fff', 0.95, 2.12, 4.58)}${bolt(170, 560, -120, 0.8, '#5a2a00', 0.85, 2.65, 4.95)}${bolt(900, 530, 145, 1.3, '#fff', 0.95, 3.18, 3.42)}${bolt(830, 570, 160, 0.9, '#5a2a00', 0.9, 0.01, 3.79)}${bolt(500, 40, 0, 0.7, '#5a2a00', 0.8, 0.54, 4.16)}${bolt(500, 570, 180, 0.7, '#fff', 0.9, 1.07, 4.53)}${bolt(40, 300, -90, 0.8, '#5a2a00', 0.8, 1.6, 4.9)}${bolt(960, 300, 90, 0.8, '#fff', 0.9, 2.13, 3.37)}${bolt(300, 110, -20, 0.6, '#fff', 0.8, 2.66, 3.74)}${bolt(700, 500, 160, 0.6, '#5a2a00', 0.8, 3.19, 4.11)}${bolt(190, 250, -70, 0.9, '#fff', 0.9, 0.02, 4.48)}${bolt(810, 240, 70, 0.9, '#5a2a00', 0.85, 0.55, 4.85)}${bolt(210, 430, -115, 0.8, '#5a2a00', 0.85, 1.08, 3.32)}${bolt(790, 440, 115, 0.9, '#fff', 0.9, 1.61, 3.69)}${bolt(640, 90, 15, 0.7, '#fff', 0.85, 2.14, 4.06)}${bolt(360, 520, -170, 0.7, '#5a2a00', 0.8, 2.67, 4.43)}</svg>`,
+    'bg-mitico': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">${spark(70, 60, -40, -40, -22, 0.0)}${spark(930, 50, 40, 40, -23, 0.7)}${spark(60, 540, -140, -40, 22, 1.4)}${spark(940, 550, 140, 40, 23, 2.1)}${spark(500, 30, 0, 0, -46, 2.8)}${spark(500, 575, 180, 0, 46, 3.5)}${spark(200, 80, -25, -37, -27, 4.2)}${spark(800, 520, 155, 37, 27, 0.7)}${spark(30, 300, -90, -46, 0, 1.4)}${spark(970, 300, 90, 46, 0, 2.1)}${spark(250, 540, -155, -33, 32, 2.8)}${spark(760, 70, 30, 34, -30, 3.5)}${dot(120, 180, -57, -18, 0.4)}${dot(880, 140, 55, -23, 1.3)}${dot(160, 470, -54, 27, 2.2)}${dot(840, 460, 54, 26, 3.1)}${dot(330, 60, -35, -49, 4.0)}${dot(680, 560, 34, 49, 0.7)}${dot(420, 140, -27, -54, 1.6)}${dot(600, 470, 30, 52, 2.5)}${dot(260, 330, -60, 7, 3.4)}${dot(740, 330, 60, 7, 0.1)}</svg>`,
     'bg-outros': ''
   };
   function capStage(cls) { cap.className = 'capture on s-bg ' + cls; }
@@ -656,7 +674,7 @@
     const bg = p.rarity === 'legendary' ? 'bg-lendario' : p.rarity === 'mythical' ? 'bg-mitico' : 'bg-outros';
     const bgEl = $('.cap-bg', cap);
     bgEl.className = 'cap-bg ' + bg;
-    bgEl.innerHTML = CAP_SVG[bg] || '';
+    bgEl.innerHTML = LAYERS + (CAP_SVG[bg] || '');
     $('.cap-art', cap).src = art(id);
     $('.cap-name', cap).textContent = p.name;
     cap.dataset.id = id;
@@ -674,7 +692,7 @@
     clearCap(); capStage('s-final');
     const p = byId(+cap.dataset.id);
     if (!p.caught) { p.caught = true; p.date = '23/09/2026'; DATA.caughtCount += 1; }
-    renderDex(); renderCaptured(); if (state.screen === 'detail' && state.detailId === p.id) renderDetail();
+    renderDex(); renderCaptured(); if (state.screen === 'detail' && state.detailId === p.id) updateDetailButtons();
   }
   function closeCapture() { clearCap(); cap.className = 'capture'; }
 
@@ -702,11 +720,13 @@
     const th = e.target.closest('[data-theme-pick]');
     if (th) { setTheme(th.dataset.themePick); return; }
     const ft = e.target.closest('[data-ftype]');
-    if (ft) { const k = ft.dataset.ftype; const i = state.filters.types.indexOf(k); i >= 0 ? state.filters.types.splice(i, 1) : state.filters.types.push(k); renderFilters(); renderDex(); return; }
+    if (ft) { const k = ft.dataset.ftype; const i = state.filters.types.indexOf(k); i >= 0 ? state.filters.types.splice(i, 1) : state.filters.types.push(k); ft.classList.toggle('on', i < 0); renderDex(); return; }
     const mt = e.target.closest('[data-mtab]');
-    if (mt) { state.moveTab = mt.dataset.mtab; renderDetail(); return; }
+    if (mt) { state.moveTab = mt.dataset.mtab; $$('#move-tabs button').forEach(b => b.classList.toggle('active', b === mt)); swapIn($('#moves-table'), movesTableHTML()); return; }
+    const mr = e.target.closest('.mv-row.has-desc');
+    if (mr) { mr.classList.toggle('open'); mr.nextElementSibling.querySelector('.desc-wrap').classList.toggle('open', mr.classList.contains('open')); return; }
     const fb = e.target.closest('[data-ftab]');
-    if (fb) { state.formIdx = +fb.dataset.ftab; renderDetail(); return; }
+    if (fb) { state.formIdx = +fb.dataset.ftab; $$('#form-tabs button').forEach(b => b.classList.toggle('active', b === fb)); swapIn($('#form-body'), formBodyHTML(formsOf(byId(state.detailId)))); return; }
     const st = e.target.closest('#f-status button');
     if (st) { state.filters.status = st.dataset.v; $$('#f-status button').forEach(b => b.classList.toggle('active', b === st)); renderDex(); return; }
     const ct = e.target.closest('#captured-tabs button');
@@ -715,7 +735,7 @@
     if (ls) { setLang(ls.dataset.v); return; }
     if (e.target.closest('#shiny-btn')) { state.shiny = !state.shiny; const img = $('#detail-art'); img.src = art(state.detailId, state.shiny); img.classList.remove('swap'); void img.offsetWidth; img.classList.add('swap'); $('#shiny-btn').classList.toggle('on', state.shiny); return; }
     if (e.target.closest('#btn-caught')) { startCapture(state.detailId); return; }
-    if (e.target.closest('#btn-team')) { state.teamAdded[state.detailId] = !state.teamAdded[state.detailId]; const empty = DATA.team.indexOf(null); if (state.teamAdded[state.detailId] && empty >= 0 && !DATA.team.includes(state.detailId)) DATA.team[empty] = state.detailId; else if (!state.teamAdded[state.detailId]) DATA.team = DATA.team.map(x => x === state.detailId ? null : x); renderHome(); renderDetail(); return; }
+    if (e.target.closest('#btn-team')) { state.teamAdded[state.detailId] = !state.teamAdded[state.detailId]; const empty = DATA.team.indexOf(null); if (state.teamAdded[state.detailId] && empty >= 0 && !DATA.team.includes(state.detailId)) DATA.team[empty] = state.detailId; else if (!state.teamAdded[state.detailId]) DATA.team = DATA.team.map(x => x === state.detailId ? null : x); renderHome(); updateDetailButtons(); return; }
     if (e.target.closest('#cmp-swap')) { DATA.compare.reverse(); renderCompare(); return; }
     if (e.target.closest('#btn-random')) { openDetail(DATA.pokemon[Math.floor(Math.random() * DATA.pokemon.length)].id); return; }
     if (e.target.closest('#tgl-lang, #tgl-lang-m, #p-lang')) { setLang(state.lang === 'pt' ? 'en' : 'pt'); return; }
