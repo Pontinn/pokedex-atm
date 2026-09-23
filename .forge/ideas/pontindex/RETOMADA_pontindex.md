@@ -10,6 +10,20 @@ Atualizado em 2026-09-23. Neste projeto TODOS os artefatos do `.forge` sao versi
 - Falta: fechar a revisao da SPEC (aplicar achados, se houver), commitar, gerar o `CHECKLIST_pontindex.md` (forge-checklist) e PARAR antes da implementacao para o Pontin aprovar.
 - Proximo comando no PC novo: `/forge --imp pontindex` so depois de a SPEC estar aprovada e o checklist existir. Se a revisao da SPEC nao tiver terminado, rode `/forge --review-spec pontindex` antes.
 
+## PENDENTE AGORA (sessao caiu por limite em 2026-09-23)
+
+A revisao da SPEC deu NEEDS-CHANGES. Um agente estava aplicando as correcoes abaixo quando a sessao acabou; o SPEC commitado pode ter parte delas. No PC novo: abrir o SPEC, conferir item a item o que falta, aplicar (via forge-spec novo, contexto zerado) e rodar `/forge --review-spec pontindex`. PRD (rev 6) e CONTEXT ja estao corrigidos.
+1. [BLOCKER] Merge de dados: `species/` de addon = override completo (base vence nos campos nucleares); `species_additions/*.json` = merge aditivo estilo datapack (campo presente na addition sobrescreve/estende: forms uniao por name, drops da addition, evolutions/implemented da addition, labels/features uniao). Cobre allthemons (10, ex. Mareep ganha drop `silentgear:sinew` 25%), ccc (225) e kubejs `zzz_ccc_meltan.json`. Registrar no merge-report.json; Done-when de B2.2 checa Mareep/sinew no drop e no indice invertido (RF-68).
+2. [BLOCKER] Identificadores em ingles: fundos `bg-legendary|bg-mythical|bg-default`; ThemeId `classic|black|green|blue|purple|white|orange` (preferences.theme, data-theme, THEME_IDS) + tabela de correspondencia com os nomes do prototipo (nomes dos prints ficam).
+3. Pokebolas pela pasta `textures/item/poke_balls/` (48), completar tabela (slate/azure/verdant/roseate/citrine_ball), trocar "51" por `balls.json.length`.
+4. Tempo: docs em ms, codec em u32 segundos (encode floor(ms/1000), decode *1000); round-trip igual modulo segundo.
+5. Envelope unico: texto = `PDX1.` + base64url(deflate(payload) + crc32 dos bytes comprimidos); magic "PDX" so no payload. Ordem: prefixo, base64url, crc32, inflate, magic/versao, tamanho, campos; dizer qual etapa gera foreignApp/corrupted/wrongVersion/oversized.
+6. THEME_IDS: ordem canonica append-only = ordem do RF-79, em `src/styles/themes.ts`, enumerada em 5.3 e citada em B7.2.
+7. F2.1 Done-when: tirar `mobile-boot-splash.png` (e a tampa do boot); marcar "sem captura de referencia".
+8. Nits: B2.2 ignorar prefixos `legacy`/`special`/`form_change`; B2.4 mega = 81 arquivos; F1.3 historico = 40 no prototipo (app.js:1223); UiState com compare/sync/settings/home; QR modo byte v24-M (914), cabecalho dentro dos 900, parser corta so nos 3 primeiros pontos; uniao de derrotados: menor `at` vence; `fast-check` e `msw` na tabela de dependencias; linha do store `backups` no mapa 2b.
+9. Baseline do SPEC: PRD c22a97f1, CONTEXT fc72ef60 (reconferir com git hash-object).
+Depois: commitar, `forge-checklist` (haiku) gera o CHECKLIST, commitar/push e PARAR antes da implementacao.
+
 ## Regras combinadas com o Pontin (valem para o resto do pipeline)
 
 - Autonomia total ate o fim da Stage 3: aprovar gates sozinho, decidir perguntas abertas pelo default recomendado e registrar como premissa. PARAR antes da Stage 4 (implementacao) e esperar o ok.
