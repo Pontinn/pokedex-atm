@@ -926,8 +926,17 @@ html[data-theme="preto"] .it-tile.lg { background: #1F1D14; }
 .item-card:hover .it-tile img { transform: scale(1.12) rotate(-6deg); }
 
 /* ---------- Página do item ---------- */
-.it-link { cursor: pointer; }
-.it-link:hover { filter: brightness(1.05); }
+.it-link { cursor: pointer; transition: transform .2s var(--ease-bounce), background .2s, border-color .2s, box-shadow .2s; }
+.it-link:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.12); }
+.it-link:active { transform: translateY(0) scale(.98); }
+.it-link:focus-visible { outline: 3px solid color-mix(in srgb, var(--secondary) 60%, transparent); outline-offset: 2px; }
+button.tag-item, button.biome-item, button.method, button.drop-name { font: inherit; cursor: pointer; }
+button.method { color: var(--muted); }
+.drop-name.it-link { padding: 2px 8px 2px 2px; border-radius: 999px; font-weight: 800; }
+.drop-name.it-link:hover { background: var(--surface-2); }
+.item-head.it-link { border-radius: 12px; margin: -4px; padding: 4px; }
+.item-head.it-link:hover { background: var(--surface-2); box-shadow: none; transform: none; }
+.tr-mon .it-link:hover, .ob-text .it-link:hover { background: var(--surface); }
 .item-page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .item-page-head .detail-back { margin-bottom: 0; }
 .item-hero { display: flex; gap: 22px; align-items: center; padding: 22px 24px; margin-bottom: 16px; animation: cardIn .45s var(--ease-out) both; }

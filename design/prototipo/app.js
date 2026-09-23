@@ -767,7 +767,7 @@
     return `${imgArt(form.id)}
       <div class="form-info">
         <div class="types">${form.types.map(x => chip(x, '', L)).join('')}</div>
-        <div class="form-req"><span class="muted">${t('form.req')}:</span> ${form.req ? form.req.map(r => `<span class="tag tag-item">${itemImg(r[1], 'gem', 'xs')}${L === 'pt' ? r[0] : r[1]}</span>`).join(' + ') + (form.addon ? ` <span class="muted">(${form.addon})</span>` : '') : `<span class="muted">${t('form.none')}</span>`}</div>
+        <div class="form-req"><span class="muted">${t('form.req')}:</span> ${form.req ? form.req.map(r => `<button class="tag tag-item it-link" data-item-open="${slug(r[1])}">${itemImg(r[1], 'gem', 'xs')}${L === 'pt' ? r[0] : r[1]}</button>`).join(' + ') + (form.addon ? ` <span class="muted">(${form.addon})</span>` : '') : `<span class="muted">${t('form.none')}</span>`}</div>
         <div><span class="muted">${t('form.ability')}:</span> <strong>${state.lang === 'pt' ? form.ability[0] : form.ability[1]}</strong> <span class="muted">(${state.lang === 'pt' ? form.ability[1] : form.ability[0]})</span></div>
         <div class="show-bars">${statsBlock(form.stats)}</div>
       </div>`;
@@ -803,7 +803,7 @@
     (DATA.obtain[p.id] || []).forEach(m => {
       const txt = L === 'pt' ? m.pt : m.en;
       if (m.k === 'evo') rows.push({ k: 'evo', html: txt, extra: `<button class="ob-link" data-open="${m.pre}"><img src="${spr(m.pre)}" alt="" onerror="this.onerror=null;this.src='${art(m.pre)}'"><span>${m.preName}</span><i data-lucide="arrow-right"></i></button>` });
-      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag tag-item">${itemImg(m.item, 'bone', 'xs')}${term(m.item, ITEM_PT, L)}</span>` });
+      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <button class="tag tag-item it-link" data-item-open="${slug(m.item)}">${itemImg(m.item, 'bone', 'xs')}${term(m.item, ITEM_PT, L)}</button>` });
       else rows.push({ k: 'addon', title: m.name, html: txt, icon: m.name === 'Raid Dens' ? 'swords' : 'puzzle' });
     });
     if (p.egg && p.egg[0] !== 'Undiscovered') rows.push({ k: 'breed', html: t('obtain.breedText').replace('{g}', p.egg.map(g => term(g, EGG_PT, L)).join(' / ')) });
@@ -817,7 +817,7 @@
     const p = byId(state.detailId), chainKey = DATA.chainOf[p.id], chain = chainKey ? DATA.chains[chainKey] : null, L = tl('evo');
     const M = (k) => I18N[k] ? I18N[k][L] : k;
     const STONE_ITEM = {"evo.thunderStone": "Thunder Stone", "evo.waterStone": "Water Stone", "evo.fireStone": "Fire Stone", "evo.leafStone": "Leaf Stone", "evo.iceStone": "Ice Stone", "evo.linkCable": "Link Cable"};
-    const methodChip = (m) => `<span class="method">${STONE_ITEM[m.k] ? itemImg(STONE_ITEM[m.k], m.ico || 'gem', 'xs') : `<i data-lucide="${m.ico || 'arrow-up'}"></i>`}${M(m.k)}${m.v ? ' ' + m.v : ''}${m.k2 ? ` <i data-lucide="${m.ico2}"></i>${M(m.k2)}` : ''}</span>`;
+    const methodChip = (m) => `<${STONE_ITEM[m.k] ? `button class="method it-link" data-item-open="${slug(STONE_ITEM[m.k])}"` : 'span class="method"'}>${STONE_ITEM[m.k] ? itemImg(STONE_ITEM[m.k], m.ico || 'gem', 'xs') : `<i data-lucide="${m.ico || 'arrow-up'}"></i>`}${M(m.k)}${m.v ? ' ' + m.v : ''}${m.k2 ? ` <i data-lucide="${m.ico2}"></i>${M(m.k2)}` : ''}</${STONE_ITEM[m.k] ? 'button' : 'span'}>`;
     const node = (id, name) => `<div class="evo ${id === p.id ? 'current' : ''}" ${byId(id) ? `data-open="${id}"` : ''}>${imgArt(id)}<span class="dex-num">${pad(id)}</span><span class="evo-name">${name}</span></div>`;
     if (!chain) return `<p class="muted">${t('evo.none')}</p>`;
     const linear = chain.ids.length > 1 ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr"><i data-lucide="arrow-right"></i></span>${methodChip(chain.methods[i - 1])}</div>` : ''}${node(id, chain.names[i])}`).join('')}</div>` : '';
@@ -840,7 +840,7 @@
             <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${L === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
             <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${I18N[c][L]}</span>`).join('')}</div></div>
             <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
-              ${where.drops.map(d => `<div class="drop"><span class="drop-name">${itemImg(d[1], 'package', 'sm')}${L === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
+              ${where.drops.map(d => `<div class="drop"><button class="drop-name it-link" data-item-open="${slug(d[1])}">${itemImg(d[1], 'package', 'sm')}${L === 'pt' ? d[0] : d[1]}</button><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
           </div>`}
           ${obtainHTML(p, where)}`;
   }
@@ -1074,7 +1074,7 @@
       <div class="tr-team">${tr.team.map(m => `<div class="tr-mon"><img src="${spr(m.id)}" alt="" onerror="this.onerror=null;this.src='${art(m.id)}'"><div class="tr-mon-info"><div class="tr-mon-name">${m.name} <span class="tr-lv">Lv. ${m.lv}</span></div>
         <div class="chips">${m.types.map(x => chip(x, 'sm', L)).join('')}</div><div class="tr-ab"><span class="muted">${state.lang === 'pt' ? 'Habilidade' : 'Ability'}:</span> <b>${term(m.ability, ABIL_PT, L)}</b></div>
         <div class="tr-moves">${m.moves.map(mv => `<span class="mv-chip">${term(mv, MOVE_PT, L)}</span>`).join('')}</div></div></div>`).join('')}</div>
-      <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<span class="biome biome-item">${itemImg(b.replace(/ x\d+$/, ''), 'package', 'xs')}${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</span>`).join('')}</div></div>
+      <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<button class="biome biome-item it-link" data-item-open="${slug(b.replace(/ x\d+$/, ''))}">${itemImg(b.replace(/ x\d+$/, ''), 'package', 'xs')}${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</button>`).join('')}</div></div>
       <div class="tr-tip"><i data-lucide="lightbulb"></i><div><b>${t('tr.tip')}:</b> ${state.lang === 'pt' ? tr.tip.pt : tr.tip.en}</div></div></div></div>`;
   }
   function trStepHTML(tr, i) {
@@ -1123,7 +1123,7 @@
   const MAN = window.ITEM_MANIFEST || {};
   const itemImg = (en, fallbackIcon, cls) => { const id = slug(en), ns = MAN[id];
     const inner = ns ? `<img src="assets/itens/${ns}/${id}.png" data-id="${id}" data-i="2" alt="" onerror="__imgErr(this)"><i data-lucide="${fallbackIcon || 'package'}" style="display:none"></i>` : `<i data-lucide="${fallbackIcon || 'package'}"></i>`;
-    return `<span class="it-tile it-link ${cls || ''}" data-item-open="${id}" role="button" title="${en}">${inner}</span>`; };
+    return `<span class="it-tile it-link ${cls || ''}" data-item-open="${id}" role="button" tabindex="0" title="${en}">${inner}</span>`; };
   const ballIcon = (b, cls) => `<span class="it-tile ball-tile it-link ${cls || ''}" data-item-open="${b.id}_ball" role="button"><img src="assets/itens/cobblemon/${b.id}_ball.png" data-id="${b.id}_ball" data-i="0" alt="" onerror="__imgErr(this)"><span class="ball-ico" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'};display:none"></span></span>`;
   const ballIconOld = (b, cls) => `<span class="ball-ico ${cls || ''}" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'}"></span>`;
   const BALL_FILTERS = ['all', 'night', 'water', 'fishing', 'first', 'caught', 'after'];
@@ -1164,7 +1164,7 @@
     const list = DATA.items.filter(it => (q ? norm(it.pt + ' ' + it.en).includes(q) : it.cat === state.itemCat));
     if (!list.length) return `<p class="muted">${t('item.none')}</p>`; const L = tl('items');
     return list.map((it, i) => { const k = DATA.items.indexOf(it); return `<div class="item-card ${state.itemOpen === k ? 'open' : ''}" style="--i:${i}" data-item="${k}">
-      <div class="item-head">${itemImg(it.en, it.ico, 'lg cat-' + it.cat)}<div class="item-names it-link" data-item-open="${slug(it.en)}"><div class="item-name">${L === 'pt' ? it.pt : it.en}</div><div class="item-alt">${L === 'pt' ? it.en : it.pt}</div></div><span class="tag">${t('cat.' + it.cat)}</span><span class="tr-caret"><i data-lucide="chevron-down"></i></span></div>
+      <div class="item-head it-link" data-item-open="${slug(it.en)}" tabindex="0" role="link">${itemImg(it.en, it.ico, 'lg cat-' + it.cat)}<div class="item-names"><div class="item-name">${L === 'pt' ? it.pt : it.en}</div><div class="item-alt">${L === 'pt' ? it.en : it.pt}</div></div><span class="tag">${t('cat.' + it.cat)}</span><span class="tr-caret"><i data-lucide="chevron-down"></i></span></div>
       <div class="item-desc">${state.lang === 'pt' ? it.dpt : it.den}</div>
       <div class="desc-wrap ${state.itemOpen === k ? 'open' : ''}"><div class="desc-inner"><div class="item-how"><i data-lucide="mouse-pointer-click"></i><span><b>${t('item.how')}:</b> ${state.lang === 'pt' ? it.hpt : it.hen}</span></div></div></div></div>`; }).join('');
   }
@@ -1220,6 +1220,7 @@
     if (!fromPopstate) { state.ignorePop = true; try { history.back(); } catch (e) { state.ignorePop = false; } }
     restore(snap);
   }
+  document.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-item-open]:not(button)')) { e.preventDefault(); openItem(e.target.dataset.itemOpen); } });
   window.addEventListener('popstate', () => { if (state.ignorePop) { state.ignorePop = false; return; } goBack(true); });
   try { history.replaceState({ pontindex: 0 }, ''); } catch (e) {}
 
