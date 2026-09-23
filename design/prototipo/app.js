@@ -124,6 +124,8 @@
     'detail.forms': { pt: 'Formas', en: 'Forms' },
     'form.normal': { pt: 'Normal', en: 'Normal' },
     'form.ability': { pt: 'Habilidade', en: 'Ability' },
+    'form.req': { pt: 'Requer', en: 'Requires' },
+    'form.none': { pt: 'Forma base, sem item', en: 'Base form, no item' },
     'detail.calc': { pt: 'Calculadora rápida', en: 'Quick calculator' },
     'calc.level': { pt: 'Nível', en: 'Level' },
     'calc.ivs': { pt: 'IVs (todos)', en: 'IVs (all)' },
@@ -138,6 +140,75 @@
     'compare.swap': { pt: 'Trocar lados', en: 'Swap sides' },
     'compare.change': { pt: 'Trocar Pokémon', en: 'Change Pokémon' },
     'compare.total': { pt: 'Total', en: 'Total' },
+    'nav.trainers': { pt: 'Treinadores', en: 'Trainers' },
+    'nav.balls': { pt: 'Pokébolas', en: 'Poké Balls' },
+    'nav.items': { pt: 'Itens & Comidas', en: 'Items & Food' },
+    'nav.more': { pt: 'Mais', en: 'More' },
+    'nav.trainersSub': { pt: 'Level cap por série', en: 'Level cap per series' },
+    'nav.ballsSub': { pt: 'Multiplicadores e efeitos', en: 'Multipliers and effects' },
+    'nav.itemsSub': { pt: 'Medicina, EV, cozinha, iscas', en: 'Medicine, EV, cooking, bait' },
+    'nav.settingsSub': { pt: 'Tema, idioma, som', en: 'Theme, language, sound' },
+    'tr.source': { pt: 'Fonte: Radical Cobblemon Trainers', en: 'Source: Radical Cobblemon Trainers' },
+    'tr.series': { pt: 'Série', en: 'Series' },
+    'tr.progress': { pt: 'Seu progresso', en: 'Your progress' },
+    'tr.currentCap': { pt: 'Seu cap atual', en: 'Your current cap' },
+    'tr.explain': { pt: 'Pokémon no nível do cap não ganham EXP; derrote o próximo treinador-chave para subir o cap.', en: 'Pokémon at the cap level do not gain EXP; defeat the next key trainer to raise the cap.' },
+    'tr.cap': { pt: 'Cap', en: 'Cap' },
+    'tr.defeated': { pt: 'Derrotado', en: 'Defeated' },
+    'tr.next': { pt: 'Próximo', en: 'Next' },
+    'tr.where': { pt: 'Onde', en: 'Where' },
+    'tr.requires': { pt: 'Requer um de', en: 'Requires one of' },
+    'tr.team': { pt: 'Time', en: 'Team' },
+    'tr.bag': { pt: 'Mochila', en: 'Bag' },
+    'tr.tip': { pt: 'Sugestão', en: 'Tip' },
+    'tr.done': { pt: 'de', en: 'of' },
+    'tr.keyTrainers': { pt: 'treinadores-chave derrotados', en: 'key trainers defeated' },
+    'role.leader': { pt: 'Líder', en: 'Gym Leader' },
+    'role.rival': { pt: 'Rival', en: 'Rival' },
+    'role.rocket': { pt: 'Equipe Rocket', en: 'Team Rocket' },
+    'role.elite': { pt: 'Elite Four', en: 'Elite Four' },
+    'role.champion': { pt: 'Campeão', en: 'Champion' },
+    'ball.hint': { pt: 'Multiplicadores de captura do Cobblemon', en: 'Cobblemon catch multipliers' },
+    'ball.all': { pt: 'Todas', en: 'All' },
+    'ball.night': { pt: 'Noite / caverna', en: 'Night / cave' },
+    'ball.water': { pt: 'Água', en: 'Water' },
+    'ball.fishing': { pt: 'Pesca', en: 'Fishing' },
+    'ball.first': { pt: '1º turno', en: '1st turn' },
+    'ball.caught': { pt: 'Já capturado', en: 'Already caught' },
+    'ball.after': { pt: 'Após capturar', en: 'After capture' },
+    'ball.best': { pt: 'Melhor Pokébola', en: 'Best Poké Ball' },
+    'ball.bestHint': { pt: 'Top 3 para este Pokémon', en: 'Top 3 for this Pokémon' },
+    'ball.critical': { pt: 'Captura crítica', en: 'Critical capture' },
+    'ball.criticalText': { pt: '{n} capturados: bônus {b}x', en: '{n} caught: {b}x bonus' },
+    'ball.r.speed': { pt: 'Velocidade base {v}', en: 'Base Speed {v}' },
+    'ball.r.night': { pt: 'à noite / em cavernas', en: 'at night / in caves' },
+    'ball.r.first': { pt: '1º turno', en: '1st turn' },
+    'ball.r.water': { pt: 'tipo Água ou Inseto', en: 'Water or Bug type' },
+    'ball.r.caught': { pt: 'já registrado na Pokédex', en: 'already registered in the Pokédex' },
+    'ball.r.heavy': { pt: 'Pokémon pesado', en: 'heavy Pokémon' },
+    'ball.r.moon': { pt: 'evolui por Pedra da Lua', en: 'evolves with a Moon Stone' },
+    'ball.r.love': { pt: 'gênero oposto na batalha', en: 'opposite gender in battle' },
+    'item.search': { pt: 'Buscar item...', en: 'Search item...' },
+    'item.how': { pt: 'Como usar', en: 'How to use' },
+    'item.none': { pt: 'Nenhum item encontrado.', en: 'No item found.' },
+    'cat.med': { pt: 'Medicina', en: 'Medicine' },
+    'cat.iv': { pt: 'Doces de IV', en: 'IV Candies' },
+    'evo.branches': { pt: 'Evolui para', en: 'Evolves into' },
+    'evo.friendship160': { pt: 'Amizade 160', en: 'Friendship 160' },
+    'evo.day': { pt: 'de dia', en: 'daytime' },
+    'evo.night': { pt: 'de noite', en: 'nighttime' },
+    'evo.fairyMove': { pt: 'sabendo golpe de Fada', en: 'knowing a Fairy move' },
+    'evo.leafStone': { pt: 'Pedra da Folha', en: 'Leaf Stone' },
+    'evo.iceStone': { pt: 'Pedra do Gelo', en: 'Ice Stone' },
+    'evo.linkCable': { pt: 'Link Cable (troca)', en: 'Link Cable (trade)' },
+    'cat.vit': { pt: 'Vitaminas & EV', en: 'Vitamins & EV' },
+    'cat.candy': { pt: 'Doces de EXP', en: 'EXP Candies' },
+    'cat.evo': { pt: 'Evolução', en: 'Evolution' },
+    'cat.held': { pt: 'Itens Segurados', en: 'Held Items' },
+    'cat.battle': { pt: 'Batalha', en: 'Battle' },
+    'cat.cook': { pt: 'Cozinha', en: 'Cooking' },
+    'cat.berry': { pt: 'Berries', en: 'Berries' },
+    'cat.bait': { pt: 'Iscas', en: 'Bait' },
     'settings.theme': { pt: 'Tema', en: 'Theme' },
     'settings.themeHint': { pt: 'Cor principal da carcaça e cor secundária da lente e detalhes.', en: 'Main shell color and secondary color for the lens and details.' },
     'settings.language': { pt: 'Idioma', en: 'Language' },
@@ -149,6 +220,10 @@
     'settings.data': { pt: 'Dados: Cobblemon 1.7.3', en: 'Data: Cobblemon 1.7.3' },
     'settings.local': { pt: 'Tudo local neste aparelho. Sem conta, sem servidor.', en: 'Everything local on this device. No account, no server.' },
     'settings.images': { pt: 'Imagens: PokeAPI (online)', en: 'Images: PokeAPI (online)' },
+    'settings.terms': { pt: 'Nomes do jogo em', en: 'Game names in' },
+    'settings.termsHint': { pt: 'Idioma padrão de itens, biomas, golpes, habilidades e bolas. Cada card tem um botão PT | EN para trocar só ali.', en: 'Default language for items, biomes, moves, abilities and balls. Each card has a PT | EN switch to change only that card.' },
+    'settings.termsPt': { pt: 'Português', en: 'Portuguese' },
+    'settings.termsEn': { pt: 'Inglês', en: 'English' },
     'settings.default': { pt: 'Padrão', en: 'Default' },
     'capture.caught': { pt: 'Capturado!', en: 'Caught!' },
     'capture.close': { pt: 'Fechar', en: 'Close' },
@@ -236,12 +311,16 @@
     chains: {
       char: { ids: [4, 5, 6], names: ['Charmander', 'Charmeleon', 'Charizard'], methods: [{ k: 'evo.level', v: 16 }, { k: 'evo.level', v: 36 }] },
       bulba: { ids: [1, 2, 3], names: ['Bulbasaur', 'Ivysaur', 'Venusaur'], methods: [{ k: 'evo.level', v: 16 }, { k: 'evo.level', v: 32 }] },
-      pika: { ids: [172, 25, 26], names: ['Pichu', 'Pikachu', 'Raichu'], methods: [{ k: 'evo.friendship' }, { k: 'evo.thunderStone' }] },
-      gengar: { ids: [92, 93, 94], names: ['Gastly', 'Haunter', 'Gengar'], methods: [{ k: 'evo.level', v: 25 }, { k: 'evo.trade' }] },
-      eevee: { ids: [133, 134], names: ['Eevee', 'Vaporeon'], methods: [{ k: 'evo.waterStone' }] },
-      snorlax: { ids: [446, 143], names: ['Munchlax', 'Snorlax'], methods: [{ k: 'evo.friendship' }] },
+      pika: { ids: [172, 25, 26], names: ['Pichu', 'Pikachu', 'Raichu'], methods: [{ k: 'evo.friendship', ico: 'heart' }, { k: 'evo.thunderStone', ico: 'gem' }] },
+      gengar: { ids: [92, 93, 94], names: ['Gastly', 'Haunter', 'Gengar'], methods: [{ k: 'evo.level', v: 25 }, { k: 'evo.linkCable', ico: 'repeat' }] },
+      eevee: { ids: [133], names: ['Eevee'], methods: [], branches: [
+        { id: 135, name: 'Jolteon', k: 'evo.thunderStone', ico: 'gem' }, { id: 134, name: 'Vaporeon', k: 'evo.waterStone', ico: 'gem' },
+        { id: 136, name: 'Flareon', k: 'evo.fireStone', ico: 'gem' }, { id: 470, name: 'Leafeon', k: 'evo.leafStone', ico: 'gem' },
+        { id: 471, name: 'Glaceon', k: 'evo.iceStone', ico: 'gem' }, { id: 196, name: 'Espeon', k: 'evo.friendship160', k2: 'evo.day', ico: 'heart', ico2: 'sun' },
+        { id: 197, name: 'Umbreon', k: 'evo.friendship160', k2: 'evo.night', ico: 'heart', ico2: 'moon' }, { id: 700, name: 'Sylveon', k: 'evo.friendship160', k2: 'evo.fairyMove', ico: 'heart', ico2: 'sparkles' } ] },
+      snorlax: { ids: [446, 143], names: ['Munchlax', 'Snorlax'], methods: [{ k: 'evo.friendship', ico: 'heart' }] },
       dragonite: { ids: [147, 148, 149], names: ['Dratini', 'Dragonair', 'Dragonite'], methods: [{ k: 'evo.level', v: 30 }, { k: 'evo.level', v: 55 }] },
-      lucario: { ids: [447, 448], names: ['Riolu', 'Lucario'], methods: [{ k: 'evo.friendshipDay' }] }
+      lucario: { ids: [447, 448], names: ['Riolu', 'Lucario'], methods: [{ k: 'evo.friendshipDay', ico: 'heart' }] }
     },
     chainOf: { 4: 'char', 5: 'char', 6: 'char', 1: 'bulba', 25: 'pika', 94: 'gengar', 133: 'eevee', 143: 'snorlax', 149: 'dragonite', 448: 'lucario' },
     abilities: {
@@ -324,9 +403,9 @@
     forms: {
       6: [
         { key: 'form.normal', id: 6, types: ['fire', 'flying'], ability: ['Chama', 'Blaze'], stats: [78, 84, 78, 109, 85, 100] },
-        { key: 'Mega X', id: 10034, types: ['fire', 'dragon'], ability: ['Garras Firmes', 'Tough Claws'], stats: [78, 130, 111, 130, 85, 100] },
-        { key: 'Mega Y', id: 10035, types: ['fire', 'flying'], ability: ['Seca', 'Drought'], stats: [78, 104, 78, 159, 115, 100] },
-        { key: 'Gmax', id: 10196, types: ['fire', 'flying'], ability: ['Chama', 'Blaze'], stats: [78, 84, 78, 109, 85, 100] }
+        { key: 'Mega X', id: 10034, types: ['fire', 'dragon'], ability: ['Garras Firmes', 'Tough Claws'], stats: [78, 130, 111, 130, 85, 100], req: [['Charizardite X', 'Charizardite X'], ['Pedra-Chave', 'Key Stone']], addon: 'Mega Showdown' },
+        { key: 'Mega Y', id: 10035, types: ['fire', 'flying'], ability: ['Seca', 'Drought'], stats: [78, 104, 78, 159, 115, 100], req: [['Charizardite Y', 'Charizardite Y'], ['Pedra-Chave', 'Key Stone']], addon: 'Mega Showdown' },
+        { key: 'Gmax', id: 10196, types: ['fire', 'flying'], ability: ['Chama', 'Blaze'], stats: [78, 84, 78, 109, 85, 100], req: [['Fator Gigantamax', 'Gigantamax Factor'], ['Sopa Max', 'Max Soup']], addon: 'Mega Showdown' }
       ]
     },
     themes: [
@@ -343,6 +422,154 @@
       { pt: 'Alegre', en: 'Jolly', up: 5, down: 3 }, { pt: 'Ousado', en: 'Bold', up: 2, down: 1 }, { pt: 'Calmo', en: 'Calm', up: 4, down: 1 }, { pt: 'Sério', en: 'Hardy', up: -1, down: -1 }
     ]
   };
+  /* Dados dos novos módulos (mesmo objeto DATA) */
+  const TM = (id, name, lv, types, ability, moves) => ({ id, name, lv, types, ability, moves });
+  Object.assign(DATA, {
+    series: [
+      { id: 'rr', name: 'Radical Red' }, { id: 'bdsp', name: 'BDSP' }, { id: 'unbound', name: 'Unbound' }, { id: 'atm', name: 'ATM Team' }, { id: 'cc', name: 'Content Creators' }
+    ],
+    /* Treinadores-chave em ordem. cap = nível máximo que derrotá-lo libera (= Pokémon mais forte do próximo).
+       group = alternativas (qualquer um do grupo conta). */
+    trainers: {
+      rr: [
+        { name: 'Brock', role: 'leader', cap: 21, where: [['Pewter City', 'Pewter City'], ['Montanhas', 'Mountains']],
+          team: [TM(74, 'Geodude', 12, ['rock', 'ground'], 'Sturdy', ['Tackle', 'Rock Throw', 'Defense Curl', 'Rock Polish']), TM(95, 'Onix', 14, ['rock', 'ground'], 'Sturdy', ['Rock Throw', 'Bind', 'Rock Tomb', 'Harden'])],
+          bag: ['Potion x2'], tip: { pt: 'Leve Pokémon de Água/Planta: o time é Pedra/Terra.', en: 'Bring Water/Grass Pokémon: the team is Rock/Ground.' } },
+        { group: [{ name: 'Archer', role: 'rocket' }, { name: 'Terry', role: 'rival' }], name: 'Archer', role: 'rocket', cap: 27, where: [['Mt. Moon', 'Mt. Moon'], ['Cavernas', 'Caves']],
+          team: [TM(42, 'Golbat', 19, ['poison', 'flying'], 'Inner Focus', ['Wing Attack', 'Bite', 'Confuse Ray', 'Astonish']), TM(228, 'Houndour', 21, ['dark', 'fire'], 'Flash Fire', ['Ember', 'Bite', 'Howl', 'Smog'])],
+          bag: ['Super Potion x2'], tip: { pt: 'Terry (rival) também conta para este passo. Golpes de Pedra/Elétrico contra o Golbat.', en: 'Terry (rival) also counts for this step. Rock/Electric moves against Golbat.' } },
+        { name: 'Misty', role: 'leader', cap: 29, where: [['Cerulean City', 'Cerulean City'], ['Rios', 'Rivers']],
+          team: [TM(120, 'Staryu', 24, ['water'], 'Natural Cure', ['Water Pulse', 'Swift', 'Rapid Spin', 'Recover']), TM(121, 'Starmie', 27, ['water', 'psychic'], 'Illuminate', ['Water Pulse', 'Psybeam', 'Swift', 'Recover'])],
+          bag: ['Super Potion x2', 'X Defense'], tip: { pt: 'Planta/Elétrico. Cuidado com Recover do Starmie.', en: 'Grass/Electric. Watch out for Starmie\'s Recover.' } },
+        { name: 'Brendan', role: 'rival', cap: 34, where: [['Rota 24', 'Route 24']],
+          team: [TM(253, 'Grovyle', 27, ['grass'], 'Overgrow', ['Leaf Blade', 'Quick Attack', 'Pursuit', 'Fury Cutter']), TM(259, 'Marshtomp', 29, ['water', 'ground'], 'Torrent', ['Mud Shot', 'Water Gun', 'Bide', 'Rock Smash'])],
+          bag: ['Potion x3'], tip: { pt: 'Voador/Fogo contra o Grovyle; Planta contra o Marshtomp.', en: 'Flying/Fire against Grovyle; Grass against Marshtomp.' } },
+        { name: 'Lt. Surge', role: 'leader', cap: 44, where: [['Vermilion City', 'Vermilion City'], ['Praias', 'Beaches']],
+          team: [TM(100, 'Voltorb', 30, ['electric'], 'Static', ['Spark', 'Sonic Boom', 'Rollout', 'Screech']), TM(82, 'Magneton', 32, ['electric', 'steel'], 'Sturdy', ['Thunderbolt', 'Flash Cannon', 'Thunder Wave', 'Magnet Bomb']), TM(26, 'Raichu', 34, ['electric'], 'Static', ['Thunderbolt', 'Quick Attack', 'Double Team', 'Thunder Wave'])],
+          bag: ['Hyper Potion x2'], tip: { pt: 'Terra anula Elétrico: leve um Pokémon de Terra.', en: 'Ground is immune to Electric: bring a Ground type.' } },
+        { name: 'Erika', role: 'leader', cap: 46, where: [['Celadon City', 'Celadon City'], ['Floresta', 'Forest']],
+          team: [TM(114, 'Tangela', 40, ['grass'], 'Chlorophyll', ['Giga Drain', 'Sleep Powder', 'Ancient Power', 'Knock Off']), TM(71, 'Victreebel', 42, ['grass', 'poison'], 'Chlorophyll', ['Leaf Blade', 'Sludge Bomb', 'Sleep Powder', 'Sunny Day']), TM(45, 'Vileplume', 44, ['grass', 'poison'], 'Effect Spore', ['Petal Dance', 'Sludge Bomb', 'Moonlight', 'Sleep Powder'])],
+          bag: ['Hyper Potion x2', 'Full Heal'], tip: { pt: 'Fogo/Voador/Gelo. Leve Awakening: muito Sleep Powder.', en: 'Fire/Flying/Ice. Bring Awakenings: lots of Sleep Powder.' } },
+        { name: 'Giovanni', role: 'rocket', cap: 52, where: [['Silph Co.', 'Silph Co.'], ['Cidade', 'City']],
+          team: [TM(31, 'Nidoqueen', 43, ['poison', 'ground'], 'Poison Point', ['Earth Power', 'Sludge Bomb', 'Ice Beam', 'Superpower']), TM(112, 'Rhydon', 44, ['ground', 'rock'], 'Rock Head', ['Earthquake', 'Stone Edge', 'Megahorn', 'Fire Punch']), TM(34, 'Nidoking', 46, ['poison', 'ground'], 'Sheer Force', ['Earth Power', 'Sludge Wave', 'Ice Beam', 'Thunderbolt'])],
+          bag: ['Full Restore x2'], tip: { pt: 'Água/Planta/Gelo contra o time Terra.', en: 'Water/Grass/Ice against the Ground team.' } },
+        { name: 'Lorelei', role: 'elite', cap: 58, where: [['Indigo Plateau', 'Indigo Plateau']],
+          team: [TM(87, 'Dewgong', 50, ['water', 'ice'], 'Thick Fat', ['Surf', 'Ice Beam', 'Rest', 'Sleep Talk']), TM(91, 'Cloyster', 51, ['water', 'ice'], 'Skill Link', ['Icicle Spear', 'Rock Blast', 'Shell Smash', 'Hydro Pump']), TM(131, 'Lapras', 52, ['water', 'ice'], 'Water Absorb', ['Freeze-Dry', 'Surf', 'Thunderbolt', 'Ice Shard'])],
+          bag: ['Full Restore x3'], tip: { pt: 'Elétrico/Lutador/Pedra. Shell Smash do Cloyster é perigoso.', en: 'Electric/Fighting/Rock. Cloyster\'s Shell Smash is dangerous.' } },
+        { name: 'Blue', role: 'champion', cap: 100, where: [['Indigo Plateau', 'Indigo Plateau']],
+          team: [TM(18, 'Pidgeot', 56, ['normal', 'flying'], 'No Guard', ['Hurricane', 'Brave Bird', 'Heat Wave', 'Roost']), TM(65, 'Alakazam', 56, ['psychic'], 'Magic Guard', ['Psychic', 'Focus Blast', 'Shadow Ball', 'Calm Mind']), TM(112, 'Rhydon', 56, ['ground', 'rock'], 'Rock Head', ['Earthquake', 'Stone Edge', 'Megahorn', 'Swords Dance']), TM(130, 'Gyarados', 57, ['water', 'flying'], 'Intimidate', ['Waterfall', 'Crunch', 'Ice Fang', 'Dragon Dance']), TM(59, 'Arcanine', 57, ['fire'], 'Intimidate', ['Flare Blitz', 'Extreme Speed', 'Wild Charge', 'Close Combat']), TM(6, 'Charizard', 58, ['fire', 'flying'], 'Solar Power', ['Fire Blast', 'Air Slash', 'Solar Beam', 'Dragon Pulse'])],
+          bag: ['Full Restore x4'], tip: { pt: 'Time balanceado nível 56-58. Leve Pedra para o Charizard e Elétrico para o Gyarados.', en: 'Balanced level 56-58 team. Bring Rock for Charizard and Electric for Gyarados.' } }
+      ],
+      bdsp: [
+        { name: 'Roark', role: 'leader', cap: 20, where: [['Oreburgh', 'Oreburgh'], ['Minas', 'Mines']], team: [TM(74, 'Geodude', 12, ['rock', 'ground'], 'Sturdy', ['Tackle', 'Rock Throw', 'Stealth Rock', 'Defense Curl']), TM(95, 'Onix', 12, ['rock', 'ground'], 'Sturdy', ['Rock Throw', 'Bind', 'Screech', 'Harden']), TM(408, 'Cranidos', 14, ['rock'], 'Mold Breaker', ['Headbutt', 'Pursuit', 'Leer', 'Take Down'])], bag: ['Potion x2'], tip: { pt: 'Água/Planta/Lutador.', en: 'Water/Grass/Fighting.' } },
+        { name: 'Gardenia', role: 'leader', cap: 30, where: [['Eterna', 'Eterna'], ['Floresta', 'Forest']], team: [TM(420, 'Cherubi', 19, ['grass'], 'Chlorophyll', ['Magical Leaf', 'Leech Seed', 'Growth', 'Safeguard']), TM(387, 'Turtwig', 19, ['grass'], 'Overgrow', ['Razor Leaf', 'Reflect', 'Withdraw', 'Absorb']), TM(407, 'Roserade', 22, ['grass', 'poison'], 'Natural Cure', ['Magical Leaf', 'Poison Sting', 'Grass Knot', 'Stun Spore'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Voador. Cuidado com Stun Spore.', en: 'Fire/Flying. Watch out for Stun Spore.' } },
+        { name: 'Cynthia', role: 'champion', cap: 100, where: [['Pokémon League', 'Pokémon League']], team: [TM(442, 'Spiritomb', 61, ['ghost', 'dark'], 'Pressure', ['Dark Pulse', 'Psychic', 'Silver Wind', 'Embargo']), TM(445, 'Garchomp', 66, ['dragon', 'ground'], 'Sand Veil', ['Dragon Rush', 'Earthquake', 'Brick Break', 'Giga Impact']), TM(350, 'Milotic', 63, ['water'], 'Marvel Scale', ['Surf', 'Ice Beam', 'Mirror Coat', 'Aqua Ring'])], bag: ['Full Restore x4'], tip: { pt: 'Gelo contra Garchomp; Fada contra Spiritomb.', en: 'Ice against Garchomp; Fairy against Spiritomb.' } }
+      ],
+      unbound: [
+        { name: 'Mirskle', role: 'leader', cap: 25, where: [['Frozen Heights', 'Frozen Heights']], team: [TM(215, 'Sneasel', 18, ['dark', 'ice'], 'Inner Focus', ['Icy Wind', 'Feint Attack', 'Quick Attack', 'Taunt']), TM(459, 'Snover', 20, ['grass', 'ice'], 'Snow Warning', ['Razor Leaf', 'Icy Wind', 'Ingrain', 'Mist'])], bag: ['Super Potion x2'], tip: { pt: 'Fogo/Lutador/Aço.', en: 'Fire/Fighting/Steel.' } },
+        { name: 'Alice', role: 'champion', cap: 100, where: [['Borrius League', 'Borrius League']], team: [TM(6, 'Charizard', 72, ['fire', 'flying'], 'Blaze', ['Fire Blast', 'Air Slash', 'Focus Blast', 'Roost']), TM(149, 'Dragonite', 74, ['dragon', 'flying'], 'Multiscale', ['Dragon Dance', 'Outrage', 'Fire Punch', 'Extreme Speed'])], bag: ['Full Restore x4'], tip: { pt: 'Pedra e Gelo resolvem quase tudo aqui.', en: 'Rock and Ice solve most of this fight.' } }
+      ],
+      atm: [
+        { name: 'Pontin', role: 'rival', cap: 30, where: [['Spawn do servidor', 'Server spawn']], team: [TM(448, 'Lucario', 25, ['fighting', 'steel'], 'Inner Focus', ['Aura Sphere', 'Bone Rush', 'Metal Claw', 'Quick Attack'])], bag: ['Potion x3'], tip: { pt: 'Fogo/Lutador/Terra contra Lucario.', en: 'Fire/Fighting/Ground against Lucario.' } },
+        { name: 'Time ATM', role: 'elite', cap: 100, where: [['Arena da base', 'Base arena']], team: [TM(94, 'Gengar', 55, ['ghost', 'poison'], 'Cursed Body', ['Shadow Ball', 'Sludge Bomb', 'Focus Blast', 'Nasty Plot']), TM(143, 'Snorlax', 55, ['normal'], 'Thick Fat', ['Body Slam', 'Rest', 'Curse', 'Earthquake'])], bag: ['Full Restore x2'], tip: { pt: 'Sombrio contra Gengar; Lutador contra Snorlax.', en: 'Dark against Gengar; Fighting against Snorlax.' } }
+      ],
+      cc: [
+        { name: 'Cherry', role: 'leader', cap: 35, where: [['Vila dos criadores', 'Creators village']], team: [TM(133, 'Eevee', 28, ['normal'], 'Adaptability', ['Quick Attack', 'Bite', 'Swift', 'Baby-Doll Eyes']), TM(25, 'Pikachu', 30, ['electric'], 'Static', ['Thunderbolt', 'Quick Attack', 'Iron Tail', 'Nuzzle'])], bag: ['Super Potion x2'], tip: { pt: 'Lutador contra Eevee; Terra contra Pikachu.', en: 'Fighting against Eevee; Ground against Pikachu.' } },
+        { name: 'Lucas', role: 'champion', cap: 100, where: [['Estúdio', 'Studio']], team: [TM(150, 'Mewtwo', 70, ['psychic'], 'Pressure', ['Psystrike', 'Aura Sphere', 'Ice Beam', 'Recover'])], bag: ['Full Restore x3'], tip: { pt: 'Sombrio/Inseto/Fantasma contra Mewtwo.', en: 'Dark/Bug/Ghost against Mewtwo.' } }
+      ]
+    },
+    /* Pokébolas: cores do ícone (b1 topo, b2 base, b3 detalhe), multiplicador, efeito e situações */
+    balls: [
+      { id: 'poke', name: 'Poké Ball', b1: '#e63946', b2: '#f1f1f1', b3: '', mult: '1x', pt: 'Pokébola padrão.', en: 'Standard ball.', tags: [] },
+      { id: 'great', name: 'Great Ball', b1: '#3a86ff', b2: '#f1f1f1', b3: '#e63946', mult: '1.5x', pt: 'Melhor que a Poké Ball em qualquer situação.', en: 'Better than a Poké Ball in any situation.', tags: [] },
+      { id: 'ultra', name: 'Ultra Ball', b1: '#1f1f1f', b2: '#f1f1f1', b3: '#f5d000', mult: '2x', pt: 'Alta taxa de captura em qualquer situação.', en: 'High catch rate in any situation.', tags: [] },
+      { id: 'master', name: 'Master Ball', b1: '#7b2cbf', b2: '#f1f1f1', b3: '#ff6ec7', mult: '255x', pt: 'Captura garantida.', en: 'Guaranteed capture.', tags: [] },
+      { id: 'net', name: 'Net Ball', b1: '#2ec4b6', b2: '#f1f1f1', b3: '#0b5563', mult: '3x', pt: '3x em Pokémon de Água ou Inseto.', en: '3x on Water or Bug type Pokémon.', tags: ['water'] },
+      { id: 'dusk', name: 'Dusk Ball', b1: '#1f3b2a', b2: '#f1f1f1', b3: '#ff8c42', mult: '3.5x', pt: '3.5x com luz 0, 3x com luz 1-7 (noite ou caverna).', en: '3.5x at light level 0, 3x at light 1-7 (night or caves).', tags: ['night'] },
+      { id: 'fast', name: 'Fast Ball', b1: '#ffb703', b2: '#f1f1f1', b3: '#e63946', mult: '4x', pt: '4x em Pokémon com Velocidade base ≥ 100.', en: '4x on Pokémon with base Speed ≥ 100.', tags: [] },
+      { id: 'heavy', name: 'Heavy Ball', b1: '#6c757d', b2: '#3d5a80', b3: '#212529', mult: '1x a 4x', pt: '1x a 4x pelo peso do Pokémon (mais pesado, melhor).', en: '1x to 4x by the Pokémon\'s weight (heavier is better).', tags: [] },
+      { id: 'love', name: 'Love Ball', b1: '#ff70a6', b2: '#f1f1f1', b3: '#ffd6e0', mult: '2.5x / 8x', pt: '2.5x se gênero oposto ao seu Pokémon; 8x se mesma espécie.', en: '2.5x if opposite gender to yours; 8x if same species.', tags: [] },
+      { id: 'beast', name: 'Beast Ball', b1: '#2b3a67', b2: '#f1f1f1', b3: '#ffd166', mult: '5x / 0.1x', pt: '5x em Ultra Beasts, 0.1x no resto.', en: '5x on Ultra Beasts, 0.1x on everything else.', tags: [] },
+      { id: 'quick', name: 'Quick Ball', b1: '#219ebc', b2: '#ffd60a', b3: '#f1f1f1', mult: '5x', pt: '5x no 1º turno da batalha.', en: '5x on the 1st turn of battle.', tags: ['first'] },
+      { id: 'timer', name: 'Timer Ball', b1: '#e9ecef', b2: '#f1f1f1', b3: '#e63946', mult: '1x a 4x', pt: '1x a 4x conforme os turnos passam (máximo no turno 10).', en: '1x to 4x as turns pass (max at turn 10).', tags: [] },
+      { id: 'repeat', name: 'Repeat Ball', b1: '#e63946', b2: '#f1f1f1', b3: '#1d1d1d', mult: '3.5x', pt: '3.5x se a espécie já está registrada na Pokédex.', en: '3.5x if the species is already registered in the Pokédex.', tags: ['caught'] },
+      { id: 'level', name: 'Level Ball', b1: '#f4a261', b2: '#e63946', b3: '#1d1d1d', mult: '1x a 8x', pt: '1x a 8x conforme seu Pokémon é mais forte que o alvo.', en: '1x to 8x depending on how much stronger your Pokémon is.', tags: [] },
+      { id: 'lure', name: 'Lure Ball', b1: '#4cc9f0', b2: '#f1f1f1', b3: '#f72585', mult: '4x', pt: '4x em Pokémon encontrados pescando.', en: '4x on Pokémon encountered while fishing.', tags: ['fishing', 'water'] },
+      { id: 'moon', name: 'Moon Ball', b1: '#1b263b', b2: '#f1f1f1', b3: '#ffd166', mult: '4x', pt: '4x em Pokémon que evoluem por Pedra da Lua.', en: '4x on Pokémon that evolve with a Moon Stone.', tags: ['night'] },
+      { id: 'dive', name: 'Dive Ball', b1: '#0077b6', b2: '#f1f1f1', b3: '#90e0ef', mult: '3.5x', pt: '3.5x em Pokémon debaixo d\'água.', en: '3.5x on Pokémon underwater.', tags: ['water'] },
+      { id: 'nest', name: 'Nest Ball', b1: '#a7c957', b2: '#f1f1f1', b3: '#f4a261', mult: '1x a 4x', pt: 'Melhor quanto menor o nível do alvo (até 4x abaixo do nível 10).', en: 'Better the lower the target\'s level (up to 4x under level 10).', tags: [] },
+      { id: 'friend', name: 'Friend Ball', b1: '#43aa8b', b2: '#f1f1f1', b3: '#f94144', mult: '1x', pt: 'Após capturar: amizade começa em 150.', en: 'After capture: friendship starts at 150.', tags: ['after'] },
+      { id: 'luxury', name: 'Luxury Ball', b1: '#1d1d1d', b2: '#1d1d1d', b3: '#f4a261', mult: '1x', pt: 'Após capturar: amizade sobe mais rápido.', en: 'After capture: friendship rises faster.', tags: ['after'] },
+      { id: 'heal', name: 'Heal Ball', b1: '#ff99c8', b2: '#f1f1f1', b3: '#6a4c93', mult: '1x', pt: 'Após capturar: cura totalmente HP, PP e status.', en: 'After capture: fully heals HP, PP and status.', tags: ['after'] },
+      { id: 'premier', name: 'Premier Ball', b1: '#f1f1f1', b2: '#f1f1f1', b3: '#e63946', mult: '1x', pt: 'Igual à Poké Ball, só é mais bonita.', en: 'Same as a Poké Ball, just prettier.', tags: [] },
+      { id: 'safari', name: 'Safari Ball', b1: '#6a994e', b2: '#a7c957', b3: '#386641', mult: '1.5x', pt: '1.5x em biomas de planície ou savana.', en: '1.5x in plains or savanna biomes.', tags: [] }
+    ],
+    itemCats: ['med', 'iv', 'vit', 'candy', 'evo', 'held', 'battle', 'cook', 'berry', 'bait'],
+    items: [
+      { cat: 'med', ico: 'heart-pulse', pt: 'Poção', en: 'Potion', dpt: 'Recupera 20 HP.', den: 'Restores 20 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'med', ico: 'heart-pulse', pt: 'Super Poção', en: 'Super Potion', dpt: 'Recupera 60 HP.', den: 'Restores 60 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'med', ico: 'heart-pulse', pt: 'Restaurar Total', en: 'Full Restore', dpt: 'Recupera todo o HP e cura qualquer status.', den: 'Fully restores HP and cures any status.', hpt: 'Clique com o item no Pokémon ou use na batalha', hen: 'Click the Pokémon with the item or use in battle' },
+      { cat: 'med', ico: 'sparkles', pt: 'Reviver', en: 'Revive', dpt: 'Revive um Pokémon desmaiado com metade do HP.', den: 'Revives a fainted Pokémon with half HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'Proteína', en: 'Protein', dpt: 'Aumenta os EVs de Ataque em 10.', den: 'Raises Attack EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'Ferro', en: 'Iron', dpt: 'Aumenta os EVs de Defesa em 10.', den: 'Raises Defense EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'Carboidrato', en: 'Carbos', dpt: 'Aumenta os EVs de Velocidade em 10.', den: 'Raises Speed EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'HP Up', en: 'HP Up', dpt: 'Aumenta os EVs de HP em 10.', den: 'Raises HP EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Saúde', en: 'Health Candy', dpt: '+1 IV de HP.', den: '+1 HP IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Poder', en: 'Mighty Candy', dpt: '+1 IV de Ataque.', den: '+1 Attack IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Resistência', en: 'Tough Candy', dpt: '+1 IV de Defesa.', den: '+1 Defense IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Inteligência', en: 'Smart Candy', dpt: '+1 IV de At. Esp..', den: '+1 Sp. Atk IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Coragem', en: 'Courage Candy', dpt: '+1 IV de Def. Esp..', den: '+1 Sp. Def IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy', pt: 'Doce de Rapidez', en: 'Quick Candy', dpt: '+1 IV de Velocidade.', den: '+1 Speed IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Doença', en: 'Sickly Candy', dpt: '-1 IV de HP.', den: '-1 HP IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Fraqueza', en: 'Weak Candy', dpt: '-1 IV de Ataque.', den: '-1 Attack IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Fragilidade', en: 'Brittle Candy', dpt: '-1 IV de Defesa.', den: '-1 Defense IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Dormência', en: 'Numb Candy', dpt: '-1 IV de At. Esp..', den: '-1 Sp. Atk IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Covardia', en: 'Coward Candy', dpt: '-1 IV de Def. Esp..', den: '-1 Sp. Def IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'iv', ico: 'candy-off', pt: 'Doce de Lentidão', en: 'Slow Candy', dpt: '-1 IV de Velocidade.', den: '-1 Speed IV.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'Cálcio', en: 'Calcium', dpt: 'Aumenta os EVs de At. Esp. em 10.', den: 'Raises Sp. Atk EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'flask-conical', pt: 'Zinco', en: 'Zinc', dpt: 'Aumenta os EVs de Def. Esp. em 10.', den: 'Raises Sp. Def EVs by 10.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'dumbbell', pt: 'Power Bracer', en: 'Power Bracer', dpt: '+8 EV de Ataque ao ganhar EXP.', den: '+8 Attack EVs when gaining EXP.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'vit', ico: 'dumbbell', pt: 'Power Weight', en: 'Power Weight', dpt: '+8 EV de HP ao ganhar EXP.', den: '+8 HP EVs when gaining EXP.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'vit', ico: 'dumbbell', pt: 'Power Anklet', en: 'Power Anklet', dpt: '+8 EV de Velocidade ao ganhar EXP.', den: '+8 Speed EVs when gaining EXP.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Pomeg Berry', en: 'Pomeg Berry', dpt: '-10 EV de HP, +amizade.', den: '-10 HP EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Kelpsy Berry', en: 'Kelpsy Berry', dpt: '-10 EV de Ataque, +amizade.', den: '-10 Attack EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Qualot Berry', en: 'Qualot Berry', dpt: '-10 EV de Defesa, +amizade.', den: '-10 Defense EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Hondew Berry', en: 'Hondew Berry', dpt: '-10 EV de At. Esp., +amizade.', den: '-10 Sp. Atk EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Grepa Berry', en: 'Grepa Berry', dpt: '-10 EV de Def. Esp., +amizade.', den: '-10 Sp. Def EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'vit', ico: 'cherry', pt: 'Tamato Berry', en: 'Tamato Berry', dpt: '-10 EV de Velocidade, +amizade.', den: '-10 Speed EVs, +friendship.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Exp. Candy XS', en: 'Exp. Candy XS', dpt: 'Dá 100 pontos de EXP.', den: 'Grants 100 EXP points.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Exp. Candy M', en: 'Exp. Candy M', dpt: 'Dá 3.000 pontos de EXP.', den: 'Grants 3,000 EXP points.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Exp. Candy XL', en: 'Exp. Candy XL', dpt: 'Dá 30.000 pontos de EXP.', den: 'Grants 30,000 EXP points.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'battle', ico: 'leaf', pt: 'Hortelã Modesta', en: 'Modest Mint', dpt: 'Muda os bônus de stats para a natureza Modest (+At. Esp., -Ataque).', den: 'Changes stat bonuses to the Modest nature (+Sp. Atk, -Attack).', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'battle', ico: 'leaf', pt: 'Hortelã Alegre', en: 'Jolly Mint', dpt: 'Muda os bônus de stats para a natureza Jolly (+Velocidade, -At. Esp.).', den: 'Changes stat bonuses to the Jolly nature (+Speed, -Sp. Atk).', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Exp. Candy S', en: 'Exp. Candy S', dpt: 'Dá 800 pontos de EXP.', den: 'Grants 800 EXP points.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Exp. Candy L', en: 'Exp. Candy L', dpt: 'Dá 10.000 pontos de EXP.', den: 'Grants 10,000 EXP points.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'candy', ico: 'candy', pt: 'Doce Raro', en: 'Rare Candy', dpt: 'Aumenta o nível em 1.', den: 'Raises the level by 1.', hpt: 'Clique com o item no Pokémon (respeita o level cap)', hen: 'Click the Pokémon with the item (respects the level cap)' },
+      { cat: 'evo', ico: 'gem', pt: 'Pedra do Fogo', en: 'Fire Stone', dpt: 'Evolui certos Pokémon de Fogo (Eevee, Growlithe, Vulpix).', den: 'Evolves certain Fire Pokémon (Eevee, Growlithe, Vulpix).', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'evo', ico: 'cable', pt: 'Link Cable', en: 'Link Cable', dpt: 'Substitui a evolução por troca (Haunter, Kadabra, Machoke).', den: 'Replaces trade evolution (Haunter, Kadabra, Machoke).', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'evo', ico: 'gem', pt: 'Pedra do Trovão', en: 'Thunder Stone', dpt: 'Evolui Pikachu, Eevee (Jolteon) e Eelektrik.', den: 'Evolves Pikachu, Eevee (Jolteon) and Eelektrik.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'held', ico: 'shield', pt: 'Leftovers', en: 'Leftovers', dpt: 'Recupera 1/16 do HP por turno.', den: 'Restores 1/16 HP each turn.', hpt: 'Segure o item (arraste na tela do Pokémon)', hen: 'Hold the item (drag it on the Pokémon screen)' },
+      { cat: 'held', ico: 'shield', pt: 'Choice Scarf', en: 'Choice Scarf', dpt: 'Velocidade x1.5, mas trava no primeiro golpe usado.', den: 'Speed x1.5, but locks into the first move used.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'held', ico: 'shield', pt: 'Life Orb', en: 'Life Orb', dpt: 'Golpes 30% mais fortes; perde 10% do HP por ataque.', den: 'Moves 30% stronger; loses 10% HP per attack.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'held', ico: 'shield', pt: 'Everstone', en: 'Everstone', dpt: 'Impede a evolução enquanto segurado.', den: 'Prevents evolution while held.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'battle', ico: 'zap', pt: 'X Attack', en: 'X Attack', dpt: 'Aumenta o Ataque em 2 estágios na batalha.', den: 'Raises Attack by 2 stages in battle.', hpt: 'Use na batalha', hen: 'Use in battle' },
+      { cat: 'battle', ico: 'dna', pt: 'Adesivo de Habilidade', en: 'Ability Patch', dpt: 'Troca para a habilidade oculta.', den: 'Switches to the hidden ability.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'battle', ico: 'dna', pt: 'Cápsula de Habilidade', en: 'Ability Capsule', dpt: 'Alterna entre as habilidades normais.', den: 'Switches between the regular abilities.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'battle', ico: 'leaf', pt: 'Hortelã Firme', en: 'Adamant Mint', dpt: 'Muda os bônus de stats para a natureza Adamant (+Atk, -SpA).', den: 'Changes stat bonuses to the Adamant nature (+Atk, -SpA).', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
+      { cat: 'cook', ico: 'cake', pt: 'Poke Puff', en: 'Poké Puff', dpt: 'Aumenta a amizade.', den: 'Raises friendship.', hpt: 'Cozinhe no Campfire Pot com 3 temperos e dê ao Pokémon', hen: 'Cook in the Campfire Pot with 3 seasonings and give it to the Pokémon' },
+      { cat: 'cook', ico: 'cup-soda', pt: 'Aprijuice', en: 'Aprijuice', dpt: 'Altera bônus de stats de montaria.', den: 'Changes mount stat bonuses.', hpt: 'Cozinhe com Apricorns no Campfire Pot e dê ao Pokémon', hen: 'Cook with Apricorns in the Campfire Pot and give it to the Pokémon' },
+      { cat: 'cook', ico: 'coffee', pt: 'Sinister Tea', en: 'Sinister Tea', dpt: 'Efeitos de poção (cura HP e status).', den: 'Potion effects (heals HP and status).', hpt: 'Cozinhe no Campfire Pot com Sinistea e beba ou dê ao Pokémon', hen: 'Cook in the Campfire Pot with Sinistea and drink it or give it to the Pokémon' },
+      { cat: 'cook', ico: 'cooking-pot', pt: 'Curry', en: 'Curry', dpt: 'Cura, aumenta amizade e dá EXP conforme os ingredientes.', den: 'Heals, raises friendship and grants EXP based on ingredients.', hpt: 'Cozinhe no Campfire Pot com 3 temperos', hen: 'Cook in the Campfire Pot with 3 seasonings' },
+      { cat: 'berry', ico: 'cherry', pt: 'Oran Berry', en: 'Oran Berry', dpt: 'Recupera 10 HP quando o HP fica baixo.', den: 'Restores 10 HP when HP gets low.', hpt: 'Segure o item ou clique no Pokémon', hen: 'Hold the item or click the Pokémon' },
+      { cat: 'berry', ico: 'cherry', pt: 'Sitrus Berry', en: 'Sitrus Berry', dpt: 'Recupera 1/4 do HP quando o HP fica baixo.', den: 'Restores 1/4 HP when HP gets low.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'berry', ico: 'cherry', pt: 'Lum Berry', en: 'Lum Berry', dpt: 'Cura qualquer status.', den: 'Cures any status condition.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'berry', ico: 'cherry', pt: 'Leppa Berry', en: 'Leppa Berry', dpt: 'Recupera 10 PP de um golpe.', den: 'Restores 10 PP of a move.', hpt: 'Segure o item', hen: 'Hold the item' },
+      { cat: 'bait', ico: 'fish', pt: 'Aguav Berry (isca)', en: 'Aguav Berry (bait)', dpt: '50% de chance de natureza focada em Def. Esp.', den: '50% chance of a Sp. Def focused nature.', hpt: 'Coloque na vara de pescar (Poké Rod) antes de lançar', hen: 'Put it on the fishing rod (Poké Rod) before casting' },
+      { cat: 'bait', ico: 'fish', pt: 'Kelpsy Berry (isca)', en: 'Kelpsy Berry (bait)', dpt: '50% de chance de natureza focada em Defesa.', den: '50% chance of a Defense focused nature.', hpt: 'Coloque na vara de pescar', hen: 'Put it on the fishing rod' },
+      { cat: 'bait', ico: 'fish', pt: 'Hondew Berry (isca)', en: 'Hondew Berry (bait)', dpt: '50% de chance de natureza focada em At. Esp.', den: '50% chance of a Sp. Atk focused nature.', hpt: 'Coloque na vara de pescar', hen: 'Put it on the fishing rod' },
+      { cat: 'bait', ico: 'fish', pt: 'Mel', en: 'Honey', dpt: 'Atrai mais Pokémon shiny na pesca (chance dobrada).', den: 'Attracts more shiny Pokémon while fishing (double chance).', hpt: 'Coloque na vara de pescar', hen: 'Put it on the fishing rod' }
+    ]
+  });
   const STAT_KEYS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
   const STAT_COLORS = ['var(--s-hp)', 'var(--s-atk)', 'var(--s-def)', 'var(--s-spa)', 'var(--s-spd)', 'var(--s-spe)'];
 
@@ -352,6 +579,8 @@
   const state = {
     lang: 'pt', theme: 'classico', sound: false, phone: false, screen: 'home',
     detailId: 6, shiny: false, moveTab: 'level', formIdx: 0, teamAdded: {}, weakFilter: 'all',
+    series: 'rr', defeated: { rr: [true, true, true] }, trainerOpen: null, ballFilter: 'all', itemCat: 'med', itemQuery: '', itemOpen: null,
+    termsDefault: 'pt', termsOverride: {},
     filters: { types: [], gen: 'all', evo: 'all', sort: 'num', status: 'all' },
     capTimers: []
   };
@@ -361,7 +590,21 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const t = (k) => (I18N[k] ? I18N[k][state.lang] : k);
-  const tn = (type) => TYPES[type][state.lang];
+  /* Idioma dos TERMOS DO JOGO (independente da UI): padrão em Configurações + override por card, persistido no localStorage */
+  try { const saved = JSON.parse(localStorage.getItem('pontindex.terms') || 'null'); if (saved) { state.termsDefault = saved.d || 'pt'; state.termsOverride = saved.o || {}; } } catch (e) {}
+  const saveTerms = () => { try { localStorage.setItem('pontindex.terms', JSON.stringify({ d: state.termsDefault, o: state.termsOverride })); } catch (e) {} };
+  const tl = (card) => state.termsOverride[card] || state.termsDefault;
+  const termsTgl = (card) => `<div class="seg seg-xs terms-tgl" data-tcard="${card}" title="PT | EN"><i data-lucide="languages"></i>${['pt', 'en'].map(l => `<button class="${tl(card) === l ? 'active' : ''}" data-tl="${l}">${l.toUpperCase()}</button>`).join('')}</div>`;
+  /* Traduções de termos usados nos times dos treinadores e nas bolas */
+  const MOVE_PT = { 'Tackle': 'Investida', 'Rock Throw': 'Lançamento de Pedra', 'Defense Curl': 'Enrolar Defensivo', 'Rock Polish': 'Polir Pedra', 'Bind': 'Amarrar', 'Rock Tomb': 'Tumba de Pedra', 'Harden': 'Endurecer', 'Wing Attack': 'Ataque de Asa', 'Bite': 'Mordida', 'Confuse Ray': 'Raio Confuso', 'Astonish': 'Assombrar', 'Ember': 'Brasa', 'Howl': 'Uivo', 'Smog': 'Fumaça', 'Water Pulse': 'Pulso de Água', 'Swift': 'Rajada Certeira', 'Rapid Spin': 'Giro Rápido', 'Recover': 'Recuperar', 'Psybeam': 'Psicorraio', 'Leaf Blade': 'Lâmina de Folha', 'Quick Attack': 'Ataque Rápido', 'Pursuit': 'Perseguição', 'Fury Cutter': 'Corte de Fúria', 'Mud Shot': 'Tiro de Lama', 'Water Gun': 'Jato de Água', 'Bide': 'Aguardar', 'Rock Smash': 'Quebra-Pedra', 'Spark': 'Faísca', 'Sonic Boom': 'Estrondo Sônico', 'Rollout': 'Rolamento', 'Screech': 'Guincho', 'Thunderbolt': 'Relâmpago', 'Flash Cannon': 'Canhão de Luz', 'Thunder Wave': 'Onda de Trovão', 'Magnet Bomb': 'Bomba Magnética', 'Double Team': 'Duplo Time', 'Giga Drain': 'Giga Dreno', 'Sleep Powder': 'Pó do Sono', 'Ancient Power': 'Poder Ancestral', 'Knock Off': 'Derrubar', 'Sludge Bomb': 'Bomba de Lodo', 'Sunny Day': 'Dia Ensolarado', 'Petal Dance': 'Dança das Pétalas', 'Moonlight': 'Luar', 'Earth Power': 'Poder da Terra', 'Ice Beam': 'Raio de Gelo', 'Superpower': 'Superpoder', 'Earthquake': 'Terremoto', 'Stone Edge': 'Gume de Pedra', 'Megahorn': 'Megachifre', 'Fire Punch': 'Soco de Fogo', 'Sludge Wave': 'Onda de Lodo', 'Surf': 'Surfar', 'Rest': 'Descanso', 'Sleep Talk': 'Falar Dormindo', 'Icicle Spear': 'Lança de Gelo', 'Rock Blast': 'Explosão de Pedra', 'Shell Smash': 'Quebra-Casco', 'Hydro Pump': 'Hidrobomba', 'Freeze-Dry': 'Congelar a Seco', 'Ice Shard': 'Estilhaço de Gelo', 'Hurricane': 'Furacão', 'Brave Bird': 'Pássaro Bravo', 'Heat Wave': 'Onda de Calor', 'Roost': 'Empoleirar', 'Psychic': 'Psíquico', 'Focus Blast': 'Explosão Focada', 'Shadow Ball': 'Bola Sombria', 'Calm Mind': 'Mente Calma', 'Swords Dance': 'Dança das Espadas', 'Waterfall': 'Cachoeira', 'Crunch': 'Mastigada', 'Ice Fang': 'Presa de Gelo', 'Dragon Dance': 'Dança do Dragão', 'Flare Blitz': 'Investida de Fogo', 'Extreme Speed': 'Velocidade Extrema', 'Wild Charge': 'Carga Selvagem', 'Close Combat': 'Combate Corporal', 'Fire Blast': 'Rajada de Fogo', 'Air Slash': 'Corte de Ar', 'Solar Beam': 'Raio Solar', 'Dragon Pulse': 'Pulso do Dragão', 'Stealth Rock': 'Pedras Furtivas', 'Headbutt': 'Cabeçada', 'Leer': 'Encarar', 'Take Down': 'Derrubada', 'Magical Leaf': 'Folha Mágica', 'Leech Seed': 'Semente Sanguessuga', 'Growth': 'Crescimento', 'Safeguard': 'Salvaguarda', 'Razor Leaf': 'Folha Navalha', 'Reflect': 'Refletir', 'Withdraw': 'Recolher', 'Absorb': 'Absorver', 'Poison Sting': 'Ferrão Venenoso', 'Grass Knot': 'Nó de Grama', 'Stun Spore': 'Esporo Paralisante', 'Dark Pulse': 'Pulso Sombrio', 'Silver Wind': 'Vento Prateado', 'Embargo': 'Embargo', 'Dragon Rush': 'Investida do Dragão', 'Brick Break': 'Quebra-Tijolo', 'Giga Impact': 'Giga Impacto', 'Mirror Coat': 'Manto Espelhado', 'Aqua Ring': 'Anel de Água', 'Icy Wind': 'Vento Gelado', 'Feint Attack': 'Ataque Fingido', 'Taunt': 'Provocar', 'Ingrain': 'Enraizar', 'Mist': 'Névoa', 'Outrage': 'Fúria', 'Aura Sphere': 'Esfera de Aura', 'Bone Rush': 'Investida de Osso', 'Metal Claw': 'Garra de Metal', 'Nasty Plot': 'Plano Maligno', 'Body Slam': 'Pancada Corporal', 'Curse': 'Maldição', 'Baby-Doll Eyes': 'Olhos de Boneca', 'Iron Tail': 'Cauda de Ferro', 'Nuzzle': 'Afago', 'Psystrike': 'Psicogolpe' };
+  const ABIL_PT = { 'Sturdy': 'Robustez', 'Inner Focus': 'Força Interior', 'Flash Fire': 'Fogo Instantâneo', 'Natural Cure': 'Cura Natural', 'Illuminate': 'Iluminar', 'Overgrow': 'Crescimento Excessivo', 'Torrent': 'Torrente', 'Static': 'Estática', 'Chlorophyll': 'Clorofila', 'Effect Spore': 'Esporo de Efeito', 'Poison Point': 'Ponto Venenoso', 'Rock Head': 'Cabeça de Pedra', 'Sheer Force': 'Força Bruta', 'Thick Fat': 'Gordura Espessa', 'Skill Link': 'Elo de Habilidade', 'Water Absorb': 'Absorver Água', 'No Guard': 'Sem Guarda', 'Magic Guard': 'Guarda Mágica', 'Intimidate': 'Intimidar', 'Solar Power': 'Poder Solar', 'Mold Breaker': 'Quebra-Molde', 'Pressure': 'Pressão', 'Sand Veil': 'Véu de Areia', 'Marvel Scale': 'Escama Maravilha', 'Snow Warning': 'Aviso de Neve', 'Blaze': 'Chama', 'Multiscale': 'Multiescama', 'Cursed Body': 'Corpo Amaldiçoado', 'Adaptability': 'Adaptabilidade' };
+  const ITEM_PT = { 'Potion': 'Poção', 'Super Potion': 'Super Poção', 'Hyper Potion': 'Hiper Poção', 'Full Restore': 'Restaurar Total', 'Full Heal': 'Cura Total', 'X Defense': 'X Defesa', 'Old Amber': 'Âmbar Antigo', 'Ancient DNA Sample': 'Amostra de DNA Antigo', 'Master Ball': 'Bola Mestra', 'Charcoal': 'Carvão', 'Fire Stone': 'Pedra do Fogo' };
+  const EGG_PT = { 'Field': 'Campo', 'Human-like': 'Humanoide', 'Monster': 'Monstro', 'Dragon': 'Dragão', 'Flying': 'Voador', 'Undiscovered': 'Desconhecido' };
+  const BALL_PT = { poke: 'Pokébola', great: 'Grande Bola', ultra: 'Ultra Bola', master: 'Bola Mestra', net: 'Bola de Rede', dusk: 'Bola do Crepúsculo', fast: 'Bola Rápida', heavy: 'Bola Pesada', love: 'Bola do Amor', beast: 'Bola Fera', quick: 'Bola Veloz', timer: 'Bola Temporizada', repeat: 'Bola de Repetição', level: 'Bola de Nível', lure: 'Bola Isca', moon: 'Bola Lunar', dive: 'Bola de Mergulho', nest: 'Bola Ninho', friend: 'Bola da Amizade', luxury: 'Bola de Luxo', heal: 'Bola de Cura', premier: 'Bola Premier', safari: 'Bola Safári' };
+  const term = (en, map, L) => (L === 'pt' && map[en]) ? map[en] : en;
+  const termPair = (en, map, L) => { const pt = map[en]; return pt ? (L === 'pt' ? `${pt}<small>${en}</small>` : `${en}<small>${pt}</small>`) : en; };
+  const ballName = (b, L) => L === 'pt' ? `${BALL_PT[b.id]}<small>${b.name}</small>` : `${b.name}<small>${BALL_PT[b.id]}</small>`;
+  const tn = (type, L) => TYPES[type][L || state.lang];
   const byId = (id) => DATA.pokemon.find(p => p.id === id);
   const pad = (n) => '#' + String(n).padStart(4, '0');
   const fmtDate = (d) => state.lang === 'pt' ? d : d.split('/').reverse().join('-');
@@ -370,7 +613,7 @@
      COMPONENTES (strings HTML)
      ------------------------------------------------------------------ */
   const typeIcon = (type) => `<span class="ti t-${type}"><img src="../tipos/svg/${type}.svg" alt=""></span>`;
-  const chip = (type, size) => `<span class="chip t-${type} ${size || ''}">${typeIcon(type)}<span>${tn(type)}</span></span>`;
+  const chip = (type, size, L) => `<span class="chip t-${type} ${size || ''}">${typeIcon(type)}<span>${tn(type, L)}</span></span>`;
   const badge = (p) => {
     const r = p.rarity;
     const cls = { common: 'badge-common', uncommon: 'badge-uncommon', rare: 'badge-rare', ultra: 'badge-ultra', legendary: 'badge-legendary', mythical: 'badge-mythical' }[r];
@@ -473,20 +716,21 @@
 
   /* Componentes parciais da ficha: só eles são re-renderizados ao trocar aba/forma */
   function movesTableHTML() {
-    const moves = (DATA.moves[state.detailId] || DATA.moves._)[state.moveTab];
+    const moves = (DATA.moves[state.detailId] || DATA.moves._)[state.moveTab]; const L = tl('moves');
     return `<table>
       <thead><tr><th>${t('col.level')}</th><th>${t('col.move')}</th><th>${t('col.type')}</th><th>${t('col.cat')}</th><th>${t('col.power')}</th><th>${t('col.acc')}</th></tr></thead>
       <tbody>${moves.map((m, i) => `<tr class="mv-row ${m.desc ? 'has-desc' : ''}" data-mv="${i}"><td class="num">${typeof m.lv === 'number' ? m.lv : t('tab.' + state.moveTab)}</td>
-        <td><span class="mv-name">${state.lang === 'pt' ? m.pt : m.en}${m.desc ? '<span class="mv-caret"><i data-lucide="chevron-down"></i></span>' : ''}</span><span class="mv-en">${state.lang === 'pt' ? m.en : m.pt}</span></td>
-        <td>${chip(m.type, 'sm')}</td><td><span class="cat cat-${m.cat}"><i></i>${t('cat.' + m.cat)}</span></td>
+        <td><span class="mv-name">${L === 'pt' ? m.pt : m.en}${m.desc ? '<span class="mv-caret"><i data-lucide="chevron-down"></i></span>' : ''}</span><span class="mv-en">${L === 'pt' ? m.en : m.pt}</span></td>
+        <td>${chip(m.type, 'sm', L)}</td><td><span class="cat cat-${m.cat}"><i></i>${t('cat.' + m.cat)}</span></td>
         <td class="num">${m.pow == null ? '-' : m.pow}</td><td class="num">${m.acc == null ? '-' : m.acc + '%'}</td></tr>${m.desc ? `<tr class="mv-desc"><td colspan="6"><div class="desc-wrap"><div class="desc-inner"><p class="desc-text">${state.lang === 'pt' ? m.desc.pt : m.desc.en}</p></div></div></td></tr>` : ''}`).join('')}</tbody>
     </table>`;
   }
   function formBodyHTML(forms) {
-    const form = forms[Math.min(state.formIdx, forms.length - 1)];
+    const form = forms[Math.min(state.formIdx, forms.length - 1)], L = tl('forms');
     return `${imgArt(form.id)}
       <div class="form-info">
-        <div class="types">${form.types.map(x => chip(x)).join('')}</div>
+        <div class="types">${form.types.map(x => chip(x, '', L)).join('')}</div>
+        <div class="form-req"><span class="muted">${t('form.req')}:</span> ${form.req ? form.req.map(r => `<span class="tag tag-item"><i data-lucide="gem"></i>${L === 'pt' ? r[0] : r[1]}</span>`).join(' + ') + (form.addon ? ` <span class="muted">(${form.addon})</span>` : '') : `<span class="muted">${t('form.none')}</span>`}</div>
         <div><span class="muted">${t('form.ability')}:</span> <strong>${state.lang === 'pt' ? form.ability[0] : form.ability[1]}</strong> <span class="muted">(${state.lang === 'pt' ? form.ability[1] : form.ability[0]})</span></div>
         <div class="show-bars">${statsBlock(form.stats)}</div>
       </div>`;
@@ -510,26 +754,65 @@
     const wk = weaknesses(byId(state.detailId).types);
     const rows = [[4, 'x4', 'mult-4'], [2, 'x2', 'mult-2'], [0.5, 'x½', 'mult-half'], [0.25, 'x¼', 'mult-quarter'], [0, 'x0', 'mult-0']]
       .filter(r => wk[r[0]] && (state.weakFilter === 'all' || (state.weakFilter === 'weak' ? r[0] > 1 : r[0] < 1)));
-    return rows.length ? rows.map(r => `<div class="weak-row"><span class="mult ${r[2]}">${r[1]}</span><div class="chips">${wk[r[0]].map(x => chip(x, 'sm')).join('')}</div></div>`).join('') : `<p class="muted">-</p>`;
+    const L = tl('weak');
+    return rows.length ? rows.map(r => `<div class="weak-row"><span class="mult ${r[2]}">${r[1]}</span><div class="chips">${wk[r[0]].map(x => chip(x, 'sm', L)).join('')}</div></div>`).join('') : `<p class="muted">-</p>`;
   }
 
   /* Bloco "Como obter": métodos aplicáveis com ícone Lucide; fallback neutro quando nada se aplica */
   function obtainHTML(p, where) {
-    const ico = { evo: 'arrow-up-circle', fossil: 'bone', spawn: 'map-pin', addon: 'puzzle', breed: 'egg' };
+    const ico = { evo: 'arrow-up-circle', fossil: 'bone', spawn: 'map-pin', addon: 'puzzle', breed: 'egg' }; const L = tl('where');
     const rows = [];
-    if (p.packSpawn && where) rows.push({ k: 'spawn', html: `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span> <b>${t('where.level')} ${where.levels}</b> · ${where.biomes.map(b => state.lang === 'pt' ? b[0] : b[1]).join(', ')} <span class="tag">${t('obtain.packTag')}</span>` });
+    if (p.packSpawn && where) rows.push({ k: 'spawn', html: `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span> <b>${t('where.level')} ${where.levels}</b> · ${where.biomes.map(b => L === 'pt' ? b[0] : b[1]).join(', ')} <span class="tag">${t('obtain.packTag')}</span>` });
     (DATA.obtain[p.id] || []).forEach(m => {
-      const txt = state.lang === 'pt' ? m.pt : m.en;
+      const txt = L === 'pt' ? m.pt : m.en;
       if (m.k === 'evo') rows.push({ k: 'evo', html: txt, extra: `<button class="ob-link" data-open="${m.pre}"><img src="${spr(m.pre)}" alt="" onerror="this.onerror=null;this.src='${art(m.pre)}'"><span>${m.preName}</span><i data-lucide="arrow-right"></i></button>` });
-      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag">${m.item}</span>` });
+      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag">${term(m.item, ITEM_PT, L)}</span>` });
       else rows.push({ k: 'addon', title: m.name, html: txt, icon: m.name === 'Raid Dens' ? 'swords' : 'puzzle' });
     });
-    if (p.egg && p.egg[0] !== 'Undiscovered') rows.push({ k: 'breed', html: t('obtain.breedText').replace('{g}', p.egg.join(' / ')) });
+    if (p.egg && p.egg[0] !== 'Undiscovered') rows.push({ k: 'breed', html: t('obtain.breedText').replace('{g}', p.egg.map(g => term(g, EGG_PT, L)).join(' / ')) });
     const list = rows.length ? rows.map(r => `<div class="ob-row"><span class="ob-ico"><i data-lucide="${r.icon || ico[r.k]}"></i></span>
         <div class="ob-body"><div class="ob-title">${r.title ? t('obtain.addon') + ': ' + r.title : t('obtain.' + r.k)}</div><div class="ob-text">${r.html}</div></div>${r.extra || ''}</div>`).join('')
       : `<div class="ob-row ob-none"><span class="ob-ico"><i data-lucide="info"></i></span><div class="ob-body"><div class="ob-title">${t('obtain.none')}</div><div class="ob-text">${t('obtain.noneHint')}</div></div></div>`;
     return `<div class="obtain"><div class="ob-head">${t('obtain.title')}</div><div class="ob-list">${list}</div></div>`;
   }
+
+  function evoHTML() {
+    const p = byId(state.detailId), chainKey = DATA.chainOf[p.id], chain = chainKey ? DATA.chains[chainKey] : null, L = tl('evo');
+    const M = (k) => I18N[k] ? I18N[k][L] : k;
+    const methodChip = (m) => `<span class="method"><i data-lucide="${m.ico || 'arrow-up'}"></i>${M(m.k)}${m.v ? ' ' + m.v : ''}${m.k2 ? ` <i data-lucide="${m.ico2}"></i>${M(m.k2)}` : ''}</span>`;
+    const node = (id, name) => `<div class="evo ${id === p.id ? 'current' : ''}" ${byId(id) ? `data-open="${id}"` : ''}>${imgArt(id)}<span class="dex-num">${pad(id)}</span><span class="evo-name">${name}</span></div>`;
+    if (!chain) return `<p class="muted">${t('evo.none')}</p>`;
+    const linear = chain.ids.length > 1 ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr"><i data-lucide="arrow-right"></i></span>${methodChip(chain.methods[i - 1])}</div>` : ''}${node(id, chain.names[i])}`).join('')}</div>` : '';
+    const branches = chain.branches ? `<div class="evo-branching"><div class="evo-root">${node(chain.ids[0], chain.names[0])}<div class="evo-root-label">${t('evo.branches')}</div></div>
+      <div class="evo-branches">${chain.branches.map((b, i) => `<div class="evo-branch" style="--i:${i}"><div class="evo-edge"><span class="arr"><i data-lucide="corner-down-right"></i></span>${methodChip(b)}</div>${node(b.id, b.name)}</div>`).join('')}</div></div>` : '';
+    return linear + branches;
+  }
+  function abilitiesHTML() {
+    const p = byId(state.detailId), abilities = DATA.abilities[p.id] || DATA.abilities._, L = tl('abilities');
+    return `<div class="abilities">${abilities.map(a => `<div class="ability">
+            <div class="ab-name">${L === 'pt' ? a.pt : a.en}${a.hidden ? `<span class="tag">${t('detail.hidden')}</span>` : ''}<span class="ab-en">${L === 'pt' ? a.en : a.pt}</span></div>
+            <div class="ab-desc">${state.lang === 'pt' ? a.descPt : a.descEn}</div></div>`).join('')}</div>`;
+  }
+  function whereHTML() {
+    const p = byId(state.detailId), where = p.noSpawn ? null : (DATA.where[p.id] || DATA.where._), L = tl('where');
+    const isSpecial = p.rarity === 'legendary' || p.rarity === 'mythical';
+    return `${p.noSpawn ? '' : `<div class="where">
+            <div class="kv"><span class="k">${t('where.bucket')}</span><span class="v">${isSpecial ? `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span>` : badge(p)}</span></div>
+            <div class="kv"><span class="k">${t('where.level')}</span><span class="v">${where.levels}</span></div>
+            <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${L === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
+            <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${I18N[c][L]}</span>`).join('')}</div></div>
+            <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
+              ${where.drops.map(d => `<div class="drop"><span>${L === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
+          </div>`}
+          ${obtainHTML(p, where)}`;
+  }
+  /* Registro dos cards com termos do jogo: id do card -> [container, função de HTML] */
+  const TERM_CARDS = {
+    where: ['#cb-where', whereHTML], moves: ['#moves-table', () => movesTableHTML()], abilities: ['#cb-abilities', abilitiesHTML], evo: ['#cb-evo', evoHTML],
+    weak: ['#weak-grid', () => weakGridHTML()], best: ['#cb-best', () => bestBallHTML(byId(state.detailId))],
+    forms: ['#form-body', () => formBodyHTML(formsOf(byId(state.detailId)))],
+    balls: ['#ball-grid', () => ballGridHTML()], items: ['#item-grid', () => itemGridHTML()], trainers: ['#tr-list', () => trList().map(trStepHTML).join('')]
+  };
 
   function renderDetail() {
     const p = byId(state.detailId);
@@ -546,16 +829,15 @@
     <div class="detail" style="--tc:var(--t-${p.types[0]})">
       <div class="detail-left">
         <div class="card hero-card g-${p.types[0]} ${p.rarity === 'legendary' ? 'hero-legendary' : p.rarity === 'mythical' ? 'hero-mythical' : ''}">
-          <div class="hero-art">
+          <div class="hero-art ${(isSpecial ? 1 : 0) + (p.noSpawn ? 1 : 0) >= 2 ? 'stacked3' : (isSpecial || p.noSpawn) ? 'stacked' : ''}">
             ${isSpecial ? `<div class="sheen"></div><div class="sparkles">${[[12,18],[30,70],[52,12],[70,40],[86,22],[80,78],[20,46],[60,84]].map(([x, y], i) => `<i style="left:${x}%;top:${y}%;animation-delay:${(i * 0.37).toFixed(2)}s"></i>`).join('')}</div>` : ''}
-            ${isSpecial ? `<div class="seal">${badge(p)}</div>` : ''}
+            <div class="seal">${isSpecial ? badge(p) : ''}<span class="badge badge-${p.bucket || (isSpecial ? 'rare' : p.rarity)}">${t('rarity.' + (p.bucket || (isSpecial ? 'rare' : p.rarity)))}</span>${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <button class="shiny-btn ${state.shiny ? 'on' : ''}" id="shiny-btn" title="${t('detail.shiny')}"><i data-lucide="sparkles"></i></button>
             <div class="hero-title"><div class="dex-num">${pad(p.id)}</div><h2>${p.name}</h2></div>
             <img id="detail-art" src="${art(p.id, state.shiny)}" alt="${p.name}" onerror="this.onerror=null;this.src='${art(p.id)}'">
           </div>
           <div class="hero-body">
             <div class="types">${p.types.map(x => chip(x, 'lg')).join('')}</div>
-            <div class="badges">${isSpecial ? `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span>` : badge(p)}${p.noSpawn ? `<span class="badge badge-nospawn">${t('detail.noSpawn')}</span>` : ''}</div>
             <div class="hero-actions-2">
               <button class="btn btn-accent ${p.caught ? 'done' : ''}" id="btn-caught"><img class="ball-ico" src="../pokebola.webp" alt=""><span>${p.caught ? t('detail.caughtDone') : t('detail.caught')}</span></button>
               <button class="btn btn-ghost ${inTeam ? 'done' : ''}" id="btn-team">${inTeam ? '<i data-lucide="check"></i> ' + t('detail.inTeam') : '<i data-lucide="plus"></i> ' + t('detail.addTeam')}</button>
@@ -566,47 +848,30 @@
       </div>
 
       <div class="detail-right">
-        <div class="panel" style="--i:2"><div class="panel-head"><h3>${t('detail.weak')}</h3>
-            <div class="seg seg-sm" id="weak-seg">${[['all', 'weak.all'], ['weak', 'weak.weak'], ['res', 'weak.res']].map(([v, k]) => `<button class="${state.weakFilter === v ? 'active' : ''}" data-wf="${v}">${t(k)}</button>`).join('')}</div></div>
+        <div class="panel" style="--i:2"><div class="panel-head"><h3>${t('detail.weak')}</h3><div class="ph-right">
+            <div class="seg seg-sm" id="weak-seg">${[['all', 'weak.all'], ['weak', 'weak.weak'], ['res', 'weak.res']].map(([v, k]) => `<button class="${state.weakFilter === v ? 'active' : ''}" data-wf="${v}">${t(k)}</button>`).join('')}</div>${termsTgl('weak')}</div></div>
           <div class="weak-grid" id="weak-grid">${weakGridHTML()}</div>
         </div>
 
-        <div class="panel" style="--i:3"><h3>${t('detail.evo')}</h3>
-          ${chain ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr"><i data-lucide="arrow-right"></i></span><span class="method">${t(chain.methods[i - 1].k)}${chain.methods[i - 1].v ? ' ' + chain.methods[i - 1].v : ''}</span></div>` : ''}
-            <div class="evo ${id === p.id ? 'current' : ''}" ${byId(id) ? `data-open="${id}"` : ''}>${imgArt(id)}<span class="dex-num">${pad(id)}</span><span class="evo-name">${chain.names[i]}</span></div>`).join('')}</div>`
-          : `<p class="muted">${t('evo.none')}</p>`}
-          <div class="evo-methods"><span>${t('evo.methods')}</span><span>${t('evo.level')} 16</span><span>${t('evo.fireStone')}</span><span>${t('evo.friendshipDay')}</span><span>${t('evo.trade')}</span></div>
-        </div>
+        <div class="panel" style="--i:3"><div class="panel-head"><h3>${t('detail.evo')}</h3>${termsTgl('evo')}</div><div id="cb-evo">${evoHTML()}</div></div>
 
-        <div class="panel" style="--i:4"><h3>${t('detail.abilities')}</h3>
-          <div class="abilities">${abilities.map(a => `<div class="ability">
-            <div class="ab-name">${state.lang === 'pt' ? a.pt : a.en}${a.hidden ? `<span class="tag">${t('detail.hidden')}</span>` : ''}<span class="ab-en">${state.lang === 'pt' ? a.en : a.pt}</span></div>
-            <div class="ab-desc">${state.lang === 'pt' ? a.descPt : a.descEn}</div></div>`).join('')}</div>
-        </div>
+        <div class="panel" style="--i:4"><div class="panel-head"><h3>${t('detail.abilities')}</h3>${termsTgl('abilities')}</div><div id="cb-abilities">${abilitiesHTML()}</div></div>
 
-        <div class="panel" style="--i:5"><h3>${t('detail.moves')}</h3>
+        <div class="panel" style="--i:5"><div class="panel-head"><h3>${t('detail.moves')}</h3>${termsTgl('moves')}</div>
           <div class="tabs" id="move-tabs">${['level', 'tm', 'egg', 'tutor'].map(k => `<button class="${state.moveTab === k ? 'active' : ''}" data-mtab="${k}">${t('tab.' + k)}</button>`).join('')}</div>
           <div class="table-wrap" id="moves-table">${movesTableHTML()}</div>
         </div>
 
-        <div class="panel" style="--i:6"><h3>${t('detail.where')}</h3>
-          ${p.noSpawn ? '' : `<div class="where">
-            <div class="kv"><span class="k">${t('where.bucket')}</span><span class="v">${isSpecial ? `<span class="badge badge-${p.bucket || 'rare'}">${t('rarity.' + (p.bucket || 'rare'))}</span>` : badge(p)}</span></div>
-            <div class="kv"><span class="k">${t('where.level')}</span><span class="v">${where.levels}</span></div>
-            <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${state.lang === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
-            <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${t(c)}</span>`).join('')}</div></div>
-            <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
-              ${where.drops.map(d => `<div class="drop"><span>${state.lang === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
-          </div>`}
-          ${obtainHTML(p, where)}
-        </div>
+        <div class="panel" style="--i:6"><div class="panel-head"><h3>${t('detail.where')}</h3>${termsTgl('where')}</div><div id="cb-where">${whereHTML()}</div></div>
 
-        <div class="panel" style="--i:7"><h3>${t('detail.forms')}</h3>
+        <div class="panel" style="--i:7"><div class="panel-head"><h3>${t('ball.best')}</h3><div class="ph-right"><span class="muted">${t('ball.bestHint')}</span>${termsTgl('best')}</div></div><div id="cb-best">${bestBallHTML(p)}</div></div>
+
+        <div class="panel" style="--i:8"><div class="panel-head"><h3>${t('detail.forms')}</h3>${termsTgl('forms')}</div>
           <div class="tabs" id="form-tabs">${forms.map((f, i) => `<button class="${i === state.formIdx ? 'active' : ''}" data-ftab="${i}">${f.key.startsWith('form.') ? t(f.key) : f.key}</button>`).join('')}</div>
           <div class="forms" id="form-body">${formBodyHTML(forms)}</div>
         </div>
 
-        <details class="panel calc" style="--i:8" id="calc">
+        <details class="panel calc" style="--i:9" id="calc">
           <summary>${t('detail.calc')}<span class="caret"><i data-lucide="chevron-down"></i></span></summary>
           <div class="calc-body">
             <div class="calc-inputs">
@@ -660,6 +925,10 @@
     </div>`;
   }
 
+  function renderTermsSetting() {
+    const el = $('#terms-setting'); if (!el) return;
+    el.innerHTML = `<h3>${t('settings.terms')}</h3><p class="muted">${t('settings.termsHint')}</p><div class="seg" id="terms-seg">${['pt', 'en'].map(l => `<button class="${state.termsDefault === l ? 'active' : ''}" data-tdef="${l}">${t(l === 'pt' ? 'settings.termsPt' : 'settings.termsEn')}</button>`).join('')}</div>`;
+  }
   function renderThemes() {
     $('#theme-grid').innerHTML = DATA.themes.map(th => `<button class="theme-sw ${state.theme === th.id ? 'active' : ''}" data-theme-pick="${th.id}" style="--p1:${th.p1};--p2:${th.p2}">
       <div class="sw"></div><div><div class="sw-name">${t('theme.' + th.id)}${th.id === 'classico' ? ` <span class="pill">${t('settings.default')}</span>` : ''}</div><div class="sw-sub">${t('theme.' + th.id + 'Sub')}</div></div></button>`).join('');
@@ -676,7 +945,7 @@
     document.documentElement.lang = state.lang === 'pt' ? 'pt-BR' : 'en';
   }
   function renderAll() {
-    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes(); icons();
+    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes(); renderTrainers(); renderBalls(); renderItems(); renderTermsSetting(); icons();
   }
   function setLang(l) { state.lang = l; renderAll(); }
   function setTheme(id) {
@@ -695,6 +964,117 @@
   }
 
   /* ------------------------------------------------------------------
+     TREINADORES (level cap)
+     ------------------------------------------------------------------ */
+  const ROLE_CLS = { leader: 'role-leader', rival: 'role-rival', rocket: 'role-rocket', elite: 'role-elite', champion: 'role-champion' };
+  const roleBadge = (r) => `<span class="badge ${ROLE_CLS[r]}">${t('role.' + r)}</span>`;
+  const trList = () => DATA.trainers[state.series];
+  const trDefeated = () => state.defeated[state.series] || (state.defeated[state.series] = []);
+  function currentCap() {
+    const list = trList(), d = trDefeated(); let cap = list[0].team.reduce((m, x) => Math.max(m, x.lv), 0);
+    list.forEach((tr, i) => { if (d[i]) cap = tr.cap; }); return cap;
+  }
+  function trHeaderHTML() {
+    const list = trList(), d = trDefeated(), n = d.filter(Boolean).length, cap = currentCap();
+    const next = list.findIndex((x, i) => !d[i]);
+    return `<div class="tr-cap"><span class="tr-cap-k">${t('tr.currentCap')}</span><span class="tr-cap-v">${cap}</span></div>
+      <div class="tr-prog"><div class="progress"><div class="progress-bar" style="--p:${(n / list.length) * 100}%"></div></div>
+      <div class="summary-foot"><span>${n} ${t('tr.done')} ${list.length} ${t('tr.keyTrainers')}</span><span>${next >= 0 ? t('tr.next') + ': ' + list[next].name : ''}</span></div></div>`;
+  }
+  function trStepBodyHTML(tr) {
+    const L = tl('trainers');
+    return `<div class="tr-body">
+      <div class="tr-sec">${t('tr.team')}</div>
+      <div class="tr-team">${tr.team.map(m => `<div class="tr-mon"><img src="${spr(m.id)}" alt="" onerror="this.onerror=null;this.src='${art(m.id)}'"><div class="tr-mon-info"><div class="tr-mon-name">${m.name} <span class="tr-lv">Lv. ${m.lv}</span></div>
+        <div class="chips">${m.types.map(x => chip(x, 'sm', L)).join('')}</div><div class="tr-ab"><span class="muted">${state.lang === 'pt' ? 'Habilidade' : 'Ability'}:</span> <b>${term(m.ability, ABIL_PT, L)}</b></div>
+        <div class="tr-moves">${m.moves.map(mv => `<span class="mv-chip">${term(mv, MOVE_PT, L)}</span>`).join('')}</div></div></div>`).join('')}</div>
+      <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<span class="biome">${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</span>`).join('')}</div></div>
+      <div class="tr-tip"><i data-lucide="lightbulb"></i><div><b>${t('tr.tip')}:</b> ${state.lang === 'pt' ? tr.tip.pt : tr.tip.en}</div></div></div></div>`;
+  }
+  function trStepHTML(tr, i) {
+    const d = trDefeated(), open = state.trainerOpen === i, next = trList().findIndex((x, k) => !d[k]) === i, L = tl('trainers');
+    const strongest = tr.team.reduce((m, x) => Math.max(m, x.lv), 0);
+    return `<div class="tr-step ${d[i] ? 'done' : ''} ${next ? 'next' : ''} ${open ? 'open' : ''}" style="--i:${i}" id="tr-step-${i}">
+      <div class="tr-line"></div><div class="tr-dot"><i data-lucide="${d[i] ? 'check' : 'swords'}"></i></div>
+      <div class="tr-card">
+        <div class="tr-head" data-tr="${i}">
+          <div class="tr-main"><div class="tr-name">${tr.name} ${roleBadge(tr.role)}</div>
+            ${tr.group ? `<div class="tr-group">${t('tr.requires')}: ${tr.group.map(g => `<span>${g.name} <em>(${t('role.' + g.role)})</em></span>`).join(' / ')}</div>` : ''}
+            <div class="tr-meta"><span class="muted">Lv. max ${strongest}</span><span class="tr-where"><i data-lucide="map-pin"></i>${tr.where.map(w => `<span class="biome">${L === 'pt' ? w[0] : w[1]}</span>`).join('')}</span></div></div>
+          <div class="tr-capchip"><span>${t('tr.cap')}</span><i data-lucide="arrow-right"></i><b>${tr.cap}</b></div>
+          <label class="tr-check" title="${t('tr.defeated')}"><input type="checkbox" data-trd="${i}" ${d[i] ? 'checked' : ''}><span></span><em>${t('tr.defeated')}</em></label>
+          <span class="tr-caret"><i data-lucide="chevron-down"></i></span>
+        </div>
+        <div class="tr-body-wrap" id="tr-body-${i}">${open ? trStepBodyHTML(tr) : ''}</div>
+      </div></div>`;
+  }
+  function renderTrainers() {
+    $('#trainers').innerHTML = `<div class="tr-top">
+      <div class="tr-tools"><div class="filter-group"><label>${t('tr.series')}</label><div class="chips-scroll" id="tr-series">${DATA.series.map(sr => `<button class="seg-chip ${sr.id === state.series ? 'active' : ''}" data-series="${sr.id}">${sr.name}</button>`).join('')}</div></div>${termsTgl('trainers')}</div>
+      <div class="notice notice-info"><i data-lucide="info"></i><div>${t('tr.explain')}</div></div></div>
+      <div class="card tr-headcard"><h3>${t('tr.progress')}</h3><div id="tr-header">${trHeaderHTML()}</div></div>
+      <div class="tr-list" id="tr-list">${trList().map(trStepHTML).join('')}</div>`;
+    icons();
+  }
+  function refreshTrainerStates() {
+    const d = trDefeated(), next = trList().findIndex((x, k) => !d[k]);
+    $$('.tr-step').forEach((el, i) => { el.classList.toggle('done', !!d[i]); el.classList.toggle('next', i === next); el.querySelector('.tr-dot i, .tr-dot svg').outerHTML = `<i data-lucide="${d[i] ? 'check' : 'swords'}"></i>`; });
+    swapIn($('#tr-header'), trHeaderHTML());
+  }
+
+  /* ------------------------------------------------------------------
+     POKÉBOLAS
+     ------------------------------------------------------------------ */
+  const ballIcon = (b, cls) => `<span class="ball-ico ${cls || ''}" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'}"></span>`;
+  const BALL_FILTERS = ['all', 'night', 'water', 'fishing', 'first', 'caught', 'after'];
+  function ballGridHTML() {
+    const list = DATA.balls.filter(b => state.ballFilter === 'all' || b.tags.includes(state.ballFilter));
+    return list.map((b, i) => `<div class="ball-card" style="--i:${i}">${ballIcon(b)}<div class="ball-info"><div class="ball-name">${ballName(b, tl('balls'))}<span class="ball-mult">${b.mult}</span></div><div class="ball-eff">${state.lang === 'pt' ? b.pt : b.en}</div></div></div>`).join('');
+  }
+  function renderBalls() {
+    $('#balls').innerHTML = `<div class="page-tools"><div class="seg seg-tabs" id="ball-filters">${BALL_FILTERS.map(f => `<button class="${state.ballFilter === f ? 'active' : ''}" data-bf="${f}">${t('ball.' + f)}</button>`).join('')}</div>${termsTgl('balls')}</div>
+      <div class="ball-grid" id="ball-grid">${ballGridHTML()}</div>`;
+  }
+  /* Ranking de bolas para um Pokémon (regras simplificadas do Cobblemon) */
+  function bestBalls(p) {
+    const where = DATA.where[p.id]; const out = [];
+    const B = id => DATA.balls.find(b => b.id === id);
+    out.push({ b: B('quick'), m: 5, why: t('ball.r.first') });
+    if (p.stats[5] >= 100) out.push({ b: B('fast'), m: 4, why: t('ball.r.speed').replace('{v}', p.stats[5]) });
+    if (p.caught) out.push({ b: B('repeat'), m: 3.5, why: t('ball.r.caught') });
+    out.push({ b: B('dusk'), m: where && where.conds.includes('cond.night') ? 3.5 : 3, why: t('ball.r.night') });
+    if (p.types.includes('water') || p.types.includes('bug')) out.push({ b: B('net'), m: 3, why: t('ball.r.water') });
+    if (p.stats[0] + p.stats[2] >= 240) out.push({ b: B('heavy'), m: 3, why: t('ball.r.heavy') });
+    out.push({ b: B('love'), m: 2.5, why: t('ball.r.love') });
+    return out.sort((a, b) => b.m - a.m).slice(0, 3);
+  }
+  function bestBallHTML(p) {
+    const bonus = DATA.caughtCount >= 600 ? 2.5 : DATA.caughtCount >= 450 ? 2 : DATA.caughtCount >= 300 ? 1.5 : DATA.caughtCount >= 150 ? 1 : DATA.caughtCount >= 30 ? 0.5 : 0;
+    return `<div class="best-balls">${bestBalls(p).map((r, i) => `<div class="best-ball" style="--i:${i}"><span class="best-rank">${i + 1}</span>${ballIcon(r.b, 'sm')}<div class="best-info"><div class="ball-name">${ballName(r.b, tl('best'))}<span class="ball-mult">${r.m}x</span></div><div class="ball-eff">${r.why}</div></div></div>`).join('')}</div>
+      <div class="best-crit"><i data-lucide="target"></i><span><b>${t('ball.critical')}:</b> ${t('ball.criticalText').replace('{n}', DATA.caughtCount).replace('{b}', bonus)}</span></div>`;
+  }
+
+  /* ------------------------------------------------------------------
+     ITENS & COMIDAS
+     ------------------------------------------------------------------ */
+  function itemGridHTML() {
+    const norm = (x) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const q = norm(state.itemQuery.trim());
+    /* Busca sempre nos DOIS idiomas (nome PT e EN), independente do toggle do card, e sem acentos */
+    const list = DATA.items.filter(it => (q ? norm(it.pt + ' ' + it.en).includes(q) : it.cat === state.itemCat));
+    if (!list.length) return `<p class="muted">${t('item.none')}</p>`; const L = tl('items');
+    return list.map((it, i) => { const k = DATA.items.indexOf(it); return `<div class="item-card ${state.itemOpen === k ? 'open' : ''}" style="--i:${i}" data-item="${k}">
+      <div class="item-head"><span class="item-ico cat-${it.cat}"><i data-lucide="${it.ico}"></i></span><div class="item-names"><div class="item-name">${L === 'pt' ? it.pt : it.en}</div><div class="item-alt">${L === 'pt' ? it.en : it.pt}</div></div><span class="tag">${t('cat.' + it.cat)}</span><span class="tr-caret"><i data-lucide="chevron-down"></i></span></div>
+      <div class="item-desc">${state.lang === 'pt' ? it.dpt : it.den}</div>
+      <div class="desc-wrap ${state.itemOpen === k ? 'open' : ''}"><div class="desc-inner"><div class="item-how"><i data-lucide="mouse-pointer-click"></i><span><b>${t('item.how')}:</b> ${state.lang === 'pt' ? it.hpt : it.hen}</span></div></div></div></div>`; }).join('');
+  }
+  function renderItems() {
+    $('#items').innerHTML = `<div class="item-top"><div class="item-tools"><div class="search search-sm"><span class="search-ico"><i data-lucide="search"></i></span><input id="item-q" type="text" value="${state.itemQuery}" placeholder="${t('item.search')}"></div>${termsTgl('items')}</div>
+      <div class="tabs" id="item-tabs">${DATA.itemCats.map(c => `<button class="${state.itemCat === c && !state.itemQuery ? 'active' : ''}" data-icat="${c}">${t('cat.' + c)}</button>`).join('')}</div></div>
+      <div class="item-grid" id="item-grid">${itemGridHTML()}</div>`;
+  }
+
+  /* ------------------------------------------------------------------
      NAVEGAÇÃO
      ------------------------------------------------------------------ */
   function go(screen) {
@@ -702,6 +1082,8 @@
     $$('.screen').forEach(s => s.classList.toggle('active', s.dataset.screen === screen));
     const navKey = screen === 'detail' ? 'dex' : screen;
     $$('.nav-item, .tab').forEach(b => b.classList.toggle('active', b.dataset.go === navKey));
+    $('.tab[data-more]').classList.toggle('active', ['trainers', 'balls', 'items', 'settings'].includes(screen));
+    $('#more-sheet').classList.remove('open');
     $('#main').scrollTop = 0;
     $('#proto').classList.remove('open');
     $('#search-dd').classList.remove('open');
@@ -781,6 +1163,27 @@
     if (th) { setTheme(th.dataset.themePick); return; }
     const ft = e.target.closest('[data-ftype]');
     if (ft) { const k = ft.dataset.ftype; const i = state.filters.types.indexOf(k); i >= 0 ? state.filters.types.splice(i, 1) : state.filters.types.push(k); ft.classList.toggle('on', i < 0); renderDex(); return; }
+    const tlb = e.target.closest('[data-tl]');
+    if (tlb) { const box = tlb.closest('[data-tcard]'), card = box.dataset.tcard; state.termsOverride[card] = tlb.dataset.tl; saveTerms();
+      $$('button', box).forEach(b => b.classList.toggle('active', b === tlb)); const [sel, fn] = TERM_CARDS[card]; const target = $(sel); if (target) swapIn(target, fn()); return; }
+    const tdef = e.target.closest('[data-tdef]');
+    if (tdef) { state.termsDefault = tdef.dataset.tdef; state.termsOverride = {}; saveTerms(); renderAll(); go('settings'); return; }
+    if (e.target.closest('[data-more]')) { $('#more-sheet').classList.toggle('open'); return; }
+    if (e.target.closest('[data-close-sheet]')) { $('#more-sheet').classList.remove('open'); return; }
+    const sr = e.target.closest('[data-series]');
+    if (sr) { state.series = sr.dataset.series; state.trainerOpen = null; $$('#tr-series button').forEach(b => b.classList.toggle('active', b === sr)); swapIn($('#tr-header'), trHeaderHTML()); swapIn($('#tr-list'), trList().map(trStepHTML).join('')); return; }
+    const trd = e.target.closest('[data-trd]');
+    if (trd) { trDefeated()[+trd.dataset.trd] = trd.checked; refreshTrainerStates(); icons(); return; }
+    if (e.target.closest('.tr-check')) return;
+    const trh = e.target.closest('[data-tr]');
+    if (trh) { const i = +trh.dataset.tr; const was = state.trainerOpen; if (was !== null && was !== i) { $('#tr-step-' + was).classList.remove('open'); $('#tr-body-' + was).innerHTML = ''; }
+      state.trainerOpen = was === i ? null : i; const step = $('#tr-step-' + i); step.classList.toggle('open', state.trainerOpen === i); swapIn($('#tr-body-' + i), state.trainerOpen === i ? trStepBodyHTML(trList()[i]) : ''); return; }
+    const bf = e.target.closest('[data-bf]');
+    if (bf) { state.ballFilter = bf.dataset.bf; $$('#ball-filters button').forEach(b => b.classList.toggle('active', b === bf)); swapIn($('#ball-grid'), ballGridHTML()); return; }
+    const ic = e.target.closest('[data-icat]');
+    if (ic) { state.itemCat = ic.dataset.icat; state.itemQuery = ''; $('#item-q').value = ''; $$('#item-tabs button').forEach(b => b.classList.toggle('active', b === ic)); swapIn($('#item-grid'), itemGridHTML()); return; }
+    const itc = e.target.closest('[data-item]');
+    if (itc) { const k = +itc.dataset.item; state.itemOpen = state.itemOpen === k ? null : k; $$('.item-card').forEach(c => { const on = +c.dataset.item === state.itemOpen; c.classList.toggle('open', on); c.querySelector('.desc-wrap').classList.toggle('open', on); }); return; }
     const wf = e.target.closest('[data-wf]');
     if (wf) { state.weakFilter = wf.dataset.wf; $$('#weak-seg button').forEach(b => b.classList.toggle('active', b === wf)); swapIn($('#weak-grid'), weakGridHTML()); return; }
     const mt = e.target.closest('[data-mtab]');
@@ -812,6 +1215,7 @@
   cap.addEventListener('click', () => { if (cap.classList.contains('s-final')) closeCapture(); else finishCapture(); });
 
   $('#search-input').addEventListener('input', renderSearch);
+  document.addEventListener('input', (e) => { if (e.target.id === 'item-q') { state.itemQuery = e.target.value; $$('#item-tabs button').forEach(b => b.classList.toggle('active', !state.itemQuery && b.dataset.icat === state.itemCat)); swapIn($('#item-grid'), itemGridHTML()); } });
   $('#search-input').addEventListener('focus', renderSearch);
   $('#search-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') { const first = $('#search-dd .dd-item'); if (first) openDetail(+first.dataset.open); } });
   $('#f-gen').addEventListener('change', (e) => { state.filters.gen = e.target.value; renderDex(); });

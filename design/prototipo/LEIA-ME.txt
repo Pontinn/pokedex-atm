@@ -1,8 +1,8 @@
 PONTINDEX - protótipo de design (referência visual, não é o app)
 1. Abrir: dê dois cliques em index.html (abre no Chrome). Precisa de internet só para as imagens dos Pokémon e as fontes.
-2. Trocar de tela: clique no menu lateral (desktop) ou na barra inferior (celular). Cards, histórico, time e resultados da busca abrem a Ficha.
+2. Telas: Início, Pokédex, Ficha, Capturados, Comparar, Treinadores (level cap), Pokébolas, Itens & Comidas e Configurações. Menu lateral (desktop) ou barra inferior + botão "Mais" (celular).
 3. Menu do protótipo: engrenagem preta no canto inferior direito. Lista todas as telas, liga o preview de celular (390px), troca idioma e tema, replay da abertura e demos da captura.
-4. Idioma: botão PT/EN na lateral, no topo (celular) ou em Configurações. Troca rótulos, tipos, golpes e habilidades.
+4. Idioma da interface: botão PT/EN na lateral ou no topo. Nomes do jogo (itens, biomas, golpes, bolas) têm padrão em Configurações e um botão PT | EN em cada card, salvo no navegador.
 5. Tema: botão de paleta na lateral (cicla) ou em Configurações (7 temas: Clássico, Preto, Verde, Azul, Roxo, Branco, Laranja).
 6. Celular: reduza a janela para menos de 900px OU use "Celular 390px" no menu do protótipo.
 7. Captura: na Ficha, clique em "Capturei" (Charizard usa o fundo azul; Mewtwo e Mew usam lendário/mítico pelo menu do protótipo). Toque na tela pula a animação.

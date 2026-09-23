@@ -43,6 +43,9 @@
       <button class="nav-item" data-go="dex"><span class="ico"><i data-lucide="list"></i></span><span data-i18n="nav.dex">Pokédex</span></button>
       <button class="nav-item" data-go="captured"><span class="ico"><img src="../pokebola.webp" alt=""></span><span data-i18n="nav.captured">Capturados</span></button>
       <button class="nav-item" data-go="compare"><span class="ico"><i data-lucide="arrow-left-right"></i></span><span data-i18n="nav.compare">Comparar</span></button>
+      <button class="nav-item" data-go="trainers"><span class="ico"><i data-lucide="swords"></i></span><span data-i18n="nav.trainers">Treinadores</span></button>
+      <button class="nav-item" data-go="balls"><span class="ico"><i data-lucide="circle-dot"></i></span><span data-i18n="nav.balls">Pokébolas</span></button>
+      <button class="nav-item" data-go="items"><span class="ico"><i data-lucide="backpack"></i></span><span data-i18n="nav.items">Itens & Comidas</span></button>
       <button class="nav-item" data-go="settings"><span class="ico"><i data-lucide="settings"></i></span><span data-i18n="nav.settings">Configurações</span></button>
     </nav>
     <div class="sidebar-foot">
@@ -178,6 +181,24 @@
       <div id="compare"></div>
     </section>
 
+    <!-- ===== TREINADORES (level cap) ===== -->
+    <section class="screen" data-screen="trainers">
+      <div class="page-head"><h2 data-i18n="nav.trainers">Treinadores</h2><span class="muted" data-i18n="tr.source">Fonte: Radical Cobblemon Trainers</span></div>
+      <div id="trainers"></div>
+    </section>
+
+    <!-- ===== POKÉBOLAS ===== -->
+    <section class="screen" data-screen="balls">
+      <div class="page-head"><h2 data-i18n="nav.balls">Pokébolas</h2><span class="muted" data-i18n="ball.hint">Multiplicadores de captura do Cobblemon</span></div>
+      <div id="balls"></div>
+    </section>
+
+    <!-- ===== ITENS & COMIDAS ===== -->
+    <section class="screen" data-screen="items">
+      <div class="page-head"><h2 data-i18n="nav.items">Itens & Comidas</h2></div>
+      <div id="items"></div>
+    </section>
+
     <!-- ===== CONFIGURAÇÕES ===== -->
     <section class="screen" data-screen="settings">
       <div class="page-head"><h2 data-i18n="nav.settings">Configurações</h2></div>
@@ -202,6 +223,7 @@
             <label class="switch"><input type="checkbox" id="sw-motion"><span></span></label>
           </div>
         </div>
+        <div class="card" id="terms-setting"></div>
         <div class="card card-info">
           <div class="info-line"><span class="dot"></span><span data-i18n="settings.data">Dados: Cobblemon 1.7.3</span></div>
           <div class="info-line"><span class="dot"></span><span data-i18n="settings.local">Tudo local neste aparelho. Sem conta, sem servidor.</span></div>
@@ -218,8 +240,20 @@
     <button class="tab" data-go="dex"><span class="ico"><i data-lucide="list"></i></span><span data-i18n="nav.dex">Pokédex</span></button>
     <button class="tab tab-ball" data-go="captured"><span class="ico"><img src="../pokebola.webp" alt=""></span><span data-i18n="nav.captured">Capturados</span></button>
     <button class="tab" data-go="compare"><span class="ico"><i data-lucide="arrow-left-right"></i></span><span data-i18n="nav.compare">Comparar</span></button>
-    <button class="tab" data-go="settings"><span class="ico"><i data-lucide="settings"></i></span><span data-i18n="nav.settingsShort">Ajustes</span></button>
+    <button class="tab" data-more><span class="ico"><i data-lucide="ellipsis"></i></span><span data-i18n="nav.more">Mais</span></button>
   </nav>
+
+  <!-- Sheet "Mais" (mobile) -->
+  <div class="sheet" id="more-sheet">
+    <div class="sheet-bg" data-close-sheet></div>
+    <div class="sheet-panel">
+      <div class="sheet-handle"></div>
+      <button class="sheet-item" data-go="trainers"><i data-lucide="swords"></i><span data-i18n="nav.trainers">Treinadores</span><small data-i18n="nav.trainersSub">Level cap por série</small></button>
+      <button class="sheet-item" data-go="balls"><i data-lucide="circle-dot"></i><span data-i18n="nav.balls">Pokébolas</span><small data-i18n="nav.ballsSub">Multiplicadores e efeitos</small></button>
+      <button class="sheet-item" data-go="items"><i data-lucide="backpack"></i><span data-i18n="nav.items">Itens & Comidas</span><small data-i18n="nav.itemsSub">Medicina, EV, cozinha, iscas</small></button>
+      <button class="sheet-item" data-go="settings"><i data-lucide="settings"></i><span data-i18n="nav.settings">Configurações</span><small data-i18n="nav.settingsSub">Tema, idioma, som</small></button>
+    </div>
+  </div>
 </div>
 
 <!-- ============ CAPTURA (overlay) ============ -->
@@ -251,6 +285,9 @@
       <button data-go="detail">Ficha</button>
       <button data-go="captured">Capturados</button>
       <button data-go="compare">Comparar</button>
+      <button data-go="trainers">Treinadores</button>
+      <button data-go="balls">Pokébolas</button>
+      <button data-go="items">Itens</button>
       <button data-go="settings">Configurações</button>
     </div>
     <div class="proto-sec">Visual</div>
