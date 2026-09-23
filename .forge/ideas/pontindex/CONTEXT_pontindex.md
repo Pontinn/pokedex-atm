@@ -132,7 +132,7 @@ Fonte primaria dos dados de jogo: instancia local `C:/Users/Usuario/curseforge/m
 - `config/rctmod-server.toml` (confirmado por leitura direta): `initialLevelCap = 15`, `relativeLevelCap = 0`, `initialSeries = "empty"`. Regra do cap (doc oficial RCT, ja documentada na IDEA e validada com dados reais da cadeia BDSP): cap = nivel maximo do time do PROXIMO treinador-chave da serie ativa (`optional:false`), mais `relativeLevelCap`; `requiredDefeats` e AND entre sublistas, OR dentro de cada sublista.
 
 ### Pokebolas
-- 51 bolas (Cobblemon 1.7.3), tooltip oficial PT/EN no lang do Cobblemon, chave `item.cobblemon.<bola>` + `.tooltip` (confirmado o padrao com `net_ball`: `"item.cobblemon.net_ball":"Bola Tela"`, `"item.cobblemon.net_ball.tooltip":"3× em Pokémon do tipo Água ou Inseto"`).
+- 48 bolas (Cobblemon 1.7.3, pasta `textures/item/poke_balls/`; as 51 chaves `item.cobblemon.*_ball` do lang incluem 3 itens segurados: `iron_ball`, `light_ball`, `smoke_ball`), tooltip oficial PT/EN no lang do Cobblemon, chave `item.cobblemon.<bola>` + `.tooltip` (confirmado o padrao com `net_ball`: `"item.cobblemon.net_ball":"Bola Tela"`, `"item.cobblemon.net_ball.tooltip":"3× em Pokémon do tipo Água ou Inseto"`).
 
 ### Itens / comidas / cozinha
 - 932 itens no lang do Cobblemon, 430 com `.tooltip` de descricao (medicina, vitaminas de EV, Power items, doces de EXP e de IV, PP Up, Ability Capsule/Patch, pedras/itens de evolucao, held items, itens de batalha).

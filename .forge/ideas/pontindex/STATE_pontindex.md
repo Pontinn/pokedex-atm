@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: full
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: forge-spec (fable) escrevendo SPEC
+running_agent: forge-spec aplicando achados da revisao (acumulado ~37 min; timer de 1h termina em ~23 min)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -134,3 +134,7 @@ updated: 2026-09-23
 
 ## 2026-09-23 - preparacao para outro PC
 - Usuario vai continuar em outro PC. Artefatos commitados e branch feature/pontindex publicada no origin. A pedido do usuario, .gitignore deixou de ignorar STATE/checklists/relatorios/handoffs/ui-refs (tudo do .forge versionado). RETOMADA_pontindex.md (versionado) resume o estado, as regras combinadas e o que o PC novo precisa (instancia do modpack + ATM_INSTANCE_DIR). CLAUDE.md global publicado em github.com/Pontinn/claude-md (privado) com a Regra 2 (1h por agente).
+- Usuario autorizou (2026-09-23) push automatico da branch feature/pontindex a cada etapa concluida ate a viagem. Merge continua proibido sem pedido.
+
+## 2026-09-23 - SPEC review NEEDS-CHANGES
+- 2 blockers (merge de species_additions perdia drops do pack; ids de tema/fundo em PT), 6 warnings, 8 nits. Cascata aplicada por mim: PRD rev 6 (RF-59 texto 22, RF-63 48 bolas verificadas no jar) e CONTEXT (48 bolas). forge-spec corrigindo.
