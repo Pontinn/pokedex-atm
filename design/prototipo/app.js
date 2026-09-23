@@ -192,6 +192,26 @@
     'item.how': { pt: 'Como usar', en: 'How to use' },
     'item.none': { pt: 'Nenhum item encontrado.', en: 'No item found.' },
     'cat.med': { pt: 'Medicina', en: 'Medicine' },
+    'cat.ball': { pt: 'Pokébola', en: 'Poké Ball' },
+    'cat.other': { pt: 'Item', en: 'Item' },
+    'ip.back': { pt: 'Voltar', en: 'Back' },
+    'ip.obtain': { pt: 'Como obter', en: 'How to obtain' },
+    'ip.craft': { pt: 'Craftável', en: 'Craftable' },
+    'ip.craftYes': { pt: 'Sim, tem receita', en: 'Yes, it has a recipe' },
+    'ip.drop': { pt: 'Drop de Pokémon', en: 'Pokémon drop' },
+    'ip.plant': { pt: 'Plantável', en: 'Plantable' },
+    'ip.plantText': { pt: 'Cresce nos biomas:', en: 'Grows in biomes:' },
+    'ip.loot': { pt: 'Loot de estrutura', en: 'Structure loot' },
+    'ip.fish': { pt: 'Pesca', en: 'Fishing' },
+    'ip.fishText': { pt: 'Pode vir na vara de pescar', en: 'Can be reeled in while fishing' },
+    'ip.buy': { pt: 'Compra / NPC', en: 'Purchase / NPC' },
+    'ip.used': { pt: 'Usado em', en: 'Used in' },
+    'ip.evolves': { pt: 'Evolui', en: 'Evolves' },
+    'ip.mult': { pt: 'Multiplicador de captura', en: 'Catch multiplier' },
+    'ip.effect': { pt: 'Efeito', en: 'Effect' },
+    'ip.form': { pt: 'Forma', en: 'Form' },
+    'ip.revive': { pt: 'Reviver na máquina de fósseis', en: 'Revive in the fossil machine' },
+    'ip.noDesc': { pt: 'Sem descrição cadastrada neste protótipo.', en: 'No description in this prototype yet.' },
     'cat.iv': { pt: 'Doces de IV', en: 'IV Candies' },
     'evo.branches': { pt: 'Evolui para', en: 'Evolves into' },
     'evo.friendship160': { pt: 'Amizade 160', en: 'Friendship 160' },
@@ -505,6 +525,23 @@
       { id: 'safari', name: 'Safari Ball', b1: '#6a994e', b2: '#a7c957', b3: '#386641', mult: '1.5x', pt: '1.5x em biomas de planície ou savana.', en: '1.5x in plains or savanna biomes.', tags: [] }
     ],
     itemCats: ['med', 'iv', 'vit', 'candy', 'evo', 'held', 'battle', 'cook', 'berry', 'bait'],
+    /* Página de item: rotas de obtenção e usos (id = nome EN em snake_case) */
+    itemMeta: {
+      poke_ball: { craft: true, loot: [['Mina abandonada', 'Mineshaft'], ['Templo da selva', 'Jungle Temple'], ['Naufrágio', 'Shipwreck'], ['Vila', 'Village']], buy: { pt: 'Vendedor da vila: 200 PokéDollars', en: 'Village vendor: 200 PokéDollars' } },
+      ultra_ball: { craft: true, loot: [['Cidade antiga', 'Ancient City'], ['Cidade do End', 'End City']], buy: { pt: 'Vendedor da vila: 800 PokéDollars', en: 'Village vendor: 800 PokéDollars' } },
+      fire_stone: { drop: [[6, 'Charizard', 5], [5, 'Charmeleon', 3], [4, 'Charmander', 1]], loot: [['Fortaleza do Nether', 'Nether Fortress'], ['Bastião', 'Bastion Remnant']], evo: [[133, 'Eevee', 136, 'Flareon'], [37, 'Vulpix', 38, 'Ninetales'], [58, 'Growlithe', 59, 'Arcanine']] },
+      thunder_stone: { drop: [[25, 'Pikachu', 2], [26, 'Raichu', 5]], loot: [['Mina abandonada', 'Mineshaft'], ['Fortaleza', 'Stronghold']], evo: [[133, 'Eevee', 135, 'Jolteon'], [25, 'Pikachu', 26, 'Raichu'], [603, 'Eelektrik', 604, 'Eelektross']] },
+      rare_candy: { drop: [[143, 'Snorlax', 10], [149, 'Dragonite', 5]], loot: [['Cidade antiga', 'Ancient City'], ['Câmaras de provação', 'Trial Chambers']], fish: true },
+      exp_candy_l: { drop: [[150, 'Mewtwo', 30]], loot: [['Cidade do End', 'End City']], buy: { pt: 'Recompensa de raid tier 3+', en: 'Raid reward tier 3+' } },
+      protein: { craft: true, drop: [[448, 'Lucario', 8]], buy: { pt: 'Vendedor da vila: 9.800 PokéDollars', en: 'Village vendor: 9,800 PokéDollars' } },
+      pomeg_berry: { plant: [['Selva', 'Jungle'], ['Pântano', 'Swamp'], ['Floresta', 'Forest']], drop: [[1, 'Bulbasaur', 15]] },
+      ancient_dna_sample: { drop: [[142, 'Aerodactyl', 5]], loot: [['Cidade antiga', 'Ancient City'], ['Deep Dark', 'Deep Dark']], revive: [[150, 'Mewtwo']] },
+      charizardite_x: { loot: [['Ruínas Mega (Mega Showdown)', 'Mega Ruins (Mega Showdown)'], ['Meteorito', 'Meteorite']], buy: { pt: 'Loja do Mega Showdown', en: 'Mega Showdown shop' }, form: [[6, 'Charizard', 'Mega X']] },
+      adamant_mint: { plant: [['Montanhas', 'Mountains'], ['Picos', 'Peaks']] }
+    },
+    itemNames: { charcoal: ['Carvão', 'Charcoal'], blaze_powder: ['Pó de Blaze', 'Blaze Powder'], star_piece: ['Fragmento de Estrela', 'Star Piece'], comet_shard: ['Estilhaço de Cometa', 'Comet Shard'], iron_ingot: ['Barra de Ferro', 'Iron Ingot'], bone: ['Osso', 'Bone'], oran_berry: ['Oran Berry', 'Oran Berry'],
+      old_amber_fossil: ['Âmbar Antigo', 'Old Amber'], ancient_dna_sample: ['Amostra de DNA Antigo', 'Ancient DNA Sample'], charizardite_x: ['Charizardite X', 'Charizardite X'], charizardite_y: ['Charizardite Y', 'Charizardite Y'], keystone: ['Pedra-Chave', 'Key Stone'], max_soup: ['Sopa Max', 'Max Soup'], gigantamax_factor: ['Fator Gigantamax', 'Gigantamax Factor'],
+      hyper_potion: ['Hiper Poção', 'Hyper Potion'], full_heal: ['Cura Total', 'Full Heal'], x_defense: ['X Defesa', 'X Defense'], honey: ['Mel', 'Honey'] },
     items: [
       { cat: 'med', ico: 'heart-pulse', pt: 'Poção', en: 'Potion', dpt: 'Recupera 20 HP.', den: 'Restores 20 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
       { cat: 'med', ico: 'heart-pulse', pt: 'Super Poção', en: 'Super Potion', dpt: 'Recupera 60 HP.', den: 'Restores 60 HP.', hpt: 'Clique com o item no Pokémon', hen: 'Click the Pokémon with the item' },
@@ -580,7 +617,7 @@
     lang: 'pt', theme: 'classico', sound: false, phone: false, screen: 'home',
     detailId: 6, shiny: false, moveTab: 'level', formIdx: 0, teamAdded: {}, weakFilter: 'all',
     series: 'rr', defeated: { rr: [true, true, true] }, trainerOpen: null, ballFilter: 'all', itemCat: 'med', itemQuery: '', itemOpen: null,
-    termsDefault: 'pt', termsOverride: {},
+    termsDefault: 'pt', termsOverride: {}, itemId: 'poke_ball', back: [],
     filters: { types: [], gen: 'all', evo: 'all', sort: 'num', status: 'all' },
     capTimers: []
   };
@@ -730,7 +767,7 @@
     return `${imgArt(form.id)}
       <div class="form-info">
         <div class="types">${form.types.map(x => chip(x, '', L)).join('')}</div>
-        <div class="form-req"><span class="muted">${t('form.req')}:</span> ${form.req ? form.req.map(r => `<span class="tag tag-item"><i data-lucide="gem"></i>${L === 'pt' ? r[0] : r[1]}</span>`).join(' + ') + (form.addon ? ` <span class="muted">(${form.addon})</span>` : '') : `<span class="muted">${t('form.none')}</span>`}</div>
+        <div class="form-req"><span class="muted">${t('form.req')}:</span> ${form.req ? form.req.map(r => `<span class="tag tag-item">${itemImg(r[1], 'gem', 'xs')}${L === 'pt' ? r[0] : r[1]}</span>`).join(' + ') + (form.addon ? ` <span class="muted">(${form.addon})</span>` : '') : `<span class="muted">${t('form.none')}</span>`}</div>
         <div><span class="muted">${t('form.ability')}:</span> <strong>${state.lang === 'pt' ? form.ability[0] : form.ability[1]}</strong> <span class="muted">(${state.lang === 'pt' ? form.ability[1] : form.ability[0]})</span></div>
         <div class="show-bars">${statsBlock(form.stats)}</div>
       </div>`;
@@ -766,7 +803,7 @@
     (DATA.obtain[p.id] || []).forEach(m => {
       const txt = L === 'pt' ? m.pt : m.en;
       if (m.k === 'evo') rows.push({ k: 'evo', html: txt, extra: `<button class="ob-link" data-open="${m.pre}"><img src="${spr(m.pre)}" alt="" onerror="this.onerror=null;this.src='${art(m.pre)}'"><span>${m.preName}</span><i data-lucide="arrow-right"></i></button>` });
-      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag">${term(m.item, ITEM_PT, L)}</span>` });
+      else if (m.k === 'fossil') rows.push({ k: 'fossil', html: `${txt} <span class="tag tag-item">${itemImg(m.item, 'bone', 'xs')}${term(m.item, ITEM_PT, L)}</span>` });
       else rows.push({ k: 'addon', title: m.name, html: txt, icon: m.name === 'Raid Dens' ? 'swords' : 'puzzle' });
     });
     if (p.egg && p.egg[0] !== 'Undiscovered') rows.push({ k: 'breed', html: t('obtain.breedText').replace('{g}', p.egg.map(g => term(g, EGG_PT, L)).join(' / ')) });
@@ -779,7 +816,8 @@
   function evoHTML() {
     const p = byId(state.detailId), chainKey = DATA.chainOf[p.id], chain = chainKey ? DATA.chains[chainKey] : null, L = tl('evo');
     const M = (k) => I18N[k] ? I18N[k][L] : k;
-    const methodChip = (m) => `<span class="method"><i data-lucide="${m.ico || 'arrow-up'}"></i>${M(m.k)}${m.v ? ' ' + m.v : ''}${m.k2 ? ` <i data-lucide="${m.ico2}"></i>${M(m.k2)}` : ''}</span>`;
+    const STONE_ITEM = {"evo.thunderStone": "Thunder Stone", "evo.waterStone": "Water Stone", "evo.fireStone": "Fire Stone", "evo.leafStone": "Leaf Stone", "evo.iceStone": "Ice Stone", "evo.linkCable": "Link Cable"};
+    const methodChip = (m) => `<span class="method">${STONE_ITEM[m.k] ? itemImg(STONE_ITEM[m.k], m.ico || 'gem', 'xs') : `<i data-lucide="${m.ico || 'arrow-up'}"></i>`}${M(m.k)}${m.v ? ' ' + m.v : ''}${m.k2 ? ` <i data-lucide="${m.ico2}"></i>${M(m.k2)}` : ''}</span>`;
     const node = (id, name) => `<div class="evo ${id === p.id ? 'current' : ''}" ${byId(id) ? `data-open="${id}"` : ''}>${imgArt(id)}<span class="dex-num">${pad(id)}</span><span class="evo-name">${name}</span></div>`;
     if (!chain) return `<p class="muted">${t('evo.none')}</p>`;
     const linear = chain.ids.length > 1 ? `<div class="evo-chain">${chain.ids.map((id, i) => `${i > 0 ? `<div class="evo-arrow"><span class="arr"><i data-lucide="arrow-right"></i></span>${methodChip(chain.methods[i - 1])}</div>` : ''}${node(id, chain.names[i])}`).join('')}</div>` : '';
@@ -802,15 +840,63 @@
             <div class="kv"><span class="k">${t('where.biomes')}</span><div class="chips">${where.biomes.map(b => `<span class="biome">${L === 'pt' ? b[0] : b[1]}</span>`).join('')}</div></div>
             <div class="kv"><span class="k">${t('where.conditions')}</span><div class="chips">${where.conds.map(c => `<span class="cond">${c === 'cond.day' ? '<i data-lucide="sun"></i>' : c === 'cond.night' ? '<i data-lucide="moon"></i>' : '<i data-lucide="cloud"></i>'} ${I18N[c][L]}</span>`).join('')}</div></div>
             <div class="drops"><span class="k" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${t('where.drops')}</span>
-              ${where.drops.map(d => `<div class="drop"><span>${L === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
+              ${where.drops.map(d => `<div class="drop"><span class="drop-name">${itemImg(d[1], 'package', 'sm')}${L === 'pt' ? d[0] : d[1]}</span><span class="pct">${d[2]}%</span><div class="drop-bar"><i style="--w:${d[2]}%"></i></div></div>`).join('')}</div>
           </div>`}
           ${obtainHTML(p, where)}`;
   }
+  /* ------------------------------------------------------------------
+     PÁGINA DO ITEM
+     ------------------------------------------------------------------ */
+  const titleCase = (id) => id.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  function itemInfo(id) {
+    const it = DATA.items.find(x => slug(x.en) === id);
+    if (it) return { id, pt: it.pt, en: it.en, cat: it.cat, ico: it.ico, dpt: it.dpt, den: it.den, hpt: it.hpt, hen: it.hen };
+    const ball = DATA.balls.find(b => b.id + '_ball' === id);
+    if (ball) return { id, pt: BALL_PT[ball.id], en: ball.name, cat: 'ball', ico: 'circle-dot', dpt: ball.pt, den: ball.en, ball };
+    const n = DATA.itemNames[id] || [ITEM_PT[titleCase(id)] || titleCase(id), titleCase(id)];
+    return { id, pt: n[0], en: n[1], cat: 'other', ico: 'package' };
+  }
+  const monChip = (id, name, extra) => `<button class="mon-chip" data-open="${id}"><img src="${spr(id)}" alt="" onerror="this.onerror=null;this.src='${art(id)}'"><span>${name}</span>${extra ? `<b>${extra}</b>` : ''}</button>`;
+  function itemPageBodyHTML() {
+    const info = itemInfo(state.itemId), meta = DATA.itemMeta[info.id] || {}, L = tl('itempage'), U = state.lang;
+    const name1 = L === 'pt' ? info.pt : info.en, name2 = L === 'pt' ? info.en : info.pt;
+    const rows = [];
+    if (meta.craft) rows.push(['hammer', t('ip.craft'), `<span class="badge badge-uncommon">${t('ip.craftYes')}</span>`]);
+    if (meta.drop) rows.push(['gift', t('ip.drop'), `<div class="mon-chips">${meta.drop.map(d => monChip(d[0], d[1], d[2] + '%')).join('')}</div>`]);
+    if (meta.plant) rows.push(['sprout', t('ip.plant'), `${t('ip.plantText')} <span class="chips">${meta.plant.map(b => `<span class="biome">${L === 'pt' ? b[0] : b[1]}</span>`).join('')}</span>`]);
+    if (meta.loot) rows.push(['package-open', t('ip.loot'), `<span class="chips">${meta.loot.map(b => `<span class="biome">${L === 'pt' ? b[0] : b[1]}</span>`).join('')}</span>`]);
+    if (meta.fish) rows.push(['fish', t('ip.fish'), t('ip.fishText')]);
+    if (meta.buy) rows.push(['store', t('ip.buy'), U === 'pt' ? meta.buy.pt : meta.buy.en]);
+    const obtain = rows.length ? rows.map((r, i) => `<div class="ob-row" style="--i:${i}"><span class="ob-ico"><i data-lucide="${r[0]}"></i></span><div class="ob-body"><div class="ob-title">${r[1]}</div><div class="ob-text">${r[2]}</div></div></div>`).join('')
+      : `<div class="ob-row ob-none"><span class="ob-ico"><i data-lucide="info"></i></span><div class="ob-body"><div class="ob-title">${t('obtain.none')}</div><div class="ob-text">${t('obtain.noneHint')}</div></div></div>`;
+    const used = [];
+    if (meta.evo) used.push(['arrow-up-circle', t('ip.evolves'), `<div class="mon-chips">${meta.evo.map(e => `<span class="evo-pair">${monChip(e[0], e[1])}<i data-lucide="arrow-right"></i>${monChip(e[2], e[3])}</span>`).join('')}</div>`]);
+    if (meta.revive) used.push(['bone', t('ip.revive'), `<div class="mon-chips">${meta.revive.map(e => monChip(e[0], e[1])).join('')}</div>`]);
+    if (meta.form) used.push(['sparkles', t('ip.form'), `<div class="mon-chips">${meta.form.map(e => monChip(e[0], e[1], e[2])).join('')}</div>`]);
+    if (info.ball) used.push(['target', t('ip.mult'), `<b>${info.ball.mult}</b> · ${U === 'pt' ? info.ball.pt : info.ball.en}`]);
+    if (info.cat === 'cook' || info.cat === 'berry' || info.cat === 'med') used.push(['heart-pulse', t('ip.effect'), U === 'pt' ? info.dpt : info.den]);
+    const usedHTML = used.length ? `<div class="panel" style="--i:2"><h3>${t('ip.used')}</h3><div class="ob-list">${used.map((r, i) => `<div class="ob-row" style="--i:${i}"><span class="ob-ico"><i data-lucide="${r[0]}"></i></span><div class="ob-body"><div class="ob-title">${r[1]}</div><div class="ob-text">${r[2]}</div></div></div>`).join('')}</div></div>` : '';
+    const img = MAN[info.id] ? `<img src="assets/itens/${MAN[info.id]}/${info.id}.png" alt="">` : `<i data-lucide="${info.ico}"></i>`;
+    return `<div class="item-hero card ${info.cat === 'ball' ? 'ball-tile' : 'cat-' + info.cat}">
+        <div class="item-hero-tile">${img}</div>
+        <div class="item-hero-info">
+          <span class="badge badge-common">${t('cat.' + info.cat)}</span>
+          <h2>${name1}</h2><div class="item-alt">${name2}</div>
+          <p class="item-hero-desc">${info.dpt ? (U === 'pt' ? info.dpt : info.den) : t('ip.noDesc')}</p>
+          ${info.hpt ? `<div class="item-how"><i data-lucide="mouse-pointer-click"></i><span><b>${t('item.how')}:</b> ${U === 'pt' ? info.hpt : info.hen}</span></div>` : ''}
+        </div></div>
+      <div class="panel" style="--i:1"><h3>${t('ip.obtain')}</h3><div class="ob-list">${obtain}</div></div>${usedHTML}`;
+  }
+  function renderItemPage() {
+    $('#item-detail').innerHTML = `<div class="item-page-head"><button class="detail-back" data-back><i data-lucide="arrow-left"></i> ${t('ip.back')}</button>${termsTgl('itempage')}</div><div id="cb-itempage">${itemPageBodyHTML()}</div>`;
+  }
+  function openItem(id) { navigate('item', () => { state.itemId = id; renderItemPage(); }); icons(); }
+
   /* Registro dos cards com termos do jogo: id do card -> [container, função de HTML] */
   const TERM_CARDS = {
     where: ['#cb-where', whereHTML], moves: ['#moves-table', () => movesTableHTML()], abilities: ['#cb-abilities', abilitiesHTML], evo: ['#cb-evo', evoHTML],
     weak: ['#weak-grid', () => weakGridHTML()], best: ['#cb-best', () => bestBallHTML(byId(state.detailId))],
-    forms: ['#form-body', () => formBodyHTML(formsOf(byId(state.detailId)))],
+    forms: ['#form-body', () => formBodyHTML(formsOf(byId(state.detailId)))], itempage: ['#cb-itempage', itemPageBodyHTML],
     balls: ['#ball-grid', () => ballGridHTML()], items: ['#item-grid', () => itemGridHTML()], trainers: ['#tr-list', () => trList().map(trStepHTML).join('')]
   };
 
@@ -825,7 +911,7 @@
     const inTeam = DATA.team.includes(p.id) || state.teamAdded[p.id];
 
     const html = `
-    <button class="detail-back" data-go="dex"><i data-lucide="arrow-left"></i> ${t('detail.back')}</button>
+    <button class="detail-back" data-back><i data-lucide="arrow-left"></i> ${t('detail.back')}</button>
     <div class="detail" style="--tc:var(--t-${p.types[0]})">
       <div class="detail-left">
         <div class="card hero-card g-${p.types[0]} ${p.rarity === 'legendary' ? 'hero-legendary' : p.rarity === 'mythical' ? 'hero-mythical' : ''}">
@@ -945,7 +1031,7 @@
     document.documentElement.lang = state.lang === 'pt' ? 'pt-BR' : 'en';
   }
   function renderAll() {
-    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes(); renderTrainers(); renderBalls(); renderItems(); renderTermsSetting(); icons();
+    applyStatic(); renderHome(); renderFilters(); renderDex(); renderDetail(); renderCaptured(); renderCompare(); renderThemes(); renderTrainers(); renderBalls(); renderItems(); renderTermsSetting(); renderItemPage(); icons();
   }
   function setLang(l) { state.lang = l; renderAll(); }
   function setTheme(id) {
@@ -988,7 +1074,7 @@
       <div class="tr-team">${tr.team.map(m => `<div class="tr-mon"><img src="${spr(m.id)}" alt="" onerror="this.onerror=null;this.src='${art(m.id)}'"><div class="tr-mon-info"><div class="tr-mon-name">${m.name} <span class="tr-lv">Lv. ${m.lv}</span></div>
         <div class="chips">${m.types.map(x => chip(x, 'sm', L)).join('')}</div><div class="tr-ab"><span class="muted">${state.lang === 'pt' ? 'Habilidade' : 'Ability'}:</span> <b>${term(m.ability, ABIL_PT, L)}</b></div>
         <div class="tr-moves">${m.moves.map(mv => `<span class="mv-chip">${term(mv, MOVE_PT, L)}</span>`).join('')}</div></div></div>`).join('')}</div>
-      <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<span class="biome">${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</span>`).join('')}</div></div>
+      <div class="tr-foot"><div><span class="tr-sec">${t('tr.bag')}</span><div class="chips">${tr.bag.map(b => `<span class="biome biome-item">${itemImg(b.replace(/ x\d+$/, ''), 'package', 'xs')}${term(b.replace(/ x\d+$/, ''), ITEM_PT, L)}${(b.match(/ x\d+$/) || [''])[0]}</span>`).join('')}</div></div>
       <div class="tr-tip"><i data-lucide="lightbulb"></i><div><b>${t('tr.tip')}:</b> ${state.lang === 'pt' ? tr.tip.pt : tr.tip.en}</div></div></div></div>`;
   }
   function trStepHTML(tr, i) {
@@ -1025,11 +1111,25 @@
   /* ------------------------------------------------------------------
      POKÉBOLAS
      ------------------------------------------------------------------ */
-  const ballIcon = (b, cls) => `<span class="ball-ico ${cls || ''}" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'}"></span>`;
+  /* Imagem real do item: assets/itens/<namespace>/<id>.png. Tenta cobblemon -> allthemons -> mega_showdown;
+     se nenhum existir, remove o <img> e mostra o ícone Lucide de fallback (assim nunca fica imagem quebrada). */
+  const ITEM_IMG = { 'Poké Puff': 'poke_puff_base_sweet', 'Aprijuice': 'aprijuice_red', 'Sinister Tea': 'sinister_tea_unremarkable_base', 'Curry': 'smoked_tail_curry', 'Old Amber': 'old_amber_fossil', 'Key Stone': 'keystone', 'Honey': 'honey_bottle' };
+  const slug = (en) => ITEM_IMG[en] || en.toLowerCase().replace(/\(.*?\)/g, '').replace(/[.'\u00e9]/g, m => m === '\u00e9' ? 'e' : '').trim().replace(/[\s-]+/g, '_');
+  window.__imgErr = function (img) {
+    const ns = ['cobblemon', 'allthemons', 'mega_showdown']; let i = +img.dataset.i + 1;
+    if (i < ns.length) { img.dataset.i = i; img.src = `assets/itens/${ns[i]}/${img.dataset.id}.png`; return; }
+    const fb = img.nextElementSibling; img.remove(); if (fb) { fb.style.display = ''; icons(); }
+  };
+  const MAN = window.ITEM_MANIFEST || {};
+  const itemImg = (en, fallbackIcon, cls) => { const id = slug(en), ns = MAN[id];
+    const inner = ns ? `<img src="assets/itens/${ns}/${id}.png" data-id="${id}" data-i="2" alt="" onerror="__imgErr(this)"><i data-lucide="${fallbackIcon || 'package'}" style="display:none"></i>` : `<i data-lucide="${fallbackIcon || 'package'}"></i>`;
+    return `<span class="it-tile it-link ${cls || ''}" data-item-open="${id}" role="button" title="${en}">${inner}</span>`; };
+  const ballIcon = (b, cls) => `<span class="it-tile ball-tile it-link ${cls || ''}" data-item-open="${b.id}_ball" role="button"><img src="assets/itens/cobblemon/${b.id}_ball.png" data-id="${b.id}_ball" data-i="0" alt="" onerror="__imgErr(this)"><span class="ball-ico" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'};display:none"></span></span>`;
+  const ballIconOld = (b, cls) => `<span class="ball-ico ${cls || ''}" style="--b1:${b.b1};--b2:${b.b2};--b3:${b.b3 || 'transparent'}"></span>`;
   const BALL_FILTERS = ['all', 'night', 'water', 'fishing', 'first', 'caught', 'after'];
   function ballGridHTML() {
     const list = DATA.balls.filter(b => state.ballFilter === 'all' || b.tags.includes(state.ballFilter));
-    return list.map((b, i) => `<div class="ball-card" style="--i:${i}">${ballIcon(b)}<div class="ball-info"><div class="ball-name">${ballName(b, tl('balls'))}<span class="ball-mult">${b.mult}</span></div><div class="ball-eff">${state.lang === 'pt' ? b.pt : b.en}</div></div></div>`).join('');
+    return list.map((b, i) => `<div class="ball-card it-link" style="--i:${i}" data-item-open="${b.id}_ball">${ballIcon(b)}<div class="ball-info"><div class="ball-name">${ballName(b, tl('balls'))}<span class="ball-mult">${b.mult}</span></div><div class="ball-eff">${state.lang === 'pt' ? b.pt : b.en}</div></div></div>`).join('');
   }
   function renderBalls() {
     $('#balls').innerHTML = `<div class="page-tools"><div class="seg seg-tabs" id="ball-filters">${BALL_FILTERS.map(f => `<button class="${state.ballFilter === f ? 'active' : ''}" data-bf="${f}">${t('ball.' + f)}</button>`).join('')}</div>${termsTgl('balls')}</div>
@@ -1050,7 +1150,7 @@
   }
   function bestBallHTML(p) {
     const bonus = DATA.caughtCount >= 600 ? 2.5 : DATA.caughtCount >= 450 ? 2 : DATA.caughtCount >= 300 ? 1.5 : DATA.caughtCount >= 150 ? 1 : DATA.caughtCount >= 30 ? 0.5 : 0;
-    return `<div class="best-balls">${bestBalls(p).map((r, i) => `<div class="best-ball" style="--i:${i}"><span class="best-rank">${i + 1}</span>${ballIcon(r.b, 'sm')}<div class="best-info"><div class="ball-name">${ballName(r.b, tl('best'))}<span class="ball-mult">${r.m}x</span></div><div class="ball-eff">${r.why}</div></div></div>`).join('')}</div>
+    return `<div class="best-balls">${bestBalls(p).map((r, i) => `<div class="best-ball it-link" style="--i:${i}" data-item-open="${r.b.id}_ball"><span class="best-rank">${i + 1}</span>${ballIcon(r.b, 'sm')}<div class="best-info"><div class="ball-name">${ballName(r.b, tl('best'))}<span class="ball-mult">${r.m}x</span></div><div class="ball-eff">${r.why}</div></div></div>`).join('')}</div>
       <div class="best-crit"><i data-lucide="target"></i><span><b>${t('ball.critical')}:</b> ${t('ball.criticalText').replace('{n}', DATA.caughtCount).replace('{b}', bonus)}</span></div>`;
   }
 
@@ -1064,7 +1164,7 @@
     const list = DATA.items.filter(it => (q ? norm(it.pt + ' ' + it.en).includes(q) : it.cat === state.itemCat));
     if (!list.length) return `<p class="muted">${t('item.none')}</p>`; const L = tl('items');
     return list.map((it, i) => { const k = DATA.items.indexOf(it); return `<div class="item-card ${state.itemOpen === k ? 'open' : ''}" style="--i:${i}" data-item="${k}">
-      <div class="item-head"><span class="item-ico cat-${it.cat}"><i data-lucide="${it.ico}"></i></span><div class="item-names"><div class="item-name">${L === 'pt' ? it.pt : it.en}</div><div class="item-alt">${L === 'pt' ? it.en : it.pt}</div></div><span class="tag">${t('cat.' + it.cat)}</span><span class="tr-caret"><i data-lucide="chevron-down"></i></span></div>
+      <div class="item-head">${itemImg(it.en, it.ico, 'lg cat-' + it.cat)}<div class="item-names it-link" data-item-open="${slug(it.en)}"><div class="item-name">${L === 'pt' ? it.pt : it.en}</div><div class="item-alt">${L === 'pt' ? it.en : it.pt}</div></div><span class="tag">${t('cat.' + it.cat)}</span><span class="tr-caret"><i data-lucide="chevron-down"></i></span></div>
       <div class="item-desc">${state.lang === 'pt' ? it.dpt : it.den}</div>
       <div class="desc-wrap ${state.itemOpen === k ? 'open' : ''}"><div class="desc-inner"><div class="item-how"><i data-lucide="mouse-pointer-click"></i><span><b>${t('item.how')}:</b> ${state.lang === 'pt' ? it.hpt : it.hen}</span></div></div></div></div>`; }).join('');
   }
@@ -1077,21 +1177,58 @@
   /* ------------------------------------------------------------------
      NAVEGAÇÃO
      ------------------------------------------------------------------ */
-  function go(screen) {
+  /* Pilha de navegação real: cada navegação guarda {tela, parâmetros, estado de UI, scroll}.
+     "Voltar" (botão, gesto ou botão físico do Android via popstate) restaura exatamente esse snapshot. */
+  function snapshot() {
+    return { screen: state.screen, detailId: state.detailId, itemId: state.itemId, scroll: $('#main').scrollTop,
+      ui: { moveTab: state.moveTab, formIdx: state.formIdx, weakFilter: state.weakFilter, shiny: state.shiny, series: state.series, trainerOpen: state.trainerOpen,
+        ballFilter: state.ballFilter, itemCat: state.itemCat, itemQuery: state.itemQuery, itemOpen: state.itemOpen, filters: JSON.parse(JSON.stringify(state.filters)),
+        openMoves: $$('.mv-row.open').map(r => r.dataset.mv), calcOpen: !!($('#calc') && $('#calc').open), capturedTab: $$('#captured-tabs button').findIndex(b => b.classList.contains('active')) } };
+  }
+  function showScreen(screen) {
     state.screen = screen;
     $$('.screen').forEach(s => s.classList.toggle('active', s.dataset.screen === screen));
-    const navKey = screen === 'detail' ? 'dex' : screen;
+    const navKey = screen === 'detail' ? 'dex' : screen === 'item' ? 'items' : screen;
     $$('.nav-item, .tab').forEach(b => b.classList.toggle('active', b.dataset.go === navKey));
-    $('.tab[data-more]').classList.toggle('active', ['trainers', 'balls', 'items', 'settings'].includes(screen));
-    $('#more-sheet').classList.remove('open');
-    $('#main').scrollTop = 0;
-    $('#proto').classList.remove('open');
-    $('#search-dd').classList.remove('open');
+    $('.tab[data-more]').classList.toggle('active', ['trainers', 'balls', 'items', 'item', 'settings'].includes(screen));
+    $('#more-sheet').classList.remove('open'); $('#proto').classList.remove('open'); $('#search-dd').classList.remove('open');
   }
+  /* navigate(): empilha o estado atual, aplica a mudança (fn) e mostra a tela no topo */
+  function navigate(screen, fn) {
+    state.back.push(snapshot()); if (state.back.length > 40) state.back.shift();
+    if (fn) fn();
+    showScreen(screen); $('#main').scrollTop = 0;
+    try { history.pushState({ pontindex: state.back.length }, ''); } catch (e) {}
+  }
+  function go(screen) { if (screen === state.screen) { $('#main').scrollTop = 0; showScreen(screen); return; } navigate(screen); }
+  function restore(snap) {
+    Object.assign(state, { detailId: snap.detailId, itemId: snap.itemId }, snap.ui);
+    if (snap.screen === 'detail') { renderDetail(); snap.ui.openMoves.forEach(i => { const r = $(`.mv-row[data-mv="${i}"]`); if (r) { r.classList.add('open'); r.nextElementSibling.querySelector('.desc-wrap').classList.add('open'); } }); if (snap.ui.calcOpen && $('#calc')) $('#calc').open = true; }
+    else if (snap.screen === 'item') renderItemPage();
+    else if (snap.screen === 'dex') { renderFilters(); renderDex(); $('#f-gen').value = state.filters.gen; $('#f-evo').value = state.filters.evo; $('#f-sort').value = state.filters.sort; $$('#f-status button').forEach(b => b.classList.toggle('active', b.dataset.v === state.filters.status)); }
+    else if (snap.screen === 'trainers') renderTrainers();
+    else if (snap.screen === 'balls') renderBalls();
+    else if (snap.screen === 'items') renderItems();
+    else if (snap.screen === 'captured' && snap.ui.capturedTab >= 0) $$('#captured-tabs button').forEach((b, i) => b.classList.toggle('active', i === snap.ui.capturedTab));
+    showScreen(snap.screen); icons();
+    const main = $('#main'); main.style.scrollBehavior = 'auto'; main.scrollTop = snap.scroll; requestAnimationFrame(() => { main.scrollTop = snap.scroll; setTimeout(() => { main.style.scrollBehavior = ''; }, 50); });
+  }
+  /* goBack(): usado pelo botão "Voltar" e pelo popstate (botão físico). */
+  function goBack(fromPopstate) {
+    const snap = state.back.pop();
+    if (!snap) { if (!fromPopstate) showScreen('home'); return; }
+    if (!fromPopstate) { state.ignorePop = true; try { history.back(); } catch (e) { state.ignorePop = false; } }
+    restore(snap);
+  }
+  window.addEventListener('popstate', () => { if (state.ignorePop) { state.ignorePop = false; return; } goBack(true); });
+  try { history.replaceState({ pontindex: 0 }, ''); } catch (e) {}
+
   function openDetail(id) {
-    state.detailId = id; state.shiny = false; state.moveTab = 'level'; state.formIdx = 0;
-    DATA.history = [id].concat(DATA.history.filter(x => x !== id)).slice(0, 6);
-    renderHome(); renderDetail(); go('detail'); icons();
+    navigate('detail', () => {
+      state.detailId = id; state.shiny = false; state.moveTab = 'level'; state.formIdx = 0;
+      DATA.history = [id].concat(DATA.history.filter(x => x !== id)).slice(0, 6);
+      renderHome(); renderDetail();
+    }); icons();
   }
 
   /* ------------------------------------------------------------------
@@ -1153,6 +1290,9 @@
      EVENTOS
      ------------------------------------------------------------------ */
   document.addEventListener('click', (e) => {
+    const io = e.target.closest('[data-item-open]');
+    if (io) { e.preventDefault(); openItem(io.dataset.itemOpen); return; }
+    if (e.target.closest('[data-back]')) { goBack(false); return; }
     const goBtn = e.target.closest('[data-go]');
     if (goBtn) { go(goBtn.dataset.go); return; }
     const open = e.target.closest('[data-open]');
