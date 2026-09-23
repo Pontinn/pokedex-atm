@@ -132,7 +132,7 @@ Dados locais criados pelo usuario (sem servidor, guardados no aparelho):
 - **Codigo de transferencia** (Sincronizar entre dispositivos): gerar, receber (mesclar/substituir).
 - **Itens**: somente leitura; pagina individual; navegacao item <-> Pokemon nos dois sentidos (drop de / evolui com).
 - **Capturados**: marcar como capturado pela ficha (botao "capturei", dispara a animacao de captura); listar capturados; (a confirmar) desmarcar; (a confirmar) contador "X de 1.025" e filtro "so capturados / so faltando"; sem limite.
-- **Preferencias**: tema de cores, idioma. Persistem entre aberturas do app.
+- **Preferencias**: tema de cores, idioma da interface, idioma dos termos do jogo (global e por card), som ligado/desligado, reduzir animacoes. **Salvas no aparelho e restauradas em TODA abertura** (site e apps): o tema escolhido nunca volta ao padrao sozinho (usuario reforcou em 2026-09-23). Entram no backup/codigo de transferencia. Persistem entre aberturas do app.
 Round-trip: ao reabrir o app, historico, favoritos e preferencias carregam do armazenamento local.
 
 ## 7. Regras de negocio e exemplos
