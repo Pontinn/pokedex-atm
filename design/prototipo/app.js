@@ -635,12 +635,28 @@
      ANIMAÇÃO DE CAPTURA
      ------------------------------------------------------------------ */
   const cap = $('#capture');
+  /* Camadas vetoriais dos fundos de captura (relâmpagos do lendário, faíscas do mítico) */
+  const bolt = (x, y, r, sc, fill, op) => `<polygon points="0,-60 14,-14 40,-22 6,60 -6,12 -34,20" fill="${fill}" opacity="${op}" transform="translate(${x} ${y}) rotate(${r}) scale(${sc})"/>`;
+  const CAP_SVG = {
+    'bg-lendario': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
+      ${bolt(90, 90, -35, 1.3, '#fff', .95)}${bolt(150, 40, -50, .9, '#5a2a00', .9)}${bolt(880, 70, 40, 1.2, '#fff', .95)}${bolt(940, 150, 25, .8, '#5a2a00', .9)}
+      ${bolt(80, 520, -140, 1.1, '#fff', .95)}${bolt(170, 560, -120, .8, '#5a2a00', .85)}${bolt(900, 530, 145, 1.3, '#fff', .95)}${bolt(830, 570, 160, .9, '#5a2a00', .9)}
+      ${bolt(500, 40, 0, .7, '#5a2a00', .8)}${bolt(500, 570, 180, .7, '#fff', .9)}${bolt(40, 300, -90, .8, '#5a2a00', .8)}${bolt(960, 300, 90, .8, '#fff', .9)}
+      ${bolt(300, 110, -20, .6, '#fff', .8)}${bolt(700, 500, 160, .6, '#5a2a00', .8)}${bolt(190, 250, -70, .9, '#fff', .9)}${bolt(810, 240, 70, .9, '#5a2a00', .85)}${bolt(210, 430, -115, .8, '#5a2a00', .85)}${bolt(790, 440, 115, .9, '#fff', .9)}${bolt(640, 90, 15, .7, '#fff', .85)}${bolt(360, 520, -170, .7, '#5a2a00', .8)}</svg>`,
+    'bg-mitico': `<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
+      ${[[70,60,-40],[930,50,40],[60,540,-140],[940,550,140],[500,30,0],[500,575,180],[200,80,-25],[800,520,155],[30,300,-90],[970,300,90],[250,540,-155],[760,70,30]].map(([x,y,r]) =>
+        `<polygon points="-4,-120 4,-120 1,90 -1,90" fill="#fff" opacity=".55" transform="translate(${x} ${y}) rotate(${r})"/><polygon points="-12,-100 12,-100 3,60 -3,60" fill="#d9c8ff" opacity=".35" transform="translate(${x} ${y}) rotate(${r + 12})"/>`).join('')}
+      ${[[120,180],[880,140],[160,470],[840,460],[330,60],[680,560]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="5" fill="#fff" opacity=".8"/><circle cx="${x + 30}" cy="${y + 22}" r="3" fill="#fff" opacity=".6"/>`).join('')}</svg>`,
+    'bg-outros': ''
+  };
   function capStage(cls) { cap.className = 'capture on s-bg ' + cls; }
   function clearCap() { state.capTimers.forEach(clearTimeout); state.capTimers = []; }
   function startCapture(id) {
     const p = byId(id); clearCap();
     const bg = p.rarity === 'legendary' ? 'bg-lendario' : p.rarity === 'mythical' ? 'bg-mitico' : 'bg-outros';
-    $('.cap-bg', cap).style.backgroundImage = `url('../capture/${bg}.avif')`;
+    const bgEl = $('.cap-bg', cap);
+    bgEl.className = 'cap-bg ' + bg;
+    bgEl.innerHTML = CAP_SVG[bg] || '';
     $('.cap-art', cap).src = art(id);
     $('.cap-name', cap).textContent = p.name;
     cap.dataset.id = id;
