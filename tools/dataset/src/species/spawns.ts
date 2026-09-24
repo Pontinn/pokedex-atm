@@ -141,10 +141,9 @@ function collectFile(data: unknown, source: string, where: string, report: Pipel
 // ---------------------------------------------------------------------------
 
 /**
- * Politica para arquivos spawn_pool_world presentes em mais de um jar SEM ordem de carga declarada entre
- * os mods (ex. 24 colisoes ccc x mega_showdown no atm-1.3.0). "sum" = comportamento historico (todas as
- * entradas dos dois arquivos contam, SPEC 5.1.2); um JarId = esse jar vence quando estiver entre os donos.
- * DECISAO PENDENTE do usuario: nao alterar sem a decisao dele (cada colisao vai para merge-report.json).
+ * Politica para arquivos spawn_pool_world presentes em mais de um jar SEM nenhuma ordem de carga entre os
+ * mods, nem direta nem transitiva (nenhum caso no atm-1.3.0). "sum" = todas as entradas contam
+ * (SPEC 5.1.2); um JarId = esse jar vence quando estiver entre os donos.
  */
 export type SpawnCollisionPolicy = "sum" | JarId;
 export const SPAWN_COLLISION_WINNER: SpawnCollisionPolicy = "sum";
@@ -154,8 +153,13 @@ export interface SpawnCollision {
   path: string;
   /** donos, na ordem de leitura (jar id ou "kubejs") */
   mods: string[];
-  /** "kubejs" (kubejs substitui), "loadOrder:<jar>" (ordering declarado no neoforge.mods.toml), "policy:<SPAWN_COLLISION_WINNER>" */
+  /** "kubejs" (kubejs substitui), "loadOrder:<jar>" (ordem de carga do neoforge.mods.toml), "policy:<SPAWN_COLLISION_WINNER>" */
   resolution: string;
+  /**
+   * cadeia de ordem de carga usada, do mod que carrega antes ao vencedor, uma por perdedor
+   * (ex. ["mega_showdown < allthemons < ccc"]); [] para kubejs e policy.
+   */
+  chain: string[];
 }
 
 interface ModsTomlDeps {
@@ -164,15 +168,18 @@ interface ModsTomlDeps {
 }
 
 /**
- * Relacao "carrega depois de" entre os jars, lida do META-INF/neoforge.mods.toml de cada um:
+ * Relacao "carrega depois de" entre os jars, lida do META-INF/neoforge.mods.toml de TODOS os jars:
  * A depende de B com ordering="AFTER" => A carrega depois de B; ordering="BEFORE" => B carrega depois de A.
- * direct = so o declarado entre os dois; transitive = fecho transitivo (so entre mods presentes).
+ * Fecho transitivo (so entre mods presentes): ex. allthemons declara mega_showdown AFTER e ccc BEFORE
+ * ("fix load order of CCC"), entao mega_showdown < allthemons < ccc e o ccc carrega depois do mega_showdown.
  */
 export interface LoadOrder {
   /** ordering declarado diretamente entre os dois mods */
   direct: (a: string, b: string) => boolean;
-  /** fecho transitivo (via um terceiro mod presente) */
+  /** a carrega depois de b pelo fecho transitivo */
   transitive: (a: string, b: string) => boolean;
+  /** cadeia do que carrega antes (b) ao que carrega depois (a), ex. ["mega_showdown","allthemons","ccc"]; null sem ordem */
+  chain: (a: string, b: string) => string[] | null;
 }
 
 export function buildLoadOrder(reader: SourceReader): LoadOrder {
@@ -191,7 +198,7 @@ export function buildLoadOrder(reader: SourceReader): LoadOrder {
     for (const m of toml.mods ?? []) if (m.modId) modIdToJar.set(m.modId, jar.id);
     tomls.push({ jar: jar.id, toml });
   }
-  // after.get(x) = conjunto de jars que x carrega depois
+  // after.get(x) = jars que x carrega depois (declarado)
   const after = new Map<string, Set<string>>();
   const add = (later: string, earlier: string) => {
     if (later === earlier) return;
@@ -211,20 +218,37 @@ export function buildLoadOrder(reader: SourceReader): LoadOrder {
       }
     }
   }
-  const closure = new Map<string, Set<string>>();
-  const reach = (x: string, seen: Set<string> = new Set()): Set<string> => {
-    const cached = closure.get(x);
-    if (cached) return cached;
-    const out = new Set<string>();
-    seen.add(x);
-    for (const y of after.get(x) ?? []) {
-      out.add(y);
-      if (!seen.has(y)) for (const z of reach(y, seen)) out.add(z);
+  // BFS de a (carrega depois) ate b (carrega antes) pelas arestas "after"
+  const chain = (a: string, b: string): string[] | null => {
+    if (a === b) return null;
+    const prev = new Map<string, string>();
+    const queue = [a];
+    const seen = new Set([a]);
+    while (queue.length) {
+      const x = queue.shift() as string;
+      for (const y of after.get(x) ?? []) {
+        if (seen.has(y)) continue;
+        seen.add(y);
+        prev.set(y, x);
+        if (y === b) {
+          const path = [b];
+          let cur = b;
+          while (cur !== a) {
+            cur = prev.get(cur) as string;
+            path.push(cur);
+          }
+          return path; // b ... a (do que carrega antes ao que carrega depois)
+        }
+        queue.push(y);
+      }
     }
-    closure.set(x, out);
-    return out;
+    return null;
   };
-  return { direct: (a, b) => after.get(a)?.has(b) ?? false, transitive: (a, b) => reach(a).has(b) };
+  return {
+    direct: (a, b) => after.get(a)?.has(b) ?? false,
+    transitive: (a, b) => chain(a, b) !== null,
+    chain,
+  };
 }
 
 interface SpawnFile {
@@ -236,8 +260,9 @@ interface SpawnFile {
 
 /**
  * Arquivos que valem no jogo por resource location: kubejs substitui jar (datapack, kubejs carrega por
- * ultimo); entre jars, o que carrega depois de TODOS os outros donos por ordering DECLARADO DIRETAMENTE substitui;
- * sem ordem declarada vale SPAWN_COLLISION_WINNER. Toda colisao entra em `collisions`.
+ * ultimo); entre jars, o arquivo do mod que carrega depois de TODOS os outros donos pela ordem de carga
+ * transitiva (neoforge.mods.toml) substitui os demais; so sem ordem nenhuma vale SPAWN_COLLISION_WINNER.
+ * Toda colisao entra em `collisions` com a resolucao e a cadeia usada.
  */
 export function resolveSpawnFiles(
   files: readonly SpawnFile[],
@@ -257,25 +282,22 @@ export function resolveSpawnFiles(
     const kube = owners.filter((o) => o.source === "kubejs");
     if (kube.length > 0) {
       out.push(...kube);
-      collisions.push({ path: p, mods, resolution: "kubejs" });
+      collisions.push({ path: p, mods, resolution: "kubejs", chain: [] });
       continue;
     }
-    const beatsAll = (rel: (a: string, b: string) => boolean) =>
-      owners.find((o) => owners.every((other) => other === o || rel(o.source, other.source)));
-    const winner = beatsAll(order.direct);
+    const winner = owners.find((o) => owners.every((other) => other === o || order.transitive(o.source, other.source)));
     if (winner) {
       out.push(winner);
-      collisions.push({ path: p, mods, resolution: `loadOrder:${winner.source}` });
+      const chain = owners
+        .filter((o) => o !== winner)
+        .map((o) => (order.chain(winner.source, o.source) ?? []).join(" < "));
+      collisions.push({ path: p, mods, resolution: `loadOrder:${winner.source}`, chain });
       continue;
     }
     const chosen = policy === "sum" ? undefined : owners.find((o) => o.source === policy);
     if (chosen) out.push(chosen);
     else out.push(...owners);
-    // Ordem so transitiva (ex. ccc x mega_showdown: allthemons carrega depois do mega_showdown e antes do
-    // ccc) fica registrada mas NAO decide sozinha: a politica dessas colisoes e decisao do usuario.
-    const transitiveWinner = beatsAll(order.transitive);
-    const note = transitiveWinner ? `; transitiveLoadOrder:${transitiveWinner.source}` : "";
-    collisions.push({ path: p, mods, resolution: `policy:${chosen ? policy : "sum"}${note}` });
+    collisions.push({ path: p, mods, resolution: `policy:${chosen ? policy : "sum"}`, chain: [] });
   }
   return out;
 }

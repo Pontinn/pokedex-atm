@@ -84,31 +84,46 @@ describe("species derive stage on the real snapshot (data-source/atm-1.3.0)", ()
     expect(order.direct("allthemons", "cobblemon")).toBe(true);
     expect(order.direct("zamega", "mega_showdown")).toBe(true);
     expect(order.direct("ccc", "allthemons")).toBe(true); // allthemons declara ccc com ordering BEFORE
-    // ccc x mega_showdown: nada declarado entre os dois; so transitivo via allthemons
+    // ccc x mega_showdown: nada declarado entre os dois; ordem transitiva via allthemons ("fix load order of CCC")
     expect(order.direct("ccc", "mega_showdown")).toBe(false);
-    expect(order.direct("mega_showdown", "ccc")).toBe(false);
     expect(order.transitive("ccc", "mega_showdown")).toBe(true);
+    expect(order.transitive("mega_showdown", "ccc")).toBe(false);
+    expect(order.chain("ccc", "mega_showdown")).toEqual(["mega_showdown", "allthemons", "ccc"]);
   });
 
-  it("colisoes sem ordem declarada seguem SPAWN_COLLISION_WINNER (padrao sum) e vao para merge-report.json", () => {
-    expect(SPAWN_COLLISION_WINNER).toBe("sum");
+  it("colisoes seguem a ordem de carga TRANSITIVA: ccc vence mega_showdown (Coalossal rare/ultra-rare do ccc) e tudo vai para merge-report.json", () => {
+    expect(new Set(derived(839).spawns.map((s) => s.source))).toEqual(new Set(["ccc"]));
+    expect(derived(839).rarity).toEqual({ primary: "rare", secondary: ["ultra-rare"] });
     const report = JSON.parse(readFileSync(path.join(outDir, "merge-report.json"), "utf8")) as { spawnCollisions: SpawnCollision[] };
-    const unresolved = report.spawnCollisions.filter((c) => c.resolution.startsWith("policy:sum"));
-    expect(unresolved.length).toBe(24);
-    expect(unresolved.every((c) => c.mods.includes("ccc") && c.mods.includes("mega_showdown"))).toBe(true);
-    expect(report.spawnCollisions).toContainEqual({ path: "data/cobblemon/spawn_pool_world/0120_staryu.json", mods: ["cobblemon", "allthemons"], resolution: "loadOrder:allthemons" });
+    expect(report.spawnCollisions.filter((c) => c.resolution.startsWith("policy:"))).toEqual([]);
+    const cccWins = report.spawnCollisions.filter((c) => c.mods.includes("ccc") && c.mods.includes("mega_showdown"));
+    expect(cccWins.length).toBe(24);
+    for (const c of cccWins) {
+      expect(c.resolution).toBe("loadOrder:ccc");
+      expect(c.chain).toEqual(["mega_showdown < allthemons < ccc"]);
+    }
+    expect(report.spawnCollisions).toContainEqual({
+      path: "data/cobblemon/spawn_pool_world/0120_staryu.json",
+      mods: ["cobblemon", "allthemons"],
+      resolution: "loadOrder:allthemons",
+      chain: ["cobblemon < allthemons"],
+    });
+    expect(SPAWN_COLLISION_WINNER).toBe("sum");
   });
 
-  it("resolveSpawnFiles: politica explicita escolhe um jar so quando nao ha ordem declarada", () => {
+  it("resolveSpawnFiles: sem nenhuma ordem (nem transitiva) vale SPAWN_COLLISION_WINNER", () => {
     const files = [
       { source: "ccc", where: "a", path: "p.json", data: {} },
       { source: "mega_showdown", where: "b", path: "p.json", data: {} },
     ];
-    const none = { direct: () => false, transitive: () => false };
-    expect(resolveSpawnFiles(files, none, [], "sum")).toHaveLength(2);
+    const none = { direct: () => false, transitive: () => false, chain: () => null };
+    const collisions: SpawnCollision[] = [];
+    expect(resolveSpawnFiles(files, none, collisions, "sum")).toHaveLength(2);
+    expect(collisions[0]?.resolution).toBe("policy:sum");
     const picked = resolveSpawnFiles(files, none, [], "mega_showdown");
     expect(picked.map((f) => f.source)).toEqual(["mega_showdown"]);
   });
+
 
   it("rota evolution quando a pre-evolucao e forma regional ou shedder (auditoria A1)", () => {
     const kinds = (dex: number) => derived(dex).obtain.map((r) => r.kind);
