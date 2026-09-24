@@ -13,9 +13,9 @@ Features: B1.1, B1.2, B1.3, B1.4, B1.5, B2.1, B2.2 (todas com commit; B1.2 com u
 | B1.4 | `6bbff07f` | `tests/unit/build/type-css.test.ts` (snapshot) verde; 5 PNGs em `public/icons`; `gen:assets` idempotente |
 | B1.5 | `07372462` | `tests/unit/build/contracts.test.ts` verde; `vitest --run --passWithNoTests`; `playwright test --list` das duas configs carrega |
 | B2.1 | `865fc37c` | `tests/unit/dataset/source.test.ts` (11 testes) verde; `npm run dataset -- --only speciesCore --out tools/dataset/out/_base --skip-media --report` sai 0 |
-| B2.2 | `225900a4` | `tests/unit/dataset/species-merge.test.ts` (8 testes) verde; o mesmo comando imprime `species 1027`, `pack {"name":"All the Mons","version":"1.3.0","minecraft":"1.21.1"}`, `cobblemonVersion 1.7.3` (tambem em `tools/dataset/out/_base/report.json`) |
+| B2.2 | `225900a4` + fix `994cade8` | `tests/unit/dataset/species-merge.test.ts` (10 testes) verde; o mesmo comando imprime `species 1027`, `pack {"name":"All the Mons","version":"1.3.0","minecraft":"1.21.1"}`, `cobblemonVersion 1.7.3` (tambem em `tools/dataset/out/_base/report.json`) |
 
-Suite atual: `npx vitest --run` = 4 arquivos, 25 testes, verde.
+Suite atual: `npx vitest --run` = 4 arquivos, 27 testes, verde.
 
 ## Contagens reais observadas no snapshot `data-source/atm-1.3.0`
 
@@ -25,7 +25,7 @@ Suite atual: `npx vitest --run` = 4 arquivos, 25 testes, verde.
 - Campos usados pelas adicoes: `drops` 14, `features` 36, `forms` 98, `implemented` 262, `evolutions` 6, `moves` 1, `maleRatio` 1 (resto e visual: hitbox, baseScale, behaviour, riding...).
 - Formas apos o merge: 432 formas em 248 especies. Charizard: `Mega-X` e `Mega-Y` ja existem no Cobblemon base (mesmo conteudo do mega_showdown), `Gmax` vem do mega_showdown.
 - Geracoes (label `gen*`): gen1 151, gen2 100, gen3 135, gen4 107, gen5 156, gen6 72, gen7 86, gen7b 2, gen8 89, gen8a 7, gen9 120, custom 2. Todas as especies do Cobblemon tem label `gen*`.
-- `implemented` != true apos o merge: 2 (`zygarde`, `lycanroc`); entram no dataset (ASSUMPTION da SPEC) e aparecem em `merge-report.json` (`notImplemented`).
+- `implemented` != true apos o merge: 0 (apos o fix 994cade8; antes zygarde e lycanroc ficavam de fora por bug, pois o base nao tem `implemented` e o override do ccc traz `true`).
 - Golpes: prefixos ignorados de proposito `legacy` 12613, `special` 339, `form_change` 7; nenhum prefixo desconhecido.
 - Lang: 15 camadas (pt_br/en_us de cobblemon, allthemons, ccc (so en_us, 3 chaves), legendarymonuments, mega_showdown (cobblemon + mega_showdown), zamega, rctmod). Tabela final: 12238 chaves pt, 12309 en. 230 conflitos (addon redefinindo chave do Cobblemon com outro texto): o Cobblemon venceu, amostra em `merge-report.json`.
 - Nomes: 0 especies sem nome no lang. Quagsire pt = "Pântano"; Piglich pt/en = "Piglichu"; Creepyon = "Creepyon". 1 especie sem `pokedexText`.
@@ -40,7 +40,7 @@ Suite atual: `npx vitest --run` = 4 arquivos, 25 testes, verde.
 4. ESLint: regra propria `pontindex/no-literal-jsx-text` (erro fora de `src/i18n/`) e `no-restricted-syntax` contra U+2014 em literais/templates/JSX. Ambas testadas com arquivo de prova.
 5. Vitest: ambiente padrao `jsdom`; `environmentMatchGlobs` manda `tests/unit/{build,dataset}/**` para `node`. O Vitest 3 imprime aviso de deprecacao dessa opcao (funciona). `tests/setup.ts` carrega `@testing-library/jest-dom/vitest` e `fake-indexeddb/auto`.
 6. `playwright test --list` com 0 testes sai com codigo 1 ("No tests found"); com `--pass-with-no-tests` sai 0. Nao e erro de configuracao.
-7. Merge (a) override completo: o SPEC lista os campos em que o base vence; implementei o base vencendo em TODOS os campos que nao sejam `forms` (uniao, addon substitui a forma de mesmo nome inteira) e `labels` (uniao). Diferencas vao para `merge-report.json` em `baseFieldDiffs` (campos da lista) e `otherFieldDiffs` (demais). Ex.: ccc muda `moves` de dialga/giratina/palkia (base venceu).
+7. Merge (a) override completo (corrigido no fix `994cade8`): o base vence SO na lista fechada da SPEC (`baseStats`, `moves`, `evolutions`, `abilities`, `eggGroups`, `drops`, `catchRate`, `weight`, `height`, `maleRatio`, `preEvolution`); `forms` = uniao por name (addon substitui a forma de mesmo nome inteira); `labels` = uniao; QUALQUER outro campo presente no addon vale o do addon (53 overrides aplicam campos assim: `implemented` 22, `behaviour` 36, `hitbox` 22, `riding` 17, `baseScale` 14 e outros). `merge-report.json`: `baseFieldDiffs` = campos da lista em que o base venceu (ex. ccc dialga traz `moves: []`, o base venceu); `otherFieldDiffs` = campos aplicados do addon.
 8. Merge (b) adicao: `forms` de mesmo nome sao mesclados campo a campo (a adicao vence campo a campo, campos que ela nao traz ficam); forma nova e acrescentada.
 9. `--out` so e aceito dentro de `tools/dataset/out/<subpasta>/` (o staging e apagado a cada execucao) -> `E_OUT_DIR_UNSAFE` fora disso. `report.json` e gravado sempre; `merge-report.json` fica em `<out>/merge-report.json` (o SPEC cita `tools/dataset/out/merge-report.json`, que e o caso do staging padrao no nivel de `<out>`).
 10. Em qualquer erro de etapa, a pasta de staging da execucao e removida (nada parcial).

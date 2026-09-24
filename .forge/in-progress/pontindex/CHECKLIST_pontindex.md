@@ -59,7 +59,7 @@
 - [x] B2.2 Lang PT/EN e merge de especies
   - hash: 225900a4
   - Done when (literal da SPEC): teste unitario (`tests/unit/dataset/species-merge.test.ts`, fixtures em `tests/fixtures/species-merge/`: bulbasaur, charizard do Cobblemon + charizard do mega_showdown) garante `baseStats` do Cobblemon e `forms` com Mega-X/Mega-Y/Gmax; Quagsire `name.pt === "Pântano"`; `counts.species === 1027`; Mareep (`dex 179`) tem `SpeciesDetail.drops` (array achatado de `drops.entries` da adicao do allthemons, `amount: 5` descartado) contendo `{ item: "silentgear:sinew", percentage: 25, quantityRange: null }` e 4 entradas no total. (A verificacao `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68) pertence ao Done de B4.2, Onda 2.)
-  - notas: species-merge.test.ts (8 testes) verde (fixtures + snapshot real): Charizard com baseStats do Cobblemon e formas Mega-X/Mega-Y/Gmax; Quagsire pt Pântano; 1027 especies; Mareep 4 drops com silentgear:sinew 25%. O comando do B2.1 agora imprime species 1027 (0 avisos). Merge (a): base vence em todos os campos exceto forms/labels (diferencas no merge-report). Detalhes e contagens em HANDOFF_base.md.
+  - notas: species-merge.test.ts (8 testes) verde (fixtures + snapshot real): Charizard com baseStats do Cobblemon e formas Mega-X/Mega-Y/Gmax; Quagsire pt Pântano; 1027 especies; Mareep 4 drops com silentgear:sinew 25%. O comando do B2.1 agora imprime species 1027 (0 avisos). Merge (a) CORRIGIDO no fix 994cade8 (bug achado pelo orquestrador): o base vence SO na lista fechada da SPEC (baseStats, moves, evolutions, abilities, eggGroups, drops, catchRate, weight, height, maleRatio, preEvolution); demais campos seguem o addon (ex. implemented de zygarde/lycanroc via ccc); forms uniao por name, labels uniao. Teste de regressao em species-merge.test.ts (10 testes, suite 27/27 verde); notImplemented agora 0. Detalhes em HANDOFF_base.md.
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
 
@@ -508,6 +508,7 @@ Sprints P1-P3 da SPEC (so depois que o Pontin testar e aprovar o site):
 | Fase/Feature | Descricao | Causa | Fix / commit |
 |---|---|---|---|
 | Onda 0 / B1.1 | `eslint.config.js` acusou a si mesmo: a constante com o travessao escrita como string literal caia na propria regra | literal com U+2014 no config | caractere montado com `String.fromCharCode(0x2014)`, no mesmo commit 3728f119 |
+| Onda 0 / B2.2 | Merge (a) fazia o base vencer em TODOS os campos exceto forms/labels; zygarde e lycanroc ficavam nao implementados | lista de base-wins da SPEC tratada como aberta | so a lista fechada da SPEC fica com o base, o resto segue o addon; fix 994cade8 |
 | Onda 0 / B1.5 | `npx playwright test --list` sai 1 sem testes | comportamento padrao do Playwright (No tests found), nao e erro de config | conferido com `--pass-with-no-tests` (sai 0); nada a corrigir |
 
 (Preenchida durante execucao)
