@@ -120,6 +120,15 @@ describe("species derive stage on the real snapshot (data-source/atm-1.3.0)", ()
     expect(kinds(804)).toEqual(["evolution", "addon"]); // Naganadel: ultra_beast -> ultrawormholes
   });
 
+  it("Mega-Z do zamega exige a pedra e a keystone do mega_showdown (auditoria A1)", () => {
+    for (const [dex, stone] of [[359, "zamega:absolitez"], [445, "zamega:garchompitez"], [718, "zamega:zygardite"]] as const) {
+      // zygardite (zamega) usa o aspecto "mega", nao "mega_z": filtra pela pedra
+      const megaZ = derived(dex).resolvedForms.filter((f) => f.requiredItems.includes(stone));
+      expect(megaZ.length).toBeGreaterThan(0);
+      for (const f of megaZ) expect([...f.requiredItems].sort()).toEqual(["mega_showdown:keystone", stone].sort());
+    }
+  });
+
   it("Eevee: rarity uncommon/[rare,ultra-rare] e 5 entradas de spawn (SPEC 5.1.4, 0133_eevee.json real)", () => {
     const eevee = derived(DEX.eevee);
     expect(eevee.spawns).toHaveLength(5);

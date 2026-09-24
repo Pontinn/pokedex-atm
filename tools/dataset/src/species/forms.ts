@@ -31,8 +31,10 @@ interface MegaSourceSpec {
 
 const MEGA_SOURCES: readonly MegaSourceSpec[] = [
   { jarId: "mega_showdown", prefix: "data/mega_showdown/mega_showdown/mega/", namespace: "mega_showdown" },
-  // Mega-Z (zamega): mesma heuristica (pokemons + aspecto); [ASSUMPTION SPEC 5.1.5] sem keystone (nenhuma
-  // referencia a keystone nos dados do zamega; a keystone de mega_showdown so e exigida no passo (a)).
+  // Mega-Z (zamega): mesma heuristica (pokemons + aspecto). Os arquivos ficam em data/zamega/mega_showdown/mega/,
+  // mesmo esquema e mesmo registro de Mega do mega_showdown (dependencia obrigatoria do zamega), e o lang do
+  // zamega descreve cada pedra como "Mega Evolve into Mega <X> Z": a ativacao e a Mega Evolucao do
+  // mega_showdown, que exige a keystone (Mega Bracelet). BUGFIX auditoria A1: antes sem keystone.
   { jarId: "zamega", prefix: "data/zamega/mega_showdown/mega/", namespace: "zamega" },
 ];
 
@@ -73,7 +75,8 @@ export function requiredItemsFor(ms: MergedSpecies, form: MergedForm, megaDefs: 
   );
   if (matches.length === 0) return [];
   const itemIds = new Set(matches.map((m) => m.itemId));
-  if ([...itemIds].some((id) => id.startsWith("mega_showdown:"))) itemIds.add("mega_showdown:keystone");
+  // toda pedra do registro de Mega do mega_showdown (mega_showdown e zamega) exige a keystone
+  itemIds.add("mega_showdown:keystone");
   return [...itemIds];
 }
 
