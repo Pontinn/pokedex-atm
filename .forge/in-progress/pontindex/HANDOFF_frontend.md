@@ -69,3 +69,70 @@ Congelados a mais: `src/i18n/messages.ts`, `src/i18n/messages/core.ts`, `src/i18
 - **Agente B (treinadores, pokebolas, itens, pagina de item)**: `src/i18n/messages/{trainers,balls,items,item}.ts`, `src/screens/{Trainers,Balls,Items,Item}/**`, store `src/state/trainers-store.ts`, testes `tests/unit/ui-screens/{trainers,balls,items,item}*`, `tests/e2e/{trainers,balls,items,item}.spec.ts`.
 - **Agente C (configuracoes, sincronizar)**: `src/i18n/messages/{settings,sync}.ts`, `src/screens/{Settings,Sync}/**` (Sync continua lazy pelo registro; bibliotecas pesadas importadas so dentro de `src/screens/Sync/`), testes `tests/unit/ui-screens/{settings,sync}*`, `tests/e2e/{settings,sync}.spec.ts`.
 - Todos: a tela recebe `{ entryId, params }` (`ScreenProps`); estado de UI por `useScreenUi(screen, key)`/`updateUi`; navegar por `useNavigationActions()`; botoes de navegacao com `data-nav`; loading = `PokeballSpinner`/`Skeleton`, erro = `InlineError`, vazio = `EmptyState`; dataset do boot em `useDatasetStore` (`manifest`, `speciesIndex`, `typeChart`, `status`); storage por `getAppStorage()` (`src/state/app-storage.ts`) + repositorios de `src/storage`; `expectNoOverlap(page, root)` de `tests/harness/no-overlap.ts` em toda tela a 360/390/1280 px, PT e EN.
+
+## F2
+
+Agente: forge-imp-frontend (Onda 3, F2 Home). Inicio 2026-09-24 18:25. Fim 2026-09-24 18:58.
+
+| Feature | Status | Commit | Notas |
+|---|---|---|---|
+| F2.1 | verde | `04fe3b34` | busca com autocomplete (dataset REAL), 14 e2e |
+| F2.2 | verde | `2b93c758` | resumo de capturados, time, historico + stores compartilhadas; 6 unit + 10 e2e |
+
+### Testes executados (todos verdes)
+
+- `npx vitest --run tests/unit/ui-screens/home-stores.test.ts` (fake-indexeddb, jsdom): 6 testes. 7o no time -> `{ok:false, reason:"full"}` + toast `home.teamFull`, nada muda; ja no time = ok sem toast; remover mantem posicoes e `setSlots` desfaz; 3 orfaos + 3 conhecidos = cheio com toast `home.teamFullOrphans`; 21o no historico derruba o mais antigo, revisita vai ao topo sem duplicar; historico corrompido deduplicado na leitura; capturados: re-marcar mantem a data, orfao guardado mas escondido; "reload" (adapter novo no mesmo banco) mantem time/historico/capturados; evento `pontindex:data-changed` com `keys:["team"]` recarrega SO o time e sem `keys` recarrega todas.
+- `$env:PW_DEV="1"; $env:PW_PORT="4174"; npx playwright test tests/e2e/home.spec.ts` (headless, sem slowMo, sem sleeps, dataset REAL de `public/data/current.json`): 24 testes.
+  - F2.1: "25"/"025"/"0025"/"#25" -> 1 resultado Pikachu `#0025`; "6" -> Charizard; "pantano" -> Quagsire (dex 195, "Pântano" em PT; "Quagsire" + chips Water/Ground com UI em EN); "charizar" -> Charizard; "a" -> 8 (limite); "char" -> 7 no dataset real (Charmander, Charmeleon, Charizard primeiro, por prefixo); sprite `/assets/sprites/4.png` carregado; "creepyon" e "9902" -> custom com silhueta; "zzzzqq", "#", "000" -> estado vazio inline; Esc fecha; Enter abre o 1o, clique abre o escolhido, Voltar restaura o texto; seta + Enter abre o 2o; Aleatorio -> ficha; Abrir Pokedex -> dex; 0 erros de console; `expectNoOverlap` no hero e no dropdown aberto (com resultados, vazio e custom) a 360/390/1280, PT e EN.
+  - F2.2: perfil novo "0 de 1.027", "0%", 6 slots vazios "0/6", historico vazio; dados semeados pelas proprias stores + `page.reload()` persistem (IndexedDB real): "5 de 1.027", "0,5%", "4/6", nomes dos slots, historico do mais recente com `#0006` e chips Fogo/Voador; clique no historico/slot abre a ficha, "Ver todos" abre Capturados; time cheio -> toast "Time cheio" e nao adiciona; "x" -> "Gengar removido do time" + Desfazer restaura a mesma posicao e sobrevive ao reload; orfaos escondidos ("2/6" com 1 slot visivel); `expectNoOverlap` na Home inteira com dados (e no card do time com a linha de desfazer) a 360/390/1280, PT e EN.
+  - Obs.: na 1a execucao de F2.2 os 2 primeiros testes estouraram 90 s (boot/reload lento com servidor frio e maquina dividida; a execucao inteira levou 12,5 min); repetidos passaram em 1 min. Nao e bug do app.
+- `tsc -p tsconfig.app.json` e `eslint` limpos nos meus arquivos.
+- `npm run dev` de verdade: `npm run dev -- --port 5180 --strictPort` + sessao Playwright headless em `http://localhost:5180/`: tampa abre, "pantano" acha Pântano, resumo "0 de 1.027", 6 slots, 0 erros de console; servidor parado. Para abrir: `npm run dev` e acessar `http://localhost:5173/` (porta padrao do Vite).
+- Conferencia visual: `desktop-home.png` (tema classic) e `mobile-home.png` reproduzidos com dados reais (hero, busca, dropdown `.search-dd`, cards Capturados/Meu time, historico em grade no desktop e carrossel no mobile).
+
+### API das stores compartilhadas (CONGELADAS a partir de agora; grupos A e B consomem)
+
+Base comum em `src/state/captured-store.ts` (time e historico importam de la): `setUserStoreStorage(adapter|null)` (testes; padrao `getAppStorage()`), `DATA_CHANGED_EVENT = "pontindex:data-changed"`, `knownDexSet(index)`, `useKnownDexSet()`, `PersistErrorCode`. Hidratacao preguicosa e idempotente (o `boot.ts` e congelado): cada store tem `hydrate()`/`reload()` e um hook `useXHydrated()` que hidrata ao montar e devolve `hydrated`; toda mutacao espera a hidratacao. Escrita = doc INTEIRO a partir da memoria, fila serial por store; erro de escrita mantem o estado em memoria, grava `persistError` e sobe toast persistente `error.storage`. Orfaos (RF-123) ficam no doc; a UI filtra pelo indice do dataset. **Reidratacao**: as 3 stores ouvem o evento `window` `pontindex:data-changed` (`detail.keys`, disparado pelo agente C apos importar backup, aplicar sync, apagar dados ou restaurar snapshot) e recarregam do storage quando a propria chave esta em `keys` ou quando `keys` falta (testado).
+
+- `captured-store.ts`: `useCapturedStore` (`entries: Record<String(dex), {capturedAt}>`, `hydrated`, `persistError`, `hydrate()`, `reload()`, `mark(dex, at?)` (re-marcar mantem a data), `unmark(dex)`), `useCapturedHydrated()`, `useIsCaptured(dex)`, `useCapturedKnownCount()`, `capturedKnownList(entries, known)`, `resetCapturedStore()`.
+- `team-store.ts`: `useTeamStore` (`slots` sempre 6, `hydrated`, `persistError`, `hydrate()`, `reload()`, `addToTeam(dex)` -> `AddToTeamResult` (cheio = toast `home.teamFull` ou `home.teamFullOrphans`, nunca lanca), `removeFromTeam(dex)` -> slots ANTERIORES (para desfazer), `setSlots(slots)`), `useTeamHydrated()`, `useIsInTeam(dex)`, `resetTeamStore()`.
+- `history-store.ts`: `useHistoryStore` (`entries` [0] = mais recente, `hydrated`, `persistError`, `hydrate()`, `reload()`, `push(dex, at?)`), `useHistoryHydrated()`, `sanitizeHistory(entries)`, `resetHistoryStore()`. **Quem registra a visita e a ficha (grupo A, F4.1)**: `useHistoryStore.getState().push(dex)` ao abrir a ficha.
+- Dex invalido (<= 0 ou nao inteiro) lanca `RangeError` nas mutacoes (regra de B6.6).
+
+### Outros artefatos reutilizaveis
+
+- `src/screens/Home/SpeciesSprite.tsx`: `SpeciesSprite` (sprite 96px local, silhueta para custom/404), `spriteUrl(dex)`, `formatDex(dex)` ("#0025"); `useSpeciesByDex()` em `TeamSlots.tsx`.
+- e2e em modo dev pode semear dados importando o modulo do Vite (`await import("/src/state/team-store.ts")` em `page.evaluate`): e a MESMA instancia do app. So vale com `PW_DEV=1`.
+
+### Decisoes e desvios
+
+1. Pastas reais: `src/screens/Home/` (registro de F1.4) e CSS em `src/screens/Home/home.css` (nao `src/styles/home.css`), seguindo a decisao 2 de F1.4.
+2. Base comum das stores dentro de `captured-store.ts` (nenhum arquivo novo em `src/state/` alem dos 3 meus).
+3. "Removido, desfazer" (passo 2 de F2.2): o `Toast` congelado nao tem botao de acao nem variaveis; fiz uma linha inline no card do time ("{nome} removido do time" + "Desfazer", 4 s = `TOAST_DURATION_MS`). "Time cheio" usa o toast global.
+4. Slots e historico usam o sprite 96px local (SPEC), nao o artwork do prototipo; funciona offline.
+5. Rodape do resumo mostra so a porcentagem (`home.lastCaught` foi excluida por ser texto fake).
+6. Slot vazio nao e clicavel (a SPEC nao define acao). Nenhum arquivo congelado editado; nenhum Co-Authored-By.
+
+## Grupo C (Configuracoes e Sincronizar)
+
+Agente: forge-imp-frontend (Grupo C). Inicio 2026-09-24 18:01. Fim 2026-09-24 18:37.
+
+| Feature | Status | Commit | Notas |
+|---|---|---|---|
+| F10.1 | verde | `048f5b9c` | temas, idioma, termos (limpa overrides), som, reduzir animacoes (3o estado "Seguir o sistema"), instalar, Sobre |
+| F10.2 | verde | `58419b91` | backup exportar/importar (resumo + Mesclar/Substituir), apagar dados (Tudo exige digitar APAGAR/DELETE), restaurar snapshot |
+| F11.1 | verde | `b319f0e3` | gerar codigo: QR unico ou carrossel 1,5 s com setas, texto, copiar, baixar .pdx, resumo |
+| F11.2 | verde | `bd2468be` | receber: camera (zxing lazy), colar, arquivo; tudo passa pelo FrameCollector; resumo, previa, Mesclar/Substituir |
+
+### Testes (todos verdes, headless, sem slowMo/sleeps, PW_DEV=1 PW_PORT=4176)
+- `tests/e2e/settings.spec.ts` (14): layout/rotulos/Sobre (versao do dataset e contagens lidas do manifesto), "Preto + English + som off + reduzir on" persiste apos reload, trocar padrao de termos zera overrides no IndexedDB, no-overlap 360/390/1280 PT e EN; round-trip exportar -> contexto limpo -> importar (Substituir) = 5 entidades identicas; backup mais novo/estrangeiro/format desconhecido -> erro e IndexedDB identico; apagar so Historico mantem as outras 4; Tudo exige a palavra e limpa snapshots; restaurar snapshot pre-migracao; no-overlap do modal (desktop) e sheet (390).
+- `tests/e2e/sync.spec.ts` (15): 20 capturados -> 1 QR, nenhuma requisicao de rede durante a acao (`page.route("**/*")`); 1027 capturados + 110 treinadores + 20 historico -> 7 frames <= 900 caracteres cuja concatenacao = texto; dados vazios -> aviso; criterio A/B (dois contextos, Mesclar) exato: 15 capturados, Roark, time de A, historico [150,133,6,448,25], preferencias de B; codigo corrompido/estrangeiro -> mensagem da matriz e IndexedDB identico; frames colados um a um em ordem invertida + frame de outra sessao avisado; camera negada -> "Camera indisponivel" e foco no textarea; no-overlap 360/390/1280 PT e EN (gerar e receber com resumo).
+- `tsc -p tsconfig.app.json` e `eslint` limpos nos meus caminhos. Screenshots conferidos contra `desktop-settings-full.png`/`mobile-settings.png` (mesma grade 4 col desktop / 2 col mobile, selo Padrao, seg de idioma, switches).
+
+### Decisoes e desvios
+1. `--danger: #C62828` definido em `:root` dentro de `src/screens/Settings/settings.css` (tokens.css e congelado). PEDIDO: mover para `tokens.css` (UISPEC 8.3) quando o orquestrador liberar.
+2. `.page-head`, `.notice-info`, `.item-hero-tile`, `.setting-row`, `.card-info/.info-line`, `.btn-danger` nao existiam no CSS compartilhado: definidos nos CSS das minhas telas (`.card-info` e o resumo `SyncSummary` ficam em `settings.css`, que e carregado no chunk principal; Sync e lazy).
+3. Reidratacao apos backup/sync/apagar/restaurar: `rehydrateAll` (`src/screens/Settings/data-actions.ts`) recarrega a store de preferencias e dispara `window` event `pontindex:data-changed` com `{ keys }`. As stores de capturados/time/historico (agente A) e treinadores (agente B) precisam OUVIR esse evento e recarregar do storage. PEDIDO ao orquestrador: repassar aos agentes A/B.
+4. Leitor de camera: nao ha camera no headless; o caminho do leitor e o mesmo `feed()` usado pelo colar (cada texto lido vai ao FrameCollector), coberto pelos frames colados um a um. A decodificacao real do zxing a partir de video nao foi testada (so camera negada).
+5. `requestPersistence()` nao era chamado por ninguem no boot; o card Sobre chama ao abrir se ainda for null.
+6. Import de backup usa `applyBackup` (B7.3) nos dois modos em vez de `importSnapshot` direto (mesmo efeito, com migracao e meta local preservado).
