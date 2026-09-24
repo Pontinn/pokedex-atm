@@ -1,0 +1,70 @@
+/* Base (F1.1): reset, scrollbars do tema, icones lucide, animacoes de tela/parcial, breakpoints e reduzir animacoes.
+   Porta design/prototipo/style.css:128-172, 247-251, 887-899, 1139-1142. */
+
+/* ---------- Scrollbars (seguem o tema; RNF-08) ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scroll-thumb-hover); }
+::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--scroll-thumb) transparent; }
+}
+
+/* ---------- Icones (lucide-react renderiza svg.lucide) ---------- */
+svg.lucide { width: 1em; height: 1em; stroke-width: 2.25; vertical-align: -.15em; flex: none; }
+.ico svg.lucide { width: 20px; height: 20px; }
+.btn svg.lucide { width: 18px; height: 18px; }
+.badge svg.lucide { width: 12px; height: 12px; }
+.notice svg.lucide { width: 18px; height: 18px; }
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: var(--font-body); color: var(--text); background: var(--screen);
+  -webkit-font-smoothing: antialiased; overflow: hidden;
+  transition: background var(--dur);
+}
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; margin: 0; letter-spacing: .01em; }
+h1 { font-size: 34px; line-height: 1.1; }
+h2 { font-size: 26px; }
+h3 { font-size: 17px; }
+p { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+img { display: block; max-width: 100%; }
+select, input { font: inherit; color: inherit; }
+.muted { color: var(--muted); font-size: 13px; }
+.mono { font-family: var(--font-pixel); font-size: 10px; letter-spacing: .05em; }
+
+/* ---------- Area de conteudo (RF-120: fundo = --screen) ---------- */
+.main { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 28px 36px 60px; scroll-behavior: smooth; position: relative; z-index: 1; background: var(--screen); }
+
+/* ---------- Atualizacao parcial e troca de tela ---------- */
+.part-in { animation: partIn .3s var(--ease-out); }
+@keyframes partIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* O ScreenRouter monta so a tela atual, entao .screen ja e a ativa (prototipo: .screen.active). */
+.screen { display: block; max-width: 1360px; margin: 0 auto; animation: screenIn .45s var(--ease-out); }
+@keyframes screenIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Breakpoints (fallback por media query, independente do JS) ---------- */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .app { flex-direction: column; }
+  .topbar { display: block; background: var(--primary); border-bottom: 6px solid var(--primary-dark); color: var(--shell-text); }
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--surface); border-top: 1px solid var(--border); padding: 6px 4px; }
+  .main { padding: 16px; }
+  .detail { grid-template-columns: 1fr; }
+}
+@media (min-width: 1500px) {
+  .main { padding: 36px 56px 70px; }
+  .poke-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .detail { grid-template-columns: 420px 1fr; gap: 24px; }
+}
+
+/* ---------- Reduzir movimento (RF-93; interruptor unico html.reduce-motion) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
+}
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
