@@ -1,0 +1,137 @@
+// B4.1 passo 1: catalogo de ids de item. Fontes: chaves item.<ns>.<path> do lang (cobblemon,
+// allthemons, mega_showdown), com textura OU tooltip; mais qualquer id referenciado por drops,
+// evolutions.requiredItem, forms.requiredItems, fossils, signatureItem/bag/heldItem dos treinadores
+// (entram como "referenciados": nome humanizado do path quando sem lang, category "other", texture null).
+import { existsSync, readFileSync } from "node:fs";
+import type { LocalizedText, SeriesInfo, TrainersFile } from "../../../../src/data/types";
+import type { DerivedSpecies } from "../species/stage-derive";
+import type { LangTable, PipelineContext } from "../context";
+
+export interface CatalogEntry {
+  id: string;
+  namespace: string;
+  path: string;
+  name: LocalizedText;
+  description: LocalizedText | null;
+  texture: string | null;
+  /** false = id so existe por causa de uma referencia (drop/evolucao/forma/fossil/treinador), sem lang proprio */
+  fromLang: boolean;
+}
+
+const LANG_ITEM_NAMESPACES = ["cobblemon", "allthemons", "mega_showdown"] as const;
+const ITEM_KEY = /^item\.(cobblemon|allthemons|mega_showdown)\.(.+)$/;
+
+export function humanizeItemPath(pathPart: string): LocalizedText {
+  const text = pathPart
+    .split(/[_/]/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  return { pt: text, en: text };
+}
+
+/** ids com nome ou tooltip no lang, chave = "<ns>:<path>" (SPEC B4.1 passo 1). */
+function collectLangItemIds(lang: LangTable): Map<string, { namespace: string; path: string }> {
+  const out = new Map<string, { namespace: string; path: string }>();
+  const scan = (map: ReadonlyMap<string, string>) => {
+    for (const key of map.keys()) {
+      const match = ITEM_KEY.exec(key);
+      if (!match) continue;
+      const namespace = match[1] as string;
+      let restPath = match[2] as string;
+      if (restPath.endsWith(".tooltip")) restPath = restPath.slice(0, -".tooltip".length);
+      out.set(`${namespace}:${restPath}`, { namespace, path: restPath });
+    }
+  };
+  for (const ns of LANG_ITEM_NAMESPACES) void ns; // namespaces documentados acima; o regex ja restringe a eles
+  scan(lang.pt);
+  scan(lang.en);
+  return out;
+}
+
+function readJsonIfExists<T>(file: string): T | null {
+  if (!existsSync(file)) return null;
+  return JSON.parse(readFileSync(file, "utf8")) as T;
+}
+
+/** ids referenciados por drops/evolucoes/formas das especies (ja em memoria, DerivedSpecies). */
+function collectSpeciesReferencedIds(ctx: PipelineContext): Set<string> {
+  const ids = new Set<string>();
+  for (const merged of ctx.species.values()) {
+    const species = merged as DerivedSpecies;
+    for (const drop of species.drops) ids.add(drop.item);
+    for (const edge of species.evolutions ?? []) if (edge.requiredItem) ids.add(edge.requiredItem);
+    for (const form of species.resolvedForms ?? []) for (const item of form.requiredItems) ids.add(item);
+  }
+  return ids;
+}
+
+/** ids referenciados por fossils.json (result.fossils[]). */
+export function collectFossilReferencedIds(fossils: readonly { fossils: readonly string[] }[]): Set<string> {
+  const ids = new Set<string>();
+  for (const route of fossils) for (const item of route.fossils) ids.add(item);
+  return ids;
+}
+
+/** ids referenciados por signatureItem/bag/heldItem dos treinadores ja escritos no staging (etapa trainers, antes de items). */
+function collectTrainerReferencedIds(ctx: PipelineContext): Set<string> {
+  const ids = new Set<string>();
+  const series = readJsonIfExists<SeriesInfo[]>(ctx.dataPath("series.json"));
+  if (!series) return ids;
+  for (const s of series) {
+    const file = readJsonIfExists<TrainersFile>(ctx.dataPath(s.trainersFile));
+    if (!file) continue;
+    for (const trainer of file.trainers) {
+      if (trainer.signatureItem) ids.add(trainer.signatureItem);
+      for (const bagEntry of trainer.bag) ids.add(bagEntry.item);
+      for (const member of trainer.team) if (member.heldItem) ids.add(member.heldItem);
+    }
+  }
+  return ids;
+}
+
+export interface BuildCatalogDeps {
+  lang: LangTable;
+  textureManifest: ReadonlyMap<string, string>;
+  fossilItemIds: ReadonlySet<string>;
+}
+
+/** Catalogo final: ids do lang (com textura OU tooltip) uniao ids referenciados (SPEC B4.1 passo 1). */
+export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): CatalogEntry[] {
+  const langIds = collectLangItemIds(deps.lang);
+  const referenced = new Set<string>([
+    ...collectSpeciesReferencedIds(ctx),
+    ...deps.fossilItemIds,
+    ...collectTrainerReferencedIds(ctx),
+  ]);
+
+  const allIds = new Set<string>();
+  for (const [id, entry] of langIds) {
+    const hasTexture = deps.textureManifest.has(`${entry.namespace}:${entry.path.split("/").pop()}`) || deps.textureManifest.has(id);
+    const hasTooltip = deps.lang.has(`item.${entry.namespace}.${entry.path}.tooltip`);
+    if (hasTexture || hasTooltip) allIds.add(id);
+  }
+  for (const id of referenced) allIds.add(id);
+
+  const catalog: CatalogEntry[] = [];
+  for (const id of allIds) {
+    const [namespace, ...rest] = id.split(":");
+    const itemPath = rest.join(":");
+    const ns = namespace ?? "unknown";
+    const nameKey = `item.${ns}.${itemPath}`;
+    const tooltipKey = `${nameKey}.tooltip`;
+    const name = deps.lang.text(nameKey);
+    const description = deps.lang.text(tooltipKey);
+    const texture = deps.textureManifest.get(`${ns}:${itemPath.split("/").pop()}`) ?? deps.textureManifest.get(id) ?? null;
+    catalog.push({
+      id,
+      namespace: ns,
+      path: itemPath,
+      name: name ?? humanizeItemPath(itemPath),
+      description: description ?? null,
+      texture: texture ? `assets/items/${texture}` : null,
+      fromLang: name !== null,
+    });
+  }
+  return catalog.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
