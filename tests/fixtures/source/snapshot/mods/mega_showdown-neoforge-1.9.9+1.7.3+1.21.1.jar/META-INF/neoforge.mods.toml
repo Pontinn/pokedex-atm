@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="fixture"
+
+[[mods]]
+modId="mega_showdown"
+version="0.0.1"
