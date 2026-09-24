@@ -1,1 +1,48 @@
-/* Estilos da tela settings. Carregado SO por SettingsScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Estilos da tela Configuracoes (F10.1/F10.2). Porta design/prototipo/style.css:686-709 + 868 (mobile).
+   Carregado SO por SettingsScreen.tsx. --danger (UISPEC 8.3) fica escopado aqui ate existir em tokens.css. */
+.settings-screen { --danger: #C62828; --on-danger: #fff; }
+.settings-screen .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.settings { display: grid; gap: 16px; max-width: 820px; }
+.settings h3 { margin-bottom: 4px; }
+.settings .card > .muted { margin-bottom: 14px; }
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.theme-sw { border: 2px solid var(--border); border-radius: var(--radius-md); padding: 8px; display: grid; gap: 8px; text-align: left; transition: transform .2s var(--ease-bounce), border-color .2s; background: var(--surface-2); color: var(--text); min-width: 0; }
+.theme-sw:hover { transform: translateY(-3px); }
+.theme-sw.active { border-color: var(--secondary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 25%, transparent); }
+.theme-sw .sw { display: block; height: 46px; border-radius: 8px; background: var(--p1); position: relative; overflow: hidden; }
+.theme-sw .sw::after { content: ""; position: absolute; right: 8px; top: 8px; width: 24px; height: 24px; border-radius: 50%; background: var(--p2); box-shadow: 0 0 0 3px #fff; }
+.theme-sw .sw::before { content: ""; position: absolute; left: 8px; bottom: 8px; width: 40%; height: 8px; border-radius: 4px; background: rgba(255,255,255,.55); }
+.theme-sw .sw-text { display: grid; min-width: 0; }
+.theme-sw .sw-name { font-weight: 800; font-size: 13px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
+.theme-sw .sw-name .pill { padding: 1px 8px; font-size: 11px; }
+.theme-sw .sw-sub { font-size: 11px; color: var(--muted); font-weight: 700; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
+.setting-row + .setting-row { border-top: 1px solid var(--border); }
+.setting-text { min-width: 0; flex: 1; }
+.motion-system { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; }
+.motion-system input { accent-color: var(--secondary); width: 15px; height: 15px; }
+.install-manual { font-size: 13px; font-weight: 700; }
+.card-info { display: grid; gap: 8px; font-weight: 700; font-size: 13px; color: var(--muted); }
+.card-info .card-info-title { color: var(--text); }
+.info-line { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
+.info-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); flex: none; }
+
+/* Blocos novos (F10.2): backup, apagar dados, snapshots. Mesmo padrao .card/.btn. */
+.settings-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-danger { background: var(--danger); color: var(--on-danger); box-shadow: 0 6px 16px color-mix(in srgb, var(--danger) 35%, transparent); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+.delete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.delete-opt { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: var(--radius-md); background: var(--surface-2); font-weight: 700; font-size: 13px; cursor: pointer; min-width: 0; }
+.delete-opt input { accent-color: var(--danger); width: 16px; height: 16px; flex: none; }
+.delete-opt.all { border-color: color-mix(in srgb, var(--danger) 40%, var(--border)); }
+.confirm-text { font-size: 14px; font-weight: 600; margin-bottom: 12px; overflow-wrap: anywhere; }
+.confirm-input { width: 100%; padding: 10px 12px; border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--surface-2); color: var(--text); font-weight: 800; letter-spacing: .06em; margin: 6px 0 14px; }
+.confirm-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+.modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+.snapshot-list { display: grid; gap: 8px; }
+.snapshot-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 8px 0; border-top: 1px solid var(--border); font-size: 13px; font-weight: 700; }
+.snapshot-row span { min-width: 0; overflow-wrap: anywhere; }
+.settings-error { margin-top: 10px; }
+
+.app.mobile .theme-grid { grid-template-columns: repeat(2, 1fr); }
+.app.mobile .settings-actions .btn { flex: 1 1 auto; justify-content: center; }
