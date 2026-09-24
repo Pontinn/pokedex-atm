@@ -1206,15 +1206,16 @@ Regras gerais de toda feature de frontend (auto-fill da categoria `frontend`, va
 - **Rollback**: revert.
 
 #### Feature F3.2: Filtros combinaveis `[category: frontend]`
-- **Traces**: RF-11, RF-12, RF-13, RF-14, RF-53 (filtro so capturados/faltando tambem aqui), RF-04.
+- **Traces**: RF-11, RF-12, RF-13, RF-14, RF-53 (filtro so capturados/faltando tambem aqui), RF-04, RF-05, RF-06, RF-07 (busca tambem na Pokedex, decisao do Pontin).
 - **Steps**:
   1. `DexFilters` (porta `renderFilters` `app.js:729-732` e selects de `index.html:120-147`): chips de tipo (multi, `.chip.on` = selecionado, contorno = nao), select geracao (`gen1..gen9, gen7b, gen8a, custom` derivados de `index.map(s=>s.generation)` unicos, ordenados), select metodo de evolucao (`level, item, friendship, trade, move, other, none`), segmento status (`all|caught|missing`), select ordenacao (`num|name|bst`).
   2. Estado dos filtros vive em `current.ui.filters` (pilha, RF-01/02); `use-filtered-species` memoiza `index.filter(...)` com: tipo = `types.some(t => selected.includes(t))` (OR entre tipos, como `app.js:736`); geracao =; evo = `evolutionMethods.includes(method)`; status usa `capturedStore`.
   3. So `DexGrid` re-renderiza ao mudar filtro (seletor memoizado); `DexFilters` mantem foco.
-- **Edge cases**: combinacao sem resultado -> `EmptyState`; geracao `custom` mostra Creepyon/Piglich.
+  4. (Decisao do Pontin 2026-09-24; nao existe no prototipo) `DexSearch`: barra de busca no topo da Pokedex, igual a da Home no visual e no comportamento de texto: input com debounce 120 ms, aceita numero (`"25"|"025"|"0025"|"#25"`) e nome parcial PT ou EN sem acento, reusando `normalizeSearch`/`parseDexQuery` de `src/domain/search.ts` (B6.5; nada novo no dominio). Diferenca da Home: em vez de dropdown de autocomplete, o texto FILTRA a grade em conjunto com os demais filtros (E logico: texto E tipos E geracao E evolucao E status), mantendo a ordenacao escolhida; botao limpar (x). O texto vive em `current.ui.filters.query` (restaura ao voltar, RF-01/02); so `DexGrid` re-renderiza a cada tecla (RF-04). Placeholder e rotulos no modulo i18n `dex` (PT/EN).
+- **Edge cases**: combinacao sem resultado (inclusive texto) -> `EmptyState` com o texto buscado; texto so com espacos = sem filtro de texto; geracao `custom` mostra Creepyon/Piglich.
 - **Consumes**: `SpeciesSummary.evolutionMethods/generation/types`, `DocMap.captured`.
-- **Done when**: Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`).
-- **Commit**: `feat(dex): combinable type, generation, evolution and status filters`
+- **Done when**: Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`). Busca na Pokedex: "char" + filtro Fogo -> Charmander, Charmeleon, Charizard (e mais nada que nao seja Fogo); "25" -> Pikachu; "pantano" -> Quagsire; texto + Voltar da ficha restaura texto, filtros e scroll; `expectNoOverlap` da barra a 360/390/1280 px em PT e EN.
+- **Commit**: `feat(dex): combinable search, type, generation, evolution and status filters`
 - **Rollback**: revert.
 
 ### Sprint F4: Ficha do Pokemon (parte 1: hero, stats, fraquezas, evolucao, habilidades, golpes)

@@ -331,13 +331,13 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F2: Home, busca e blocos de time e historico
 
-- [ ] F2.1 Busca com autocomplete
-  - hash:
+- [x] F2.1 Busca com autocomplete
+  - hash: 04fe3b34
   - Done when (literal da SPEC): testes: "025"/"25"/"0025" -> Pikachu; "pantano" com UI em ingles -> Quagsire; "charizar" -> Charizard; dropdown de autocomplete: sem captura de referencia (nenhuma imagem em `ui-refs/` cobre o dropdown aberto); validar contra as regras `.search-dd` de `style.css:353-354`.
   - notas:
 
-- [ ] F2.2 Time, historico e resumo de capturados na Home
-  - hash:
+- [x] F2.2 Time, historico e resumo de capturados na Home
+  - hash: 2b93c758
   - Done when (literal da SPEC): `desktop-home.png` (tambem e a referencia do tema `classic` para a Home, movida de F1.1); testes: 7o Pokemon -> aviso e nao adiciona; 21o no historico -> o mais antigo sai; reload mantem time e historico (fake-indexeddb).
   - notas:
 
@@ -350,7 +350,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 - [ ] F3.2 Filtros combinaveis
   - hash:
-  - Done when (literal da SPEC): Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`).
+  - Done when (literal da SPEC): Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`). + barra de busca igual a da Home combinada com os filtros (decisao do Pontin; ver SPEC F3.2 passo 4)
   - notas:
 
 ### Sprint F4: Ficha do Pokemon (parte 1: hero, stats, fraquezas, evolucao, habilidades, golpes)
