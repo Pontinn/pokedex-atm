@@ -1,5 +1,6 @@
 // B2.2 (Onda 0): lang PT/EN + merge de especies por precedencia (SPEC 5.1.2).
-// (a) species/**.json de addon = override completo: o Cobblemon base vence nos campos centrais;
+// (a) species/**.json de addon = override completo: o Cobblemon base vence SO nos campos de BASE_WINS_FIELDS
+//     (lista fechada); qualquer outro campo presente no addon (ex. implemented) vale o do addon;
 //     forms[] = uniao por name (o addon substitui a forma de mesmo nome); labels = uniao.
 // (b) species_additions/**.json = merge aditivo estilo datapack: campo presente na adicao sobrescreve/estende
 //     (forms uniao por name com a adicao vencendo campo a campo; drops substitui; evolutions/implemented da adicao;
@@ -47,9 +48,9 @@ export interface MergeReport {
     slug: string;
     source: string;
     file: string;
-    /** campos centrais em que o addon diferia do base (o base venceu) */
+    /** campos da lista BASE_WINS_FIELDS em que o addon diferia do base (o base venceu) */
     baseFieldDiffs: string[];
-    /** outros campos em que o addon diferia (o base tambem venceu) */
+    /** campos fora da lista em que o addon diferia (o valor do addon foi aplicado) */
     otherFieldDiffs: string[];
     formsAdded: string[];
     formsReplaced: string[];
@@ -257,8 +258,14 @@ function applyOverride(w: Working, entry: SpeciesFileEntry, report: MergeReport)
   for (const [key, value] of Object.entries(entry.data)) {
     if (key === "forms" || key === "labels") continue;
     if (same(w.json[key], value)) continue;
-    if ((BASE_WINS_FIELDS as readonly string[]).includes(key)) baseFieldDiffs.push(key);
-    else otherFieldDiffs.push(key);
+    if ((BASE_WINS_FIELDS as readonly string[]).includes(key)) {
+      baseFieldDiffs.push(key);
+    } else {
+      // fora da lista fechada de base-wins: semantica de override (valor do addon quando presente)
+      w.json[key] = value;
+      otherFieldDiffs.push(key);
+      addOrigin(w, key, entry.source);
+    }
   }
   const formsAdded: string[] = [];
   const formsReplaced: string[] = [];

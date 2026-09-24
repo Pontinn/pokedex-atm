@@ -150,6 +150,21 @@ describe("species merge on the real snapshot (data-source/atm-1.3.0)", () => {
     expect(mareep?.drops).toContainEqual({ item: "silentgear:sinew", percentage: 25, quantityRange: null });
   });
 
+  it("fields outside the base-wins list follow the addon override (zygarde/lycanroc implemented via ccc)", () => {
+    const zygarde = bySlug(species, "zygarde");
+    const lycanroc = bySlug(species, "lycanroc");
+    expect(zygarde.implemented).toBe(true);
+    expect(lycanroc.implemented).toBe(true);
+    expect(zygarde.origins.implemented).toContain("ccc");
+    expect([...species.values()].filter((s) => !s.implemented).map((s) => s.slug)).toEqual([]);
+  });
+
+  it("base-wins fields keep the Cobblemon value (ccc dialga has moves: [], base moves win)", () => {
+    const dialga = bySlug(species, "dialga");
+    expect(dialga.moves.level.length).toBeGreaterThan(0);
+    expect(dialga.moves.tm.length).toBeGreaterThan(0);
+  });
+
   it("Charizard keeps Cobblemon stats with Mega-X/Mega-Y/Gmax forms", () => {
     const charizard = species.get(6);
     expect(charizard?.baseStats.specialAttack).toBe(109);
