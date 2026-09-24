@@ -7,7 +7,10 @@ import type { ScreenProps } from "../../components/ScreenRouter";
 import { useT } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import { useDatasetStore } from "../../state/dataset-store";
+import { CapturedSummaryCard } from "./CapturedSummaryCard";
+import { HistoryRow } from "./HistoryRow";
 import { SearchBox } from "./SearchBox";
+import { TeamSlots } from "./TeamSlots";
 
 function HeroActions() {
   const t = useT();
@@ -46,6 +49,11 @@ export function HomeScreen(_props: ScreenProps) {
         <SearchBox />
         <HeroActions />
       </div>
+      <div className="home-grid">
+        <CapturedSummaryCard />
+        <TeamSlots />
+      </div>
+      <HistoryRow />
     </section>
   );
 }

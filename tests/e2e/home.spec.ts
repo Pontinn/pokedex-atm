@@ -170,3 +170,107 @@ test.describe("F2.1 search", () => {
     }
   }
 });
+
+// ---------------------------------------------------------------------------
+// F2.2: time, historico e resumo de capturados (dados semeados pelas proprias stores via modulo do Vite dev,
+// a mesma instancia que o app usa; persistencia real no IndexedDB do navegador)
+// ---------------------------------------------------------------------------
+
+async function seed(page: Page, data: { team?: number[]; history?: number[]; captured?: number[] }) {
+  await page.evaluate(async (d) => {
+    const team = await import(/* @vite-ignore */ "/src/state/team-store.ts");
+    const history = await import(/* @vite-ignore */ "/src/state/history-store.ts");
+    const captured = await import(/* @vite-ignore */ "/src/state/captured-store.ts");
+    for (const dex of d.team ?? []) await team.useTeamStore.getState().addToTeam(dex);
+    let at = 1_000;
+    for (const dex of d.history ?? []) await history.useHistoryStore.getState().push(dex, at++);
+    for (const dex of d.captured ?? []) await captured.useCapturedStore.getState().mark(dex, at++);
+  }, data);
+}
+
+const DEMO = { team: [6, 448, 94, 149], history: [94, 133, 150, 25, 448, 6], captured: [1, 4, 6, 25, 9902] };
+
+test.describe("F2.2 team, history and captured summary", () => {
+  test("fresh profile: 0 caught of the dataset total, 6 empty slots, empty history", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await openHome(page);
+    await expect(page.locator("#home-summary .summary-count")).toHaveText("0");
+    await expect(page.locator("#home-summary .summary-of")).toHaveText(" de 1.027");
+    await expect(page.locator("#home-summary .summary-pct")).toHaveText("0%");
+    await expect(page.locator(".team-slots .slot")).toHaveCount(6);
+    await expect(page.locator(".team-slots .slot.filled")).toHaveCount(0);
+    await expect(page.locator(".team-count")).toHaveText("0/6");
+    await expect(page.locator(".home-screen .empty-state")).toContainText("Nenhum Pokémon consultado ainda");
+    expect(errors).toEqual([]);
+  });
+
+  test("seeded data renders, persists across reload, and items open the detail", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await openHome(page);
+    await seed(page, DEMO);
+    await page.reload();
+    await waitBooted(page);
+    await expect(page.locator("#home-summary .summary-count")).toHaveText("5");
+    await expect(page.locator("#home-summary .summary-pct")).toHaveText("0,5%");
+    await expect(page.locator(".team-count")).toHaveText("4/6");
+    await expect(page.locator(".team-slots .slot.filled .slot-name")).toHaveText(["Charizard", "Lucario", "Gengar", "Dragonite"]);
+    await expect(page.locator("#history-row .hist .hist-name")).toHaveText(["Charizard", "Lucario", "Pikachu", "Mewtwo", "Eevee", "Gengar"]);
+    await expect(page.locator("#history-row .hist").first().locator(".dex-num")).toHaveText("#0006");
+    await expect(page.locator("#history-row .hist").first().locator(".chip")).toHaveText(["Fogo", "Voador"]);
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/f22-home-1280-pt.png` });
+    await page.locator("#history-row .hist[data-dex='25']").click();
+    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await page.goBack();
+    await page.locator(".team-slots .slot[data-dex='448'] .slot-open").click();
+    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await page.goBack();
+    await page.locator("#home-summary .link").click();
+    await expect(page.locator("[data-placeholder='captured']")).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("remove from team with undo; 7th add warns and does not add", async ({ page }) => {
+    await openHome(page);
+    await seed(page, { team: [6, 448, 94, 149, 25, 133] });
+    await expect(page.locator(".team-count")).toHaveText("6/6");
+    await seed(page, { team: [150] });
+    await expect(page.locator(".toast")).toContainText("Time cheio");
+    await expect(page.locator(".team-slots .slot.filled")).toHaveCount(6);
+    await page.locator(".team-slots .slot[data-dex='94']").hover();
+    await page.locator(".team-slots .slot[data-dex='94'] .slot-remove").click();
+    await expect(page.locator(".team-count")).toHaveText("5/6");
+    await expect(page.locator(".team-slots .slot").nth(2)).not.toHaveClass(/filled/);
+    await expect(page.locator(".team-undo")).toContainText("Gengar removido do time");
+    await page.locator(".team-undo-btn").click();
+    await expect(page.locator(".team-slots .slot").nth(2)).toHaveAttribute("data-dex", "94");
+    await page.reload();
+    await waitBooted(page);
+    await expect(page.locator(".team-count")).toHaveText("6/6");
+    await expect(page.locator(".team-slots .slot").nth(2)).toHaveAttribute("data-dex", "94");
+  });
+
+  test("orphan dex in team and history is hidden, not deleted", async ({ page }) => {
+    await openHome(page);
+    await seed(page, { team: [6, 7777], history: [7777, 25] });
+    await expect(page.locator(".team-slots .slot.filled")).toHaveCount(1);
+    await expect(page.locator(".team-count")).toHaveText("2/6");
+    await expect(page.locator("#history-row .hist")).toHaveCount(1);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    for (const lang of ["pt", "en"] as const) {
+      test(`no overlap on the whole Home with data at ${width}px (${lang})`, async ({ page }) => {
+        await openHome(page, width, 844);
+        await seed(page, DEMO);
+        await setLanguage(page, lang);
+        await expect(page.locator(".team-slots .slot.filled")).toHaveCount(4);
+        await expect(page.locator("#history-row .hist")).toHaveCount(6);
+        await expectNoOverlap(page, ".home-screen");
+        await page.locator(".team-slots .slot[data-dex='94'] .slot-remove").click({ force: true });
+        await expect(page.locator(".team-undo")).toBeVisible();
+        await expectNoOverlap(page, ".card-team");
+        if (SHOTS) await page.screenshot({ path: `${SHOTS}/f22-home-${width}-${lang}.png`, fullPage: true });
+      });
+    }
+  }
+});

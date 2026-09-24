@@ -49,3 +49,47 @@ html[data-theme="white"] .hero-actions .btn-ghost { background: rgba(0,0,0,.05);
 .app.mobile .hero-actions .btn { flex: 1; justify-content: center; padding: 11px 8px; font-size: 13.5px; min-width: 0; }
 .app.mobile .hero-actions .lbl-long { display: none; }
 .app.mobile .hero-actions .lbl-short { display: inline; }
+
+/* ---------- Capturados, time e historico (F2.2) ---------- */
+.home-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 26px; }
+.home-grid > .card { min-width: 0; }
+.summary-big { font-family: var(--font-display); font-size: 20px; margin: 4px 0 10px; }
+.summary-big strong { font-size: 40px; font-weight: 700; color: var(--secondary); line-height: 1; }
+html[data-theme="green"] .summary-big strong, html[data-theme="blue"] .summary-big strong { color: var(--primary); }
+.summary-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 8px; font-size: 12px; color: var(--muted); font-weight: 700; }
+.team-slots { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.slot { aspect-ratio: 1; border-radius: var(--radius-md); background: var(--surface-2); border: 1.5px dashed var(--border); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform .25s var(--ease-bounce), border-color .2s; min-width: 0; }
+.slot.filled { border-style: solid; background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--tc) 35%, var(--surface)) 0%, var(--surface-2) 70%); }
+.slot-open { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 0 14px; color: inherit; }
+.slot-open > img { width: 80%; height: 80%; object-fit: contain; transition: transform .3s var(--ease-bounce); }
+.slot-open > img.sprite-fallback { width: 45%; height: 45%; filter: brightness(0); opacity: .5; }
+.slot.filled:hover { transform: translateY(-4px); border-color: var(--secondary); }
+.slot.filled:hover .slot-open > img { transform: scale(1.1) rotate(-4deg); }
+.slot .slot-plus { display: inline-flex; color: var(--muted); }
+.slot .slot-plus svg { width: 24px; height: 24px; }
+.slot .slot-name { position: absolute; bottom: 4px; left: 2px; right: 2px; text-align: center; font-size: 10px; font-weight: 800; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slot-remove { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); color: var(--muted); border: 1px solid var(--border); opacity: 0; transition: opacity .15s, color .15s; z-index: 1; }
+.slot-remove svg { width: 12px; height: 12px; }
+.slot.filled:hover .slot-remove, .slot-remove:focus-visible { opacity: 1; }
+.slot-remove:hover { color: var(--primary); }
+@media (hover: none) { .slot-remove { opacity: 1; } }
+.team-undo { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.team-undo-text { min-width: 0; overflow-wrap: anywhere; }
+.section-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 12px; }
+.history-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.card.hist { display: flex; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; color: var(--text); width: 100%; animation: cardIn .5s var(--ease-out) both; }
+.hist > img { width: 56px; height: 56px; flex: none; object-fit: contain; }
+.hist > img.sprite-fallback { width: 36px; height: 36px; margin: 10px; filter: brightness(0); opacity: .5; }
+.hist .hist-name { font-weight: 800; font-size: 15px; overflow-wrap: anywhere; }
+.hist .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.hist > .hist-info { min-width: 0; flex: 1; }
+
+.app.mobile .home-grid { grid-template-columns: 1fr; gap: 12px; }
+.app.mobile .team-slots { gap: 8px; }
+.app.mobile .slot .slot-name { display: none; }
+.app.mobile .slot-open { padding-bottom: 0; }
+.app.mobile .slot-remove { width: 18px; height: 18px; top: 2px; right: 2px; }
+.app.mobile .history-row { display: flex; overflow-x: auto; gap: 10px; margin: 0 -16px; padding: 0 16px 10px; scroll-snap-type: x mandatory; }
+.app.mobile .hist { flex: none; width: 214px; scroll-snap-align: start; }
+.card.hist.clickable { cursor: pointer; }
+.card.hist.clickable:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--secondary) 50%, var(--border)); }
