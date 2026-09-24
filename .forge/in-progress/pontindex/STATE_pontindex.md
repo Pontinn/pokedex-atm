@@ -1,10 +1,10 @@
 ---
 feature: pontindex
-stage: spec
-status: spec-done
+stage: implementation
+status: impl-in-progress
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: full
+mode: gate (ate a Onda 2; parar ao fim de cada onda)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
 running_agent: forge-review pre-flight Stage 4 (opus), iniciado 2026-09-24 15:47, timer bxt4ig4ut
@@ -205,6 +205,8 @@ updated: 2026-09-24
 - F4.1 passo 2: .seal reserva largura dos botoes (124/76 px) e titulo sem padding-top fixo (causa real do feedback/1.png).
 - F9.2 e UISPEC linha 205: tag acima do nome; cabecalho do .item-card mascarado na comparacao com desktop-items-grid.png. Fingerprint do UISPEC atualizado na SPEC (c791c6d).
 - Badges: nao quebram o proprio texto, a linha pode quebrar (F3.1, T1). expectNoOverlap tambem a 360 px.
-- prints do Pontin versionados em .forge/ideas/pontindex/feedback/{1,2}.png (prints/ e rascunho dele, fora do git).
+- prints do Pontin versionados em .forge/in-progress/pontindex/feedback/{1,2}.png (prints/ e rascunho dele, fora do git).
 - Onda 3 dona de tests/harness/no-overlap.ts e dos testes F1.4-F12.1.
 - CHECKLIST: 58 Done when copiados LITERALMENTE da SPEC por script (o Haiku tinha parafraseado errado B2.2, B4.3, F3.2, F9.1, F9.2, F10.2, F12.1, F7.1, F4.4); T1 aponta para a matriz da SPEC; cabecalhos das Ondas 1/1b/3 corrigidos.
+
+## 2026-09-24 15:52 - Stage 4 iniciada: feature movida para .forge/in-progress/pontindex (git mv). Referencias de caminho atualizadas em SPEC/CHECKLIST/STATE/RETOMADA/data-source README; IDEA/PRD/CONTEXT mantidos byte a byte (fingerprints intactos).

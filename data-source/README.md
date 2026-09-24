@@ -7,4 +7,4 @@ Copia extraida (2026-09-23) dos arquivos da instancia **All the Mons 1.3.0** (Co
 - `atm-1.3.0/MANIFEST.json`: quantos arquivos vieram de cada jar.
 - Ficaram de fora (nao usados pelo app): texturas de modelo 3D (`textures/pokemon`), estruturas `.nbt`, `.mcfunction`, sons de golpes/blocos/pesca/montaria/animacao/musica e sons de Pokemon que nao sao grito.
 
-O pipeline deve aceitar duas fontes: a instancia real (le os jars) ou esta pasta (jars ja "abertos" em `mods/<jar>/`). Veja a pendencia 10 em `.forge/ideas/pontindex/RETOMADA_pontindex.md`.
+O pipeline deve aceitar duas fontes: a instancia real (le os jars) ou esta pasta (jars ja "abertos" em `mods/<jar>/`). Veja a pendencia 10 em `.forge/in-progress/pontindex/RETOMADA_pontindex.md`.
