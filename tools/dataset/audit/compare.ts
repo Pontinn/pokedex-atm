@@ -149,7 +149,11 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       checks++;
       const pos = new Map(ak.map((k, i) => [k, i]));
       const viol: string[] = [];
-      for (const k of ak) for (const d of s.deps[k] ?? []) if (pos.has(d) && pos.get(d)! > pos.get(k)!) viol.push(`${k} antes de ${d}`);
+      for (const k of ak)
+        for (const g of s.deps[k] ?? []) {
+          const present = g.filter((d) => pos.has(d));
+          if (present.length && !present.some((d) => pos.get(d)! < pos.get(k)!)) viol.push(`${k} antes de todos de [${g.join(" | ")}]`);
+        }
       if (viol.length) push({ severity: "WRONG DATA", scope, field: "ordem (requiredDefeats)", expected: "dependencias antes", actual: viol.slice(0, 10).join("; "), evidence: "mobs/trainers/single requiredDefeats", published: pub(seriesFile) });
       else if (J(ak) !== J(s.keyTrainers)) push({ severity: "COSMETIC", scope, field: "ordem (desempate)", expected: J(s.keyTrainers), actual: J(ak), evidence: "Kahn + maxTeamLevel asc + nome (SPEC B5.2)", published: pub(seriesFile) });
     }

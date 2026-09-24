@@ -80,7 +80,7 @@ export interface ExpBall {
 export interface ExpSeries {
   id: string;
   keyTrainers: string[]; // ordem topologica esperada
-  deps: Record<string, string[]>; // trainer -> required defeats (achatado) dentro da serie
+  deps: Record<string, string[][]>; // trainer -> grupos de required defeats (E de OUs) dentro da serie
   maxLevel: Record<string, number>;
   sourceOf: Record<string, "rctmod" | "kubejs">;
 }
@@ -527,27 +527,32 @@ function buildSeries(src: string, rctRoot: string): ExpSeries[] {
   for (const sid of [...new Set(seriesIds)]) {
     const keys = [...mobs.entries()].filter(([, m]) => m.j.optional === false && (m.j.series ?? []).includes(sid)).map(([id]) => id);
     const set = new Set(keys);
-    const deps: Record<string, string[]> = {};
+    const deps: Record<string, string[][]> = {};
     const maxLevel: Record<string, number> = {};
     const sourceOf: Record<string, "rctmod" | "kubejs"> = {};
     for (const id of keys) {
-      deps[id] = [...new Set(((mobs.get(id)!.j.requiredDefeats ?? []) as string[][]).flat().filter((d) => set.has(d)))];
+      // requiredDefeats: lista externa = E; sublista = OU (variantes do mesmo treinador, ex. lorelei_004d/004e)
+      deps[id] = ((mobs.get(id)!.j.requiredDefeats ?? []) as string[][]).map((g) => g.filter((d) => set.has(d))).filter((g) => g.length > 0);
       const team = trainers.get(id)?.team ?? [];
       maxLevel[id] = team.reduce((m: number, t: any) => Math.max(m, Number(t.level ?? 0)), 0);
       sourceOf[id] = mobs.get(id)!.src;
     }
-    // Kahn, desempate por maxTeamLevel asc e nome
+    // Kahn (grupo satisfeito quando algum membro ja foi colocado), desempate por maxTeamLevel asc e nome
     const name = (id: string) => String(trainers.get(id)?.name ?? id);
-    const indeg = new Map(keys.map((k) => [k, deps[k]!.length]));
     const order: string[] = [];
-    const ready = () => keys.filter((k) => indeg.get(k) === 0 && !order.includes(k)).sort((a, b) => maxLevel[a]! - maxLevel[b]! || name(a).localeCompare(name(b)));
+    const placed = new Set<string>();
+    const ready = () =>
+      keys
+        .filter((k) => !placed.has(k) && deps[k]!.every((g) => g.some((d) => placed.has(d))))
+        .sort((a, b) => maxLevel[a]! - maxLevel[b]! || name(a).localeCompare(name(b)));
     let r = ready();
     while (r.length) {
       const n = r[0]!;
       order.push(n);
-      for (const k of keys) if (deps[k]!.includes(n)) indeg.set(k, indeg.get(k)! - 1);
+      placed.add(n);
       r = ready();
     }
+    if (order.length !== keys.length) order.push(...keys.filter((k) => !placed.has(k))); // ciclo: mantem no fim
     out.push({ id: sid, keyTrainers: order, deps, maxLevel, sourceOf });
   }
   return out;
