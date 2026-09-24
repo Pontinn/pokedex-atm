@@ -419,7 +419,7 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_join.md`
 
 - [ ] F9.2 Grade de itens com busca PT/EN
   - hash:
-  - Done when: items filtrados; categoria; rarity; textura
+  - Done when: items filtrados; categoria; rarity; textura; tag acima do nome no card de item, sem sobreposicao (prints/2.png)
   - notas:
 
 - [ ] F9.3 Pagina do item
