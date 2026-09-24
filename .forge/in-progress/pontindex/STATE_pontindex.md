@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: ONDA 2 Juncao (sonnet) B3.3 B4.1 B4.2 B2.5, iniciado 2026-09-24 17:12, timer bfvt7yylp
+running_agent: Onda 2 Juncao (bfvt7yylp); F1.4 prep i18n+porta (bevqlf371); Auditoria aguardando dataset (b42tnoomp)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -243,3 +243,10 @@ updated: 2026-09-24
 ## 2026-09-24 17:11 - Onda 1b concluida (16:53-17:10, 17 min): F1.1 a3bfc480, F1.2 e2bc3ad0, F1.3 311fbd0a (+ handoff 122178c8)
 - Conferido: vitest 193/193 (21 arquivos), typecheck e lint limpos. Desvios aceitos: watermark em components.css (F1.4 nao redeclara); chaves theme.<id> em ingles; mais chaves excluidas (captured.gen1, evo.<pedra>). Pendente para F1.4: checagem de sobreposicao tambem em EN (harness so testou PT).
 - Onda 2 (Juncao, sonnet) disparada em modo autonomo.
+- 2026-09-24 17:15 Pontin aprovou paralelizar: F1.4 (so depende de B7.1 e B3.4) e a preparacao da auditoria (esperados montados dos arquivos crus, sem ver o pipeline) junto com a Onda 2. Configuracoes/Sincronizar (F10/F11) podem entrar em paralelo depois da F1.4.
+- 17:19 PLANO DO FRONTEND EM PARALELO (proposto ao Pontin, pelos Consumes da SPEC): apos F1.4 -> Grupo C (F10 Configuracoes + F11 Sincronizar) em paralelo com F2 (home/busca, cria captured/team/history stores); apos F2 -> Grupo A (F3 Dex -> F4 ficha -> F5 -> F6 captura -> F7 comparar, em fila) e Grupo B (F8 treinadores + F9 bolas/itens/pagina de item) em paralelo; no fim F12 (PWA) e T1 em fila. Todos opus. Pedido enviado ao agente F1.4: registro de telas completo com placeholders por tela (router/shell/nav congelados depois), cada agente so troca os arquivos da propria tela.
+- 17:21 Pontin: paralelizar SO com risco baixo ou nulo para a qualidade. Avaliado: grupo C || F2 (nulo), A || B (baixo: componentes compartilhados sao da F1.4 e ficam congelados; ArtworkImage e PokemonCard so dentro do grupo A); dentro do grupo A e F12/T1 em fila. Regra: agente que precisar mudar componente compartilhado avisa o orquestrador, que roteia para um unico agente em ordem.
+
+## 2026-09-24 17:37 - F1.4 concluida (17:15-17:36, 21 min): f0d5b4fa (+ handoff 7f1c3ec7)
+- Registro com as 11 telas e placeholders; shell/nav/router/primitivos congelados. vitest 215/215, typecheck limpo. e2e shell 15/15 headless com fixture (sem dataset real). expectNoOverlap PT+EN 360/390/1280.
+- Riscos do paralelo levantados pelo agente e decididos por mim: (1) messages.ts seria o unico arquivo comum aos 3 agentes de tela -> dividir em modulos por tela (messages.ts vira agregador congelado); (2) playwright.config fixo em 4173 com build completo (quebraria com codigo em andamento dos outros) -> PW_PORT por agente (A 4174, B 4175, C 4176) e PW_DEV=1 com vite dev. Prep enviada ao mesmo agente (timer bevqlf371). Grupo C so dispara depois dessa prep.

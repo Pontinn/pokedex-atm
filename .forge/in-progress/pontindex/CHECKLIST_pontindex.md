@@ -324,8 +324,8 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F1 (finalizacao): Fundacao visual, i18n, navegacao e shell
 
-- [ ] F1.4 Shell desktop e mobile, boot, tabbar/sheet e som (paginas reais)
-  - hash:
+- [x] F1.4 Shell desktop e mobile, boot, tabbar/sheet e som (paginas reais)
+  - hash: f0d5b4fa
   - Done when (literal da SPEC): `mobile-boot-lid-closed.png`, `mobile-nav-mais-sheet.png`; `desktop-home.png` e `mobile-home.png` comparados SO na regiao do shell (sidebar no desktop; topbar-aparelho e tabbar no mobile), com a area de conteudo `#main` mascarada (`toHaveScreenshot({ mask: [page.locator("#main")] })`), porque a Home real so existe em F2; teste: com som ligado, abrir o app toca `pokedex_open` (spy); `navigate` toca `pokedex_click_short` pelo gancho; com "Reduzir animacoes" ligado, `getComputedStyle(watermark).animationDuration === "0.001s"`. Cria `tests/harness/no-overlap.ts` (`expectNoOverlap`, regra geral "Sem sobreposicao de texto") e aplica no shell (tabbar, sheet "Mais", cabecalho) a 360 px, 390 px e 1280 px, PT e EN.
   - notas:
 
