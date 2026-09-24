@@ -30,6 +30,7 @@
     "playwright.harness.config.ts",
     "tools/**/*.ts",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "src/vite-env.d.ts"
   ]
 }
