@@ -150,6 +150,16 @@ describe("species merge on the real snapshot (data-source/atm-1.3.0)", () => {
     expect(mareep?.drops).toContainEqual({ item: "silentgear:sinew", percentage: 25, quantityRange: null });
   });
 
+  it("species_additions from other namespaces apply (legendarymonuments data/cobblemon_drops: Dragonite shards 10%; audit A1)", () => {
+    const dragonite = species.get(149);
+    expect(dragonite?.drops).toHaveLength(6);
+    expect(dragonite?.drops).toContainEqual({ item: "legendarymonuments:darkstone_shard", percentage: 10, quantityRange: null });
+    expect(dragonite?.drops).toContainEqual({ item: "legendarymonuments:lightstone_shard", percentage: 10, quantityRange: null });
+    expect(dragonite?.origins.drops).toContain("legendarymonuments");
+    // data/legendarymonuments/species_additions/meltan.json (evolucao por meltan_candy_count)
+    expect(bySlug(species, "meltan").origins.evolutions).toContain("legendarymonuments");
+  });
+
   it("fields outside the base-wins list follow the addon override (zygarde/lycanroc implemented via ccc)", () => {
     const zygarde = bySlug(species, "zygarde");
     const lycanroc = bySlug(species, "lycanroc");

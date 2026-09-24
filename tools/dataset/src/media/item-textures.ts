@@ -13,6 +13,8 @@ const NAMESPACE_JARS: { ns: string; jarId: JarId }[] = [
   { ns: "cobblemon", jarId: "cobblemon" },
   { ns: "allthemons", jarId: "allthemons" },
   { ns: "mega_showdown", jarId: "mega_showdown" },
+  // drops legendarymonuments:*_shard vindos das species_additions do legendarymonuments (auditoria A1)
+  { ns: "legendarymonuments", jarId: "legendarymonuments" },
 ];
 
 export interface ItemTexturesResult {

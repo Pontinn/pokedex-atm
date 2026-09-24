@@ -7,6 +7,16 @@ import type { SourceReader } from "../source-reader";
 export const SPECIES_PREFIX = "data/cobblemon/species/";
 export const ADDITIONS_PREFIX = "data/cobblemon/species_additions/";
 
+/**
+ * O jogo aplica species_additions de QUALQUER namespace de datapack (o alvo e o campo "target"), nao so
+ * de data/cobblemon/. Namespaces verificados no snapshot atm-1.3.0 (BUGFIX auditoria A1: os 50 arquivos
+ * de drops do legendarymonuments em data/cobblemon_drops/ e o meltan.json em data/legendarymonuments/
+ * eram ignorados). O SourceReader so filtra por prefixo exato, entao a lista e fixada aqui como em
+ * SPAWN_NAMESPACES; um namespace novo em versao futura exige acrescentar aqui.
+ */
+export const ADDITIONS_NAMESPACES = ["cobblemon", "cobblemon_drops", "legendarymonuments"] as const;
+export const ADDITIONS_PREFIXES = ADDITIONS_NAMESPACES.map((ns) => `data/${ns}/species_additions/`);
+
 export interface SpeciesFileEntry {
   /** "cobblemon" | "allthemons" | "ccc" | "mega_showdown" | ... | "kubejs" */
   source: string;
@@ -58,17 +68,21 @@ export function collectSpecies(reader: SourceReader): CollectedSpecies {
     }
   };
   for (const jar of reader.listJars()) {
-    const entries = reader.readJar(jar, [SPECIES_PREFIX, ADDITIONS_PREFIX]);
+    const entries = reader.readJar(jar, [SPECIES_PREFIX, ...ADDITIONS_PREFIXES]);
     for (const { path, data } of readJsonEntries(entries, SPECIES_PREFIX, jar.fileName)) {
       species.push({ source: jar.id, path, slug: slugFromPath(path), data: asObject(data, `${jar.fileName}!${path}`) });
     }
-    pushAdditions(jar.id, readJsonEntries(entries, ADDITIONS_PREFIX, jar.fileName));
+    for (const prefix of ADDITIONS_PREFIXES) pushAdditions(jar.id, readJsonEntries(entries, prefix, jar.fileName));
   }
   // kubejs/data/cobblemon/** (precedencia 3): pastas normais nos dois modos
   const kubejs = reader.readTree("kubejs");
   for (const { path, data } of readJsonEntries(kubejs, SPECIES_PREFIX, "kubejs")) {
     species.push({ source: "kubejs", path, slug: slugFromPath(path), data: asObject(data, `kubejs!${path}`) });
   }
-  pushAdditions("kubejs", readJsonEntries(kubejs, ADDITIONS_PREFIX, "kubejs"));
-  return { species, additions };
+  const jarAdditions = additions.length;
+  for (const prefix of ADDITIONS_PREFIXES) pushAdditions("kubejs", readJsonEntries(kubejs, prefix, "kubejs"));
+  // Semantica de datapack: arquivo do kubejs com o MESMO resource location de um arquivo de jar o SUBSTITUI
+  // (kubejs carrega por ultimo). Ex.: kubejs .../generation7b/zzz_ccc_meltan.json sombreia o do ccc.
+  const kubejsPaths = new Set(additions.slice(jarAdditions).map((a) => a.path));
+  return { species, additions: additions.filter((a, i) => i >= jarAdditions || !kubejsPaths.has(a.path)) };
 }
