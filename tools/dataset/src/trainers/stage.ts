@@ -1,6 +1,15 @@
-// STUB criado pela Onda 0 (B2.1). Dono: Onda 1 - Treinadores e bolas (B5.1, B5.2). index.ts ja chama esta etapa na ordem final.
-// Preencher SOMENTE o corpo (e arquivos novos da propria pasta); a assinatura e parte do contrato.
+// B5.1: treinadores (rctmod + kubejs) e definicoes de spawn. B5.2 (proximo commit) acrescenta
+// series.json, ordem topologica dos treinadores-chave e levelCapConfig.
 import type { PipelineContext } from "../context";
+import { collectTrainers } from "./collect";
+import { mergeTrainers } from "./merge";
+import { writeTrainerFilesBySeries } from "./writer";
 
-/** Treinadores, series, treinadores-chave e levelCapConfig. */
-export async function runTrainersStage(_ctx: PipelineContext): Promise<void> {}
+/** Treinadores e definicoes de spawn (B5.1); series/ordem/level cap chegam em B5.2. */
+export async function runTrainersStage(ctx: PipelineContext): Promise<void> {
+  const collected = collectTrainers(ctx.reader);
+  const trainers = mergeTrainers(collected, ctx.species, ctx.lang, ctx.report);
+  writeTrainerFilesBySeries(ctx, trainers);
+  ctx.setCount("trainers", trainers.size);
+  ctx.report.section("trainers", { total: trainers.size });
+}
