@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: Onda 2 Juncao (bfvt7yylp); F1.4 prep i18n+porta (bevqlf371); Auditoria aguardando dataset (b42tnoomp)
+running_agent: correcao de dados pos-auditoria (opus, bvhw3uqc9); F1.4 prep i18n+porta (bevqlf371)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -250,3 +250,19 @@ updated: 2026-09-24
 ## 2026-09-24 17:37 - F1.4 concluida (17:15-17:36, 21 min): f0d5b4fa (+ handoff 7f1c3ec7)
 - Registro com as 11 telas e placeholders; shell/nav/router/primitivos congelados. vitest 215/215, typecheck limpo. e2e shell 15/15 headless com fixture (sem dataset real). expectNoOverlap PT+EN 360/390/1280.
 - Riscos do paralelo levantados pelo agente e decididos por mim: (1) messages.ts seria o unico arquivo comum aos 3 agentes de tela -> dividir em modulos por tela (messages.ts vira agregador congelado); (2) playwright.config fixo em 4173 com build completo (quebraria com codigo em andamento dos outros) -> PW_PORT por agente (A 4174, B 4175, C 4176) e PW_DEV=1 com vite dev. Prep enviada ao mesmo agente (timer bevqlf371). Grupo C so dispara depois dessa prep.
+- 17:51 Pontin saiu do PC, acompanha pelo Remote Control: mandar SO avisos curtos de andamento em texto (sem prints) quando cada tarefa terminar.
+
+## 2026-09-24 17:55 - AUDITORIA A1 (17:15-18:05, 50 min): ferramenta cd96c8ac 46276574 61bd92cd, relatorio 6d99aa07 (tools/dataset/audit/AUDIT_REPORT.md). Rodou contra public/data publicado ANTES do commit da B2.5 (preliminar).
+- 44.489 checagens. OK: bolas 48, fosseis 16, level cap, 5 series, spawns (bucket/nivel/contexto/biomas), nomes/descricoes PT/EN da amostra de 50.
+- WRONG DATA 144: (1) drops de 50 especies faltando: species_additions do legendarymonuments (data/cobblemon_drops/... e legendarymonuments/.../meltan.json) nao lidos; SPEC 5.1.2 nao lista esse jar (jogo aplica) + 2 itens faltando (darkstone/lightstone shard); (2) raridade de 65 especies fora da ordem fixa (CONFERIDO por mim: Dragonite raw uncommon/rare/ultra-rare, publicado primary ultra-rare); (3) obtain de 15 especies (evolucao faltando quando pre-evolucao e forma regional; Naganadel sem addon; Ursaluna/Greavard/Houndstone com addon de arquivo que o kubejs substitui); (4) 14 formas Mega-Z sem keystone.
+- SPEC x JOGO 5: arquivos de spawn do jar substituidos pelo kubejs no mesmo caminho aparecem duplicados.
+- COSMETICO 242: 169 especies perdem a flag de habilidade oculta (mesma habilidade normal e oculta); 73 formas Mega/Gmax com source cobblemon.
+- DECISAO PENDENTE: 26 caminhos de spawn existem em mais de um jar com conteudo diferente (so um vence no jogo, pela ordem de carga dos mods); pipeline soma os dois. Ex.: Coalossal.
+- Plano: esperar a Juncao voltar (timer bfvt7yylp), depois agente de correcao (opus) com o relatorio; re-rodar a auditoria depois.
+
+## 2026-09-24 17:59 - Onda 2 concluida (17:12-17:58): B3.3 a9c57660, B4.1+B4.2 2201334b (um commit), B2.5 7e9f9f86, contrato bolas 71b110f9, handoff be00c1cb
+- Pipeline completo publicado: 1027 especies, 964 itens, 1025 sprites, 1102 gritos, 1589 treinadores, 6 series, 48 bolas, 19,46 MB de midia. join.test 16/16.
+- Desvios: spawns.ts ganhou deriveTimeRange (presets reais morning/noon/dusk...); write.ts com delete-then-rename + retry por EPERM do OneDrive (Desktop sincronizado). Sugerir ao Pontin tirar o repo do OneDrive.
+- Auditoria re-rodada por mim no dataset final: mesmos numeros (144/2/5/242).
+- Colisoes de spawn entre jars (26): 2 resolvidas por dependencia declarada (allthemons e zamega ordering AFTER cobblemon -> Staryu e Floette); 24 ccc x mega_showdown SEM ordem declarada -> DECISAO DO PONTIN (constante SPAWN_COLLISION_WINNER, default soma).
+- Agente de correcao de dados (opus) disparado com itens 1-7 do relatorio (timer bvhw3uqc9).

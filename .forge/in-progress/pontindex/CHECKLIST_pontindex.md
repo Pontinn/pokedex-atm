@@ -266,33 +266,33 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend-foundation.md`
 
 ### Sprint B3 (continuacao): Pipeline de dados, parte 2
 
-- [ ] B3.3 Sprites 96px e ids de artwork por forma
-  - hash:
+- [x] B3.3 Sprites 96px e ids de artwork por forma
+  - hash: a9c57660
   - Done when (literal da SPEC): 1025 PNGs em `<outDir>/assets/sprites/` (publicados em `public/assets/sprites` por B2.5, mesma onda; cache em `tools/dataset/.cache/sprites/`) (`ctx.media.register("sprites", ...)` e `ctx.counts.sprites`); Charizard Mega-X `artworkId === 10034` (teste em `tests/unit/dataset/join.test.ts`).
   - notas:
 
 ### Sprint B4 (continuacao): Pipeline de dados, parte 3
 
-- [ ] B4.1 Catalogo de itens com categoria e textura
-  - hash:
+- [x] B4.1 Catalogo de itens com categoria e textura
+  - hash: 2201334b
   - Done when (literal da SPEC): `items.json` >= 932 entradas; `cobblemon:potion` tem descricao pt/en e textura; `cobblemon:aguav_berry` tem `tags` contendo `bait`.
   - notas:
 
-- [ ] B4.2 Rotas de obtencao do item e "Usado em"
-  - hash:
+- [x] B4.2 Rotas de obtencao do item e "Usado em"
+  - hash: 2201334b
   - Done when (literal da SPEC): `cobblemon:fire_stone.obtain` contem `craftable` e `usedIn.evolutions` contem `{from:133,to:136}`; `cobblemon:old_amber_fossil.usedIn.fossils` contem 142; `allthemons:pika_star.usedIn.fossils` contem 150; `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68, Mareep, vindo de B2.2).
   - notas:
 
 ### Sprint B2 (finalizacao): Pipeline de dados, parte 1
 
-- [ ] B2.5 Escrita do indice, fichas, tabela de tipos e biomas (pipeline completo com publicacao)
-  - hash:
+- [x] B2.5 Escrita do indice, fichas, tabela de tipos e biomas (pipeline completo com publicacao)
+  - hash: 7e9f9f86
   - Done when (literal da SPEC): (testes em `tests/unit/dataset/join.test.ts`, fixtures em `tests/fixtures/join/`) `speciesDetailSchema` de `src/data/schemas.ts` valida 100% dos `species/*.json`; `species-index.json` tem 1027 entradas e `searchKey` de Quagsire contem `pantano`. (CONDICIONAL, movido de B2.1) Somente se `ATM_INSTANCE_DIR` apontar para uma instancia real disponivel na maquina: rodar o pipeline com ela produz um `species-index.json` identico ao do snapshot (paridade por hash); sem instancia real, o teste e marcado `skip` com o motivo e NAO bloqueia o Done.
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 17:12 / **fim**: 17:58 / **duracao**: 46 min
 
 ---
 
@@ -310,7 +310,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 17:15 / **fim**: 18:05 / **duracao**: 50 min (1a rodada: 144 WRONG DATA, 2 MISSING, 5 SPEC x JOGO, 242 COSMETIC; correcao em andamento)
 
 ---
 
