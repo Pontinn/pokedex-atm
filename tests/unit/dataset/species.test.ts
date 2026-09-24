@@ -1,6 +1,7 @@
 // B2.3/B2.4: spawns, raridade, fosseis, rotas "Como obter", evolucoes/cadeia e formas com item necessario.
 // Roda sobre o snapshot real (data-source/atm-1.3.0), equivalente a
 // `npm run dataset -- --only speciesDerive --out tools/dataset/out/_species` (sem publicar em public/).
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 import { createContext, type PipelineContext } from "../../../tools/dataset/src/context";
@@ -11,6 +12,7 @@ import { collectSpecies } from "../../../tools/dataset/src/species/collect";
 import { mergeSpecies } from "../../../tools/dataset/src/species/merge";
 import { deriveSpeciesObtain, type ObtainDeps } from "../../../tools/dataset/src/species/obtain";
 import { deriveRarity } from "../../../tools/dataset/src/species/rarity";
+import { buildLoadOrder, resolveSpawnFiles, SPAWN_COLLISION_WINNER, type SpawnCollision } from "../../../tools/dataset/src/species/spawns";
 import { runSpeciesDerive, type DerivedSpecies } from "../../../tools/dataset/src/species/stage-derive";
 
 process.env.DATASET_QUIET = "1";
@@ -65,6 +67,47 @@ describe("species derive stage on the real snapshot (data-source/atm-1.3.0)", ()
     expect(derived(149).rarity).toEqual({ primary: "uncommon", secondary: ["rare", "ultra-rare"] });
     // Magikarp: common + uncommon (mais entradas uncommon que common) -> primary common
     expect(derived(129).rarity).toEqual({ primary: "common", secondary: ["uncommon"] });
+  });
+
+  it("kubejs com o mesmo caminho substitui o arquivo do jar (0550_basculin, 0901_ursaluna_bloodmoon, 0971_greavard; auditoria A1)", () => {
+    expect(derived(550).spawns.every((s) => s.source === "kubejs")).toBe(true);
+    expect(derived(550).spawns.length).toBeGreaterThan(0);
+    expect(derived(901).spawns.some((s) => s.source === "ccc")).toBe(false);
+    expect(derived(971).spawns.some((s) => s.source === "ccc")).toBe(false);
+    expect(derived(971).obtain.map((r) => r.kind)).toEqual(["packSpawn", "breeding"]);
+  });
+
+  it("ordem de carga declarada no neoforge.mods.toml: allthemons vence cobblemon (0120_staryu), zamega vence (0670_floette)", () => {
+    expect(new Set(derived(120).spawns.map((s) => s.source))).toEqual(new Set(["allthemons"]));
+    expect(new Set(derived(670).spawns.map((s) => s.source))).toEqual(new Set(["zamega"]));
+    const order = buildLoadOrder(ctx.reader);
+    expect(order.direct("allthemons", "cobblemon")).toBe(true);
+    expect(order.direct("zamega", "mega_showdown")).toBe(true);
+    expect(order.direct("ccc", "allthemons")).toBe(true); // allthemons declara ccc com ordering BEFORE
+    // ccc x mega_showdown: nada declarado entre os dois; so transitivo via allthemons
+    expect(order.direct("ccc", "mega_showdown")).toBe(false);
+    expect(order.direct("mega_showdown", "ccc")).toBe(false);
+    expect(order.transitive("ccc", "mega_showdown")).toBe(true);
+  });
+
+  it("colisoes sem ordem declarada seguem SPAWN_COLLISION_WINNER (padrao sum) e vao para merge-report.json", () => {
+    expect(SPAWN_COLLISION_WINNER).toBe("sum");
+    const report = JSON.parse(readFileSync(path.join(outDir, "merge-report.json"), "utf8")) as { spawnCollisions: SpawnCollision[] };
+    const unresolved = report.spawnCollisions.filter((c) => c.resolution.startsWith("policy:sum"));
+    expect(unresolved.length).toBe(24);
+    expect(unresolved.every((c) => c.mods.includes("ccc") && c.mods.includes("mega_showdown"))).toBe(true);
+    expect(report.spawnCollisions).toContainEqual({ path: "data/cobblemon/spawn_pool_world/0120_staryu.json", mods: ["cobblemon", "allthemons"], resolution: "loadOrder:allthemons" });
+  });
+
+  it("resolveSpawnFiles: politica explicita escolhe um jar so quando nao ha ordem declarada", () => {
+    const files = [
+      { source: "ccc", where: "a", path: "p.json", data: {} },
+      { source: "mega_showdown", where: "b", path: "p.json", data: {} },
+    ];
+    const none = { direct: () => false, transitive: () => false };
+    expect(resolveSpawnFiles(files, none, [], "sum")).toHaveLength(2);
+    const picked = resolveSpawnFiles(files, none, [], "mega_showdown");
+    expect(picked.map((f) => f.source)).toEqual(["mega_showdown"]);
   });
 
   it("Eevee: rarity uncommon/[rare,ultra-rare] e 5 entradas de spawn (SPEC 5.1.4, 0133_eevee.json real)", () => {

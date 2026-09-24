@@ -7,6 +7,9 @@
 // `DerivedSpecies` (abaixo) e o tipo de extensao: quem monta species/<dex>.json (B2.5, Onda 2, index-writer.ts)
 // deve importar `DerivedSpecies` daqui e fazer `ctx.species.get(dex) as DerivedSpecies` para ler
 // spawns/rarity/obtain/evolutions/preEvolution/evolutionChain/resolvedForms (ver HANDOFF_species.md).
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { writeJsonAtomic } from "../lib/fs-atomic";
 import type { EvolutionChain, EvolutionEdge, ObtainRoute, RarityInfo, SpawnEntry, SpeciesForm } from "../../../../src/data/types";
 import type { MergedSpecies, PipelineContext } from "../context";
 import { buildChain, edgesForSpecies, findChainRoot, findEdge, resolvePreEvolution } from "./evolutions";
@@ -14,7 +17,7 @@ import { collectFossils, resolveFossils } from "./fossils";
 import { collectMegaItemDefs, resolveForm } from "./forms";
 import { deriveSpeciesObtain, type ObtainDeps } from "./obtain";
 import { deriveRarity } from "./rarity";
-import { collectSpawnsBySlug } from "./spawns";
+import { collectSpawnsBySlug, type SpawnCollision } from "./spawns";
 
 /** Campos gravados em cada MergedSpecies por esta etapa (B2.3/B2.4). */
 export interface SpeciesDerivedFields {
@@ -32,6 +35,25 @@ export interface SpeciesDerivedFields {
 
 export type DerivedSpecies = MergedSpecies & SpeciesDerivedFields;
 
+/** Acrescenta spawnCollisions ao merge-report.json escrito pela etapa speciesCore (mesmo outDir). */
+function recordSpawnCollisions(ctx: PipelineContext, collisions: SpawnCollision[]): void {
+  const file = path.join(ctx.outDir, "merge-report.json");
+  let report: Record<string, unknown> = {};
+  if (existsSync(file)) {
+    try {
+      report = JSON.parse(readFileSync(file, "utf8")) as Record<string, unknown>;
+    } catch {
+      report = {};
+    }
+  }
+  report.spawnCollisions = collisions;
+  writeJsonAtomic(file, report, { pretty: true });
+  const unresolved = collisions.filter((c) => c.resolution.startsWith("policy:"));
+  if (unresolved.length) {
+    ctx.report.warn("W_SPAWN_COLLISION", `${unresolved.length} spawn_pool_world repetidos entre jars sem ordem de carga declarada (SPAWN_COLLISION_WINNER)`, unresolved.map((c) => c.path));
+  }
+}
+
 /** Spawns, raridade, fosseis, rotas Como obter, evolucoes e formas. */
 export async function runSpeciesDerive(ctx: PipelineContext): Promise<void> {
   const species = ctx.species;
@@ -40,7 +62,11 @@ export async function runSpeciesDerive(ctx: PipelineContext): Promise<void> {
   for (const ms of species.values()) slugToDex.set(ms.slug, ms.dex);
 
   // B2.3 passo 1: spawns de todos os jars + kubejs, agrupados por especie.
-  const spawnsBySlug = collectSpawnsBySlug(ctx);
+  // Arquivos com o mesmo resource location: kubejs substitui jar; entre jars vale a ordem de carga declarada;
+  // sem ordem declarada, SPAWN_COLLISION_WINNER (spawns.ts). Toda colisao vai para merge-report.json.
+  const spawnCollisions: SpawnCollision[] = [];
+  const spawnsBySlug = collectSpawnsBySlug(ctx, spawnCollisions);
+  recordSpawnCollisions(ctx, spawnCollisions);
   const spawnsByDex = new Map<number, SpawnEntry[]>();
   let totalSpawnEntries = 0;
   for (const [slug, entries] of spawnsBySlug) {

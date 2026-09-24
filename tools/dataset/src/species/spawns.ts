@@ -3,7 +3,8 @@ import type { SpawnEntry, SpawnTimeRange } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
 import { readJsonEntries } from "../jar-reader";
 import { PipelineError } from "../lib/errors";
-import type { JarRef } from "../source-reader";
+import TOML from "@iarna/toml";
+import { MODS_TOML, type JarId, type JarRef, type SourceReader } from "../source-reader";
 import { isRarityBucket } from "./rarity";
 
 /**
@@ -135,20 +136,171 @@ function collectFile(data: unknown, source: string, where: string, report: Pipel
   }
 }
 
-/** slug -> todas as entradas de spawn (todas contam, mesmo especie com spawn base + spawn de addon). */
-export function collectSpawnsBySlug(ctx: Pick<PipelineContext, "reader" | "report">): Map<string, SpawnEntry[]> {
-  const out = new Map<string, SpawnEntry[]>();
+// ---------------------------------------------------------------------------
+// Resolucao de arquivos com o MESMO resource location (auditoria A1)
+// ---------------------------------------------------------------------------
+
+/**
+ * Politica para arquivos spawn_pool_world presentes em mais de um jar SEM ordem de carga declarada entre
+ * os mods (ex. 24 colisoes ccc x mega_showdown no atm-1.3.0). "sum" = comportamento historico (todas as
+ * entradas dos dois arquivos contam, SPEC 5.1.2); um JarId = esse jar vence quando estiver entre os donos.
+ * DECISAO PENDENTE do usuario: nao alterar sem a decisao dele (cada colisao vai para merge-report.json).
+ */
+export type SpawnCollisionPolicy = "sum" | JarId;
+export const SPAWN_COLLISION_WINNER: SpawnCollisionPolicy = "sum";
+
+export interface SpawnCollision {
+  /** caminho do arquivo dentro do datapack (resource location), ex. data/cobblemon/spawn_pool_world/0120_staryu.json */
+  path: string;
+  /** donos, na ordem de leitura (jar id ou "kubejs") */
+  mods: string[];
+  /** "kubejs" (kubejs substitui), "loadOrder:<jar>" (ordering declarado no neoforge.mods.toml), "policy:<SPAWN_COLLISION_WINNER>" */
+  resolution: string;
+}
+
+interface ModsTomlDeps {
+  mods?: { modId?: string }[];
+  dependencies?: Record<string, { modId?: string; ordering?: string }[]>;
+}
+
+/**
+ * Relacao "carrega depois de" entre os jars, lida do META-INF/neoforge.mods.toml de cada um:
+ * A depende de B com ordering="AFTER" => A carrega depois de B; ordering="BEFORE" => B carrega depois de A.
+ * direct = so o declarado entre os dois; transitive = fecho transitivo (so entre mods presentes).
+ */
+export interface LoadOrder {
+  /** ordering declarado diretamente entre os dois mods */
+  direct: (a: string, b: string) => boolean;
+  /** fecho transitivo (via um terceiro mod presente) */
+  transitive: (a: string, b: string) => boolean;
+}
+
+export function buildLoadOrder(reader: SourceReader): LoadOrder {
+  const decoder = new TextDecoder();
+  const modIdToJar = new Map<string, string>();
+  const tomls: { jar: string; toml: ModsTomlDeps }[] = [];
+  for (const jar of reader.listJars() as JarRef[]) {
+    const bytes = reader.readJar(jar, []).get(MODS_TOML);
+    if (!bytes) continue;
+    let toml: ModsTomlDeps;
+    try {
+      toml = TOML.parse(decoder.decode(bytes)) as ModsTomlDeps;
+    } catch {
+      continue;
+    }
+    for (const m of toml.mods ?? []) if (m.modId) modIdToJar.set(m.modId, jar.id);
+    tomls.push({ jar: jar.id, toml });
+  }
+  // after.get(x) = conjunto de jars que x carrega depois
+  const after = new Map<string, Set<string>>();
+  const add = (later: string, earlier: string) => {
+    if (later === earlier) return;
+    const set = after.get(later) ?? new Set<string>();
+    set.add(earlier);
+    after.set(later, set);
+  };
+  for (const { jar, toml } of tomls) {
+    for (const [owner, deps] of Object.entries(toml.dependencies ?? {})) {
+      if (modIdToJar.get(owner) !== jar) continue;
+      for (const dep of deps ?? []) {
+        const other = dep.modId ? modIdToJar.get(dep.modId) : undefined;
+        if (!other) continue;
+        const ordering = String(dep.ordering ?? "NONE").toUpperCase();
+        if (ordering === "AFTER") add(jar, other);
+        else if (ordering === "BEFORE") add(other, jar);
+      }
+    }
+  }
+  const closure = new Map<string, Set<string>>();
+  const reach = (x: string, seen: Set<string> = new Set()): Set<string> => {
+    const cached = closure.get(x);
+    if (cached) return cached;
+    const out = new Set<string>();
+    seen.add(x);
+    for (const y of after.get(x) ?? []) {
+      out.add(y);
+      if (!seen.has(y)) for (const z of reach(y, seen)) out.add(z);
+    }
+    closure.set(x, out);
+    return out;
+  };
+  return { direct: (a, b) => after.get(a)?.has(b) ?? false, transitive: (a, b) => reach(a).has(b) };
+}
+
+interface SpawnFile {
+  source: string;
+  where: string;
+  path: string;
+  data: unknown;
+}
+
+/**
+ * Arquivos que valem no jogo por resource location: kubejs substitui jar (datapack, kubejs carrega por
+ * ultimo); entre jars, o que carrega depois de TODOS os outros donos por ordering DECLARADO DIRETAMENTE substitui;
+ * sem ordem declarada vale SPAWN_COLLISION_WINNER. Toda colisao entra em `collisions`.
+ */
+export function resolveSpawnFiles(
+  files: readonly SpawnFile[],
+  order: LoadOrder,
+  collisions: SpawnCollision[],
+  policy: SpawnCollisionPolicy = SPAWN_COLLISION_WINNER,
+): SpawnFile[] {
+  const byPath = new Map<string, SpawnFile[]>();
+  for (const f of files) byPath.set(f.path, [...(byPath.get(f.path) ?? []), f]);
+  const out: SpawnFile[] = [];
+  for (const [p, owners] of byPath) {
+    if (owners.length === 1) {
+      out.push(owners[0] as SpawnFile);
+      continue;
+    }
+    const mods = owners.map((o) => o.source);
+    const kube = owners.filter((o) => o.source === "kubejs");
+    if (kube.length > 0) {
+      out.push(...kube);
+      collisions.push({ path: p, mods, resolution: "kubejs" });
+      continue;
+    }
+    const beatsAll = (rel: (a: string, b: string) => boolean) =>
+      owners.find((o) => owners.every((other) => other === o || rel(o.source, other.source)));
+    const winner = beatsAll(order.direct);
+    if (winner) {
+      out.push(winner);
+      collisions.push({ path: p, mods, resolution: `loadOrder:${winner.source}` });
+      continue;
+    }
+    const chosen = policy === "sum" ? undefined : owners.find((o) => o.source === policy);
+    if (chosen) out.push(chosen);
+    else out.push(...owners);
+    // Ordem so transitiva (ex. ccc x mega_showdown: allthemons carrega depois do mega_showdown e antes do
+    // ccc) fica registrada mas NAO decide sozinha: a politica dessas colisoes e decisao do usuario.
+    const transitiveWinner = beatsAll(order.transitive);
+    const note = transitiveWinner ? `; transitiveLoadOrder:${transitiveWinner.source}` : "";
+    collisions.push({ path: p, mods, resolution: `policy:${chosen ? policy : "sum"}${note}` });
+  }
+  return out;
+}
+
+/** slug -> todas as entradas de spawn dos arquivos que valem no jogo (ver resolveSpawnFiles). */
+export function collectSpawnsBySlug(
+  ctx: Pick<PipelineContext, "reader" | "report">,
+  collisions: SpawnCollision[] = [],
+): Map<string, SpawnEntry[]> {
+  const files: SpawnFile[] = [];
   for (const jar of ctx.reader.listJars() as JarRef[]) {
     const entries = ctx.reader.readJar(jar, SPAWN_PREFIXES);
     for (const prefix of SPAWN_PREFIXES) {
       for (const { path, data } of readJsonEntries(entries, prefix, jar.fileName)) {
-        collectFile(data, jar.id, `${jar.fileName}!${path}`, ctx.report, out);
+        files.push({ source: jar.id, where: `${jar.fileName}!${path}`, path, data });
       }
     }
   }
   const kubejs = ctx.reader.readTree("kubejs");
   for (const { path, data } of readJsonEntries(kubejs, KUBEJS_SPAWN_PREFIX, "kubejs")) {
-    collectFile(data, "kubejs", `kubejs!${path}`, ctx.report, out);
+    files.push({ source: "kubejs", where: `kubejs!${path}`, path, data });
+  }
+  const out = new Map<string, SpawnEntry[]>();
+  for (const f of resolveSpawnFiles(files, buildLoadOrder(ctx.reader as SourceReader), collisions)) {
+    collectFile(f.data, f.source, f.where, ctx.report, out);
   }
   return out;
 }
