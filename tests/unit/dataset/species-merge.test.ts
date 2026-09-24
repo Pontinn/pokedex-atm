@@ -160,6 +160,12 @@ describe("species merge on the real snapshot (data-source/atm-1.3.0)", () => {
     expect(bySlug(species, "meltan").origins.evolutions).toContain("legendarymonuments");
   });
 
+  it("forms redefined by an addon take the addon as source (Blastoise Mega/Gmax from mega_showdown; audit A1)", () => {
+    const blastoise = species.get(9);
+    const mega = blastoise?.forms.find((f) => f.name === "Mega");
+    expect(mega?.source).toBe("mega_showdown");
+  });
+
   it("same ability listed as normal and hidden keeps both roles (Gastly levitate; audit A1)", () => {
     expect(species.get(92)?.abilities).toEqual([
       { id: "levitate", hidden: false },

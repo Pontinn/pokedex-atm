@@ -278,10 +278,10 @@ function applyOverride(w: Working, entry: SpeciesFileEntry, report: MergeReport)
     const name = typeof form.raw.name === "string" ? form.raw.name : "";
     const idx = w.forms.findIndex((f) => f.raw.name === name);
     if (idx >= 0) {
-      if (!same(w.forms[idx]?.raw, form.raw)) {
-        w.forms[idx] = form;
-        formsReplaced.push(name);
-      }
+      // o addon que (re)define a forma vence e vira a origem mesmo com conteudo identico ao base (SPEC 5.1.2:
+      // addon vence no mesmo nome, pois e ele quem define Megas/Gmax; BUGFIX auditoria A1, 73 formas "cobblemon")
+      if (!same(w.forms[idx]?.raw, form.raw)) formsReplaced.push(name);
+      w.forms[idx] = form;
     } else {
       w.forms.push(form);
       formsAdded.push(name);
@@ -319,7 +319,8 @@ function applyAddition(w: Working, add: AdditionEntry, report: MergeReport): voi
         const idx = w.forms.findIndex((f) => f.raw.name === name);
         if (idx >= 0) {
           const current = w.forms[idx] as { raw: Json; source: string };
-          w.forms[idx] = { raw: { ...current.raw, ...form.raw }, source: current.source };
+          // a adicao que lista a forma passa a ser a origem (mesma regra do override)
+          w.forms[idx] = { raw: { ...current.raw, ...form.raw }, source: form.source };
           formsMerged.push(name);
         } else {
           w.forms.push(form);
