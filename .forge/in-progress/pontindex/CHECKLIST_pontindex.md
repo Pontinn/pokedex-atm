@@ -24,34 +24,34 @@
 
 ### Sprint B1: Scaffolding do projeto
 
-- [ ] B1.1 Projeto Vite + React + TS com qualidade
-  - hash:
+- [x] B1.1 Projeto Vite + React + TS com qualidade
+  - hash: 3728f119
   - Done when (literal da SPEC): `npm run typecheck && npm run lint && npm run build` verdes; `dist/index.html` existe.
-  - notas:
+  - notas: typecheck, lint e build verdes; dist/index.html gerado. tsconfig em 3 arquivos (tsconfig.json raiz com references + tsconfig.app.json (src) + tsconfig.node.json (tools, tests, configs)), padrao do template Vite; paths @/* e @dataset-types nos tres. Regras de lint conferidas com arquivo de prova (travessao e texto JSX literal geram erro).
 
-- [ ] B1.2 Higiene do repositorio e deploy Vercel
-  - hash:
+- [x] B1.2 Higiene do repositorio e deploy Vercel
+  - hash: 0460f36d
   - Done when (literal da SPEC): `git status` limpo apos build; deploy de preview na Vercel serve `/` e `/data/<ver>/dataset-manifest.json` com header immutable.
-  - notas:
+  - notas: vercel.json validado (JSON), dist/ ignorado (git status limpo apos build). PENDENTE: o deploy de preview na Vercel (header immutable em /data/<ver>/dataset-manifest.json) so pode ser conferido depois de push + dataset publicado (Onda 2); push nao autorizado nesta onda.
 
-- [ ] B1.3 PWA base, fontes e icones empacotados
-  - hash:
+- [x] B1.3 PWA base, fontes e icones empacotados
+  - hash: e8a67bc0
   - Done when (literal da SPEC): `dist/sw.js` e `dist/manifest.webmanifest` gerados; nenhum request para dominios externos ao abrir `npm run preview` (verificado com Playwright interceptando `**`).
-  - notas:
+  - notas: dist/sw.js e dist/manifest.webmanifest gerados (precache 34 entradas, ~553 KiB); preview aberto com Playwright headless interceptando ** : 5 requests, 0 externos.
 
-- [ ] B1.4 Geradores de assets (paleta de tipos, icones, mascara)
-  - hash:
+- [x] B1.4 Geradores de assets (paleta de tipos, icones, mascara)
+  - hash: 6bbff07f
   - Done when (literal da SPEC): `types.generated.css` contem 18 blocos; `public/icons` tem 5 PNGs; snapshot test do CSS gerado (`tests/unit/build/type-css.test.ts`).
-  - notas:
+  - notas: 18 blocos .t-/.g- + :root; 5 PNGs em public/icons; pokeball-mask.png; gen:assets idempotente (hash igual em 2 execucoes); prebuild = gen:assets; tests/unit/build/type-css.test.ts (3 testes, snapshot) verde.
 
-- [ ] B1.5 Contratos compartilhados congelados e configuracao de testes
-  - hash:
+- [x] B1.5 Contratos compartilhados congelados e configuracao de testes
+  - hash: 07372462
   - Done when (literal da SPEC): `npm run typecheck` verde com os 5 arquivos; `tests/unit/build/contracts.test.ts`: `THEME_IDS.length === 7` e `THEME_IDS[0] === "classic"`, `heavyBallMultiplier(905) === 1`, `(1001) === 2`, `(3500) === 4`, `normalizeSearch("Pântano") === "pantano"`; `npx playwright test --list`, `npx playwright test -c playwright.harness.config.ts --list` e `npx vitest --run --passWithNoTests` sobem sem erro de configuracao.
-  - notas:
+  - notas: typecheck verde; contracts.test.ts verde (6 testes somando type-css); vitest --run --passWithNoTests ok; playwright --list das duas configs carrega sem erro (0 testes; com --pass-with-no-tests sai 0). vitest: jsdom padrao, environmentMatchGlobs manda tests/unit/{build,dataset}/** para node.
 
 ### Sprint B2: Pipeline de dados, parte 1 (especies, spawns, fosseis, evolucoes, formas)
 
-- [ ] B2.1 Leitor da fonte (snapshot ou instancia real), manifesto e escrita atomica
+- [~] B2.1 Leitor da fonte (snapshot ou instancia real), manifesto e escrita atomica
   - hash:
   - Done when (literal da SPEC): (obrigatorio, sempre; `species 1027` so aparece depois de B2.2, que fecha a Onda 0 junto com esta feature) `npm run dataset -- --only speciesCore --out tools/dataset/out/_base --skip-media --report` termina com codigo 0 e imprime `species 1027` rodando APENAS com o snapshot `data-source/atm-1.3.0` em uma maquina limpa sem o modpack (sem `--instance` e sem `ATM_INSTANCE_DIR`), com `pack = {name:"All the Mons", version:"1.3.0", minecraft:"1.21.1"}` e `cobblemonVersion = "1.7.3"` conferidos na saida do `--report` e em `tools/dataset/out/_base/report.json` (o `dataset-manifest.json` so e escrito por B2.5, Onda 2); teste unitario da deteccao com fixtures sinteticas (`mods/` so com diretorios -> snapshot; so com arquivos zip -> instancia; misto -> `E_SOURCE_MODE_UNKNOWN`; snapshot cujo `MANIFEST.json` tambem responde por `manifest.json` nao muda o modo); rodar com `ATM_INSTANCE_DIR` apontando para pasta inexistente falha com `E_INSTANCE_NOT_FOUND` sem criar `public/data/<ver>/` nem alterar `public/data/current.json`; os testes ficam em `tests/unit/dataset/source.test.ts` com fixtures em `tests/fixtures/source/`. (A paridade snapshot x instancia real por hash de `species-index.json` foi movida para B2.5, que e quem escreve esse arquivo.)
   - notas:
@@ -63,7 +63,7 @@
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 15:53 / **fim**: / **duracao**:
 
 ---
 
