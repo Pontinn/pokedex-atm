@@ -2,7 +2,7 @@
 
 - Agente: forge-imp-backend (datafix)
 - Inicio: 2026-09-24 17:59
-- Fim: 2026-09-24 18:25 (rodada 2 pela decisao do orquestrador: ordem de carga transitiva)
+- Fim: 2026-09-24 18:19 (rodada 2 pela decisao do orquestrador: ordem de carga transitiva)
 - Dataset publicado: `atm1.3.0-cobblemon1.7.3-20260924-1344fc8b` (antes `...-550de566`, e antes disso `...-5b4a9ffa`)
 
 ## Status
