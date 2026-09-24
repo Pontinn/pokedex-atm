@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: gate (ate a Onda 2; parar ao fim de cada onda)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: ONDA 1 (4 em paralelo, iniciados 2026-09-24 16:25) - especies (sonnet, timer b8eky1zji), pokeapi-media (sonnet, brn35m826), trainers-balls (sonnet, b25a2ppz8), rules-storage (opus, bayfb1gu5)
+running_agent: ONDA 1 - pokeapi-media (brn35m826), trainers-balls (b25a2ppz8), rules-storage (bayfb1gu5); ONDA 1b frontend-foundation (opus, b06dnxcn1); especies CONCLUIDO
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -225,3 +225,9 @@ updated: 2026-09-24
 - Pontin: deploy na Vercel so no fim do projeto (B1.2 parte Vercel adiada ate la).
 - Pedido do Pontin: tabela de tempos por agente ao fim da Onda 1.
 - 16:30 Pontin aprovou a AUDITORIA de dados (Onda 2b, opus independente): exaustiva nas 1027 especies + amostra de 50; substitui a conferencia no jogo (Pontin esta em outro PC, sem o jogo). Onda 3 (F2+) so apos auditoria limpa. Conferencia no jogo fica opcional para quando ele estiver no PC de casa.
+
+## 2026-09-24 16:54 - Onda 1 Especies voltou (16:25-16:52, 27 min): B2.3+B2.4 verdes em UM commit 9718bf5e (+ handoff a74db41a)
+- Motivo do commit unico: exemplo do Done de B2.3 (Charizard evolution) depende da aresta de evolucao de B2.4 e teste unico por agente. Aceito, registrado.
+- Dados reais: 3315 spawn entries, fossilRoutes 16, 1027 especies. Campos derivados via tipo DerivedSpecies (context.ts congelado nao tem campos); B2.5 le com cast (documentado no handoff). artworkId null por enquanto (B3.3 preenche).
+- ACHADO VERIFICADO por mim nos arquivos: Mewtwo tem spawn ultra-rare do ccc (legendary_spawns_ccc, cavernas/deep dark, 70-75) e Charizard spawn ultra-rare base (0006_charizard.json). SPEC dizia Mewtwo sem spawn: exemplos corrigidos (B2.3 Done, F5.1 Done, T1). O prototipo mostrava "nao nasce" para o Mewtwo: era falso no pack.
+- Onda 1b (frontend F1.1-F1.3, opus) disparada: condicao atingida (Especies terminou + B7.1 verde 34a1bd4c). Timer b06dnxcn1.
