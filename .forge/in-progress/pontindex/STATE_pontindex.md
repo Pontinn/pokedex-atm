@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: gate (ate a Onda 2; parar ao fim de cada onda)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: forge-review pre-flight Stage 4 (opus), iniciado 2026-09-24 15:47, timer bxt4ig4ut
+running_agent: nenhum (GATE: aguardando ok do Pontin para a Onda 1)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -210,3 +210,11 @@ updated: 2026-09-24
 - CHECKLIST: 58 Done when copiados LITERALMENTE da SPEC por script (o Haiku tinha parafraseado errado B2.2, B4.3, F3.2, F9.1, F9.2, F10.2, F12.1, F7.1, F4.4); T1 aponta para a matriz da SPEC; cabecalhos das Ondas 1/1b/3 corrigidos.
 
 ## 2026-09-24 15:52 - Stage 4 iniciada: feature movida para .forge/in-progress/pontindex (git mv). Referencias de caminho atualizadas em SPEC/CHECKLIST/STATE/RETOMADA/data-source README; IDEA/PRD/CONTEXT mantidos byte a byte (fingerprints intactos).
+- 2026-09-24 15:53 Onda 0 disparada (inicio registrado para o relatorio de tempos).
+
+## 2026-09-24 16:21 - Onda 0 voltou (15:53-16:21, 28 min): B1.1-B1.5, B2.1, B2.2 verdes
+- Commits 3728f119 0460f36d e8a67bc0 6bbff07f 07372462 865fc37c 225900a4 (+ 5f66e483 fcb86e9d checklist/handoff). Conferido por mim: typecheck ok, vitest 25/25, sem assinatura, 0 travessao.
+- Dados reais: modo snapshot; 1088 arquivos de especie (61 overrides) -> 1027 especies; 366 additions; 432 formas em 248 especies; lang 12238 pt / 12309 en.
+- B1.2: parte Vercel pendente (precisa de push + dataset da Onda 2).
+- BUG achado por mim: merge (a) com base vencendo em TODO campo fora forms/labels; ccc zygarde/lycanroc tem implemented:true e a base nao tem o campo -> ficaram nao implementados. Base-wins so para a lista fechada da SPEC (ccc dialga tem moves: [] -> base certa em moves). Enviado ao mesmo agente (16:20).
+- 16:22 fix do merge (a): 994cade8 (+ 4295c0f1 checklist/handoff), ~2 min. Conferido: vitest 27/27, notImplemented = []. Onda 0 total: 28 min + fix. GATE: parado aguardando o Pontin.
