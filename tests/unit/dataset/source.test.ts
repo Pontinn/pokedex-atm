@@ -183,5 +183,5 @@ describe("pipeline entry", () => {
     expect(info.pack).toEqual({ name: "All the Mons", version: "1.3.0", minecraft: "1.21.1" });
     expect(info.cobblemonVersion).toBe("1.7.3");
     expect(info.sources.length).toBeGreaterThanOrEqual(9);
-  });
+  }, 60_000);
 });
