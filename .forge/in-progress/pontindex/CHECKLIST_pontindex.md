@@ -51,19 +51,19 @@
 
 ### Sprint B2: Pipeline de dados, parte 1 (especies, spawns, fosseis, evolucoes, formas)
 
-- [~] B2.1 Leitor da fonte (snapshot ou instancia real), manifesto e escrita atomica
-  - hash:
+- [x] B2.1 Leitor da fonte (snapshot ou instancia real), manifesto e escrita atomica
+  - hash: 865fc37c
   - Done when (literal da SPEC): (obrigatorio, sempre; `species 1027` so aparece depois de B2.2, que fecha a Onda 0 junto com esta feature) `npm run dataset -- --only speciesCore --out tools/dataset/out/_base --skip-media --report` termina com codigo 0 e imprime `species 1027` rodando APENAS com o snapshot `data-source/atm-1.3.0` em uma maquina limpa sem o modpack (sem `--instance` e sem `ATM_INSTANCE_DIR`), com `pack = {name:"All the Mons", version:"1.3.0", minecraft:"1.21.1"}` e `cobblemonVersion = "1.7.3"` conferidos na saida do `--report` e em `tools/dataset/out/_base/report.json` (o `dataset-manifest.json` so e escrito por B2.5, Onda 2); teste unitario da deteccao com fixtures sinteticas (`mods/` so com diretorios -> snapshot; so com arquivos zip -> instancia; misto -> `E_SOURCE_MODE_UNKNOWN`; snapshot cujo `MANIFEST.json` tambem responde por `manifest.json` nao muda o modo); rodar com `ATM_INSTANCE_DIR` apontando para pasta inexistente falha com `E_INSTANCE_NOT_FOUND` sem criar `public/data/<ver>/` nem alterar `public/data/current.json`; os testes ficam em `tests/unit/dataset/source.test.ts` com fixtures em `tests/fixtures/source/`. (A paridade snapshot x instancia real por hash de `species-index.json` foi movida para B2.5, que e quem escreve esse arquivo.)
-  - notas:
+  - notas: tests/unit/dataset/source.test.ts (11 testes) verde: diretorios -> snapshot, zips -> instancia (mesmas entradas), misto -> E_SOURCE_MODE_UNKNOWN, MANIFEST.json respondendo como manifest.json no NTFS nao muda o modo, ATM_INSTANCE_DIR inexistente -> E_INSTANCE_NOT_FOUND sem tocar public/data. Comando do Done when sai 0 com pack {All the Mons, 1.3.0, 1.21.1} e cobblemonVersion 1.7.3 no --report e em tools/dataset/out/_base/report.json. Stubs das 7 etapas criados; --out restrito a tools/dataset/out/<sub>.
 
-- [ ] B2.2 Lang PT/EN e merge de especies
-  - hash:
+- [x] B2.2 Lang PT/EN e merge de especies
+  - hash: 225900a4
   - Done when (literal da SPEC): teste unitario (`tests/unit/dataset/species-merge.test.ts`, fixtures em `tests/fixtures/species-merge/`: bulbasaur, charizard do Cobblemon + charizard do mega_showdown) garante `baseStats` do Cobblemon e `forms` com Mega-X/Mega-Y/Gmax; Quagsire `name.pt === "Pântano"`; `counts.species === 1027`; Mareep (`dex 179`) tem `SpeciesDetail.drops` (array achatado de `drops.entries` da adicao do allthemons, `amount: 5` descartado) contendo `{ item: "silentgear:sinew", percentage: 25, quantityRange: null }` e 4 entradas no total. (A verificacao `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68) pertence ao Done de B4.2, Onda 2.)
-  - notas:
+  - notas: species-merge.test.ts (8 testes) verde (fixtures + snapshot real): Charizard com baseStats do Cobblemon e formas Mega-X/Mega-Y/Gmax; Quagsire pt Pântano; 1027 especies; Mareep 4 drops com silentgear:sinew 25%. O comando do B2.1 agora imprime species 1027 (0 avisos). Merge (a): base vence em todos os campos exceto forms/labels (diferencas no merge-report). Detalhes e contagens em HANDOFF_base.md.
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
 
-**inicio**: 2026-09-24 15:53 / **fim**: / **duracao**:
+**inicio**: 2026-09-24 15:53 / **fim**: 2026-09-24 16:21 / **duracao**: 28 min
 
 ---
 
@@ -499,12 +499,16 @@ Sprints P1-P3 da SPEC (so depois que o Pontin testar e aprovar o site):
 
 (Preenchidas durante execucao com desvios, blocadores e decisoes)
 
+- Onda 0 (2026-09-24): B1.2 commitado, mas a parte do Done when que exige deploy de preview na Vercel fica PENDENTE (depende de push, nao autorizado, e do dataset publicado na Onda 2). Decisoes e desvios da Onda 0 listados em HANDOFF_base.md (secao Decisoes).
+
 ---
 
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Fix / commit |
 |---|---|---|---|
+| Onda 0 / B1.1 | `eslint.config.js` acusou a si mesmo: a constante com o travessao escrita como string literal caia na propria regra | literal com U+2014 no config | caractere montado com `String.fromCharCode(0x2014)`, no mesmo commit 3728f119 |
+| Onda 0 / B1.5 | `npx playwright test --list` sai 1 sem testes | comportamento padrao do Playwright (No tests found), nao e erro de config | conferido com `--pass-with-no-tests` (sai 0); nada a corrigir |
 
 (Preenchida durante execucao)
 
