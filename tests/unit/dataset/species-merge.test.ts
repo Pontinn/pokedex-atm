@@ -160,6 +160,13 @@ describe("species merge on the real snapshot (data-source/atm-1.3.0)", () => {
     expect(bySlug(species, "meltan").origins.evolutions).toContain("legendarymonuments");
   });
 
+  it("same ability listed as normal and hidden keeps both roles (Gastly levitate; audit A1)", () => {
+    expect(species.get(92)?.abilities).toEqual([
+      { id: "levitate", hidden: false },
+      { id: "levitate", hidden: true },
+    ]);
+  });
+
   it("fields outside the base-wins list follow the addon override (zygarde/lycanroc implemented via ccc)", () => {
     const zygarde = bySlug(species, "zygarde");
     const lycanroc = bySlug(species, "lycanroc");

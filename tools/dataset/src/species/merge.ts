@@ -115,15 +115,20 @@ export function parseStats(v: unknown): BaseStats | null {
   };
 }
 
-/** "h:<id>" -> hidden; duplicados removidos (primeira ocorrencia vence). */
+/**
+ * "h:<id>" -> hidden; duplicados removidos por (id, hidden). A mesma habilidade listada como normal E como
+ * oculta ("levitate", "h:levitate" no Gastly) gera as DUAS entradas, preservando o papel de oculta
+ * (BUGFIX auditoria A1: a deduplicacao por id perdia a marca de oculta em 169 especies).
+ */
 export function parseAbilities(v: unknown): AbilityRef[] {
   const out: AbilityRef[] = [];
   const seen = new Set<string>();
   for (const raw of strArray(v)) {
     const hidden = raw.startsWith("h:");
     const id = hidden ? raw.slice(2) : raw;
-    if (!id || seen.has(id)) continue;
-    seen.add(id);
+    const key = `${id}|${hidden}`;
+    if (!id || seen.has(key)) continue;
+    seen.add(key);
     out.push({ id, hidden });
   }
   return out;
