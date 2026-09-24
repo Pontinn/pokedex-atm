@@ -2,7 +2,7 @@
 // item.cobblemon.<id>.tooltip (en_us/pt_br) de Cobblemon-neoforge-1.7.3+1.21.1.jar, reconferidos em
 // 2026-09-24 contra data-source/atm-1.3.0 (os 48 textos batem exatamente com a tabela da SPEC B4.3,
 // nenhum mismatch encontrado). Nenhum arquivo data/ do Cobblemon define multiplicador: o tooltip e a fonte.
-import type { BallCondition, BallRule, BallTag } from "../../../../src/data/types";
+import type { BallRule, BallTag } from "../../../../src/data/types";
 
 export interface CuratedBallRule {
   rule: BallRule;
@@ -10,23 +10,10 @@ export interface CuratedBallRule {
 }
 
 // -----------------------------------------------------------------------------------------------
-// GAP DE CONTRATO (reportar ao orquestrador): `BallCondition` (src/data/types.ts, congelado B1.5) tem
-// 15 valores, um para cada bola condicional "por nome" (safari->outsideBattle, park->forestOrPlains,
-// heavy->heavyTarget, level->playerLevelHigher, lure->fishing, moon->fullMoonNight, love->oppositeGender,
-// dive->submerged, nest->targetLevelBelow30, repeat->registeredCaught, timer->turn10, dusk->lightLevel0,
-// quick->firstTurn, dream->sleeping, beast->ultraBeast) -- todos os 15 ja usados 1:1. A tabela da SPEC B4.3
-// pede MAIS DUAS bolas condicionais, `fast_ball` (applies.minBaseSpeed >= 100) e `net_ball`
-// (applies.types intersecta [water,bug]), que precisariam de um BallCondition proprio (ex.
-// "minBaseSpeedAbove", "hasAnyType") para o dominio (B6.4 rankBalls) diferenciar a logica de runtime.
-// Reutilizar um dos 15 nomes existentes faria o rankBalls aplicar a logica ERRADA (ex. checar bioma ou
-// fase da lua) para fast_ball/net_ball. Como o tipo esta congelado e nao pode ser editado aqui, uso os
-// dois literais abaixo (fora da uniao oficial) via cast documentado, e reporto o gap no HANDOFF para o
-// orquestrador estender `BallCondition` (a extensao NAO quebra nada existente: e so adicionar 2 valores).
-type PendingBallCondition = "minBaseSpeedAbove" | "hasAnyType";
-function pendingCondition(value: PendingBallCondition): BallCondition {
-  // cast documentado: valor fora da uniao oficial, ver nota do GAP DE CONTRATO acima.
-  return value as unknown as BallCondition;
-}
+// `BallCondition` (src/data/types.ts) foi estendida (Onda 2, commit "fix(contracts): ball conditions
+// for fast and net balls") com "minBaseSpeedAbove" e "hasAnyType" para fast_ball/net_ball, que sao
+// intrinsecas (o rankBalls do dominio ja resolve por `applies.minBaseSpeed`/`applies.types`, entao a
+// extensao e so para o nome da condicao existir na uniao oficial e nao exigir cast).
 
 /** Uma entrada por id do catalogo (48); build falha (runBallsStage) se faltar ou sobrar id. */
 export const BALL_RULES: Readonly<Record<string, CuratedBallRule>> = {
@@ -60,7 +47,7 @@ export const BALL_RULES: Readonly<Record<string, CuratedBallRule>> = {
       kind: "conditional",
       bestMultiplier: 4,
       worstMultiplier: 1,
-      condition: pendingCondition("minBaseSpeedAbove"),
+      condition: "minBaseSpeedAbove",
       applies: { minBaseSpeed: 100 },
     },
     tags: [],
@@ -70,7 +57,7 @@ export const BALL_RULES: Readonly<Record<string, CuratedBallRule>> = {
       kind: "conditional",
       bestMultiplier: 3,
       worstMultiplier: 1,
-      condition: pendingCondition("hasAnyType"),
+      condition: "hasAnyType",
       applies: { types: ["water", "bug"] },
     },
     tags: ["water"],

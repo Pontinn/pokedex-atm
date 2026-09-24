@@ -413,7 +413,9 @@ export type BallCondition =
   | "forestOrPlains"
   | "outsideBattle"
   | "heavyTarget"
-  | "ultraBeast";
+  | "ultraBeast"
+  | "minBaseSpeedAbove"
+  | "hasAnyType";
 
 export interface BallApplies {
   types?: TypeId[];
