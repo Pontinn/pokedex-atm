@@ -447,25 +447,25 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F10: Configuracoes
 
-- [ ] F10.1 Preferencias visuais e de som
-  - hash:
+- [x] F10.1 Preferencias visuais e de som
+  - hash: 048f5b9c
   - Done when (literal da SPEC): `desktop-settings-full.png` (inclui o bloco de idioma/termos, comparacao movida de F1.2); criterio "Preto + Inglês + som off + reduzir on" persiste apos reload.
   - notas:
 
-- [ ] F10.2 Backup, apagar dados e restaurar snapshot
-  - hash:
+- [x] F10.2 Backup, apagar dados e restaurar snapshot
+  - hash: 58419b91
   - Done when (literal da SPEC): round-trip exportar -> instalacao limpa -> importar = 5 entidades identicas (teste e2e com dois contextos de navegador); apagar so historico mantem as outras 4.
   - notas:
 
 ### Sprint F11: Sincronizacao
 
-- [ ] F11.1 Gerar codigo
-  - hash:
+- [x] F11.1 Gerar codigo
+  - hash: b319f0e3
   - Done when (literal da SPEC): com 1027 capturados + tudo, gera n frames (n >= 2) e o texto completo; com 20 capturados gera 1 QR; nenhuma requisicao de rede durante a acao (teste Playwright intercepta `**/*` e falha se houver).
   - notas:
 
-- [ ] F11.2 Receber codigo, resumo e mesclar/substituir
-  - hash:
+- [x] F11.2 Receber codigo, resumo e mesclar/substituir
+  - hash: bd2468be
   - Done when (literal da SPEC): criterio de aceite dos dois dispositivos (A/B) reproduzido em teste unitario de `mergeDocuments` e em e2e com dois contextos; codigo corrompido -> erro e IndexedDB identico (snapshot antes/depois).
   - notas:
 

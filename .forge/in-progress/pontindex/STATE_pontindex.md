@@ -280,3 +280,8 @@ updated: 2026-09-24
 - OPEN (jogo): Meltan sem evolucao para Melmetal (kubejs zzz_ccc_meltan zera evolutions, aplicado por ultimo). Anotado na SPEC 5.1.2, que tambem ganhou o texto das additions de qualquer jar e da ordem de carga.
 - Proximo: F2 (home + busca, opus) liberada. Depois de F2: grupos A e B em paralelo.
 - 18:35 Pontin: PARAR depois que F2 (home+busca) e Grupo C (F10+F11) terminarem. NAO disparar grupos A/B, F12, T1 ate novo pedido. Sugestao pendente de resposta: mover F7 (comparar) do grupo A para o B.
+
+## 2026-09-24 18:38 - Grupo C concluido (18:01-18:37): F10.1 048f5b9c, F10.2 58419b91, F11.1 b319f0e3, F11.2 bd2468be. e2e settings 14 + sync 15 headless.
+- PROBLEMA: typecheck quebrado (__APP_VERSION__ em AboutCard.tsx, apesar de vite.config define e vite-env.d.ts declara). Agente de correcao (opus) disparado; tambem move --danger para tokens.css. Timer bd6t83pq7.
+- Pedidos do grupo C: (1) evento window 'pontindex:data-changed' {keys} -> stores recarregam: enviado ao agente F2 (dono dos stores); trainers store (grupo B) deve ouvir tambem (anotar no prompt do grupo B). (2) --danger no tokens.css: no agente de correcao. (3) classes .page-head .notice-info .item-hero-tile .setting-row .card-info .btn-danger definidas no settings.css: promover a components.css depois (nao urgente). Gap: decodificacao real de camera (zxing) sem teste.
+- Pontin (18:4x): corrigir o problema do grupo C, anotar no STATE onde parou e dar PUSH quando tudo acabar (autorizacao explicita de push da branch feature/pontindex).
