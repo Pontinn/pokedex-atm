@@ -9,7 +9,7 @@ import { MANUAL_SAMPLE } from "./sample";
 import { DEFAULT_SRC } from "./raw";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const SEV_ORDER = ["WRONG DATA", "MISSING", "EXTRA", "SPEC x JOGO", "COSMETIC"] as const;
+const SEV_ORDER = ["WRONG DATA", "MISSING", "EXTRA", "SPEC x JOGO", "SEM ORDEM", "COSMETIC"] as const;
 
 function mdEsc(s: string, max = 400): string {
   const t = s.length > max ? s.slice(0, max) + "..." : s;
@@ -32,7 +32,7 @@ export function renderReport(res: CompareResult | null, notes: string[], expecte
     lines.push(`- Verificacoes individuais: ${res.checks}`);
     for (const s of SEV_ORDER) lines.push(`- ${s}: ${(by.get(s) ?? []).length}`);
     lines.push("");
-    lines.push("Legenda: WRONG DATA = valor diferente do cru; MISSING = ausente no publicado; EXTRA = sobra no publicado; SPEC x JOGO = o pipeline seguiu a SPEC ao pe da letra mas o jogo se comporta diferente; COSMETIC = texto/ordem/rotulo sem efeito no dado.", "");
+    lines.push("Legenda: WRONG DATA = valor diferente do cru; MISSING = ausente no publicado; EXTRA = sobra no publicado; SPEC x JOGO = o pipeline seguiu a SPEC ao pe da letra mas o jogo se comporta diferente; SEM ORDEM = colisao de arquivo entre jars sem ordem de carga declarada (indeterminavel pelo snapshot); COSMETIC = texto/ordem/rotulo sem efeito no dado.", "");
     for (const s of SEV_ORDER) {
       const list = by.get(s) ?? [];
       if (!list.length) continue;

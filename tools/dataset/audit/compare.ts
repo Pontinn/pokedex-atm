@@ -4,7 +4,7 @@ import path from "node:path";
 import { BALL_RULES, rarityOf, tooltipMultipliers, type Expected, type ExpSpecies } from "./expected";
 import { REPO_ROOT, readJson } from "./raw";
 
-export type Severity = "WRONG DATA" | "MISSING" | "EXTRA" | "COSMETIC" | "SPEC x JOGO";
+export type Severity = "WRONG DATA" | "MISSING" | "EXTRA" | "COSMETIC" | "SPEC x JOGO" | "SEM ORDEM";
 
 export interface Divergence {
   severity: Severity;
@@ -191,6 +191,11 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   return { datasetDir, checks, speciesChecked, divergences: out };
 }
 
+/** Pares "id" / "id(H)" ordenados, sem dedupe: duplicata real no publicado continua visivel. */
+export function abilityPairs(list: { id: string; hidden?: boolean }[]): string[] {
+  return sortStr(list.map((x) => `${x.id}${x.hidden ? "(H)" : ""}`));
+}
+
 function compareSpecies(
   e: ExpSpecies,
   a: any,
@@ -214,8 +219,8 @@ function compareSpecies(
   for (const l of ["legendary", "mythical", "ultra_beast", "custom"]) eq(scope, `labels has ${l}`, e.labels.includes(l), (a.labels ?? []).includes(l), ev, pf);
   eq(scope, "baseStats", e.baseStats, a.baseStats, ev, pf, "WRONG DATA", e.touchedBy.length > 1 ? `especie alterada por ${e.touchedBy.join(" + ")}; SPEC: base do Cobblemon vence` : undefined);
   eq(scope, "bst", Object.values(e.baseStats).reduce((s, n) => s + n, 0), a.bst, ev, pf);
-  eq(scope, "abilities (id+oculta)", sortStr(e.abilities.map((x) => x.id).filter((v, i, arr) => arr.indexOf(v) === i)), sortStr((a.abilities ?? []).map((x: any) => x.id)), ev, pf);
-  eq(scope, "abilities flag oculta duplicada", sortStr(e.abilities.map((x) => `${x.id}${x.hidden ? "(H)" : ""}`)), sortStr((a.abilities ?? []).map((x: any) => `${x.id}${x.hidden ? "(H)" : ""}`)), ev, pf, "COSMETIC", "mesma habilidade listada como normal e oculta no cru; pipeline deduplica por id");
+  // um unico check: conjunto de pares id + flag oculta dos dois lados (mesma habilidade normal E oculta no cru = 2 pares)
+  eq(scope, "abilities (id+oculta)", abilityPairs(e.abilities), abilityPairs(a.abilities ?? []), ev, pf);
   eq(scope, "eggGroups", sortStr(e.eggGroups), sortStr(a.eggGroups ?? []), ev, pf);
   eq(scope, "catchRate", e.catchRate, a.catchRate, ev, pf);
   eq(scope, "weight", e.weight, a.weight, ev, pf);
@@ -245,8 +250,10 @@ function compareSpecies(
     eq(scope, `form ${f.name} types`, f.types, m.types, ev, pf);
     eq(scope, `form ${f.name} source`, canonSource(f.source), canonSource(String(m.source)), ev, pf, "COSMETIC");
   }
-  // spawns
+  // spawns (SEM ORDEM: diferenca so em entradas de arquivos que colidem sem ordem de carga declarada)
   const as: any[] = a.spawns ?? [];
+  const unorderedKeys = new Set(e.spawnsAll.filter((s) => s.unorderedWith.length > 0).map((s) => `${s.id}|${canonSource(s.source)}`));
+  const onlyUnordered = (keys: string[]) => keys.length > 0 && keys.every((k) => unorderedKeys.has(k));
   const sid = (id: string) => String(id).replace(/^[a-z_]+:/, "");
   const sk = (s: any) => `${sid(s.id)}|${canonSource(String(s.source))}`;
   const expGame = sortStr(e.spawns.map(sk));
@@ -256,17 +263,17 @@ function compareSpecies(
     const missing = expGame.filter((x) => !act.includes(x));
     const extra = act.filter((x) => !expGame.includes(x));
     const extraExplained = extra.every((x) => expAll.includes(x));
-    if (missing.length) push({ severity: "MISSING", scope, field: "spawns", expected: J(missing), actual: "ausentes", evidence: [...new Set(e.spawns.filter((s) => missing.includes(sk(s))).map((s) => s.file))].join(", "), published: pf });
+    if (missing.length) push({ severity: onlyUnordered(missing) ? "SEM ORDEM" : "MISSING", scope, field: "spawns", expected: J(missing), actual: "ausentes", evidence: [...new Set(e.spawns.filter((s) => missing.includes(sk(s))).map((s) => s.file))].join(", "), published: pf });
     if (extra.length)
       push({
-        severity: extraExplained ? "SPEC x JOGO" : "EXTRA",
+        severity: onlyUnordered(extra) ? "SEM ORDEM" : extraExplained ? "SPEC x JOGO" : "EXTRA",
         scope,
         field: "spawns",
         expected: "ausentes no jogo",
         actual: J(extra),
         evidence: [...new Set(e.spawnsAll.filter((s) => extra.includes(sk(s))).map((s) => `${s.file}${s.disabled ? " (enabled:false)" : ""}${s.shadowedBy ? ` (sombreado por ${s.shadowedBy})` : ""}`))].join(", ") || "-",
         published: pf,
-        cause: extraExplained ? "SPEC 5.1.2 manda contar TODAS as entradas; no jogo arquivo enabled:false nao nasce e arquivo do jar com o mesmo caminho do kubejs e substituido" : undefined,
+        cause: extraExplained ? "no jogo arquivo enabled:false nao nasce; arquivo com o mesmo resource location e substituido pelo kubejs ou pelo mod que carrega depois (neoforge.mods.toml)" : undefined,
       });
   }
   // detalhes de spawn por id (bucket, level, context, biomes)
@@ -282,7 +289,8 @@ function compareSpecies(
   const pr = a.rarity ?? idx?.rarity;
   if (J(pr) !== J(e.rarity)) {
     const spec = J(pr) === J(e.rarityAll);
-    push({ severity: spec ? "SPEC x JOGO" : "WRONG DATA", scope, field: "rarity", expected: J(e.rarity), actual: J(pr), evidence: e.spawns.map((s) => `${s.bucket}@${s.file}`).join(", ") || "sem spawn", published: pf, cause: spec ? "raridade conta spawns enabled:false/sombreados" : J(pr) === J(rarityOf(as)) ? "raridade coerente com os spawns publicados; erro esta nos spawns" : undefined });
+    const unord = e.spawns.some((s) => s.unorderedWith.length > 0);
+    push({ severity: unord ? "SEM ORDEM" : spec ? "SPEC x JOGO" : "WRONG DATA", scope, field: "rarity", expected: J(e.rarity), actual: J(pr), evidence: e.spawns.map((s) => `${s.bucket}@${s.file}`).join(", ") || "sem spawn", published: pf, cause: spec ? "raridade conta spawns enabled:false/sombreados" : J(pr) === J(rarityOf(as)) ? "raridade coerente com os spawns publicados; erro esta nos spawns" : undefined });
   }
   if (idx) eq(scope, "index.rarity = ficha.rarity", J(a.rarity), J(idx.rarity), pf, "species-index.json");
   // como obter (tipos e ordem)

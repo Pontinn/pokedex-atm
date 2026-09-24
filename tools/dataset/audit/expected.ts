@@ -2,7 +2,7 @@
 // na SPEC 5.1.2-5.1.5, B2.2-B2.4, B4.3 e B5.x. Nao importa nada de tools/dataset/src (regra de independencia).
 import fs from "node:fs";
 import path from "node:path";
-import { datapackFiles, DEFAULT_SRC, findJar, readJson, rel, sources, walk, type RawSource } from "./raw";
+import { datapackFiles, DEFAULT_SRC, findJar, loadOrder, readJson, rel, sources, walk, type RawSource } from "./raw";
 
 export type Bucket = "common" | "uncommon" | "rare" | "ultra-rare";
 export const BUCKET_ORDER: Bucket[] = ["common", "uncommon", "rare", "ultra-rare"];
@@ -17,8 +17,10 @@ export interface ExpSpawn {
   file: string;
   /** arquivo com enabled:false (nao nasce no jogo) */
   disabled: boolean;
-  /** arquivo sombreado por outro pacote com o mesmo resource location (kubejs vence jar) */
+  /** arquivo substituido por outro pacote com o mesmo resource location (kubejs vence jar; entre jars vence o mod que carrega depois) */
   shadowedBy: string | null;
+  /** colide com estes pacotes sem nenhuma ordem de carga declarada (indeterminavel; somado) */
+  unorderedWith: string[];
 }
 
 export interface ExpEdge {
@@ -266,20 +268,31 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   const lmCount = addFiles.filter((a) => a.origin.startsWith("legendarymonuments")).length;
   if (lmCount) notes.push(`${lmCount} species_additions do legendarymonuments (namespaces cobblemon_drops e legendarymonuments) valem no jogo e NAO estao na lista da SPEC 5.1.2`);
 
-  // (3) spawns
+  // (3) spawns. Colisao de resource location (semantica de datapack do jogo):
+  //   (a) arquivo do kubejs substitui o do jar; (b) entre jars, o do mod que carrega DEPOIS substitui o anterior
+  //   (fecho transitivo de ordering AFTER/BEFORE nos neoforge.mods.toml); (c) par sem ordem nenhuma: indeterminavel,
+  //   os dois sao somados e marcados como SEM ORDEM.
+  const order = loadOrder(src);
+  const modOf = new Map(srcs.map((s) => [s.name, order.modIdOf(s.root)]));
   const spawnFiles: { file: string; rl: string; source: string }[] = [];
   for (const s of srcs) for (const f of datapackFiles(s, "spawn_pool_world")) spawnFiles.push({ file: f.file, rl: f.rl, source: s.name });
   const byRl = new Map<string, string[]>();
   for (const f of spawnFiles) byRl.set(f.rl, [...(byRl.get(f.rl) ?? []), f.source]);
+  const resolveCollision = (source: string, owners: string[]): { shadowedBy: string | null; unorderedWith: string[] } => {
+    const others = owners.filter((o) => o !== source);
+    if (!others.length) return { shadowedBy: null, unorderedWith: [] };
+    if (source === "kubejs") return { shadowedBy: null, unorderedWith: [] };
+    if (others.includes("kubejs")) return { shadowedBy: "kubejs", unorderedWith: [] };
+    const me = modOf.get(source);
+    const later = others.filter((o) => me && modOf.get(o) && order.cmp(me, modOf.get(o)!) === -1);
+    if (later.length) return { shadowedBy: later.join("/"), unorderedWith: [] };
+    const unordered = others.filter((o) => !me || !modOf.get(o) || order.cmp(me, modOf.get(o)!) === 0);
+    return { shadowedBy: null, unorderedWith: unordered };
+  };
   const spawnsAllByDex = new Map<number, ExpSpawn[]>();
   for (const f of spawnFiles) {
     const j = readJson(f.file);
-    const owners = byRl.get(f.rl)!;
-    let shadowedBy: string | null = null;
-    if (owners.length > 1) {
-      if (owners.includes("kubejs") && f.source !== "kubejs") shadowedBy = "kubejs";
-      else if (f.source !== "kubejs" && owners.indexOf(f.source) !== owners.length - 1) shadowedBy = `?${owners.filter((o) => o !== f.source).join("/")}`;
-    }
+    const { shadowedBy, unorderedWith } = resolveCollision(f.source, byRl.get(f.rl)!);
     for (const sp of j.spawns ?? []) {
       const slug = String(sp.pokemon ?? "").split(" ")[0]!;
       const dex = slugToDex.get(slug);
@@ -294,6 +307,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
         file: rel(f.file),
         disabled: j.enabled === false,
         shadowedBy,
+        unorderedWith,
       };
       spawnsAllByDex.set(dex, [...(spawnsAllByDex.get(dex) ?? []), e]);
     }
@@ -304,15 +318,25 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   if (kubeShadow.length) notes.push(`${kubeShadow.length} arquivos spawn_pool_world de jar sombreados pelo kubejs (mesmo resource location, kubejs vence no jogo): ${kubeShadow.map((f) => rel(f.file)).join(", ")}`);
   const jarCollide = [...byRl.entries()].filter(([, o]) => o.length > 1 && !o.includes("kubejs"));
   if (jarCollide.length) {
-    const detail = jarCollide.map(([rl]) => {
-      const per = spawnFiles.filter((f) => f.rl === rl).map((f) => {
-        const j = readJson(f.file);
-        const bs = [...new Set((j.spawns ?? []).map((s: any) => s.bucket))].join("/");
-        return `${f.source}${j.enabled === false ? "(OFF)" : ""}=${(j.spawns ?? []).length}x ${bs}`;
-      });
-      return `${rl.replace("cobblemon:spawn_pool_world/", "")} [${per.join(" vs ")}]`;
-    });
-    notes.push(`${jarCollide.length} resource locations de spawn_pool_world repetidos entre jars com conteudo diferente; no jogo so UM arquivo vence (ordem de carga dos mods, nao determinavel pelo snapshot), mas a regra da SPEC soma os dois: ${detail.join("; ")}`);
+    const fmt = (rl: string) =>
+      spawnFiles
+        .filter((f) => f.rl === rl)
+        .map((f) => {
+          const j = readJson(f.file);
+          const bs = [...new Set((j.spawns ?? []).map((s: any) => s.bucket))].join("/");
+          return `${f.source}${j.enabled === false ? "(OFF)" : ""}=${(j.spawns ?? []).length}x ${bs}`;
+        })
+        .join(" vs ");
+    const ordered: string[] = [];
+    const unordered: string[] = [];
+    for (const [rl, owners] of jarCollide) {
+      const winners = owners.filter((o) => resolveCollision(o, owners).shadowedBy === null);
+      const label = `${rl.replace("cobblemon:spawn_pool_world/", "")} [${fmt(rl)}]`;
+      if (winners.length === 1) ordered.push(`${label} -> vence ${winners[0]}`);
+      else unordered.push(`${label} -> sem ordem entre ${winners.join("/")}`);
+    }
+    notes.push(`${jarCollide.length} resource locations de spawn_pool_world repetidos entre jars; ordem de carga (fecho transitivo dos neoforge.mods.toml: ${order.edges.map(([a, b]) => `${a}<${b}`).join(", ")}) resolve ${ordered.length}: ${ordered.join("; ")}`);
+    if (unordered.length) notes.push(`SEM ORDEM: ${unordered.length} colisoes entre jars sem nenhuma declaracao de ordem (indeterminavel pelo snapshot; a auditoria soma os dois e classifica divergencias como SEM ORDEM): ${unordered.join("; ")}`);
   }
 
   // (4) fosseis
@@ -373,7 +397,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
     const preSlug = j.preEvolution ? String(j.preEvolution).split(" ")[0]! : null;
     const preDex = preSlug ? slugToDex.get(preSlug) : undefined;
     const spawnsAll = spawnsAllByDex.get(dex) ?? [];
-    const spawns = spawnsAll.filter((s) => !s.disabled && s.shadowedBy !== "kubejs");
+    const spawns = spawnsAll.filter((s) => !s.disabled && s.shadowedBy === null);
     species.set(dex, {
       dex,
       slug,

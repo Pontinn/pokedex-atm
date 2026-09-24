@@ -1,6 +1,8 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { buildExpected, type Expected } from "../../../tools/dataset/audit/expected";
 import { MANUAL_SAMPLE } from "../../../tools/dataset/audit/sample";
+import { abilityPairs } from "../../../tools/dataset/audit/compare";
+import { buildLoadOrder, DEFAULT_SRC, loadOrder, parseModsToml } from "../../../tools/dataset/audit/raw";
 
 // Fatos conhecidos da SPEC/handoffs, conferidos contra o construtor de esperado da auditoria (A1).
 describe("audit: esperado derivado do snapshot cru", () => {
@@ -64,5 +66,78 @@ describe("audit: esperado derivado do snapshot cru", () => {
     expect(MANUAL_SAMPLE).toHaveLength(50);
     expect(new Set(MANUAL_SAMPLE.map((s) => s.dex)).size).toBe(50);
     for (const s of MANUAL_SAMPLE) expect(e.species.get(s.dex)?.slug).toBe(s.slug);
+  });
+
+  it("abilities: normal + oculta da mesma habilidade = 2 pares, comparacao consistente", () => {
+    const g = e.species.get(92)!; // gastly: levitate e h:levitate no cru
+    expect(abilityPairs(g.abilities)).toEqual(["levitate", "levitate(H)"]);
+    expect(abilityPairs([{ id: "levitate", hidden: false }, { id: "levitate", hidden: true }])).toEqual(abilityPairs(g.abilities));
+    expect(abilityPairs([{ id: "levitate", hidden: false }, { id: "levitate", hidden: false }])).not.toEqual(abilityPairs(g.abilities));
+    expect(abilityPairs([{ id: "levitate", hidden: true }])).not.toEqual(abilityPairs(g.abilities));
+  });
+
+  it("colisao de spawn: kubejs vence jar; entre jars vence o mod que carrega depois", () => {
+    const only = (dex: number) => [...new Set(e.species.get(dex)!.spawns.map((s) => s.source))];
+    expect(only(120)).toEqual(["allthemons"]); // staryu: cobblemon < allthemons
+    expect(only(670)).toEqual(["zamega"]); // floette: cobblemon < zamega
+    expect(only(479)).toEqual(["ccc"]); // rotom: mega_showdown < allthemons < ccc
+    expect(only(839)).toEqual(["ccc"]); // coalossal
+    expect(e.species.get(479)!.spawnsAll.filter((s) => s.source === "mega_showdown").every((s) => s.shadowedBy === "ccc")).toBe(true);
+    expect(e.species.get(550)!.spawnsAll.filter((s) => s.source === "cobblemon").every((s) => s.shadowedBy === "kubejs")).toBe(true);
+    expect([...e.species.values()].flatMap((s) => s.spawnsAll).filter((s) => s.unorderedWith.length)).toEqual([]);
+  });
+});
+
+describe("audit: ordem de carga dos mods (neoforge.mods.toml)", () => {
+  it("parser + fecho transitivo, AFTER e BEFORE, required e optional, pares sem ordem", () => {
+    const t = (txt: string, root: string) => ({ root, toml: parseModsToml(txt) });
+    const a = t(`[[mods]]
+modId="a"
+[[dependencies.a]]
+  modId="b"
+  type="optional"
+  ordering="AFTER"
+[[dependencies.a]] # fix
+  modId="c"
+  type="optional"
+  ordering="BEFORE"
+`, "/a");
+    const d = t(`[[mods]]
+modId = "d"
+[[dependencies.d]]
+modId = "b"
+mandatory=true
+ordering = "AFTER" # comentario
+`, "/d");
+    const o = buildLoadOrder([a, d]);
+    expect(a.toml.modIds).toEqual(["a"]);
+    expect(o.cmp("b", "a")).toBe(-1);
+    expect(o.cmp("a", "c")).toBe(-1);
+    expect(o.cmp("b", "c")).toBe(-1); // transitivo
+    expect(o.cmp("c", "b")).toBe(1);
+    expect(o.cmp("d", "a")).toBe(0); // sem ordem
+    expect(o.cmp("d", "c")).toBe(0);
+    expect(o.modIdOf("/d")).toBe("d");
+    const cyc = buildLoadOrder([t(`[[mods]]
+modId="x"
+[[dependencies.x]]
+modId="y"
+ordering="AFTER"
+[[dependencies.x]]
+modId="y"
+ordering="BEFORE"
+`, "/x")]);
+    expect(cyc.cmp("x", "y")).toBe(0); // ciclo = sem ordem
+  });
+
+  it("snapshot: mega_showdown < allthemons < ccc; cobblemon < allthemons/zamega; zamega x ccc sem ordem", () => {
+    const o = loadOrder(DEFAULT_SRC);
+    const ccc = "mr_complete_cobblemoncollectionmythsandlegendscompat";
+    expect(o.cmp("mega_showdown", "allthemons")).toBe(-1);
+    expect(o.cmp("allthemons", ccc)).toBe(-1);
+    expect(o.cmp("mega_showdown", ccc)).toBe(-1);
+    expect(o.cmp("cobblemon", "allthemons")).toBe(-1);
+    expect(o.cmp("cobblemon", "zamega")).toBe(-1);
+    expect(o.cmp("zamega", ccc)).toBe(0);
   });
 });

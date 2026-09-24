@@ -85,3 +85,102 @@ export function datapackFiles(s: RawSource, kind: string): { file: string; rl: s
 export function rel(file: string): string {
   return path.relative(REPO_ROOT, file).split(path.sep).join("/");
 }
+
+// ---------------------------------------------------------------------------------------------
+// Ordem de carga dos mods (NeoForge): lida SO dos META-INF/neoforge.mods.toml do snapshot.
+// Uma dependencia com ordering="AFTER" em [[dependencies.<M>]] faz M carregar DEPOIS dela;
+// ordering="BEFORE" faz M carregar ANTES dela (vale para required e optional). A relacao e o
+// fecho transitivo dessas arestas. No datapack, o arquivo do mod que carrega depois substitui o
+// do anterior no mesmo resource location; pares sem nenhuma ordem nao sao determinaveis.
+// ---------------------------------------------------------------------------------------------
+export interface ModsToml {
+  modIds: string[];
+  deps: { owner: string; modId: string; ordering: string; type: string }[];
+}
+
+/** Parser minimo de neoforge.mods.toml: so tabelas [[mods]] e [[dependencies.<id>]] com chave = "valor". */
+export function parseModsToml(txt: string): ModsToml {
+  const out: ModsToml = { modIds: [], deps: [] };
+  let table: { kind: "mods" } | { kind: "dep"; owner: string; cur: Record<string, string> } | null = null;
+  const flush = () => {
+    if (table?.kind === "dep" && table.cur.modId) out.deps.push({ owner: table.owner, modId: table.cur.modId, ordering: (table.cur.ordering ?? "NONE").toUpperCase(), type: table.cur.type ?? (table.cur.mandatory === "true" ? "required" : "optional") });
+  };
+  for (const raw of txt.split(/\r?\n/)) {
+    const line = raw.trim();
+    const head = line.match(/^\[\[\s*([^\]]+?)\s*\]\]/);
+    if (head) {
+      flush();
+      const name = head[1]!;
+      table = name === "mods" ? { kind: "mods" } : name.startsWith("dependencies.") ? { kind: "dep", owner: name.slice("dependencies.".length).replace(/^"|"$/g, ""), cur: {} } : null;
+      continue;
+    }
+    if (/^\[[^\[]/.test(line)) {
+      flush();
+      table = null;
+      continue;
+    }
+    const kv = line.match(/^([A-Za-z_]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s#]+))/);
+    if (!kv || !table) continue;
+    const key = kv[1]!;
+    const val = kv[2] ?? kv[3] ?? kv[4] ?? "";
+    if (table.kind === "mods" && key === "modId") out.modIds.push(val);
+    else if (table.kind === "dep") table.cur[key] = val;
+  }
+  flush();
+  return out;
+}
+
+export interface LoadOrder {
+  /** modId principal declarado no toml do jar (primeiro [[mods]]) ou null (ex. kubejs) */
+  modIdOf(root: string): string | null;
+  /** true se `a` carrega ANTES de `b` pelo fecho transitivo das declaracoes */
+  before(a: string, b: string): boolean;
+  /** -1 a antes de b, 1 a depois de b, 0 sem ordem (ou mesmo mod) */
+  cmp(a: string, b: string): -1 | 0 | 1;
+  edges: [string, string][];
+}
+
+export function buildLoadOrder(tomls: { root: string; toml: ModsToml }[]): LoadOrder {
+  const edges: [string, string][] = []; // [antes, depois]
+  for (const { toml } of tomls)
+    for (const d of toml.deps) {
+      if (d.ordering === "AFTER") edges.push([d.modId, d.owner]);
+      else if (d.ordering === "BEFORE") edges.push([d.owner, d.modId]);
+    }
+  const next = new Map<string, Set<string>>();
+  for (const [a, b] of edges) next.set(a, new Set([...(next.get(a) ?? []), b]));
+  const reach = new Map<string, Set<string>>();
+  const reachOf = (a: string): Set<string> => {
+    const hit = reach.get(a);
+    if (hit) return hit;
+    const seen = new Set<string>();
+    const stack = [...(next.get(a) ?? [])];
+    while (stack.length) {
+      const n = stack.pop()!;
+      if (seen.has(n)) continue;
+      seen.add(n);
+      for (const m of next.get(n) ?? []) stack.push(m);
+    }
+    reach.set(a, seen);
+    return seen;
+  };
+  const byRoot = new Map(tomls.map((t) => [path.resolve(t.root), t.toml.modIds[0] ?? null]));
+  const before = (a: string, b: string) => a !== b && reachOf(a).has(b);
+  return {
+    modIdOf: (root) => byRoot.get(path.resolve(root)) ?? null,
+    before,
+    cmp: (a, b) => (before(a, b) && !before(b, a) ? -1 : before(b, a) && !before(a, b) ? 1 : 0),
+    edges,
+  };
+}
+
+/** Ordem de carga a partir de TODOS os mods/<jar>/META-INF/neoforge.mods.toml do snapshot. */
+export function loadOrder(src: string): LoadOrder {
+  const mods = path.join(src, "mods");
+  const tomls: { root: string; toml: ModsToml }[] = [];
+  for (const n of fs.readdirSync(mods)) {
+    const f = path.join(mods, n, "META-INF", "neoforge.mods.toml");
+    if (fs.existsSync(f)) tomls.push({ root: path.join(mods, n), toml: parseModsToml(fs.readFileSync(f, "utf8")) });
+  }
+  return buildLoadOrder(tomls);
+}
