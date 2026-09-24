@@ -3,6 +3,23 @@ import fs from "node:fs";
 import path from "node:path";
 import { BALL_RULES, rarityOf, tooltipMultipliers, type Expected, type ExpSpecies } from "./expected";
 import { REPO_ROOT, readJson } from "./raw";
+import type {
+  BallsFile,
+  DatasetFiles,
+  DatasetManifest,
+  EvolutionEdge,
+  EvolutionRequirement,
+  FossilsFile,
+  ItemsFile,
+  ObtainRoute,
+  SeriesFile,
+  SpawnEntry,
+  SpeciesDetail,
+  SpeciesDrop,
+  SpeciesForm,
+  SpeciesIndexFile,
+  SpeciesSummary,
+} from "../../../src/data/types";
 
 export type Severity = "WRONG DATA" | "MISSING" | "EXTRA" | "COSMETIC" | "SPEC x JOGO" | "SEM ORDEM";
 
@@ -40,10 +57,10 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   let checks = 0;
   const push = (d: Divergence) => out.push(d);
   const pub = (p: string) => path.relative(REPO_ROOT, path.join(datasetDir, p)).split(path.sep).join("/");
-  const manifest = readJson(path.join(datasetDir, "dataset-manifest.json"));
-  const files = manifest.files ?? {};
+  const manifest = readJson<DatasetManifest>(path.join(datasetDir, "dataset-manifest.json"));
+  const files: Partial<DatasetFiles> = manifest.files ?? {};
   const idxFile = files.speciesIndex ?? "species-index.json";
-  const index: any[] = readJson(path.join(datasetDir, idxFile));
+  const index: SpeciesIndexFile = readJson<SpeciesIndexFile>(path.join(datasetDir, idxFile));
   const speciesDir = files.speciesDir ?? "species";
 
   const eq = (scope: string, field: string, e: unknown, a: unknown, evidence: string, published: string, sev: Severity = "WRONG DATA", cause?: string) => {
@@ -77,7 +94,7 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       continue;
     }
     speciesChecked++;
-    const a = readJson(f);
+    const a = readJson<Partial<SpeciesDetail>>(f);
     const idx = idxByDex.get(e.dex);
     compareSpecies(e, a, idx, scope, pf, exp, eq, push);
   }
@@ -85,7 +102,7 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   // ---- fosseis
   const fossilsFile = files.fossils ?? "fossils.json";
   if (fs.existsSync(path.join(datasetDir, fossilsFile))) {
-    const pf: any[] = readJson(path.join(datasetDir, fossilsFile));
+    const pf: FossilsFile = readJson<FossilsFile>(path.join(datasetDir, fossilsFile));
     eq("fossils", "length", exp.fossilRoutes.length, pf.length, "fossils/*.json", pub(fossilsFile));
     for (const r of exp.fossilRoutes) {
       const hit = pf.find((x) => x.resultSlug === r.result && J(sortStr(x.fossils)) === J(sortStr(r.fossils)));
@@ -97,7 +114,7 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   // ---- bolas
   const ballsFile = files.balls ?? "balls.json";
   if (fs.existsSync(path.join(datasetDir, ballsFile))) {
-    const pb: any[] = readJson(path.join(datasetDir, ballsFile));
+    const pb: BallsFile = readJson<BallsFile>(path.join(datasetDir, ballsFile));
     eq("balls", "length", exp.balls.length, pb.length, "poke_balls/*.png", pub(ballsFile));
     for (const b of exp.balls) {
       const a = pb.find((x) => x.id === b.id);
@@ -108,8 +125,8 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       }
       eq(scope, "itemId", b.itemId, a.itemId, b.textureFile, pub(ballsFile));
       // condicao de fast/net: a SPEC nao nomeia; contrato posterior usa minBaseSpeedAbove/hasAnyType. Compara o resto.
-      const er = { ...b.rule } as any;
-      const ar = { ...(a.rule ?? {}) } as any;
+      const er: Record<string, unknown> = { ...b.rule };
+      const ar: Record<string, unknown> = { ...(a.rule ?? {}) };
       if (b.id === "fast_ball" || b.id === "net_ball") {
         delete er.condition;
         delete ar.condition;
@@ -119,7 +136,8 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       eq(scope, "effect.pt (tooltip)", b.tooltip.pt, a.effect?.pt, "Cobblemon lang pt_br.json", pub(ballsFile), "COSMETIC");
       // sanidade da propria tabela: melhor multiplicador do tooltip cru
       const mults = tooltipMultipliers(b.tooltip.en ?? "");
-      const best = (BALL_RULES[b.id] as any).kind === "flat" ? (BALL_RULES[b.id] as any).multiplier : (BALL_RULES[b.id] as any).bestMultiplier;
+      const rule = BALL_RULES[b.id] as { kind?: string; multiplier?: number; bestMultiplier?: number };
+      const best = rule.kind === "flat" ? rule.multiplier : rule.bestMultiplier;
       checks++;
       if (best !== undefined && mults.length && !mults.includes(best) && Math.max(...mults) !== best)
         push({ severity: "WRONG DATA", scope, field: "tabela da SPEC x tooltip", expected: `tooltip: ${b.tooltip.en}`, actual: `regra: ${J(BALL_RULES[b.id])}`, evidence: "Cobblemon lang en_us.json", published: "SPEC B4.3" });
@@ -130,7 +148,7 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   // ---- series e treinadores-chave
   const seriesFile = files.series ?? "series.json";
   if (fs.existsSync(path.join(datasetDir, seriesFile))) {
-    const ps: any[] = readJson(path.join(datasetDir, seriesFile));
+    const ps: SeriesFile = readJson<SeriesFile>(path.join(datasetDir, seriesFile));
     for (const s of exp.series) {
       const a = ps.find((x) => x.id === s.id);
       const scope = `series ${s.id}`;
@@ -162,7 +180,7 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   // ---- itens: ids referenciados existem e texturas publicadas existem
   const itemsFile = files.items ?? "items.json";
   if (fs.existsSync(path.join(datasetDir, itemsFile))) {
-    const items: Record<string, any> = readJson(path.join(datasetDir, itemsFile));
+    const items: ItemsFile = readJson<ItemsFile>(path.join(datasetDir, itemsFile));
     const referenced = new Map<string, string>();
     for (const e of exp.species.values()) {
       for (const d of e.drops) referenced.set(d.item, `drop de ${e.slug}`);
@@ -198,8 +216,8 @@ export function abilityPairs(list: { id: string; hidden?: boolean }[]): string[]
 
 function compareSpecies(
   e: ExpSpecies,
-  a: any,
-  idx: any,
+  a: Partial<SpeciesDetail>,
+  idx: SpeciesSummary | undefined,
   scope: string,
   pf: string,
   exp: Expected,
@@ -228,20 +246,21 @@ function compareSpecies(
   eq(scope, "maleRatio", e.maleRatio, a.maleRatio, ev, pf);
   eq(scope, "preEvolution", e.preEvolution, a.preEvolution ? { dex: a.preEvolution.dex, slug: a.preEvolution.slug } : null, ev, pf);
   // drops
-  const dk = (d: any) => `${d.item}|${d.percentage ?? null}|${d.quantityRange ?? null}`;
+  const dk = (d: SpeciesDrop) => `${d.item}|${d.percentage ?? null}|${d.quantityRange ?? null}`;
   eq(scope, "drops", sortStr(e.drops.map(dk)), sortStr((a.drops ?? []).map(dk)), ev, pf, "WRONG DATA", e.touchedBy.length > 1 ? `adicoes: ${e.touchedBy.slice(1).join(", ")}` : undefined);
   // evolucoes
-  const ek = (x: any) => `${x.toSlug}|${x.variant}|${x.requiredItem ?? null}`;
+  type EdgeLike = { toSlug: string; variant: string; requiredItem: string | null };
+  const ek = (x: EdgeLike) => `${x.toSlug}|${x.variant}|${x.requiredItem ?? null}`;
   eq(scope, "evolutions (destino|variant|item)", sortStr(e.evolutions.map(ek)), sortStr((a.evolutions ?? []).map(ek)), ev, pf);
-  const reqKey = (r: any) =>
+  const reqKey = (r: EvolutionRequirement) =>
     r.kind === "level" ? `level:${r.minLevel}` : r.kind === "friendship" ? `friendship:${r.amount}` : r.kind === "timeRange" ? `timeRange:${r.range}` : r.kind === "hasMoveType" ? `hasMoveType:${r.type}` : r.kind === "heldItem" ? `heldItem:${r.item}` : `other:${r.raw?.variant}`;
   for (const x of e.evolutions) {
-    const cands = (a.evolutions ?? []).filter((y: any) => y.toSlug === x.toSlug && y.variant === x.variant);
-    const m = cands.find((y: any) => y.id === x.id) ?? (cands.length === 1 ? cands[0] : undefined);
+    const cands = (a.evolutions ?? []).filter((y: EvolutionEdge) => y.toSlug === x.toSlug && y.variant === x.variant);
+    const m = cands.find((y: EvolutionEdge) => y.id === x.id) ?? (cands.length === 1 ? cands[0] : undefined);
     if (m) eq(scope, `evolution ${x.id || x.toSlug} requirements`, sortStr(x.requirements), sortStr((m.requirements ?? []).map(reqKey)), ev, pf);
   }
   // formas
-  const fa: any[] = a.forms ?? [];
+  const fa: SpeciesForm[] = a.forms ?? [];
   eq(scope, "forms (nomes)", sortStr(e.forms.map((f) => f.name)), sortStr(fa.map((f) => f.name)), ev, pf);
   for (const f of e.forms) {
     const m = fa.find((x) => x.name === f.name);
@@ -251,11 +270,12 @@ function compareSpecies(
     eq(scope, `form ${f.name} source`, canonSource(f.source), canonSource(String(m.source)), ev, pf, "COSMETIC");
   }
   // spawns (SEM ORDEM: diferenca so em entradas de arquivos que colidem sem ordem de carga declarada)
-  const as: any[] = a.spawns ?? [];
+  const as: SpawnEntry[] = a.spawns ?? [];
   const unorderedKeys = new Set(e.spawnsAll.filter((s) => s.unorderedWith.length > 0).map((s) => `${s.id}|${canonSource(s.source)}`));
   const onlyUnordered = (keys: string[]) => keys.length > 0 && keys.every((k) => unorderedKeys.has(k));
   const sid = (id: string) => String(id).replace(/^[a-z_]+:/, "");
-  const sk = (s: any) => `${sid(s.id)}|${canonSource(String(s.source))}`;
+  type SpawnLike = { id: string; source: string };
+  const sk = (s: SpawnLike) => `${sid(s.id)}|${canonSource(String(s.source))}`;
   const expGame = sortStr(e.spawns.map(sk));
   const expAll = sortStr(e.spawnsAll.map(sk));
   const act = sortStr(as.map(sk));
@@ -294,9 +314,9 @@ function compareSpecies(
   }
   if (idx) eq(scope, "index.rarity = ficha.rarity", J(a.rarity), J(idx.rarity), pf, "species-index.json");
   // como obter (tipos e ordem)
-  const kinds = (a.obtain ?? []).map((o: any) => o.kind);
+  const kinds = (a.obtain ?? []).map((o: ObtainRoute) => o.kind);
   eq(scope, "obtain (kinds em ordem)", e.obtainKinds, kinds, "regras SPEC 5.1.5 sobre spawns/fosseis/preEvolution/eggGroups", pf);
-  const fos = (a.obtain ?? []).find((o: any) => o.kind === "fossil");
+  const fos = (a.obtain ?? []).find((o): o is Extract<ObtainRoute, { kind: "fossil" }> => o.kind === "fossil");
   if (e.fossils.length && fos) eq(scope, "obtain fossil items", sortStr(e.fossils[0]!.items), sortStr(fos.items ?? []), "fossils/*.json", pf);
   if (idx) eq(scope, "index.types = ficha.types", J(a.types), J(idx.types), pf, "species-index.json");
   void exp;

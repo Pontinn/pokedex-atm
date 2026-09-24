@@ -43,8 +43,8 @@ export function sources(src: string): RawSource[] {
   return out;
 }
 
-export function readJson<T = any>(file: string): T {
-  const txt = fs.readFileSync(file, "utf8").replace(/^﻿/, "");
+export function readJson<T = unknown>(file: string): T {
+  const txt = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
   return JSON.parse(txt) as T;
 }
 
@@ -114,7 +114,7 @@ export function parseModsToml(txt: string): ModsToml {
       table = name === "mods" ? { kind: "mods" } : name.startsWith("dependencies.") ? { kind: "dep", owner: name.slice("dependencies.".length).replace(/^"|"$/g, ""), cur: {} } : null;
       continue;
     }
-    if (/^\[[^\[]/.test(line)) {
+    if (/^\[[^[]/.test(line)) {
       flush();
       table = null;
       continue;

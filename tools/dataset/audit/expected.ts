@@ -7,6 +7,115 @@ import { datapackFiles, DEFAULT_SRC, findJar, loadOrder, readJson, rel, sources,
 export type Bucket = "common" | "uncommon" | "rare" | "ultra-rare";
 export const BUCKET_ORDER: Bucket[] = ["common", "uncommon", "rare", "ultra-rare"];
 
+// ---------------------------------------------------------------------------------------------
+// Formas cruas dos arquivos lidos por readJson (snapshot); somente os campos usados aqui.
+// ---------------------------------------------------------------------------------------------
+interface RawBaseStats {
+  hp: number;
+  attack: number;
+  defence: number;
+  special_attack: number;
+  special_defence: number;
+  speed: number;
+}
+
+interface RawForm {
+  name: string;
+  aspects?: string[];
+  battleOnly?: boolean;
+  primaryType?: string;
+  secondaryType?: string;
+}
+
+interface RawEvolutionRequirement {
+  variant?: string;
+  minLevel?: number;
+  amount?: number;
+  range?: string;
+  type?: string;
+  itemCondition?: string | Record<string, unknown>;
+}
+
+interface RawEvolution {
+  id?: string;
+  result?: string;
+  variant?: string;
+  requiredContext?: string;
+  requirements?: RawEvolutionRequirement[];
+}
+
+interface RawDrop {
+  item: string;
+  percentage?: number;
+  quantityRange?: string;
+}
+
+interface RawSpeciesJson {
+  nationalPokedexNumber: number;
+  name?: string;
+  forms?: RawForm[];
+  labels?: string[];
+  features?: string[];
+  baseStats: RawBaseStats;
+  abilities: string[];
+  eggGroups: string[];
+  catchRate: number;
+  weight: number;
+  height: number;
+  maleRatio: number;
+  primaryType: string;
+  secondaryType?: string;
+  pokedex?: string[];
+  preEvolution?: string;
+  evolutions?: RawEvolution[];
+  drops?: { entries?: RawDrop[] };
+  [key: string]: unknown;
+}
+
+interface RawAddition extends RawSpeciesJson {
+  target?: string;
+}
+
+interface RawSpawnEntry {
+  pokemon?: string;
+  id: string | number;
+  bucket: Bucket;
+  level?: string | number;
+  spawnablePositionType?: string;
+  context?: string;
+  condition?: { biomes?: string[] };
+}
+
+interface RawSpawnFile {
+  enabled?: boolean;
+  spawns?: RawSpawnEntry[];
+}
+
+interface RawFossilFile {
+  result: string;
+  fossils: string[];
+}
+
+interface RawMegaFile {
+  aspect_conditions?: { apply?: { aspects?: string[] } };
+  pokemons?: string[];
+}
+
+interface RawTrainerMob {
+  optional?: boolean;
+  series?: string[];
+  requiredDefeats?: string[][];
+}
+
+interface RawTrainerTeamMember {
+  level?: number;
+}
+
+interface RawTrainerFile {
+  name?: string;
+  team?: RawTrainerTeamMember[];
+}
+
 export interface ExpSpawn {
   id: string;
   source: string;
@@ -161,21 +270,22 @@ function unionBy<T>(a: T[], b: T[], key: (x: T) => string): T[] {
 }
 
 interface Working {
-  json: any;
+  json: RawSpeciesJson;
   file: string;
   touchedBy: string[];
   formSource: Map<string, string>;
 }
 
-function applyAddition(w: Working, add: any, origin: string) {
+function applyAddition(w: Working, add: RawAddition, origin: string) {
   for (const [k, v] of Object.entries(add)) {
     if (k === "target") continue;
     if (k === "forms") {
-      const forms = (v as any[]) ?? [];
-      w.json.forms = unionBy<any>(w.json.forms ?? [], forms, (f) => f.name);
+      const forms = (v as RawForm[]) ?? [];
+      w.json.forms = unionBy<RawForm>(w.json.forms ?? [], forms, (f) => f.name);
       for (const f of forms) w.formSource.set(f.name, origin);
     } else if (k === "labels" || k === "features") {
-      w.json[k] = [...new Set([...(w.json[k] ?? []), ...((v as string[]) ?? [])])];
+      const existing = (w.json[k] as string[] | undefined) ?? [];
+      w.json[k] = [...new Set([...existing, ...((v as string[]) ?? [])])];
     } else {
       w.json[k] = v; // drops, evolutions, implemented e escalares: valor da adicao
     }
@@ -183,7 +293,7 @@ function applyAddition(w: Working, add: any, origin: string) {
   w.touchedBy.push(origin);
 }
 
-function mapRequirement(r: any): string {
+function mapRequirement(r: RawEvolutionRequirement): string {
   switch (r.variant) {
     case "level":
       return `level:${r.minLevel}`;
@@ -216,23 +326,23 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   const slugToDex = new Map<string, number>();
   for (const s of srcs) {
     for (const { file } of datapackFiles(s, "species").filter((f) => f.ns === "cobblemon")) {
-      const j = readJson(file);
-      const dex = j.nationalPokedexNumber as number;
+      const j = readJson<RawSpeciesJson>(file);
+      const dex = j.nationalPokedexNumber;
       const slug = path.basename(file, ".json");
       const cur = work.get(dex);
       if (!cur) {
-        work.set(dex, { json: structuredClone(j), file, touchedBy: [s.name], formSource: new Map((j.forms ?? []).map((f: any) => [f.name, s.name])) });
+        work.set(dex, { json: structuredClone(j), file, touchedBy: [s.name], formSource: new Map((j.forms ?? []).map((f): [string, string] => [f.name, s.name])) });
         slugToDex.set(slug, dex);
         continue;
       }
       // override: base vence nos campos centrais; forms uniao (addon vence); labels uniao; demais = addon
       const base = cur.json;
-      const merged: any = { ...base };
+      const merged: RawSpeciesJson = { ...base };
       for (const [k, v] of Object.entries(j)) {
         if (CORE_BASE_WINS.includes(k)) continue;
         if (k === "forms") {
-          merged.forms = unionBy<any>(base.forms ?? [], (v as any[]) ?? [], (f) => f.name);
-          for (const f of (v as any[]) ?? []) cur.formSource.set(f.name, s.name);
+          merged.forms = unionBy<RawForm>(base.forms ?? [], (v as RawForm[]) ?? [], (f) => f.name);
+          for (const f of (v as RawForm[]) ?? []) cur.formSource.set(f.name, s.name);
         } else if (k === "labels") merged.labels = [...new Set([...(base.labels ?? []), ...((v as string[]) ?? [])])];
         else merged[k] = v;
       }
@@ -256,7 +366,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
     if (a.origin.startsWith("legendarymonuments")) {
       // SPEC 5.1.2 lista allthemons/ccc/mega_showdown/zamega/kubejs, mas o jogo aplica tambem estas
     }
-    const j = readJson(a.file);
+    const j = readJson<RawAddition>(a.file);
     const target = String(j.target ?? "").replace(/^cobblemon:/, "");
     const dex = slugToDex.get(target);
     if (dex === undefined) {
@@ -291,7 +401,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   };
   const spawnsAllByDex = new Map<number, ExpSpawn[]>();
   for (const f of spawnFiles) {
-    const j = readJson(f.file);
+    const j = readJson<RawSpawnFile>(f.file);
     const { shadowedBy, unorderedWith } = resolveCollision(f.source, byRl.get(f.rl)!);
     for (const sp of j.spawns ?? []) {
       const slug = String(sp.pokemon ?? "").split(" ")[0]!;
@@ -312,7 +422,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
       spawnsAllByDex.set(dex, [...(spawnsAllByDex.get(dex) ?? []), e]);
     }
   }
-  const disabledFiles = new Set(spawnFiles.filter((f) => readJson(f.file).enabled === false).map((f) => rel(f.file)));
+  const disabledFiles = new Set(spawnFiles.filter((f) => readJson<RawSpawnFile>(f.file).enabled === false).map((f) => rel(f.file)));
   if (disabledFiles.size) notes.push(`${disabledFiles.size} arquivos spawn_pool_world com "enabled": false (nao nascem no jogo): ${[...disabledFiles].join(", ")}`);
   const kubeShadow = spawnFiles.filter((f) => f.source !== "kubejs" && (byRl.get(f.rl) ?? []).includes("kubejs"));
   if (kubeShadow.length) notes.push(`${kubeShadow.length} arquivos spawn_pool_world de jar sombreados pelo kubejs (mesmo resource location, kubejs vence no jogo): ${kubeShadow.map((f) => rel(f.file)).join(", ")}`);
@@ -322,8 +432,8 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
       spawnFiles
         .filter((f) => f.rl === rl)
         .map((f) => {
-          const j = readJson(f.file);
-          const bs = [...new Set((j.spawns ?? []).map((s: any) => s.bucket))].join("/");
+          const j = readJson<RawSpawnFile>(f.file);
+          const bs = [...new Set((j.spawns ?? []).map((s) => s.bucket))].join("/");
           return `${f.source}${j.enabled === false ? "(OFF)" : ""}=${(j.spawns ?? []).length}x ${bs}`;
         })
         .join(" vs ");
@@ -342,7 +452,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   // (4) fosseis
   const fossilRoutes: Expected["fossilRoutes"] = [];
   for (const s of srcs) for (const f of datapackFiles(s, "fossils").filter((x) => x.ns === "cobblemon")) {
-    const j = readJson(f.file);
+    const j = readJson<RawFossilFile>(f.file);
     fossilRoutes.push({ result: String(j.result), fossils: j.fossils, source: s.name, file: rel(f.file) });
   }
 
@@ -350,8 +460,8 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   const megaDefs: { item: string; pokemons: string[]; aspect: string }[] = [];
   for (const [prefix, ns, sub] of [["mega_showdown", "mega_showdown", "data/mega_showdown/mega_showdown/mega"], ["zamega", "zamega", "data/zamega/mega_showdown/mega"]] as const) {
     for (const f of walk(path.join(findJar(src, prefix), sub))) {
-      const j = readJson(f);
-      const asp = (j.aspect_conditions?.apply?.aspects ?? []).map((a: string) => a.split("=")[1]).filter(Boolean);
+      const j = readJson<RawMegaFile>(f);
+      const asp = (j.aspect_conditions?.apply?.aspects ?? []).map((a: string) => a.split("=")[1]).filter((x): x is string => Boolean(x));
       for (const a of asp) megaDefs.push({ item: `${ns}:${path.basename(f, ".json")}`, pokemons: j.pokemons ?? [], aspect: a });
     }
   }
@@ -361,13 +471,13 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   for (const [dex, w] of work) {
     const j = w.json;
     const slug = path.basename(w.file, ".json");
-    const bs = j.baseStats ?? {};
-    const types = [j.primaryType, j.secondaryType].filter(Boolean);
+    const bs = j.baseStats;
+    const types = [j.primaryType, j.secondaryType].filter(Boolean) as string[];
     const labels: string[] = j.labels ?? [];
     const gen = labels.find((l) => /^gen\d/.test(l)) ?? (labels.includes("custom") ? "custom" : "?");
     const nameKey = `cobblemon.species.${slug}.name`;
     const descKey = (j.pokedex ?? [])[0] ?? `cobblemon.species.${slug}.desc`;
-    const forms: ExpForm[] = (j.forms ?? []).map((f: any) => {
+    const forms: ExpForm[] = (j.forms ?? []).map((f: RawForm) => {
       const aspects: string[] = f.aspects ?? [];
       const req: string[] = [];
       for (const m of megaDefs) {
@@ -380,13 +490,13 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
         name: f.name,
         aspects,
         battleOnly: !!f.battleOnly,
-        types: [f.primaryType ?? j.primaryType, f.secondaryType ?? (f.primaryType ? undefined : j.secondaryType)].filter(Boolean),
+        types: [f.primaryType ?? j.primaryType, f.secondaryType ?? (f.primaryType ? undefined : j.secondaryType)].filter(Boolean) as string[],
         source: w.formSource.get(f.name) ?? "?",
         requiredItems: [...new Set(req)],
       };
     });
     const evolutions: ExpEdge[] = (j.evolutions ?? [])
-      .map((e: any) => ({
+      .map((e: RawEvolution) => ({
         id: String(e.id ?? ""),
         toSlug: String(e.result ?? "").split(" ")[0]!,
         variant: String(e.variant),
@@ -429,7 +539,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
       forms,
       evolutions,
       preEvolution: preSlug && preDex !== undefined ? { dex: preDex, slug: preSlug } : null,
-      drops: (j.drops?.entries ?? []).map((d: any) => ({ item: d.item, percentage: d.percentage ?? null, quantityRange: d.quantityRange ?? null })),
+      drops: (j.drops?.entries ?? []).map((d: RawDrop) => ({ item: d.item, percentage: d.percentage ?? null, quantityRange: d.quantityRange ?? null })),
       spawns,
       spawnsAll,
       rarity: rarityOf(spawns),
@@ -549,13 +659,13 @@ export function tooltipMultipliers(t: string): number[] {
 function buildSeries(src: string, rctRoot: string): ExpSeries[] {
   const kube = path.join(src, "kubejs", "data", "rctmod");
   const jar = path.join(rctRoot, "data", "rctmod");
-  const def = readJson(path.join(jar, "mobs/trainers/default.json"));
-  const mobs = new Map<string, { j: any; src: "rctmod" | "kubejs" }>();
-  for (const f of walk(path.join(jar, "mobs/trainers/single"))) mobs.set(path.basename(f, ".json"), { j: { ...def, ...readJson(f) }, src: "rctmod" });
-  for (const f of walk(path.join(kube, "mobs/trainers/single"))) mobs.set(path.basename(f, ".json"), { j: { ...def, ...readJson(f) }, src: "kubejs" });
-  const trainers = new Map<string, any>();
-  for (const f of walk(path.join(jar, "trainers"))) trainers.set(path.basename(f, ".json"), readJson(f));
-  for (const f of walk(path.join(kube, "trainers"))) trainers.set(path.basename(f, ".json"), readJson(f));
+  const def = readJson<RawTrainerMob>(path.join(jar, "mobs/trainers/default.json"));
+  const mobs = new Map<string, { j: RawTrainerMob; src: "rctmod" | "kubejs" }>();
+  for (const f of walk(path.join(jar, "mobs/trainers/single"))) mobs.set(path.basename(f, ".json"), { j: { ...def, ...readJson<RawTrainerMob>(f) }, src: "rctmod" });
+  for (const f of walk(path.join(kube, "mobs/trainers/single"))) mobs.set(path.basename(f, ".json"), { j: { ...def, ...readJson<RawTrainerMob>(f) }, src: "kubejs" });
+  const trainers = new Map<string, RawTrainerFile>();
+  for (const f of walk(path.join(jar, "trainers"))) trainers.set(path.basename(f, ".json"), readJson<RawTrainerFile>(f));
+  for (const f of walk(path.join(kube, "trainers"))) trainers.set(path.basename(f, ".json"), readJson<RawTrainerFile>(f));
   const seriesIds = [...walk(path.join(jar, "series")), ...walk(path.join(kube, "series"))].map((f) => path.basename(f, ".json"));
   const out: ExpSeries[] = [];
   for (const sid of [...new Set(seriesIds)]) {
@@ -568,7 +678,7 @@ function buildSeries(src: string, rctRoot: string): ExpSeries[] {
       // requiredDefeats: lista externa = E; sublista = OU (variantes do mesmo treinador, ex. lorelei_004d/004e)
       deps[id] = ((mobs.get(id)!.j.requiredDefeats ?? []) as string[][]).map((g) => g.filter((d) => set.has(d))).filter((g) => g.length > 0);
       const team = trainers.get(id)?.team ?? [];
-      maxLevel[id] = team.reduce((m: number, t: any) => Math.max(m, Number(t.level ?? 0)), 0);
+      maxLevel[id] = team.reduce((m: number, t: RawTrainerTeamMember) => Math.max(m, Number(t.level ?? 0)), 0);
       sourceOf[id] = mobs.get(id)!.src;
     }
     // Kahn (grupo satisfeito quando algum membro ja foi colocado), desempate por maxTeamLevel asc e nome

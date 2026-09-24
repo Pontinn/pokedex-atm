@@ -9,6 +9,7 @@ import { buildExpected } from "./expected";
 import { resolveDatasetDir } from "./compare";
 import { MANUAL_SAMPLE } from "./sample";
 import { readJson } from "./raw";
+import type { EvolutionEdge, EvolutionRequirement, ObtainRoute, SpawnEntry, SpeciesDetail, SpeciesForm } from "../../../src/data/types";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -31,7 +32,7 @@ const J = (v: unknown) => JSON.stringify(v);
 for (const s of list) {
   const e = exp.species.get(s.dex)!;
   const f = path.join(dir, "species", `${s.dex}.json`);
-  const a = fs.existsSync(f) ? readJson(f) : null;
+  const a = fs.existsSync(f) ? readJson<Partial<SpeciesDetail>>(f) : null;
   out.push(`==== ${s.dex} ${s.slug} (${s.reason})  cru: ${e.file}  touchedBy: ${e.touchedBy.join("+")}`);
   if (!a) {
     out.push("  PUBLICADO AUSENTE");
@@ -47,12 +48,29 @@ for (const s of list) {
   row("eggGroups", e.eggGroups, a.eggGroups);
   row("catch/w/h/m", [e.catchRate, e.weight, e.height, e.maleRatio], [a.catchRate, a.weight, a.height, a.maleRatio]);
   row("preEvolution", e.preEvolution, a.preEvolution);
-  row("evolutions", e.evolutions.map((x) => `${x.toSlug}/${x.variant}/${x.requiredItem}/${x.requirements.join("+")}`), (a.evolutions ?? []).map((x: any) => `${x.toSlug}/${x.variant}/${x.requiredItem}/${(x.requirements ?? []).map((r: any) => r.kind + ":" + (r.minLevel ?? r.amount ?? r.range ?? r.type ?? r.item ?? r.raw?.variant)).join("+")}`));
-  row("forms", e.forms.map((x) => `${x.name}[${x.requiredItems.join(",")}]`), (a.forms ?? []).map((x: any) => `${x.name}[${(x.requiredItems ?? []).join(",")}]`));
+  row(
+    "evolutions",
+    e.evolutions.map((x) => `${x.toSlug}/${x.variant}/${x.requiredItem}/${x.requirements.join("+")}`),
+    (a.evolutions ?? []).map((x: EvolutionEdge) => {
+      const reqs = (x.requirements ?? []).map((r: EvolutionRequirement) => {
+        const raw = r as unknown as Record<string, unknown>;
+        return `${r.kind}:${raw.minLevel ?? raw.amount ?? raw.range ?? raw.type ?? raw.item ?? (raw.raw as Record<string, unknown> | undefined)?.variant}`;
+      });
+      return `${x.toSlug}/${x.variant}/${x.requiredItem}/${reqs.join("+")}`;
+    }),
+  );
+  row("forms", e.forms.map((x) => `${x.name}[${x.requiredItems.join(",")}]`), (a.forms ?? []).map((x: SpeciesForm) => `${x.name}[${(x.requiredItems ?? []).join(",")}]`));
   row("drops", e.drops, a.drops);
-  row("spawns", e.spawns.map((x) => `${x.id}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort(), (a.spawns ?? []).map((x: any) => `${sid(x.id)}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort());
+  row("spawns", e.spawns.map((x) => `${x.id}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort(), (a.spawns ?? []).map((x: SpawnEntry) => `${sid(x.id)}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort());
   row("rarity", e.rarity, a.rarity);
-  row("obtain", e.obtainKinds.map((k) => (k === "fossil" ? `fossil:${e.fossils[0]!.items.join(",")}` : k === "addon" ? `addon:${e.spawns.find((x) => x.source === "ccc" || x.source === "legendarymonuments")?.source ?? "ultrawormholes"}` : k)), (a.obtain ?? []).map((o: any) => o.kind + (o.addon ? `:${o.addon}` : "") + (o.items ? `:${o.items.join(",")}` : "")));
+  row(
+    "obtain",
+    e.obtainKinds.map((k) => (k === "fossil" ? `fossil:${e.fossils[0]!.items.join(",")}` : k === "addon" ? `addon:${e.spawns.find((x) => x.source === "ccc" || x.source === "legendarymonuments")?.source ?? "ultrawormholes"}` : k)),
+    (a.obtain ?? []).map((o: ObtainRoute) => {
+      const oo = o as unknown as { addon?: string; items?: string[] };
+      return o.kind + (oo.addon ? `:${oo.addon}` : "") + (oo.items ? `:${oo.items.join(",")}` : "");
+    }),
+  );
 }
 const outFile = opt("--out") ?? path.join(HERE, "manual-dump.txt");
 fs.writeFileSync(outFile, out.join("\n"), "utf8");
