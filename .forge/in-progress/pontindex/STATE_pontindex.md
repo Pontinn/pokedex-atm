@@ -4,10 +4,10 @@ stage: implementation
 status: impl-in-progress
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
+mode: PARAR apos F2 e Grupo C terminarem (pedido do Pontin); conferir, consolidar checklist/STATE, commitar e aguardar
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: auditor rodada 2 (blhpemktu); Grupo C F10+F11 (bixq4fm4y)
+running_agent: F2 home+busca (opus, bk5yk4ikf, iniciado 18:25); Grupo C F10+F11 (bixq4fm4y)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -279,3 +279,4 @@ updated: 2026-09-24
 - 42.992 checagens, 0 divergencias em todas as severidades; 3197 spawns esperados = manifest; amostra manual (50 + 28 especies corrigidas) 0 diferencas.
 - OPEN (jogo): Meltan sem evolucao para Melmetal (kubejs zzz_ccc_meltan zera evolutions, aplicado por ultimo). Anotado na SPEC 5.1.2, que tambem ganhou o texto das additions de qualquer jar e da ordem de carga.
 - Proximo: F2 (home + busca, opus) liberada. Depois de F2: grupos A e B em paralelo.
+- 18:35 Pontin: PARAR depois que F2 (home+busca) e Grupo C (F10+F11) terminarem. NAO disparar grupos A/B, F12, T1 ate novo pedido. Sugestao pendente de resposta: mover F7 (comparar) do grupo A para o B.
