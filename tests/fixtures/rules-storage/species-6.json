@@ -1,0 +1,67 @@
+{
+  "dex": 6,
+  "slug": "charizard",
+  "name": { "pt": "Charizard", "en": "Charizard" },
+  "searchKey": "charizard|charizard",
+  "types": ["fire", "flying"],
+  "generation": "gen1",
+  "labels": ["gen1"],
+  "bst": 534,
+  "rarity": { "primary": null, "secondary": [] },
+  "evolutionMethods": ["none"],
+  "hasSprite": true,
+  "artworkId": 6,
+  "pokedexText": { "pt": "Cospe fogo.", "en": "Spits fire." },
+  "height": 17,
+  "weight": 905,
+  "maleRatio": 0.875,
+  "catchRate": 45,
+  "baseFriendship": 50,
+  "eggCycles": 20,
+  "experienceGroup": "medium_slow",
+  "baseStats": { "hp": 78, "attack": 84, "defence": 78, "specialAttack": 109, "specialDefence": 85, "speed": 100 },
+  "evYield": { "hp": 0, "attack": 0, "defence": 0, "specialAttack": 3, "specialDefence": 0, "speed": 0 },
+  "abilities": [{ "id": "blaze", "hidden": false }, { "id": "solarpower", "hidden": true }],
+  "eggGroups": ["monster", "dragon"],
+  "moves": { "level": [{ "level": 1, "move": "scratch" }], "tm": ["flamethrower"], "egg": [], "tutor": [] },
+  "evolutions": [],
+  "preEvolution": { "dex": 5, "slug": "charmeleon" },
+  "evolutionChain": {
+    "root": 4,
+    "nodes": [
+      { "dex": 4, "slug": "charmander", "name": { "pt": "Charmander", "en": "Charmander" }, "types": ["fire"] },
+      { "dex": 5, "slug": "charmeleon", "name": { "pt": "Charmeleon", "en": "Charmeleon" }, "types": ["fire"] },
+      { "dex": 6, "slug": "charizard", "name": { "pt": "Charizard", "en": "Charizard" }, "types": ["fire", "flying"] }
+    ],
+    "edges": [
+      { "id": "charmeleon-charizard", "from": 5, "to": 6, "toSlug": "charizard", "variant": "level_up", "requiredItem": null, "requirements": [{ "kind": "level", "minLevel": 36 }] }
+    ]
+  },
+  "forms": [
+    {
+      "name": "Mega-X",
+      "aspects": ["mega_x"],
+      "battleOnly": true,
+      "labels": [],
+      "types": ["fire", "dragon"],
+      "baseStats": { "hp": 78, "attack": 130, "defence": 111, "specialAttack": 130, "specialDefence": 85, "speed": 100 },
+      "abilities": [{ "id": "toughclaws", "hidden": false }],
+      "source": "cobblemon",
+      "requiredItems": ["mega_showdown:charizardite_x", "mega_showdown:keystone"],
+      "artworkId": 10034
+    }
+  ],
+  "drops": [{ "item": "cobblemon:charcoal_stick", "percentage": 10, "quantityRange": null }],
+  "spawns": [],
+  "obtain": [
+    {
+      "kind": "evolution",
+      "from": 5,
+      "fromSlug": "charmeleon",
+      "edge": { "id": "charmeleon-charizard", "from": 5, "to": 6, "toSlug": "charizard", "variant": "level_up", "requiredItem": null, "requirements": [{ "kind": "level", "minLevel": 36 }] },
+      "fromHasSpawn": false
+    },
+    { "kind": "breeding", "eggGroups": ["monster", "dragon"] }
+  ],
+  "cry": "charizard"
+}
