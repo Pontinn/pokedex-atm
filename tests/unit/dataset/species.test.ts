@@ -61,6 +61,12 @@ describe("species derive stage on the real snapshot (data-source/atm-1.3.0)", ()
     expect(ctx.counts.fossilRoutes).toBe(16);
   });
 
+  it("Dragonite: rarity pela ordem fixa, uncommon/[rare,ultra-rare] (SPEC 5.1.4, 0149_dragonite.json real; auditoria A1)", () => {
+    expect(derived(149).rarity).toEqual({ primary: "uncommon", secondary: ["rare", "ultra-rare"] });
+    // Magikarp: common + uncommon (mais entradas uncommon que common) -> primary common
+    expect(derived(129).rarity).toEqual({ primary: "common", secondary: ["uncommon"] });
+  });
+
   it("Eevee: rarity uncommon/[rare,ultra-rare] e 5 entradas de spawn (SPEC 5.1.4, 0133_eevee.json real)", () => {
     const eevee = derived(DEX.eevee);
     expect(eevee.spawns).toHaveLength(5);
