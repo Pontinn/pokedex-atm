@@ -18,4 +18,20 @@ export const HOME_MESSAGES = {
   "home.empty": { pt: "Vazio", en: "Empty" },
   "home.history": { pt: "Histórico", en: "History" },
   "home.historyHint": { pt: "Últimos 20 consultados", en: "Last 20 viewed" },
+  // F2.1 (busca)
+  "home.searchLabel": { pt: "Buscar Pokémon", en: "Search Pokémon" },
+  "home.noResults": { pt: "Nenhum Pokémon encontrado para \"{q}\"", en: "No Pokémon found for \"{q}\"" },
+  // F2.2 (time, historico, capturados)
+  "home.teamFull": { pt: "Time cheio: 6 de 6 posições ocupadas", en: "Team is full: 6 of 6 slots taken" },
+  "home.teamFullOrphans": {
+    pt: "6 posições ocupadas (algumas de outra versão do dataset)",
+    en: "6 slots taken (some from another dataset version)",
+  },
+  "home.removeFromTeam": { pt: "Remover {name} do time", en: "Remove {name} from team" },
+  "home.removed": { pt: "{name} removido do time", en: "{name} removed from team" },
+  "home.undo": { pt: "Desfazer", en: "Undo" },
+  "home.historyEmpty": {
+    pt: "Nenhum Pokémon consultado ainda. Abra uma ficha e ela aparece aqui.",
+    en: "No Pokémon viewed yet. Open an entry and it shows up here.",
+  },
 } as const satisfies Record<string, Message>;
