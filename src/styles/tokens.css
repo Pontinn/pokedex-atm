@@ -21,4 +21,8 @@
 
   /* Estatisticas */
   --s-hp: #FF5959; --s-atk: #F5AC78; --s-def: #FAE078; --s-spa: #9DB7F5; --s-spd: #A7DB8D; --s-spe: #FA92B2;
+
+  /* Acao destrutiva (UISPEC 8.3): vermelho fixo, igual nos 7 temas (nenhum --primary serve nesse papel). */
+  --danger: #C62828;
+  --on-danger: #fff;
 }
