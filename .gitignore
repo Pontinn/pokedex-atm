@@ -23,3 +23,6 @@ test-results/
 playwright-report/
 coverage/
 *.local
+
+# auditoria: dump gerado pelo manual.ts
+tools/dataset/audit/manual-dump.txt

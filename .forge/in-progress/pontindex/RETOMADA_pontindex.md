@@ -1,41 +1,51 @@
-# Retomada do Pontindex (para continuar em outro PC)
+# Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
-Atualizado em 2026-09-23. Neste projeto TODOS os artefatos do `.forge` sao versionados (inclusive `STATE_pontindex.md`, checklists, relatorios e `ui-refs/`); so a memoria do Claude fica no PC original (fora do repo), por isso as regras dela estao copiadas abaixo. Em um PC novo, leia ESTE arquivo primeiro. A secao 13 da IDEA ficou desatualizada (descreve o fim da Stage 1) e nao foi editada para nao disparar o drift check.
+Atualizado em 2026-09-24 19:35 (PC novo: `C:/Users/mateu/Desktop/Nova pasta`). Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Tudo do `.forge` e versionado. Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + ultimas entradas) -> `CHECKLIST_pontindex.md` -> `HANDOFF_frontend.md` (secoes F1.4, Grupo C, F2) -> SPEC da proxima feature.
 
-## Onde estamos
+## Onde paramos (PARADO a pedido do Pontin, 2026-09-24)
 
-- Branch: `feature/pontindex` (remoto `origin` = github.com/Pontinn/pokedex-atm).
-- Stage 1 (IDEA), Stage 2 (PRD) e Stage 3b (UI recon) concluidas. Stage 3 (SPEC) escrita e em revisao final (forge-review) no momento deste commit.
-- Artefatos: `IDEA`, `CONTEXT`, `PRD` (rev 5, 125 RFs, 12 RNFs), `UISPEC` (50 prints), `SPEC` (23 sprints, 60 features, 100% de cobertura).
-- 2026-09-24: SPEC aprovada apos 3 passadas de revisao (PC novo). Falta: checklist por ondas e o ok do Pontin para a Stage 4.
-- Proximo comando no PC novo: `/forge --imp pontindex` so depois de a SPEC estar aprovada e o checklist existir. Se a revisao da SPEC nao tiver terminado, rode `/forge --review-spec pontindex` antes.
+- Stage 4 (implementacao) em andamento, pasta `.forge/in-progress/pontindex/`.
+- Checklist: 40 de 59 itens `[x]` (58 features da Fase 1 + A1 auditoria). Prontos: TODO o backend (B1-B7), fundacao visual (F1.1-F1.4), Home e busca (F2), Configuracoes (F10) e Sincronizar (F11), auditoria A1 limpa.
+- Faltam: grupo A (F3 Pokedex, F4 ficha, F5 ficha parte 2, F6 captura e capturados, F7 comparar), grupo B (F8 treinadores, F9 pokebolas, itens, pagina de item), depois F12 (PWA) e T1 (testes finais), depois Stage 5 (testes de validacao com o Pontin).
+- Ultima verificacao completa (19:32): typecheck 0 erros, lint 0, vitest 27 arquivos / 256 testes verdes, build ok, `public/` intacto, nenhum commit com assinatura.
+- Dataset publicado e auditado: `public/data/atm1.3.0-cobblemon1.7.3-20260924-1344fc8b/` (1027 especies, 964 itens, 48 bolas, 1589 treinadores, 6 series). Auditoria rodada 2: 0 divergencias em 42.992 checagens.
 
-## PENDENTE AGORA (sessao caiu por limite em 2026-09-23)
+## Proximo passo ao retomar
 
-A revisao da SPEC deu NEEDS-CHANGES. Os itens 1 a 10 abaixo JA FORAM APLICADOS na SPEC (Self-check PASS). Falta so a nova revisao (`/forge --review-spec pontindex`), o checklist e parar. No PC novo: abrir o SPEC, conferir item a item o que falta, aplicar (via forge-spec novo, contexto zerado) e rodar `/forge --review-spec pontindex`. PRD (rev 6) e CONTEXT ja estao corrigidos.
-1. [BLOCKER] Merge de dados: `species/` de addon = override completo (base vence nos campos nucleares); `species_additions/*.json` = merge aditivo estilo datapack (campo presente na addition sobrescreve/estende: forms uniao por name, drops da addition, evolutions/implemented da addition, labels/features uniao). Cobre allthemons (10, ex. Mareep ganha drop `silentgear:sinew` 25%), ccc (225) e kubejs `zzz_ccc_meltan.json`. Registrar no merge-report.json; Done-when de B2.2 checa Mareep/sinew no drop e no indice invertido (RF-68).
-2. [BLOCKER] Identificadores em ingles: fundos `bg-legendary|bg-mythical|bg-default`; ThemeId `classic|black|green|blue|purple|white|orange` (preferences.theme, data-theme, THEME_IDS) + tabela de correspondencia com os nomes do prototipo (nomes dos prints ficam).
-3. Pokebolas pela pasta `textures/item/poke_balls/` (48), completar tabela (slate/azure/verdant/roseate/citrine_ball), trocar "51" por `balls.json.length`.
-4. Tempo: docs em ms, codec em u32 segundos (encode floor(ms/1000), decode *1000); round-trip igual modulo segundo.
-5. Envelope unico: texto = `PDX1.` + base64url(deflate(payload) + crc32 dos bytes comprimidos); magic "PDX" so no payload. Ordem: prefixo, base64url, crc32, inflate, magic/versao, tamanho, campos; dizer qual etapa gera foreignApp/corrupted/wrongVersion/oversized.
-6. THEME_IDS: ordem canonica append-only = ordem do RF-79, em `src/styles/themes.ts`, enumerada em 5.3 e citada em B7.2.
-7. F2.1 Done-when: tirar `mobile-boot-splash.png` (e a tampa do boot); marcar "sem captura de referencia".
-8. Nits: B2.2 ignorar prefixos `legacy`/`special`/`form_change`; B2.4 mega = 81 arquivos; F1.3 historico = 40 no prototipo (app.js:1223); UiState com compare/sync/settings/home; QR modo byte v24-M (914), cabecalho dentro dos 900, parser corta so nos 3 primeiros pontos; uniao de derrotados: menor `at` vence; `fast-check` e `msw` na tabela de dependencias; linha do store `backups` no mapa 2b.
-10. [NOVO, decisao do orquestrador] O Pontin NAO tem o modpack no outro PC. Os dados da instancia foram copiados para `data-source/atm-1.3.0/` (69 MB, ver `data-source/README.md`). A SPEC deve fazer o pipeline aceitar essa pasta como fonte (jars ja abertos em `mods/<nome-do-jar>/`) alem da instancia real; `ATM_INSTANCE_DIR` com default `data-source/atm-1.3.0`. Ajustar B1/B2 e o CONTEXT.
-9. Baseline do SPEC: PRD c22a97f1, CONTEXT fc72ef60 (reconferir com git hash-object).
-Depois: commitar, `forge-checklist` (haiku) gera o CHECKLIST, commitar/push e PARAR antes da implementacao.
+1. Ler este arquivo e o STATE; rodar `npm run typecheck`, `npm run lint`, `npx vitest --run` para confirmar o verde.
+2. Disparar em PARALELO (risco baixo, avaliado e aprovado pelo Pontin):
+   - Grupo A (opus): F3 -> F4 -> F5 -> F6 (em fila). Sugestao PENDENTE de resposta do Pontin: mover F7 (comparar) do grupo A para o B.
+   - Grupo B (opus): F8, F9 (e F7 se o Pontin aprovar).
+   - Cada grupo: arquivos proprios (lista em `HANDOFF_frontend.md`, secao F1.4), modulo i18n proprio em `src/i18n/messages/<tela>.ts`, porta de e2e propria (A 4174, B 4175), `PW_DEV=1`.
+   - Grupo A PRECISA chamar `useHistoryStore.getState().push(dex)` ao abrir a ficha; stores ouvem o evento `pontindex:data-changed`; o store de treinadores (grupo B) tambem deve ouvir esse evento.
+   - Toda tela de lista tem barra de busca PT e EN (regra geral de Frontend na SPEC; F3.2, F6.2, F8.2, F9.1, F9.2).
+3. Rodar a suite COMPLETA no fim de cada onda (licao de 2026-09-24), nao so no fim da sessao.
+4. Depois dos grupos: F12, T1, Stage 5. Merge e deploy na Vercel so quando o Pontin pedir (deploy so no fim do projeto).
 
-## Regras combinadas com o Pontin (valem para o resto do pipeline)
+## Regras combinadas com o Pontin (valem ate o fim)
 
-- Autonomia total ate o fim da Stage 3: aprovar gates sozinho, decidir perguntas abertas pelo default recomendado e registrar como premissa. PARAR antes da Stage 4 (implementacao) e esperar o ok.
-- Nenhum agente roda mais de 1h seguida: ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco (tambem no CLAUDE.md global, Regra 2).
-- Playwright neste projeto: `headless: true` e SEM `slowMo` nem timers (Pontin, 2026-09-24; sobrepoe o CLAUDE.md global e a regra antiga de headless false).
-- Respostas em pt-BR, em texto (sem widgets de pergunta), sem travessao, commits sem assinatura do Claude, push/merge so com pedido explicito.
-- Tudo e must-have; nao perguntar prioridade.
+- Respostas em pt-BR, texto curto; sem travessao em nada; commits sem assinatura do Claude; commits atomicos por feature.
+- Push SO quando o Pontin pedir. Merge nunca sem pedido explicito.
+- Nenhum agente roda mais de 1h (Regra 2 do CLAUDE.md global): timer por agente; agente retomado por mensagem conta o tempo total; ao estourar, agente NOVO de contexto zerado a partir do disco. Neste PC Windows, parar timers com TaskStop pelo ID (pkill nao funciona).
+- Playwright SEMPRE `headless: true`, sem `slowMo`, sem timers/sleeps.
+- Paralelizar SO quando o risco para a qualidade for baixo ou nulo.
+- Avisar ANTES de instalar qualquer coisa neste PC. Instalado com ok: Node 24.19.0, npm 11.17.0, Playwright 1.63.0 global + Chromium. Sem JDK/Android SDK (so na Fase 2, apps). NAO ha Python: nunca rodar `python`/`python3` (abre a Microsoft Store).
+- Site primeiro (Fase 1, PWA); apps Windows/Android so depois que o Pontin testar tudo.
+- O Pontin acompanha pelo Remote Control: mandar so avisos curtos de andamento, sem prints.
+- Modelos: dados e regras criticas e frontend em Opus; coleta mecanica em Sonnet; checklist/contagens em Haiku (conferir sempre: o Haiku errou o checklist).
 
-## O que o PC novo precisa ter
+## Decisoes de dados tomadas hoje (por evidencia nos arquivos)
 
-- NAO precisa do modpack: os dados usados estao em `data-source/atm-1.3.0/` (copia extraida em 2026-09-23). A instancia original ficou no PC de casa (`C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`).
-- Node 24 + npm 11 (versoes usadas aqui), Git, Playwright instalado globalmente.
-- Para a Fase 2 (apps, futura): JDK 21 e Android SDK 36 (ANDROID_HOME).
-- `ui-refs/` (50 prints de referencia) e `STATE_pontindex.md` vem no clone. Se precisar refazer os prints: `/forge --ui-recon pontindex`, servindo a pasta `design/` como raiz (nao `design/prototipo/`).
+- BDSP tem 43 treinadores-chave (kubejs do All the Mons torna 10 revanches obrigatorias).
+- Level cap: minimo entre TODOS os treinadores-chave disponiveis (regra do bytecode); apos UM Cedric continua 22 [OPEN: conferir no jogo].
+- Mewtwo tem spawn ultra-raro do ccc (cavernas/Deep Dark) + fossil; Charizard tem spawn proprio.
+- Colisoes de arquivos entre mods: kubejs substitui o jar; entre jars vence o mod que carrega por ultimo pela ordem transitiva dos `neoforge.mods.toml` (mega_showdown < allthemons < ccc: ccc vence 24 colisoes). Constante `SPAWN_COLLISION_WINNER` em `tools/dataset/src/species/spawns.ts`.
+- Meltan sem evolucao para Melmetal (kubejs `zzz_ccc_meltan.json` zera evolutions) [OPEN: conferir no jogo].
+- Pokedex: lista virtualizada (sem paginacao) + barra de busca combinada com os filtros.
+
+## Ambiente e cuidados
+
+- O Desktop deste PC esta sincronizado com o OneDrive: causou EPERM ao renomear pastas. Mitigado (delete-then-rename com retry; Vite ignora `tools/dataset/out` e `.cache`). Sugerido ao Pontin tirar o repo do OneDrive.
+- `npm run dataset` publica em `public/`; testes usam `--publish-dir tools/dataset/out/_publish_test` e nunca tocam `public/`.
+- `prints/` (raiz) e rascunho do Pontin, fora do git. Feedbacks versionados em `.forge/in-progress/pontindex/feedback/`.
+- Para ver o site: `npm run dev` e abrir http://localhost:5173/.

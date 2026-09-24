@@ -4,10 +4,10 @@ stage: implementation
 status: impl-in-progress
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: PARAR apos F2 e Grupo C terminarem (pedido do Pontin); conferir, consolidar checklist/STATE, commitar e aguardar
+mode: PARADO. Ao retomar: ler RETOMADA_pontindex.md, confirmar verde, disparar grupos A e B em paralelo (opus)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: F2 home+busca (opus, bk5yk4ikf, iniciado 18:25); Grupo C F10+F11 (bixq4fm4y)
+running_agent: nenhum (sessao PARADA a pedido do Pontin em 2026-09-24 19:35)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -289,3 +289,11 @@ updated: 2026-09-24
 - 18:58 F2 concluida (18:25-18:58): F2.1 04fe3b34, F2.2 2b93c758, handoff 43ad2712. e2e home 24/24 com dataset real; stores congelados (captured/team/history) com evento pontindex:data-changed; grupo A deve chamar useHistoryStore.getState().push(dex) ao abrir a ficha. Aguardando so o agente de lint (b738ln2sb) para verificacao final + push.
 - 19:06 Pontin: Pokedex TERA barra de busca igual a da Home, combinada com os filtros (texto E filtros; restaura ao voltar). SPEC F3.2 (passo 4, traces, edge, Done, commit) e checklist atualizados. Pokedex continua com lista virtualizada (sem paginacao, confirmado pelo Pontin).
 - 19:07 Pontin: TODA tela de lista com barra de busca PT E EN (independe do idioma da interface), igual a da Home: Capturados F6.2, Treinadores F8.2 (nome do treinador ou de Pokemon do time; so filtra exibicao, cap nao muda), Pokebolas F9.1; Itens F9.2 ja tinha; Pokedex F3.2 ja incluida. Regra geral adicionada nas regras de Frontend da SPEC.
+- 19:16 lint corrigido abc36ce4 (auditoria continua 0 divergencias). Verificacao final achou: (1) join.test roda o pipeline REAL e publica em public/data; sob carga estourou tempo e APAGOU a pasta do dataset no working tree -> restaurado do git por mim (1027 especies, site 200); (2) typecheck: home.spec.ts importa /src/state/*.ts por URL absoluta. Agente de correcao (opus, timer bf80mnuzz): --publish-dir para o teste, timeout, tipos do home.spec. Push so depois de tudo verde.
+
+## 2026-09-24 19:33 - SESSAO PARADA (pedido do Pontin). Ponto de retomada: RETOMADA_pontindex.md
+- Fix final: c230aa4c (join.test publica em tools/dataset/out/_publish_test via --publish-dir; causa raiz do EPERM: watcher do Vite dev segurando tools/dataset/out -> vite.config ignora out/ e .cache/), 4229ef75 (tipos do home.spec).
+- Verificacao independente minha: typecheck 0, lint 0, vitest 27/27 arquivos 256/256 testes, public/ intacto, 0 commits com assinatura.
+- Checklist: 40/59 [x]. Faltam grupo A (F3-F6, F7 pendente de mover para B), grupo B (F8, F9), F12, T1, Stage 5.
+- Tempos do dia: Onda 0 28 min; Onda 1 31 min de parede (4 agentes, 119 min somados); Onda 1b 17 min; Onda 2 46 min; auditoria 50 + 9 min; correcao de dados 15 + 4 min; F1.4 21 min; grupo C 36 min; F2 33 min.
+- Push da branch feature/pontindex autorizado pelo Pontin para o fim desta etapa.
