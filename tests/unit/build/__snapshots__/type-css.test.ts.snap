@@ -1,0 +1,98 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`type-css generator (B1.4) > generates 18 type blocks matching the committed file 1`] = `
+"/* GENERATED, do not edit. Fonte: design/tipos/cores.json (npm run gen:assets). */
+:root {
+  --t-bug: #92bc2c; --type-bug-a: #5fd400; --type-bug-b: #d4ff3d;
+  --t-dark: #595761; --type-dark-a: #23233a; --type-dark-b: #6b6b9e;
+  --t-dragon: #0c69c8; --type-dragon-a: #1a2dff; --type-dragon-b: #5ce1ff;
+  --t-electric: #f2d94e; --type-electric-a: #ffb300; --type-electric-b: #fff200;
+  --t-fairy: #ee90e6; --type-fairy-a: #ff4fd8; --type-fairy-b: #ffc2f2;
+  --t-fighting: #d3425f; --type-fighting-a: #e6003d; --type-fighting-b: #ff7a3d;
+  --t-fire: #fba54c; --type-fire-a: #ff5a00; --type-fire-b: #ffd000;
+  --t-flying: #a1bbec; --type-flying-a: #3d8bff; --type-flying-b: #b3e0ff;
+  --t-ghost: #5f6dbc; --type-ghost-a: #4b2bd6; --type-ghost-b: #a06bff;
+  --t-grass: #5fbd58; --type-grass-a: #00b34a; --type-grass-b: #b6ff2e;
+  --t-ground: #da7c4d; --type-ground-a: #d96a00; --type-ground-b: #ffcc66;
+  --t-ice: #75d0c1; --type-ice-a: #00c2ff; --type-ice-b: #c8fbff;
+  --t-normal: #a0a29f; --type-normal-a: #8a8a8a; --type-normal-b: #dcdcdc;
+  --t-poison: #b763cf; --type-poison-a: #8a1fff; --type-poison-b: #e55cff;
+  --t-psychic: #fa8581; --type-psychic-a: #ff2d7a; --type-psychic-b: #ff9ec4;
+  --t-rock: #c9bb8a; --type-rock-a: #a88a2a; --type-rock-b: #e6cf7a;
+  --t-steel: #5695a3; --type-steel-a: #2f7fa6; --type-steel-b: #9be3ff;
+  --t-water: #539ddf; --type-water-a: #0066ff; --type-water-b: #00e5ff;
+}
+
+/* bug */
+.t-bug { --tc: var(--t-bug); --g1: var(--type-bug-a); --g2: var(--type-bug-b); }
+.g-bug { --g1: var(--type-bug-a); --g2: var(--type-bug-b); }
+
+/* dark */
+.t-dark { --tc: var(--t-dark); --g1: var(--type-dark-a); --g2: var(--type-dark-b); }
+.g-dark { --g1: var(--type-dark-a); --g2: var(--type-dark-b); }
+
+/* dragon */
+.t-dragon { --tc: var(--t-dragon); --g1: var(--type-dragon-a); --g2: var(--type-dragon-b); }
+.g-dragon { --g1: var(--type-dragon-a); --g2: var(--type-dragon-b); }
+
+/* electric */
+.t-electric { --tc: var(--t-electric); --g1: var(--type-electric-a); --g2: var(--type-electric-b); }
+.g-electric { --g1: var(--type-electric-a); --g2: var(--type-electric-b); }
+
+/* fairy */
+.t-fairy { --tc: var(--t-fairy); --g1: var(--type-fairy-a); --g2: var(--type-fairy-b); }
+.g-fairy { --g1: var(--type-fairy-a); --g2: var(--type-fairy-b); }
+
+/* fighting */
+.t-fighting { --tc: var(--t-fighting); --g1: var(--type-fighting-a); --g2: var(--type-fighting-b); }
+.g-fighting { --g1: var(--type-fighting-a); --g2: var(--type-fighting-b); }
+
+/* fire */
+.t-fire { --tc: var(--t-fire); --g1: var(--type-fire-a); --g2: var(--type-fire-b); }
+.g-fire { --g1: var(--type-fire-a); --g2: var(--type-fire-b); }
+
+/* flying */
+.t-flying { --tc: var(--t-flying); --g1: var(--type-flying-a); --g2: var(--type-flying-b); }
+.g-flying { --g1: var(--type-flying-a); --g2: var(--type-flying-b); }
+
+/* ghost */
+.t-ghost { --tc: var(--t-ghost); --g1: var(--type-ghost-a); --g2: var(--type-ghost-b); }
+.g-ghost { --g1: var(--type-ghost-a); --g2: var(--type-ghost-b); }
+
+/* grass */
+.t-grass { --tc: var(--t-grass); --g1: var(--type-grass-a); --g2: var(--type-grass-b); }
+.g-grass { --g1: var(--type-grass-a); --g2: var(--type-grass-b); }
+
+/* ground */
+.t-ground { --tc: var(--t-ground); --g1: var(--type-ground-a); --g2: var(--type-ground-b); }
+.g-ground { --g1: var(--type-ground-a); --g2: var(--type-ground-b); }
+
+/* ice */
+.t-ice { --tc: var(--t-ice); --g1: var(--type-ice-a); --g2: var(--type-ice-b); }
+.g-ice { --g1: var(--type-ice-a); --g2: var(--type-ice-b); }
+
+/* normal */
+.t-normal { --tc: var(--t-normal); --g1: var(--type-normal-a); --g2: var(--type-normal-b); }
+.g-normal { --g1: var(--type-normal-a); --g2: var(--type-normal-b); }
+
+/* poison */
+.t-poison { --tc: var(--t-poison); --g1: var(--type-poison-a); --g2: var(--type-poison-b); }
+.g-poison { --g1: var(--type-poison-a); --g2: var(--type-poison-b); }
+
+/* psychic */
+.t-psychic { --tc: var(--t-psychic); --g1: var(--type-psychic-a); --g2: var(--type-psychic-b); }
+.g-psychic { --g1: var(--type-psychic-a); --g2: var(--type-psychic-b); }
+
+/* rock */
+.t-rock { --tc: var(--t-rock); --g1: var(--type-rock-a); --g2: var(--type-rock-b); }
+.g-rock { --g1: var(--type-rock-a); --g2: var(--type-rock-b); }
+
+/* steel */
+.t-steel { --tc: var(--t-steel); --g1: var(--type-steel-a); --g2: var(--type-steel-b); }
+.g-steel { --g1: var(--type-steel-a); --g2: var(--type-steel-b); }
+
+/* water */
+.t-water { --tc: var(--t-water); --g1: var(--type-water-a); --g2: var(--type-water-b); }
+.g-water { --g1: var(--type-water-a); --g2: var(--type-water-b); }
+"
+`;
