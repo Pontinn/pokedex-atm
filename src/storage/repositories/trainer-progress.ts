@@ -9,8 +9,8 @@ export function createTrainerProgressRepository(storage: RepoStorage, now: () =>
     },
     markDefeated(seriesId: string, trainerId: string, at: number = now()) {
       return updateDoc(storage, "trainerProgress", (doc) => {
-        const s = (doc.series[seriesId] ??= { defeated: {} });
-        if (!(trainerId in s.defeated)) s.defeated[trainerId] = { at };
+        const s = Object.hasOwn(doc.series, seriesId) ? doc.series[seriesId]! : (doc.series[seriesId] = { defeated: {} });
+        if (!Object.hasOwn(s.defeated, trainerId)) s.defeated[trainerId] = { at };
         return doc;
       });
     },
