@@ -188,3 +188,7 @@ updated: 2026-09-24
 ## 2026-09-24 15:37 - SPEC APROVADA (auto, modo autonomo): spec-done
 - forge-spec aplicou o delta (W-A: flags --only/--out, staging por agente em tools/dataset/out/_<parte>/, publish so na Onda 2, cache por etapa; W-B; 5 NITs; playwright.harness.config.ts). Self-check: 137/137, 0 travessao, 0 sobreposicao na mesma onda. SPEC 1762 linhas.
 - Proximo: forge-checklist (haiku) por ondas; depois PARAR para o ok do Pontin (Stage 4). Pre-flight da Stage 4 re-roda forge-review + drift + gate de identificadores.
+
+## 2026-09-24 15:43 - checklist gerado (haiku) e corrigido por mim; feedback de UI do Pontin
+- Haiku duplicou B2.3/B2.4/B2.5 na Onda 0 e F1.4 na Onda 1b, inventou a Fase 2 e chutou Sonnet para o frontend. Corrigido: 62 itens (58 features + T1 + P1-P3), titulos identicos a SPEC (diff), 0 travessao. Modelo do frontend (Onda 1b/3) e dos testes (Onda 4): a definir com o Pontin (recomendo Opus / Sonnet).
+- Pontin criou a pasta prints/ na raiz (salvar prints neste PC). prints/1.png: prototipo, ficha do Mewtwo, selo "NAO NASCE NO MUNDO" passa por baixo do botao de som. Esse selo ja sai pelo RF-10; regra geral adicionada na SPEC (Frontend: "Sem sobreposicao de texto" + helper expectNoOverlap em F1.4, checagem no hero em F4.1) e no checklist.
