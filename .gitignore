@@ -15,3 +15,11 @@ Thumbs.db
 
 # forge: neste projeto TODOS os artefatos do .forge sao versionados (STATE, checklists, relatorios, handoffs, ui-refs),
 # a pedido do usuario, para continuar o trabalho em outro PC sem perder nada.
+
+# pontindex (B1.2): cache do pipeline, relatorios de teste, arquivos locais
+# (tools/dataset/out/ ja coberto por out/ acima)
+tools/dataset/.cache/
+test-results/
+playwright-report/
+coverage/
+*.local

@@ -1,0 +1,5 @@
+*.png binary
+*.ogg binary
+*.webp binary
+*.avif binary
+public/data/** -diff
