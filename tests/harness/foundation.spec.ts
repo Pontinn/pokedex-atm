@@ -115,3 +115,65 @@ test.describe("F1.1 tokens e temas", () => {
     expect(res.ok()).toBe(true);
   });
 });
+
+test.describe("F1.3 pilha de navegacao (telas ficticias)", () => {
+  const mainScroll = (page: Page) => page.evaluate(() => document.getElementById("main")!.scrollTop);
+  const scrollMainTo = async (page: Page, top: number) => {
+    await page.evaluate((y) => document.getElementById("main")!.scrollTo({ top: y, behavior: "instant" }), top);
+    await expect.poll(() => mainScroll(page)).toBe(top);
+  };
+
+  test("navegar, rolar 800 px, navegar e voltar (popstate e Alt+Seta) restaura o scroll", async ({ page }) => {
+    const errors = await openHarness(page);
+    await expect(page.getByTestId("dummy-home")).toBeVisible();
+
+    await page.getByTestId("go-dex").click();
+    await expect(page.getByTestId("dummy-dex")).toBeVisible();
+    await scrollMainTo(page, 800);
+
+    await page.getByTestId("dummy-dex").getByTestId("go-detail").dispatchEvent("click");
+    await expect(page.getByTestId("dummy-detail")).toBeVisible();
+    await expect.poll(() => mainScroll(page)).toBe(0);
+
+    // voltar do navegador (popstate)
+    await page.goBack();
+    await expect(page.getByTestId("dummy-dex")).toBeVisible();
+    await expect.poll(async () => Math.abs((await mainScroll(page)) - 800)).toBeLessThanOrEqual(2);
+
+    // de novo para a ficha, rolar, e voltar com Alt+Seta esquerda
+    // (dispatchEvent: o clique nao rola o #main ate o botao, para o scroll salvo ser exatamente o rolado)
+    await page.getByTestId("dummy-dex").getByTestId("go-detail").dispatchEvent("click");
+    await expect(page.getByTestId("dummy-detail")).toBeVisible();
+    await scrollMainTo(page, 450);
+    await page.getByTestId("dummy-detail").getByTestId("go-balls").dispatchEvent("click");
+    await expect(page.getByTestId("dummy-balls")).toBeVisible();
+    await page.keyboard.press("Alt+ArrowLeft");
+    await expect(page.getByTestId("dummy-detail")).toBeVisible();
+    await expect.poll(async () => Math.abs((await mainScroll(page)) - 450)).toBeLessThanOrEqual(2);
+
+    // Voltar do app (goBack(false)) volta uma tela so e restaura o scroll
+    await page.getByTestId("dummy-detail").getByTestId("app-back").dispatchEvent("click");
+    await expect(page.getByTestId("dummy-dex")).toBeVisible();
+    await expect.poll(async () => Math.abs((await mainScroll(page)) - 800)).toBeLessThanOrEqual(2);
+    await page.getByTestId("dummy-dex").getByTestId("app-back").dispatchEvent("click");
+    await expect(page.getByTestId("dummy-home")).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("toggle de termos e titulo nao se sobrepoem no card (PT, 360/390/1280 px)", async ({ page }) => {
+    await openHarness(page);
+    const card = page.getByTestId("dummy-home");
+    for (const width of [360, 390, 1280]) {
+      await page.setViewportSize({ width, height: 800 });
+      const boxes = await card.evaluate((el) => {
+        const title = el.querySelector("h2")!.getBoundingClientRect();
+        const toggle = el.querySelector(".terms-tgl")!.getBoundingClientRect();
+        return { title: title.toJSON(), toggle: toggle.toJSON() };
+      });
+      const a = boxes.title as DOMRect;
+      const b = boxes.toggle as DOMRect;
+      const overlap = a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+      expect(overlap, `overlap at ${width}px`).toBe(false);
+    }
+  });
+});
