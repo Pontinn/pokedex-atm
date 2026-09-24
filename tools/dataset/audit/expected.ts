@@ -303,7 +303,17 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
   const kubeShadow = spawnFiles.filter((f) => f.source !== "kubejs" && (byRl.get(f.rl) ?? []).includes("kubejs"));
   if (kubeShadow.length) notes.push(`${kubeShadow.length} arquivos spawn_pool_world de jar sombreados pelo kubejs (mesmo resource location, kubejs vence no jogo): ${kubeShadow.map((f) => rel(f.file)).join(", ")}`);
   const jarCollide = [...byRl.entries()].filter(([, o]) => o.length > 1 && !o.includes("kubejs"));
-  if (jarCollide.length) notes.push(`${jarCollide.length} resource locations de spawn_pool_world repetidos entre jars (so um vence no jogo, depende da ordem de carga dos mods): ${jarCollide.map(([rl, o]) => `${rl} [${o.join(",")}]`).join("; ")}`);
+  if (jarCollide.length) {
+    const detail = jarCollide.map(([rl]) => {
+      const per = spawnFiles.filter((f) => f.rl === rl).map((f) => {
+        const j = readJson(f.file);
+        const bs = [...new Set((j.spawns ?? []).map((s: any) => s.bucket))].join("/");
+        return `${f.source}${j.enabled === false ? "(OFF)" : ""}=${(j.spawns ?? []).length}x ${bs}`;
+      });
+      return `${rl.replace("cobblemon:spawn_pool_world/", "")} [${per.join(" vs ")}]`;
+    });
+    notes.push(`${jarCollide.length} resource locations de spawn_pool_world repetidos entre jars com conteudo diferente; no jogo so UM arquivo vence (ordem de carga dos mods, nao determinavel pelo snapshot), mas a regra da SPEC soma os dois: ${detail.join("; ")}`);
+  }
 
   // (4) fosseis
   const fossilRoutes: Expected["fossilRoutes"] = [];
