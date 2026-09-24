@@ -35,3 +35,5 @@ html[data-theme="black"] .sync-warn { color: #FFD0A8; }
 .app.mobile .sync-screen .settings-actions .btn { flex: 1 1 auto; justify-content: center; }
 .app.mobile .sync-mode-seg { display: flex; width: 100%; }
 .app.mobile .sync-mode-seg button { flex: 1; }
+.sync-progress-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sync-review { display: grid; gap: 12px; }

@@ -5,6 +5,7 @@ import { SegmentedControl } from "../../components/SegmentedControl";
 import { useT } from "../../i18n/useT";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
 import { GenerateCodePanel } from "./GenerateCodePanel";
+import { ReceiveCodePanel } from "./ReceiveCodePanel";
 import { SyncExplainer } from "./SyncExplainer";
 
 type Mode = "generate" | "receive";
@@ -30,7 +31,7 @@ export function SyncScreen(_props: ScreenProps) {
             { value: "receive", label: t("sync.receive") },
           ]}
         />
-        {mode === "generate" ? <GenerateCodePanel /> : null}
+        {mode === "generate" ? <GenerateCodePanel /> : <ReceiveCodePanel />}
       </div>
     </section>
   );

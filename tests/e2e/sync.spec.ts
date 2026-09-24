@@ -165,3 +165,162 @@ test.describe("F11.1 generate code", () => {
     }
   }
 });
+
+// ---------------------------------------------------------------------------------------------------------------
+// F11.2: receber codigo
+// ---------------------------------------------------------------------------------------------------------------
+
+async function readDocs(page: Page): Promise<Docs> {
+  return page.evaluate(async () => {
+    const req = indexedDB.open("pontindex");
+    const db: IDBDatabase = await new Promise((res) => (req.onsuccess = () => res(req.result)));
+    const all = db.transaction("documents").objectStore("documents").getAll();
+    await new Promise((r) => (all.onsuccess = r));
+    db.close();
+    const out: Record<string, unknown> = {};
+    for (const rec of all.result as { key: string; doc: unknown }[]) out[rec.key] = rec.doc;
+    return out;
+  });
+}
+
+const prefs = (theme: string, soundEnabled = true) => ({
+  schemaVersion: 1, theme, uiLanguage: "pt", termsLanguage: "pt", termsOverrides: {}, soundEnabled, reduceMotion: null,
+});
+
+/** Dispositivo A do criterio de aceite (SPEC 5.4.4). */
+const DEVICE_A: Docs = {
+  captured: capturedDoc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+  team: { schemaVersion: 1, slots: [6, 448, 94, 149, null, null] },
+  history: { schemaVersion: 1, entries: [{ dex: 6, viewedAt: T0 + 30_000 }, { dex: 448, viewedAt: T0 + 20_000 }, { dex: 25, viewedAt: T0 + 10_000 }] },
+  trainerProgress: { schemaVersion: 1, activeSeriesId: "bdsp", freeroam: { active: false, pausedSeriesId: null }, series: { bdsp: { defeated: { gym_leader_roark_0395: { at: T0 } } } } },
+  preferences: prefs("black"),
+};
+/** Dispositivo B. */
+const DEVICE_B: Docs = {
+  captured: capturedDoc([11, 12, 13, 14, 15]),
+  team: { schemaVersion: 1, slots: [null, null, null, null, null, null] },
+  history: { schemaVersion: 1, entries: [{ dex: 150, viewedAt: T0 + 50_000 }, { dex: 133, viewedAt: T0 + 40_000 }] },
+  trainerProgress: { schemaVersion: 1, activeSeriesId: null, freeroam: { active: false, pausedSeriesId: null }, series: {} },
+  preferences: prefs("purple"),
+};
+
+async function generateText(page: Page): Promise<{ text: string; frames: string[] }> {
+  await page.locator("[data-action=generate]").click();
+  const text = await page.locator(".sync-code-text").inputValue();
+  const frames = page.locator(".qr-frames");
+  const n = Number(await frames.getAttribute("data-frames"));
+  const out: string[] = [];
+  if (n > 1) {
+    for (let i = 0; i < n; i++) {
+      await page.locator(".qr-next").click();
+      out.push((await page.locator(".qr-canvas").getAttribute("data-qr-text"))!);
+    }
+  }
+  return { text, frames: out };
+}
+
+async function paste(page: Page, text: string) {
+  await page.locator("#sync-code-in").fill(text);
+  await page.locator("[data-action=receive]").click();
+}
+
+test.describe("F11.2 receive code", () => {
+  test("A/B acceptance: B receives A in Merge (two browser contexts)", async ({ page, browser }) => {
+    const errorsA = trackConsoleErrors(page);
+    await openSync(page, 1280, DEVICE_A);
+    const { text } = await generateText(page);
+
+    const ctxB = await browser.newContext();
+    const pageB = await ctxB.newPage();
+    await mockData(pageB);
+    const errorsB = trackConsoleErrors(pageB);
+    await openSync(pageB, 1280, DEVICE_B);
+    await pageB.locator(".sync-mode-seg button", { hasText: "Receber código" }).click();
+    await expect(pageB.locator("[data-action=receive]")).toBeDisabled();
+    await paste(pageB, `\n${text.slice(0, 40)}\n${text.slice(40)}\n`); // quebras de linha do WhatsApp
+    const review = pageB.locator(".sync-review");
+    await expect(review.locator("[data-sum=captured]")).toHaveText("10 capturados");
+    await expect(review.locator("[data-sum=trainers]")).toHaveText("Treinadores derrotados: bdsp (1)");
+    await expect(review.locator("[data-preview]")).toHaveText("Depois de mesclar você terá: 15 capturados");
+    await review.locator(".merge-seg button", { hasText: "Substituir" }).click();
+    await expect(review.locator("[data-preview]")).toHaveText("Depois de substituir você terá: 10 capturados");
+    await review.locator(".merge-seg button", { hasText: "Mesclar" }).click();
+    await review.locator("[data-action=apply]").click();
+    await expect(pageB.locator(".toast", { hasText: "Dados sincronizados" })).toBeVisible();
+    await expect(pageB.locator("[data-panel=generate]")).toBeVisible();
+    const after = await readDocs(pageB);
+    expect(Object.keys((after.captured as { entries: object }).entries).map(Number).sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+    expect((after.trainerProgress as { series: Record<string, { defeated: object }> }).series.bdsp!.defeated).toEqual({ gym_leader_roark_0395: { at: T0 } });
+    expect((after.team as { slots: unknown[] }).slots).toEqual([6, 448, 94, 149, null, null]);
+    expect((after.history as { entries: { dex: number }[] }).entries.map((e) => e.dex)).toEqual([150, 133, 6, 448, 25]);
+    expect((after.preferences as { theme: string }).theme).toBe("purple");
+    await ctxB.close();
+    expect(errorsA).toEqual([]);
+    expect(errorsB).toEqual([]);
+  });
+
+  test("corrupted, foreign and newer codes: error message and IndexedDB identical", async ({ page }) => {
+    await openSync(page, 1280, DEVICE_B);
+    const { text } = await generateText(page);
+    await page.locator(".sync-mode-seg button", { hasText: "Receber código" }).click();
+    const before = await readDocs(page);
+    const flipped = text.slice(0, 20) + (text[20] === "A" ? "B" : "A") + text.slice(21);
+    await paste(page, flipped);
+    await expect(page.locator("[data-error='sync.corrupted'] [role=alert]")).toHaveText("Código inválido ou corrompido. Confira se copiou tudo.");
+    await paste(page, "hello world");
+    await expect(page.locator("[data-error='sync.foreignApp']")).toBeVisible();
+    await expect(page.locator(".sync-review")).toHaveCount(0);
+    expect(await readDocs(page)).toEqual(before);
+  });
+
+  test("frames pasted one by one go through the frame collector (other session warned)", async ({ page }) => {
+    await openSync(page, 1280, bigDocs());
+    const { frames } = await generateText(page);
+    expect(frames.length).toBeGreaterThanOrEqual(2);
+    const other = await (async () => {
+      await page.locator("[data-action=generate]").click();
+      await page.locator(".qr-next").click();
+      return (await page.locator(".qr-canvas").getAttribute("data-qr-text"))!;
+    })();
+    await page.locator(".sync-mode-seg button", { hasText: "Receber código" }).click();
+    const n = frames.length;
+    // ordem invertida: o coletor aceita qualquer ordem
+    await paste(page, frames[n - 1]!);
+    await expect(page.locator("[data-progress]")).toHaveText(`Faltam ${n - 1} frames (1/${n} lidos)`);
+    await paste(page, other);
+    await expect(page.locator("[data-warn='sync.otherSession']")).toBeVisible();
+    for (let i = n - 2; i >= 0; i--) await paste(page, frames[i]!);
+    await expect(page.locator(".sync-review [data-sum=captured]")).toHaveText("1027 capturados");
+  });
+
+  test("camera denied -> Camera unavailable and the paste field stays usable", async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "mediaDevices", {
+        configurable: true,
+        value: { getUserMedia: () => Promise.reject(new DOMException("denied", "NotAllowedError")), enumerateDevices: () => Promise.resolve([]) },
+      });
+    });
+    await openSync(page, 390);
+    await page.locator(".sync-mode-seg button", { hasText: "Receber código" }).click();
+    await page.locator("[data-action=open-camera]").click();
+    await expect(page.locator("[data-camera-off]")).toContainText("Câmera indisponível");
+    await expect(page.locator("#sync-code-in")).toBeFocused();
+  });
+
+  for (const lang of ["pt", "en"] as const) {
+    test(`receive: no text overlap at 360/390/1280px (${lang})`, async ({ page }) => {
+      await openSync(page, 1280, { ...DEVICE_A, preferences: { ...prefs("classic"), uiLanguage: lang } });
+      const { text } = await generateText(page);
+      await page.locator(".sync-mode-seg button").nth(1).click();
+      await expectNoOverlap(page, ".sync-screen");
+      await paste(page, text);
+      await expect(page.locator(".sync-review")).toBeVisible();
+      for (const width of [1280, 390, 360]) {
+        await page.setViewportSize({ width, height: 900 });
+        await expect(page.locator(".sync-review")).toBeVisible();
+        await expectNoOverlap(page, ".sync-screen");
+        if (SHOTS) await page.screenshot({ path: `${SHOTS}/sync-recv-${width}-${lang}.png` });
+      }
+    });
+  }
+});
