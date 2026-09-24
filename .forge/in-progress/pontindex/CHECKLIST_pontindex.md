@@ -235,24 +235,24 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_rules-storage.md`
 
 ### Sprint F1: Fundacao visual, i18n, navegacao e shell
 
-- [ ] F1.1 Tokens, temas e paleta por tipo
-  - hash:
+- [x] F1.1 Tokens, temas e paleta por tipo
+  - hash: a3bfc480
   - Done when (literal da SPEC): em `tests/harness/foundation.spec.ts` (Playwright `headless: true`, sem `slowMo`, sem timers) a pagina `tests/harness/foundation.html`, para cada um dos 7 ids de `THEME_IDS`, seta `data-theme` e `getComputedStyle(document.documentElement)` devolve os valores da tabela de tokens do UISPEC 3.3 (esperados em `tests/fixtures/ui-foundation/`), incluindo `--surface` = `#111111` no `black` e `--scroll-thumb`; um `.t-fire` do harness tem `--tc` = cor base de fogo de `cores.json`; o `.watermark` tem `mask-image` com `pokeball-mask`; `tests/unit/ui-foundation/tokens.test.ts`: `applyTheme("inexistente")` deixa `data-theme="classic"` (sem store). O caso "tema SALVO inexistente no IndexedDB cai para `classic`" e testado em F1.2, depois que o `preferences-store` existe. As comparacoes visuais com `ui-refs/` foram movidas: tema `classic` = `desktop-home.png` (F2.2) e `desktop-detail-charizard-full.png` (F4.1); os outros 6 temas = `theme-<azul|branco|laranja|preto|roxo|verde>-home.png` e `theme-<...>-detail-charizard.png` em T1 (`tests/e2e/responsive.spec.ts`), pois `ui-refs/` nao tem `theme-classico-*`.
   - notas:
 
-- [ ] F1.2 i18n e toggle de termos por card
-  - hash:
+- [x] F1.2 i18n e toggle de termos por card
+  - hash: e2bc3ad0
   - Done when (literal da SPEC): `tests/unit/ui-foundation/i18n.test.ts`: toda chave de `MESSAGES` tem `pt` e `en` nao vazios (completude do dicionario); nenhuma das chaves excluidas (`detail.noSpawn`, `detail.noSpawnDesc`, `evo.methods`, `captured.progress`, `home.lastCaught`, `ip.noDesc`) existe; `t("chave.inexistente")` lanca em dev; interpolacao `{n}`; `TermsToggle` com `cardKey="moves"` grava o override pelo repositorio (com `fake-indexeddb`) e so o card consumidor re-renderiza (contador de render); trocar `uiLanguage` nao altera `termsOverrides`; o `preferences-store` hidratado com `theme: "inexistente"` (doc gravado via `fake-indexeddb`) chama `applyTheme` (F1.1) e resulta em `data-theme="classic"` com aviso; `npm run lint` verde com a regra `no-literal-jsx-text` (B1.1) sobre `src/`. A comparacao com `desktop-settings-full.png` (bloco de idioma/termos) foi movida para F10.1, onde a tela existe.
   - notas:
 
-- [ ] F1.3 Pilha de navegacao com historico real
-  - hash:
+- [x] F1.3 Pilha de navegacao com historico real
+  - hash: 311fbd0a
   - Done when (literal da SPEC): `tests/unit/ui-foundation/navigation.test.ts`: `navigate` A -> B -> C e `goBack` duas vezes restaura `current.ui` de B e A exatamente (ex. `moveTab: "tm"`, `openMoveRows: ["flamethrower"]`) e o `scroll` salvo; pilha limitada a 40 (41o push descarta o mais antigo); `goBack` com pilha vazia vai para `home`; `updateUi` nao faz push; o gancho de som e chamado 1 vez por `navigate` (spy via `setNavigationSoundHook`) e o padrao no-op nao lanca; `tests/harness/foundation.spec.ts` (Playwright `headless: true`, sem `slowMo`, sem timers) no harness com telas ficticias rolaveis: navegar, rolar 800 px, navegar, `page.goBack()` (popstate) restaura o scroll com tolerancia de 2 px (`expect.poll`) e Alt+Seta esquerda tambem volta. Os fluxos reais foram movidos: "Dex com filtro Fogo + scroll > ficha > Voltar" para F4.1 (primeira feature com Dex e ficha) e "Charizard > Golpes TM > scroll > item > Voltar" para F9.3 (primeira com a pagina de item), ambos repetidos em T1 `tests/e2e/navigation.spec.ts`.
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend-foundation.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 16:53 / **fim**: 17:10 / **duracao**: 17 min
 
 ---
 

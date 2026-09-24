@@ -4,10 +4,10 @@ stage: implementation
 status: impl-in-progress
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: gate (ate a Onda 2; parar ao fim de cada onda)
+mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: ONDA 1b frontend-foundation (opus, timer b06dnxcn1); Onda 1 concluida
+running_agent: ONDA 2 Juncao (sonnet) B3.3 B4.1 B4.2 B2.5, iniciado 2026-09-24 17:12, timer bfvt7yylp
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -238,3 +238,8 @@ updated: 2026-09-24
 - Decisoes por evidencia (verificadas nos arquivos): BDSP 43 treinadores-chave (kubejs vence); cap apos um Cedric = 22 (regra do bytecode no PRD; OPEN conferir no jogo); Fogo/Agua vs fogo 0.25. SPEC corrigida. Gap BallCondition (fast_ball/net_ball) para a Onda 2 estender.
 - Checklist consolidado: 25 itens [x]. Onda 1b (frontend) ainda rodando (timer b06dnxcn1).
 - GATE: ao fim da Onda 1b, mostrar ao Pontin e pedir ok para a Onda 2.
+- 17:03 Pontin: nao precisa mostrar a pagina de teste da 1b; seguir sem gates (Onda 2, auditoria 2b, F1.4) e AVISAR quando der para ver de verdade (F2 home+busca rodando em localhost). Parar so em bloqueio, decisao de produto ou divergencia da auditoria.
+
+## 2026-09-24 17:11 - Onda 1b concluida (16:53-17:10, 17 min): F1.1 a3bfc480, F1.2 e2bc3ad0, F1.3 311fbd0a (+ handoff 122178c8)
+- Conferido: vitest 193/193 (21 arquivos), typecheck e lint limpos. Desvios aceitos: watermark em components.css (F1.4 nao redeclara); chaves theme.<id> em ingles; mais chaves excluidas (captured.gen1, evo.<pedra>). Pendente para F1.4: checagem de sobreposicao tambem em EN (harness so testou PT).
+- Onda 2 (Juncao, sonnet) disparada em modo autonomo.
