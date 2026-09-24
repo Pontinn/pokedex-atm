@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "test": "vitest",
     "test:e2e": "playwright test",
+    "test:harness": "playwright test -c playwright.harness.config.ts",
     "dataset": "tsx tools/dataset/src/index.ts",
     "gen:assets": "tsx tools/gen/type-css.ts && tsx tools/gen/icons.ts"
   },
