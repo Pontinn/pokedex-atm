@@ -44,6 +44,13 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  server: {
+    watch: {
+      // Staging/cache do pipeline de dataset nao sao do app. No Windows o watcher do Vite segura handles das
+      // pastas observadas e o rename do staging na publicacao falha com EPERM (e o dev server recarregava a toa).
+      ignored: ["**/tools/dataset/out/**", "**/tools/dataset/.cache/**"],
+    },
+  },
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(pkg.version),

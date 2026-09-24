@@ -36,6 +36,11 @@ export interface CliFlags {
   only: StageName | null;
   /** --out <dir> (null = padrao tools/dataset/out/_staging) */
   out: string | null;
+  /**
+   * --publish-dir <dir>: raiz onde a publicacao escreve data/ e assets/ (null/ausente = public/ do repo, padrao
+   * do `npm run dataset`). So aceita subpasta de tools/dataset/out/: existe para os testes nunca tocarem public/.
+   */
+  publishDir?: string | null;
 }
 
 // ---------------------------------------------------------------------------

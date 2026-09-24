@@ -54,5 +54,23 @@ export function resolveConfig(flags: CliFlags, env: NodeJS.ProcessEnv = process.
     throw new PipelineError("E_OUT_DIR_UNSAFE", "--out deve ser uma subpasta de tools/dataset/out/", outDir);
   }
   const cacheRoot = path.resolve(repoRoot, env.DATASET_CACHE_DIR ?? DEFAULT_CACHE);
-  return { repoRoot, sourceRoot, sourceOrigin, outDir, cacheRoot, publicDir: path.join(repoRoot, "public") };
+  const publicDir = resolvePublishDir(flags, repoRoot);
+  if (flags.publishDir) {
+    const pubRel = path.relative(outRoot, publicDir);
+    // destino alternativo so para testes: dentro de tools/dataset/out/<pasta>/ e sem sobrepor o staging
+    const overlapsStaging = !path.relative(outDir, publicDir).startsWith("..") || !path.relative(publicDir, outDir).startsWith("..");
+    if (pubRel === "" || pubRel.startsWith("..") || path.isAbsolute(pubRel) || overlapsStaging) {
+      throw new PipelineError(
+        "E_OUT_DIR_UNSAFE",
+        "--publish-dir deve ser uma subpasta de tools/dataset/out/ separada do --out",
+        publicDir,
+      );
+    }
+  }
+  return { repoRoot, sourceRoot, sourceOrigin, outDir, cacheRoot, publicDir };
+}
+
+/** Raiz da publicacao: --publish-dir (relativo a raiz do repo) ou, por padrao, public/ do app. */
+export function resolvePublishDir(flags: CliFlags, repoRoot = REPO_ROOT): string {
+  return flags.publishDir ? path.resolve(repoRoot, flags.publishDir) : path.join(repoRoot, "public");
 }

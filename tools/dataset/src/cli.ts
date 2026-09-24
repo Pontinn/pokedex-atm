@@ -3,7 +3,8 @@ import { STAGES, type CliFlags, type StageName } from "./context";
 import { PipelineError } from "./lib/errors";
 
 export const USAGE = `uso: npm run dataset -- [--instance <dir>] [--skip-media] [--offline] [--report] [--keep-old]
-                              [--only <${STAGES.join("|")}>] [--out <dir>]`;
+                              [--only <${STAGES.join("|")}>] [--out <dir>]
+                              [--publish-dir <dir>]`;
 
 export function parseCliArgs(argv: readonly string[]): CliFlags {
   const flags: CliFlags = {
@@ -14,6 +15,7 @@ export function parseCliArgs(argv: readonly string[]): CliFlags {
     keepOld: false,
     only: null,
     out: null,
+    publishDir: null,
   };
   const takeValue = (i: number, name: string): string => {
     const value = argv[i + 1];
@@ -31,6 +33,10 @@ export function parseCliArgs(argv: readonly string[]): CliFlags {
         break;
       case "--out":
         flags.out = takeValue(i, arg);
+        i++;
+        break;
+      case "--publish-dir":
+        flags.publishDir = takeValue(i, arg);
         i++;
         break;
       case "--only": {

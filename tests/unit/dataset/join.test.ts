@@ -4,9 +4,9 @@
 // como B3.3 e artwork-ids ja rodaram de verdade contra a rede antes deste commit (ver HANDOFF_join.md),
 // o cache em tools/dataset/.cache/{pokeapi,sprites}/ ja esta quente e --offline garante 0 chamadas de
 // rede aqui (regra do ambiente: testes unitarios nunca tocam rede).
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
-import { describe, expect, it, beforeAll } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { runPipeline } from "../../../tools/dataset/src/index";
 import {
   speciesDetailSchema,
@@ -26,28 +26,54 @@ import type {
 
 const REPO_ROOT = path.resolve(import.meta.dirname, "../../..");
 const OUT_DIR = "tools/dataset/out/_join_test";
+// Higiene: o teste NUNCA publica em public/ (o dev server e o dataset versionado vivem la). A publicacao
+// vai para esta pasta temporaria (tools/dataset/out/ e gitignored) e as assercoes leem dela.
+const PUBLISH_DIR = "tools/dataset/out/_publish_test";
+const PUB_DATA = `${PUBLISH_DIR}/data`;
+const PUB_ASSETS = `${PUBLISH_DIR}/assets`;
+// Pipeline real offline (1027 especies + midia) com I/O sincrono pesado: folga ampla para maquina carregada.
+const PIPELINE_TIMEOUT_MS = 600_000;
 
 function readJson<T>(...parts: string[]): T {
   return JSON.parse(readFileSync(path.join(REPO_ROOT, ...parts), "utf8")) as T;
+}
+
+function readTextIfExists(relPath: string): string | null {
+  const abs = path.join(REPO_ROOT, relPath);
+  return existsSync(abs) ? readFileSync(abs, "utf8") : null;
 }
 
 let datasetVersion: string;
 let index: SpeciesIndexFile;
 let manifest: DatasetManifest;
 let items: ItemsFile;
+let publicPointerBefore: string | null;
 
 beforeAll(async () => {
-  await runPipeline(["--offline", "--out", OUT_DIR, "--report"]);
-  const pointer = readJson<CurrentDatasetPointer>("public/data/current.json");
+  publicPointerBefore = readTextIfExists("public/data/current.json");
+  rmSync(path.join(REPO_ROOT, PUBLISH_DIR), { recursive: true, force: true });
+  await runPipeline(["--offline", "--out", OUT_DIR, "--publish-dir", PUBLISH_DIR, "--report"]);
+  const pointer = readJson<CurrentDatasetPointer>(PUB_DATA, "current.json");
   datasetVersion = pointer.datasetVersion;
-  index = readJson<SpeciesIndexFile>("public/data", datasetVersion, "species-index.json");
-  manifest = readJson<DatasetManifest>("public/data", datasetVersion, "dataset-manifest.json");
-  items = readJson<ItemsFile>("public/data", datasetVersion, "items.json");
-}, 180_000);
+  index = readJson<SpeciesIndexFile>(PUB_DATA, datasetVersion, "species-index.json");
+  manifest = readJson<DatasetManifest>(PUB_DATA, datasetVersion, "dataset-manifest.json");
+  items = readJson<ItemsFile>(PUB_DATA, datasetVersion, "items.json");
+}, PIPELINE_TIMEOUT_MS);
+
+afterAll(() => {
+  rmSync(path.join(REPO_ROOT, PUBLISH_DIR), { recursive: true, force: true });
+}, 120_000);
 
 function speciesFile(dex: number): SpeciesDetail {
-  return readJson<SpeciesDetail>("public/data", datasetVersion, "species", `${dex}.json`);
+  return readJson<SpeciesDetail>(PUB_DATA, datasetVersion, "species", `${dex}.json`);
 }
+
+describe("test hygiene", () => {
+  it("the pipeline run publishes into the temp dir and leaves public/data/current.json untouched", () => {
+    expect(existsSync(path.join(REPO_ROOT, PUB_DATA, "current.json"))).toBe(true);
+    expect(readTextIfExists("public/data/current.json")).toBe(publicPointerBefore);
+  });
+});
 
 describe("full pipeline run with publication (B2.5)", () => {
   it("publishes a dataset version and species-index.json with 1027 entries", () => {
@@ -80,25 +106,25 @@ describe("full pipeline run with publication (B2.5)", () => {
   });
 
   it("type-chart.json and biomes.json validate against their schemas", () => {
-    const typeChart = readJson("public/data", datasetVersion, "type-chart.json");
+    const typeChart = readJson(PUB_DATA, datasetVersion, "type-chart.json");
     expect(typeChartSchema.safeParse(typeChart).success).toBe(true);
-    const biomes = readJson("public/data", datasetVersion, "biomes.json");
+    const biomes = readJson(PUB_DATA, datasetVersion, "biomes.json");
     expect(biomeLabelsSchema.safeParse(biomes).success).toBe(true);
   });
 
   it("published assets exist (sprites, cries, sfx, item textures)", () => {
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/sprites/6.png"))).toBe(true);
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/cries"))).toBe(true);
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/sfx"))).toBe(true);
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/items"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "sprites/6.png"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "cries"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "sfx"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "items"))).toBe(true);
   });
 });
 
 describe("sprites and artwork ids (B3.3)", () => {
   it("downloads 1025 sprites (dex 1..1025) and registers the count", () => {
     expect(manifest.counts.sprites).toBe(1025);
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/sprites/1.png"))).toBe(true);
-    expect(existsSync(path.join(REPO_ROOT, "public/assets/sprites/1025.png"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "sprites/1.png"))).toBe(true);
+    expect(existsSync(path.join(REPO_ROOT, PUB_ASSETS, "sprites/1025.png"))).toBe(true);
   });
 
   it("Charizard Mega-X artworkId === 10034", () => {

@@ -2,7 +2,6 @@
 // type-chart.json, biomes.json, fossils.json e dataset-manifest.json no staging, valida tudo contra
 // src/data/schemas.ts (B7.4, importado) e, fora de --only, publica em public/ via write.ts (publish).
 import { existsSync } from "node:fs";
-import path from "node:path";
 import type {
   DatasetCounts,
   DatasetManifest,
@@ -16,7 +15,7 @@ import { datasetManifestSchema, speciesDetailSchema, speciesIndexSchema } from "
 import { normalizeSearch } from "../../../../src/domain/normalize";
 import { buildBiomeLabels } from "../biomes";
 import type { PipelineContext } from "../context";
-import { REPO_ROOT } from "../config";
+import { resolvePublishDir } from "../config";
 import { sha8 } from "../lib/hash";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import { MEDIA_BUDGET_BYTES } from "../media/budget";
@@ -232,6 +231,6 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
 
   // 6) publicacao (nunca roda com --only: publish() ja recusa nesse caso).
   if (!ctx.flags.only) {
-    publish(ctx, { publicDir: path.join(REPO_ROOT, "public"), datasetVersion });
+    publish(ctx, { publicDir: resolvePublishDir(ctx.flags), datasetVersion });
   }
 }

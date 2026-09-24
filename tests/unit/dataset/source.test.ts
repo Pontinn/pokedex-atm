@@ -161,6 +161,19 @@ describe("pipeline entry", () => {
     expect(cfg.sourceOrigin).toBe("flag");
   });
 
+  it("--publish-dir defaults to the repo public/ and only accepts a folder under tools/dataset/out apart from --out", () => {
+    expect(resolveConfig(parseCliArgs([]), {}, repoRoot).publicDir).toBe(path.join(repoRoot, "public"));
+    const custom = resolveConfig(parseCliArgs(["--publish-dir", "tools/dataset/out/_pub"]), {}, repoRoot);
+    expect(custom.publicDir).toBe(path.join(repoRoot, "tools/dataset/out/_pub"));
+    expectCode(() => resolveConfig(parseCliArgs(["--publish-dir", "public"]), {}, repoRoot), "E_OUT_DIR_UNSAFE");
+    expectCode(() => resolveConfig(parseCliArgs(["--publish-dir", "tools/dataset/out"]), {}, repoRoot), "E_OUT_DIR_UNSAFE");
+    expectCode(
+      () => resolveConfig(parseCliArgs(["--out", "tools/dataset/out/_x", "--publish-dir", "tools/dataset/out/_x/pub"]), {}, repoRoot),
+      "E_OUT_DIR_UNSAFE",
+    );
+    expectCode(() => parseCliArgs(["--publish-dir"]), "E_CLI_ARGS");
+  });
+
   it("--out must stay under tools/dataset/out and --only selects speciesCore + the stage", () => {
     expectCode(() => resolveConfig(parseCliArgs(["--out", "public/data"]), {}, repoRoot), "E_OUT_DIR_UNSAFE");
     expectCode(() => parseCliArgs(["--only", "nope"]), "E_CLI_ARGS");
