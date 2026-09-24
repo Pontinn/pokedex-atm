@@ -1,20 +1,20 @@
 ---
 feature: pontindex
 stage: spec
-status: in-progress
+status: spec-done
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: full
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: forge-spec aplicando achados da revisao (acumulado ~37 min; timer de 1h termina em ~23 min)
+running_agent: nenhum
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
   PRD: { commit: fe314db, deps: [IDEA_pontindex.md, CONTEXT_pontindex.md] }
   UISPEC: { commit: fe314db, deps: [design/prototipo/index.html, design/prototipo/style.css, design/prototipo/app.js, design/tipos/cores.json] }
   IDEA: { commit: <ver git log: ultimo commit de 2026-09-23>, deps: [design/prototipo/**, design/tipos/**, design/capture/**] }
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 ## 2026-09-23 10:30 - Stage 1 iniciado
 - Projeto do zero: pasta vazia, sem git, sem codigo. forge-context nao tem o que ler ainda.
@@ -138,3 +138,53 @@ updated: 2026-09-23
 
 ## 2026-09-23 - SPEC review NEEDS-CHANGES
 - 2 blockers (merge de species_additions perdia drops do pack; ids de tema/fundo em PT), 6 warnings, 8 nits. Cascata aplicada por mim: PRD rev 6 (RF-59 texto 22, RF-63 48 bolas verificadas no jar) e CONTEXT (48 bolas). forge-spec corrigindo.
+
+## 2026-09-24 - retomada no PC novo (C:/Users/mateu/Desktop/Nova pasta)
+- Branch feature/pontindex trocada localmente (rastreando origin). Itens 1-10 da RETOMADA ja estao na SPEC (eacafc48).
+- Regra nova do Pontin: Playwright headless: true, sem slowMo/timers. Avisar antes de instalar qualquer coisa.
+- PC novo sem Node/npm/Java/Android SDK (so git e winget). Nao precisa para review/checklist; precisa antes da Stage 4.
+- Achado do orquestrador: SPEC usa raiz absoluta C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex (PC original); aqui a raiz e outra.
+- forge-review (spec) disparado em background.
+
+## 2026-09-24 15:05 - re-revisao da SPEC: NEEDS-CHANGES
+- Itens 1-6, 8 (quase todos) e 9 da RETOMADA confirmados; 7 e 10 parciais. Novos: 2 BLOCKERs (deteccao de modo da fonte snapshot x instancia; headless false), 9 WARNINGs (caminhos absolutos do PC antigo, paridade condicional, source-reader nos Files, gitignore, slots vazios do time no codec, ordem do envelope, valores das bolas ancient, exemplo do Magikarp, F2.1), 10 NITs.
+- Cascata: CONTEXT linhas 21 e 92 atualizadas por mim (data-source/atm-1.3.0 = fonte padrao; ATM_INSTANCE_DIR opcional). PRD sem mudanca.
+- Decisao do orquestrador (autonomia): caminhos da SPEC relativos a raiz do repo (portabilidade entre PCs).
+- Ambiente: Node 24.19.0 + npm 11.17.0 (winget) e Playwright 1.63.0 global + Chromium instalados com ok do Pontin. Sem JDK/Android (so Fase 2).
+- Pontin: fazer o SITE (Fase 1) primeiro; app so depois que ele testar tudo.
+- forge-spec novo disparado em background para aplicar os 21 achados.
+
+## 2026-09-24 - PLANO DE IMPLEMENTACAO EM ONDAS (aprovado pelo Pontin)
+- Onda 0 (1 agente, OPUS): B1 (scaffold + todas as deps da §5b) + B2.1 (leitor data-source/instancia) + B2.2 (lang + merge de especies). Deixa `tools/dataset/src/index.ts` com um encaixe (stub) por etapa para os agentes seguintes nao editarem o mesmo arquivo.
+- Onda 1 (ate 4 agentes em paralelo, pastas disjuntas, mesmo branch, commit so dos proprios caminhos):
+  - Especies (SONNET): B2.3, B2.4
+  - PokeAPI e midia (SONNET): B3.1, B3.2, B3.4
+  - Treinadores e bolas (SONNET): B5.1, B5.2, B4.3
+  - Regras e armazenamento (OPUS): B6.x, B7.x
+  - (a confirmar na SPEC) F1 pode comecar na Onda 1 se nao depender de dados.
+- Onda 2 (SONNET): B3.3, B4.1, B4.2, B2.5 (escrita final). Checklist/contagens: HAIKU. Revisao final: OPUS.
+- Cada agente escreve `HANDOFF_<parte>.md` (o que coletou, contagens, formatos reais, excecoes, decisoes, o que deixou pronto) e marca a propria secao do checklist com hash. Orquestrador consolida entre ondas.
+- Regras: 1h por agente com cronometro proprio; teste de verdade para ficar verde (Playwright headless, sem slowMo/timers); retomada pelo checklist em caso de limite de uso.
+- Implementacao so comeca apos SPEC aprovada + checklist + ok do Pontin.
+- F1 conferido na SPEC: F1.1, F1.2 e F1.3 so dependem de B1.4 (Onda 0) e de tipos da §5.3; F1.4 depende de StorageAdapter.init (B7.1). Para manter o teto de 4 agentes, o agente de frontend (F1.1-F1.3) entra assim que o primeiro agente da Onda 1 terminar; F1.4 depois de B7.1.
+- Pontin pediu: ao fim da Onda 1, informar o tempo de cada agente (inicio, fim, duracao, features concluidas). Registrar horario de inicio/fim de cada agente aqui no STATE ao disparar/receber.
+
+## 2026-09-24 15:17 - forge-spec voltou (11 min): 21 achados aplicados, Self-check PASS
+- Validado por mim: 0 travessao, 0 headless false, 1 caminho de maquina (nota historica permitida). SPEC 1712 linhas + tabela de ondas na §6 (adicionada por mim).
+- Extras do agente: tabela das 48 bolas com tooltips reais (Park/Safari/Sport/Love/Dusk corrigidos), Magikarp 46 spawns, Heavy Ball sempre incluida.
+- forge-review final (opus) disparado.
+
+## 2026-09-24 15:21 - revisao final (opus, 5 min): 21 itens confirmados; 0 BLOCKER, 7 WARNING, 6 NIT, todos do plano de ondas
+- Decisoes do orquestrador: Onda 0 escreve todos os contratos compartilhados (data/types, storage/types, themes, ball-rules-types + HEAVY_BALL_BANDS, normalize, contexto do pipeline) congelados na Onda 1; schemas zod com B7.4; Onda 1b so apos B7.1 verde; F1.3 com hook de som injetado; Done de F1.1-F1.3 unitario, comparacoes visuais para F2/F4/F9/T1; teste e fixture por agente.
+- forge-spec disparado para aplicar. PRD sem mudanca.
+
+## 2026-09-24 15:31 - forge-spec voltou (9 min): D1-D5 + NITs aplicados, 0 sobreposicao na mesma onda
+- Nova feature B1.5 (contratos congelados + vitest/playwright config). rarity/obtain movidos para tools/dataset/src/species/. sfx-names.ts (20 sons) dono B3.4. SPEC 1760 linhas. Validado: 0 travessao, 0 headless false, 0 identificador PT.
+- forge-review delta (opus) disparado.
+
+## 2026-09-24 15:34 - review delta (opus, 2 min): W1-W7 e NITs confirmados; 0 BLOCKER, 2 WARNING (Onda 1 rodando dataset completo em saidas compartilhadas; Done de B2.1 inverificavel na Onda 0), 5 NIT
+- Decisao: Onda 1 valida so pela propria etapa com outDir temporario por agente; primeira execucao completa so na Onda 2. Enviado ao mesmo forge-spec via SendMessage.
+
+## 2026-09-24 15:37 - SPEC APROVADA (auto, modo autonomo): spec-done
+- forge-spec aplicou o delta (W-A: flags --only/--out, staging por agente em tools/dataset/out/_<parte>/, publish so na Onda 2, cache por etapa; W-B; 5 NITs; playwright.harness.config.ts). Self-check: 137/137, 0 travessao, 0 sobreposicao na mesma onda. SPEC 1762 linhas.
+- Proximo: forge-checklist (haiku) por ondas; depois PARAR para o ok do Pontin (Stage 4). Pre-flight da Stage 4 re-roda forge-review + drift + gate de identificadores.

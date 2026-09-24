@@ -18,7 +18,7 @@ stack: React + TypeScript + Vite; Fase 1 site PWA estatico (sem backend, deploy 
   - `design/tipos/cores.json - e9eccf58f159b2ffebccedca547bfeaf312b4cff`
   - `design/tipos/preview.html - 74c515d22dcff17ccb90fba77cf6cd0723550ba6`
   - `design/referencias/LEIA-ME.txt - 172b3cd208ab89555eebf99e5ccf7471e8719905`
-- Arquivos da INSTANCIA local (fora do git; fingerprint = tamanho em bytes + mtime do sistema, todos em `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`):
+- Arquivos da INSTANCIA original (fora do git, no PC de casa; referencia historica da extracao do snapshot `data-source/atm-1.3.0/`, que e a fonte padrao hoje; fingerprint = tamanho em bytes + mtime do sistema, todos em `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`):
   - `manifest.json - 43890 bytes - 2026-09-18 17:18` (confirma `"name":"All the Mons"`, `"version":"1.3.0"`, `minecraft.version:"1.21.1"`).
   - `config/rctmod-server.toml - 8715 bytes - 2026-09-18 17:18`.
   - `config/cobblemon/main.json - 3409 bytes - 2026-09-23 14:51` (mexido pelo usuario apos a instalacao; nao afeta os dados de especie/spawn usados pelo app).
@@ -89,7 +89,7 @@ Padroes de estado/infra a reproduzir em React:
 
 Regra central da IDEA (secao 2): **dados 100% nativos no app**. Um script de build le a instancia local do usuario UMA VEZ e gera um pacote (JSON + texturas + sons + lang PT/EN) que entra no bundle do site/apps; em runtime o app nunca acessa mods/jars/pastas do Minecraft. Unica chamada de rede em runtime: PokeAPI para artwork grande (com cache local), alem dos sprites pequenos que tambem sao empacotados no build.
 
-Fonte primaria dos dados de jogo: instancia local `C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons` (All the Mons 1.3.0, Minecraft 1.21.1, NeoForge, Cobblemon 1.7.3, confirmado em `manifest.json` e no nome do jar).
+Fonte primaria dos dados de jogo: o snapshot versionado `data-source/atm-1.3.0/` (relativo a raiz do repo; copia filtrada da instancia All the Mons 1.3.0, Minecraft 1.21.1, NeoForge, Cobblemon 1.7.3; jars ja abertos em `mods/<nome-do-jar>/` com os caminhos internos originais; ver `data-source/README.md` e `MANIFEST.json`). Fonte padrao do build em qualquer PC, sem precisar do modpack. Opcionalmente o pipeline le uma instancia real (jars zipados) quando `ATM_INSTANCE_DIR` aponta para ela; a instancia original de onde o snapshot foi extraido ficou no PC de casa (`C:/Users/Usuario/curseforge/minecraft/Instances/All the Mons - ATMons`) e nao e necessaria. Nas secoes abaixo, "dentro do jar X" vale igualmente para `data-source/atm-1.3.0/mods/X/`.
 
 ### Especies (Cobblemon)
 - `data/cobblemon/species/<generationN>/<nome>.json` dentro de `mods/Cobblemon-neoforge-1.7.3+1.21.1.jar`: **1025 arquivos** (contagem reverificada com `unzip -l | grep -c`, bate com a IDEA).
