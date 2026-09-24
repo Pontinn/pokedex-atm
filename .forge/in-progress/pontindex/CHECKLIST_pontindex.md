@@ -77,19 +77,19 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
 
 ### Sprint B2 (continuacao): Pipeline de dados, parte 1
 
-- [ ] B2.3 Spawns, raridade, fosseis e rotas "Como obter" (derivacao)
-  - hash:
+- [x] B2.3 Spawns, raridade, fosseis e rotas "Como obter" (derivacao)
+  - hash: 9718bf5e
   - Done when (literal da SPEC): em `tests/unit/dataset/species.test.ts` (fixtures em `tests/fixtures/species/`, unico arquivo de teste do agente Especies; chama `runSpeciesDerive(ctx)` com `outDir = tools/dataset/out/_species/`, equivalente a `npm run dataset -- --only speciesDerive --out tools/dataset/out/_species`, sem pipeline completo e sem escrever em `public/`): Eevee -> `primary uncommon`, `secondary [rare, ultra-rare]`, 5 entradas; Mewtwo -> `rarity.primary null`, `obtain = [fossil allthemons]`; Aerodactyl -> `[fossil, breeding]`; Charizard -> `[evolution, breeding]`; `undiscovered` sem breeding; sem rota -> `none`; `counts.fossilRoutes === 16`.
   - notas:
 
-- [ ] B2.4 Evolucoes, cadeia e formas com item necessario (derivacao)
-  - hash:
+- [x] B2.4 Evolucoes, cadeia e formas com item necessario (derivacao)
+  - hash: 9718bf5e
   - Done when (literal da SPEC): (em `tests/unit/dataset/species.test.ts`) Eevee `evolutionChain.edges.length === 8` (Espeon = friendship 160 + timeRange day; Sylveon = friendship + hasMoveType fairy), Charizard `forms` = Mega-X (`requiredItems = ["mega_showdown:charizardite_x","mega_showdown:keystone"]`), Mega-Y, Gmax (`[]`); Kadabra -> Alakazam `variant trade`; Clefairy -> Clefable `requiredItem cobblemon:moon_stone`.
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_species.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 16:25 / **fim**: 16:52 / **duracao**: 27 min
 
 ---
 
@@ -103,24 +103,24 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_species.md`
 
 ### Sprint B3: Pipeline de dados, parte 2 (PokeAPI em build, sprites, midia)
 
-- [ ] B3.1 Cliente PokeAPI com cache e backoff
-  - hash:
+- [x] B3.1 Cliente PokeAPI com cache e backoff
+  - hash: 5f56d316
   - Done when (literal da SPEC): teste (`tests/unit/dataset/pokeapi-media.test.ts`, fixtures em `tests/fixtures/pokeapi-media/`, cache do teste em pasta temporaria do proprio teste, nunca em `.cache/` de outra etapa) com servidor fake: 2 falhas 503 depois 200 -> sucesso com 2 retries; segunda execucao nao faz rede (cache hit 100%).
   - notas:
 
-- [ ] B3.2 Golpes e habilidades
-  - hash:
+- [x] B3.2 Golpes e habilidades
+  - hash: 47b95021
   - Done when (literal da SPEC): `tests/unit/dataset/pokeapi-media.test.ts` monta um `ctx` com `runSpeciesCore` sobre o snapshot real, `outDir = tools/dataset/out/_pokeapi-media/` e cache em `tools/dataset/.cache/pokeapi/`, chama `runPokeapiStage(ctx)` (equivalente: `npm run dataset -- --only pokeapi --out tools/dataset/out/_pokeapi-media`) e confere em `tools/dataset/out/_pokeapi-media/data/`: `moves.json` tem >= 932 entradas e 0 com `type == null`; `tackle` = normal/physical/40/100/35; `abilities.json` tem 310, `blaze.name.pt === "Incêndio"`.
   - notas:
 
-- [ ] B3.4 Extracao de midia dos jars e orcamento
-  - hash:
+- [x] B3.4 Extracao de midia dos jars e orcamento
+  - hash: 8ea3c95f
   - Done when (literal da SPEC): `tests/unit/dataset/pokeapi-media.test.ts` chama `runMediaStage(ctx)` com `outDir = tools/dataset/out/_pokeapi-media/` (equivalente: `npm run dataset -- --only media --out tools/dataset/out/_pokeapi-media`) e confere em `tools/dataset/out/_pokeapi-media/assets/`: `cries/` >= 1072 arquivos, `sfx/` = os 20 nomes de `SFX_NAMES`, `items/cobblemon/` >= 800; soma cries + sfx + texturas <= 26 MB (a faixa final de `media.totalBytes`, 18 a 26 MB com sprites, e conferida em B2.5).
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_pokeapi-media.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 16:25 / **fim**: 16:56 / **duracao**: 31 min
 
 ---
 
@@ -134,26 +134,26 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_pokeapi-media.md`
 
 ### Sprint B5: Pipeline de dados, parte 4 (treinadores e series)
 
-- [ ] B5.1 Treinadores e definicoes de spawn
-  - hash:
+- [x] B5.1 Treinadores e definicoes de spawn
+  - hash: 4971c783
   - Done when (literal da SPEC): (em `tests/unit/dataset/trainers-balls.test.ts`, chamando `runTrainersStage(ctx)` com `outDir = tools/dataset/out/_trainers-balls/`, sem escrever em `public/`) `gym_leader_roark_0395`: `optional false`, `signatureItem cobblemon:smooth_rock`, `maxTeamLevel 14`, `series [bdsp]`; `pokemon_trainer_cedric_0445.requiredDefeats = [["gym_leader_gardenia_03d6"]]`; `gym_leader_maylene_03d8.requiredDefeats = [[cedric_0445, cedric_0446, cedric_0447]]`.
   - notas:
 
-- [ ] B5.2 Series, ordem dos treinadores-chave e config do cap
-  - hash:
+- [x] B5.2 Series, ordem dos treinadores-chave e config do cap
+  - hash: 9bc85c18
   - Done when (literal da SPEC): (em `tests/unit/dataset/trainers-balls.test.ts`; equivalente `npm run dataset -- --only trainers --out tools/dataset/out/_trainers-balls`; confere `ctx.counts` e os arquivos em `tools/dataset/out/_trainers-balls/data/`, nunca `public/data/`) `ctx.counts.keyTrainers.bdsp === 33`; ordem BDSP comeca com `gym_leader_roark_0395`; `series.json` tem `atm_team.requiredSeries = [["bdsp"]]` e `freeroam.special === "freeroam"`.
   - notas:
 
 ### Sprint B4: Pipeline de dados, parte 3 (itens, receitas, loot, bolas)
 
-- [ ] B4.3 Pokebolas e tabela de regras
-  - hash:
+- [x] B4.3 Pokebolas e tabela de regras
+  - hash: 00466ace
   - Done when (literal da SPEC): (sem pipeline completo nem escrita em `public/`: `tests/unit/dataset/trainers-balls.test.ts` chama `runBallsStage(ctx)` com `outDir = tools/dataset/out/_trainers-balls/`, equivalente a `npm run dataset -- --only balls --out tools/dataset/out/_trainers-balls`, e le `tools/dataset/out/_trainers-balls/data/balls.json`) `balls.json.length === 48` (igual ao numero de texturas em `poke_balls/`) e `counts.balls` bate; `net_ball.rule.applies.types` = `[water, bug]`; `ancient_gigaton_ball.rule` = `{kind:"flat", multiplier:2}` e `ancient_wing_ball.rule` = `{kind:"flat", multiplier:1.5}`; `heavy_ball.rule` = `{kind:"conditional", bestMultiplier:4, worstMultiplier:1, condition:"heavyTarget"}` sem `applies`; `park_ball` = `conditional 2.5/1 forestOrPlains`; `sport_ball` = `flat 1.5`; `dusk_ball.effect.pt` = "3.5× se o Pokémon estiver no Nível de Luz 0, e 3× se estiver no Nível de Luz 1-7".
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_trainers-balls.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 16:25 / **fim**: 16:55 / **duracao**: 30 min
 
 ---
 
@@ -167,61 +167,61 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_trainers-balls.md`
 
 ### Sprint B6: Modulos de dominio (regras puras, sem UI)
 
-- [ ] B6.1 Tabela de tipos e efetividade
-  - hash:
+- [x] B6.1 Tabela de tipos e efetividade
+  - hash: f504815d
   - Done when (literal da SPEC): testes dos exemplos acima (`tests/unit/domain/type-chart.test.ts`). A igualdade com o `type-chart.json` gerado so e conferida em B2.5 (Onda 2, `tests/unit/dataset/join.test.ts`), porque o arquivo nao existe na Onda 1.
   - notas:
 
-- [ ] B6.2 Stats, naturezas e recomendacao de IV/EV
-  - hash:
+- [x] B6.2 Stats, naturezas e recomendacao de IV/EV
+  - hash: 4ff246ad
   - Done when (literal da SPEC): testes 299/328/269/404 e Charizard/Mew.
   - notas:
 
-- [ ] B6.3 Level cap (Radical Cobblemon Trainers)
-  - hash:
+- [x] B6.3 Level cap (Radical Cobblemon Trainers)
+  - hash: 19cdde93
   - Done when (literal da SPEC): testes com fixtures reais dos 7 treinadores acima reproduzem 15/16/20/22/22/30/100, mais AND/OR de `requiredDefeats`, `none` e `freeroam`.
   - notas:
 
-- [ ] B6.4 Ranking de Pokebolas
-  - hash:
+- [x] B6.4 Ranking de Pokebolas
+  - hash: 945b707a
   - Done when (literal da SPEC): teste Magikarp reproduz exatamente o ranking completo acima (44 posicoes na ordem, 2 excluidas, 2 garantidas); teste Charizard (`weight` 905 hg = 90,5 kg, speed 100): Fast Ball 4x incondicional logo apos Love 8x e Quick 5x e ANTES das 4x condicionais; Heavy Ball presente como 1x incondicional (faixa `<= 1000` hg), no bloco de 1x entre `Heal Ball` e `Luxury Ball` pela ordem EN; teste de peso 3500 hg -> Heavy 4x incondicional.
   - notas:
 
-- [ ] B6.5 Busca
-  - hash:
+- [x] B6.5 Busca
+  - hash: 95e1c02f
   - Done when (literal da SPEC): testes "025"/"pantano"/"charizar"/"9902".
   - notas:
 
-- [ ] B6.6 Historico e time
-  - hash:
+- [x] B6.6 Historico e time
+  - hash: 07994a2f
   - Done when (literal da SPEC): testes 21o item / duplicado ao topo / 7o no time.
   - notas:
 
 ### Sprint B7: Persistencia, sincronizacao, backup e loaders
 
-- [ ] B7.1 StorageAdapter, IndexedDB, migracoes e repositorios
-  - hash:
+- [x] B7.1 StorageAdapter, IndexedDB, migracoes e repositorios
+  - hash: 34a1bd4c
   - Done when (literal da SPEC): testes: round-trip dos 6 docs; migracao 0->1 importa `pontindex.terms`; snapshot criado e `restorePreMigrationSnapshot` reverte; escrita com `QuotaExceededError` simulado nao corrompe o doc anterior (leitura apos falha = valor antigo); `filterKnown` esconde dex 99999 sem apaga-lo.
   - notas:
 
-- [ ] B7.2 Codec de sincronizacao e mesclagem
-  - hash:
+- [x] B7.2 Codec de sincronizacao e mesclagem
+  - hash: 83ee3ac6
   - Done when (literal da SPEC): property test (`fast-check`) de round-trip `decode(encode(x)) == x` para docs aleatorios, igualdade modulo precisao de segundo nos timestamps (inclui times com `null` em qualquer posicao, ex. `[6,null,94,null,null,149]`, que voltam identicos); texto de 200.001 caracteres -> `oversized` sem decodificar; payload que infla alem de 512 KB -> `oversized`; caso maximo (1027 capturados, 110 derrotados) gera >= 2 frames e reconstroi identico; exemplo A/B do PRD; CRC corrompido -> `corrupted`; magic errado -> `foreignApp`; `formatVersion 9` -> `unsupportedVersion`.
   - notas:
 
-- [ ] B7.3 Backup exportar/importar
-  - hash:
+- [x] B7.3 Backup exportar/importar
+  - hash: 4c119252
   - Done when (literal da SPEC): round-trip export -> `deleteData("all")` -> import = docs identicos (deep equal, exceto `meta.lastWriteAt`).
   - notas:
 
-- [ ] B7.4 Loaders do dataset com cache e retry
-  - hash:
+- [x] B7.4 Loaders do dataset com cache e retry
+  - hash: 16fd5b73
   - Done when (literal da SPEC): testes com `fetch` mockado (`tests/unit/data/loaders.test.ts`; `schemas.ts` aceita uma ficha de exemplo de `tests/fixtures/rules-storage/`): cache hit nao refaz request; 2 falhas + sucesso; JSON invalido -> `INVALID`.
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_rules-storage.md`
 
-**inicio**: / **fim**: / **duracao**:
+**inicio**: 2026-09-24 16:25 / **fim**: 16:56 / **duracao**: 31 min
 
 ---
 
@@ -516,6 +516,7 @@ Sprints P1-P3 da SPEC (so depois que o Pontin testar e aprovar o site):
 ## Notas por fase
 
 (Preenchidas durante execucao com desvios, blocadores e decisoes)
+- Onda 1 (2026-09-24, consolidado pelo orquestrador a partir dos HANDOFF_*): B2.3+B2.4 num commit so (dependencia real, aceito). Achados verificados nos dados e corrigidos na SPEC: Mewtwo e Charizard tem spawn proprio; BDSP tem 43 treinadores-chave (kubejs torna 10 revanches obrigatorias); cap apos UM Cedric continua 22 pela regra do bytecode (OPEN: conferir no jogo); Fogo/Agua vs fogo = x0.25. PokeAPI: 797 golpes (Z-Moves/G-Max fora, nenhuma especie aprende), alias visegrip->vice-grip. Texturas mantem subpasta (65 colisoes de nome). Gap no contrato congelado: BallCondition sem valor para fast_ball e net_ball (cast documentado; estender a uniao na Onda 2).
 
 - Onda 0 (2026-09-24): B1.2 commitado, mas a parte do Done when que exige deploy de preview na Vercel fica PENDENTE (depende de push, nao autorizado, e do dataset publicado na Onda 2). Decisoes e desvios da Onda 0 listados em HANDOFF_base.md (secao Decisoes).
 

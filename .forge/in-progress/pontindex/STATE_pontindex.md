@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: gate (ate a Onda 2; parar ao fim de cada onda)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: ONDA 1 - pokeapi-media (brn35m826), trainers-balls (b25a2ppz8), rules-storage (bayfb1gu5); ONDA 1b frontend-foundation (opus, b06dnxcn1); especies CONCLUIDO
+running_agent: ONDA 1b frontend-foundation (opus, timer b06dnxcn1); Onda 1 concluida
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -231,3 +231,10 @@ updated: 2026-09-24
 - Dados reais: 3315 spawn entries, fossilRoutes 16, 1027 especies. Campos derivados via tipo DerivedSpecies (context.ts congelado nao tem campos); B2.5 le com cast (documentado no handoff). artworkId null por enquanto (B3.3 preenche).
 - ACHADO VERIFICADO por mim nos arquivos: Mewtwo tem spawn ultra-rare do ccc (legendary_spawns_ccc, cavernas/deep dark, 70-75) e Charizard spawn ultra-rare base (0006_charizard.json). SPEC dizia Mewtwo sem spawn: exemplos corrigidos (B2.3 Done, F5.1 Done, T1). O prototipo mostrava "nao nasce" para o Mewtwo: era falso no pack.
 - Onda 1b (frontend F1.1-F1.3, opus) disparada: condicao atingida (Especies terminou + B7.1 verde 34a1bd4c). Timer b06dnxcn1.
+
+## 2026-09-24 17:00 - ONDA 1 CONCLUIDA (4 agentes, 16:25 -> 16:56 = 31 min de parede; soma 119 min)
+- Especies 27 min (B2.3+B2.4); PokeAPI e midia 31 min (B3.1 5f56d316, B3.2 47b95021, B3.4 8ea3c95f); Treinadores e bolas 30 min (B5.1 4971c783, B5.2 9bc85c18, B4.3 00466ace); Regras e armazenamento 31 min (B6.1-B6.6, B7.1-B7.4, 10 commits).
+- Conferido por mim: vitest 166/166 (18 arquivos), typecheck e lint limpos, sem assinatura nos commits.
+- Decisoes por evidencia (verificadas nos arquivos): BDSP 43 treinadores-chave (kubejs vence); cap apos um Cedric = 22 (regra do bytecode no PRD; OPEN conferir no jogo); Fogo/Agua vs fogo 0.25. SPEC corrigida. Gap BallCondition (fast_ball/net_ball) para a Onda 2 estender.
+- Checklist consolidado: 25 itens [x]. Onda 1b (frontend) ainda rodando (timer b06dnxcn1).
+- GATE: ao fim da Onda 1b, mostrar ao Pontin e pedir ok para a Onda 2.
