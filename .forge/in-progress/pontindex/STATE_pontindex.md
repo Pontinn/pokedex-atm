@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: correcao de dados (opus, bvhw3uqc9); Grupo C F10+F11 (opus, bixq4fm4y)
+running_agent: dados ordem transitiva (b180vgz8t); auditor rodada 2 NOVO (blhpemktu); Grupo C F10+F11 (bixq4fm4y)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -267,3 +267,9 @@ updated: 2026-09-24
 - Colisoes de spawn entre jars (26): 2 resolvidas por dependencia declarada (allthemons e zamega ordering AFTER cobblemon -> Staryu e Floette); 24 ccc x mega_showdown SEM ordem declarada -> DECISAO DO PONTIN (constante SPAWN_COLLISION_WINNER, default soma).
 - Agente de correcao de dados (opus) disparado com itens 1-7 do relatorio (timer bvhw3uqc9).
 - 18:01 Prep do paralelo concluida: 387bbf53 (i18n em modulos por tela, messages.ts agregador congelado; playwright PW_PORT/PW_DEV, workers 1 e timeouts maiores no dev porque a maquina esta carregada). Grupo C (F10+F11, opus, porta 4176) disparado (timer bixq4fm4y). F2 (home) espera a auditoria limpa, conforme combinado.
+
+## 2026-09-24 18:15 - correcao de dados voltou (17:59-18:14): f4bcdf92 raridade, e1e623e7 drops legendarymonuments + 2 itens, 701c352c colisoes (kubejs e ordem direta), 996110cf obtain (aresta na forma regional da pre-evolucao; Naganadel ultrawormholes), 473b796a Mega-Z keystone, db720f16 habilidade oculta, b72f041f source das formas, 54c7a8ac dataset regenerado, 47613711 handoff.
+- Auditoria depois: 169 WRONG (falso positivo da auditoria, CONFERIDO no compare.ts: dedupe so de um lado) e 2 MISSING (Staryu/Floette: auditoria nao modela ordem de carga).
+- EVIDENCIA que resolve os 24 conflitos ccc x mega_showdown (CONFERIDA no mods.toml do allthemons: mega_showdown AFTER, ccc BEFORE, comentario "fix load order of CCC") -> ordem mega_showdown < allthemons < ccc -> CCC vence. Decisao tomada pela evidencia (reversivel por constante); Pontin informado.
+- Mesmo agente de dados aplicando a ordem transitiva (timer b180vgz8t). Auditor antigo PARADO (ja tinha 50 min; Regra 2) e AUDITOR NOVO de contexto zerado disparado para corrigir a ferramenta e rodar a rodada 2 (timer blhpemktu).
+- Typecheck quebrado por __APP_VERSION__ em AboutCard.tsx (grupo C, em andamento; vite.config e congelado -> ver no retorno do grupo C).
