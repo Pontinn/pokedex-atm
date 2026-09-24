@@ -1,0 +1,35 @@
+/* Mobile (.app.mobile, largura < 900 px; F1.4). Porta design/prototipo/style.css:802-819 (topbar-aparelho, tab bar)
+   e as regras genericas de 820-875 (titulos, painel, seg-tabs, terms-tgl). As regras especificas de cada tela
+   (.poke-grid, .hero, .detail, .cmp-*, ...) ficam no CSS da propria tela em src/screens/<Tela>/. */
+.app.mobile { flex-direction: column; }
+.app.mobile .sidebar { display: none; }
+.app.mobile .topbar { display: block; flex: none; background: var(--primary); border-bottom: 6px solid var(--primary-dark); color: var(--shell-text); padding: env(safe-area-inset-top, 0px) 0 0; position: relative; z-index: 3; }
+.topbar-shell { display: flex; align-items: center; gap: 10px; padding: 12px 16px 10px; min-width: 0; }
+.topbar .leds { margin-top: -18px; flex: none; }
+.topbar-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin-left: 4px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topbar-actions { margin-left: auto; display: flex; gap: 6px; flex: none; }
+.topbar .tgl { width: 34px; height: 32px; }
+.app.mobile .main { padding: 16px 16px 24px; }
+.app.mobile .tabbar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); flex: none; background: var(--surface); border-top: 1px solid var(--border); padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)); position: relative; z-index: 3; box-shadow: 0 -6px 20px rgba(0,0,0,.06); }
+.tab { display: grid; justify-items: center; gap: 2px; padding: 6px 2px; border-radius: 12px; font-size: 10px; font-weight: 800; color: var(--muted); transition: color .2s, transform .2s var(--ease-bounce); min-width: 0; }
+.tab-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tab .ico { font-size: 20px; transition: transform .25s var(--ease-bounce); }
+.tab .ico img { width: 22px; height: 22px; }
+.tab.active { color: var(--secondary); }
+html[data-theme="green"] .tab.active, html[data-theme="blue"] .tab.active { color: var(--primary); }
+.tab.active .ico { transform: translateY(-3px) scale(1.12); }
+.tab-ball .ico { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); margin-top: -18px; box-shadow: 0 6px 14px rgba(0,0,0,.2); border: 3px solid var(--surface); }
+.tab-ball .ico img { width: 26px; height: 26px; }
+.tab-ball.active .ico { transform: translateY(-3px) scale(1.06); }
+
+.app.mobile h1 { font-size: 26px; }
+.app.mobile h2 { font-size: 22px; }
+.app.mobile .panel { padding: 14px; }
+.app.mobile .seg-tabs { display: flex; margin: 0 -16px 14px; padding: 3px 16px; border-radius: 0; border-left: 0; border-right: 0; }
+.app.mobile .terms-tgl { display: inline-flex; width: auto; flex: none; margin-left: auto; }
+.app.mobile .toast-host { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+
+/* Fallback sem JS (o base.css ja cobre sidebar/tabbar/topbar em max-width: 900px) */
+@media (max-width: 900px) {
+  .topbar-shell { padding: 12px 16px 10px; }
+}
