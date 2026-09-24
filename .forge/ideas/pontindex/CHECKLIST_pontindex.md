@@ -228,7 +228,7 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_rules-storage.md`
 ## Onda 1b - Frontend fundacao
 
 **Agente**: forge-imp-frontend  
-**Modelo**: a definir com o Pontin (recomendado: Opus)  
+**Modelo**: Opus  
 **Inicio quando**: (a) um agente da Onda 1 terminou (teto 4 simultaneos) E (b) B7.1 verde no checklist  
 **Arquivos exclusivos**: `src/styles/{tokens,themes,base,components}.css`, `src/styles/theme-meta.ts`, `src/i18n/`, `src/navigation/`, `src/state/preferences-store.ts`, `src/components/{Watermark,TypeChip,TypeIcon,TermsToggle,ScreenRouter}.tsx`; `tests/unit/ui-foundation/`, `tests/harness/`, `tests/harness/foundation.spec.ts`, `tests/fixtures/ui-foundation/`  
 **Pasta temporaria**: `tests/fixtures/ui-foundation/`
@@ -299,7 +299,7 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_join.md`
 ## Onda 3 - Frontend
 
 **Agente**: Frontend (forge-imp-frontend)  
-**Modelo**: a definir com o Pontin (recomendado: Opus)  
+**Modelo**: Opus  
 **Inicio quando**: Onda 1b verde; Onda 2 verde (dataset real); backend verde nas dependencias de cada feature  
 **Arquivos exclusivos**: `src/` de UI restante (telas F1.4-F12.2)  
 **Pasta temporaria**: `tests/fixtures/ui-screens/`
@@ -467,7 +467,7 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_frontend.md`
 ## Onda 4 - Testes
 
 **Agente**: Testes  
-**Modelo**: a definir com o Pontin (recomendado: Sonnet)  
+**Modelo**: Sonnet  
 **Inicio quando**: Tudo acima verde  
 **Arquivos exclusivos**: `tests/` restantes  
 **Pasta temporaria**: `test-results/`, `playwright-report/`

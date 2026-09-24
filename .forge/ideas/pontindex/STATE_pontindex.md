@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: full
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: nenhum
+running_agent: forge-review pre-flight Stage 4 (opus), iniciado 2026-09-24 15:47, timer bxt4ig4ut
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -193,3 +193,10 @@ updated: 2026-09-24
 - Haiku duplicou B2.3/B2.4/B2.5 na Onda 0 e F1.4 na Onda 1b, inventou a Fase 2 e chutou Sonnet para o frontend. Corrigido: 62 itens (58 features + T1 + P1-P3), titulos identicos a SPEC (diff), 0 travessao. Modelo do frontend (Onda 1b/3) e dos testes (Onda 4): a definir com o Pontin (recomendo Opus / Sonnet).
 - Pontin criou a pasta prints/ na raiz (salvar prints neste PC). prints/1.png: prototipo, ficha do Mewtwo, selo "NAO NASCE NO MUNDO" passa por baixo do botao de som. Esse selo ja sai pelo RF-10; regra geral adicionada na SPEC (Frontend: "Sem sobreposicao de texto" + helper expectNoOverlap em F1.4, checagem no hero em F4.1) e no checklist.
 - prints/2.png: tag 'ITENS SEGURADOS' atravessa/espreme o nome nos cards de item (causa: .item-head linha unica com tag flex:none, style.css:1102/1110). Decisao do Pontin: tags/selos em linha propria ACIMA do titulo em cards. Aplicado na regra geral da SPEC, F9.2 (passos + Done) e checklist.
+
+## 2026-09-24 15:46 - decisoes do Pontin para a Stage 4
+- Frontend (Ondas 1b e 3): OPUS. Testes (Onda 4): SONNET.
+- Modo: GATE ate a Onda 2 (parar ao fim de cada onda 0, 1, 1b, 2 para o Pontin validar; ele ve o dataset antes das telas); depois disso, decidir com ele.
+- Commits atomicos por feature (como estabelecido). PUSH SO QUANDO O PONTIN PEDIR (revoga a autorizacao de push automatico do PC antigo).
+- Timers: 6 sleeps orfaos encerrados com TaskStop (pkill nao funciona no Windows).
+- 15:47 pre-flight Stage 4: drift-check exit 0 (baseline eacafc48; CONTEXT bate com 6205663); gate de identificadores PASS (bg-lendario/mitico/outros so na tabela de correspondencia). forge-review focado disparado.
