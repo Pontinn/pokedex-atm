@@ -1,0 +1,19 @@
+{
+  "_source": "data-source/atm-1.3.0 rctmod 0.18.1: data/rctmod/mobs/trainers/single/<id>.json (optional, requiredDefeats) + data/rctmod/trainers/<id>.json (max team level). Conferido em 2026-09-24.",
+  "levelCapConfig": { "initialLevelCap": 15, "relativeLevelCap": 0, "initialSeries": "empty", "freeroamRequiresCompletedSeries": true },
+  "trainers": [
+    { "id": "gym_leader_roark_0395", "name": "Gym Leader Roark", "maxTeamLevel": 14, "requiredDefeats": [] },
+    { "id": "commander_mars_03c2", "name": "Commander Mars", "maxTeamLevel": 16, "requiredDefeats": [["gym_leader_roark_0395"]] },
+    { "id": "commander_jupiter_041d", "name": "Commander Jupiter", "maxTeamLevel": 20, "requiredDefeats": [["commander_mars_03c2"]] },
+    { "id": "gym_leader_gardenia_03d6", "name": "Gym Leader Gardenia", "maxTeamLevel": 22, "requiredDefeats": [["commander_jupiter_041d"]] },
+    { "id": "pokemon_trainer_cedric_0445", "name": "Pokémon Trainer Cedric", "maxTeamLevel": 21, "requiredDefeats": [["gym_leader_gardenia_03d6"]] },
+    { "id": "pokemon_trainer_cedric_0446", "name": "Pokémon Trainer Cedric", "maxTeamLevel": 21, "requiredDefeats": [["gym_leader_gardenia_03d6"]] },
+    { "id": "pokemon_trainer_cedric_0447", "name": "Pokémon Trainer Cedric", "maxTeamLevel": 21, "requiredDefeats": [["gym_leader_gardenia_03d6"]] },
+    {
+      "id": "gym_leader_maylene_03d8",
+      "name": "Gym Leader Maylene",
+      "maxTeamLevel": 30,
+      "requiredDefeats": [["pokemon_trainer_cedric_0445", "pokemon_trainer_cedric_0446", "pokemon_trainer_cedric_0447"]]
+    }
+  ]
+}
