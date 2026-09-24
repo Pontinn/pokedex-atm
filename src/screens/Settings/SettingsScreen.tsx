@@ -3,9 +3,12 @@ import "./settings.css";
 import type { ScreenProps } from "../../components/ScreenRouter";
 import { useT } from "../../i18n/useT";
 import { AboutCard } from "./AboutCard";
+import { BackupCard } from "./BackupCard";
+import { DeleteDataCard } from "./DeleteDataCard";
 import { InstallCard } from "./InstallCard";
 import { LanguageCard } from "./LanguageCard";
 import { MotionCard } from "./MotionCard";
+import { RestoreSnapshotCard } from "./RestoreSnapshotCard";
 import { SoundCard } from "./SoundCard";
 import { TermsCard } from "./TermsCard";
 import { ThemeGrid } from "./ThemeGrid";
@@ -26,6 +29,9 @@ export function SettingsScreen(_props: ScreenProps) {
         </div>
         <TermsCard />
         <InstallCard />
+        <BackupCard />
+        <DeleteDataCard />
+        <RestoreSnapshotCard />
         <AboutCard />
       </div>
     </section>

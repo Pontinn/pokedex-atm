@@ -162,8 +162,200 @@ test.describe("F10.1 preferences", () => {
           await expect(page.locator(".settings-screen .page-head h2")).toHaveText("Settings");
         }
         await expectNoOverlap(page, ".settings-screen");
-        if (SHOTS) await page.screenshot({ path: `${SHOTS}/settings-${width}-${lang}.png`, fullPage: true });
+        if (SHOTS) {
+          await page.screenshot({ path: `${SHOTS}/settings-${width}-${lang}.png`, fullPage: true });
+          await page.locator("[data-card=delete]").scrollIntoViewIfNeeded();
+          await page.screenshot({ path: `${SHOTS}/settings-cards-${width}-${lang}.png` });
+        }
       });
     }
   }
+});
+
+// ---------------------------------------------------------------------------------------------------------------
+// F10.2: backup, apagar dados e snapshot
+// ---------------------------------------------------------------------------------------------------------------
+
+type Docs = Record<string, unknown>;
+
+const T0 = 1_760_000_000_000;
+const SEED: Docs = {
+  captured: { schemaVersion: 1, entries: { "6": { capturedAt: T0 }, "25": { capturedAt: T0 + 1000 }, "448": { capturedAt: T0 + 2000 } } },
+  team: { schemaVersion: 1, slots: [6, null, 94, null, null, 149] },
+  history: { schemaVersion: 1, entries: [{ dex: 448, viewedAt: T0 + 5000 }, { dex: 6, viewedAt: T0 + 4000 }] },
+  trainerProgress: {
+    schemaVersion: 1,
+    activeSeriesId: "bdsp",
+    freeroam: { active: false, pausedSeriesId: null },
+    series: { bdsp: { defeated: { gym_leader_roark_0395: { at: T0 + 3000 } } } },
+  },
+  preferences: {
+    schemaVersion: 1,
+    theme: "green",
+    uiLanguage: "pt",
+    termsLanguage: "en",
+    termsOverrides: {},
+    soundEnabled: false,
+    reduceMotion: null,
+  },
+};
+const USER_KEYS = ["captured", "team", "history", "trainerProgress", "preferences"];
+
+/** Grava docs crus no IndexedDB do app (ja aberto pelo boot) e, opcionalmente, snapshots em `backups`. */
+async function seedDocs(page: Page, docs: Docs, backups: unknown[] = []) {
+  await page.evaluate(
+    async ({ docs, backups }) => {
+      const req = indexedDB.open("pontindex");
+      const db: IDBDatabase = await new Promise((res, rej) => {
+        req.onsuccess = () => res(req.result);
+        req.onerror = () => rej(req.error);
+      });
+      const tx = db.transaction(["documents", "backups"], "readwrite");
+      for (const [key, doc] of Object.entries(docs)) tx.objectStore("documents").put({ key, doc });
+      for (const b of backups) tx.objectStore("backups").put(b);
+      await new Promise((r) => (tx.oncomplete = r));
+      db.close();
+    },
+    { docs, backups },
+  );
+}
+
+async function readDocs(page: Page): Promise<Docs> {
+  return page.evaluate(async () => {
+    const req = indexedDB.open("pontindex");
+    const db: IDBDatabase = await new Promise((res) => (req.onsuccess = () => res(req.result)));
+    const all = db.transaction("documents").objectStore("documents").getAll();
+    await new Promise((r) => (all.onsuccess = r));
+    db.close();
+    const out: Record<string, unknown> = {};
+    for (const rec of all.result as { key: string; doc: unknown }[]) out[rec.key] = rec.doc;
+    return out;
+  });
+}
+
+function pick(docs: Docs, keys: string[]): Docs {
+  return Object.fromEntries(keys.map((k) => [k, docs[k]]));
+}
+
+async function openSeeded(page: Page, docs: Docs, width = 1280, backups: unknown[] = []) {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto("/");
+  await waitBooted(page);
+  await seedDocs(page, docs, backups);
+  await openSettings(page, width);
+}
+
+test.describe("F10.2 backup, delete data and snapshot restore", () => {
+  test("export -> clean install -> import (replace) = 5 identical entities (two browser contexts)", async ({ page, browser }) => {
+    const errors = trackConsoleErrors(page);
+    await openSeeded(page, SEED);
+    const before = pick(await readDocs(page), USER_KEYS);
+    const downloadP = page.waitForEvent("download");
+    await page.locator("[data-card=backup] [data-action=export]").click();
+    const download = await downloadP;
+    expect(download.suggestedFilename()).toMatch(/^pontindex-backup-\d{4}-\d{2}-\d{2}\.json$/);
+    const text = readFileSync((await download.path())!, "utf8");
+    expect(JSON.parse(text).app).toBe("pontindex");
+
+    const ctxB = await browser.newContext();
+    const pageB = await ctxB.newPage();
+    await mockData(pageB);
+    const errorsB = trackConsoleErrors(pageB);
+    await openSettings(pageB, 1280);
+    await pageB.locator("[data-input=backup-file]").setInputFiles({ name: "b.json", mimeType: "application/json", buffer: Buffer.from(text) });
+    const modal = pageB.locator(".modal");
+    await expect(modal.locator("[data-sum=captured]")).toHaveText("3 capturados");
+    await expect(modal.locator("[data-sum=team]")).toHaveText("3 no time");
+    await expect(modal.locator("[data-sum=history]")).toHaveText("2 no histórico");
+    await expect(modal.locator("[data-sum=trainers]")).toHaveText("Treinadores derrotados: bdsp (1)");
+    await expect(modal.locator("[data-preview]")).toHaveText("Depois de mesclar você terá: 3 capturados");
+    await modal.locator(".merge-seg button", { hasText: "Substituir" }).click();
+    await expect(modal.locator("[data-preview]")).toHaveText("Depois de substituir você terá: 3 capturados");
+    await expectNoOverlap(pageB, ".modal");
+    await modal.locator("[data-action=apply-import]").click();
+    await expect(modal).toHaveCount(0);
+    await expect(pageB.locator(".toast", { hasText: "Backup restaurado" })).toBeVisible();
+    const after = pick(await readDocs(pageB), USER_KEYS);
+    expect(after).toEqual(before);
+    // preferencias importadas foram reidratadas na hora (tema verde)
+    await expect(pageB.locator("html")).toHaveAttribute("data-theme", "green");
+    await ctxB.close();
+    expect(errors).toEqual([]);
+    expect(errorsB).toEqual([]);
+  });
+
+  test("backup errors: newer version, foreign app and corrupted file write nothing", async ({ page }) => {
+    await openSeeded(page, SEED);
+    const before = await readDocs(page);
+    const input = page.locator("[data-input=backup-file]");
+    const cases: [string, string][] = [
+      [JSON.stringify({ app: "pontindex", format: 1, schemaVersion: 99, appVersion: "9", datasetVersion: null, exportedAt: 1, documents: {}, crc32: "00000000" }), "sync.unsupportedVersion"],
+      [JSON.stringify({ app: "other", format: 1 }), "sync.foreignApp"],
+      [JSON.stringify({ app: "pontindex", format: 7, schemaVersion: 1, appVersion: "1", datasetVersion: null, exportedAt: 1, documents: {}, crc32: "00000000" }), "sync.corrupted"],
+    ];
+    for (const [body, code] of cases) {
+      await input.setInputFiles({ name: "x.json", mimeType: "application/json", buffer: Buffer.from(body) });
+      await expect(page.locator(`[data-card=backup] [data-error="${code}"]`)).toBeVisible();
+      await expect(page.locator(".modal")).toHaveCount(0);
+    }
+    await expect(page.locator("[data-card=backup] [role=alert]")).toContainText("Código inválido ou corrompido");
+    expect(await readDocs(page)).toEqual(before);
+  });
+
+  test("delete only history keeps the other 4 entities", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await openSeeded(page, SEED);
+    const before = await readDocs(page);
+    const card = page.locator("[data-card=delete]");
+    await expect(card.locator("[data-action=delete]")).toBeDisabled();
+    await card.locator("[data-delete=history]").check();
+    await card.locator("[data-action=delete]").click();
+    const modal = page.locator(".modal");
+    await expect(modal.locator("[data-confirm-text]")).toHaveText("Isto vai apagar: Histórico (2 registros). Esta ação não pode ser desfeita.");
+    await expect(modal.locator("[data-input=confirm-word]")).toHaveCount(0);
+    await modal.locator("[data-action=confirm-delete]").click();
+    await expect(page.locator(".toast", { hasText: "Dados apagados" })).toBeVisible();
+    const after = await readDocs(page);
+    expect((after.history as { entries: unknown[] }).entries).toEqual([]);
+    expect(pick(after, ["captured", "team", "trainerProgress", "preferences"])).toEqual(pick(before, ["captured", "team", "trainerProgress", "preferences"]));
+    expect(errors).toEqual([]);
+  });
+
+  test("delete everything requires typing the confirmation word and clears snapshots", async ({ page }) => {
+    const snap = { id: "pre-migration-v0-1", createdAt: T0, version: 0, docs: { captured: SEED.captured } };
+    await openSeeded(page, SEED, 390, [snap]);
+    const card = page.locator("[data-card=delete]");
+    await card.locator("[data-delete=all]").check();
+    await expect(card.locator("[data-delete=captured]")).toBeChecked();
+    await card.locator("[data-action=delete]").click();
+    const sheet = page.locator(".modal-sheet");
+    await expect(sheet.locator("[data-confirm-text]")).toContainText("Tudo");
+    await expectNoOverlap(page, ".modal-sheet .sheet-panel");
+    const confirm = sheet.locator("[data-action=confirm-delete]");
+    await expect(confirm).toBeDisabled();
+    await sheet.locator("[data-input=confirm-word]").fill("apag");
+    await expect(confirm).toBeDisabled();
+    await sheet.locator("[data-input=confirm-word]").fill("APAGAR");
+    await confirm.click();
+    await expect(page.locator(".toast", { hasText: "Dados apagados" })).toBeVisible();
+    const after = await readDocs(page);
+    expect(Object.keys((after.captured as { entries: object }).entries)).toEqual([]);
+    expect((after.team as { slots: unknown[] }).slots).toEqual([null, null, null, null, null, null]);
+    expect((after.preferences as { theme: string }).theme).toBe("classic");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "classic");
+    await expect(page.locator("[data-card=restore] [data-restore-empty]")).toBeVisible();
+  });
+
+  test("restore a pre-migration snapshot after confirmation", async ({ page }) => {
+    const snapDocs = { captured: { schemaVersion: 1, entries: { "1": { capturedAt: T0 } } } };
+    const snap = { id: "pre-migration-v0-123", createdAt: T0, version: 1, docs: snapDocs };
+    await openSeeded(page, SEED, 1280, [snap]);
+    const row = page.locator("[data-snapshot='pre-migration-v0-123']");
+    await expect(row).toContainText("esquema v1");
+    await row.getByRole("button", { name: "Restaurar" }).click();
+    await page.locator(".modal [data-action=confirm-restore]").click();
+    await expect(page.locator(".toast", { hasText: "Snapshot restaurado" })).toBeVisible();
+    const after = await readDocs(page);
+    expect(after.captured).toEqual(snapDocs.captured);
+  });
 });
