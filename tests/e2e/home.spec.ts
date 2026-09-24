@@ -176,16 +176,32 @@ test.describe("F2.1 search", () => {
 // a mesma instancia que o app usa; persistencia real no IndexedDB do navegador)
 // ---------------------------------------------------------------------------
 
+// Os modulos sao importados DENTRO do navegador pela URL do Vite dev (mesma instancia do app). O TypeScript nao
+// resolve essas URLs absolutas, entao elas viajam como argumento (string) e o resultado e tipado pelos modulos
+// reais via `typeof import(...)` (so tipo, nada e carregado no Node).
+type TeamStoreModule = typeof import("../../src/state/team-store");
+type HistoryStoreModule = typeof import("../../src/state/history-store");
+type CapturedStoreModule = typeof import("../../src/state/captured-store");
+
+const STORE_URLS = {
+  team: "/src/state/team-store.ts",
+  history: "/src/state/history-store.ts",
+  captured: "/src/state/captured-store.ts",
+} as const;
+
 async function seed(page: Page, data: { team?: number[]; history?: number[]; captured?: number[] }) {
-  await page.evaluate(async (d) => {
-    const team = await import(/* @vite-ignore */ "/src/state/team-store.ts");
-    const history = await import(/* @vite-ignore */ "/src/state/history-store.ts");
-    const captured = await import(/* @vite-ignore */ "/src/state/captured-store.ts");
-    for (const dex of d.team ?? []) await team.useTeamStore.getState().addToTeam(dex);
-    let at = 1_000;
-    for (const dex of d.history ?? []) await history.useHistoryStore.getState().push(dex, at++);
-    for (const dex of d.captured ?? []) await captured.useCapturedStore.getState().mark(dex, at++);
-  }, data);
+  await page.evaluate(
+    async ({ d, urls }) => {
+      const team = (await import(/* @vite-ignore */ urls.team)) as TeamStoreModule;
+      const history = (await import(/* @vite-ignore */ urls.history)) as HistoryStoreModule;
+      const captured = (await import(/* @vite-ignore */ urls.captured)) as CapturedStoreModule;
+      for (const dex of d.team ?? []) await team.useTeamStore.getState().addToTeam(dex);
+      let at = 1_000;
+      for (const dex of d.history ?? []) await history.useHistoryStore.getState().push(dex, at++);
+      for (const dex of d.captured ?? []) await captured.useCapturedStore.getState().mark(dex, at++);
+    },
+    { d: data, urls: STORE_URLS },
+  );
 }
 
 const DEMO = { team: [6, 448, 94, 149], history: [94, 133, 150, 25, 448, 6], captured: [1, 4, 6, 25, 9902] };
