@@ -1,10 +1,9 @@
-// B5.1, B5.2: treinadores, series, ordem topologica e level cap config, contra o snapshot real
+// B5.1, B5.2, B4.3: treinadores, series/ordem/level cap e pokebolas, contra o snapshot real
 // (data-source/atm-1.3.0). Nunca escreve em public/data (--out sob tools/dataset/out/_trainers-balls).
-// B4.3 (balls) acrescenta a describe correspondente neste mesmo arquivo em um commit seguinte.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { SeriesInfo, TrainersFile } from "../../../src/data/types";
+import type { BallsFile, SeriesInfo, TrainersFile } from "../../../src/data/types";
 import { runPipeline } from "../../../tools/dataset/src/index";
 import { orderKeyTrainers } from "../../../tools/dataset/src/trainers/order";
 
@@ -13,6 +12,36 @@ process.env.DATASET_QUIET = "1";
 const repoRoot = path.resolve(import.meta.dirname, "../../..");
 const outDir = path.join(repoRoot, "tools/dataset/out/_trainers-balls");
 const dataFile = (rel: string) => JSON.parse(readFileSync(path.join(outDir, "data", rel), "utf8"));
+
+describe("balls stage (B4.3) on the real snapshot", () => {
+  it("48 balls, one rule per catalog id, matching the curated table", async () => {
+    const ctx = await runPipeline(["--only", "balls", "--out", "tools/dataset/out/_trainers-balls"]);
+    expect(ctx.counts.balls).toBe(48);
+
+    const balls = dataFile("balls.json") as BallsFile;
+    expect(balls).toHaveLength(48);
+
+    const byId = new Map(balls.map((b) => [b.id, b]));
+    const netBall = byId.get("net_ball");
+    expect(netBall?.rule.kind).toBe("conditional");
+    expect(netBall?.rule.kind === "conditional" ? netBall.rule.applies?.types : undefined).toEqual(["water", "bug"]);
+
+    expect(byId.get("ancient_gigaton_ball")?.rule).toEqual({ kind: "flat", multiplier: 2 });
+    expect(byId.get("ancient_wing_ball")?.rule).toEqual({ kind: "flat", multiplier: 1.5 });
+
+    const heavy = byId.get("heavy_ball");
+    expect(heavy?.rule).toEqual({ kind: "conditional", bestMultiplier: 4, worstMultiplier: 1, condition: "heavyTarget" });
+
+    const park = byId.get("park_ball");
+    expect(park?.rule).toEqual({ kind: "conditional", bestMultiplier: 2.5, worstMultiplier: 1, condition: "forestOrPlains" });
+
+    expect(byId.get("sport_ball")?.rule).toEqual({ kind: "flat", multiplier: 1.5 });
+
+    expect(byId.get("dusk_ball")?.effect.pt).toBe(
+      "3.5× se o Pokémon estiver no Nível de Luz 0, e 3× se estiver no Nível de Luz 1-7",
+    );
+  }, 60_000);
+});
 
 describe("trainers stage (B5.1, B5.2) on the real snapshot", () => {
   it("gym_leader_roark_0395: not optional, signature item, max team level, bdsp series", async () => {
