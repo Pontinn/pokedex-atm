@@ -1,5 +1,6 @@
-// Uso: tsx tools/dataset/audit/manual.ts [datasetDir|current.json]
-// Gera tools/dataset/audit/manual-dump.txt: cru x publicado lado a lado para as 50 especies da amostra manual.
+// Uso: tsx tools/dataset/audit/manual.ts [datasetDir|current.json] [--species slug,slug] [--out arquivo]
+// Gera tools/dataset/audit/manual-dump.txt: cru x publicado lado a lado para as 50 especies da amostra manual
+// (ou para as especies de --species slug,slug; --out muda o arquivo de saida).
 // A conferencia em si e feita a olho pelo auditor; o resultado vai para manual-check.md (incluido no AUDIT_REPORT.md).
 import fs from "node:fs";
 import path from "node:path";
@@ -10,11 +11,24 @@ import { MANUAL_SAMPLE } from "./sample";
 import { readJson } from "./raw";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
+const args = process.argv.slice(2);
+const opt = (k: string) => (args.includes(k) ? args[args.indexOf(k) + 1] : undefined);
+const positional = args.filter((a, i) => !a.startsWith("--") && !["--species", "--out"].includes(args[i - 1] ?? ""));
 const exp = buildExpected();
-const dir = resolveDatasetDir(process.argv[2]);
+const dir = resolveDatasetDir(positional[0]);
+const only = opt("--species");
+const list = only
+  ? only.split(",").map((raw) => {
+      const slug = raw.trim();
+      const dex = exp.slugToDex.get(slug);
+      if (dex === undefined) throw new Error(`manual: especie ${slug} nao existe no cru`);
+      return { dex, slug, reason: "--species" };
+    })
+  : MANUAL_SAMPLE;
+const sid = (id: string) => String(id).replace(/^[a-z_]+:/, ""); // o publicado prefixa o id com a fonte
 const out: string[] = [];
 const J = (v: unknown) => JSON.stringify(v);
-for (const s of MANUAL_SAMPLE) {
+for (const s of list) {
   const e = exp.species.get(s.dex)!;
   const f = path.join(dir, "species", `${s.dex}.json`);
   const a = fs.existsSync(f) ? readJson(f) : null;
@@ -36,9 +50,10 @@ for (const s of MANUAL_SAMPLE) {
   row("evolutions", e.evolutions.map((x) => `${x.toSlug}/${x.variant}/${x.requiredItem}/${x.requirements.join("+")}`), (a.evolutions ?? []).map((x: any) => `${x.toSlug}/${x.variant}/${x.requiredItem}/${(x.requirements ?? []).map((r: any) => r.kind + ":" + (r.minLevel ?? r.amount ?? r.range ?? r.type ?? r.item ?? r.raw?.variant)).join("+")}`));
   row("forms", e.forms.map((x) => `${x.name}[${x.requiredItems.join(",")}]`), (a.forms ?? []).map((x: any) => `${x.name}[${(x.requiredItems ?? []).join(",")}]`));
   row("drops", e.drops, a.drops);
-  row("spawns", e.spawns.map((x) => `${x.id}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort(), (a.spawns ?? []).map((x: any) => `${x.id}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort());
+  row("spawns", e.spawns.map((x) => `${x.id}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort(), (a.spawns ?? []).map((x: any) => `${sid(x.id)}/${x.source}/${x.bucket}/${x.level}/${x.context}`).sort());
   row("rarity", e.rarity, a.rarity);
   row("obtain", e.obtainKinds.map((k) => (k === "fossil" ? `fossil:${e.fossils[0]!.items.join(",")}` : k === "addon" ? `addon:${e.spawns.find((x) => x.source === "ccc" || x.source === "legendarymonuments")?.source ?? "ultrawormholes"}` : k)), (a.obtain ?? []).map((o: any) => o.kind + (o.addon ? `:${o.addon}` : "") + (o.items ? `:${o.items.join(",")}` : "")));
 }
-fs.writeFileSync(path.join(HERE, "manual-dump.txt"), out.join("\n"), "utf8");
-console.log(`manual-dump.txt: ${MANUAL_SAMPLE.length} especies, ${out.filter((l) => l.includes("!!")).length} linhas divergentes`);
+const outFile = opt("--out") ?? path.join(HERE, "manual-dump.txt");
+fs.writeFileSync(outFile, out.join("\n"), "utf8");
+console.log(`${path.basename(outFile)}: ${list.length} especies, ${out.filter((l) => l.includes("!!")).length} linhas divergentes`);
