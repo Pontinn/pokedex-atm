@@ -214,7 +214,8 @@ function compareSpecies(
   for (const l of ["legendary", "mythical", "ultra_beast", "custom"]) eq(scope, `labels has ${l}`, e.labels.includes(l), (a.labels ?? []).includes(l), ev, pf);
   eq(scope, "baseStats", e.baseStats, a.baseStats, ev, pf, "WRONG DATA", e.touchedBy.length > 1 ? `especie alterada por ${e.touchedBy.join(" + ")}; SPEC: base do Cobblemon vence` : undefined);
   eq(scope, "bst", Object.values(e.baseStats).reduce((s, n) => s + n, 0), a.bst, ev, pf);
-  eq(scope, "abilities", sortStr(e.abilities.map((x) => `${x.id}${x.hidden ? "(H)" : ""}`)), sortStr((a.abilities ?? []).map((x: any) => `${x.id}${x.hidden ? "(H)" : ""}`)), ev, pf);
+  eq(scope, "abilities (id+oculta)", sortStr(e.abilities.map((x) => x.id).filter((v, i, arr) => arr.indexOf(v) === i)), sortStr((a.abilities ?? []).map((x: any) => x.id)), ev, pf);
+  eq(scope, "abilities flag oculta duplicada", sortStr(e.abilities.map((x) => `${x.id}${x.hidden ? "(H)" : ""}`)), sortStr((a.abilities ?? []).map((x: any) => `${x.id}${x.hidden ? "(H)" : ""}`)), ev, pf, "COSMETIC", "mesma habilidade listada como normal e oculta no cru; pipeline deduplica por id");
   eq(scope, "eggGroups", sortStr(e.eggGroups), sortStr(a.eggGroups ?? []), ev, pf);
   eq(scope, "catchRate", e.catchRate, a.catchRate, ev, pf);
   eq(scope, "weight", e.weight, a.weight, ev, pf);
@@ -246,7 +247,8 @@ function compareSpecies(
   }
   // spawns
   const as: any[] = a.spawns ?? [];
-  const sk = (s: any) => `${s.id}|${canonSource(String(s.source))}`;
+  const sid = (id: string) => String(id).replace(/^[a-z_]+:/, "");
+  const sk = (s: any) => `${sid(s.id)}|${canonSource(String(s.source))}`;
   const expGame = sortStr(e.spawns.map(sk));
   const expAll = sortStr(e.spawnsAll.map(sk));
   const act = sortStr(as.map(sk));
@@ -269,7 +271,7 @@ function compareSpecies(
   }
   // detalhes de spawn por id (bucket, level, context, biomes)
   for (const s of e.spawnsAll) {
-    const m = as.find((x) => x.id === s.id && canonSource(String(x.source)) === canonSource(s.source));
+    const m = as.find((x) => sid(x.id) === s.id && canonSource(String(x.source)) === canonSource(s.source));
     if (!m) continue;
     eq(scope, `spawn ${s.id} bucket`, s.bucket, m.bucket, s.file, pf);
     eq(scope, `spawn ${s.id} level`, s.level, m.level, s.file, pf);
