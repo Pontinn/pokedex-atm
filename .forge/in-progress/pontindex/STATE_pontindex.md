@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: autonomo ate haver tela real para ver (Pontin 2026-09-24: "deixa rolar, quando der pra ver de verdade me avise"); parar so em bloqueio, decisao de produto ou divergencia da auditoria
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: dados ordem transitiva (b180vgz8t); auditor rodada 2 NOVO (blhpemktu); Grupo C F10+F11 (bixq4fm4y)
+running_agent: auditor rodada 2 (blhpemktu); Grupo C F10+F11 (bixq4fm4y)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -273,3 +273,9 @@ updated: 2026-09-24
 - EVIDENCIA que resolve os 24 conflitos ccc x mega_showdown (CONFERIDA no mods.toml do allthemons: mega_showdown AFTER, ccc BEFORE, comentario "fix load order of CCC") -> ordem mega_showdown < allthemons < ccc -> CCC vence. Decisao tomada pela evidencia (reversivel por constante); Pontin informado.
 - Mesmo agente de dados aplicando a ordem transitiva (timer b180vgz8t). Auditor antigo PARADO (ja tinha 50 min; Regra 2) e AUDITOR NOVO de contexto zerado disparado para corrigir a ferramenta e rodar a rodada 2 (timer blhpemktu).
 - Typecheck quebrado por __APP_VERSION__ em AboutCard.tsx (grupo C, em andamento; vite.config e congelado -> ver no retorno do grupo C).
+- 18:19 dados rodada 2 (18:15-18:19): f5b0d0f0 ordem transitiva, 19a7cd3d dataset regenerado (atm1.3.0-cobblemon1.7.3-20260924-1344fc8b), 31 colisoes resolvidas (5 kubejs, 24 ccc, staryu allthemons, floette zamega), 0 somadas; spawnEntries 3257 -> 3197; dataset tests 93/93. Aguardando auditor rodada 2.
+
+## 2026-09-24 18:24 - AUDITORIA LIMPA (rodada 2, 18:15-18:24, agente novo): f5dce003 ferramenta, de87b5e7 relatorio
+- 42.992 checagens, 0 divergencias em todas as severidades; 3197 spawns esperados = manifest; amostra manual (50 + 28 especies corrigidas) 0 diferencas.
+- OPEN (jogo): Meltan sem evolucao para Melmetal (kubejs zzz_ccc_meltan zera evolutions, aplicado por ultimo). Anotado na SPEC 5.1.2, que tambem ganhou o texto das additions de qualquer jar e da ordem de carga.
+- Proximo: F2 (home + busca, opus) liberada. Depois de F2: grupos A e B em paralelo.

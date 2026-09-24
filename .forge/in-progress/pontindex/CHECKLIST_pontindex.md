@@ -303,14 +303,14 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
 **Inicio quando**: Onda 2 verde (dataset publicado)  
 **Arquivos exclusivos**: `tools/dataset/audit/`, `tests/unit/dataset/audit.test.ts`; so leitura do resto  
 
-- [ ] A1 Auditoria do dataset contra os arquivos originais
-  - hash:
+- [x] A1 Auditoria do dataset contra os arquivos originais
+  - hash: cd96c8ac f5dce003 (ferramenta), 6d99aa07 de87b5e7 (relatorios)
   - Done when: checagem exaustiva das 1027 especies (campos mecanicos) + bolas, itens e treinadores-chave; amostra manual de 50 especies campo a campo (PT/EN); `AUDIT_REPORT.md` sem divergencia aberta (ou aceita pelo Pontin)
   - notas:
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
-**inicio**: 2026-09-24 17:15 / **fim**: 18:05 / **duracao**: 50 min (1a rodada: 144 WRONG DATA, 2 MISSING, 5 SPEC x JOGO, 242 COSMETIC; correcao em andamento)
+**inicio**: 2026-09-24 17:15 / **fim**: 18:24 / **duracao**: 50 min (rodada 1) + 9 min (rodada 2, agente novo). Rodada 2: 0 divergencias em 42.992 checagens; amostra manual 0 diferencas.
 
 ---
 
