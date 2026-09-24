@@ -46,6 +46,36 @@ function extraOf(raw: Json): Record<string, unknown> {
   return extra;
 }
 
+// BUGFIX (achado pelo B2.5/Onda 2 ao validar species/*.json contra speciesDetailSchema, real run):
+// condition.timeRange no snapshot real usa presets nomeados ("morning","noon","dawn","dusk","twilight",
+// alem de "day"/"night") e faixas numericas de tick ("5000-10999" etc, dex 741 Oricorio confirmado),
+// nao so os 2 nomes literais que o codigo original repassava direto (cast) para o enum fechado
+// SpawnTimeRange ("day"|"night"|"any"), quebrando a validacao de schema. Mapeado por janela do dia
+// (Minecraft: 0-12000 = dia, 12000-24000 = noite); nome desconhecido ou fora do padrao -> "any".
+const NAMED_TIME_RANGE: Readonly<Record<string, SpawnTimeRange>> = {
+  day: "day",
+  dawn: "day",
+  morning: "day",
+  noon: "day",
+  afternoon: "day",
+  night: "night",
+  dusk: "night",
+  twilight: "night",
+  evening: "night",
+};
+
+function deriveTimeRange(raw: unknown): SpawnTimeRange {
+  if (typeof raw !== "string") return "any";
+  const named = NAMED_TIME_RANGE[raw.toLowerCase()];
+  if (named) return named;
+  const match = /^(\d+)-(\d+)$/.exec(raw);
+  if (match) {
+    const mid = (Number(match[1]) + Number(match[2])) / 2;
+    return mid < 12000 ? "day" : "night";
+  }
+  return "any";
+}
+
 let sequence = 0;
 
 function parseEntry(raw: unknown, source: string, report: PipelineContext["report"], where: string): SpawnEntry | null {
@@ -78,7 +108,7 @@ function parseEntry(raw: unknown, source: string, report: PipelineContext["repor
       ? { min: typeof condition.minSkyLight === "number" ? condition.minSkyLight : 0, max: typeof condition.maxSkyLight === "number" ? condition.maxSkyLight : 15 }
       : null,
     canSeeSky: typeof condition.canSeeSky === "boolean" ? condition.canSeeSky : null,
-    timeRange: (typeof condition.timeRange === "string" ? condition.timeRange : "any") as SpawnTimeRange,
+    timeRange: deriveTimeRange(condition.timeRange),
     structures: strArray(condition.structures),
     neededBaseBlocks: strArray(condition.neededBaseBlocks),
     extra: extraOf(raw),
