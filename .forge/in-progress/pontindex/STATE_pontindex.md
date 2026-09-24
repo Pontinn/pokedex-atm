@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: gate (ate a Onda 2; parar ao fim de cada onda)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: nenhum (GATE: aguardando ok do Pontin para a Onda 1)
+running_agent: ONDA 1 (4 em paralelo, iniciados 2026-09-24 16:25) - especies (sonnet, timer b8eky1zji), pokeapi-media (sonnet, brn35m826), trainers-balls (sonnet, b25a2ppz8), rules-storage (opus, bayfb1gu5)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -218,3 +218,10 @@ updated: 2026-09-24
 - B1.2: parte Vercel pendente (precisa de push + dataset da Onda 2).
 - BUG achado por mim: merge (a) com base vencendo em TODO campo fora forms/labels; ccc zygarde/lycanroc tem implemented:true e a base nao tem o campo -> ficaram nao implementados. Base-wins so para a lista fechada da SPEC (ccc dialga tem moves: [] -> base certa em moves). Enviado ao mesmo agente (16:20).
 - 16:22 fix do merge (a): 994cade8 (+ 4295c0f1 checklist/handoff), ~2 min. Conferido: vitest 27/27, notImplemented = []. Onda 0 total: 28 min + fix. GATE: parado aguardando o Pontin.
+
+## 2026-09-24 16:25 - ONDA 1 disparada (ok do Pontin)
+- 4 agentes em paralelo; progresso so nos HANDOFF_<parte>.md (nao editam CHECKLIST/STATE, para evitar escrita concorrente); orquestrador consolida o checklist no fim da onda.
+- Onda 1b (frontend F1.1-F1.3, opus) entra quando um agente terminar E B7.1 estiver verde (ver HANDOFF_rules-storage.md).
+- Pontin: deploy na Vercel so no fim do projeto (B1.2 parte Vercel adiada ate la).
+- Pedido do Pontin: tabela de tempos por agente ao fim da Onda 1.
+- 16:30 Pontin aprovou a AUDITORIA de dados (Onda 2b, opus independente): exaustiva nas 1027 especies + amostra de 50; substitui a conferencia no jogo (Pontin esta em outro PC, sem o jogo). Onda 3 (F2+) so apos auditoria limpa. Conferencia no jogo fica opcional para quando ele estiver no PC de casa.

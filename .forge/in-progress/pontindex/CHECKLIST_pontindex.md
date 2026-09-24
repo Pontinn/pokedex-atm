@@ -296,11 +296,29 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
 
 ---
 
+## Onda 2b - Auditoria de dados
+
+**Agente**: Auditoria (independente)  
+**Modelo**: Opus  
+**Inicio quando**: Onda 2 verde (dataset publicado)  
+**Arquivos exclusivos**: `tools/dataset/audit/`, `tests/unit/dataset/audit.test.ts`; so leitura do resto  
+
+- [ ] A1 Auditoria do dataset contra os arquivos originais
+  - hash:
+  - Done when: checagem exaustiva das 1027 especies (campos mecanicos) + bolas, itens e treinadores-chave; amostra manual de 50 especies campo a campo (PT/EN); `AUDIT_REPORT.md` sem divergencia aberta (ou aceita pelo Pontin)
+  - notas:
+
+HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
+
+**inicio**: / **fim**: / **duracao**:
+
+---
+
 ## Onda 3 - Frontend
 
 **Agente**: Frontend (forge-imp-frontend)  
 **Modelo**: Opus  
-**Inicio quando**: Onda 1b verde; F1.4 apos B7.1 e B3.4; F2 em diante com a Onda 2 verde (dataset real); backend verde nas dependencias de cada feature  
+**Inicio quando**: Onda 1b verde; F1.4 apos B7.1 e B3.4; F2 em diante com a Onda 2 verde (dataset real) e a Onda 2b (auditoria) sem divergencia aberta; backend verde nas dependencias de cada feature  
 **Arquivos exclusivos**: `src/` de UI restante (telas F1.4-F12.1); `tests/harness/no-overlap.ts` (criado em F1.4); testes das features F1.4-F12.1 (`tests/e2e/<tela>.spec.ts`, `tests/unit/ui-screens/`)  
 **Pasta temporaria**: nenhuma  
 
