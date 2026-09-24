@@ -26,39 +26,39 @@
 
 - [ ] B1.1 Projeto Vite + React + TS com qualidade
   - hash:
-  - Done when: `npm run typecheck && npm run lint && npm run build` verdes; `dist/index.html` existe
+  - Done when (literal da SPEC): `npm run typecheck && npm run lint && npm run build` verdes; `dist/index.html` existe.
   - notas:
 
 - [ ] B1.2 Higiene do repositorio e deploy Vercel
   - hash:
-  - Done when: `git status` limpo apos build; deploy de preview na Vercel serve `/` e `/data/<ver>/dataset-manifest.json` com header immutable
+  - Done when (literal da SPEC): `git status` limpo apos build; deploy de preview na Vercel serve `/` e `/data/<ver>/dataset-manifest.json` com header immutable.
   - notas:
 
 - [ ] B1.3 PWA base, fontes e icones empacotados
   - hash:
-  - Done when: `dist/sw.js` e `dist/manifest.webmanifest` gerados; nenhum request para dominios externos ao abrir `npm run preview`
+  - Done when (literal da SPEC): `dist/sw.js` e `dist/manifest.webmanifest` gerados; nenhum request para dominios externos ao abrir `npm run preview` (verificado com Playwright interceptando `**`).
   - notas:
 
 - [ ] B1.4 Geradores de assets (paleta de tipos, icones, mascara)
   - hash:
-  - Done when: `types.generated.css` contem 18 blocos; `public/icons` tem 5 PNGs; snapshot test do CSS gerado
+  - Done when (literal da SPEC): `types.generated.css` contem 18 blocos; `public/icons` tem 5 PNGs; snapshot test do CSS gerado (`tests/unit/build/type-css.test.ts`).
   - notas:
 
 - [ ] B1.5 Contratos compartilhados congelados e configuracao de testes
   - hash:
-  - Done when: testes de contratos passam; `src/data/types.ts`, `src/storage/types.ts`, `src/styles/themes.ts`, `src/domain/ball-rules-types.ts`, `src/domain/normalize.ts` criados e congelados
+  - Done when (literal da SPEC): `npm run typecheck` verde com os 5 arquivos; `tests/unit/build/contracts.test.ts`: `THEME_IDS.length === 7` e `THEME_IDS[0] === "classic"`, `heavyBallMultiplier(905) === 1`, `(1001) === 2`, `(3500) === 4`, `normalizeSearch("Pântano") === "pantano"`; `npx playwright test --list`, `npx playwright test -c playwright.harness.config.ts --list` e `npx vitest --run --passWithNoTests` sobem sem erro de configuracao.
   - notas:
 
 ### Sprint B2: Pipeline de dados, parte 1 (especies, spawns, fosseis, evolucoes, formas)
 
 - [ ] B2.1 Leitor da fonte (snapshot ou instancia real), manifesto e escrita atomica
   - hash:
-  - Done when: `runSourceReader(ctx)` com `--instance <dir>` ou snapshot padrao completa; manifesto gerado; atomicidade testada
+  - Done when (literal da SPEC): (obrigatorio, sempre; `species 1027` so aparece depois de B2.2, que fecha a Onda 0 junto com esta feature) `npm run dataset -- --only speciesCore --out tools/dataset/out/_base --skip-media --report` termina com codigo 0 e imprime `species 1027` rodando APENAS com o snapshot `data-source/atm-1.3.0` em uma maquina limpa sem o modpack (sem `--instance` e sem `ATM_INSTANCE_DIR`), com `pack = {name:"All the Mons", version:"1.3.0", minecraft:"1.21.1"}` e `cobblemonVersion = "1.7.3"` conferidos na saida do `--report` e em `tools/dataset/out/_base/report.json` (o `dataset-manifest.json` so e escrito por B2.5, Onda 2); teste unitario da deteccao com fixtures sinteticas (`mods/` so com diretorios -> snapshot; so com arquivos zip -> instancia; misto -> `E_SOURCE_MODE_UNKNOWN`; snapshot cujo `MANIFEST.json` tambem responde por `manifest.json` nao muda o modo); rodar com `ATM_INSTANCE_DIR` apontando para pasta inexistente falha com `E_INSTANCE_NOT_FOUND` sem criar `public/data/<ver>/` nem alterar `public/data/current.json`; os testes ficam em `tests/unit/dataset/source.test.ts` com fixtures em `tests/fixtures/source/`. (A paridade snapshot x instancia real por hash de `species-index.json` foi movida para B2.5, que e quem escreve esse arquivo.)
   - notas:
 
 - [ ] B2.2 Lang PT/EN e merge de especies
   - hash:
-  - Done when: Eevee merge com 5 formas; searchKey normalizado; `counts.species` 1027
+  - Done when (literal da SPEC): teste unitario (`tests/unit/dataset/species-merge.test.ts`, fixtures em `tests/fixtures/species-merge/`: bulbasaur, charizard do Cobblemon + charizard do mega_showdown) garante `baseStats` do Cobblemon e `forms` com Mega-X/Mega-Y/Gmax; Quagsire `name.pt === "Pântano"`; `counts.species === 1027`; Mareep (`dex 179`) tem `SpeciesDetail.drops` (array achatado de `drops.entries` da adicao do allthemons, `amount: 5` descartado) contendo `{ item: "silentgear:sinew", percentage: 25, quantityRange: null }` e 4 entradas no total. (A verificacao `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68) pertence ao Done de B4.2, Onda 2.)
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_base.md`
@@ -79,12 +79,12 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_base.md`
 
 - [ ] B2.3 Spawns, raridade, fosseis e rotas "Como obter" (derivacao)
   - hash:
-  - Done when: em `tests/unit/dataset/species.test.ts` com fixture snapshot; Eevee com buckets corretos; fossil routes 16
+  - Done when (literal da SPEC): em `tests/unit/dataset/species.test.ts` (fixtures em `tests/fixtures/species/`, unico arquivo de teste do agente Especies; chama `runSpeciesDerive(ctx)` com `outDir = tools/dataset/out/_species/`, equivalente a `npm run dataset -- --only speciesDerive --out tools/dataset/out/_species`, sem pipeline completo e sem escrever em `public/`): Eevee -> `primary uncommon`, `secondary [rare, ultra-rare]`, 5 entradas; Mewtwo -> `rarity.primary null`, `obtain = [fossil allthemons]`; Aerodactyl -> `[fossil, breeding]`; Charizard -> `[evolution, breeding]`; `undiscovered` sem breeding; sem rota -> `none`; `counts.fossilRoutes === 16`.
   - notas:
 
 - [ ] B2.4 Evolucoes, cadeia e formas com item necessario (derivacao)
   - hash:
-  - Done when: testes em `tests/unit/dataset/species.test.ts`; Charizard forms com items de mega evolution
+  - Done when (literal da SPEC): (em `tests/unit/dataset/species.test.ts`) Eevee `evolutionChain.edges.length === 8` (Espeon = friendship 160 + timeRange day; Sylveon = friendship + hasMoveType fairy), Charizard `forms` = Mega-X (`requiredItems = ["mega_showdown:charizardite_x","mega_showdown:keystone"]`), Mega-Y, Gmax (`[]`); Kadabra -> Alakazam `variant trade`; Clefairy -> Clefable `requiredItem cobblemon:moon_stone`.
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_species.md`
@@ -105,17 +105,17 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_species.md`
 
 - [ ] B3.1 Cliente PokeAPI com cache e backoff
   - hash:
-  - Done when: teste com servidor fake: 2 falhas 503 depois 200 = sucesso com 2 retries; cache hit 100% na segunda execucao
+  - Done when (literal da SPEC): teste (`tests/unit/dataset/pokeapi-media.test.ts`, fixtures em `tests/fixtures/pokeapi-media/`, cache do teste em pasta temporaria do proprio teste, nunca em `.cache/` de outra etapa) com servidor fake: 2 falhas 503 depois 200 -> sucesso com 2 retries; segunda execucao nao faz rede (cache hit 100%).
   - notas:
 
 - [ ] B3.2 Golpes e habilidades
   - hash:
-  - Done when: `moves.json` >= 932 entradas; `tackle` = normal/physical; `abilities.json` 310; `blaze.name.pt === "Incendio"`
+  - Done when (literal da SPEC): `tests/unit/dataset/pokeapi-media.test.ts` monta um `ctx` com `runSpeciesCore` sobre o snapshot real, `outDir = tools/dataset/out/_pokeapi-media/` e cache em `tools/dataset/.cache/pokeapi/`, chama `runPokeapiStage(ctx)` (equivalente: `npm run dataset -- --only pokeapi --out tools/dataset/out/_pokeapi-media`) e confere em `tools/dataset/out/_pokeapi-media/data/`: `moves.json` tem >= 932 entradas e 0 com `type == null`; `tackle` = normal/physical/40/100/35; `abilities.json` tem 310, `blaze.name.pt === "Incêndio"`.
   - notas:
 
 - [ ] B3.4 Extracao de midia dos jars e orcamento
   - hash:
-  - Done when: `cries/` >= 1072, `sfx/` = 20 nomes, `items/cobblemon/` >= 800; soma cries+sfx+texturas <= 26 MB
+  - Done when (literal da SPEC): `tests/unit/dataset/pokeapi-media.test.ts` chama `runMediaStage(ctx)` com `outDir = tools/dataset/out/_pokeapi-media/` (equivalente: `npm run dataset -- --only media --out tools/dataset/out/_pokeapi-media`) e confere em `tools/dataset/out/_pokeapi-media/assets/`: `cries/` >= 1072 arquivos, `sfx/` = os 20 nomes de `SFX_NAMES`, `items/cobblemon/` >= 800; soma cries + sfx + texturas <= 26 MB (a faixa final de `media.totalBytes`, 18 a 26 MB com sprites, e conferida em B2.5).
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_pokeapi-media.md`
@@ -136,19 +136,19 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_pokeapi-media.md`
 
 - [ ] B5.1 Treinadores e definicoes de spawn
   - hash:
-  - Done when: `gym_leader_roark_0395` com propriedades corretas; `requiredDefeats` resolvidos
+  - Done when (literal da SPEC): (em `tests/unit/dataset/trainers-balls.test.ts`, chamando `runTrainersStage(ctx)` com `outDir = tools/dataset/out/_trainers-balls/`, sem escrever em `public/`) `gym_leader_roark_0395`: `optional false`, `signatureItem cobblemon:smooth_rock`, `maxTeamLevel 14`, `series [bdsp]`; `pokemon_trainer_cedric_0445.requiredDefeats = [["gym_leader_gardenia_03d6"]]`; `gym_leader_maylene_03d8.requiredDefeats = [[cedric_0445, cedric_0446, cedric_0447]]`.
   - notas:
 
 - [ ] B5.2 Series, ordem dos treinadores-chave e config do cap
   - hash:
-  - Done when: `ctx.counts.keyTrainers.bdsp === 33`; ordem topologica correta; `series.json` valido
+  - Done when (literal da SPEC): (em `tests/unit/dataset/trainers-balls.test.ts`; equivalente `npm run dataset -- --only trainers --out tools/dataset/out/_trainers-balls`; confere `ctx.counts` e os arquivos em `tools/dataset/out/_trainers-balls/data/`, nunca `public/data/`) `ctx.counts.keyTrainers.bdsp === 33`; ordem BDSP comeca com `gym_leader_roark_0395`; `series.json` tem `atm_team.requiredSeries = [["bdsp"]]` e `freeroam.special === "freeroam"`.
   - notas:
 
 ### Sprint B4: Pipeline de dados, parte 3 (itens, receitas, loot, bolas)
 
 - [ ] B4.3 Pokebolas e tabela de regras
   - hash:
-  - Done when: 48 bolas no catalogo; tabela de regras curada com multiplicadores; teste Magikarp ranking completo
+  - Done when (literal da SPEC): (sem pipeline completo nem escrita em `public/`: `tests/unit/dataset/trainers-balls.test.ts` chama `runBallsStage(ctx)` com `outDir = tools/dataset/out/_trainers-balls/`, equivalente a `npm run dataset -- --only balls --out tools/dataset/out/_trainers-balls`, e le `tools/dataset/out/_trainers-balls/data/balls.json`) `balls.json.length === 48` (igual ao numero de texturas em `poke_balls/`) e `counts.balls` bate; `net_ball.rule.applies.types` = `[water, bug]`; `ancient_gigaton_ball.rule` = `{kind:"flat", multiplier:2}` e `ancient_wing_ball.rule` = `{kind:"flat", multiplier:1.5}`; `heavy_ball.rule` = `{kind:"conditional", bestMultiplier:4, worstMultiplier:1, condition:"heavyTarget"}` sem `applies`; `park_ball` = `conditional 2.5/1 forestOrPlains`; `sport_ball` = `flat 1.5`; `dusk_ball.effect.pt` = "3.5× se o Pokémon estiver no Nível de Luz 0, e 3× se estiver no Nível de Luz 1-7".
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_trainers-balls.md`
@@ -163,60 +163,60 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_trainers-balls.md`
 **Modelo**: Opus  
 **Inicio quando**: Onda 0 completa (importa contratos congelados de B1.5)  
 **Arquivos exclusivos**: `src/domain/` (exceto `normalize.ts` e `ball-rules-types.ts`), `src/storage/` (exceto `types.ts`), `src/sync/`, `src/data/{loaders,cache,schemas}.ts`, `src/platform/`; `tests/unit/{domain,storage,sync,data}/`, `tests/fixtures/rules-storage/`  
-**Pasta temporaria**: `tests/fixtures/rules-storage/`
+**Pasta temporaria**: nenhuma (modulos puros; fixtures em `tests/fixtures/rules-storage/`)  
 
 ### Sprint B6: Modulos de dominio (regras puras, sem UI)
 
 - [ ] B6.1 Tabela de tipos e efetividade
   - hash:
-  - Done when: testes dos exemplos de efetividade contra Charizard; igualdade com `type-chart.json` em B2.5
+  - Done when (literal da SPEC): testes dos exemplos acima (`tests/unit/domain/type-chart.test.ts`). A igualdade com o `type-chart.json` gerado so e conferida em B2.5 (Onda 2, `tests/unit/dataset/join.test.ts`), porque o arquivo nao existe na Onda 1.
   - notas:
 
 - [ ] B6.2 Stats, naturezas e recomendacao de IV/EV
   - hash:
-  - Done when: testes 299/328/269/404 HP; Charizard highlight `[specialAttack, speed]`; Mew empate
+  - Done when (literal da SPEC): testes 299/328/269/404 e Charizard/Mew.
   - notas:
 
 - [ ] B6.3 Level cap (Radical Cobblemon Trainers)
   - hash:
-  - Done when: BDSP 15/16/20/22/22/30/100; AND/OR de `requiredDefeats`; `none` e `freeroam`
+  - Done when (literal da SPEC): testes com fixtures reais dos 7 treinadores acima reproduzem 15/16/20/22/22/30/100, mais AND/OR de `requiredDefeats`, `none` e `freeroam`.
   - notas:
 
 - [ ] B6.4 Ranking de Pokebolas
   - hash:
-  - Done when: teste Magikarp com 44 posicoes; Charizard Fast Ball 4x; Heavy Ball na faixa correta
+  - Done when (literal da SPEC): teste Magikarp reproduz exatamente o ranking completo acima (44 posicoes na ordem, 2 excluidas, 2 garantidas); teste Charizard (`weight` 905 hg = 90,5 kg, speed 100): Fast Ball 4x incondicional logo apos Love 8x e Quick 5x e ANTES das 4x condicionais; Heavy Ball presente como 1x incondicional (faixa `<= 1000` hg), no bloco de 1x entre `Heal Ball` e `Luxury Ball` pela ordem EN; teste de peso 3500 hg -> Heavy 4x incondicional.
   - notas:
 
 - [ ] B6.5 Busca
   - hash:
-  - Done when: testes "025"/"pantano"/"charizar"/"9902"
+  - Done when (literal da SPEC): testes "025"/"pantano"/"charizar"/"9902".
   - notas:
 
 - [ ] B6.6 Historico e time
   - hash:
-  - Done when: testes 21o item / duplicado ao topo / 7o no time; history rotation; team rules
+  - Done when (literal da SPEC): testes 21o item / duplicado ao topo / 7o no time.
   - notas:
 
 ### Sprint B7: Persistencia, sincronizacao, backup e loaders
 
 - [ ] B7.1 StorageAdapter, IndexedDB, migracoes e repositorios
   - hash:
-  - Done when: round-trip 6 docs; migracao 0->1 importa legacy; snapshot e rollback funcionam; `filterKnown` correto
+  - Done when (literal da SPEC): testes: round-trip dos 6 docs; migracao 0->1 importa `pontindex.terms`; snapshot criado e `restorePreMigrationSnapshot` reverte; escrita com `QuotaExceededError` simulado nao corrompe o doc anterior (leitura apos falha = valor antigo); `filterKnown` esconde dex 99999 sem apaga-lo.
   - notas:
 
 - [ ] B7.2 Codec de sincronizacao e mesclagem
   - hash:
-  - Done when: property test round-trip; texto 200.001 chars = oversized; CRC corrupted; exemplo A/B do PRD
+  - Done when (literal da SPEC): property test (`fast-check`) de round-trip `decode(encode(x)) == x` para docs aleatorios, igualdade modulo precisao de segundo nos timestamps (inclui times com `null` em qualquer posicao, ex. `[6,null,94,null,null,149]`, que voltam identicos); texto de 200.001 caracteres -> `oversized` sem decodificar; payload que infla alem de 512 KB -> `oversized`; caso maximo (1027 capturados, 110 derrotados) gera >= 2 frames e reconstroi identico; exemplo A/B do PRD; CRC corrompido -> `corrupted`; magic errado -> `foreignApp`; `formatVersion 9` -> `unsupportedVersion`.
   - notas:
 
 - [ ] B7.3 Backup exportar/importar
   - hash:
-  - Done when: round-trip export -> deleteData -> import = identico; arquivo > 5 MB = oversized
+  - Done when (literal da SPEC): round-trip export -> `deleteData("all")` -> import = docs identicos (deep equal, exceto `meta.lastWriteAt`).
   - notas:
 
 - [ ] B7.4 Loaders do dataset com cache e retry
   - hash:
-  - Done when: cache hit nao refaz request; 2 falhas + sucesso; JSON invalido = `INVALID`
+  - Done when (literal da SPEC): testes com `fetch` mockado (`tests/unit/data/loaders.test.ts`; `schemas.ts` aceita uma ficha de exemplo de `tests/fixtures/rules-storage/`): cache hit nao refaz request; 2 falhas + sucesso; JSON invalido -> `INVALID`.
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_rules-storage.md`
@@ -231,23 +231,23 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_rules-storage.md`
 **Modelo**: Opus  
 **Inicio quando**: (a) um agente da Onda 1 terminou (teto 4 simultaneos) E (b) B7.1 verde no checklist  
 **Arquivos exclusivos**: `src/styles/{tokens,themes,base,components}.css`, `src/styles/theme-meta.ts`, `src/i18n/`, `src/navigation/`, `src/state/preferences-store.ts`, `src/components/{Watermark,TypeChip,TypeIcon,TermsToggle,ScreenRouter}.tsx`; `tests/unit/ui-foundation/`, `tests/harness/`, `tests/harness/foundation.spec.ts`, `tests/fixtures/ui-foundation/`  
-**Pasta temporaria**: `tests/fixtures/ui-foundation/`
+**Pasta temporaria**: nenhuma (fixtures em `tests/fixtures/ui-foundation/`, harness em `tests/harness/`)  
 
 ### Sprint F1: Fundacao visual, i18n, navegacao e shell
 
 - [ ] F1.1 Tokens, temas e paleta por tipo
   - hash:
-  - Done when: 7 temas com cores corretas; `--surface` black = `#111111`; `.t-fire` com cor base; mask-image do watermark
+  - Done when (literal da SPEC): em `tests/harness/foundation.spec.ts` (Playwright `headless: true`, sem `slowMo`, sem timers) a pagina `tests/harness/foundation.html`, para cada um dos 7 ids de `THEME_IDS`, seta `data-theme` e `getComputedStyle(document.documentElement)` devolve os valores da tabela de tokens do UISPEC 3.3 (esperados em `tests/fixtures/ui-foundation/`), incluindo `--surface` = `#111111` no `black` e `--scroll-thumb`; um `.t-fire` do harness tem `--tc` = cor base de fogo de `cores.json`; o `.watermark` tem `mask-image` com `pokeball-mask`; `tests/unit/ui-foundation/tokens.test.ts`: `applyTheme("inexistente")` deixa `data-theme="classic"` (sem store). O caso "tema SALVO inexistente no IndexedDB cai para `classic`" e testado em F1.2, depois que o `preferences-store` existe. As comparacoes visuais com `ui-refs/` foram movidas: tema `classic` = `desktop-home.png` (F2.2) e `desktop-detail-charizard-full.png` (F4.1); os outros 6 temas = `theme-<azul|branco|laranja|preto|roxo|verde>-home.png` e `theme-<...>-detail-charizard.png` em T1 (`tests/e2e/responsive.spec.ts`), pois `ui-refs/` nao tem `theme-classico-*`.
   - notas:
 
 - [ ] F1.2 i18n e toggle de termos por card
   - hash:
-  - Done when: `MESSAGES` completo pt/en; sem chaves excluidas; `TermsToggle` grava override; completude de dicionario
+  - Done when (literal da SPEC): `tests/unit/ui-foundation/i18n.test.ts`: toda chave de `MESSAGES` tem `pt` e `en` nao vazios (completude do dicionario); nenhuma das chaves excluidas (`detail.noSpawn`, `detail.noSpawnDesc`, `evo.methods`, `captured.progress`, `home.lastCaught`, `ip.noDesc`) existe; `t("chave.inexistente")` lanca em dev; interpolacao `{n}`; `TermsToggle` com `cardKey="moves"` grava o override pelo repositorio (com `fake-indexeddb`) e so o card consumidor re-renderiza (contador de render); trocar `uiLanguage` nao altera `termsOverrides`; o `preferences-store` hidratado com `theme: "inexistente"` (doc gravado via `fake-indexeddb`) chama `applyTheme` (F1.1) e resulta em `data-theme="classic"` com aviso; `npm run lint` verde com a regra `no-literal-jsx-text` (B1.1) sobre `src/`. A comparacao com `desktop-settings-full.png` (bloco de idioma/termos) foi movida para F10.1, onde a tela existe.
   - notas:
 
 - [ ] F1.3 Pilha de navegacao com historico real
   - hash:
-  - Done when: navigate A->B->C e goBack restaura `ui` e scroll; pilha 40; popstate funciona; gancho de som chamado 1x
+  - Done when (literal da SPEC): `tests/unit/ui-foundation/navigation.test.ts`: `navigate` A -> B -> C e `goBack` duas vezes restaura `current.ui` de B e A exatamente (ex. `moveTab: "tm"`, `openMoveRows: ["flamethrower"]`) e o `scroll` salvo; pilha limitada a 40 (41o push descarta o mais antigo); `goBack` com pilha vazia vai para `home`; `updateUi` nao faz push; o gancho de som e chamado 1 vez por `navigate` (spy via `setNavigationSoundHook`) e o padrao no-op nao lanca; `tests/harness/foundation.spec.ts` (Playwright `headless: true`, sem `slowMo`, sem timers) no harness com telas ficticias rolaveis: navegar, rolar 800 px, navegar, `page.goBack()` (popstate) restaura o scroll com tolerancia de 2 px (`expect.poll`) e Alt+Seta esquerda tambem volta. Os fluxos reais foram movidos: "Dex com filtro Fogo + scroll > ficha > Voltar" para F4.1 (primeira feature com Dex e ficha) e "Charizard > Golpes TM > scroll > item > Voltar" para F9.3 (primeira com a pagina de item), ambos repetidos em T1 `tests/e2e/navigation.spec.ts`.
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_frontend-foundation.md`
@@ -268,26 +268,26 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_frontend-foundation.md`
 
 - [ ] B3.3 Sprites 96px e ids de artwork por forma
   - hash:
-  - Done when: 1025 PNGs em `<outDir>/assets/sprites/`; Charizard Mega-X `artworkId === 10034`; cache em `.cache/sprites/`
+  - Done when (literal da SPEC): 1025 PNGs em `<outDir>/assets/sprites/` (publicados em `public/assets/sprites` por B2.5, mesma onda; cache em `tools/dataset/.cache/sprites/`) (`ctx.media.register("sprites", ...)` e `ctx.counts.sprites`); Charizard Mega-X `artworkId === 10034` (teste em `tests/unit/dataset/join.test.ts`).
   - notas:
 
 ### Sprint B4 (continuacao): Pipeline de dados, parte 3
 
 - [ ] B4.1 Catalogo de itens com categoria e textura
   - hash:
-  - Done when: `items.json` >= 932 entradas; `cobblemon:potion` descricao pt/en e textura; `aguav_berry` tags contendo `bait`
+  - Done when (literal da SPEC): `items.json` >= 932 entradas; `cobblemon:potion` tem descricao pt/en e textura; `cobblemon:aguav_berry` tem `tags` contendo `bait`.
   - notas:
 
 - [ ] B4.2 Rotas de obtencao do item e "Usado em"
   - hash:
-  - Done when: `cobblemon:fire_stone.obtain` = craftable; `old_amber_fossil.usedIn.fossils` = 142; item drops e loot corretos
+  - Done when (literal da SPEC): `cobblemon:fire_stone.obtain` contem `craftable` e `usedIn.evolutions` contem `{from:133,to:136}`; `cobblemon:old_amber_fossil.usedIn.fossils` contem 142; `allthemons:pika_star.usedIn.fossils` contem 150; `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68, Mareep, vindo de B2.2).
   - notas:
 
 ### Sprint B2 (finalizacao): Pipeline de dados, parte 1
 
 - [ ] B2.5 Escrita do indice, fichas, tabela de tipos e biomas (pipeline completo com publicacao)
   - hash:
-  - Done when: primeira execucao completa do pipeline; `public/data/` e `public/assets/` publicados; manifesto valido
+  - Done when (literal da SPEC): (testes em `tests/unit/dataset/join.test.ts`, fixtures em `tests/fixtures/join/`) `speciesDetailSchema` de `src/data/schemas.ts` valida 100% dos `species/*.json`; `species-index.json` tem 1027 entradas e `searchKey` de Quagsire contem `pantano`. (CONDICIONAL, movido de B2.1) Somente se `ATM_INSTANCE_DIR` apontar para uma instancia real disponivel na maquina: rodar o pipeline com ela produz um `species-index.json` identico ao do snapshot (paridade por hash); sem instancia real, o teste e marcado `skip` com o motivo e NAO bloqueia o Done.
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_join.md`
@@ -300,162 +300,162 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_join.md`
 
 **Agente**: Frontend (forge-imp-frontend)  
 **Modelo**: Opus  
-**Inicio quando**: Onda 1b verde; Onda 2 verde (dataset real); backend verde nas dependencias de cada feature  
-**Arquivos exclusivos**: `src/` de UI restante (telas F1.4-F12.2)  
-**Pasta temporaria**: `tests/fixtures/ui-screens/`
+**Inicio quando**: Onda 1b verde; F1.4 apos B7.1 e B3.4; F2 em diante com a Onda 2 verde (dataset real); backend verde nas dependencias de cada feature  
+**Arquivos exclusivos**: `src/` de UI restante (telas F1.4-F12.1); `tests/harness/no-overlap.ts` (criado em F1.4); testes das features F1.4-F12.1 (`tests/e2e/<tela>.spec.ts`, `tests/unit/ui-screens/`)  
+**Pasta temporaria**: nenhuma  
 
 ### Sprint F1 (finalizacao): Fundacao visual, i18n, navegacao e shell
 
 - [ ] F1.4 Shell desktop e mobile, boot, tabbar/sheet e som (paginas reais)
   - hash:
-  - Done when: `desktop-home.png` e `mobile-home.png` shell correto; som toca; reducao de animacao em home; cria tests/harness/no-overlap.ts e aplica no shell
+  - Done when (literal da SPEC): `mobile-boot-lid-closed.png`, `mobile-nav-mais-sheet.png`; `desktop-home.png` e `mobile-home.png` comparados SO na regiao do shell (sidebar no desktop; topbar-aparelho e tabbar no mobile), com a area de conteudo `#main` mascarada (`toHaveScreenshot({ mask: [page.locator("#main")] })`), porque a Home real so existe em F2; teste: com som ligado, abrir o app toca `pokedex_open` (spy); `navigate` toca `pokedex_click_short` pelo gancho; com "Reduzir animacoes" ligado, `getComputedStyle(watermark).animationDuration === "0.001s"`. Cria `tests/harness/no-overlap.ts` (`expectNoOverlap`, regra geral "Sem sobreposicao de texto") e aplica no shell (tabbar, sheet "Mais", cabecalho) a 360 px, 390 px e 1280 px, PT e EN.
   - notas:
 
 ### Sprint F2: Home, busca e blocos de time e historico
 
 - [ ] F2.1 Busca com autocomplete
   - hash:
-  - Done when: autocomplete funciona; busca "025" e "pantano" encontram; sem rede usa cache
+  - Done when (literal da SPEC): testes: "025"/"25"/"0025" -> Pikachu; "pantano" com UI em ingles -> Quagsire; "charizar" -> Charizard; dropdown de autocomplete: sem captura de referencia (nenhuma imagem em `ui-refs/` cobre o dropdown aberto); validar contra as regras `.search-dd` de `style.css:353-354`.
   - notas:
 
 - [ ] F2.2 Time, historico e resumo de capturados na Home
   - hash:
-  - Done when: blocos corretos em Home; layout responsivo; dados do storage exibem
+  - Done when (literal da SPEC): `desktop-home.png` (tambem e a referencia do tema `classic` para a Home, movida de F1.1); testes: 7o Pokemon -> aviso e nao adiciona; 21o no historico -> o mais antigo sai; reload mantem time e historico (fake-indexeddb).
   - notas:
 
 ### Sprint F3: Pokedex (lista virtualizada e filtros)
 
 - [ ] F3.1 Grade virtualizada e card de Pokemon
   - hash:
-  - Done when: 1027 cards virtualizados; scroll suave; card clicavel
+  - Done when (literal da SPEC): com 1027 itens, o DOM contem <= 60 `.pcard` simultaneos (teste Playwright conta nos); `desktop-dex-grid.png`; a 360 px e 390 px nenhum badge quebra o proprio texto (a LINHA de selos pode quebrar, regra "Sem sobreposicao de texto") (teste de largura, RNF-09).
   - notas:
 
 - [ ] F3.2 Filtros combinaveis
   - hash:
-  - Done when: filtros por tipo, bioma, rarity; estados salvos ao navegar
+  - Done when (literal da SPEC): Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`).
   - notas:
 
 ### Sprint F4: Ficha do Pokemon (parte 1: hero, stats, fraquezas, evolucao, habilidades, golpes)
 
 - [ ] F4.1 Hero card, selos, shiny, grito e acoes
   - hash:
-  - Done when: Charizard exibe numero/forma/shiny/selos corretos; clique grito funciona; hero sem sobreposicao de texto (expectNoOverlap, 390 e 1280 px, PT e EN)
+  - Done when (literal da SPEC): `desktop-detail-charizard-full.png` (hero; tambem e a referencia do tema `classic` para a ficha, movida de F1.1), `desktop-detail-mewtwo-legendary-full.png` sem o badge "NAO NASCE NO MUNDO", `desktop-detail-mew-mythical-full.png`; teste: raios `::before` tem `width: 240%` e `border-radius: 50%`; e2e movido de F1.3 (primeira feature com Dex e ficha reais): "Dex com filtro Fogo + scroll > ficha > Voltar" restaura filtro e scroll (tolerancia 2 px, `expect.poll`, sem timers). Hero sem sobreposicao: `expectNoOverlap` no hero a 360 px, 390 px e 1280 px, em PT e EN, com o caso mais longo de selos (Lendario + raridade `ultra-rare`, e Mitico) e os botoes shiny/grito; nenhum selo cruza os botoes.
   - notas:
 
 - [ ] F4.2 Stats, fraquezas/resistencias e habilidades
   - hash:
-  - Done when: stats calculados; efetividade exibida; aba habilidades
+  - Done when (literal da SPEC): Charizard: Pedra x4, Agua x2, Eletrico x2, Fogo x1/2, Terra x0 (imune); `desktop-detail-charizard-resistances.png`.
   - notas:
 
 - [ ] F4.3 Cadeia de evolucao clicavel
   - hash:
-  - Done when: cadeia visual; cliques navegam; requirements exibidos
+  - Done when (literal da SPEC): Eevee mostra 8 ramos com metodos reais (Espeon = Amizade 160 + de dia; Sylveon = Amizade 160 + golpe de Fada; Jolteon = Pedra do Trovão clicavel); Charizard linear 16/36.
   - notas:
 
 - [ ] F4.4 Golpes com abas e descricao
   - hash:
-  - Done when: abas Nevel/TMxx/Golpes; descricoes tipo/poder/precisao
+  - Done when (literal da SPEC): `desktop-detail-charizard-moves-tm.png`; trocar aba mantem scroll da tela e nao remonta `DetailScreen`.
   - notas:
 
 ### Sprint F5: Ficha do Pokemon (parte 2: onde encontrar, como obter, formas, melhor bola, calculadoras)
 
 - [ ] F5.1 Onde encontrar, raridade, drops e Como obter
   - hash:
-  - Done when: tabela spawns com bioma/rarity; rotas de obtencao listadas
+  - Done when (literal da SPEC): Eevee mostra 5 entradas com bucket principal Incomum e secundarios Raro/Ultra-raro; Mewtwo mostra "Como obter: Fóssil (Pika Star / Ancient DNA Sample)" e nenhum aviso generico; especie sem rota mostra `.ob-none`.
   - notas:
 
 - [ ] F5.2 Abas de forma com item necessario
   - hash:
-  - Done when: formas listadas; mega evolution items exibidos
+  - Done when (literal da SPEC): `desktop-detail-charizard-mega-x-form.png`: Mega X exibe Charizardite X + Keystone clicaveis.
   - notas:
 
 - [ ] F5.3 Melhor Pokebola na ficha
   - hash:
-  - Done when: top 3 bolas por ranking; condicoes explicadas
+  - Done when (literal da SPEC): Magikarp: Net Ball (3x) acima da Poké Ball; Dusk Ball exibe "3.5x com luz 0".
   - notas:
 
 - [ ] F5.4 Calculadoras (stats e efetividade)
   - hash:
-  - Done when: calc stats nível 100; calc efetividade com IV/EV
+  - Done when (literal da SPEC): base 100/L100/IV31/EV252 neutro = 299, favoravel = 328, desfavoravel = 269; Charizard recomenda IV 31 em Sp. Atk (109) e Speed (100); Fogo/Agua vs Fogo = x1/2.
   - notas:
 
 ### Sprint F6: Captura (animacao) e lista de capturados
 
 - [ ] F6.1 Animacao de captura
   - hash:
-  - Done when: animacao ball shake e capture funciona ao clicar
+  - Done when (literal da SPEC): capturas `capture-outros-01-start` ... `08-final-reveal`, `capture-legendario-*`, `capture-mitico-*`; teste (Vitest, fake timers do Vitest no hook, nao no Playwright): a timeline dispara os 7 sons na ordem `poke_ball_throw_1`, `poke_ball_shake_1`, `poke_ball_shake_2`, `poke_ball_shake_3`, `poke_ball_open`, `poke_ball_shake_critical`, `poke_ball_capture_succeeded`, e fechar o overlay toca o 8o, `pokedex_close` (spy).
   - notas:
 
 - [ ] F6.2 Lista de capturados
   - hash:
-  - Done when: lista com cards capturados; adicionar/remover do time; ordenacao
+  - Done when (literal da SPEC): `desktop-captured-list.png` com "X de 1.027" (formatado pelo `Intl.NumberFormat` do idioma); reload mantem a lista.
   - notas:
 
 ### Sprint F7: Comparar
 
 - [ ] F7.1 Comparar dois Pokemon
   - hash:
-  - Done when: dois cards lado a lado; stats, tipos, moveset comparados
+  - Done when (literal da SPEC): `desktop-compare.png`; swap inverte os lados sem perder scroll.
   - notas:
 
 ### Sprint F8: Treinadores e timeline
 
 - [ ] F8.1 Picker de series, serie ativa e Modo Livre
   - hash:
-  - Done when: picker series; cap level atualiza; Modo Livre disponivel
+  - Done when (literal da SPEC): `atm_team` aparece bloqueada com "Requer: Diamante brilhante/Pérola reluzente" ate a BDSP ficar completa; Modo Livre bloqueado sem serie concluida; escolha persiste no reload.
   - notas:
 
 - [ ] F8.2 Linha do tempo, cap vigente e derrotados
   - hash:
-  - Done when: timeline series; treinadores-chave com status; cap exibido
+  - Done when (literal da SPEC): BDSP sem derrotados = cap 15; Roark derrotado = 16; Mars = 20; Jupiter = 22; apos Gardenia os 3 Cedric aparecem como "Próximo" e o cap exibido e 22; apos um Cedric, Maylene = 30; `desktop-trainers-expanded-full.png`.
   - notas:
 
 ### Sprint F9: Colecoes (Pokebolas e itens)
 
 - [ ] F9.1 Grade de Pokebolas
   - hash:
-  - Done when: 48 bolas em grid; filtros por tipo/multiplicador
+  - Done when (literal da SPEC): `desktop-balls-full.png`; `balls.json.length` cards com filtro "Todas" (48 no dataset atual; nunca um numero fixo no codigo).
   - notas:
 
 - [ ] F9.2 Grade de itens com busca PT/EN
   - hash:
-  - Done when: items filtrados; categoria; rarity; textura; tag acima do nome no card de item, sem sobreposicao (prints/2.png)
+  - Done when (literal da SPEC): `desktop-items-grid.png` (referencia vale para grade, cores, icones e abas; o cabecalho do `.item-card` e MASCARADO na comparacao, porque o layout mudou: tag acima do nome, ver UISPEC nota de 2026-09-24); buscar "pocao" acha "Poção/Potion" com card em EN. Card de item: tag da categoria acima do nome; `expectNoOverlap` na grade de itens a 360 px, 390 px e 1280 px, PT e EN, incluindo nomes longos (ex. "Choice Scarf", "Leftovers"), sem o nome quebrar por falta de espaco causada pela tag.
   - notas:
 
 - [ ] F9.3 Pagina do item
   - hash:
-  - Done when: nome/descricao/textura; rotas obtencao; "Usado em"
+  - Done when (literal da SPEC): e2e movido de F1.3 (criterio de aceite, primeira feature em que a pagina de item existe): "Charizard > Golpes TM > scroll > item > Voltar" restaura aba, scroll (tolerancia 2 px) e linhas abertas (Playwright `headless: true`, sem `slowMo`, `expect.poll`); `desktop-item-page-full.png` (Poção); Fire Stone lista "Usado em: Eevee -> Flareon, Vulpix -> Ninetales, Growlithe -> Arcanine"; item sem rota mostra "Sem rota confirmada".
   - notas:
 
 ### Sprint F10: Configuracoes
 
 - [ ] F10.1 Preferencias visuais e de som
   - hash:
-  - Done when: toggles tema/idioma/som/reducao animacao; salvam em storage
+  - Done when (literal da SPEC): `desktop-settings-full.png` (inclui o bloco de idioma/termos, comparacao movida de F1.2); criterio "Preto + Inglês + som off + reduzir on" persiste apos reload.
   - notas:
 
 - [ ] F10.2 Backup, apagar dados e restaurar snapshot
   - hash:
-  - Done when: export `.json`; import com validacao; deleteData funciona; restore pre-migration
+  - Done when (literal da SPEC): round-trip exportar -> instalacao limpa -> importar = 5 entidades identicas (teste e2e com dois contextos de navegador); apagar so historico mantem as outras 4.
   - notas:
 
 ### Sprint F11: Sincronizacao
 
 - [ ] F11.1 Gerar codigo
   - hash:
-  - Done when: codigo gerado; QR code exibido; frames para textos grandes
+  - Done when (literal da SPEC): com 1027 capturados + tudo, gera n frames (n >= 2) e o texto completo; com 20 capturados gera 1 QR; nenhuma requisicao de rede durante a acao (teste Playwright intercepta `**/*` e falha se houver).
   - notas:
 
 - [ ] F11.2 Receber codigo, resumo e mesclar/substituir
   - hash:
-  - Done when: decodifica codigo; resume mudancas; merge/replace opcoes
+  - Done when (literal da SPEC): criterio de aceite dos dois dispositivos (A/B) reproduzido em teste unitario de `mergeDocuments` e em e2e com dois contextos; codigo corrompido -> erro e IndexedDB identico (snapshot antes/depois).
   - notas:
 
 ### Sprint F12: PWA avancada
 
 - [ ] F12.1 PWA instalavel e cache
   - hash:
-  - Done when: app instalavel; service worker cache funciona; offline modo read-only
+  - Done when (literal da SPEC): `navigator.serviceWorker.controller` presente no 2o load; recarregar offline (Playwright `context.setOffline(true)`) mantem Home, Dex e uma ficha ja aberta.
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_frontend.md`
@@ -476,7 +476,7 @@ HANDOFF: `.forge/ideas/pontindex/HANDOFF_frontend.md`
 
 - [ ] T1 Testes e2e, visual snapshot, cobertura e documentacao final
   - hash:
-  - Done when: `npm run test:e2e` verde; cobertura >= limites T1; visual `ui-refs/` vs real; docs atualizados
+  - Done when (literal da SPEC): ver SPEC Sprint T1 (matriz de testes); todos os testes definidos la verdes, headless, sem slowMo nem timers
   - notas:
 
 HANDOFF: `.forge/ideas/pontindex/HANDOFF_tests.md`

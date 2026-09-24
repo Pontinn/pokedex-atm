@@ -200,3 +200,11 @@ updated: 2026-09-24
 - Commits atomicos por feature (como estabelecido). PUSH SO QUANDO O PONTIN PEDIR (revoga a autorizacao de push automatico do PC antigo).
 - Timers: 6 sleeps orfaos encerrados com TaskStop (pkill nao funciona no Windows).
 - 15:47 pre-flight Stage 4: drift-check exit 0 (baseline eacafc48; CONTEXT bate com 6205663); gate de identificadores PASS (bg-lendario/mitico/outros so na tabela de correspondencia). forge-review focado disparado.
+
+## 2026-09-24 15:51 - pre-flight review (opus, 3 min): 0 BLOCKER, 4 WARNING, 6 NIT; aplicados por mim
+- F4.1 passo 2: .seal reserva largura dos botoes (124/76 px) e titulo sem padding-top fixo (causa real do feedback/1.png).
+- F9.2 e UISPEC linha 205: tag acima do nome; cabecalho do .item-card mascarado na comparacao com desktop-items-grid.png. Fingerprint do UISPEC atualizado na SPEC (c791c6d).
+- Badges: nao quebram o proprio texto, a linha pode quebrar (F3.1, T1). expectNoOverlap tambem a 360 px.
+- prints do Pontin versionados em .forge/ideas/pontindex/feedback/{1,2}.png (prints/ e rascunho dele, fora do git).
+- Onda 3 dona de tests/harness/no-overlap.ts e dos testes F1.4-F12.1.
+- CHECKLIST: 58 Done when copiados LITERALMENTE da SPEC por script (o Haiku tinha parafraseado errado B2.2, B4.3, F3.2, F9.1, F9.2, F10.2, F12.1, F7.1, F4.4); T1 aponta para a matriz da SPEC; cabecalhos das Ondas 1/1b/3 corrigidos.

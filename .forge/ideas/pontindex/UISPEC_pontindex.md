@@ -202,7 +202,7 @@ Fonte: `design/prototipo/app.js` (funções de render) + `style.css` (seletores)
 | Time do treinador expandido (`.tr-team`, `.tr-mon`) | `trStepBodyHTML()` `app.js:1094` | por Pokémon: sprite, tipos, habilidade, golpes, item de spawn, mochila |
 | Grade/card de Pokébola (`.ball-grid`, `.ball-card`, `.ball-ico`) | `ballGridHTML()` `app.js:1155` | ícone CSS puro (gradiente + faixa + botão central) quando não há textura |
 | Melhores bolas (`.best-balls`, `.best-ball`, `.best-rank`) | `bestBallHTML()` `app.js:1176` | ranking 1<sup>o</sup>/2<sup>o</sup>/3<sup>o</sup>, 1<sup>o</sup> com destaque dourado |
-| Grade/card de item (`.item-grid`, `.item-card`, `.item-ico`) | `itemGridHTML()` `app.js:1185` | categoria por cor de ícone (`cat-med/iv/vit/candy/evo/held/battle/cook/berry/bait`) |
+| Grade/card de item (`.item-grid`, `.item-card`, `.item-ico`) | `itemGridHTML()` `app.js:1185` | categoria por cor de ícone (`cat-med/iv/vit/candy/evo/held/battle/cook/berry/bait`); **Nota 2026-09-24 (decisao do Pontin, `feedback/2.png`)**: no app a tag da categoria fica em linha propria ACIMA do nome (nao na mesma linha, como no prototipo e em `desktop-items-grid.png`); a captura continua valendo para grade, cores, icones e abas, com o cabecalho do card mascarado na comparacao. |
 | Página de item (`.item-hero`, `.item-hero-tile`, `.mon-chips`) | `itemPageBodyHTML()` `app.js:883` | textura real 16x16 (`image-rendering:pixelated`), seção "Usado em" com chips de Pokémon |
 | Grade de temas (`.theme-grid`, `.theme-sw`) | `renderThemes()` `app.js:1042` | miniatura com 2 cores (`--p1`/`--p2`) + nome |
 | Switch on/off (`.switch`) | `style.css:701` | usado em som e reduzir animações |
