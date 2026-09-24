@@ -406,7 +406,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 - [ ] F6.2 Lista de capturados
   - hash:
-  - Done when (literal da SPEC): `desktop-captured-list.png` com "X de 1.027" (formatado pelo `Intl.NumberFormat` do idioma); reload mantem a lista.
+  - Done when (literal da SPEC): `desktop-captured-list.png` com "X de 1.027" (formatado pelo `Intl.NumberFormat` do idioma); reload mantem a lista. + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
   - notas:
 
 ### Sprint F7: Comparar
@@ -425,14 +425,14 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 - [ ] F8.2 Linha do tempo, cap vigente e derrotados
   - hash:
-  - Done when (literal da SPEC): BDSP sem derrotados = cap 15; Roark derrotado = 16; Mars = 20; Jupiter = 22; apos Gardenia os 3 Cedric aparecem como "Próximo" e o cap exibido e 22; apos um Cedric, Maylene = 30; `desktop-trainers-expanded-full.png`.
+  - Done when (literal da SPEC): BDSP sem derrotados = cap 15; Roark derrotado = 16; Mars = 20; Jupiter = 22; apos Gardenia os 3 Cedric aparecem como "Próximo" e o cap exibido e 22; apos um Cedric, Maylene = 30; `desktop-trainers-expanded-full.png`. + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
   - notas:
 
 ### Sprint F9: Colecoes (Pokebolas e itens)
 
 - [ ] F9.1 Grade de Pokebolas
   - hash:
-  - Done when (literal da SPEC): `desktop-balls-full.png`; `balls.json.length` cards com filtro "Todas" (48 no dataset atual; nunca um numero fixo no codigo).
+  - Done when (literal da SPEC): `desktop-balls-full.png`; `balls.json.length` cards com filtro "Todas" (48 no dataset atual; nunca um numero fixo no codigo). + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
   - notas:
 
 - [ ] F9.2 Grade de itens com busca PT/EN
