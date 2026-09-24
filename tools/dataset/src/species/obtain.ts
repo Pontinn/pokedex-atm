@@ -72,17 +72,18 @@ export function deriveSpeciesObtain(
       }
     }
 
+    // ASSUMPTION (SPEC 5.1.5): Ultra Wormholes nao tem datapack de spawn legivel; toda especie ultra_beast
+    // sem rota addon confirmada ganha addon "ultrawormholes" honesto (sem entries), mesmo tendo outras rotas
+    // (BUGFIX auditoria A1: Naganadel so tinha evolution); Raid Dens nao entra (RF-69).
+    if (ms.labels.includes("ultra_beast") && !routes.some((r) => r.kind === "addon")) {
+      routes.push({ kind: "addon", addon: "ultrawormholes" });
+    }
+
     // (5) breeding: eggGroups nao contem undiscovered
     if (!ms.eggGroups.includes("undiscovered")) {
       routes.push({ kind: "breeding", eggGroups: ms.eggGroups });
     }
 
-    // ASSUMPTION (SPEC 5.1.5): Ultra Wormholes nao tem datapack de spawn legivel; species ultra_beast
-    // sem NENHUMA outra rota confirmada ganham addon "ultrawormholes" honesto (sem entries); Raid Dens
-    // nao entra (nenhuma rota confirmada por dados existe, RF-69).
-    if (routes.length === 0 && ms.labels.includes("ultra_beast")) {
-      routes.push({ kind: "addon", addon: "ultrawormholes" });
-    }
   }
 
   if (routes.length === 0) routes.push({ kind: "none" });

@@ -110,6 +110,16 @@ describe("species derive stage on the real snapshot (data-source/atm-1.3.0)", ()
     expect(picked.map((f) => f.source)).toEqual(["mega_showdown"]);
   });
 
+  it("rota evolution quando a pre-evolucao e forma regional ou shedder (auditoria A1)", () => {
+    const kinds = (dex: number) => derived(dex).obtain.map((r) => r.kind);
+    // Cursola (corsola galarian), Obstagoon, Perrserker, Sirfetch'd, Mr. Rime, Runerigus, Basculegion, Sneasler, Overqwil, Clodsire
+    for (const dex of [864, 862, 863, 865, 866, 867, 902, 903, 904, 980]) expect(kinds(dex)[0]).toBe("evolution");
+    const cursola = derived(864).obtain[0];
+    expect(cursola?.kind === "evolution" && cursola.fromSlug).toBe("corsola");
+    expect(kinds(292)).toEqual(["evolution", "addon", "breeding"]); // Shedinja via nincada_ninjask.shedder
+    expect(kinds(804)).toEqual(["evolution", "addon"]); // Naganadel: ultra_beast -> ultrawormholes
+  });
+
   it("Eevee: rarity uncommon/[rare,ultra-rare] e 5 entradas de spawn (SPEC 5.1.4, 0133_eevee.json real)", () => {
     const eevee = derived(DEX.eevee);
     expect(eevee.spawns).toHaveLength(5);

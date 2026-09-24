@@ -12,7 +12,7 @@ import path from "node:path";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import type { EvolutionChain, EvolutionEdge, ObtainRoute, RarityInfo, SpawnEntry, SpeciesForm } from "../../../../src/data/types";
 import type { MergedSpecies, PipelineContext } from "../context";
-import { buildChain, edgesForSpecies, findChainRoot, findEdge, resolvePreEvolution } from "./evolutions";
+import { buildChain, edgesForSpecies, extraEdgesForSpecies, findChainRoot, findEdge, resolvePreEvolution } from "./evolutions";
 import { collectFossils, resolveFossils } from "./fossils";
 import { collectMegaItemDefs, resolveForm } from "./forms";
 import { deriveSpeciesObtain, type ObtainDeps } from "./obtain";
@@ -96,6 +96,9 @@ export async function runSpeciesDerive(ctx: PipelineContext): Promise<void> {
   const edgesByDex = new Map<number, EvolutionEdge[]>();
   for (const ms of species.values()) edgesByDex.set(ms.dex, edgesForSpecies(ms, slugToDex, ctx.report));
 
+  const extraEdgesByDex = new Map<number, EvolutionEdge[]>();
+  for (const ms of species.values()) extraEdgesByDex.set(ms.dex, extraEdgesForSpecies(ms, slugToDex));
+
   // B2.3 passo 4: rotas "Como obter" (memoizadas: a regra de evolucao precisa da resposta da pre-evolucao).
   const obtainDeps: ObtainDeps = {
     species,
@@ -103,7 +106,8 @@ export async function runSpeciesDerive(ctx: PipelineContext): Promise<void> {
     spawnsByDex,
     rarityByDex,
     fossilsBySlug,
-    findEdge: (from, to) => findEdge(edgesByDex, from, to),
+    // arestas de formas/shedder so como fallback da rota evolution (nao entram na cadeia publicada)
+    findEdge: (from, to) => findEdge(edgesByDex, from, to) ?? findEdge(extraEdgesByDex, from, to),
   };
   const obtainMemo = new Map<number, ObtainRoute[]>();
   for (const ms of species.values()) deriveSpeciesObtain(ms.dex, obtainDeps, obtainMemo);

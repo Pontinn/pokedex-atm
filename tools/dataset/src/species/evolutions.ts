@@ -74,6 +74,31 @@ export function edgesForSpecies(ms: MergedSpecies, slugToDex: ReadonlyMap<string
   return out;
 }
 
+/**
+ * Arestas de saida que NAO estao em evolutions[] da especie base (so para a rota "Como obter", nao entram
+ * na cadeia publicada): (1) evolutions[] das formas (ex. "corsola galarian" -> cursola fica em
+ * forms[Galar].evolutions; Obstagoon, Sirfetch'd, Mr. Rime, Perrserker, Runerigus, Overqwil, Sneasler,
+ * Clodsire, Basculegion); (2) "shedder" (nincada_ninjask.shedder = "shedinja": a Shedinja surge na mesma
+ * evolucao, com os mesmos requisitos). BUGFIX auditoria A1: sem isso a rota evolution sumia.
+ */
+export function extraEdgesForSpecies(ms: MergedSpecies, slugToDex: ReadonlyMap<string, number>): EvolutionEdge[] {
+  const out: EvolutionEdge[] = [];
+  for (const form of ms.forms) {
+    const list = Array.isArray(form.raw.evolutions) ? form.raw.evolutions : [];
+    for (const raw of list) {
+      const edge = parseEvolutionEdge(ms.dex, raw, slugToDex);
+      if (edge) out.push(edge);
+    }
+  }
+  const all = [...ms.evolutionsRaw, ...ms.forms.flatMap((f) => (Array.isArray(f.raw.evolutions) ? f.raw.evolutions : []))];
+  for (const raw of all) {
+    if (!isObject(raw) || typeof raw.shedder !== "string") continue;
+    const edge = parseEvolutionEdge(ms.dex, { ...raw, result: raw.shedder, id: `${String(raw.id ?? ms.dex)}_shedder` }, slugToDex);
+    if (edge) out.push(edge);
+  }
+  return out;
+}
+
 /** Aresta especifica de fromDex -> toDex (usada por obtain.ts, sem depender da ordem das etapas). */
 export function findEdge(edgesByDex: ReadonlyMap<number, EvolutionEdge[]>, fromDex: number, toDex: number): EvolutionEdge | null {
   return edgesByDex.get(fromDex)?.find((e) => e.to === toDex) ?? null;
