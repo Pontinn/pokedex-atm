@@ -385,3 +385,78 @@ test.describe("F4.4 moves", () => {
     });
   }
 });
+
+test.describe("F5.1 where to find and how to obtain", () => {
+  test("Eevee: 5 spawn entries, primary Uncommon with Rare/Ultra-rare secondary, clickable drops, breeding", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 133);
+    const panel = page.locator("#where-panel");
+    await expect(panel.locator(".where-rarity .badge")).toHaveText(["Incomum", "Raro", "Ultra-raro"]);
+    await expect(panel.locator(".spawn-entry")).toHaveCount(5);
+    await expect(panel.locator(".spawn-entry").first().locator(".biome").first()).toHaveText("Mundo Aberto");
+    await expect(panel.locator(".spawn-entry").first()).toContainText("Luz do céu 8-15");
+    await expect(panel.locator(".drop")).toHaveCount(2);
+    await expect(panel.locator("[data-obtain='breeding']")).toContainText("Campo");
+    if (SHOTS) {
+      await panel.scrollIntoViewIfNeeded();
+      await page.mouse.move(1, 1);
+      await settle(page);
+      await page.screenshot({ path: `${SHOTS}/desktop-detail-eevee-where.png`, fullPage: false });
+    }
+    await expect(panel.locator(".ob-none")).toHaveCount(0);
+    await panel.locator(".drop [data-item='cobblemon:eviolite']").click();
+    await expect(page.locator(".screen")).not.toHaveAttribute("data-screen", "detail");
+    await page.goBack();
+    await expect(page.locator(".detail-screen[data-dex='133'] #where-panel")).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("Mewtwo: addon ultra-rare spawn (caves/Deep Dark, 70-75), fossil items and 'via' addon, no generic notice", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 150);
+    const panel = page.locator("#where-panel");
+    const entry = panel.locator(".spawn-entry");
+    await expect(entry).toHaveCount(1);
+    await expect(entry.locator(".badge")).toHaveText("Ultra-raro");
+    await expect(entry).toContainText("70-75");
+    await expect(entry.locator(".biome")).toContainText(["Caverna"]);
+    await expect(entry.locator(".tag")).toHaveText("Cobblemon Community Content");
+    const fossil = panel.locator("[data-obtain='fossil']");
+    await expect(fossil.locator(".it-link")).toHaveCount(2);
+    await expect(fossil.locator("[data-item='allthemons:pika_star']")).toBeVisible();
+    await expect(fossil.locator("[data-item='allthemons:ancient_dna_sample']")).toBeVisible();
+    await expect(panel.locator("[data-obtain='addon']")).toContainText("via Cobblemon Community Content");
+    await expect(panel.locator(".ob-none")).toHaveCount(0);
+  });
+
+  test("Magikarp collapses 46 entries after 6; Pichu shows .ob-none; Ivysaur evolution links to Bulbasaur", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 129);
+    const panel = page.locator("#where-panel");
+    await expect(panel.locator(".spawn-entry")).toHaveCount(6);
+    await panel.locator(".spawn-more").click();
+    await expect(panel.locator(".spawn-entry")).toHaveCount(46);
+    await openDetail(page, 172);
+    await expect(page.locator("#where-panel .ob-none")).toHaveCount(1);
+    await openDetail(page, 2);
+    const evo = page.locator("#where-panel [data-obtain='evolution']");
+    await expect(evo).toContainText("Evolua Bulbasaur (Nível 16)");
+    await evo.locator(".ob-link").click();
+    await expect(page.locator(".detail-screen[data-dex='1'] .hero-card")).toBeVisible();
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`where panel without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 150);
+      await expect(page.locator("#where-panel .spawn-entry").first()).toBeVisible();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.mouse.move(1, 1);
+        await settle(page);
+        await expectNoOverlap(page, page.locator("#where-panel"));
+      }
+    });
+  }
+});
