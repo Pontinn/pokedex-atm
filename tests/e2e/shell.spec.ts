@@ -26,6 +26,8 @@ async function mockData(page: Page, opts: DataOptions = {}) {
       return route.fulfill({ json: manifest });
     }
     if (path === `/data/${VER}/species-index.json`) return route.fulfill({ json: [] });
+    // a tela real de Treinadores (F8) carrega series.json ao abrir
+    if (path === `/data/${VER}/series.json`) return route.fulfill({ json: [] });
     if (path === `/data/${VER}/type-chart.json`) return route.fulfill({ json: { attackers: TYPE_IDS, matrix: typeChartMatrix() } });
     return route.fulfill({ status: 404, body: "not found" });
   });
@@ -110,16 +112,16 @@ test.describe("desktop shell", () => {
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/desktop-shell.png`, mask: [page.locator("#main")] });
     const before = (await played(page)).length;
     await page.locator(".sidebar .nav-item", { hasText: "Treinadores" }).click();
-    await expect(page.locator("[data-placeholder='trainers']")).toBeVisible();
+    await expect(page.locator(".trainers-screen")).toBeVisible();
     await expect(page.locator(".sidebar .nav-item.active")).toHaveText("Treinadores");
     const after = (await played(page)).slice(before);
     expect(after).toEqual(["/assets/sfx/pokedex_click_short.ogg"]);
     // Voltar do navegador (popstate) volta para a Home
     await page.goBack();
-    await expect(page.locator("[data-placeholder='home']")).toBeVisible();
+    await expect(page.locator(".home-screen")).toBeVisible();
     // Sincronizar e lazy: carrega e renderiza
     await page.locator(".sidebar .nav-item", { hasText: "Sincronizar" }).click();
-    await expect(page.locator("[data-placeholder='sync']")).toBeVisible();
+    await expect(page.locator(".sync-screen")).toBeVisible();
     expect(errors).toEqual([]);
   });
 
@@ -131,7 +133,7 @@ test.describe("desktop shell", () => {
     await expect(page.locator(".sidebar .tgl-sound")).toHaveClass(/off/);
     const before = (await played(page)).length;
     await page.locator(".sidebar .nav-item", { hasText: "Pokédex" }).click();
-    await expect(page.locator("[data-placeholder='dex']")).toBeVisible();
+    await expect(page.locator(".dex-screen")).toBeVisible();
     expect((await played(page)).length).toBe(before);
   });
 });
@@ -173,7 +175,7 @@ test.describe("mobile shell", () => {
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/mobile-nav-mais-sheet.png` });
     await sheet.locator(".sheet-item", { hasText: "Configurações" }).click();
     await expect(sheet).not.toHaveClass(/open/);
-    await expect(page.locator("[data-placeholder='settings']")).toBeVisible();
+    await expect(page.locator(".settings-screen")).toBeVisible();
     await expect(page.locator(".tabbar .tab-more")).toHaveClass(/active/);
     expect(errors).toEqual([]);
   });
