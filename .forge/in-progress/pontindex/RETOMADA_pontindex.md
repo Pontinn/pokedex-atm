@@ -1,6 +1,6 @@
 # Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
-Atualizado em 2026-09-24 19:35 (PC novo: `C:/Users/mateu/Desktop/Nova pasta`). Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Tudo do `.forge` e versionado. Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + ultimas entradas) -> `CHECKLIST_pontindex.md` -> `HANDOFF_frontend.md` (secoes F1.4, Grupo C, F2) -> SPEC da proxima feature.
+Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm`; PC anterior: `C:/Users/mateu/Desktop/Nova pasta`). Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Tudo do `.forge` e versionado. Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + ultimas entradas) -> `CHECKLIST_pontindex.md` -> `HANDOFF_frontend.md` (secoes F1.4, Grupo C, F2) -> SPEC da proxima feature.
 
 ## Onde paramos (PARADO a pedido do Pontin, 2026-09-24)
 
@@ -29,7 +29,7 @@ Atualizado em 2026-09-24 19:35 (PC novo: `C:/Users/mateu/Desktop/Nova pasta`). B
 - Nenhum agente roda mais de 1h (Regra 2 do CLAUDE.md global): timer por agente; agente retomado por mensagem conta o tempo total; ao estourar, agente NOVO de contexto zerado a partir do disco. Neste PC Windows, parar timers com TaskStop pelo ID (pkill nao funciona).
 - Playwright SEMPRE `headless: true`, sem `slowMo`, sem timers/sleeps.
 - Paralelizar SO quando o risco para a qualidade for baixo ou nulo.
-- Avisar ANTES de instalar qualquer coisa neste PC. Instalado com ok: Node 24.19.0, npm 11.17.0, Playwright 1.63.0 global + Chromium. Sem JDK/Android SDK (so na Fase 2, apps). NAO ha Python: nunca rodar `python`/`python3` (abre a Microsoft Store).
+- Avisar ANTES de instalar qualquer coisa neste PC. PC atual (milap, 2026-09-24): Node 24.19.0 + npm 11.17.0 (winget, `C:/Program Files/nodejs`; o shell do Claude Code NAO tem no PATH: prefixar `export PATH="/c/Program Files/nodejs:$APPDATA/npm:$PATH"`), Playwright 1.63.0 global + Chromium, git identidade local `Pontinn <leo.pontin2@gmail.com>`, gh logado como Pontinn. Sem JDK/Android SDK (Pontin: nao instalar, objetivo e terminar o site). NAO ha Python: nunca rodar `python`/`python3` (abre a Microsoft Store). Cache `tools/dataset/.cache` reaquecido neste PC (join.test depende dele). Arquivos gerados (`types.generated.css`, snapshot do type-css) aparecem modificados so por LF/CRLF (core.autocrlf=true): conteudo identico, ignorar.
 - Site primeiro (Fase 1, PWA); apps Windows/Android so depois que o Pontin testar tudo.
 - O Pontin acompanha pelo Remote Control: mandar so avisos curtos de andamento, sem prints.
 - Modelos: dados e regras criticas e frontend em Opus; coleta mecanica em Sonnet; checklist/contagens em Haiku (conferir sempre: o Haiku errou o checklist).

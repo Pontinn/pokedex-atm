@@ -136,3 +136,10 @@ Agente: forge-imp-frontend (Grupo C). Inicio 2026-09-24 18:01. Fim 2026-09-24 18
 4. Leitor de camera: nao ha camera no headless; o caminho do leitor e o mesmo `feed()` usado pelo colar (cada texto lido vai ao FrameCollector), coberto pelos frames colados um a um. A decodificacao real do zxing a partir de video nao foi testada (so camera negada).
 5. `requestPersistence()` nao era chamado por ninguem no boot; o card Sobre chama ao abrir se ainda for null.
 6. Import de backup usa `applyBackup` (B7.3) nos dois modos em vez de `importSnapshot` direto (mesmo efeito, com migracao e meta local preservado).
+
+## Reatribuicao F7 (orquestrador, 2026-09-24 21:27, aprovado pelo Pontin)
+
+- F7 (Comparar) sai do Agente A e vai para o Agente B. Agente A = F3 -> F4 -> F5 -> F6 (em fila). Agente B = F8, F9 e F7 POR ULTIMO.
+- Posse que passa do A para o B: `src/i18n/messages/compare.ts`, `src/screens/Compare/**`, `tests/unit/ui-screens/compare*`, `tests/e2e/compare.spec.ts`.
+- F7 CONSOME (so leitura, nao edita): `src/screens/Home/SearchBox.tsx` (e o que ele usa da Home), `useHistoryStore` (padrao = 2 ultimos do historico), `loadSpecies`, e o `ArtworkImage` que o Agente A cria na F4.1. Se `ArtworkImage` nao existir no HEAD quando o B chegar em F7, o B NAO duplica: marca F7 como pendente por dependencia e devolve ao orquestrador.
+- Precisa mudar arquivo de outro agente? Pede ao orquestrador.

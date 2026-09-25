@@ -4,10 +4,10 @@ stage: implementation
 status: impl-in-progress
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: PARADO. Ao retomar: ler RETOMADA_pontindex.md, confirmar verde, disparar grupos A e B em paralelo (opus)
+mode: autonomous (grupos A e B em paralelo, opus, desde 2026-09-24 21:30)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: nenhum (sessao PARADA a pedido do Pontin em 2026-09-24 19:35)
+running_agent: grupo A (F3-F6, porta 4174) e grupo B (F8, F9, F7 por ultimo, porta 4175); ids e timers na ultima entrada do corpo
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -297,3 +297,10 @@ updated: 2026-09-24
 - Checklist: 40/59 [x]. Faltam grupo A (F3-F6, F7 pendente de mover para B), grupo B (F8, F9), F12, T1, Stage 5.
 - Tempos do dia: Onda 0 28 min; Onda 1 31 min de parede (4 agentes, 119 min somados); Onda 1b 17 min; Onda 2 46 min; auditoria 50 + 9 min; correcao de dados 15 + 4 min; F1.4 21 min; grupo C 36 min; F2 33 min.
 - Push da branch feature/pontindex autorizado pelo Pontin para o fim desta etapa.
+
+## 2026-09-24 21:00-21:27 - PC NOVO (milap) preparado e sessao retomada
+- Instalado com ok do Pontin: Node 24.19.0 LTS + npm 11.17.0 (winget; 1a tentativa morta por falta de memoria enquanto esperava o UAC), `npm ci`, Playwright 1.63.0 global + Chromium. Git identidade local Pontinn <leo.pontin2@gmail.com> (ok do Pontin). SEM JDK (Pontin: objetivo e terminar o site).
+- npm pulou scripts de instalacao (esbuild, msw, sharp): conferido que esbuild e sharp funcionam; msw so copia o worker de navegador (nao usado).
+- join.test falhou offline por falta do cache (gitignored, ficou no PC antigo): pipeline rodado online com `--out tools/dataset/out/_warm --publish-dir tools/dataset/out/_publish_warm` (public/ intocado).
+- Verde conferido: typecheck 0, lint 0, vitest 27/27 arquivos 256/256, build ok, public/ intacto. Branch em dia com origin.
+- Pontin aprovou mover F7 (comparar) do grupo A para o B. F7 depende de `ArtworkImage` (criado na F4.1, grupo A): B faz F7 POR ULTIMO e, se `ArtworkImage` ainda nao estiver commitado, para e devolve F7 ao orquestrador. Posse de arquivos de F7 passa ao B (ver HANDOFF_frontend.md, secao "Reatribuicao F7").
