@@ -1,1 +1,19 @@
-/* Estilos da tela captured. Carregado SO por CapturedScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Capturados (F6.2): .captured-summary/.captured-ball/.captured-info (style.css:664-667), .caught-date (422) e
+   mobile (869-870). Grade = DexGrid da Pokedex (dex.css); resumo reaproveita .summary-big/.summary-foot da Home. */
+.captured-screen { display: grid; gap: 14px; }
+.captured-screen .page-head { margin-bottom: 0; }
+.captured-summary { display: flex; align-items: center; gap: 20px; }
+.captured-ball { flex: none; }
+.captured-ball img { width: 72px; display: block; animation: wobble 3s ease-in-out infinite; }
+@keyframes wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+.captured-info { flex: 1; min-width: 0; }
+.captured-summary .summary-big { margin-top: 0; }
+.captured-tabs { justify-self: start; max-width: 100%; margin-bottom: 0; }
+.caught-date { font-size: 11px; color: var(--muted); font-weight: 700; text-align: center; min-width: 0; }
+.caught-unmark { width: 26px; height: 26px; flex: none; display: grid; place-items: center; padding: 0; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); cursor: pointer; }
+.caught-unmark:hover { color: var(--text); }
+.caught-unmark svg { width: 14px; height: 14px; }
+.captured-empty-query { font-weight: 800; overflow-wrap: anywhere; }
+.captured-open-dex { margin-top: 10px; }
+.app.mobile .captured-summary { gap: 14px; }
+.app.mobile .captured-ball img { width: 56px; }
