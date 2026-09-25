@@ -20,4 +20,11 @@ export const ITEM_MESSAGES = {
   "ip.effect": { pt: "Efeito", en: "Effect" },
   "ip.form": { pt: "Forma", en: "Form" },
   "ip.revive": { pt: "Reviver na máquina de fósseis", en: "Revive in the fossil machine" },
+  "ip.noDesc": { pt: "Sem descrição oficial neste item", en: "No official description for this item" },
+  "ip.craftTypes": { pt: "Sim, tem receita ({types})", en: "Yes, it has a recipe ({types})" },
+  "ip.plantAny": { pt: "Pode ser plantado", en: "Can be planted" },
+  "ip.otherMod": { pt: "Item de outro mod", en: "Item from another mod" },
+  "ip.otherModHint": { pt: "Este item vem de outro mod do pack e não tem dados no Cobblemon.", en: "This item comes from another mod in the pack and has no Cobblemon data." },
+  "ip.cookingPending": { pt: "Efeito numérico ainda não confirmado; descrição oficial acima", en: "Numeric effect not confirmed yet; official description above" },
+  "ip.openEntry": { pt: "Abrir ficha de {name}", en: "Open {name} entry" },
 } as const satisfies Record<string, Message>;
