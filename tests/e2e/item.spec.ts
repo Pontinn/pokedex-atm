@@ -3,6 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.ITEM_SHOTS_DIR;
+const DEV = process.env.PW_DEV === "1";
 type NavModule = typeof import("../../src/navigation/navigation-store");
 const NAV_URL = "/src/navigation/navigation-store.ts";
 
@@ -20,8 +21,11 @@ async function boot(page: Page, width = 1280, height = 800) {
   await page.goto("/");
   await expect(page.locator("#app")).toBeAttached({ timeout: 30_000 });
   await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+  await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
 }
 
+// So usado no caminho dev-only (item que nao existe no dataset publicado: nenhum link real da UI leva a ele,
+// so um deep-link/sync antigo poderia).
 async function nav(page: Page, screen: string, params?: unknown) {
   await page.evaluate(
     async ({ url, screen, params }) => {
@@ -32,9 +36,39 @@ async function nav(page: Page, screen: string, params?: unknown) {
   );
 }
 
-async function openItem(page: Page, itemId: string) {
+async function openItemDevOnly(page: Page, itemId: string) {
   await nav(page, "item", { itemId });
   await expect(page.locator(`.item-body[data-item="${itemId}"] .item-hero`)).toBeVisible({ timeout: 30_000 });
+}
+
+// Navegacao por interacao real de UI (tela Itens: sidebar/tabbar + busca): funciona em dev e em build+preview.
+async function openItem(page: Page, itemId: string, query: string) {
+  if (!(await page.locator(".items-screen").isVisible().catch(() => false))) {
+    let link = page.locator('[data-nav="items"]:visible').first();
+    if ((await link.count()) === 0) {
+      await page.locator('[data-nav="more"]:visible').first().click();
+      link = page.locator('[data-nav="items"]:visible').first();
+    }
+    await link.click();
+    await expect(page.locator(".items-screen")).toBeVisible();
+  }
+  await page.locator("#item-q").fill(query);
+  const link = page.locator(`.item-card[data-item="${itemId}"] .item-link`);
+  await expect(link).toBeVisible();
+  await link.click();
+  await expect(page.locator(`.item-body[data-item="${itemId}"] .item-hero`)).toBeVisible({ timeout: 30_000 });
+}
+
+async function openDetail(page: Page, dex: number) {
+  if (!(await page.locator(".home-screen").isVisible().catch(() => false))) {
+    await page.locator('[data-nav="home"]:visible').first().click();
+    await expect(page.locator(".home-screen")).toBeVisible();
+  }
+  await page.locator("#search-input").fill(String(dex));
+  const item = page.locator(`.search-dd .dd-item[data-dex='${dex}']`);
+  await expect(item).toBeVisible();
+  await item.click();
+  await expect(page.locator(`.detail-screen[data-dex='${dex}']`)).toBeVisible();
 }
 
 async function setLanguage(page: Page, lang: "pt" | "en") {
@@ -52,7 +86,7 @@ test.beforeEach(async ({ page }) => {
 test("F9.3 Potion page: hero, honest obtain, used in effect, terms toggle", async ({ page }) => {
   const errors = trackConsoleErrors(page);
   await boot(page);
-  await openItem(page, "cobblemon:potion");
+  await openItem(page, "cobblemon:potion", "potion");
   const hero = page.locator(".item-hero");
   await expect(hero.locator("h2")).toHaveText("Poção");
   await expect(hero.locator(".item-alt")).toHaveText("Potion");
@@ -72,10 +106,10 @@ test("F9.3 Potion page: hero, honest obtain, used in effect, terms toggle", asyn
   expect(errors).toEqual([]);
 });
 
-test("F9.3 Fire Stone used in evolutions, chips open the entry; no route; unknown item; ball", async ({ page }) => {
+test("F9.3 Fire Stone used in evolutions, chips open the entry; no route; ball", async ({ page }) => {
   const errors = trackConsoleErrors(page);
   await boot(page);
-  await openItem(page, "cobblemon:fire_stone");
+  await openItem(page, "cobblemon:fire_stone", "fire stone");
   const evo = page.locator(".item-used .ob-row[data-row='evolutions']");
   await expect(evo).toContainText("Evolui");
   const pairs = await evo
@@ -88,16 +122,28 @@ test("F9.3 Fire Stone used in evolutions, chips open the entry; no route; unknow
   await page.goBack();
   await expect(page.locator(".item-body[data-item='cobblemon:fire_stone']")).toBeVisible();
 
-  await openItem(page, "allthemodium:allthemodium_ingot");
+  await openItem(page, "allthemodium:allthemodium_ingot", "allthemodium");
   await expect(page.locator(".item-obtain .ob-none")).toContainText("Sem rota confirmada");
 
-  await openItem(page, "othermod:strange_widget");
+  await openItem(page, "cobblemon:dusk_ball", "dusk ball");
+  await expect(page.locator(".item-used .ob-row[data-row='ball']")).toContainText("Multiplicador de captura");
+  expect(errors).toEqual([]);
+});
+
+// othermod:strange_widget nao existe em items.json (nenhum link real da UI leva a ele; e um teste de
+// deep-link/sync com um item de outro mod desconhecido). Sem caminho de UI ate ele, so dev (mesmo padrao do
+// dex desconhecido em detail.spec.ts).
+test("F9.3 unknown item (not in the dataset) shows a generic name and no route; Back returns to it", async ({ page }) => {
+  test.skip(!DEV, "othermod:strange_widget nao existe no dataset publicado; sem link de UI ate ele");
+  const errors = trackConsoleErrors(page);
+  await boot(page);
+  await openItemDevOnly(page, "othermod:strange_widget");
   await expect(page.locator(".item-hero h2")).toHaveText("Strange widget");
   await expect(page.locator(".item-hero .badge")).toHaveText(/item de outro mod/i);
   await expect(page.locator(".item-hero .item-hero-tile img")).toHaveCount(0);
   await expect(page.locator(".item-obtain .ob-none")).toBeVisible();
 
-  await openItem(page, "cobblemon:dusk_ball");
+  await openItemDevOnly(page, "cobblemon:dusk_ball");
   await expect(page.locator(".item-used .ob-row[data-row='ball']")).toContainText("Multiplicador de captura");
   await page.locator(".item-screen .detail-back").click();
   await expect(page.locator(".item-body[data-item='othermod:strange_widget']")).toBeVisible();
@@ -107,7 +153,7 @@ test("F9.3 Fire Stone used in evolutions, chips open the entry; no route; unknow
 test("F9.3 Charizard > TM moves > scroll > item > Back restores tab, scroll and open rows", async ({ page }) => {
   const errors = trackConsoleErrors(page);
   await boot(page);
-  await nav(page, "detail", { dex: 6 });
+  await openDetail(page, 6);
   const panel = page.locator("#moves-panel");
   await expect(panel).toBeVisible({ timeout: 30_000 });
   await panel.locator("#move-tabs [data-mtab='tm']").click();
@@ -118,8 +164,11 @@ test("F9.3 Charizard > TM moves > scroll > item > Back restores tab, scroll and 
   await page.locator("#main").evaluate((m) => m.scrollTo({ top: m.scrollTop + 700, behavior: "instant" }));
   const saved = await mainScroll(page);
   expect(saved).toBeGreaterThan(0);
-  // A ficha do Charizard ainda nao tem item clicavel (formas e melhor bola sao F5): o item e aberto pela pilha, como um clique.
-  await openItem(page, "cobblemon:potion");
+  // A ficha do Charizard ainda nao tem item clicavel (formas e melhor bola sao F5): o item e aberto pela tela
+  // Itens (sidebar/tabbar + busca), como um clique real de UI.
+  await openItem(page, "cobblemon:potion", "potion");
+  // openItem passa pela tela Itens (sidebar + busca): 2 entradas na pilha (Itens, depois o item) para desfazer.
+  await page.goBack();
   await page.goBack();
   await expect(panel.locator("#move-tabs [data-mtab='tm']")).toHaveClass(/active/);
   await expect(panel.locator(".mv-row[data-mv='earthquake']")).toHaveClass(/open/);
@@ -133,11 +182,25 @@ for (const lang of ["pt", "en"] as const) {
       const errors = trackConsoleErrors(page);
       await boot(page, width, 800);
       await setLanguage(page, lang);
-      for (const id of ["cobblemon:fire_stone", "cobblemon:potion", "othermod:strange_widget"]) {
-        await openItem(page, id);
+      for (const [id, query] of [
+        ["cobblemon:fire_stone", "fire stone"],
+        ["cobblemon:potion", "potion"],
+      ] as const) {
+        await openItem(page, id, query);
         await expectNoOverlap(page, ".item-screen");
       }
       if (SHOTS) await page.screenshot({ path: `${SHOTS}/item-${lang}-${width}.png`, fullPage: true });
+      expect(errors).toEqual([]);
+    });
+
+    // othermod:strange_widget nao existe no dataset publicado (sem link de UI ate ele, ver teste dev-only acima).
+    test(`F9.3 no overlap ${lang} ${width}px (unknown item, dev-only)`, async ({ page }) => {
+      test.skip(!DEV, "othermod:strange_widget nao existe no dataset publicado; sem link de UI ate ele");
+      const errors = trackConsoleErrors(page);
+      await boot(page, width, 800);
+      await setLanguage(page, lang);
+      await openItemDevOnly(page, "othermod:strange_widget");
+      await expectNoOverlap(page, ".item-screen");
       expect(errors).toEqual([]);
     });
   }
