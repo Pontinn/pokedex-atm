@@ -216,3 +216,11 @@ Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22
 ### Onde parou (para o proximo agente do grupo B)
 - F9.1: arquivos prontos no working tree (nao commitados): `src/screens/Balls/{BallsScreen.tsx,ball-model.ts,balls.css}`, `src/i18n/messages/balls.ts` (8 chaves novas), `tests/unit/ui-screens/balls-model.test.ts` (verde), `tests/e2e/balls.spec.ts`. Assim que o schema for corrigido: `$env:PW_DEV="1"; $env:PW_PORT="4175"; npx playwright test tests/e2e/balls.spec.ts`, conferir print contra `desktop-balls-full.png`, commitar `feat(balls): poke ball grid with official effects and filters`.
 - Depois: F9.2, F9.3, F7.1 (F7 so com `ArtworkImage` do grupo A no HEAD).
+
+### F4.1 (commit `67d571dd`): `ArtworkImage` pronto para o grupo B (F7)
+
+- Caminho: `src/screens/Detail/ArtworkImage.tsx`. Import: `import { ArtworkImage, artworkUrl } from "../Detail/ArtworkImage";` (o CSS base `.artwork`, `.artwork-img`, `.artwork-spinner` esta em `src/screens/Detail/detail.css`, carregado no bundle principal pelo registro).
+- Props: `artworkId: number | null` (null = custom, mostra o aviso "imagem nao vem da PokeAPI"), `shiny?: boolean`, `size?: number` (px, quadrado; padrao 260), `alt?: string`, `className?: string`, `showNotice?: boolean` (padrao true), `onSettled?(ok: boolean)` (callback estavel).
+- Comportamento: official-artwork (shiny em `/shiny/`), timeout 8 s ou erro -> `ArtworkPlaceholder` e 1 nova tentativa em segundo plano; `PokeballSpinner` sobreposto enquanto carrega.
+- Outros da ficha: `src/screens/Detail/use-species-detail.ts` (`useSpeciesDetail(dex)` -> `{status: loading|ready|notFound|error, detail, retry}`), `HeroCard({ detail, onCapture? })` (F6.1 passa `onCapture` para abrir o overlay). A ficha chama `useHistoryStore.getState().push(dex)` ao abrir (nao ao voltar).
+- Testes F4.1: `tests/e2e/detail.spec.ts` (9) e `tests/unit/ui-screens/detail-hero.test.ts` (2).

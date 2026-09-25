@@ -355,10 +355,10 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F4: Ficha do Pokemon (parte 1: hero, stats, fraquezas, evolucao, habilidades, golpes)
 
-- [ ] F4.1 Hero card, selos, shiny, grito e acoes
-  - hash:
+- [x] F4.1 Hero card, selos, shiny, grito e acoes
+  - hash: 67d571dd
   - Done when (literal da SPEC): `desktop-detail-charizard-full.png` (hero; tambem e a referencia do tema `classic` para a ficha, movida de F1.1), `desktop-detail-mewtwo-legendary-full.png` sem o badge "NAO NASCE NO MUNDO", `desktop-detail-mew-mythical-full.png`; teste: raios `::before` tem `width: 240%` e `border-radius: 50%`; e2e movido de F1.3 (primeira feature com Dex e ficha reais): "Dex com filtro Fogo + scroll > ficha > Voltar" restaura filtro e scroll (tolerancia 2 px, `expect.poll`, sem timers). Hero sem sobreposicao: `expectNoOverlap` no hero a 360 px, 390 px e 1280 px, em PT e EN, com o caso mais longo de selos (Lendario + raridade `ultra-rare`, e Mitico) e os botoes shiny/grito; nenhum selo cruza os botoes.
-  - notas:
+  - notas: grupo A. `tests/e2e/detail.spec.ts` (9, artwork servido por page.route): Charizard g-fire, selo de raridade, titulo, shiny troca para official-artwork/shiny/6.png com artSwap, botao de grito, historico[0] = 6; raios ::before 240% e 50%; Mewtwo hero-legendary (8 faiscas, sheen, sem NAO NASCE NO MUNDO) e Mew hero-mythical; artwork 404 -> silhueta; custom 9901 -> aviso; dex inexistente -> EmptyState; Capturei marca e desmarca com Modal; time liga/desliga; Dex Fogo + scroll 900 > ficha > Voltar restaura filtro e scroll (2 px); hero sem sobreposicao 360/390/1280 PT/EN (150, 151, 6). Selos em fluxo acima do titulo, reservando os botoes. Capturei marca direto ate F6.1 trocar pelo overlay. Screenshots conferidos com desktop-detail-charizard-full / mewtwo / mew e mobile-detail-charizard-full.
 
 - [ ] F4.2 Stats, fraquezas/resistencias e habilidades
   - hash:
