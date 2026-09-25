@@ -1,1 +1,45 @@
-/* Estilos da tela compare. Carregado SO por CompareScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Tela Comparar (F7.1). Porta design/prototipo/style.css: .page-head 389, .compare/.cmp-* 670-684, barras 503-514,
+   mobile 860-867. Carregado SO por CompareScreen.tsx. */
+.compare-screen .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.compare { display: grid; gap: 16px; }
+.cmp-pick { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; }
+.cmp-poke { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-width: 0; min-height: 122px; }
+.cmp-poke .cmp-art { flex: none; filter: drop-shadow(0 8px 10px rgba(0,0,0,.18)); }
+.cmp-info { min-width: 0; display: grid; justify-items: start; gap: 2px; }
+.cmp-info h3 { margin: 0; overflow-wrap: anywhere; }
+.cmp-poke .types { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.cmp-change { margin-top: 2px; padding: 0; }
+.cmp-poke.right { flex-direction: row-reverse; text-align: right; }
+.cmp-poke.right .cmp-info { justify-items: end; }
+.cmp-poke.right .types { justify-content: flex-end; }
+.cmp-empty { display: grid; gap: 8px; justify-items: center; flex: 1; min-width: 0; }
+.cmp-empty .empty-state { width: 100%; }
+.cmp-skel { width: 100%; height: 96px; }
+.cmp-vs { width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; box-shadow: var(--shadow-md); animation: popIn .6s var(--ease-bounce); }
+.cmp-search { position: absolute; left: 8px; right: 8px; top: calc(100% + 8px); z-index: 30; max-width: none; }
+.cmp-search .search-btn { display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0; }
+.cmp-search .search-btn svg { width: 18px; height: 18px; }
+.cmp-stats { display: grid; gap: 10px; }
+.cmp-row { display: grid; grid-template-columns: 44px 1fr 92px 1fr 44px; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; }
+.cmp-row.cmp-total { border-top: 1.5px dashed var(--border); padding-top: 10px; }
+.cmp-bar { height: 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.cmp-bar i { display: block; height: 100%; width: var(--w); background: var(--bc); border-radius: 999px; transform-origin: left; transform: scaleX(0); transition: transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
+.cmp-stats.go .cmp-bar i { transform: scaleX(1); }
+.cmp-row .cmp-bar.left { transform: scaleX(-1); }
+.cmp-row .lbl { text-align: center; color: var(--muted); font-size: 12px; }
+.cmp-row .v { font-variant-numeric: tabular-nums; }
+.cmp-row .v.r { text-align: right; }
+.cmp-row .win { color: #1F7A46; }
+html[data-theme="black"] .cmp-row .win { color: #7FD6A0; }
+.cmp-actions { display: flex; justify-content: center; margin-top: 14px; }
+.cmp-actions .btn svg { width: 18px; height: 18px; }
+.app.mobile .cmp-pick { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; }
+.app.mobile .cmp-poke { flex-direction: column; text-align: center; padding: 10px 6px; gap: 6px; }
+.app.mobile .cmp-poke.right { flex-direction: column; text-align: center; }
+.app.mobile .cmp-info, .app.mobile .cmp-poke.right .cmp-info { justify-items: center; }
+.app.mobile .cmp-poke .types, .app.mobile .cmp-poke.right .types { justify-content: center; }
+.app.mobile .cmp-poke .cmp-art { width: 80px; height: 80px; }
+.app.mobile .cmp-row { grid-template-columns: 34px 1fr 70px 1fr 34px; gap: 6px; font-size: 12px; }
+.app.mobile .cmp-vs { width: 38px; height: 38px; font-size: 13px; }
+.app.mobile .cmp-search { position: fixed; left: 12px; right: 12px; top: 72px; }
+.app.mobile .cmp-empty .empty-state { flex-direction: column; text-align: center; padding: 8px; }
