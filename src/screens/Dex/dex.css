@@ -52,3 +52,21 @@
 .app.mobile .pcard-art > img.sprite-fallback { width: 48px; height: 48px; }
 .app.mobile .pcard-name { font-size: 15px; }
 .app.mobile .pcard-art > .caught-mark { width: 18px; height: 18px; }
+
+/* ---------- Busca e filtros (F3.2) ---------- */
+.search.list-search { max-width: none; margin-bottom: 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+.list-search input[type="search"]::-webkit-search-cancel-button { display: none; }
+.list-search-clear { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; color: var(--muted); flex: none; transition: background .2s, color .2s; }
+.list-search-clear:hover { background: var(--surface-2); color: var(--text); }
+.list-search-clear svg { width: 18px; height: 18px; }
+.filters { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 18px; display: grid; gap: 12px; min-width: 0; }
+.filter-group { display: grid; gap: 6px; min-width: 0; }
+.filter-group label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.filter-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
+.filter-row select { width: 100%; min-width: 0; }
+.dex-empty-query { font-weight: 800; margin: 4px 0 0; overflow-wrap: anywhere; }
+.app.mobile .filters { padding: 12px; margin: 0 0 14px; }
+.app.mobile .filter-row { grid-template-columns: 1fr 1fr; }
+.app.mobile .filter-seg { grid-column: 1 / -1; }
+.app.mobile .filter-seg .seg { display: flex; }
+.app.mobile .filter-seg .seg button { flex: 1; padding: 7px 6px; font-size: 12px; white-space: normal; }

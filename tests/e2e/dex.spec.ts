@@ -136,3 +136,101 @@ test.describe("F3.1 virtualized grid", () => {
     }
   });
 });
+
+const cardDexes = (page: Page) => page.locator(".pcard").evaluateAll((els) => els.map((el) => Number(el.getAttribute("data-dex"))));
+
+async function filterText(page: Page, q: string) {
+  await page.locator("#dex-search").fill(q);
+}
+
+test.describe("F3.2 combinable filters and search", () => {
+  test("Fire + gen1 -> only gen 1 Fire; removing a filter does not remount the screen", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await openDex(page);
+    const mountId = await page.locator(".dex-screen").getAttribute("data-mount-id");
+    await page.locator("[data-ftype='fire']").click();
+    await expect(page.locator("[data-ftype='fire']")).toHaveClass(/\bon\b/);
+    await page.locator("#f-gen").selectOption("gen1");
+    await expect(page.locator("#dex-count")).toHaveText("12");
+    const dexes = await cardDexes(page);
+    expect(dexes).toEqual([4, 5, 6, 37, 38, 58, 59, 77, 78, 126, 136, 146]);
+    for (const card of await page.locator(".pcard").all()) await expect(card.locator(".chip.t-fire")).toHaveCount(1);
+    await page.locator("[data-ftype='fire']").click();
+    await expect(page.locator("#dex-count")).not.toHaveText("12");
+    await expect(page.locator(".dex-screen")).toHaveAttribute("data-mount-id", mountId ?? "");
+    expect(errors).toEqual([]);
+  });
+
+  test("evolution 'item' keeps only species that evolve with an item", async ({ page }) => {
+    await openDex(page);
+    await page.locator("#f-evo").selectOption("item");
+    await expect(page.locator(".pcard[data-dex='25']")).toBeVisible();
+    await expect(page.locator(".pcard[data-dex='1']")).toHaveCount(0);
+    const ok = await page.evaluate(async (dexes) => {
+      const { useDatasetStore } = await import("/src/state/dataset-store.ts" as string);
+      const index = (useDatasetStore as { getState(): { speciesIndex: { dex: number; evolutionMethods: string[] }[] } }).getState().speciesIndex;
+      return dexes.every((d) => index.find((s) => s.dex === d)?.evolutionMethods.includes("item"));
+    }, await cardDexes(page));
+    expect(ok).toBe(true);
+  });
+
+  test("search: 'char' + Fire, '25', 'pantano', empty state with the text", async ({ page }) => {
+    await openDex(page);
+    await page.locator("[data-ftype='fire']").click();
+    await filterText(page, "char");
+    // substring PT/EN, igual a Home: Charmander, Charmeleon, Charizard, Chimchar, Charcadet (todos Fogo)
+    await expect(page.locator("#dex-count")).toHaveText("5");
+    expect(await cardDexes(page)).toEqual([4, 5, 6, 390, 935]);
+    await page.locator("[data-ftype='fire']").click();
+    await filterText(page, "25");
+    await expect(page.locator("#dex-count")).toHaveText("1");
+    await expect(page.locator(".pcard .pcard-name")).toHaveText("Pikachu");
+    await filterText(page, "pantano");
+    await expect(page.locator(".pcard")).toHaveCount(1);
+    await expect(page.locator(".pcard")).toHaveAttribute("data-dex", "195");
+    await filterText(page, "zzzzqq");
+    await expect(page.locator(".dex-screen .ob-none")).toContainText("zzzzqq");
+    await page.locator(".list-search-clear").click();
+    await expect(page.locator("#dex-count")).toHaveText("1027");
+  });
+
+  test("text, filters and scroll are restored after Back from the detail", async ({ page }) => {
+    await openDex(page);
+    await filterText(page, "a");
+    await expect(page.locator("#dex-count")).not.toHaveText("1027");
+    const afterText = (await page.locator("#dex-count").textContent()) ?? "";
+    await page.locator("[data-ftype='water']").click();
+    await expect(page.locator("#dex-count")).not.toHaveText(afterText);
+    const count = await page.locator("#dex-count").textContent();
+    await scrollMain(page, 1_500);
+    await expect.poll(() => page.locator("#main").evaluate((m) => m.scrollTop)).toBe(1_500);
+    // dispatchEvent: um clique normal rolaria ate o card (linha de overscan) e mudaria o scroll salvo
+    await page.locator(".pcard").nth(4).dispatchEvent("click");
+    await expect(page.locator("[data-screen='detail']")).toBeVisible();
+    await page.goBack();
+    await expect(page.locator("#dex-search")).toHaveValue("a");
+    await expect(page.locator("[data-ftype='water']")).toHaveClass(/\bon\b/);
+    await expect(page.locator("#dex-count")).toHaveText(count ?? "");
+    await expect.poll(() => page.locator("#main").evaluate((m) => m.scrollTop)).toBeGreaterThanOrEqual(1_498);
+    expect(Math.abs((await page.locator("#main").evaluate((m) => m.scrollTop)) - 1_500)).toBeLessThanOrEqual(2);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`search bar and filters without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await openDex(page, width, 800);
+      await filterText(page, "char");
+      await expect(page.locator(".list-search-clear")).toBeVisible();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await settle(page);
+        await expectNoOverlap(page, page.locator(".list-search"));
+        await expectNoOverlap(page, page.locator("#filters"));
+      }
+      if (SHOTS && width !== 360) {
+        await filterText(page, "");
+        await settle(page);
+        await page.screenshot({ path: `${SHOTS}/dex-filters-${width}.png` });
+      }
+    });
+  }
+});
