@@ -2,6 +2,7 @@
 // So os sons sao servidos vazios (evita decodificar .ogg a cada clique).
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
+import { writeDoc } from "./idb-helpers";
 
 const SHOTS = process.env.HOME_SHOTS_DIR;
 
@@ -121,13 +122,13 @@ test.describe("F2.1 search", () => {
     await openHome(page);
     await search(page, "charizar");
     await page.locator("#search-input").press("Enter");
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen[data-dex='6']")).toBeVisible();
     await page.goBack();
     await expect(page.locator(".home-screen")).toBeVisible();
     await expect(page.locator("#search-input")).toHaveValue("charizar");
     await search(page, "gengar");
     await page.locator(".search-dd .dd-item[data-dex='94']").click();
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen[data-dex='94']")).toBeVisible();
     expect(errors).toEqual([]);
   });
 
@@ -137,16 +138,16 @@ test.describe("F2.1 search", () => {
     await page.locator("#search-input").press("ArrowDown");
     await expect(page.locator(".search-dd .dd-item").nth(1)).toHaveClass(/active/);
     await page.locator("#search-input").press("Enter");
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen")).toBeVisible();
   });
 
   test("random and open-dex buttons navigate", async ({ page }) => {
     await openHome(page);
     await page.locator("#btn-random").click();
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen")).toBeVisible();
     await page.goBack();
     await page.locator("#btn-open-dex").click();
-    await expect(page.locator("[data-placeholder='dex']")).toBeVisible();
+    await expect(page.locator(".dex-screen")).toBeVisible();
   });
 
   for (const width of [360, 390, 1280]) {
@@ -172,36 +173,28 @@ test.describe("F2.1 search", () => {
 });
 
 // ---------------------------------------------------------------------------
-// F2.2: time, historico e resumo de capturados (dados semeados pelas proprias stores via modulo do Vite dev,
-// a mesma instancia que o app usa; persistencia real no IndexedDB do navegador)
+// F2.2: time, historico e resumo de capturados (semeados direto no IndexedDB pela mesma chave/formato que o
+// StorageAdapter usa, ver tests/e2e/idb-helpers.ts; funciona em dev e em build+preview)
 // ---------------------------------------------------------------------------
 
-// Os modulos sao importados DENTRO do navegador pela URL do Vite dev (mesma instancia do app). O TypeScript nao
-// resolve essas URLs absolutas, entao elas viajam como argumento (string) e o resultado e tipado pelos modulos
-// reais via `typeof import(...)` (so tipo, nada e carregado no Node).
-type TeamStoreModule = typeof import("../../src/state/team-store");
-type HistoryStoreModule = typeof import("../../src/state/history-store");
-type CapturedStoreModule = typeof import("../../src/state/captured-store");
-
-const STORE_URLS = {
-  team: "/src/state/team-store.ts",
-  history: "/src/state/history-store.ts",
-  captured: "/src/state/captured-store.ts",
-} as const;
-
+// Escreve os docs "team"/"history"/"captured" direto no IndexedDB (mesmo schema de src/storage/types.ts) e avisa
+// as stores via "pontindex:data-changed" (dentro de writeDoc). Cada chamada SUBSTITUI o doc inteiro daquela chave
+// (nao acumula com uma chamada anterior para a mesma chave).
 async function seed(page: Page, data: { team?: number[]; history?: number[]; captured?: number[] }) {
-  await page.evaluate(
-    async ({ d, urls }) => {
-      const team = (await import(/* @vite-ignore */ urls.team)) as TeamStoreModule;
-      const history = (await import(/* @vite-ignore */ urls.history)) as HistoryStoreModule;
-      const captured = (await import(/* @vite-ignore */ urls.captured)) as CapturedStoreModule;
-      for (const dex of d.team ?? []) await team.useTeamStore.getState().addToTeam(dex);
-      let at = 1_000;
-      for (const dex of d.history ?? []) await history.useHistoryStore.getState().push(dex, at++);
-      for (const dex of d.captured ?? []) await captured.useCapturedStore.getState().mark(dex, at++);
-    },
-    { d: data, urls: STORE_URLS },
-  );
+  if (data.team) {
+    const slots: (number | null)[] = Array.from({ length: 6 }, (_, i) => data.team![i] ?? null);
+    await writeDoc(page, "team", { schemaVersion: 1, slots });
+  }
+  if (data.history) {
+    // addToTeam mantem a ordem de chegada; history.push coloca o mais recente na frente (ordem inversa da lista).
+    const entries = [...data.history].reverse().map((dex, i) => ({ dex, viewedAt: 2_000_000 - i }));
+    await writeDoc(page, "history", { schemaVersion: 1, entries });
+  }
+  if (data.captured) {
+    const entries: Record<string, { capturedAt: number }> = {};
+    data.captured.forEach((dex, i) => (entries[String(dex)] = { capturedAt: 1_000_000 + i }));
+    await writeDoc(page, "captured", { schemaVersion: 1, entries });
+  }
 }
 
 const DEMO = { team: [6, 448, 94, 149], history: [94, 133, 150, 25, 448, 6], captured: [1, 4, 6, 25, 9902] };
@@ -235,13 +228,13 @@ test.describe("F2.2 team, history and captured summary", () => {
     await expect(page.locator("#history-row .hist").first().locator(".chip")).toHaveText(["Fogo", "Voador"]);
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/f22-home-1280-pt.png` });
     await page.locator("#history-row .hist[data-dex='25']").click();
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen[data-dex='25']")).toBeVisible();
     await page.goBack();
     await page.locator(".team-slots .slot[data-dex='448'] .slot-open").click();
-    await expect(page.locator("[data-placeholder='detail']")).toBeVisible();
+    await expect(page.locator(".detail-screen[data-dex='448']")).toBeVisible();
     await page.goBack();
     await page.locator("#home-summary .link").click();
-    await expect(page.locator("[data-placeholder='captured']")).toBeVisible();
+    await expect(page.locator(".captured-screen")).toBeVisible();
     expect(errors).toEqual([]);
   });
 
@@ -249,8 +242,15 @@ test.describe("F2.2 team, history and captured summary", () => {
     await openHome(page);
     await seed(page, { team: [6, 448, 94, 149, 25, 133] });
     await expect(page.locator(".team-count")).toHaveText("6/6");
-    await seed(page, { team: [150] });
+    // 7o add: aciona a regra de verdade (addToTeam) clicando "Adicionar ao time" na ficha, em vez de escrever no
+    // IndexedDB direto (o toast "Time cheio" e disparado pela store, nao pela seed).
+    await search(page, "150");
+    await firstItem(page).click();
+    await expect(page.locator(".detail-screen[data-dex='150']")).toBeVisible();
+    await page.locator("#btn-team").click();
     await expect(page.locator(".toast")).toContainText("Time cheio");
+    await page.goBack();
+    await expect(page.locator(".home-screen")).toBeVisible();
     await expect(page.locator(".team-slots .slot.filled")).toHaveCount(6);
     await page.locator(".team-slots .slot[data-dex='94']").hover();
     await page.locator(".team-slots .slot[data-dex='94'] .slot-remove").click();
