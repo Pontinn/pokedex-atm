@@ -343,15 +343,15 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F3: Pokedex (lista virtualizada e filtros)
 
-- [ ] F3.1 Grade virtualizada e card de Pokemon
-  - hash:
+- [x] F3.1 Grade virtualizada e card de Pokemon
+  - hash: 9df8548a
   - Done when (literal da SPEC): com 1027 itens, o DOM contem <= 60 `.pcard` simultaneos (teste Playwright conta nos); `desktop-dex-grid.png`; a 360 px e 390 px nenhum badge quebra o proprio texto (a LINHA de selos pode quebrar, regra "Sem sobreposicao de texto") (teste de largura, RNF-09).
-  - notas:
+  - notas: grupo A. `tests/e2e/dex.spec.ts` (dataset real): 1027 resultados e <= 60 `.pcard` no DOM no topo, no meio e no fim (9902); Mewtwo com selo Lendario abre a ficha; 360/390 px: 2 colunas, nenhum badge quebra o proprio texto e `expectNoOverlap` PT/EN; 1280 PT/EN sem sobreposicao. Card usa sprite 96px local (SPEC) exibido a 120 px pixelado, marca de capturado dentro da area da imagem (nunca sobre os selos). Virtualizacao por linhas com #main como elemento de rolagem.
 
-- [ ] F3.2 Filtros combinaveis
-  - hash:
+- [x] F3.2 Filtros combinaveis
+  - hash: 4ed202c7
   - Done when (literal da SPEC): Fogo + gen1 -> somente Fogo gen1; "item" -> so especies com evolucao por item; remover filtro nao remonta `DexScreen` (teste com `data-mount-id`). + barra de busca igual a da Home combinada com os filtros (decisao do Pontin; ver SPEC F3.2 passo 4)
-  - notas:
+  - notas: grupo A. Unit `tests/unit/ui-screens/dex-filter.test.ts` (9) + e2e: Fogo+gen1 = 12 especies Fogo gen1; evolucao item so especies com item; remover filtro mantem `data-mount-id`; busca "char"+Fogo = Charmander, Charmeleon, Charizard, Chimchar, Charcadet (substring PT/EN, igual a Home; todos Fogo), "25" = Pikachu, "pantano" = Quagsire, vazio mostra o texto; texto+filtro+scroll restaurados apos Voltar da ficha (2 px); busca e filtros sem sobreposicao 360/390/1280 PT/EN. `ListSearch` (src/screens/Dex/ListSearch.tsx) reutilizavel pelos Capturados.
 
 ### Sprint F4: Ficha do Pokemon (parte 1: hero, stats, fraquezas, evolucao, habilidades, golpes)
 

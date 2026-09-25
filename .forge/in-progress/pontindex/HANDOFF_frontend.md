@@ -143,3 +143,31 @@ Agente: forge-imp-frontend (Grupo C). Inicio 2026-09-24 18:01. Fim 2026-09-24 18
 - Posse que passa do A para o B: `src/i18n/messages/compare.ts`, `src/screens/Compare/**`, `tests/unit/ui-screens/compare*`, `tests/e2e/compare.spec.ts`.
 - F7 CONSOME (so leitura, nao edita): `src/screens/Home/SearchBox.tsx` (e o que ele usa da Home), `useHistoryStore` (padrao = 2 ultimos do historico), `loadSpecies`, e o `ArtworkImage` que o Agente A cria na F4.1. Se `ArtworkImage` nao existir no HEAD quando o B chegar em F7, o B NAO duplica: marca F7 como pendente por dependencia e devolve ao orquestrador.
 - Precisa mudar arquivo de outro agente? Pede ao orquestrador.
+
+## Grupo A (Pokedex, ficha, captura, capturados)
+
+Agente: forge-imp-frontend (Grupo A). Inicio 2026-09-24 21:35.
+
+| Feature | Status | Commit | Notas |
+|---|---|---|---|
+| F3.1 | verde | `9df8548a` | grade virtualizada por linhas (#main e o elemento de rolagem), card com selos em linha propria |
+| F3.2 | verde | `4ed202c7` | busca PT/EN + tipos (OR) + geracao + evolucao + status + ordenacao, tudo em `current.ui` |
+
+### Testes executados
+
+- `npx vitest --run tests/unit/ui-screens/dex-filter.test.ts` (9): filtro combinado, OR entre tipos, status por capturados, texto numero/PT/EN sem acento, so espacos = sem filtro, ordenacao nome/bst, `sortGenerations`, `gridColumns`.
+- `$env:PW_DEV="1"; $env:PW_PORT="4174"; npx playwright test tests/e2e/dex.spec.ts` (12, dataset real, headless): ver notas de F3.1/F3.2 no checklist. Opcional `DEX_SHOTS_DIR=<pasta>` grava screenshots de conferencia.
+- Suite completa no fim do sprint F3: 1 falha fora do meu escopo, `tests/unit/ui-shell/shell.test.tsx` ("shows every nav item ... and navigates") espera `[data-placeholder='trainers']`, que deixou de existir quando o grupo B implementou Treinadores (arquivo congelado; PEDIDO ao orquestrador: ajustar o teste do shell).
+
+### Componentes reutilizaveis (caminhos e props)
+
+- `src/screens/Dex/PokemonCard.tsx`: `PokemonCard({ species: SpeciesSummary, enterIndex?: number, onOpen(dex), footer?: ReactNode })` (o `footer` fica FORA do botao do card, para acoes como desmarcar); `SpeciesBadges({ species })` (selo Lendario/Mitico + badge de raridade, omitido se `rarity.primary == null`); `specialLabel(labels)` (lendario prevalece); `RARITY_BADGE`.
+- `src/screens/Dex/DexGrid.tsx`: `DexGrid({ list: SpeciesSummary[], renderFooter?(species) })`, virtualizada, 2 colunas no mobile; `gridColumns(width, mobile)`.
+- `src/screens/Dex/ListSearch.tsx`: `ListSearch({ initial, onQuery(query), placeholderKey, labelKey, id? })`, mesmo visual da busca da Home (`.search`), debounce 120 ms, botao limpar.
+- `src/screens/Dex/use-filtered-species.ts`: `filterSpecies(index, opts)`, `matchesQuery(species, q)`, `sortSpecies`, `sortGenerations`.
+
+### Decisoes e desvios
+
+1. Card usa o sprite 96px LOCAL (SPEC F3.1, funciona offline), exibido a 120 px com `image-rendering: pixelated` (o prototipo usava o artwork). A marca de capturado fica dentro da area da imagem (canto superior direito), nunca sobre a linha de selos, que pode quebrar em 2 linhas a 360 px.
+2. Busca da Pokedex casa por substring no nome PT/EN (mesma regra da Home): "char" + Fogo tambem traz Chimchar e Charcadet (ambos Fogo).
+3. Geracoes no select: "Geracao N"/"Generation N" e "Do pack (All the Mons)" para `custom`.
