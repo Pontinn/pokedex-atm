@@ -1,1 +1,73 @@
-/* Estilos da tela detail. Carregado SO por DetailScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Estilos da ficha (F4/F5). Carregado SO por DetailScreen.tsx. Porta design/prototipo/style.css: .detail 426-429,
+   hero 449-491, mobile 850-852 e breakpoints 893/898. Correcao da regra "Sem sobreposicao de texto": a linha de
+   selos (.seal) fica em fluxo acima do titulo e reserva a largura dos botoes shiny/grito. */
+.detail { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+.detail-left { position: sticky; top: 0; display: grid; gap: 14px; min-width: 0; }
+.detail-right { display: grid; gap: 16px; min-width: 0; }
+.detail-back { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; color: var(--muted); margin-bottom: 12px; transition: transform .2s; }
+.detail-back:hover { transform: translateX(-3px); color: var(--text); }
+.detail-back svg { width: 20px; height: 20px; }
+
+/* ---------- Hero ---------- */
+.hero-card { padding: 0; overflow: hidden; overflow: clip; border: 0; box-shadow: 0 18px 40px color-mix(in srgb, var(--g1) 35%, transparent), var(--shadow-md); }
+.hero-art { position: relative; padding: 14px 18px 6px; background: linear-gradient(160deg, var(--g1) 0%, var(--g2) 100%); overflow: hidden; overflow: clip; }
+.hero-art::before { content: ""; position: absolute; left: 50%; top: 56%; width: 240%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%) rotate(0deg); will-change: transform; background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.16) 0 8deg, transparent 8deg 16deg); opacity: .7; animation: raysSlow 50s linear infinite; pointer-events: none; }
+@keyframes raysSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.hero-art::after { content: ""; position: absolute; left: 50%; bottom: -40px; width: 340px; height: 200px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(ellipse, rgba(255,255,255,.45), transparent 65%); pointer-events: none; }
+.hero-card.hero-legendary { --g1: #d99a1a; --g2: #f7c948; box-shadow: 0 0 0 2px #f1c85a, 0 18px 44px rgba(217,154,26,.5); }
+.hero-legendary .hero-art { background: linear-gradient(160deg, #d99a1a 0%, #f7c948 42%, #fff1b8 60%, #f0b93a 78%, #c8871a 100%); }
+.hero-card.hero-mythical { --g1: #7b4dff; --g2: #4aa8ff; box-shadow: 0 0 0 2px #9d7cff, 0 18px 44px rgba(102,240,255,.4); }
+.hero-mythical .hero-art { background: radial-gradient(circle at 50% 58%, rgba(102,240,255,.8) 0%, rgba(102,240,255,.25) 28%, transparent 50%), linear-gradient(160deg, #7b4dff 0%, #5d7dff 55%, #4aa8ff 100%); }
+.sheen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.sheen::before { content: ""; position: absolute; top: -30%; bottom: -30%; left: 0; width: 42%; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-160%) skewX(-14deg); will-change: transform; animation: sheen 6s ease-in-out infinite; }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-14deg); } 55%, 100% { transform: translateX(330%) skewX(-14deg); } }
+.sparkles { position: absolute; inset: 0; pointer-events: none; }
+.sparkles i { position: absolute; width: 7px; height: 7px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px 2px rgba(255,255,255,.85); opacity: 0; transform: scale(.4); animation: twinkle 2.6s ease-in-out infinite; }
+.sparkles i:nth-child(3n) { width: 12px; height: 12px; border-radius: 0; box-shadow: none; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+.hero-mythical .sparkles i:nth-child(even) { background: #9ff6ff; box-shadow: 0 0 8px 2px rgba(102,240,255,.9); }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1); } }
+
+/* botoes no canto superior direito: shiny (14 px da borda) e grito ao lado (ate 102 px da borda) */
+.hero-buttons { position: absolute; top: 14px; right: 14px; z-index: 3; display: flex; gap: 8px; }
+.shiny-btn { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.9); border: 1.5px solid rgba(255,255,255,.6); box-shadow: var(--shadow-sm); color: #1C1F2B; transition: transform .25s var(--ease-bounce); }
+.shiny-btn svg { width: 20px; height: 20px; }
+.shiny-btn:hover { transform: rotate(20deg) scale(1.1); }
+.shiny-btn.on { background: linear-gradient(135deg, #FFE27A, #FFB300); border-color: #FFB300; }
+.cry-btn.playing { animation: cryPulse .6s ease-in-out infinite; background: var(--secondary); color: var(--on-secondary); border-color: transparent; }
+@keyframes cryPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--secondary) 55%, transparent); } 50% { transform: scale(1.12); box-shadow: 0 0 0 10px transparent; } }
+
+/* selos EM FLUXO acima do titulo; reservam os botoes (54 px sem grito, 102 px com grito, + 8 de folga) */
+.seal { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; min-height: 40px; margin-right: 44px; align-content: flex-start; }
+.hero-art.has-cry .seal { margin-right: 92px; }
+.seal .badge { box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.hero-title { position: relative; text-align: center; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.18), 0 6px 18px rgba(0,0,0,.25); padding: 6px 8px 0; }
+.hero-title .dex-num { color: rgba(255,255,255,.85); font-size: 12px; }
+.hero-title h2 { font-size: 30px; margin: 0; color: #fff; overflow-wrap: anywhere; }
+.hero-img { position: relative; display: flex; justify-content: center; margin-top: 10px; }
+.hero-img.swap { animation: artSwap .5s var(--ease-bounce); }
+.hero-img .artwork { position: relative; margin: 0 auto; }
+.hero-img .artwork-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); animation: floatY 4s ease-in-out infinite; }
+.artwork { position: relative; display: grid; place-items: center; }
+.artwork-spinner { position: absolute; inset: 0; display: grid; place-items: center; }
+.artwork-missing, .artwork-failed { padding: 20px 0; }
+.hero-img .art-placeholder-notice { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); max-width: 240px; }
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes artSwap { from { transform: scale(.6) rotate(-10deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.hero-body { position: relative; padding: 16px 18px 18px; text-align: center; background: var(--surface); border-radius: 22px 22px 0 0; margin-top: -18px; }
+.hero-body .types { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.hero-actions-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.hero-actions-2 .btn { justify-content: center; min-width: 0; }
+.hero-actions-2 .btn svg { width: 18px; height: 18px; flex: none; }
+.hero-actions-2 .ball-ico { width: 18px; height: 18px; flex: none; }
+.hero-skeleton .skeleton { border-radius: var(--radius-lg); }
+.detail-screen .modal-text { margin: 0; }
+.detail-screen .modal-actions, .modal .modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+
+@media (max-width: 900px) { .detail { grid-template-columns: 1fr; } }
+@media (min-width: 1500px) { .detail { grid-template-columns: 420px 1fr; gap: 24px; } }
+
+/* ---------- Mobile (style.css:850-852) ---------- */
+.app.mobile .detail { grid-template-columns: 1fr; gap: 14px; }
+.app.mobile .detail-left { position: static; }
+.app.mobile .hero-img .artwork { width: 210px !important; height: 210px !important; }
