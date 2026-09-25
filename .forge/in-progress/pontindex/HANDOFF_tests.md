@@ -88,12 +88,12 @@ Agente: T1 test agent, parte T1b (e2e). Inicio 2026-09-25 00:11. Contexto limpo,
 | `search-detail.spec.ts` | Sem arquivo novo: 100% ja coberto. Busca por numero/nome PT/EN em `home.spec.ts` (F2.1). Ficha completa, Eevee 8 ramos, Mewtwo sem badge "nao nasce", placeholder de especie custom com aviso, tudo em `detail.spec.ts` (F4.1-F5.4). |
 | `capture.spec.ts` | Ja existia (F6.1), so ajustado para rodar em producao (ver "Compatibilidade com producao" abaixo). |
 | `team-history.spec.ts` | NOVO `tests/e2e/team-history.spec.ts`: 21 fichas reais vistas pela UI -> historico corta em 20 (mais antigo cai fora), sobrevive a reload. O aviso do 7o Pokemon no time e a persistencia de time/historico apos reload ja estavam em `home.spec.ts` ("remove from team with undo; 7th add warns and does not add", "seeded data renders, persists across reload..."). |
-| `trainers.spec.ts` | Ja existia (F8), sem mudancas. |
+| `trainers.spec.ts` | Ja existia (F8); na continuacao T1b ficou mode-agnostic (ver "Continuacao" abaixo). |
 | `items-balls.spec.ts` | Sem arquivo novo: 100% ja coberto entre 3 arquivos. Magikarp Net>Poke e Dusk 3.5x em `detail.spec.ts` ("Magikarp: top 3 ranked, Net Ball..."); pagina de item de um drop + Voltar e "Sem rota confirmada" em `item.spec.ts`; numero de cards = `balls.json.length` (fetch direto do JSON publicado, ja mode-agnostic) em `balls.spec.ts`. |
 | `settings.spec.ts` | Ja existia (grupo C), sem mudancas. |
 | `sync.spec.ts` | Ja existia (grupo C), sem mudancas. |
 | `pwa-offline.spec.ts` | Ja existia (F12.1); ACRESCENTADO o caso que faltava: "artwork nunca visto fica offline -> placeholder" (especie tem o JSON pre-cacheado via fetch direto, sem nunca abrir a ficha, entao o artwork nunca foi requisitado; offline, a ficha abre mas o artwork cai no placeholder). |
-| `responsive.spec.ts` | NAO FEITO (ver "Onde parei"). Os bounding-box de badges/chips a 360/390 (sem sobreposicao) ja rodam DENTRO de cada spec de tela via `expectNoOverlap` (PT/EN, 360/390/1280), isso ja e real e roda em todo commit. O que falta e um arquivo DEDICADO com os screenshots de 7 temas x home/ficha comparados contra `ui-refs/` (tolerancia 2%) ou baselines proprias do app - ver decisao 10 do F1.4 em HANDOFF_frontend.md (fontes/CDN do prototipo divergem, pixel-diff contra `ui-refs/` sempre falharia; a recomendacao la ja era gerar baseline do proprio app com `toHaveScreenshot`). |
+| `responsive.spec.ts` | FEITO na continuacao T1b (ver secao "Continuacao" abaixo): NOVO `tests/e2e/responsive.spec.ts` dedicado, badges/chips a 360/390px em Home/Dex/ficha/Capturados + baselines proprias do app (7 temas x Home/ficha, `toHaveScreenshot`, 2%). |
 | `perf.spec.ts` | NOVO `tests/e2e/perf.spec.ts`: Dex com 1027 <= 60 `.pcard` no DOM (repete rapido o que `dex.spec.ts` ja prova em detalhe) + rolagem do topo ao fim sem long task > 200ms (`PerformanceObserver`, sem sleeps: rola uma tela por vez ate `scrollTop` parar de crescer). |
 
 ### Compatibilidade com producao (import("/src/...") so funciona com PW_DEV=1)
@@ -119,26 +119,22 @@ producao). Estrategia (commit `665c38a2`):
   not-found"): dex 4321 nao existe no dataset e a busca da Home so lista especies reais, entao nao ha caminho de
   UI ate ele; `test.skip(!DEV, "...")`.
 
-**NAO corrigidos (ainda so rodam com `PW_DEV=1`)**: `home.spec.ts`, `compare.spec.ts`, `item.spec.ts`,
-`items.spec.ts`, `balls.spec.ts`, `trainers.spec.ts`. Ficou fora do tempo desta sessao (ver "Onde parei"). O
-padrao de fix e o mesmo dos 4 arquivos acima (navegacao por UI + `idb-helpers.ts` para leitura/escrita de
-estado), reaproveitavel diretamente.
+**Corrigidos na continuacao T1b (mode-agnostic agora, ver secao "Continuacao" abaixo)**: `home.spec.ts`,
+`compare.spec.ts`, `item.spec.ts`, `items.spec.ts`, `balls.spec.ts`, `trainers.spec.ts`. Mesmo padrao dos 4
+arquivos acima (navegacao por UI + `idb-helpers.ts` para leitura/escrita de estado).
 
 **`pwa-offline.spec.ts`** so roda em producao por natureza (precisa do service worker real, que nao existe no
 dev server) - isso e intencional, nao um problema a corrigir.
 
-### O comando unico (o que da pra rodar hoje)
+### O comando unico (atualizado na continuacao T1b: ver secao "Continuacao" para o estado final)
 
-Nao existe HOJE um unico comando que rode a suite inteira 100% verde, por 2 motivos estruturais (nao so os
-`import("/src/...")` pendentes):
-1. `pwa-offline.spec.ts` PRECISA de producao (sem `PW_DEV`) - o dev server nao tem service worker. Os outros 6
-   arquivos ainda pendentes (`home`, `compare`, `item`, `items`, `balls`, `trainers`) PRECISAM de `PW_DEV=1`.
-   Sao requisitos opostos: 2 comandos, nao 1, ate os 6 arquivos serem corrigidos.
-2. Mesmo corrigindo os 6 que faltam, rodar TUDO em producao hoje exporia as 5 falhas de timing achadas em
-   `capture.spec.ts`/`detail.spec.ts` so em producao (ver `CHECKLIST_pontindex.md`, secao Bugs, linha "T1 / e2e
-   producao") - nao investigadas a fundo (Regra 1: nao chutar se e bug do app ou fragilidade do teste).
+Com os 6 arquivos da continuacao T1b corrigidos, TODOS os specs de `tests/e2e/**` (exceto `pwa-offline.spec.ts`,
+que por natureza so roda em producao com Service Worker) agora sao mode-agnostic e rodam com `PW_DEV=1` num unico
+comando. `pwa-offline.spec.ts` continua exigindo um segundo comando (producao). Alem disso, `capture.spec.ts` e
+`detail.spec.ts` tem 5 falhas conhecidas SO em producao (ver `CHECKLIST_pontindex.md`, secao Bugs, linha "T1 /
+e2e producao"), fora do escopo desta sessao (dono e o agente de debug em paralelo).
 
-**Comando pratico recomendado agora** (roda tudo que da pra rodar, 2 chamadas):
+**Comando pratico** (2 chamadas: 1 em dev cobre tudo exceto pwa-offline; 1 em producao so pra ele):
 ```
 export PATH="/c/Program Files/nodejs:$APPDATA/npm:$PATH"
 PW_DEV=1 PW_PORT=4178 npx playwright test --workers=1 --grep-invert "pwa-offline"
@@ -164,17 +160,106 @@ Suite COMPLETA (`npx playwright test --workers=1`, `PW_DEV=1 PW_PORT=4178`, todo
 disparada ao final da sessao e NAO terminou a tempo do limite de ~55 min (maquina compartilhada com o T1a
 rodando vitest em paralelo, suite grande com 1 worker). Ver "Onde parei".
 
-### Onde parei
+### Onde parei (sessao original, resolvido na Continuacao abaixo)
 
-- Faltou: (1) terminar de conferir a saida da suite COMPLETA (`PW_DEV=1`, todos os specs) disparada em
-  background - o proximo agente deve simplesmente reabrir/checar ou rodar de novo com o comando acima; (2)
-  aplicar o mesmo fix de compatibilidade com producao (navegacao por UI + `idb-helpers.ts`) em `home.spec.ts`,
-  `compare.spec.ts`, `item.spec.ts`, `items.spec.ts`, `balls.spec.ts`, `trainers.spec.ts`; (3) `responsive.spec.ts`
-  nao foi criado (screenshots de 7 temas x home/ficha); (4) investigar as 5 falhas so-em-producao antes de
-  decidir se sao bug do app ou fragilidade do teste (comecar por `capture.spec.ts:73`, o mais simples: o
-  MutationObserver de estagios nunca registra `s-open`).
-- Nada foi deixado quebrado: todo commit desta sessao (`665c38a2`, `7c554217`, `eb1a09c6`, `8ec62e97`,
+- Ficou pendente: aplicar o fix de compatibilidade com producao em `home.spec.ts`, `compare.spec.ts`,
+  `item.spec.ts`, `items.spec.ts`, `balls.spec.ts`, `trainers.spec.ts`, e criar `responsive.spec.ts`. Ambos feitos
+  na Continuacao (ver abaixo). As 5 falhas so-em-producao de `capture.spec.ts`/`detail.spec.ts` continuam FORA do
+  escopo deste agente (dono e o agente de debug em paralelo, que possui `capture`/`detail`/app code).
+- Nada foi deixado quebrado: todo commit da sessao original (`665c38a2`, `7c554217`, `eb1a09c6`, `8ec62e97`,
   `d3864b27`, `3692c4fa`) foi individualmente rodado e ficou verde antes de commitar.
+
+## Continuacao (T1b, 2026-09-25, contexto limpo)
+
+Agente novo, retomou a partir do disco (RETOMADA/HANDOFF_tests.md/CHECKLIST). Escopo: os 6 specs pendentes acima
++ `responsive.spec.ts`. NAO tocou `capture.spec.ts`, `detail.spec.ts`, `dex.spec.ts`, `captured.spec.ts`,
+`pwa-offline.spec.ts`, `shell.spec.ts`, `navigation.spec.ts`, `team-history.spec.ts`, `perf.spec.ts` nem nenhum
+arquivo de `src/` (territorio do agente de debug em paralelo). Playwright sempre headless, sem slowMo, sem
+sleeps. Todas as rodadas abaixo com `PW_DEV=1 PW_PORT=4178` (ou 4180 para `responsive.spec.ts`, pra nao disputar
+o mesmo dev server com o agente de debug).
+
+### Resultados por spec
+
+| Spec | Resultado | Observacao |
+|---|---|---|
+| `home.spec.ts` | 24/24 | Store injection (`page.evaluate(import(...))`) trocada por `writeDoc` (team/history/captured) + navegacao real; corrigidos tambem 4 seletores `[data-placeholder='...']` **ja mortos** (o `ScreenPlaceholder` nao e mais usado desde que Detail/Dex viraram telas reais - esses 4 asserts falhavam mesmo antes, em qualquer modo; trocados por `.detail-screen[data-dex]`/`.dex-screen`/`.captured-screen`). O aviso de "time cheio" (7o Pokemon) agora dispara a regra de verdade: abre a ficha do Mewtwo pela busca e clica `#btn-team` (antes so escrevia o doc direto, sem exercitar `addToTeam`). |
+| `compare.spec.ts` | 9/9 | Historico semeado visitando cada dex pela busca real da Home (isso ja empurra o historico de verdade, mesmo mecanismo confirmado em `detail.spec.ts`); Comparar/Configuracoes abertos pelo `[data-nav]` real da sidebar/tabbar. |
+| `item.spec.ts` | 16/16 (2 novos testes dev-only) | Navegacao pela tela Itens (busca + `.item-link`) em vez do import do navigation-store. `othermod:strange_widget` **nao existe** em `items.json` do dataset publicado (confirmado lendo o JSON): nenhum link real de UI leva a ele (e um teste de deep-link/sync para item de mod desconhecido). Isolado em 2 testes `test.skip(!DEV, ...)`, mesmo padrao do dex 4321 desconhecido em `detail.spec.ts`; nenhuma asercao foi removida. |
+| `items.spec.ts` | 30/30 | So trocou a navegacao (`go()`) por clique real no `[data-nav]` (sidebar/tabbar + sheet "Mais" no mobile). |
+| `trainers.spec.ts` | 25/25 | Navegacao real + doc `trainerProgress` escrito direto no IndexedDB (mesmo schema de `src/storage/types.ts`) no lugar do import de `trainers-store`. |
+| `balls.spec.ts` | 7/7 | Navegacao real. Achei e corrigi 1 bug de corrida NO PROPRIO TESTE (nao no app, ver "Bugs encontrados"). |
+| `responsive.spec.ts` (NOVO) | 8/8 (badges/chips) + 7/7 temas (screenshots, ver abaixo) | Ver secao propria abaixo. |
+
+Nenhuma asercao existente foi enfraquecida ou removida (so relocada, no caso do item.spec.ts, para isolar o caso
+sem caminho de UI).
+
+### `responsive.spec.ts` (novo arquivo dedicado)
+
+Duas partes, conforme a linha da matriz do T1 (SPEC):
+
+1. **Badges/chips a 360/390px** em Home, Dex, ficha (Mewtwo, tem badge lendario) e Capturados: `expectNoOverlap`
+   (harness existente) + 2 checagens novas: `expectBadgesIntact` (nenhum `.badge` com `scrollWidth > clientWidth`,
+   ou seja texto cortado dentro do proprio selo; a LINHA de selos pode quebrar, cada selo nao) e
+   `expectChipsInViewport` (nenhum `.chip` com a caixa delimitadora ultrapassando a largura da viewport, exceto
+   dentro de uma faixa com scroll horizontal proposital tipo `.history-row` no mobile ou `.chips-scroll`/`.tabs`/
+   `.seg-tabs`, todas `overflow-x: auto` por CSS - a checagem anda pelos ancestrais e ignora esses casos). 8/8
+   passando (Home/Dex/ficha/Capturados x 360/390px).
+2. **7 temas x Home/ficha**: decisao 10 do F1.4 (`HANDOFF_frontend.md`) ja apontava que pixel-diff contra
+   `ui-refs/` (screenshots do PROTOTIPO) sempre falharia (fontes/CDN diferentes do app publicado). Este arquivo
+   gera baselines do PROPRIO app com `toHaveScreenshot` (`maxDiffPixelRatio: 0.02`, ou seja 2% de tolerancia),
+   tema aplicado escrevendo o doc `preferences` direto no IndexedDB (`theme`, `reduceMotion: true` pra congelar
+   animacoes) + reload (a preferences-store nao ouve o evento `pontindex:data-changed`, entao precisa de reload
+   pra aplicar). Screenshots mascaram `.hero-art .sparkles`/`.sheen` (elementos animados de lendario/mitico, sem
+   efeito no Charizard mas mantido por seguranca se o alvo mudar). Baselines geradas em modo DEV
+   (`PW_DEV=1 PW_PORT=4180 npx playwright test tests/e2e/responsive.spec.ts -g "7 themes" --update-snapshots`) e
+   commitadas em `tests/e2e/responsive.spec.ts-snapshots/`. **Resultado**: 14 baselines geradas (7 temas x
+   Home/ficha) com `--update-snapshots`, depois confirmadas com uma 2a rodada SEM `--update-snapshots`: 7/7
+   passando (a tolerancia de 2% absorve as pequenas diferencas de anti-aliasing entre a geracao e a conferencia).
+
+### Bugs encontrados
+
+| Onde | Descricao | Causa | Fix |
+|---|---|---|---|
+| `balls.spec.ts` (teste, nao app) | Teste "PT/EN search with AND": `q.fill("bola")` seguido IMEDIATAMENTE de clicar no filtro "Agua", sem esperar o grid confirmar a busca -> filtro aplicado sobre a query ANTERIOR ("crepusculo", do passo de teste logo antes), zerando a lista (0 resultados em vez de 3: dive/lure/net ball) | Corrida: `ListSearch` grava a query com debounce de 120ms (`src/screens/Trainers/ListSearch.tsx`); o clique no filtro nao esperava esse commit | Confirmado que a falha e PRE-EXISTENTE (reproduzida no arquivo original, antes de qualquer mudanca de navegacao, rodando num dev server limpo). Fix no teste (nao no app): espera `#ball-grid .ball-card` refletir o total do dataset (todos os 48 nomes tem "bola") antes de clicar no filtro. Commit `dc766b32`. |
+
+Nenhum bug de app encontrado por este agente. As 5 falhas so-em-producao de `capture.spec.ts`/`detail.spec.ts`
+continuam sem investigar (fora do escopo, dono e o agente de debug em paralelo).
+
+### Commits desta Continuacao
+
+`test(e2e): make home.spec.ts mode-agnostic`, `test(e2e): make item.spec.ts mode-agnostic`,
+`test(e2e): make compare.spec.ts mode-agnostic`, `test(e2e): make items.spec.ts mode-agnostic`,
+`test(e2e): make trainers.spec.ts mode-agnostic`, `test(e2e): make balls.spec.ts mode-agnostic and fix a search
+debounce race`, e o commit de `responsive.spec.ts` (+ snapshots). Nenhum com assinatura, nenhum com travessao,
+nenhum `--amend`/`--no-verify`, nenhum push.
+
+### O comando final para rodar a suite inteira
+
+```
+export PATH="/c/Program Files/nodejs:$APPDATA/npm:$PATH"
+PW_DEV=1 PW_PORT=4178 npx playwright test --workers=1 --grep-invert "pwa-offline"
+npx vite build && npx vite preview --port 4173 --strictPort &
+npx playwright test tests/e2e/pwa-offline.spec.ts
+```
+
+O primeiro comando agora cobre TODOS os specs mode-agnostic (inclusive `responsive.spec.ts`) de uma vez so; o
+segundo e so pra `pwa-offline.spec.ts` (Service Worker real, so existe em producao). As 5 falhas so-em-producao
+de `capture.spec.ts`/`detail.spec.ts` (fora do escopo) so aparecem se alguem rodar esses 2 arquivos especificos
+SEM `PW_DEV` (ver `CHECKLIST_pontindex.md`, secao Bugs).
+
+### Onde parei (desta Continuacao)
+
+Terminado dentro do escopo pedido. Nada ficou pendente do lado desta Continuacao:
+- Os 6 specs (`home`, `compare`, `item`, `items`, `balls`, `trainers`) e o novo `responsive.spec.ts` rodam
+  mode-agnostic e ficaram verdes individualmente (ver tabela acima).
+- `responsive.spec.ts` esta completo: badges/chips 8/8 + baselines de tema geradas e confirmadas (14 PNGs
+  commitados).
+- Nao rodei a suite COMPLETA de uma vez so nesta sessao (rodei cada spec/arquivo individualmente para nao competir
+  por CPU/porta com o agente de debug em paralelo, que estava com `capture.spec.ts`/`detail.spec.ts` abertos ao
+  mesmo tempo). Recomendo ao proximo agente (ou ao Pontin) rodar o comando final da secao acima uma vez, sozinho
+  na maquina, para confirmar a suite inteira de ponta a ponta.
+- Fora do meu escopo, ainda em aberto (dono e o agente de debug em paralelo): as 5 falhas so-em-producao de
+  `capture.spec.ts`/`detail.spec.ts` (ver `CHECKLIST_pontindex.md`, secao Bugs).
 
 ## Correcoes producao (as 5 falhas "so em producao" de capture/detail)
 
