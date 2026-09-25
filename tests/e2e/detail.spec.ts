@@ -517,3 +517,65 @@ test.describe("F5.2 forms", () => {
     });
   }
 });
+
+test.describe("F5.3 best ball", () => {
+  test("Magikarp: top 3 ranked, Net Ball (3x) above Poke Ball, Dusk Ball shows its light-0 condition, guaranteed row, item link", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 129);
+    const panel = page.locator("#best-panel");
+    await expect(panel.locator(".best-ball")).toHaveCount(3);
+    await expect(panel.locator(".best-ball").first()).toHaveClass(/best-first/);
+    await expect(panel.locator(".best-rank")).toHaveText(["1", "2", "3"]);
+    await expect(panel.locator(".best-guaranteed")).toContainText("Captura garantida:");
+    await expect(panel.locator(".best-guaranteed")).toContainText("Bola Mestra");
+    await expect(panel.locator(".best-crit")).toContainText("Captura crítica:");
+    await panel.locator(".best-more").click();
+    const ids = await panel.locator(".best-ball").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.ball));
+    expect(ids.indexOf("net_ball")).toBeGreaterThan(-1);
+    expect(ids.indexOf("net_ball")).toBeLessThan(ids.indexOf("poke_ball"));
+    await expect(panel.locator("[data-ball='net_ball'] .ball-mult")).toHaveText("3x");
+    await expect(panel.locator("[data-ball='net_ball'] .ball-eff")).toHaveText("Tipo Água / Inseto");
+    await expect(panel.locator("[data-ball='dusk_ball'] .ball-eff")).toHaveText("3.5x com luz 0");
+    await expect(panel.locator("[data-ball='love_ball']")).toHaveCount(1);
+    await expect(panel.locator("[data-ball='lure_ball']")).toHaveCount(1);
+    await panel.locator("[data-ball='net_ball']").click();
+    await expect(page.locator(".screen")).toHaveAttribute("data-screen", "item");
+    await page.goBack();
+    await expect(page.locator("#best-panel")).toBeVisible();
+    await page.locator("#best-panel .best-all").click();
+    await expect(page.locator(".screen")).toHaveAttribute("data-screen", "balls");
+    expect(errors).toEqual([]);
+  });
+
+  test("genderless and non-water species: no Love, Lure or Dive Ball; EN terms", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 81);
+    const panel = page.locator("#best-panel");
+    await panel.locator(".best-more").click();
+    await expect(panel.locator("[data-ball='love_ball']")).toHaveCount(0);
+    await expect(panel.locator("[data-ball='lure_ball']")).toHaveCount(0);
+    await expect(panel.locator("[data-ball='dive_ball']")).toHaveCount(0);
+    await panel.locator(".terms-tgl [data-tl='en']").click();
+    await expect(panel.locator("[data-ball='dusk_ball'] .ball-name-main")).toHaveText("Dusk Ball");
+    await expect(panel.locator("[data-ball='dusk_ball'] .ball-eff")).toHaveText("3.5x com luz 0");
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`best ball panel without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 129);
+      await page.locator("#best-panel .best-more").click();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.mouse.move(1, 1);
+        await settle(page);
+        await expectNoOverlap(page, page.locator("#best-panel"));
+      }
+      if (SHOTS && width === 1280) {
+        await page.locator("#best-panel").scrollIntoViewIfNeeded();
+        await page.locator("#best-panel").screenshot({ path: `${SHOTS}/desktop-detail-best-ball.png` });
+      }
+    });
+  }
+});
