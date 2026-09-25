@@ -3,8 +3,6 @@ import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.BALLS_SHOTS_DIR;
-type NavModule = typeof import("../../src/navigation/navigation-store");
-const NAV_URL = "/src/navigation/navigation-store.ts";
 
 function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -15,14 +13,14 @@ function trackConsoleErrors(page: Page): string[] {
   return errors;
 }
 
+// Navegacao por interacao real de UI (sidebar no desktop, sheet "Mais" no mobile): funciona em dev e producao.
 async function go(page: Page, screen: "balls" | "settings") {
-  await page.evaluate(
-    async ({ url, screen }) => {
-      const nav = (await import(/* @vite-ignore */ url)) as NavModule;
-      nav.useNavigationStore.getState().navigate(screen);
-    },
-    { url: NAV_URL, screen },
-  );
+  let link = page.locator(`[data-nav="${screen}"]:visible`).first();
+  if ((await link.count()) === 0) {
+    await page.locator('[data-nav="more"]:visible').first().click();
+    link = page.locator(`[data-nav="${screen}"]:visible`).first();
+  }
+  await link.click();
 }
 
 async function openBalls(page: Page, width = 1280, height = 800) {
@@ -73,6 +71,9 @@ test("F9.1 all balls, textures, filters, PT/EN search with AND, restore on back,
   await expect(page.locator('.ball-card[data-ball="dusk_ball"]')).toBeVisible();
 
   await q.fill("bola");
+  // espera o debounce da busca (120ms) confirmar "bola" antes de aplicar o filtro: senao o clique no filtro pode
+  // ler a query anterior ("crepusculo") ainda nao substituida, zerando a lista (bug de corrida no teste, nao no app).
+  await expect(page.locator("#ball-grid .ball-card")).toHaveCount(total);
   await page.locator(".ball-filters button", { hasText: "Água" }).click();
   const n = await page.locator("#ball-grid .ball-card").count();
   expect(n).toBeGreaterThan(0);
