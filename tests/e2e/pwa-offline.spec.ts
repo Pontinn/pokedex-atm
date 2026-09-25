@@ -176,6 +176,29 @@ test.describe("F12.1 PWA installable and cache", () => {
     await context.setOffline(false);
   });
 
+  test("offline detail whose artwork was never fetched falls back to the placeholder", async ({ page, context }) => {
+    const errors = trackPageErrors(page);
+    await installAndControl(page);
+    // pre-cacheia so o JSON da especie (via fetch, sem abrir a ficha: a ficha abriria o <img> e cachearia o
+    // artwork tambem). Assim a ficha carrega offline, mas o artwork nunca foi visto/cacheado.
+    const dex = 143; // Snorlax: nao usado em nenhum outro teste deste arquivo
+    await page.evaluate(async (d) => {
+      const current = (await (await fetch("/data/current.json")).json()) as { datasetVersion: string };
+      await fetch(`/data/${current.datasetVersion}/species/${d}.json`);
+    }, dex);
+    await context.setOffline(true);
+    await page.reload();
+    await bootHome(page);
+    expect(await page.evaluate(() => navigator.onLine)).toBe(false);
+    await page.locator("#search-input").fill(String(dex));
+    await page.locator(`.search-dd .dd-item[data-dex='${dex}']`).click();
+    await expect(page.locator(`.detail-screen[data-dex='${dex}'] .hero-card`)).toBeVisible();
+    await expect(page.locator(".hero-card .art-placeholder")).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator(".hero-card .artwork-img")).toHaveCount(0);
+    expect(errors).toEqual([]);
+    await context.setOffline(false);
+  });
+
   test("new service worker waiting -> 'Nova versão disponível' toast; Atualizar activates it and reloads", async ({ page }) => {
     // O fetch do script do SW nao passa por page/context.route (medido: 0 interceptacoes, com ou sem
     // PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS). Entao este teste sobe um servidor estatico proprio sobre
