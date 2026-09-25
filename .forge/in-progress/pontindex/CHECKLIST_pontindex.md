@@ -370,22 +370,22 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
   - Done when (literal da SPEC): Eevee mostra 8 ramos com metodos reais (Espeon = Amizade 160 + de dia; Sylveon = Amizade 160 + golpe de Fada; Jolteon = Pedra do Trovão clicavel); Charizard linear 16/36.
   - notas: grupo A. e2e (+5): Eevee 8 ramos; Espeon "Amizade 160 + de dia", Sylveon "Amizade 160 + sabendo golpe de Fada", Jolteon "Pedra do Trovão" clicavel abre a pagina do item e Voltar volta; no Jolteon abre a ficha; Charizard linear "Nível 16"/"Nível 36" com o no atual destacado; Tauros "Não evolui"; painel sem sobreposicao 360/390/1280 PT/EN. Unit `detail-evolution.test.ts` (2). Textura do item: o dataset traz `assets/items/...` e o `ItemTile` (congelado) prefixa `/assets/items/`, entao a ficha passa o caminho relativo (`itemTexture()` em EvolutionPanel.tsx); o grupo B deve fazer o mesmo.
 
-- [ ] F4.4 Golpes com abas e descricao
-  - hash:
+- [x] F4.4 Golpes com abas e descricao
+  - hash: 69b6719b
   - Done when (literal da SPEC): `desktop-detail-charizard-moves-tm.png`; trocar aba mantem scroll da tela e nao remonta `DetailScreen`.
-  - notas:
+  - notas: grupo A. e2e (+5): Charizard Nivel 18 linhas em ordem asc, TM 85 linhas sem remontar (`data-entry-id`) e com scroll de #main igual (2 px); Terremoto/Earthquake Terra Fisico 100/100%/PP 10, Danca do Dragao "-"/"-"; descricao abre e `current.ui.openMoveRows = ["earthquake"]`; termos EN so no card; aba e linha aberta restauradas apos ir ao Ditto e Voltar; Ditto TM = EmptyState "Nenhum golpe nesta categoria"; sem sobreposicao 360/390/1280 PT/EN e tabela cabe sem rolagem horizontal a 1280. Unit `detail-moves.test.ts` (3). Coluna PP adicionada (SPEC), poder/precisao 0 do dataset exibidos como "-". Commit extra `97494c09` (typecheck do dex-filter.test.ts, pedido do orquestrador).
 
 ### Sprint F5: Ficha do Pokemon (parte 2: onde encontrar, como obter, formas, melhor bola, calculadoras)
 
-- [ ] F5.1 Onde encontrar, raridade, drops e Como obter
-  - hash:
+- [x] F5.1 Onde encontrar, raridade, drops e Como obter
+  - hash: 06370289
   - Done when (literal da SPEC): Eevee mostra 5 entradas com bucket principal Incomum e secundarios Raro/Ultra-raro; Mewtwo mostra "Como obter: Fóssil (Pika Star / Ancient DNA Sample)" e nenhum aviso generico; especie sem rota mostra `.ob-none`.
-  - notas:
+  - notas: grupo A. e2e `detail.spec.ts` (+6, dataset real): Eevee badges Incomum/Raro/Ultra-raro, 5 entradas (biomas de biomes.json "Mundo Aberto", "Luz do céu 8-15"), 2 drops clicaveis (Eviolita abre a pagina do item e Voltar volta), breeding "Campo"; Mewtwo 1 entrada ccc Ultra-raro 70-75 com Caverna + tag do addon, Fossil com Pika Star e Ancient DNA Sample clicaveis + linha "via Cobblemon Community Content", sem `.ob-none`; Magikarp 6 de 46 e "Mostrar todas (46)"; Pichu (obtain none) `.ob-none`; Ivysaur "Evolua Bulbasaur (Nível 16)" com ob-link para a ficha; sem sobreposicao 360/390/1280 PT/EN. Novo `ItemLink` (`src/screens/Detail/ItemLink.tsx`). Chaves `egg.*`, `where.ctx.*` e `obtain.addon.{raiddens,ultrawormholes,summoningrituals}` no modulo detail. Obs.: `tests/unit/ui-foundation/i18n.test.tsx` falha HOJE por `ip.noDesc` (chave excluida pela SPEC) adicionada em `src/i18n/messages/item.ts` NAO commitado do grupo B; nao e do grupo A.
 
-- [ ] F5.2 Abas de forma com item necessario
-  - hash:
+- [x] F5.2 Abas de forma com item necessario
+  - hash: 16aef11f
   - Done when (literal da SPEC): `desktop-detail-charizard-mega-x-form.png`: Mega X exibe Charizardite X + Keystone clicaveis.
-  - notas:
+  - notas: grupo A. e2e (+5): Charizard abas Normal/Mega-X/Mega-Y/Gmax (`current.ui.formIndex`, sem remontar a tela); Normal "Forma base, sem item"; Mega-X Fogo/Dragao, "Só em batalha", Charizardita X + Pedra Chave clicaveis (abre a pagina do item e Voltar mantem a aba), "(Mega Showdown)", Garras Duras, artwork 10034, BST 634; Gmax sem itens = "Nenhum item necessário" (Mega sem item = "Item não identificado nos dados do addon"); Ditto sem formas oculta o painel; sem sobreposicao 360/390/1280 PT/EN. Texturas de item animadas (faixa 16x32) vazavam do tile: `.it-link .it-tile img` mostra so o 1o quadro. Print conferido com desktop-detail-charizard-mega-x-form.png.
 
 - [ ] F5.3 Melhor Pokebola na ficha
   - hash:
@@ -430,20 +430,20 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F9: Colecoes (Pokebolas e itens)
 
-- [!] F9.1 Grade de Pokebolas
-  - hash:
+- [x] F9.1 Grade de Pokebolas
+  - hash: 496d5330
   - Done when (literal da SPEC): `desktop-balls-full.png`; `balls.json.length` cards com filtro "Todas" (48 no dataset atual; nunca um numero fixo no codigo). + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
-  - notas: BLOQUEADO por bug no contrato de dados (fora do escopo do grupo B): `src/data/schemas.ts` `ballCondition` (zod) nao tem `minBaseSpeedAbove`/`hasAnyType` (o tipo TS em `src/data/types.ts` tem), entao `loadBalls()` SEMPRE falha com INVALID (fast_ball/net_ball do balls.json real) e a tela mostra "Nao foi possivel carregar os dados". Afeta tambem F5.3 (melhor bola, grupo A). Codigo da tela PRONTO e NAO commitado no working tree: `src/screens/Balls/{BallsScreen.tsx,ball-model.ts,balls.css}`, chaves novas em `src/i18n/messages/balls.ts`, `tests/unit/ui-screens/balls-model.test.ts` (4 verdes), `tests/e2e/balls.spec.ts` (7 falham so pelo INVALID). Depois do fix do schema: rodar o e2e, conferir o print e commitar `feat(balls): ...`.
+  - notas: grupo B. Desbloqueado pelo fix de schema 5f1f18dc. 48 cards com "Todas" (contagem lida do balls.json no e2e, nada fixo no codigo); multiplicador "1.5x"/"1x a 4x"/"Garantida"; efeito oficial no idioma da UI; busca PT/EN ("dusk" e "crepusculo" acham a Dusk Ball, "bola" + Agua combina em E, estado vazio mostra o texto, restaura ao voltar, limpar volta tudo); clique abre a pagina do item. Provas: `tests/unit/ui-screens/balls-model.test.ts` (4) + `tests/e2e/balls.spec.ts` (7, dataset real, 0 erros de console, expectNoOverlap 360/390/1280 PT e EN). Conferido contra desktop-balls-full.png (ordem = ordem do dataset, ancestrais primeiro). Limpeza no commit af7c1450: `itemTexturePath` removido (ItemTile resolve a textura) e `ListSearch` tipado por tela (`filters.query` em treinadores/bolas, `query` em itens), sem cast.
 
-- [ ] F9.2 Grade de itens com busca PT/EN
-  - hash:
+- [x] F9.2 Grade de itens com busca PT/EN
+  - hash: f294554c
   - Done when (literal da SPEC): `desktop-items-grid.png` (referencia vale para grade, cores, icones e abas; o cabecalho do `.item-card` e MASCARADO na comparacao, porque o layout mudou: tag acima do nome, ver UISPEC nota de 2026-09-24); buscar "pocao" acha "Poção/Potion" com card em EN. Card de item: tag da categoria acima do nome; `expectNoOverlap` na grade de itens a 360 px, 390 px e 1280 px, PT e EN, incluindo nomes longos (ex. "Choice Scarf", "Leftovers"), sem o nome quebrar por falta de espaco causada pela tag.
-  - notas:
+  - notas: grupo B. Abas na ordem da SPEC so com itens (aba Iscas = itens com a tag `bait`, 73 no dataset; aba sem item nao aparece); busca `#item-q` (mesmo visual da Home) em TODOS os itens quando ha texto, abas ficam sem ativa; clicar numa aba limpa a busca (`ListSearch` agora acompanha mudanca externa do estado de UI). "pocao" acha Poção/Potion e com o toggle do card em EN o card mostra "Potion" / "Poção". Card: tag em linha propria ACIMA do nome (conferido por bounding box), seta a direita so quando ha descricao (expande a descricao, `openItemId`); sem descricao = "Sem descrição oficial neste item"; sem textura = icone Lucide por categoria. Provas: `tests/unit/ui-screens/items-model.test.ts` (3) + `tests/e2e/items.spec.ts` (7, dataset real, 0 erros de console, expectNoOverlap 360/390/1280 PT e EN com Choice Scarf e Leftovers em 1 linha e nomes longos "mecanismo"). Desvio: sem virtualizacao JS; `content-visibility: auto` nos cards (aba Outros tem 559 itens). Conferido contra desktop-items-grid.png (cabecalho do card mascarado, layout novo).
 
-- [ ] F9.3 Pagina do item
-  - hash:
+- [x] F9.3 Pagina do item
+  - hash: 6cc361d1
   - Done when (literal da SPEC): e2e movido de F1.3 (criterio de aceite, primeira feature em que a pagina de item existe): "Charizard > Golpes TM > scroll > item > Voltar" restaura aba, scroll (tolerancia 2 px) e linhas abertas (Playwright `headless: true`, sem `slowMo`, `expect.poll`); `desktop-item-page-full.png` (Poção); Fire Stone lista "Usado em: Eevee -> Flareon, Vulpix -> Ninetales, Growlithe -> Arcanine"; item sem rota mostra "Sem rota confirmada".
-  - notas:
+  - notas: grupo B. Hero com textura 112 px `image-rendering: pixelated`, badge da categoria, nome + alternativo (toggle `itempage`), descricao oficial ou "Sem descrição oficial neste item", aviso de cozinha pendente. Como obter: receita = "Sim, tem receita (tipos legiveis)" (nunca a receita), drops com `mon-chip` e %, plantavel com biomas, loot humanizado, pesca, fossil; sem rota = `.ob-none` "Sem rota confirmada...". Usado em: evolucoes (from -> to), fosseis, formas, bola (multiplicador + efeito), Efeito (cura/cozinha/berry). Id desconhecido = pagina minima "Item de outro mod" (obs.: `minecraft:gunpowder` EXISTE no items.json atual; o e2e usa `othermod:strange_widget`). Provas: `tests/unit/ui-screens/item-page.test.ts` (4) + `tests/e2e/item.spec.ts` (9, dataset real, 0 erros de console): Pocao, Fire Stone (Eevee -> Flareon, Vulpix -> Ninetales, Growlithe -> Arcanine; chip abre a ficha e Voltar volta), sem rota, desconhecido, Dusk Ball, Voltar do botao; "Charizard > Golpes TM > linha aberta > scroll > item > Voltar" restaura aba, linha aberta e scroll (2 px, `expect.poll`); DESVIO: a ficha do Charizard ainda nao tem item clicavel (formas/melhor bola sao F5), entao o item e aberto pela pilha (`navigate`), como o clique faria; T1 pode trocar por clique real. expectNoOverlap 360/390/1280 PT e EN. Conferido contra desktop-item-page-full.png ("Como usar" do prototipo omitido: o dataset nao tem esse texto).
 
 ### Sprint F10: Configuracoes
 

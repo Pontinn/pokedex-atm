@@ -231,11 +231,20 @@ Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22
 - ATENCAO grupo B: `ItemTile` prefixa `/assets/items/` e o dataset ja traz `texture` = `assets/items/...`; passar `itemTexture(item.texture)` (senao cai sempre no icone generico).
 - Testes: `tests/e2e/detail.spec.ts` agora com 18 testes (F4.1 9, F4.2 4, F4.3 5), unit `detail-hero`, `detail-panels`, `detail-evolution`.
 
-### Onde parei (fim da sessao do agente, 2026-09-24 22:16)
+### F4.4 (`69b6719b`), F5.1 (`06370289`), F5.2 (`16aef11f`) + `97494c09` (typecheck do dex-filter.test.ts)
 
-- Feitos: F3.1, F3.2, F4.1, F4.2, F4.3. Proximo: F4.4 (golpes com abas; `MovesPanel` na coluna direita depois de `AbilitiesPanel`, estado em `current.ui.moveTab/openMoveRows`), depois rodar a SUITE COMPLETA do vitest (fim do sprint F4), depois F5.1..F5.4, F6.1, F6.2.
-- `DetailScreen.tsx` monta: esquerda = `HeroCard` + `StatsPanel`; direita = `WeaknessPanel`, `EvolutionPanel`, `AbilitiesPanel`. `HeroCard` aceita `onCapture` (F6.1 liga o overlay; hoje "Capturei" marca direto).
-- Suite completa (fim de F3): unica falha e `tests/unit/ui-shell/shell.test.tsx` esperando o placeholder de Treinadores (grupo B implementou a tela; teste congelado, fora do escopo do A).
+Agente: forge-imp-frontend (Grupo A, continuacao). Inicio 2026-09-24 22:16. Fim 23:00 (limite de tempo).
+
+- Novos em `src/screens/Detail/`: `MovesPanel({ moves })` (+ `buildMoveRows`, `useMovesFile`, coluna PP; poder/precisao 0 do dataset = "-"), `WherePanel({ detail })` (raridade, `SpawnEntryRow`, colapso apos 6, drops, `ObtainPanel`; helpers `biomeText`, `contextText`, `eggGroupText`, `addonText`), `ItemLink({ id, items, lang, className?, size? })` (item clicavel reutilizavel, `itemDisplayName`, `humanItemId`), `FormsPanel({ detail })` (abas em `current.ui.formIndex`).
+- Ordem na coluna direita: `WeaknessPanel`, `EvolutionPanel`, `AbilitiesPanel`, `MovesPanel`, `WherePanel`, `FormsPanel`. Proximos: `BestBallPanel` entra ENTRE `WherePanel` e `FormsPanel` (como o prototipo), calculadoras (`<details class="panel calc">`) no fim.
+- Testes: `tests/e2e/detail.spec.ts` (+16: F4.4 5, F5.1 6, F5.2 5), unit `detail-moves.test.ts` (3). Opcional `DETAIL_SHOTS_DIR=<pasta>` grava moves-tm, eevee-where e mega-x-form.
+- Suite completa no fim de F4 (22:40): 38 arquivos / 312 testes verdes.
+
+### Onde parei (fim da sessao do agente, 2026-09-24 23:00)
+
+- Feitos: F3.1..F5.2. Proximo: F5.3 (melhor bola; o schema das bolas ja foi corrigido em `5f1f18dc`, `rankBalls` de B6.4), F5.4, depois SUITE COMPLETA (fim de F5), F6.1, F6.2 (Capturados precisa de `filters.query` em `UiStateMap.captured`: hoje e so `{ tab }`, pedir ao orquestrador ou usar cast local como o grupo B fazia).
+- `HeroCard` aceita `onCapture` (F6.1 liga o overlay; hoje "Capturei" marca direto).
+- Falhas atuais FORA do grupo A (arquivos nao commitados do grupo B): `tests/unit/ui-foundation/i18n.test.tsx` falha porque `src/i18n/messages/item.ts` ganhou `ip.noDesc` (chave excluida pela SPEC); `npm run typecheck` falha em `tests/e2e/compare.spec.ts:42` (import `/src/...` sem o cast `as string`).
 
 ## Correcao compartilhada (grupo B)
 
