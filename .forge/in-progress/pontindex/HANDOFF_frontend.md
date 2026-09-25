@@ -236,3 +236,17 @@ Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22
 - Feitos: F3.1, F3.2, F4.1, F4.2, F4.3. Proximo: F4.4 (golpes com abas; `MovesPanel` na coluna direita depois de `AbilitiesPanel`, estado em `current.ui.moveTab/openMoveRows`), depois rodar a SUITE COMPLETA do vitest (fim do sprint F4), depois F5.1..F5.4, F6.1, F6.2.
 - `DetailScreen.tsx` monta: esquerda = `HeroCard` + `StatsPanel`; direita = `WeaknessPanel`, `EvolutionPanel`, `AbilitiesPanel`. `HeroCard` aceita `onCapture` (F6.1 liga o overlay; hoje "Capturei" marca direto).
 - Suite completa (fim de F3): unica falha e `tests/unit/ui-shell/shell.test.tsx` esperando o placeholder de Treinadores (grupo B implementou a tela; teste congelado, fora do escopo do A).
+
+## Correcao compartilhada (grupo B)
+
+Agente: forge-imp-backend (fix, orquestrador). 2026-09-24 22:08-22:35. Arquivos congelados editados com autorizacao do orquestrador.
+
+| Commit | O que mudou |
+|---|---|
+| `5f1f18dc` | `src/data/schemas.ts`: `ballCondition` ganhou `minBaseSpeedAbove` e `hasAnyType` (igual ao `BallCondition` de `types.ts`); `loadBalls()` aceita o `balls.json` real. Desbloqueia F9.1 e a melhor bola de F5.3. Novo `tests/unit/data/published-schemas.test.ts` valida TODOS os arquivos publicados reais com os schemas dos loaders e confere que nenhum campo e descartado (os outros schemas ja batiam). |
+| `59500a8e` | `src/components/ItemTile.tsx`: novo `itemTextureUrl()` exportado; `assets/items/...` vira `/assets/items/...` (sem prefixo dobrado), `/...` passa direto e o caminho curto `<ns>/<nome>.png` continua recebendo `/assets/items/`. Os contornos `itemTexturePath()` (`src/screens/Trainers/trainer-model.ts`, grupo B) e `itemTexture()` (`src/screens/Detail/EvolutionPanel.tsx`, grupo A) seguem funcionando e PODEM ser removidos (passar `item.texture` direto). Teste `tests/unit/ui-foundation/item-tile.test.ts` confere que toda textura do `items.json` real resolve para um arquivo existente em `public/`. |
+| `76d2e4f7` | `tests/e2e/shell.spec.ts`: telas reais em vez de placeholders (`.trainers-screen`, `.home-screen`, `.sync-screen`, `.dex-screen`, `.settings-screen`) e mock de `series.json` vazio (a tela de Treinadores gerava 404 no console). 15/15 verdes com `PW_DEV=1 PW_PORT=4177`. |
+| `73da7ee3` | `tests/unit/ui-shell/shell.test.tsx`: espera `.trainers-screen` e mocka `loadSeries`. |
+| `767b349b` | `src/navigation/types.ts`: `ListFilters { query: string }`; `UiStateMap.trainers.filters` e `UiStateMap.balls.filters` (padrao `{ query: "" }`), no molde do dex. O cast local de `src/screens/Trainers/ListSearch.tsx` pode sair (`updateUi({ filters: { query } })`). |
+
+Verificacao: `npm run lint` 0; `npx vitest --run` 36 arquivos / 306 testes verdes; `npm run typecheck` com 1 erro so em `tests/unit/ui-screens/dex-filter.test.ts:61` (grupo A, commit `4ed202c7`, `SpeciesSummary | undefined`), nada nos arquivos desta correcao.
