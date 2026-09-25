@@ -224,3 +224,15 @@ Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22
 - Comportamento: official-artwork (shiny em `/shiny/`), timeout 8 s ou erro -> `ArtworkPlaceholder` e 1 nova tentativa em segundo plano; `PokeballSpinner` sobreposto enquanto carrega.
 - Outros da ficha: `src/screens/Detail/use-species-detail.ts` (`useSpeciesDetail(dex)` -> `{status: loading|ready|notFound|error, detail, retry}`), `HeroCard({ detail, onCapture? })` (F6.1 passa `onCapture` para abrir o overlay). A ficha chama `useHistoryStore.getState().push(dex)` ao abrir (nao ao voltar).
 - Testes F4.1: `tests/e2e/detail.spec.ts` (9) e `tests/unit/ui-screens/detail-hero.test.ts` (2).
+
+### F4.2 (`595ad987`) e F4.3 (`43bb4403`)
+
+- Novos: `StatsPanel`/`StatBars({ stats })` (`src/screens/Detail/StatsPanel.tsx`, reutilizavel nas formas F5.2 e em Comparar), `WeaknessPanel({ types })` e `WeakGrid({ types, filter, cardKey })` (reutilizavel na calculadora F5.4), `AbilitiesPanel` + `useAbilities()`, `EvolutionPanel({ chain, currentDex })` + `useItems()` + `itemTexture(texture)`.
+- ATENCAO grupo B: `ItemTile` prefixa `/assets/items/` e o dataset ja traz `texture` = `assets/items/...`; passar `itemTexture(item.texture)` (senao cai sempre no icone generico).
+- Testes: `tests/e2e/detail.spec.ts` agora com 18 testes (F4.1 9, F4.2 4, F4.3 5), unit `detail-hero`, `detail-panels`, `detail-evolution`.
+
+### Onde parei (fim da sessao do agente, 2026-09-24 22:16)
+
+- Feitos: F3.1, F3.2, F4.1, F4.2, F4.3. Proximo: F4.4 (golpes com abas; `MovesPanel` na coluna direita depois de `AbilitiesPanel`, estado em `current.ui.moveTab/openMoveRows`), depois rodar a SUITE COMPLETA do vitest (fim do sprint F4), depois F5.1..F5.4, F6.1, F6.2.
+- `DetailScreen.tsx` monta: esquerda = `HeroCard` + `StatsPanel`; direita = `WeaknessPanel`, `EvolutionPanel`, `AbilitiesPanel`. `HeroCard` aceita `onCapture` (F6.1 liga o overlay; hoje "Capturei" marca direto).
+- Suite completa (fim de F3): unica falha e `tests/unit/ui-shell/shell.test.tsx` esperando o placeholder de Treinadores (grupo B implementou a tela; teste congelado, fora do escopo do A).

@@ -365,10 +365,10 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
   - Done when (literal da SPEC): Charizard: Pedra x4, Agua x2, Eletrico x2, Fogo x1/2, Terra x0 (imune); `desktop-detail-charizard-resistances.png`.
   - notas: grupo A. e2e `tests/e2e/detail.spec.ts` (+4): Charizard Pedra x4, Agua/Eletrico x2, Fogo em x1/2, Terra x0; seletor Fraquezas (2 linhas) e Resistencias sem remontar a tela (`data-entry-id`); termos EN so no card de fraquezas; BST 534; 2 habilidades com 1 oculta; paineis sem sobreposicao 360/390/1280 PT/EN. Unit `detail-panels.test.ts` (3). Screenshot conferido com desktop-detail-charizard-resistances.png.
 
-- [ ] F4.3 Cadeia de evolucao clicavel
-  - hash:
+- [x] F4.3 Cadeia de evolucao clicavel
+  - hash: 43bb4403
   - Done when (literal da SPEC): Eevee mostra 8 ramos com metodos reais (Espeon = Amizade 160 + de dia; Sylveon = Amizade 160 + golpe de Fada; Jolteon = Pedra do Trovão clicavel); Charizard linear 16/36.
-  - notas:
+  - notas: grupo A. e2e (+5): Eevee 8 ramos; Espeon "Amizade 160 + de dia", Sylveon "Amizade 160 + sabendo golpe de Fada", Jolteon "Pedra do Trovão" clicavel abre a pagina do item e Voltar volta; no Jolteon abre a ficha; Charizard linear "Nível 16"/"Nível 36" com o no atual destacado; Tauros "Não evolui"; painel sem sobreposicao 360/390/1280 PT/EN. Unit `detail-evolution.test.ts` (2). Textura do item: o dataset traz `assets/items/...` e o `ItemTile` (congelado) prefixa `/assets/items/`, entao a ficha passa o caminho relativo (`itemTexture()` em EvolutionPanel.tsx); o grupo B deve fazer o mesmo.
 
 - [ ] F4.4 Golpes com abas e descricao
   - hash:
