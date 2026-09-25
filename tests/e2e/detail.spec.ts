@@ -149,11 +149,16 @@ test.describe("F4.1 hero", () => {
     await expect(page.locator(".detail-screen .ob-none")).toBeVisible();
   });
 
-  test("Capturei marks, confirm modal unmarks; team toggle", async ({ page }) => {
+  test("Capturei opens the capture overlay and marks, confirm modal unmarks; team toggle", async ({ page }) => {
     await boot(page);
     await openDetail(page, 25);
     const caught = page.locator("#btn-caught");
     await caught.click();
+    // F6.1: o overlay de captura (tocar pula para o final, Fechar fecha); detalhes em capture.spec.ts
+    await page.locator("#capture").click();
+    await expect(page.locator("#capture")).toHaveAttribute("data-stage", "s-final");
+    await page.locator("#capture .cap-close").click();
+    await expect(page.locator("#capture")).toHaveCount(0);
     await expect(caught).toHaveClass(/done/);
     await caught.click();
     await page.locator("#btn-unmark-confirm").click();

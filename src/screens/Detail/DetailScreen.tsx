@@ -2,7 +2,7 @@
 // useSpeciesDetail; ao ABRIR (nao ao restaurar via Voltar) registra a visita no historico (RF-33), toca o grito
 // apos 350 ms com o som ligado (RF-91) e, se a especie evolui, `evolution_notification`.
 import "./detail.css";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { playCry } from "../../audio/cries";
 import { playSfx } from "../../audio/sfx";
 import { EmptyState } from "../../components/EmptyState";
@@ -11,9 +11,12 @@ import { InlineError } from "../../components/InlineError";
 import type { ScreenProps } from "../../components/ScreenRouter";
 import { Skeleton } from "../../components/Skeleton";
 import type { SpeciesDetail } from "../../data/types";
-import { useT } from "../../i18n/useT";
+import { gameName, useT } from "../../i18n/useT";
 import { reapplyRestoredScroll, useNavigationStore } from "../../navigation/navigation-store";
-import { useNavigationActions } from "../../navigation/useNavigation";
+import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
+import { CaptureOverlay } from "../../components/CaptureOverlay";
+import { useCapturedStore } from "../../state/captured-store";
+import { artworkUrl } from "./ArtworkImage";
 import { useHistoryStore } from "../../state/history-store";
 import { usePreferencesStore } from "../../state/preferences-store";
 import { AbilitiesPanel } from "./AbilitiesPanel";
@@ -63,6 +66,26 @@ function useOpenEffects(dex: number, detail: SpeciesDetail | null) {
   }, [restored, detail]);
 }
 
+/** Overlay de captura (F6.1) aberto pelo "Capturei" do hero; overlay ja aberto ignora o 2o clique. */
+function CaptureLayer({ detail, onClose }: { detail: SpeciesDetail; onClose(): void }) {
+  const lang = usePreferencesStore((s) => s.uiLanguage);
+  const shiny = useScreenUi("detail", "shiny");
+  return (
+    <CaptureOverlay
+      dex={detail.dex}
+      name={gameName(detail, lang)}
+      labels={detail.labels}
+      artworkSrc={detail.artworkId == null ? null : artworkUrl(detail.artworkId, shiny)}
+      onCaptured={() => {
+        useCapturedStore
+          .getState()
+          .mark(detail.dex)
+          .catch((err: unknown) => console.warn("[detail] capture mark failed", err));
+      }}
+      onClose={onClose}
+    />
+  );
+}
 function BackButton() {
   const t = useT();
   const { goBack } = useNavigationActions();
@@ -78,6 +101,9 @@ export function DetailScreen({ params }: ScreenProps) {
   const dex = Number((params as { dex?: number }).dex);
   const state = useSpeciesDetail(dex);
   useOpenEffects(dex, state.detail);
+  const [capturing, setCapturing] = useState<SpeciesDetail | null>(null);
+  const startCapture = useCallback((d: SpeciesDetail) => setCapturing((cur) => cur ?? d), []);
+  const closeCapture = useCallback(() => setCapturing(null), []);
 
   if (state.status === "notFound") {
     return (
@@ -103,7 +129,7 @@ export function DetailScreen({ params }: ScreenProps) {
         <div className="detail-left">
           {detail ? (
             <>
-              <HeroCard detail={detail} />
+              <HeroCard detail={detail} onCapture={startCapture} />
               <StatsPanel stats={detail.baseStats} />
             </>
           ) : (
@@ -127,6 +153,7 @@ export function DetailScreen({ params }: ScreenProps) {
           <div className="detail-right" />
         )}
       </div>
+      {capturing ? <CaptureLayer key={capturing.dex} detail={capturing} onClose={closeCapture} /> : null}
     </section>
   );
 }
