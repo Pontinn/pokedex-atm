@@ -54,6 +54,11 @@ export interface DexFilters {
   query: string;
 }
 
+/** Busca das telas de lista (Treinadores, Pokebolas): texto em `ui.filters.query`, restaura ao voltar. */
+export interface ListFilters {
+  query: string;
+}
+
 export interface UiStateMap {
   home: { query: string };
   dex: { filters: DexFilters; sort: DexSort; status: DexStatusFilter };
@@ -68,8 +73,8 @@ export interface UiStateMap {
   };
   captured: { tab: string };
   compare: { left: number | null; right: number | null };
-  trainers: { seriesId: string | null; openTrainerId: string | null };
-  balls: { filter: string };
+  trainers: { seriesId: string | null; openTrainerId: string | null; filters: ListFilters };
+  balls: { filter: string; filters: ListFilters };
   items: { category: string; query: string; openItemId: string | null };
   item: Record<string, never>;
   settings: { openCard: string | null };
@@ -104,8 +109,8 @@ export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
     }),
     captured: () => ({ tab: "all" }),
     compare: () => ({ left: null, right: null }),
-    trainers: () => ({ seriesId: null, openTrainerId: null }),
-    balls: () => ({ filter: "all" }),
+    trainers: () => ({ seriesId: null, openTrainerId: null, filters: { query: "" } }),
+    balls: () => ({ filter: "all", filters: { query: "" } }),
     items: () => ({ category: "all", query: "", openItemId: null }),
     item: () => ({}),
     settings: () => ({ openCard: null }),
