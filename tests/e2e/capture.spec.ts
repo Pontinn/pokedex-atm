@@ -67,11 +67,18 @@ test.beforeEach(async ({ page }) => {
 });
 
 const STAGES = ["on", "s-bg", "s-ball", "s-shake", "s-open", "s-grow", "s-flash", "s-final"] as const;
+// ms desde o clique em que cada estagio depois de "on" comeca (CAPTURE_TIMELINE/CAPTURE_FINAL_AT de CaptureOverlay.tsx)
+const CAPTURE_STAGE_TIMES = [450, 1000, 1700, 3200, 3550, 5250, 5450] as const;
 const SHOT_NAMES = ["01-start", "02-bg", "03-ball", "04-shake", "05-open-burst", "06-silhouette-grow", "07-flash", "08-final-reveal"];
 
 test.describe("F6.1 capture overlay", () => {
   test("Charizard: full timeline in order with the 7 sounds, marks caught once, Close plays pokedex_close", async ({ page }) => {
     const errors = trackConsoleErrors(page);
+    // Relogio controlado: a linha do tempo e feita de setTimeout com janelas curtas (s-open 350 ms, s-flash 200 ms).
+    // Com relogio real, um travamento da thread principal (maquina carregada, workers em paralelo) faz 2 timers
+    // vencerem juntos e o React junta os 2 setStage num unico commit: o estagio do meio nunca chega ao DOM e o
+    // polling do expect tambem nao pega janelas de 200-350 ms. Com page.clock cada passo dispara isolado.
+    await page.clock.install();
     await boot(page);
     await openDetail(page, 6);
     await page.evaluate(() => {
@@ -88,16 +95,21 @@ test.describe("F6.1 capture overlay", () => {
         }
       }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-stage"] });
     });
+    // pausa o relogio antes do clique: daqui em diante o tempo so anda com runFor
+    await page.clock.pauseAt(Date.now() + 60_000);
     await page.locator("#btn-caught").click();
     const cap = page.locator("#capture");
     await expect(cap).toBeVisible();
     await expect(cap.locator(".cap-bg")).toHaveAttribute("data-bg", "bg-outros");
+    let elapsed = 0;
     for (const [i, stage] of STAGES.entries()) {
-      // s-flash dura 200 ms: a ordem completa e conferida pelo observador; o print e tirado quando o estagio e pego
-      if (stage === "s-flash") continue;
-      await expect(cap).toHaveAttribute("data-stage", stage, { timeout: 10_000 });
+      const at = i === 0 ? 0 : (CAPTURE_STAGE_TIMES[i - 1] ?? 0);
+      if (at > elapsed) await page.clock.runFor(at - elapsed);
+      elapsed = at;
+      await expect(cap).toHaveAttribute("data-stage", stage);
       if (SHOTS) await page.screenshot({ path: `${SHOTS}/capture-outros-${SHOT_NAMES[i]}.png` });
     }
+    await page.clock.resume();
     expect(await page.evaluate(() => (window as unknown as { __stages: string[] }).__stages)).toEqual([...STAGES]);
     await expect(cap).toHaveClass(/capture on s-bg s-final/);
     await expect(cap.locator(".cap-name")).toHaveText("Charizard");
@@ -156,6 +168,10 @@ test.describe("F6.1 capture overlay", () => {
     await openDetail(page, 4);
     await page.locator("#btn-caught").click();
     await expect(page.locator("#capture")).toHaveAttribute("data-stage", "s-bg", { timeout: 10_000 });
+    await page.goBack();
+    // openDetail passa pela Home (busca): a pilha e ficha 1 > Home > ficha 4, entao o Voltar cai na Home
+    await expect(page.locator(".home-screen")).toBeVisible();
+    await expect(page.locator("#capture")).toHaveCount(0);
     await page.goBack();
     await expect(page.locator(".detail-screen[data-dex='1']")).toBeVisible();
     await expect(page.locator("#capture")).toHaveCount(0);

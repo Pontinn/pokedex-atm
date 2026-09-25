@@ -330,10 +330,16 @@ test.describe("F4.4 moves", () => {
     const levels = await panel.locator("tbody .mv-row td.num:first-child").allTextContents();
     const nums = levels.map(Number);
     expect([...nums].sort((a, b) => a - b)).toEqual(nums);
+    await settle(page);
     await panel.locator("#move-tabs").evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
     const entry = await page.locator(".screen").getAttribute("data-entry-id");
     const scrollBefore = await page.locator("#main").evaluate((m) => m.scrollTop);
-    await panel.locator("#move-tabs [data-mtab='tm']").click();
+    // clique de mouse cru no centro da aba (como o usuario): o locator.click() faz o "scroll into view if needed"
+    // do Playwright, que com o scroll-behavior: smooth do #main as vezes anima o #main algumas centenas de px
+    // DEPOIS do clique (medido: 571 -> 150/914 com locator.click, 571 -> 571 com mouse.click em 3/3)
+    const tmBox = await panel.locator("#move-tabs [data-mtab='tm']").boundingBox();
+    if (!tmBox) throw new Error("TM tab without bounding box");
+    await page.mouse.click(tmBox.x + tmBox.width / 2, tmBox.y + tmBox.height / 2);
     await expect(panel.locator("#move-tabs [data-mtab='tm']")).toHaveClass(/active/);
     await expect(panel.locator("tbody .mv-row")).toHaveCount(85);
     await expect(page.locator(".screen")).toHaveAttribute("data-entry-id", entry ?? "");
@@ -376,6 +382,9 @@ test.describe("F4.4 moves", () => {
     await openDetail(page, 132);
     await page.locator("#moves-panel #move-tabs [data-mtab='tm']").click();
     await expect(page.locator("#moves-panel .empty-state")).toContainText("Nenhum golpe nesta categoria");
+    // openDetail passa pela Home (busca): pilha ficha 6 > Home > ficha 132, entao sao 2 Voltar ate a ficha 6
+    await page.goBack();
+    await expect(page.locator(".home-screen")).toBeVisible();
     await page.goBack();
     await expect(page.locator(".detail-screen[data-dex='6'] #moves-panel #move-tabs [data-mtab='tm']")).toHaveClass(/active/);
     await expect(page.locator("#moves-panel .mv-row[data-mv='flamethrower']")).toHaveClass(/open/);
@@ -639,6 +648,9 @@ test.describe("F5.4 calculators", () => {
     await expect(calc.locator("[data-ev='specialDefence']")).toHaveValue("4");
     await expect(calc.locator("[data-iv='hp']")).toHaveValue("31");
     await openDetail(page, 1);
+    // openDetail passa pela Home (busca): pilha ficha 6 > Home > ficha 1, entao sao 2 Voltar ate a ficha 6
+    await page.goBack();
+    await expect(page.locator(".home-screen")).toBeVisible();
     await page.goBack();
     await expect(page.locator(".detail-screen[data-dex='6'] #calc")).toHaveAttribute("open", "");
     await expect(page.locator("#calc [data-ev='speed']")).toHaveValue("252");
