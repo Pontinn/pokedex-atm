@@ -104,4 +104,7 @@ export const DETAIL_MESSAGES = {
   "egg.ditto": { pt: "Ditto", en: "Ditto" },
   "egg.dragon": { pt: "Dragão", en: "Dragon" },
   "egg.undiscovered": { pt: "Desconhecido", en: "Undiscovered" },
+  "form.battleOnly": { pt: "Só em batalha", en: "Battle only" },
+  "form.noItem": { pt: "Nenhum item necessário", en: "No item required" },
+  "form.unknownItem": { pt: "Item não identificado nos dados do addon", en: "Item not identified in the addon data" },
 } as const satisfies Record<string, Message>;

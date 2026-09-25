@@ -212,3 +212,16 @@ html[data-theme="green"] .drop .pct, html[data-theme="blue"] .drop .pct { color:
 .app.mobile .ob-row { flex-wrap: wrap; }
 .app.mobile .ob-body { flex: 1 1 calc(100% - 48px); }
 .app.mobile .ob-link { margin-left: 48px; }
+
+/* ---------- Formas (style.css:648-653) ---------- */
+.forms { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: center; }
+.forms .form-art { margin: 0 auto; animation: artSwap .5s var(--ease-bounce); }
+.forms .form-art .artwork-img { width: 100%; height: 100%; object-fit: contain; }
+.forms .form-info { display: grid; gap: 8px; min-width: 0; }
+.form-req { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 4px 6px; flex-wrap: wrap; }
+.form-ability { font-size: 13px; }
+.forms .types { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.app.mobile .forms { grid-template-columns: 1fr; }
+/* texturas animadas (faixa vertical 16x32...) mostram so o 1o quadro, sem vazar do tile */
+.it-link .it-tile { overflow: hidden; }
+.it-link .it-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; image-rendering: pixelated; }

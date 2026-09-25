@@ -460,3 +460,60 @@ test.describe("F5.1 where to find and how to obtain", () => {
     });
   }
 });
+
+test.describe("F5.2 forms", () => {
+  test("Charizard Mega X: Fire/Dragon, Charizardite X + Keystone clickable, addon source, battle-only; Gmax has no item", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 6);
+    const panel = page.locator("#forms-panel");
+    await expect(panel.locator("#form-tabs button")).toHaveText(["Normal", "Mega-X", "Mega-Y", "Gmax"]);
+    await expect(panel.locator(".form-req")).toContainText("Forma base, sem item");
+    const entry = await page.locator(".screen").getAttribute("data-entry-id");
+    await panel.locator("#form-tabs [data-ftab='1']").click();
+    await expect(page.locator(".screen")).toHaveAttribute("data-entry-id", entry ?? "");
+    await expect(panel.locator("#form-body .types .chip")).toHaveText(["Fogo", "Dragão"]);
+    await expect(panel.locator("#form-body .types .tag")).toHaveText("Só em batalha");
+    await expect(panel.locator(".form-req [data-item='mega_showdown:charizardite_x']")).toBeVisible();
+    await expect(panel.locator(".form-req [data-item='mega_showdown:keystone']")).toBeVisible();
+    await expect(panel.locator(".form-req")).toContainText("(Mega Showdown)");
+    await expect(panel.locator(".form-ability strong")).toHaveText("Garras Duras");
+    await expect(panel.locator(".form-art .artwork-img")).toHaveAttribute("src", /official-artwork\/10034\.png$/);
+    await expect(panel.locator(".stat-total .stat-val")).toHaveText("634");
+    if (SHOTS) {
+      await panel.scrollIntoViewIfNeeded();
+      await page.mouse.move(1, 1);
+      await settle(page);
+      await page.screenshot({ path: `${SHOTS}/desktop-detail-charizard-mega-x-form.png`, fullPage: false });
+    }
+    await panel.locator("#form-tabs [data-ftab='3']").click();
+    await expect(panel.locator(".form-req")).toContainText("Nenhum item necessário");
+    await panel.locator("#form-tabs [data-ftab='1']").click();
+    await panel.locator(".form-req [data-item='mega_showdown:charizardite_x']").click();
+    await expect(page.locator(".screen")).toHaveAttribute("data-screen", "item");
+    await page.goBack();
+    await expect(page.locator("#forms-panel #form-tabs [data-ftab='1']")).toHaveClass(/active/);
+    expect(errors).toEqual([]);
+  });
+
+  test("species without forms hides the panel", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 132);
+    await expect(page.locator("#abilities-panel")).toBeVisible();
+    await expect(page.locator("#forms-panel")).toHaveCount(0);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`forms panel without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 6);
+      await page.locator("#forms-panel #form-tabs [data-ftab='1']").click();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.mouse.move(1, 1);
+        await settle(page);
+        await expectNoOverlap(page, page.locator("#forms-panel"));
+      }
+    });
+  }
+});
