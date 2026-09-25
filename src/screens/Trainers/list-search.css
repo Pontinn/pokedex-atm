@@ -1,0 +1,14 @@
+/* Busca das telas de lista (grupo B). Mesmo visual da busca da Home (design/prototipo/style.css .search 348-359,
+   portado em src/screens/Home/home.css); repetido aqui com o seletor .list-search porque home.css e da tela Inicio. */
+.list-search { position: relative; display: flex; align-items: center; background: var(--surface); border-radius: 999px; padding: 6px 6px 6px 18px; box-shadow: var(--shadow-md); max-width: 680px; width: 100%; min-height: 54px; color: var(--text); }
+.list-search .search-ico { display: inline-flex; opacity: .55; margin-right: 8px; flex: none; }
+.list-search .search-ico svg { width: 20px; height: 20px; }
+.list-search input { flex: 1; border: 0; outline: 0; background: transparent; padding: 10px 6px; min-width: 0; color: inherit; font: inherit; font-size: 16px; }
+.list-search input::placeholder { color: var(--muted); }
+.list-search input::-webkit-search-cancel-button { display: none; }
+.list-search .list-search-clear { display: inline-grid; place-items: center; width: 42px; height: 42px; padding: 0; border-radius: 999px; background: var(--secondary); color: var(--on-secondary); flex: none; transition: transform .2s var(--ease-bounce); }
+.list-search .list-search-clear:hover { transform: scale(1.06); }
+.list-search .list-search-clear svg { width: 18px; height: 18px; }
+.app.mobile .list-search { padding: 4px 4px 4px 14px; min-height: 48px; }
+.app.mobile .list-search input { font-size: 15px; }
+.app.mobile .list-search .list-search-clear { width: 38px; height: 38px; }
