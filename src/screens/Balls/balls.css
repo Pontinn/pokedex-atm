@@ -1,1 +1,24 @@
-/* Estilos da tela balls. Carregado SO por BallsScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Tela Pokebolas (F9.1). Porta design/prototipo/style.css: .page-head 389, .seg-tabs 403, .page-tools 976-977,
+   .ball-tile 917-924, .ball-grid/.ball-card/.ball-* 1071-1085, mobile 871 e 1129-1132. Carregado SO por BallsScreen.tsx. */
+.balls-screen .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.balls-screen .list-top { margin-bottom: 14px; }
+.balls-screen .page-tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.balls-screen .page-tools .seg-tabs { margin-bottom: 0; max-width: 100%; overflow-x: auto; }
+.ball-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.ball-card { display: flex; align-items: center; gap: 14px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); animation: cardIn .45s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); transition: transform .25s var(--ease-out), box-shadow .25s; text-align: left; color: inherit; cursor: pointer; min-width: 0; }
+.ball-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.ball-card .it-tile { width: 52px; height: 52px; background: color-mix(in srgb, var(--secondary) 10%, var(--surface-2)); }
+.ball-card .it-tile img { width: 36px; height: 36px; }
+.ball-card:hover .it-tile img { transform: rotate(-16deg) scale(1.1); }
+.ball-info { display: grid; min-width: 0; }
+.ball-name { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 4px 8px; flex-wrap: wrap; }
+.ball-name-main { min-width: 0; overflow-wrap: anywhere; }
+.ball-name small { font-size: 11px; color: var(--muted); font-weight: 700; }
+.ball-mult { font-family: var(--font-display); font-weight: 700; font-size: 13px; padding: 2px 8px; border-radius: 8px; background: var(--secondary-soft); white-space: nowrap; }
+.ball-mult-guaranteed { background: linear-gradient(135deg, #FFE27A, #FFB300); color: #4A3000; }
+.ball-eff { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+.balls-screen .empty-query { margin: 4px 0 0; font-weight: 800; overflow-wrap: anywhere; }
+.app.mobile .ball-grid { grid-template-columns: 1fr; }
+.app.mobile .balls-screen .page-tools { flex-direction: column; align-items: stretch; }
+.app.mobile .balls-screen .page-tools .seg-tabs { display: flex; margin: 0 -16px; padding-left: 16px; padding-right: 16px; border-radius: 0; border-left: 0; border-right: 0; }
+.app.mobile .balls-screen .page-tools .terms-tgl { align-self: flex-end; }
