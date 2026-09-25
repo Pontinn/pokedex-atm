@@ -418,22 +418,22 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F8: Treinadores e timeline
 
-- [ ] F8.1 Picker de series, serie ativa e Modo Livre
-  - hash:
+- [x] F8.1 Picker de series, serie ativa e Modo Livre
+  - hash: decb4aa0
   - Done when (literal da SPEC): `atm_team` aparece bloqueada com "Requer: Diamante brilhante/Pérola reluzente" ate a BDSP ficar completa; Modo Livre bloqueado sem serie concluida; escolha persiste no reload.
-  - notas:
+  - notas: grupo B. Store `src/state/trainers-store.ts` (ouve `pontindex:data-changed`). Provas: `tests/unit/ui-screens/trainers-{store,model}.test.ts` + `tests/e2e/trainers.spec.ts` (dataset real). Chip bloqueado mostra "Requer: Diamante brilhante/Pérola reluzente"; series quebram linha (sem rolagem horizontal) para nada ficar escondido.
 
-- [ ] F8.2 Linha do tempo, cap vigente e derrotados
-  - hash:
+- [x] F8.2 Linha do tempo, cap vigente e derrotados
+  - hash: 75d7853d
   - Done when (literal da SPEC): BDSP sem derrotados = cap 15; Roark derrotado = 16; Mars = 20; Jupiter = 22; apos Gardenia os 3 Cedric aparecem como "Próximo" e o cap exibido e 22; apos um Cedric, Maylene = 30; `desktop-trainers-expanded-full.png`. + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
-  - notas:
+  - notas: grupo B. Cap no dataset REAL (unit + e2e clicando): 15, 16, 20, 22, 22 com os 3 Cedric Proximo, 22 com um Cedric, 30 com os 3. Busca so filtra a exibicao (roark, garchomp, equipe galactica). expectNoOverlap 360/390/1280 PT e EN. Conferido contra desktop-trainers(-expanded-full).png. Nome do treinador = nome do dataset (ex. "Gym Leader Roark").
 
 ### Sprint F9: Colecoes (Pokebolas e itens)
 
-- [ ] F9.1 Grade de Pokebolas
+- [!] F9.1 Grade de Pokebolas
   - hash:
   - Done when (literal da SPEC): `desktop-balls-full.png`; `balls.json.length` cards com filtro "Todas" (48 no dataset atual; nunca um numero fixo no codigo). + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
-  - notas:
+  - notas: BLOQUEADO por bug no contrato de dados (fora do escopo do grupo B): `src/data/schemas.ts` `ballCondition` (zod) nao tem `minBaseSpeedAbove`/`hasAnyType` (o tipo TS em `src/data/types.ts` tem), entao `loadBalls()` SEMPRE falha com INVALID (fast_ball/net_ball do balls.json real) e a tela mostra "Nao foi possivel carregar os dados". Afeta tambem F5.3 (melhor bola, grupo A). Codigo da tela PRONTO e NAO commitado no working tree: `src/screens/Balls/{BallsScreen.tsx,ball-model.ts,balls.css}`, chaves novas em `src/i18n/messages/balls.ts`, `tests/unit/ui-screens/balls-model.test.ts` (4 verdes), `tests/e2e/balls.spec.ts` (7 falham so pelo INVALID). Depois do fix do schema: rodar o e2e, conferir o print e commitar `feat(balls): ...`.
 
 - [ ] F9.2 Grade de itens com busca PT/EN
   - hash:
@@ -529,6 +529,8 @@ Sprints P1-P3 da SPEC (so depois que o Pontin testar e aprovar o site):
 | Onda 0 / B1.1 | `eslint.config.js` acusou a si mesmo: a constante com o travessao escrita como string literal caia na propria regra | literal com U+2014 no config | caractere montado com `String.fromCharCode(0x2014)`, no mesmo commit 3728f119 |
 | Onda 0 / B2.2 | Merge (a) fazia o base vencer em TODOS os campos exceto forms/labels; zygarde e lycanroc ficavam nao implementados | lista de base-wins da SPEC tratada como aberta | so a lista fechada da SPEC fica com o base, o resto segue o addon; fix 994cade8 |
 | Onda 0 / B1.5 | `npx playwright test --list` sai 1 sem testes | comportamento padrao do Playwright (No tests found), nao e erro de config | conferido com `--pass-with-no-tests` (sai 0); nada a corrigir |
+| Onda 3 / F9.1 (grupo B) | `loadBalls()` falha sempre com INVALID no dataset real | zod `ballCondition` em `src/data/schemas.ts` sem `minBaseSpeedAbove`/`hasAnyType` (tipo TS ja tem; balls.json usa em fast_ball/net_ball) | PENDENTE: orquestrador/backend adiciona os 2 valores ao enum do schema |
+| Onda 3 / F8 (grupo B) | `ItemTile` monta `/assets/items/${texture}` mas `ItemInfo.texture` ja vem com `assets/items/...` (URL dobrada, 404) | prefixo duplicado entre B4.1 e F1.4 | contornado nas telas do grupo B com `itemTexturePath()` (`src/screens/Trainers/trainer-model.ts`); ideal: ajustar o `ItemTile` (congelado) |
 
 (Preenchida durante execucao)
 

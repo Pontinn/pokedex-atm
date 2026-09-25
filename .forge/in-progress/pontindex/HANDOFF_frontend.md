@@ -171,3 +171,48 @@ Agente: forge-imp-frontend (Grupo A). Inicio 2026-09-24 21:35.
 1. Card usa o sprite 96px LOCAL (SPEC F3.1, funciona offline), exibido a 120 px com `image-rendering: pixelated` (o prototipo usava o artwork). A marca de capturado fica dentro da area da imagem (canto superior direito), nunca sobre a linha de selos, que pode quebrar em 2 linhas a 360 px.
 2. Busca da Pokedex casa por substring no nome PT/EN (mesma regra da Home): "char" + Fogo tambem traz Chimchar e Charcadet (ambos Fogo).
 3. Geracoes no select: "Geracao N"/"Generation N" e "Do pack (All the Mons)" para `custom`.
+
+## Grupo B (Treinadores, Pokebolas, Itens, Item, Comparar)
+
+Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22:12 (parado por tempo e por bloqueio em F9.1).
+
+| Feature | Status | Commit | Notas |
+|---|---|---|---|
+| F8.1 | verde | `decb4aa0` | store `trainers-store.ts`, picker com bloqueio/Modo Livre, modelo puro testado no dataset real |
+| F8.2 | verde | `75d7853d` | cap vigente, linha do tempo, derrotados, acordeao com time/spawn/mochila, busca PT/EN |
+| F9.1 | [!] bloqueado | - | `loadBalls()` sempre INVALID (schema zod sem `minBaseSpeedAbove`/`hasAnyType`); codigo pronto NAO commitado |
+| F9.2, F9.3, F7.1 | nao iniciados | - | parado por tempo |
+
+### Testes executados
+- `npx vitest --run tests/unit/ui-screens/trainers-model.test.ts tests/unit/ui-screens/trainers-store.test.ts tests/unit/ui-shell/i18n-modules.test.ts`: 17 verdes. Modelo contra `public/data` REAL: 15/16/20/22, 3 Cedric "next" com 22, um Cedric 22, 3 Cedric -> Maylene 30, desmarcar do meio deixa dependente derrotado+bloqueado e o cap desce; busca "roark"/"garchomp"/"galactica"/"geodude"; atm_team bloqueada com requisito BDSP, Modo Livre bloqueado sem serie concluida. Store (fake-indexeddb): serie ativa persiste no reload, Modo Livre pausa/retoma, derrotados por serie, evento `pontindex:data-changed` (com a chave, sem keys, e ignora outras chaves).
+- `$env:PW_DEV="1"; $env:PW_PORT="4175"; npx playwright test tests/e2e/trainers.spec.ts`: 11 verdes (headless, sem slowMo/sleeps, dataset real): picker (aviso inicial, bloqueios, persistencia no reload), BDSP completa -> atm_team e Modo Livre liberados, Modo Livre = cap 100 e sair volta a BDSP; sequencia do cap clicando os checkboxes; acordeao do Roark (3 Pokemon, habilidade/golpes PT, toggle de termos EN, item de spawn com textura carregada, mochila, clique abre a pagina de item e Voltar mantem o acordeao aberto); busca (so exibicao, estado vazio com o texto, restaura ao voltar, limpar volta 43); `expectNoOverlap` 360/390/1280 PT e EN. 0 erros de console. Screenshots conferidos contra `desktop-trainers.png`/`desktop-trainers-expanded-full.png`.
+- `npm run typecheck`: meus arquivos limpos (o unico erro e de `tests/unit/ui-screens/dex-filter.test.ts`, do grupo A, nao commitado). `eslint` limpo nos meus caminhos.
+- Suite completa (fim de F8): 1 falha em `tests/unit/dataset/join.test.ts` (ENOENT em `tools/dataset/out/_publish_test`, ambiente/OneDrive) e 1 em `tests/unit/ui-shell/shell.test.tsx` ("desktop sidebar", com `vitest-worker Timeout calling onTaskUpdate` na mesma execucao: maquina dividida com o grupo A). Nenhuma das duas toca arquivos do grupo B; rodar de novo com a maquina livre.
+
+### Decisoes e desvios
+1. Pastas reais `src/screens/Trainers/` (CSS na pasta); store com o nome `trainers-store.ts` (F1.4).
+2. `current.ui.filters.query` (regra geral da SPEC) nao existe no `UiStateMap` congelado para trainers/balls. `ListSearch` le/grava com um cast local (`src/screens/Trainers/ListSearch.tsx`). PEDIDO ao orquestrador: declarar `filters: { query: string }` em `UiStateMap.trainers` e `UiStateMap.balls` (e default) em `src/navigation/types.ts`.
+3. Ordem dos treinadores = `series.keyTrainerIds` (B5.2 ja grava em ordem topologica), filtrando `optional === false`.
+4. "Derrotados" para cap/bloqueio = uniao de todas as series (`defeatedSet`, ASSUMPTION de B6.3).
+5. Nome do treinador exibido como vem do dataset ("Gym Leader Roark"); o badge usa `typeLabel` (idioma da UI) com classe `role-*` (team_* -> estilo rocket, `team_allthemods*`/outros -> `role-other` neutro).
+6. Series quebram linha (`flex-wrap`) em vez de rolar na horizontal: com a rolagem, chips escondidos passavam por baixo do toggle de termos (expectNoOverlap pegou) e o Playwright nao clicava.
+7. Dica (`tr.tip`) do prototipo omitida: o dataset nao tem dica por treinador. Biomas pelo `biomes.json` (chave `#ns:is_x`), fallback humanizado.
+8. Icone `Lock` importado direto de `lucide-react` em `SeriesPicker.tsx` (Icon.tsx e congelado e nao reexporta `Lock`).
+9. Multiplicador das bolas (F9.1, nao commitada) segue a captura de referencia ("1.5x", "1x a 4x"), "Garantida" para Master/Origin.
+10. Checkbox Derrotado toca `levelup` quando o cap sobe.
+
+### Pedidos ao orquestrador (arquivos congelados / de outros agentes)
+- `src/data/schemas.ts`: adicionar `"minBaseSpeedAbove"` e `"hasAnyType"` ao `ballCondition` (bloqueia F9.1 e a melhor bola de F5.3).
+- `src/components/ItemTile.tsx`: aceitar `ItemInfo.texture` como vem (`assets/items/...`); hoje dobra o prefixo. Grupo B usa `itemTexturePath()`.
+- `tests/e2e/shell.spec.ts:113` espera `[data-placeholder='trainers']`: com F8 a tela real substituiu o placeholder, esse passo vai falhar (trocar por `.trainers-screen`).
+- `src/navigation/types.ts`: item 2 acima.
+
+### Reutilizaveis (grupo B)
+- `src/screens/Trainers/ListSearch.tsx` (+ `list-search.css`): busca de lista com o visual da Home, debounce 120 ms, `ui.filters.query`, botao limpar. `useListQuery()`.
+- `src/screens/Trainers/use-loader.ts`: `useLoader(load, deps)` -> `{data, error, loading, retry}`.
+- `src/screens/Trainers/trainer-model.ts`: `itemTexturePath`, `humanizeId`, `biomeLabel`, `roleClass`, regras do cap para a tela.
+- `src/screens/Trainers/TrainerTeam.tsx`: `ItemChip` (item clicavel -> pagina do item).
+
+### Onde parou (para o proximo agente do grupo B)
+- F9.1: arquivos prontos no working tree (nao commitados): `src/screens/Balls/{BallsScreen.tsx,ball-model.ts,balls.css}`, `src/i18n/messages/balls.ts` (8 chaves novas), `tests/unit/ui-screens/balls-model.test.ts` (verde), `tests/e2e/balls.spec.ts`. Assim que o schema for corrigido: `$env:PW_DEV="1"; $env:PW_PORT="4175"; npx playwright test tests/e2e/balls.spec.ts`, conferir print contra `desktop-balls-full.png`, commitar `feat(balls): poke ball grid with official effects and filters`.
+- Depois: F9.2, F9.3, F7.1 (F7 so com `ArtworkImage` do grupo A no HEAD).
