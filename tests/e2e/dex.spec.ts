@@ -166,9 +166,14 @@ test.describe("F3.2 combinable filters and search", () => {
     await page.locator("#f-evo").selectOption("item");
     await expect(page.locator(".pcard[data-dex='25']")).toBeVisible();
     await expect(page.locator(".pcard[data-dex='1']")).toHaveCount(0);
+    // le o species-index publicado direto (fetch), sem depender de "/src/..." (so existe no dev server): mesmo
+    // arquivo estatico que o app carrega, funciona igual em dev e em build+preview.
     const ok = await page.evaluate(async (dexes) => {
-      const { useDatasetStore } = await import("/src/state/dataset-store.ts" as string);
-      const index = (useDatasetStore as { getState(): { speciesIndex: { dex: number; evolutionMethods: string[] }[] } }).getState().speciesIndex;
+      const current = (await (await fetch("/data/current.json")).json()) as { datasetVersion: string };
+      const index = (await (await fetch(`/data/${current.datasetVersion}/species-index.json`)).json()) as {
+        dex: number;
+        evolutionMethods: string[];
+      }[];
       return dexes.every((d) => index.find((s) => s.dex === d)?.evolutionMethods.includes("item"));
     }, await cardDexes(page));
     expect(ok).toBe(true);

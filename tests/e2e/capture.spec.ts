@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
+import { readDoc } from "./idb-helpers";
 
 const SHOTS = process.env.CAPTURE_SHOTS_DIR;
 const ART = readFileSync(new URL("../../src/assets/pokeball.webp", import.meta.url));
@@ -32,13 +33,17 @@ async function boot(page: Page, width = 1280, height = 800) {
   await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
 }
 
+// Navega por interacao real de UI (busca da Home): funciona em dev e em build+preview (nao depende de
+// "/src/..." em page.evaluate, que so existe no dev server).
 async function openDetail(page: Page, dex: number) {
-  await page.evaluate(async (d) => {
-    const mod = (await import("/src/navigation/navigation-store.ts" as string)) as {
-      useNavigationStore: { getState(): { navigate(s: string, p: unknown): void } };
-    };
-    mod.useNavigationStore.getState().navigate("detail", { dex: d });
-  }, dex);
+  if (!(await page.locator(".home-screen").isVisible().catch(() => false))) {
+    await page.locator('[data-nav="home"]:visible').first().click();
+    await expect(page.locator(".home-screen")).toBeVisible();
+  }
+  await page.locator("#search-input").fill(String(dex));
+  const item = page.locator(`.search-dd .dd-item[data-dex='${dex}']`);
+  await expect(item).toBeVisible();
+  await item.click();
   await expect(page.locator(`.detail-screen[data-dex='${dex}'] .hero-card`)).toBeVisible();
 }
 
@@ -110,11 +115,12 @@ test.describe("F6.1 capture overlay", () => {
       "poke_ball_capture_succeeded",
       "pokedex_close",
     ]);
-    const stored = await page.evaluate(async () => {
-      const mod = (await import("/src/state/captured-store.ts" as string)) as { useCapturedStore: { getState(): { entries: Record<string, unknown> } } };
-      return Object.keys(mod.useCapturedStore.getState().entries);
-    });
-    expect(stored).toEqual(["6"]);
+    await expect
+      .poll(async () => {
+        const doc = await readDoc<{ entries: Record<string, unknown> }>(page, "captured");
+        return Object.keys(doc?.entries ?? {});
+      })
+      .toEqual(["6"]);
     await page.reload();
     await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
     await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });

@@ -2,6 +2,7 @@
 // (mesma instancia do app, modo dev). Opcional CAPTURED_SHOTS_DIR=<pasta> grava desktop/mobile para conferencia.
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
+import { writeDoc } from "./idb-helpers";
 
 const SHOTS = process.env.CAPTURED_SHOTS_DIR;
 const DAY = 86_400_000;
@@ -33,25 +34,16 @@ async function boot(page: Page, width = 1280, height = 800) {
   await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
 }
 
+// Escreve direto no IndexedDB (chave "captured") e avisa a store via "pontindex:data-changed": funciona em dev e
+// em build+preview (a captura por data arbitraria no passado nao da pra fazer pela UI, so "Capturei" na hora).
 async function seed(page: Page) {
-  await page.evaluate(
-    async ({ seed, base, day }) => {
-      const mod = (await import("/src/state/captured-store.ts" as string)) as {
-        useCapturedStore: { getState(): { mark(dex: number, at?: number): Promise<void> } };
-      };
-      for (const [dex, ago] of seed) await mod.useCapturedStore.getState().mark(dex, base - ago * day);
-    },
-    { seed: SEED, base: BASE, day: DAY },
-  );
+  const entries: Record<string, { capturedAt: number }> = {};
+  for (const [dex, ago] of SEED) entries[String(dex)] = { capturedAt: BASE - ago * DAY };
+  await writeDoc(page, "captured", { schemaVersion: 1, entries });
 }
 
 async function goCaptured(page: Page) {
-  await page.evaluate(async () => {
-    const mod = (await import("/src/navigation/navigation-store.ts" as string)) as {
-      useNavigationStore: { getState(): { go(s: string): void } };
-    };
-    mod.useNavigationStore.getState().go("captured");
-  });
+  await page.locator('[data-nav="captured"]:visible').first().click();
   await expect(page.locator(".captured-screen")).toBeVisible();
 }
 
