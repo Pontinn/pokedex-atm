@@ -52,7 +52,7 @@ const AbilityList = memo(function AbilityList({ abilities }: { abilities: readon
         const main = info ? info.name[termsLang] || info.name.en : humanizeId(ref.id);
         const alt = info ? info.name[other] : "";
         return (
-          <div className="ability" key={ref.id} data-ability={ref.id}>
+          <div className="ability" key={`${ref.id}-${ref.hidden ? "h" : "n"}`} data-ability={ref.id}>
             <div className="ab-name">
               <span>{main}</span>
               {ref.hidden ? <span className="tag">{t("detail.hidden")}</span> : null}
