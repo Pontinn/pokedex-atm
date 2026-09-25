@@ -298,3 +298,90 @@ test.describe("F4.3 evolution chain", () => {
     });
   }
 });
+
+test.describe("F4.4 moves", () => {
+  test("Charizard: tabs, TM table with mechanics and PP, description expands, tab switch keeps scroll and entry", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 6);
+    const panel = page.locator("#moves-panel");
+    await expect(panel.locator("#move-tabs button")).toHaveText(["Nível", "TM", "Ovo", "Tutor"]);
+    await expect(panel.locator("tbody .mv-row")).toHaveCount(18);
+    const levels = await panel.locator("tbody .mv-row td.num:first-child").allTextContents();
+    const nums = levels.map(Number);
+    expect([...nums].sort((a, b) => a - b)).toEqual(nums);
+    await panel.locator("#move-tabs").evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
+    const entry = await page.locator(".screen").getAttribute("data-entry-id");
+    const scrollBefore = await page.locator("#main").evaluate((m) => m.scrollTop);
+    await panel.locator("#move-tabs [data-mtab='tm']").click();
+    await expect(panel.locator("#move-tabs [data-mtab='tm']")).toHaveClass(/active/);
+    await expect(panel.locator("tbody .mv-row")).toHaveCount(85);
+    await expect(page.locator(".screen")).toHaveAttribute("data-entry-id", entry ?? "");
+    expect(Math.abs((await page.locator("#main").evaluate((m) => m.scrollTop)) - scrollBefore)).toBeLessThanOrEqual(2);
+    const eq = panel.locator(".mv-row[data-mv='earthquake']");
+    await expect(eq.locator(".mv-name")).toContainText("Terremoto");
+    await expect(eq.locator(".mv-en")).toHaveText("Earthquake");
+    await expect(eq.locator(".chip")).toHaveText("Terra");
+    await expect(eq.locator(".cat")).toHaveText("Físico");
+    await expect(eq.locator("td.num")).toHaveText(["TM", "100", "100%", "10"]);
+    const dd = panel.locator(".mv-row[data-mv='dragondance']");
+    await expect(dd.locator("td.num")).toHaveText(["TM", "-", "-", "20"]);
+    // descricao expansivel, estado em current.ui.openMoveRows
+    await eq.click();
+    await expect(eq).toHaveClass(/open/);
+    await expect(eq.locator("xpath=following-sibling::tr[1]").locator(".desc-wrap")).toHaveClass(/open/);
+    const ui = await page.evaluate(async () => {
+      const mod = (await import("/src/navigation/navigation-store.ts" as string)) as { useNavigationStore: { getState(): { current: { ui: unknown } } } };
+      return mod.useNavigationStore.getState().current.ui as { moveTab: string; openMoveRows: string[] };
+    });
+    expect(ui.moveTab).toBe("tm");
+    expect(ui.openMoveRows).toEqual(["earthquake"]);
+    // termos EN so no card de golpes
+    await panel.locator(".terms-tgl [data-tl='en']").click();
+    await expect(eq.locator(".mv-name")).toContainText("Earthquake");
+    await expect(eq.locator(".mv-en")).toHaveText("Terremoto");
+    await expect(page.locator(".hero-card .chip").first()).toHaveText("Fogo");
+    if (SHOTS) {
+      await panel.locator(".terms-tgl [data-tl='pt']").click();
+      await eq.click();
+      await page.mouse.move(1, 1);
+      await settle(page);
+      await page.screenshot({ path: `${SHOTS}/desktop-detail-charizard-moves-tm.png`, fullPage: false });
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("open rows and tab restored after navigating away and Back; empty tab shows empty state", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 6);
+    const panel = page.locator("#moves-panel");
+    await panel.locator("#move-tabs [data-mtab='tm']").click();
+    await panel.locator(".mv-row[data-mv='flamethrower']").click();
+    await expect(panel.locator(".mv-row[data-mv='flamethrower']")).toHaveClass(/open/);
+    await openDetail(page, 132);
+    await page.locator("#moves-panel #move-tabs [data-mtab='tm']").click();
+    await expect(page.locator("#moves-panel .empty-state")).toContainText("Nenhum golpe nesta categoria");
+    await page.goBack();
+    await expect(page.locator(".detail-screen[data-dex='6'] #moves-panel #move-tabs [data-mtab='tm']")).toHaveClass(/active/);
+    await expect(page.locator("#moves-panel .mv-row[data-mv='flamethrower']")).toHaveClass(/open/);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`moves panel without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 6);
+      await expect(page.locator("#moves-panel tbody .mv-row").first()).toBeVisible();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.locator("#moves-panel #move-tabs [data-mtab='tm']").click();
+        await page.mouse.move(1, 1);
+        await settle(page);
+        await expectNoOverlap(page, page.locator("#moves-panel"));
+        if (width === 1280) {
+          const wrap = page.locator("#moves-table");
+          expect(await wrap.evaluate((w) => w.scrollWidth - w.clientWidth)).toBeLessThanOrEqual(1);
+        }
+      }
+    });
+  }
+});

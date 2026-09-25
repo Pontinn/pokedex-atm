@@ -69,4 +69,7 @@ export const DETAIL_MESSAGES = {
   "evo.day": { pt: "de dia", en: "daytime" },
   "evo.night": { pt: "de noite", en: "nighttime" },
   "evo.fairyMove": { pt: "sabendo golpe de Fada", en: "knowing a Fairy move" },
+  "col.pp": { pt: "PP", en: "PP" },
+  "moves.empty": { pt: "Nenhum golpe nesta categoria.", en: "No moves in this category." },
+  "moves.noMechanics": { pt: "Mecânica não disponível na PokeAPI", en: "Mechanics not available on PokeAPI" },
 } as const satisfies Record<string, Message>;

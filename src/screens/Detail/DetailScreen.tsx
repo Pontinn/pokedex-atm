@@ -19,6 +19,7 @@ import { usePreferencesStore } from "../../state/preferences-store";
 import { AbilitiesPanel } from "./AbilitiesPanel";
 import { EvolutionPanel } from "./EvolutionPanel";
 import { HeroCard } from "./HeroCard";
+import { MovesPanel } from "./MovesPanel";
 import { StatsPanel } from "./StatsPanel";
 import { useSpeciesDetail } from "./use-species-detail";
 import { WeaknessPanel } from "./WeaknessPanel";
@@ -112,6 +113,7 @@ export function DetailScreen({ params }: ScreenProps) {
             <WeaknessPanel types={detail.types} />
             <EvolutionPanel chain={detail.evolutionChain} currentDex={detail.dex} />
             <AbilitiesPanel abilities={detail.abilities} />
+            <MovesPanel moves={detail.moves} />
           </div>
         ) : (
           <div className="detail-right" />

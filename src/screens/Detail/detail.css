@@ -137,3 +137,32 @@ button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
 .app.mobile .evo-branch { padding: 4px 0; }
 .app.mobile .evo-edge { flex-wrap: wrap; }
 .app.mobile .evo-branch .evo > img { width: 52px; height: 52px; }
+
+/* ---------- Golpes (style.css:576-601; .tabs vem de components.css) ---------- */
+.moves-panel .table-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border); }
+.moves-panel table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 520px; }
+.moves-panel th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--surface-2); padding: 9px 10px; font-weight: 800; white-space: nowrap; }
+.moves-panel td { padding: 9px 10px; border-top: 1px solid var(--border); font-weight: 600; white-space: nowrap; }
+.moves-panel td.mv-cell { white-space: normal; }
+.moves-panel th, .moves-panel td { padding-left: 8px; padding-right: 8px; }
+.moves-panel td.num { font-variant-numeric: tabular-nums; }
+.moves-panel tr { transition: background .15s; }
+.moves-panel tbody tr:hover { background: var(--surface-2); }
+.mv-name { font-weight: 800; }
+.mv-caret { vertical-align: middle; }
+.mv-row.has-desc { cursor: pointer; }
+.mv-caret { display: inline-flex; margin-left: 4px; color: var(--muted); transition: transform .25s var(--ease-out); }
+.mv-caret svg { width: 14px; height: 14px; }
+.mv-row.open .mv-caret { transform: rotate(180deg); }
+.mv-row.open td { background: var(--surface-2); }
+.moves-panel .mv-desc td { padding: 0 12px; border-top: 0; white-space: normal; }
+.moves-panel .mv-desc:hover { background: transparent; }
+.desc-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s var(--ease-out); }
+.desc-wrap.open { grid-template-rows: 1fr; }
+.desc-inner { overflow: hidden; }
+.desc-text { margin: 0; padding: 2px 0 12px; font-size: 12.5px; color: var(--muted); font-weight: 600; max-width: 560px; opacity: 0; transform: translateY(-4px); transition: opacity .25s, transform .3s var(--ease-out); }
+.desc-wrap.open .desc-text { opacity: 1; transform: none; }
+.mv-en { display: block; font-size: 11px; color: var(--muted); font-weight: 700; }
+.cat { display: inline-flex; align-items: center; gap: 5px; font-weight: 800; font-size: 12px; }
+.cat i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.cat-physical i { background: #D9534F; } .cat-special i { background: #4F7DD9; } .cat-status i { background: #8A8F9C; }
