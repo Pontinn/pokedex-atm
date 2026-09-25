@@ -304,3 +304,5 @@ updated: 2026-09-24
 - join.test falhou offline por falta do cache (gitignored, ficou no PC antigo): pipeline rodado online com `--out tools/dataset/out/_warm --publish-dir tools/dataset/out/_publish_warm` (public/ intocado).
 - Verde conferido: typecheck 0, lint 0, vitest 27/27 arquivos 256/256, build ok, public/ intacto. Branch em dia com origin.
 - Pontin aprovou mover F7 (comparar) do grupo A para o B. F7 depende de `ArtworkImage` (criado na F4.1, grupo A): B faz F7 POR ULTIMO e, se `ArtworkImage` ainda nao estiver commitado, para e devolve F7 ao orquestrador. Posse de arquivos de F7 passa ao B (ver HANDOFF_frontend.md, secao "Reatribuicao F7").
+- 21:35 Pontin: NUNCA usar Haiku (checklist/contagens passam para Sonnet); RETOMADA atualizada.
+- 21:35 Pontin mandou seguir: grupo A (opus; F3.1-F6.2, porta 4174, timer bai8i1gyc) e grupo B (opus; F8, F9, F7 por ultimo, porta 4175, timer bkqvmy23t) disparados em paralelo, modo autonomo, limite ~55 min cada.

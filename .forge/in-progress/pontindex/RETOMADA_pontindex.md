@@ -32,7 +32,7 @@ Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/D
 - Avisar ANTES de instalar qualquer coisa neste PC. PC atual (milap, 2026-09-24): Node 24.19.0 + npm 11.17.0 (winget, `C:/Program Files/nodejs`; o shell do Claude Code NAO tem no PATH: prefixar `export PATH="/c/Program Files/nodejs:$APPDATA/npm:$PATH"`), Playwright 1.63.0 global + Chromium, git identidade local `Pontinn <leo.pontin2@gmail.com>`, gh logado como Pontinn. Sem JDK/Android SDK (Pontin: nao instalar, objetivo e terminar o site). NAO ha Python: nunca rodar `python`/`python3` (abre a Microsoft Store). Cache `tools/dataset/.cache` reaquecido neste PC (join.test depende dele). Arquivos gerados (`types.generated.css`, snapshot do type-css) aparecem modificados so por LF/CRLF (core.autocrlf=true): conteudo identico, ignorar.
 - Site primeiro (Fase 1, PWA); apps Windows/Android so depois que o Pontin testar tudo.
 - O Pontin acompanha pelo Remote Control: mandar so avisos curtos de andamento, sem prints.
-- Modelos: dados e regras criticas e frontend em Opus; coleta mecanica em Sonnet; checklist/contagens em Haiku (conferir sempre: o Haiku errou o checklist).
+- Modelos: dados e regras criticas e frontend em Opus; coleta mecanica em Sonnet; checklist/contagens em Sonnet. NUNCA usar Haiku (Pontin, 2026-09-24: o Haiku errou o checklist).
 
 ## Decisoes de dados tomadas hoje (por evidencia nos arquivos)
 
