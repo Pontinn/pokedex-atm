@@ -104,3 +104,36 @@ html[data-theme="green"] .stat-total .stat-val, html[data-theme="blue"] .stat-to
 .ability .ab-name { font-weight: 800; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .ability .ab-en { font-size: 12px; color: var(--muted); font-weight: 700; }
 .ability .ab-desc { font-size: 13px; color: var(--muted); }
+
+/* ---------- Evolucao (style.css:530-564) ---------- */
+.evo-chain { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.evo { display: grid; justify-items: center; gap: 4px; padding: 10px 12px; border-radius: var(--radius-md); transition: transform .25s var(--ease-bounce), background .2s; color: var(--text); }
+button.evo { cursor: pointer; }
+button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
+.evo.current { background: var(--secondary-soft); }
+.evo > img { width: 84px; height: 84px; object-fit: contain; image-rendering: pixelated; }
+.evo > img.sprite-fallback { width: 48px; height: 48px; filter: brightness(0); opacity: .45; image-rendering: auto; }
+.evo .evo-name { font-weight: 800; font-size: 13px; }
+.evo-arrow { display: grid; justify-items: center; gap: 2px; color: var(--muted); font-size: 11px; font-weight: 800; text-align: center; min-width: 0; }
+.evo-arrow .arr, .evo-edge .arr { display: inline-flex; color: var(--secondary); }
+.evo-arrow .arr svg, .evo-edge .arr svg { width: 20px; height: 20px; }
+.method { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+.evo-item { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-weight: 800; color: var(--text); text-decoration: underline dotted; }
+.evo-item .it-tile { border-radius: 4px; }
+.evo-item .it-tile img, .evo-item .it-tile svg { width: 14px; height: 14px; }
+.evo-branching { display: grid; grid-template-columns: auto 1fr; gap: 12px 18px; align-items: center; margin-top: 6px; }
+.evo-root { display: grid; justify-items: center; gap: 4px; }
+.evo-root-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.evo-branches { display: grid; grid-template-columns: 1fr; gap: 2px; min-width: 0; }
+.evo-branch { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 6px; border-radius: var(--radius-md); min-width: 0; border-bottom: 1px dashed var(--border); animation: cardIn .4s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 50ms); }
+.evo-branch:last-child { border-bottom: 0; }
+.evo-branch:hover { background: var(--surface-2); }
+.evo-branch .evo { flex: none; display: flex; align-items: center; gap: 8px; padding: 4px 8px; }
+.evo-branch .evo > img { width: 64px; height: 64px; }
+.evo-branch .evo .evo-name { min-width: 70px; }
+.evo-edge { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 800; flex: 1; min-width: 0; }
+.evo-edge .method { white-space: normal; text-align: left; flex: 0 1 auto; min-width: 0; padding: 3px 9px; }
+.app.mobile .evo-branching { grid-template-columns: 1fr; }
+.app.mobile .evo-branch { padding: 4px 0; }
+.app.mobile .evo-edge { flex-wrap: wrap; }
+.app.mobile .evo-branch .evo > img { width: 52px; height: 52px; }

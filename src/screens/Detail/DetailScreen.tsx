@@ -17,6 +17,7 @@ import { useNavigationActions } from "../../navigation/useNavigation";
 import { useHistoryStore } from "../../state/history-store";
 import { usePreferencesStore } from "../../state/preferences-store";
 import { AbilitiesPanel } from "./AbilitiesPanel";
+import { EvolutionPanel } from "./EvolutionPanel";
 import { HeroCard } from "./HeroCard";
 import { StatsPanel } from "./StatsPanel";
 import { useSpeciesDetail } from "./use-species-detail";
@@ -109,6 +110,7 @@ export function DetailScreen({ params }: ScreenProps) {
         {detail ? (
           <div className="detail-right">
             <WeaknessPanel types={detail.types} />
+            <EvolutionPanel chain={detail.evolutionChain} currentDex={detail.dex} />
             <AbilitiesPanel abilities={detail.abilities} />
           </div>
         ) : (

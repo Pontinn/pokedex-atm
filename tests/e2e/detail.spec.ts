@@ -247,3 +247,54 @@ test.describe("F4.2 stats, weaknesses and abilities", () => {
     });
   }
 });
+
+test.describe("F4.3 evolution chain", () => {
+  test("Eevee: 8 branches with real methods; Jolteon stone opens the item page", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 133);
+    const branches = page.locator("#evo-panel .evo-branch");
+    await expect(branches).toHaveCount(8);
+    await expect(page.locator("#evo-panel .evo-branch[data-to='196'] .method")).toHaveText("Amizade 160 + de dia");
+    await expect(page.locator("#evo-panel .evo-branch[data-to='700'] .method")).toHaveText("Amizade 160 + sabendo golpe de Fada");
+    const stone = page.locator("#evo-panel .evo-branch[data-to='135'] .evo-item");
+    await expect(stone).toHaveText("Pedra do Trovão");
+    if (SHOTS) {
+      await page.mouse.move(1, 1);
+      await settle(page);
+      await page.locator("#evo-panel").screenshot({ path: `${SHOTS}/detail-eevee-evo.png` });
+    }
+    await stone.click();
+    await expect(page.locator("[data-screen='item']")).toBeVisible();
+    await page.goBack();
+    await expect(page.locator("#evo-panel .evo-branch")).toHaveCount(8);
+    await page.locator("#evo-panel .evo-branch[data-to='135'] button.evo").click();
+    await expect(page.locator(".detail-screen[data-dex='135'] .hero-title h2")).toHaveText("Jolteon");
+    expect(errors).toEqual([]);
+  });
+
+  test("Charizard linear chain 16/36; species without evolution says so", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 6);
+    await expect(page.locator("#evo-panel .evo-chain .evo")).toHaveCount(3);
+    await expect(page.locator("#evo-panel .evo-chain .method")).toHaveText(["Nível 16", "Nível 36"]);
+    await expect(page.locator("#evo-panel .evo.current")).toHaveAttribute("data-evo", "6");
+    await openDetail(page, 128);
+    await expect(page.locator("#evo-panel .evo-none")).toHaveText("Não evolui");
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`evolution panel without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      for (const dex of [133, 6]) {
+        await openDetail(page, dex);
+        for (const lang of ["pt", "en"] as const) {
+          await setLanguage(page, lang);
+          await page.mouse.move(1, 1);
+          await settle(page);
+          await expectNoOverlap(page, page.locator("#evo-panel"));
+        }
+      }
+    });
+  }
+});
