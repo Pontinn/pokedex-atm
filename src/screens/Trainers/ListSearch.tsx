@@ -2,7 +2,7 @@
 // (pilula .search), sem dropdown: filtra a lista da tela. O texto vive no estado de UI da entrada atual (restaura ao
 // voltar): `filters.query` em Treinadores/Pokebolas e `query` em Itens (UiStateMap). Debounce de 120 ms (regra geral
 // de Frontend da SPEC).
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Search, X } from "../../components/Icon";
 import { useT, type TranslationKey } from "../../i18n/useT";
 import { useNavigationStore } from "../../navigation/navigation-store";
@@ -41,12 +41,30 @@ export const ListSearch = memo(function ListSearch({ screen, id, labelKey, place
   const t = useT();
   const stored = useListQuery(screen);
   const [text, setText] = useState(stored);
+  // Ultimo texto que ESTA barra gravou: mudanca externa do estado de UI (ex. aba de Itens que limpa a busca)
+  // atualiza o campo; a propria gravacao com debounce nao.
+  const written = useRef(stored);
+
+  useEffect(() => {
+    if (stored === written.current) return;
+    written.current = stored;
+    setText(stored);
+  }, [stored]);
 
   useEffect(() => {
     if (text === stored) return undefined;
-    const timer = setTimeout(() => writeListQuery(screen, text), LIST_SEARCH_DEBOUNCE_MS);
+    const timer = setTimeout(() => {
+      written.current = text;
+      writeListQuery(screen, text);
+    }, LIST_SEARCH_DEBOUNCE_MS);
     return () => clearTimeout(timer);
   }, [text, stored, screen]);
+
+  const clear = () => {
+    setText("");
+    written.current = "";
+    writeListQuery(screen, "");
+  };
 
   return (
     <div className="search list-search" role="search">
@@ -63,10 +81,7 @@ export const ListSearch = memo(function ListSearch({ screen, id, labelKey, place
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Escape" && text) {
-            setText("");
-            writeListQuery(screen, "");
-          }
+          if (e.key === "Escape" && text) clear();
         }}
       />
       {text ? (
@@ -75,10 +90,7 @@ export const ListSearch = memo(function ListSearch({ screen, id, labelKey, place
           className="search-btn list-search-clear"
           aria-label={t(clearKey)}
           title={t(clearKey)}
-          onClick={() => {
-            setText("");
-            writeListQuery(screen, "");
-          }}
+          onClick={clear}
         >
           <X aria-hidden="true" />
         </button>

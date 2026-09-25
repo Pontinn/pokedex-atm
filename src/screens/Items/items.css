@@ -1,1 +1,38 @@
-/* Estilos da tela items. Carregado SO por ItemsScreen.tsx (cada tela tem o proprio arquivo de CSS). */
+/* Tela Itens & Comidas (F9.2). Porta design/prototipo/style.css: .page-head 389, .item-top/.item-grid/.item-card 1095-1115,
+   .item-tools 976-979, .tr-caret 1041-1043, cores .it-tile.lg.cat-* 914-916, mobile 1128-1132. Mudanca do Pontin (2026-09-24,
+   feedback/2.png): a tag da categoria fica em linha PROPRIA acima do nome; nada divide a linha com o nome alem da seta.
+   Carregado SO por ItemsScreen.tsx. */
+.items-screen .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.items-screen .item-top { display: grid; gap: 12px; margin-bottom: 14px; }
+.items-screen .item-tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.items-screen .item-tools .list-search { flex: 1 1 320px; }
+.items-screen .item-tabs { margin-bottom: 0; }
+.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.item-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px 14px; box-shadow: var(--shadow-sm); animation: cardIn .45s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); transition: transform .25s var(--ease-out), box-shadow .25s; min-width: 0; content-visibility: auto; contain-intrinsic-size: auto 110px; }
+.item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.item-card.open { border-color: color-mix(in srgb, var(--secondary) 55%, var(--border)); }
+.item-head { display: flex; align-items: center; gap: 6px; }
+.item-link { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; text-align: left; color: inherit; border-radius: 12px; margin: -4px; padding: 4px; cursor: pointer; }
+.item-link:hover { background: var(--surface-2); }
+.item-card:hover .it-tile img { transform: scale(1.12) rotate(-6deg); }
+.item-tile-wrap { display: inline-flex; flex: none; }
+.item-tile-wrap .it-tile { border-radius: 12px; }
+.item-tile-wrap .it-tile img { width: 40px; height: 40px; }
+.item-tile-wrap .it-tile svg { width: 22px; height: 22px; color: var(--muted); }
+.item-tile-wrap.cat-med .it-tile { background: #FFE3E3; } .item-tile-wrap.cat-iv .it-tile { background: #F1DDF1; } .item-tile-wrap.cat-vit .it-tile { background: #FDEBDC; } .item-tile-wrap.cat-candy .it-tile { background: #FDE1EA; }
+.item-tile-wrap.cat-evo .it-tile { background: #E6DCFE; } .item-tile-wrap.cat-held .it-tile { background: #DCEAEE; } .item-tile-wrap.cat-battle .it-tile { background: #FCF3C9; } .item-tile-wrap.cat-cook .it-tile { background: #FCE6D6; } .item-tile-wrap.cat-berry .it-tile { background: #E4F3DB; } .item-tile-wrap.cat-bait .it-tile { background: #DCEAF8; }
+.item-tile-wrap.cat-mint .it-tile { background: #DDF3EA; } .item-tile-wrap.cat-fossil .it-tile { background: #EFE6DA; }
+html[data-theme="black"] .item-tile-wrap .it-tile { background: #1F1D14; }
+.item-names { flex: 1; min-width: 0; display: grid; justify-items: start; gap: 2px; }
+.item-tag { margin-bottom: 1px; }
+.item-name { font-weight: 800; font-size: 15px; line-height: 1.25; min-width: 0; max-width: 100%; overflow-wrap: break-word; }
+.item-alt { font-size: 11px; color: var(--muted); font-weight: 700; max-width: 100%; overflow-wrap: break-word; }
+.item-caret { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; flex: none; }
+.item-caret:hover { background: var(--surface-2); }
+.item-card.open .item-caret { transform: rotate(180deg); }
+.item-desc { font-size: 13px; color: var(--muted); font-weight: 600; margin: 8px 0 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.item-card.open .item-desc { display: block; -webkit-line-clamp: unset; line-clamp: none; }
+.item-desc-none { font-style: italic; opacity: .8; }
+.items-screen .empty-query { margin: 4px 0 0; font-weight: 800; overflow-wrap: anywhere; }
+.app.mobile .item-grid { grid-template-columns: 1fr; }
+.app.mobile .items-screen .item-tools .terms-tgl { margin-left: auto; }
