@@ -1,13 +1,11 @@
 // F8.1/F8.2: Treinadores com o dataset REAL (public/data/current.json), headless, sem slowMo, sem esperas fixas.
-// Rodar com PW_DEV=1 PW_PORT=4175 (os modulos do app sao importados no navegador pela URL do Vite dev).
+// Mode-agnostic: navegacao por interacao real de UI + IndexedDB direto (tests/e2e/idb-helpers.ts), roda em dev
+// (PW_DEV=1) e em build+preview.
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
+import { writeDoc } from "./idb-helpers";
 
 const SHOTS = process.env.TRAINERS_SHOTS_DIR;
-
-type NavModule = typeof import("../../src/navigation/navigation-store");
-type TrainersModule = typeof import("../../src/state/trainers-store");
-const URLS = { nav: "/src/navigation/navigation-store.ts", trainers: "/src/state/trainers-store.ts" } as const;
 
 const ROARK = "gym_leader_roark_0395";
 const MARS = "commander_mars_03c2";
@@ -25,15 +23,22 @@ function trackConsoleErrors(page: Page): string[] {
   return errors;
 }
 
+// Navegacao por interacao real de UI (sidebar no desktop, sheet "Mais" no mobile): funciona em dev e producao.
+async function goTrainers(page: Page) {
+  let link = page.locator('[data-nav="trainers"]:visible').first();
+  if ((await link.count()) === 0) {
+    await page.locator('[data-nav="more"]:visible').first().click();
+    link = page.locator('[data-nav="trainers"]:visible').first();
+  }
+  await link.click();
+}
+
 async function openTrainers(page: Page, width = 1280, height = 800) {
   await page.setViewportSize({ width, height });
   await page.goto("/");
   await expect(page.locator("#app")).toBeAttached({ timeout: 30_000 });
   await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
-  await page.evaluate(async (urls) => {
-    const nav = (await import(/* @vite-ignore */ urls.nav)) as NavModule;
-    nav.useNavigationStore.getState().navigate("trainers");
-  }, URLS);
+  await goTrainers(page);
   await expect(page.locator(".trainers-screen")).toBeVisible();
   await expect(page.locator("#tr-series .seg-chip").first()).toBeVisible({ timeout: 30_000 });
 }
@@ -44,17 +49,17 @@ async function setLanguage(page: Page, lang: "pt" | "en") {
   await expect(page.locator("html")).toHaveAttribute("lang", lang === "en" ? "en" : "pt-BR");
 }
 
+// Escreve o doc "trainerProgress" direto no IndexedDB (mesmo schema de src/storage/types.ts) em vez de chamar as
+// acoes da store por import do Vite dev (so funciona com PW_DEV=1); funciona em dev e em build+preview.
 async function seedDefeated(page: Page, ids: string[], active: string | null = "bdsp") {
-  await page.evaluate(
-    async ({ urls, ids, active }) => {
-      const m = (await import(/* @vite-ignore */ urls.trainers)) as TrainersModule;
-      const s = m.useTrainersStore.getState();
-      if (active) await s.setActiveSeries(active);
-      let at = 1;
-      for (const id of ids) await s.markDefeated("bdsp", id, at++);
-    },
-    { urls: URLS, ids, active },
-  );
+  const defeated: Record<string, { at: number }> = {};
+  ids.forEach((id, i) => (defeated[id] = { at: i + 1 }));
+  await writeDoc(page, "trainerProgress", {
+    schemaVersion: 1,
+    activeSeriesId: active,
+    freeroam: { active: false, pausedSeriesId: null },
+    series: { bdsp: { defeated } },
+  });
 }
 
 const cap = (page: Page) => page.getByTestId("tr-cap");
@@ -212,10 +217,7 @@ test.describe("F8.2 timeline and live level cap", () => {
 
     await input.fill("roark");
     await expect(page.locator(".tr-step")).toHaveCount(1);
-    await page.evaluate(async (urls) => {
-      const nav = (await import(/* @vite-ignore */ urls.nav)) as NavModule;
-      nav.useNavigationStore.getState().navigate("settings");
-    }, URLS);
+    await page.locator('[data-nav="settings"]:visible').first().click();
     await page.goBack();
     await expect(page.locator("#tr-q")).toHaveValue("roark");
     await expect(page.locator(".tr-step")).toHaveCount(1);
