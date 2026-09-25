@@ -360,10 +360,10 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
   - Done when (literal da SPEC): `desktop-detail-charizard-full.png` (hero; tambem e a referencia do tema `classic` para a ficha, movida de F1.1), `desktop-detail-mewtwo-legendary-full.png` sem o badge "NAO NASCE NO MUNDO", `desktop-detail-mew-mythical-full.png`; teste: raios `::before` tem `width: 240%` e `border-radius: 50%`; e2e movido de F1.3 (primeira feature com Dex e ficha reais): "Dex com filtro Fogo + scroll > ficha > Voltar" restaura filtro e scroll (tolerancia 2 px, `expect.poll`, sem timers). Hero sem sobreposicao: `expectNoOverlap` no hero a 360 px, 390 px e 1280 px, em PT e EN, com o caso mais longo de selos (Lendario + raridade `ultra-rare`, e Mitico) e os botoes shiny/grito; nenhum selo cruza os botoes.
   - notas: grupo A. `tests/e2e/detail.spec.ts` (9, artwork servido por page.route): Charizard g-fire, selo de raridade, titulo, shiny troca para official-artwork/shiny/6.png com artSwap, botao de grito, historico[0] = 6; raios ::before 240% e 50%; Mewtwo hero-legendary (8 faiscas, sheen, sem NAO NASCE NO MUNDO) e Mew hero-mythical; artwork 404 -> silhueta; custom 9901 -> aviso; dex inexistente -> EmptyState; Capturei marca e desmarca com Modal; time liga/desliga; Dex Fogo + scroll 900 > ficha > Voltar restaura filtro e scroll (2 px); hero sem sobreposicao 360/390/1280 PT/EN (150, 151, 6). Selos em fluxo acima do titulo, reservando os botoes. Capturei marca direto ate F6.1 trocar pelo overlay. Screenshots conferidos com desktop-detail-charizard-full / mewtwo / mew e mobile-detail-charizard-full.
 
-- [ ] F4.2 Stats, fraquezas/resistencias e habilidades
-  - hash:
+- [x] F4.2 Stats, fraquezas/resistencias e habilidades
+  - hash: 595ad987
   - Done when (literal da SPEC): Charizard: Pedra x4, Agua x2, Eletrico x2, Fogo x1/2, Terra x0 (imune); `desktop-detail-charizard-resistances.png`.
-  - notas:
+  - notas: grupo A. e2e `tests/e2e/detail.spec.ts` (+4): Charizard Pedra x4, Agua/Eletrico x2, Fogo em x1/2, Terra x0; seletor Fraquezas (2 linhas) e Resistencias sem remontar a tela (`data-entry-id`); termos EN so no card de fraquezas; BST 534; 2 habilidades com 1 oculta; paineis sem sobreposicao 360/390/1280 PT/EN. Unit `detail-panels.test.ts` (3). Screenshot conferido com desktop-detail-charizard-resistances.png.
 
 - [ ] F4.3 Cadeia de evolucao clicavel
   - hash:
