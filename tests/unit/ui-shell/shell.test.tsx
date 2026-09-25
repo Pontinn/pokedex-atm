@@ -18,6 +18,8 @@ vi.mock("../../../src/data/loaders", async (importOriginal) => {
     }),
     loadSpeciesIndex: vi.fn(async () => []),
     loadTypeChart: vi.fn(async () => ({ attackers: [], matrix: [] })),
+    // a tela real de Treinadores (F8) carrega as series ao abrir
+    loadSeries: vi.fn(async () => []),
   };
 });
 
@@ -114,7 +116,7 @@ describe("desktop sidebar", () => {
     fireEvent.click(within(sidebar).getByText("Treinadores"));
     expect(useNavigationStore.getState().current.screen).toBe("trainers");
     expect(within(sidebar).getByText("Treinadores").closest("button")?.className).toContain("active");
-    expect(document.querySelector("[data-placeholder='trainers']")).not.toBeNull();
+    expect(document.querySelector(".trainers-screen")).not.toBeNull();
   });
 
   it("toggles language, sound and theme", async () => {
