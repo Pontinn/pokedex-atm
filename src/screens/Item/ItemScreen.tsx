@@ -215,7 +215,7 @@ function ItemHero({ item, name, lang, uiLang, unknown }: { item: ItemInfo | null
         <span className="badge badge-common">{unknown ? t("ip.otherMod") : t(CATEGORY_LABEL[item!.category])}</span>
         <h2>{name.primary}</h2>
         {name.secondary ? <div className="item-alt">{name.secondary}</div> : null}
-        <p className="item-hero-desc">{unknown ? t("ip.otherModHint") : (desc ?? t("ip.noDesc"))}</p>
+        <p className="item-hero-desc">{unknown ? t("ip.otherModHint") : (desc ?? t("item.noDesc"))}</p>
         {item?.cooking?.effectNote === "pending" ? (
           <div className="notice item-cooking-note">
             <Info aria-hidden="true" />

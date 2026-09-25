@@ -20,7 +20,6 @@ export const ITEM_MESSAGES = {
   "ip.effect": { pt: "Efeito", en: "Effect" },
   "ip.form": { pt: "Forma", en: "Form" },
   "ip.revive": { pt: "Reviver na máquina de fósseis", en: "Revive in the fossil machine" },
-  "ip.noDesc": { pt: "Sem descrição oficial neste item", en: "No official description for this item" },
   "ip.craftTypes": { pt: "Sim, tem receita ({types})", en: "Yes, it has a recipe ({types})" },
   "ip.plantAny": { pt: "Pode ser plantado", en: "Can be planted" },
   "ip.otherMod": { pt: "Item de outro mod", en: "Item from another mod" },
