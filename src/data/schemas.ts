@@ -276,6 +276,7 @@ export const itemsFileSchema: z.ZodType<ItemsFile> = z.record(z.string(), itemIn
 const ballCondition = z.enum([
   "firstTurn", "lightLevel0", "turn10", "targetLevelBelow30", "playerLevelHigher", "fullMoonNight", "fishing",
   "submerged", "registeredCaught", "oppositeGender", "sleeping", "forestOrPlains", "outsideBattle", "heavyTarget", "ultraBeast",
+  "minBaseSpeedAbove", "hasAnyType",
 ]);
 export const ballInfoSchema: z.ZodType<BallInfo> = z.object({
   id: z.string(),
