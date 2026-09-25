@@ -3,8 +3,6 @@ import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.ITEMS_SHOTS_DIR;
-type NavModule = typeof import("../../src/navigation/navigation-store");
-const NAV_URL = "/src/navigation/navigation-store.ts";
 
 function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -15,14 +13,14 @@ function trackConsoleErrors(page: Page): string[] {
   return errors;
 }
 
+// Navegacao por interacao real de UI (sidebar no desktop, sheet "Mais" no mobile): funciona em dev e producao.
 async function go(page: Page, screen: "items" | "settings") {
-  await page.evaluate(
-    async ({ url, screen }) => {
-      const nav = (await import(/* @vite-ignore */ url)) as NavModule;
-      nav.useNavigationStore.getState().navigate(screen);
-    },
-    { url: NAV_URL, screen },
-  );
+  let link = page.locator(`[data-nav="${screen}"]:visible`).first();
+  if ((await link.count()) === 0) {
+    await page.locator('[data-nav="more"]:visible').first().click();
+    link = page.locator(`[data-nav="${screen}"]:visible`).first();
+  }
+  await link.click();
 }
 
 async function openItems(page: Page, width = 1280, height = 800) {
