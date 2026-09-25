@@ -58,7 +58,7 @@ describe("filterSpecies", () => {
     expect(dexes(filterSpecies(INDEX, { ...base, filters: { ...base.filters, query: "pantano" } }))).toEqual([195]);
     expect(dexes(filterSpecies(INDEX, { ...base, filters: { ...base.filters, query: "QUAG" } }))).toEqual([195]);
     expect(filterSpecies(INDEX, { ...base, filters: { ...base.filters, query: "   " } })).toHaveLength(INDEX.length);
-    expect(matchesQuery(INDEX[0], "zzzz")).toBe(false);
+    expect(matchesQuery(INDEX[0]!, "zzzz")).toBe(false);
   });
   it("custom generation shows the pack species; sorting by name and bst keeps the filter", () => {
     expect(dexes(filterSpecies(INDEX, { ...base, filters: { ...base.filters, generation: "custom" } }))).toEqual([9901]);
