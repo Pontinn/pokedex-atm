@@ -3,8 +3,6 @@ import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.COMPARE_SHOTS_DIR;
-type NavModule = typeof import("../../src/navigation/navigation-store");
-type HistoryModule = typeof import("../../src/state/history-store");
 
 function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -20,28 +18,36 @@ async function boot(page: Page, width = 1280, height = 800) {
   await page.goto("/");
   await expect(page.locator("#app")).toBeAttached({ timeout: 30_000 });
   await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+  await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
 }
 
-/** Historico semeado pela propria store (mais antigo primeiro) e abre Comparar. */
+// Navegacao por interacao real de UI (busca da Home + sidebar/tabbar): funciona em dev e em build+preview, nao
+// depende de "/src/..." em page.evaluate (so existe no dev server).
+async function openDetail(page: Page, dex: number) {
+  if (!(await page.locator(".home-screen").isVisible().catch(() => false))) {
+    await page.locator('[data-nav="home"]:visible').first().click();
+    await expect(page.locator(".home-screen")).toBeVisible();
+  }
+  await page.locator("#search-input").fill(String(dex));
+  const item = page.locator(`.search-dd .dd-item[data-dex='${dex}']`);
+  await expect(item).toBeVisible();
+  await item.click();
+  await expect(page.locator(`.detail-screen[data-dex='${dex}']`)).toBeVisible();
+}
+
+/** Visita cada dex pela busca real (empurra o historico de verdade, mais antigo primeiro) e abre Comparar. */
 async function openCompare(page: Page, history: number[]) {
-  await page.evaluate(
-    async ({ history }) => {
-      const h = (await import(/* @vite-ignore */ "/src/state/history-store.ts" as string)) as HistoryModule;
-      let at = Date.now() - 10_000;
-      for (const dex of history) await h.useHistoryStore.getState().push(dex, at++);
-      const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts" as string)) as NavModule;
-      nav.useNavigationStore.getState().navigate("compare");
-    },
-    { history },
-  );
+  for (const dex of history) {
+    await openDetail(page, dex);
+    await page.goBack();
+    await expect(page.locator(".home-screen")).toBeVisible();
+  }
+  await page.locator('[data-nav="compare"]:visible').first().click();
   await expect(page.locator(".compare-screen")).toBeVisible({ timeout: 30_000 });
 }
 
 async function navigate(page: Page, screen: "settings") {
-  await page.evaluate(async (screen) => {
-    const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts" as string)) as NavModule;
-    nav.useNavigationStore.getState().navigate(screen);
-  }, screen);
+  await page.locator(`[data-nav="${screen}"]:visible`).first().click();
 }
 
 async function setLanguage(page: Page, lang: "pt" | "en") {
