@@ -411,10 +411,10 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F7: Comparar
 
-- [ ] F7.1 Comparar dois Pokemon
-  - hash:
+- [x] F7.1 Comparar dois Pokemon
+  - hash: dd8c16d0 (+ 20079f5a, tipos do spec)
   - Done when (literal da SPEC): `desktop-compare.png`; swap inverte os lados sem perder scroll.
-  - notas:
+  - notas: grupo B (reatribuido do A). Padrao = 2 ultimos do historico (`compareDefaults`: params > historico > vazio); lado = card com `ArtworkImage` 96 px (sem aviso), `#dex`, nome, `TypeChip` sm e "Trocar Pokémon" que abre `ComparePicker` (mesma busca da Home: visual `.search`, `SearchDropdown` e `searchSpecies`; Enter pega o 1o, Esc fecha); linhas espelhadas (`.cmp-bar.left` scaleX(-1)), `.win` so no maior valor, Total; "Trocar lados" (`#cmp-swap`) inverte `current.ui.left/right` SEM navegar: mesma entrada e scroll identico (2 px). Lado vazio = EmptyState "Escolha um Pokémon"; mesmo Pokemon dos dois lados = sem `.win`. `SearchBox` da Home nao foi usado direto (ele navega para a ficha e grava `home.query`); o picker reusa as pecas dele sem editar arquivos do grupo A. Provas: `tests/unit/ui-screens/compare-model.test.ts` (2) + `tests/e2e/compare.spec.ts` (9, dataset real, 0 erros de console): Charizard x Lucario 78/84/78/109/85/100 = 534 x 70/110/70/115/70/90 = 525 com os vencedores certos, swap, troca por "pantano", mesmo Pokemon, Voltar restaura; expectNoOverlap 360/390/1280 PT e EN (com o picker aberto e com lados vazios). Conferido contra desktop-compare.png.
 
 ### Sprint F8: Treinadores e timeline
 

@@ -174,14 +174,17 @@ Agente: forge-imp-frontend (Grupo A). Inicio 2026-09-24 21:35.
 
 ## Grupo B (Treinadores, Pokebolas, Itens, Item, Comparar)
 
-Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22:12 (parado por tempo e por bloqueio em F9.1).
+Agente: forge-imp-frontend (Grupo B). Sessao 1: 2026-09-24 21:35-22:12 (F8; parada por tempo e bloqueio em F9.1). Sessao 2 (continuacao, contexto limpo): 22:21-23:05 (F9.1-F9.3, F7.1).
 
 | Feature | Status | Commit | Notas |
 |---|---|---|---|
 | F8.1 | verde | `decb4aa0` | store `trainers-store.ts`, picker com bloqueio/Modo Livre, modelo puro testado no dataset real |
 | F8.2 | verde | `75d7853d` | cap vigente, linha do tempo, derrotados, acordeao com time/spawn/mochila, busca PT/EN |
-| F9.1 | [!] bloqueado | - | `loadBalls()` sempre INVALID (schema zod sem `minBaseSpeedAbove`/`hasAnyType`); codigo pronto NAO commitado |
-| F9.2, F9.3, F7.1 | nao iniciados | - | parado por tempo |
+| limpeza | verde | `af7c1450` | `refactor(trainers)`: `itemTexturePath()` removido (ItemTile resolve), `ListSearch` tipado por tela, sem cast |
+| F9.1 | verde | `496d5330` | 48 bolas (contagem do balls.json), filtros por tag + busca PT/EN, clique abre o item |
+| F9.2 | verde | `f294554c` | abas por categoria, busca em todos os itens, tag acima do nome, descricao expansivel |
+| F9.3 | verde | `6cc361d1` + `ebb4c88e` | pagina do item (Como obter honesto, Usado em); o fix troca `ip.noDesc` (chave EXCLUIDA pela SPEC) por `item.noDesc` |
+| F7.1 | verde | `dd8c16d0` + `20079f5a` | comparar com swap, picker com a busca da Home; o 2o commit so tipa os imports do spec |
 
 ### Testes executados
 - `npx vitest --run tests/unit/ui-screens/trainers-model.test.ts tests/unit/ui-screens/trainers-store.test.ts tests/unit/ui-shell/i18n-modules.test.ts`: 17 verdes. Modelo contra `public/data` REAL: 15/16/20/22, 3 Cedric "next" com 22, um Cedric 22, 3 Cedric -> Maylene 30, desmarcar do meio deixa dependente derrotado+bloqueado e o cap desce; busca "roark"/"garchomp"/"galactica"/"geodude"; atm_team bloqueada com requisito BDSP, Modo Livre bloqueado sem serie concluida. Store (fake-indexeddb): serie ativa persiste no reload, Modo Livre pausa/retoma, derrotados por serie, evento `pontindex:data-changed` (com a chave, sem keys, e ignora outras chaves).
@@ -198,24 +201,44 @@ Agente: forge-imp-frontend (Grupo B). Inicio 2026-09-24 21:35. Fim 2026-09-24 22
 6. Series quebram linha (`flex-wrap`) em vez de rolar na horizontal: com a rolagem, chips escondidos passavam por baixo do toggle de termos (expectNoOverlap pegou) e o Playwright nao clicava.
 7. Dica (`tr.tip`) do prototipo omitida: o dataset nao tem dica por treinador. Biomas pelo `biomes.json` (chave `#ns:is_x`), fallback humanizado.
 8. Icone `Lock` importado direto de `lucide-react` em `SeriesPicker.tsx` (Icon.tsx e congelado e nao reexporta `Lock`).
-9. Multiplicador das bolas (F9.1, nao commitada) segue a captura de referencia ("1.5x", "1x a 4x"), "Garantida" para Master/Origin.
+9. Multiplicador das bolas (F9.1) segue a captura de referencia ("1.5x", "1x a 4x"), "Garantida" para Master/Origin.
 10. Checkbox Derrotado toca `levelup` quando o cap sobe.
 
 ### Pedidos ao orquestrador (arquivos congelados / de outros agentes)
-- `src/data/schemas.ts`: adicionar `"minBaseSpeedAbove"` e `"hasAnyType"` ao `ballCondition` (bloqueia F9.1 e a melhor bola de F5.3).
-- `src/components/ItemTile.tsx`: aceitar `ItemInfo.texture` como vem (`assets/items/...`); hoje dobra o prefixo. Grupo B usa `itemTexturePath()`.
-- `tests/e2e/shell.spec.ts:113` espera `[data-placeholder='trainers']`: com F8 a tela real substituiu o placeholder, esse passo vai falhar (trocar por `.trainers-screen`).
-- `src/navigation/types.ts`: item 2 acima.
+- `src/data/schemas.ts`: adicionar `"minBaseSpeedAbove"` e `"hasAnyType"` ao `ballCondition` (bloqueia F9.1 e a melhor bola de F5.3). RESOLVIDO em `5f1f18dc`.
+- `src/components/ItemTile.tsx`: aceitar `ItemInfo.texture` como vem (`assets/items/...`); hoje dobra o prefixo. Grupo B usa `itemTexturePath()`. RESOLVIDO em `59500a8e` (contorno removido em `af7c1450`).
+- `tests/e2e/shell.spec.ts:113` espera `[data-placeholder='trainers']`: com F8 a tela real substituiu o placeholder, esse passo vai falhar (trocar por `.trainers-screen`). RESOLVIDO em `76d2e4f7`.
+- `src/navigation/types.ts`: item 2 acima. RESOLVIDO em `767b349b` (cast removido em `af7c1450`).
 
 ### Reutilizaveis (grupo B)
-- `src/screens/Trainers/ListSearch.tsx` (+ `list-search.css`): busca de lista com o visual da Home, debounce 120 ms, `ui.filters.query`, botao limpar. `useListQuery()`.
+- `src/screens/Trainers/ListSearch.tsx` (+ `list-search.css`): busca de lista com o visual da Home, debounce 120 ms, `ListSearch({ screen, id, labelKey, placeholderKey, clearKey })` e `useListQuery(screen)` (`filters.query` em trainers/balls, `query` em items), botao limpar.
 - `src/screens/Trainers/use-loader.ts`: `useLoader(load, deps)` -> `{data, error, loading, retry}`.
-- `src/screens/Trainers/trainer-model.ts`: `itemTexturePath`, `humanizeId`, `biomeLabel`, `roleClass`, regras do cap para a tela.
+- `src/screens/Trainers/trainer-model.ts`: `humanizeId`, `biomeLabel`, `roleClass`, regras do cap para a tela.
 - `src/screens/Trainers/TrainerTeam.tsx`: `ItemChip` (item clicavel -> pagina do item).
 
-### Onde parou (para o proximo agente do grupo B)
-- F9.1: arquivos prontos no working tree (nao commitados): `src/screens/Balls/{BallsScreen.tsx,ball-model.ts,balls.css}`, `src/i18n/messages/balls.ts` (8 chaves novas), `tests/unit/ui-screens/balls-model.test.ts` (verde), `tests/e2e/balls.spec.ts`. Assim que o schema for corrigido: `$env:PW_DEV="1"; $env:PW_PORT="4175"; npx playwright test tests/e2e/balls.spec.ts`, conferir print contra `desktop-balls-full.png`, commitar `feat(balls): poke ball grid with official effects and filters`.
-- Depois: F9.2, F9.3, F7.1 (F7 so com `ArtworkImage` do grupo A no HEAD).
+### Sessao 2: testes executados (todos verdes, headless, sem slowMo/sleeps, PW_DEV=1 PW_PORT=4175, dataset real)
+- e2e: `balls.spec.ts` 7, `items.spec.ts` 7, `item.spec.ts` 9, `compare.spec.ts` 9, e `trainers.spec.ts` 11 de novo depois da mudanca do `ListSearch` (1 falha transitoria de HMR durante uma edicao em andamento de `ItemsScreen.tsx`; repetido o teste, verde). 0 erros de console, `expectNoOverlap` 360/390/1280 PT e EN em todas.
+- unit: `balls-model` 4, `items-model` 3, `item-page` 4, `compare-model` 2, `trainers-model` 10, `trainers-store` 4, `i18n-modules` 3.
+- Suite completa fim de F9: 38/39 arquivos, 1 falha minha (`i18n.test.tsx`: `ip.noDesc` e chave excluida pela SPEC), corrigida em `ebb4c88e` e o arquivo repetido sozinho verde. Suite completa fim de F7: 40/40 arquivos, 318/318 testes. `npm run typecheck` 0 erros; eslint limpo nos meus caminhos.
+- Screenshots conferidos contra `desktop-balls-full.png`, `desktop-items-grid.png` (cabecalho do card mascarado), `desktop-item-page-full.png`, `desktop-compare.png`.
+
+### Sessao 2: decisoes e desvios
+1. `ListSearch(screen)`: `filters.query` em treinadores/bolas e `query` em itens (o `UiStateMap.items` congelado ja tem `query` no topo). A barra acompanha mudanca externa do estado de UI (clicar numa aba de Itens limpa a busca).
+2. Itens: sem virtualizacao JS; `content-visibility: auto` nos cards (aba Outros tem 559 itens). Aba Iscas = itens com a tag `bait` (73); aba sem item nao aparece; `ui.category` "all" (padrao congelado) cai na 1a aba (Medicina). Seta so aparece quando ha descricao.
+3. Pagina do item: "Como usar" do prototipo omitido (dataset nao tem). Receita = "Sim, tem receita (tipos legiveis)"; loot humanizado ("Ruins: Gilded chests (base)"). `minecraft:gunpowder` EXISTE no `items.json` atual; o caso "item de outro mod" e testado com `othermod:strange_widget`.
+4. F9.3 e2e "Charizard > Golpes TM > scroll > item > Voltar": a ficha do Charizard ainda nao tem item clicavel (formas/melhor bola), entao o item e aberto por `navigate` (mesmo efeito do clique). T1 pode trocar por clique real (ex. item da Mega X de F5.2).
+5. Comparar: `SearchBox` da Home nao serve direto (navega para a ficha e grava `home.query`); `ComparePicker` reusa `SearchDropdown`, `searchSpecies`, `SEARCH_DEBOUNCE_MS/LIMIT` e o visual `.search`, sem editar arquivos do grupo A. Barras com classe propria `.cmp-bar` (nao depende de `detail.css`).
+6. Icones extras importados direto de `lucide-react` (Icon.tsx congelado): Bone, Cherry, CookingPot, Fish, Leaf, CircleArrowUp, Gift, Hammer, PackageOpen, Sprout.
+7. Os docs `.forge` (checklist/handoff) NAO foram commitados por mim; o grupo A commitou o checklist com as minhas marcas de F9 em `02de41d2`.
+
+### Reutilizaveis (grupo B, sessao 2)
+- `src/screens/Items/item-model.ts`: `ITEM_TABS`, `CATEGORY_CLASS`, `CATEGORY_LABEL`, `inTab`, `visibleTabs`, `filterItems`.
+- `src/screens/Item/item-page-model.ts`: `obtainRows`, `recipeLabels`, `lootTableLabel`, `unknownItemName`, `showsEffect`.
+- `src/screens/Compare/ComparePicker.tsx` (busca de especie que devolve o dex), `compare-model.ts` (`winner`, `compareDefaults`).
+
+### Onde parei (fim da sessao 2, 2026-09-24 23:05)
+- Escopo do grupo B COMPLETO: F8.1, F8.2, F9.1, F9.2, F9.3, F7.1 verdes e commitados. Nada pendente, nenhum `[!]`.
+- Nenhum pedido novo de arquivo congelado. Sugestao para T1: trocar a navegacao programatica do e2e de F9.3 por clique real num item da ficha do Charizard quando F5.2/F5.3 estiverem no HEAD.
 
 ### F4.1 (commit `67d571dd`): `ArtworkImage` pronto para o grupo B (F7)
 
