@@ -22,7 +22,7 @@ import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
-import { lootLabels, obtainRows, recipeLabels, showsEffect, unknownItemName } from "./item-page-model";
+import { lootLabels, obtainRows, recipeLabels, showsEffect, uniqueEvolutions, unknownItemName } from "./item-page-model";
 
 const loadItemPageData = () => Promise.all([loadItems(), loadBalls(), loadBiomes().catch(() => null)]);
 
@@ -144,7 +144,7 @@ function UsedIn({ item, ball, lang, uiLang, species }: { item: ItemInfo; ball: B
     rows.push(
       <Row key="evo" icon={<CircleArrowUp />} title={t("ip.evolves")} index={rows.length} kind="evolutions">
         <span className="mon-chips">
-          {u.evolutions.map((e) => (
+          {uniqueEvolutions(u.evolutions).map((e) => (
             <span key={`${e.from}-${e.to}`} className="evo-pair">
               <MonChip dex={e.from} species={species.get(e.from)} lang={lang} />
               <ArrowRight aria-hidden="true" />

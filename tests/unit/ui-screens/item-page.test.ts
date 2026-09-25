@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { ItemsFile } from "../../../src/data/types";
-import { lootTableLabel, obtainRows, recipeLabels, showsEffect, unknownItemName } from "../../../src/screens/Item/item-page-model";
+import { lootTableLabel, obtainRows, recipeLabels, showsEffect, uniqueEvolutions, unknownItemName } from "../../../src/screens/Item/item-page-model";
 
 const root = join(__dirname, "../../../public/data");
 const version = (JSON.parse(readFileSync(join(root, "current.json"), "utf8")) as { datasetVersion: string }).datasetVersion;
@@ -40,5 +40,18 @@ describe("F9.3 item page", () => {
       expect(evo).toContainEqual(pair);
     expect(showsEffect(items["cobblemon:potion"]!)).toBe(true);
     expect(showsEffect(items["cobblemon:fire_stone"]!)).toBe(false);
+  });
+
+  it("used-in shows each evolution pair once (regional routes repeat from/to without a form)", () => {
+    const thunder = items["cobblemon:thunder_stone"]!.usedIn.evolutions;
+    expect(thunder.filter((e) => e.from === 25 && e.to === 26)).toHaveLength(2);
+    const shown = uniqueEvolutions(thunder);
+    expect(shown.filter((e) => e.from === 25 && e.to === 26)).toHaveLength(1);
+    expect(shown.length).toBe(new Set(thunder.map((e) => `${e.from}-${e.to}`)).size);
+    for (const item of Object.values(items)) {
+      const keys = uniqueEvolutions(item.usedIn.evolutions).map((e) => `${e.from}-${e.to}`);
+      expect(new Set(keys).size).toBe(keys.length);
+    }
+    expect(uniqueEvolutions([{ from: 1, to: 2 }, { from: 3, to: 4 }, { from: 1, to: 2 }])).toEqual([{ from: 1, to: 2 }, { from: 3, to: 4 }]);
   });
 });

@@ -57,3 +57,18 @@ export function unknownItemName(id: string): LocalizedText {
 export function showsEffect(item: Pick<ItemInfo, "category" | "description">): boolean {
   return item.description != null && (item.category === "medicine" || item.category === "cooking" || item.category === "berry");
 }
+
+/**
+ * Pares de evolucao distintos, na ordem do dataset. O `items.json` repete o mesmo `from/to`
+ * quando a especie tem rota regional (ex.: Pikachu -> Raichu de Kanto e de Alola) sem campo de forma,
+ * entao cada par aparece uma vez so (sem inventar rotulo de forma).
+ */
+export function uniqueEvolutions(evolutions: ItemInfo["usedIn"]["evolutions"]): ItemInfo["usedIn"]["evolutions"] {
+  const seen = new Set<string>();
+  return evolutions.filter((e) => {
+    const key = `${e.from}-${e.to}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
