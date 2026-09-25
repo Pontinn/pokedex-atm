@@ -22,6 +22,7 @@ import { HeroCard } from "./HeroCard";
 import { MovesPanel } from "./MovesPanel";
 import { WherePanel } from "./WherePanel";
 import { BestBallPanel } from "./BestBallPanel";
+import { CalculatorsPanel } from "./StatsCalculator";
 import { FormsPanel } from "./FormsPanel";
 import { StatsPanel } from "./StatsPanel";
 import { useSpeciesDetail } from "./use-species-detail";
@@ -120,6 +121,7 @@ export function DetailScreen({ params }: ScreenProps) {
             <WherePanel detail={detail} />
             <BestBallPanel detail={detail} />
             <FormsPanel detail={detail} />
+            <CalculatorsPanel baseStats={detail.baseStats} types={detail.types} />
           </div>
         ) : (
           <div className="detail-right" />

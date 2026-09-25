@@ -579,3 +579,89 @@ test.describe("F5.3 best ball", () => {
     });
   }
 });
+
+test.describe("F5.4 calculators", () => {
+  test("base 100 / L100 / IV 31 / EV 252: neutral 299, favorable 328, unfavorable 269; EV over 510 freezes the output", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 151);
+    const calc = page.locator("#calc");
+    await calc.locator("summary").click();
+    await expect(calc).toHaveAttribute("open", "");
+    await calc.locator("#c-lv").fill("100");
+    await calc.locator("[data-ev='attack']").fill("252");
+    const atk = calc.locator("#calc-out .co[data-stat='attack'] b");
+    await expect(atk).toHaveText("299");
+    await calc.locator("#c-nat").selectOption("adamant");
+    await expect(atk).toHaveText("328");
+    await expect(calc.locator("#calc-out .co[data-stat='attack']")).toHaveClass(/up/);
+    await calc.locator("#c-nat").selectOption("modest");
+    await expect(atk).toHaveText("269");
+    await expect(calc.locator("#calc-out .co[data-stat='attack']")).toHaveClass(/down/);
+    await calc.locator("#c-lv").fill("500");
+    await expect(calc.locator("#c-lv")).toHaveValue("100");
+    await calc.locator("[data-ev='defence']").fill("252");
+    await calc.locator("[data-ev='speed']").fill("252");
+    await expect(calc.locator(".calc-ev-total")).toHaveClass(/invalid/);
+    await expect(calc.locator("[data-ev='speed']")).toHaveClass(/invalid/);
+    await expect(calc.locator("#calc-out")).toHaveClass(/stale/);
+    await expect(atk).toHaveText("269");
+    await calc.locator("[data-ev='speed']").fill("0");
+    await expect(calc.locator("#calc-out")).not.toHaveClass(/stale/);
+    expect(errors).toEqual([]);
+  });
+
+  test("Charizard recommends IV 31 in Sp. Atk (109) and Speed (100) and Apply fills the inputs; state survives Back", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 6);
+    const calc = page.locator("#calc");
+    await calc.locator("summary").click();
+    await expect(calc.locator("#calc-rec")).toContainText("IV 31 em At. Esp. (109) e Velocidade (100); EV 252/252/4 sugeridos");
+    await expect(calc.locator("[data-ev='specialAttack']")).toHaveValue("0");
+    await calc.locator(".calc-apply").click();
+    await expect(calc.locator("[data-ev='specialAttack']")).toHaveValue("252");
+    await expect(calc.locator("[data-ev='speed']")).toHaveValue("252");
+    await expect(calc.locator("[data-ev='specialDefence']")).toHaveValue("4");
+    await expect(calc.locator("[data-iv='hp']")).toHaveValue("31");
+    await openDetail(page, 1);
+    await page.goBack();
+    await expect(page.locator(".detail-screen[data-dex='6'] #calc")).toHaveAttribute("open", "");
+    await expect(page.locator("#calc [data-ev='speed']")).toHaveValue("252");
+  });
+
+  test("type calculator: prefilled with the species types; Fire/Water vs Fire = x1/4", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 6);
+    const calc = page.locator("#calc");
+    await calc.locator("summary").click();
+    await expect(calc.locator("#c-t1")).toHaveValue("fire");
+    await expect(calc.locator("#c-t2")).toHaveValue("flying");
+    await expect(calc.locator(".tc-cell")).toHaveCount(18);
+    await expect(calc.locator(".tc-cell[data-attacker='rock'] .mult")).toHaveText("x4");
+    await expect(calc.locator(".tc-cell[data-attacker='ground'] .mult")).toHaveText("x0");
+    await calc.locator("#c-t2").selectOption("water");
+    await expect(calc.locator(".tc-cell[data-attacker='fire'] .mult")).toHaveText("x¼");
+    await expect(calc.locator(".tc-cell[data-attacker='normal'] .mult")).toHaveText("x1");
+    await calc.locator("#c-t2").selectOption("");
+    await expect(calc.locator(".tc-cell[data-attacker='fire'] .mult")).toHaveText("x½");
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`calculators without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 6);
+      await page.locator("#calc summary").click();
+      await page.locator("#calc [data-ev='speed']").fill("252");
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.mouse.move(1, 1);
+        await settle(page);
+        await expectNoOverlap(page, page.locator("#calc"));
+      }
+      if (SHOTS) {
+        await page.locator("#calc").scrollIntoViewIfNeeded();
+        await page.locator("#calc").screenshot({ path: `${SHOTS}/detail-calc-${width}.png` });
+      }
+    });
+  }
+});
