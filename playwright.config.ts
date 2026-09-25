@@ -29,6 +29,9 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     headless: true,
     trace: "retain-on-failure",
+    // F12.1: sem SW nas outras specs (no build de producao o SW atenderia as requisicoes e o page.route dos
+    // mocks deixaria de ver). tests/e2e/pwa-offline.spec.ts religa com test.use({ serviceWorkers: "allow" }).
+    serviceWorkers: "block",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"], headless: true } }],
   webServer: {

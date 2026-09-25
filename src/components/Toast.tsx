@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { X } from "./Icon";
 import { useT } from "../i18n/useT";
+import { UpdatePrompt, useUpdatePromptVisible } from "../pwa/UpdatePrompt";
 import { TOAST_DURATION_MS, useShellStore, type ToastItem } from "../state/shell-store";
 
 function ToastView({ toast }: { toast: ToastItem }) {
@@ -24,9 +25,11 @@ function ToastView({ toast }: { toast: ToastItem }) {
 
 export function ToastHost() {
   const toasts = useShellStore((s) => s.toasts);
-  if (toasts.length === 0) return null;
+  const updateVisible = useUpdatePromptVisible();
+  if (toasts.length === 0 && !updateVisible) return null;
   return (
     <div className="toast-host">
+      <UpdatePrompt />
       {toasts.map((toast) => (
         <ToastView key={toast.id} toast={toast} />
       ))}
