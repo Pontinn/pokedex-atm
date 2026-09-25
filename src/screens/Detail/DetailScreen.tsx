@@ -1,4 +1,4 @@
-// Tela da ficha (F4/F5). F4.1: hero (selos, shiny, grito, Capturei, time). Recebe params.dex; carrega a ficha por
+// Tela da ficha (F4/F5). F4.1: hero (selos, shiny, grito, Capturei, time); F4.2: stats, fraquezas, habilidades. Recebe params.dex; carrega a ficha por
 // useSpeciesDetail; ao ABRIR (nao ao restaurar via Voltar) registra a visita no historico (RF-33), toca o grito
 // apos 350 ms com o som ligado (RF-91) e, se a especie evolui, `evolution_notification`.
 import "./detail.css";
@@ -16,8 +16,11 @@ import { reapplyRestoredScroll, useNavigationStore } from "../../navigation/navi
 import { useNavigationActions } from "../../navigation/useNavigation";
 import { useHistoryStore } from "../../state/history-store";
 import { usePreferencesStore } from "../../state/preferences-store";
+import { AbilitiesPanel } from "./AbilitiesPanel";
 import { HeroCard } from "./HeroCard";
+import { StatsPanel } from "./StatsPanel";
 import { useSpeciesDetail } from "./use-species-detail";
+import { WeaknessPanel } from "./WeaknessPanel";
 
 export const CRY_DELAY_MS = 350;
 
@@ -93,14 +96,24 @@ export function DetailScreen({ params }: ScreenProps) {
       <div className="detail" style={detail ? ({ "--tc": `var(--t-${detail.types[0]})` } as CSSProperties) : undefined}>
         <div className="detail-left">
           {detail ? (
-            <HeroCard detail={detail} />
+            <>
+              <HeroCard detail={detail} />
+              <StatsPanel stats={detail.baseStats} />
+            </>
           ) : (
             <div className="hero-skeleton" aria-busy="true">
               <Skeleton height={420} />
             </div>
           )}
         </div>
-        <div className="detail-right" />
+        {detail ? (
+          <div className="detail-right">
+            <WeaknessPanel types={detail.types} />
+            <AbilitiesPanel abilities={detail.abilities} />
+          </div>
+        ) : (
+          <div className="detail-right" />
+        )}
       </div>
     </section>
   );

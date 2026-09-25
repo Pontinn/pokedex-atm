@@ -195,3 +195,55 @@ test.describe("F4.1 hero", () => {
     });
   }
 });
+
+test.describe("F4.2 stats, weaknesses and abilities", () => {
+  test("Charizard: Rock x4, Water x2, Electric x2, Fire x1/2, Ground x0; selector filters only the grid", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 6);
+    const row = (mult: string) => page.locator(`#weak-panel .weak-row[data-mult='${mult}'] .chip`);
+    await expect(row("4")).toHaveText(["Pedra"]);
+    await expect(row("2")).toContainText(["Água", "Elétrico"]);
+    await expect(page.locator("#weak-panel .weak-row[data-mult='0.5'] .chip[data-type='fire']")).toHaveCount(1);
+    await expect(row("0")).toHaveText(["Terra"]);
+    const entry = await page.locator(".screen").getAttribute("data-entry-id");
+    await page.locator("#weak-panel .seg-sm button", { hasText: "Fraquezas" }).click();
+    await expect(page.locator("#weak-panel .weak-row")).toHaveCount(2);
+    await page.locator("#weak-panel .seg-sm button", { hasText: "Resistências" }).click();
+    await expect(page.locator("#weak-panel .weak-row[data-mult='4']")).toHaveCount(0);
+    await expect(page.locator("#weak-panel .weak-row[data-mult='0']")).toHaveCount(1);
+    await expect(page.locator(".screen")).toHaveAttribute("data-entry-id", entry ?? "");
+    // termos EN so no card de fraquezas
+    await page.locator("#weak-panel .terms-tgl [data-tl='en']").click();
+    await expect(row("0")).toHaveText(["Ground"]);
+    await expect(page.locator(".hero-card .chip").first()).toHaveText("Fogo");
+    // stats: BST 534 e 6 barras
+    await expect(page.locator(".stats-panel .stat")).toHaveCount(6);
+    await expect(page.locator(".stats-panel [data-stat='total']")).toHaveText("534");
+    // habilidades: Blaze + Solar Power (oculta)
+    await expect(page.locator("#abilities-panel .ability")).toHaveCount(2);
+    await expect(page.locator("#abilities-panel .ability .tag")).toHaveCount(1);
+    await expect(page.locator("#abilities-panel .ab-desc").first()).not.toBeEmpty();
+    if (SHOTS) {
+      await page.locator("#weak-panel .seg-sm button", { hasText: "Todos" }).click();
+      await page.mouse.move(1, 1);
+      await settle(page);
+      await page.screenshot({ path: `${SHOTS}/desktop-detail-charizard-resistances.png`, fullPage: false });
+    }
+    expect(errors).toEqual([]);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`panels without overlap at ${width}px (PT and EN)`, async ({ page }) => {
+      await boot(page, width, 900);
+      await openDetail(page, 6);
+      await expect(page.locator("#abilities-panel .ability").first()).toBeVisible();
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await page.mouse.move(1, 1);
+        await settle(page);
+        for (const sel of [".stats-panel", "#weak-panel", "#abilities-panel"]) await expectNoOverlap(page, page.locator(sel));
+      }
+    });
+  }
+});
