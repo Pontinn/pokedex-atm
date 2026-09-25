@@ -71,7 +71,7 @@ export interface UiStateMap {
     calcOpen: boolean;
     calcInputs: Record<string, number | string>;
   };
-  captured: { tab: string };
+  captured: { tab: string; filters: ListFilters };
   compare: { left: number | null; right: number | null };
   trainers: { seriesId: string | null; openTrainerId: string | null; filters: ListFilters };
   balls: { filter: string; filters: ListFilters };
@@ -107,7 +107,7 @@ export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
       calcOpen: false,
       calcInputs: {},
     }),
-    captured: () => ({ tab: "all" }),
+    captured: () => ({ tab: "all", filters: { query: "" } }),
     compare: () => ({ left: null, right: null }),
     trainers: () => ({ seriesId: null, openTrainerId: null, filters: { query: "" } }),
     balls: () => ({ filter: "all", filters: { query: "" } }),
