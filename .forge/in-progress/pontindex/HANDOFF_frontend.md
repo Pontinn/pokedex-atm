@@ -298,3 +298,27 @@ Agente: forge-imp-backend (fix, orquestrador). 2026-09-24 22:08-22:35. Arquivos 
 | `767b349b` | `src/navigation/types.ts`: `ListFilters { query: string }`; `UiStateMap.trainers.filters` e `UiStateMap.balls.filters` (padrao `{ query: "" }`), no molde do dex. O cast local de `src/screens/Trainers/ListSearch.tsx` pode sair (`updateUi({ filters: { query } })`). |
 
 Verificacao: `npm run lint` 0; `npx vitest --run` 36 arquivos / 306 testes verdes; `npm run typecheck` com 1 erro so em `tests/unit/ui-screens/dex-filter.test.ts:61` (grupo A, commit `4ed202c7`, `SpeciesSummary | undefined`), nada nos arquivos desta correcao.
+
+## F12: PWA instalavel e cache
+
+Agente: forge-imp-frontend (F12, unico agente de implementacao). 2026-09-24 23:43 a 2026-09-25 00:12. Commit `70364fb7` `feat(pwa): installable manifest, precache and runtime caching strategy`.
+
+### O que mudou
+- `vite.config.ts` (bloco `VitePWA`): manifest com as cores da SPEC (`theme_color #DC0A2D`, `background_color #B0CDF3`), icones 192/512/maskable de B1.4. `readDatasetVersion()` le `public/data/current.json` no build para montar o glob do precache. Precache: `**/*.{js,css,html,svg,woff2}`, `assets/*.{webp,png}` (so imagens do shell empacotadas pelo Vite; nao desce para `assets/items|sprites`), icones (via `includeAssets`), `data/current.json`, `data/<ver>/{dataset-manifest,species-index,type-chart}.json`, `assets/sfx/*.ogg`. Resultado: 73 entradas, 2,49 MiB (orcamento 4 MB). Runtime CacheFirst: `pokeapi-artwork` (600, 30 dias, status 0/200 porque o `<img>` e opaco), `dataset` (`/data/**` exceto `current.json`), `cries` (300, `rangeRequests` porque toca por `<audio>`), `sprites` (1100), `items` (1200); todos com `purgeOnQuotaError`. `navigateFallbackDenylist` para `/data/` e `/assets/`; `cleanupOutdatedCaches`.
+- Decisao: `current.json` NAO tem versao no caminho, entao vai no precache (muda junto com um SW novo) em vez do CacheFirst de `/data/` (ficaria preso na versao antiga depois de um dataset novo).
+- `src/pwa/register-sw.ts`: BUG corrigido: registrava so no evento `load`, mas `registerServiceWorker()` roda no fim do boot assincrono e o `load` podia ja ter passado (SW nunca registrava). Agora registra na hora se `document.readyState === "complete"`. Detecta SW novo em espera (so quando ja ha controller) e publica em `src/pwa/update-store.ts`. Registro que resolve sem objeto (SW bloqueado) e ignorado.
+- `src/pwa/update-store.ts` + `src/pwa/UpdatePrompt.tsx`: toast "Nova versão disponível" + "Atualizar" (manda `SKIP_WAITING` ao SW em espera e recarrega UMA vez no `controllerchange`) + X (esconde na sessao). Renderizado dentro do `ToastHost` (`src/components/Toast.tsx`), empilhado com os toasts. Chaves `pwa.updateAvailable`/`pwa.update` em `src/i18n/messages/core.ts`; estilo `.toast-action` em `src/styles/shell.css`.
+- `playwright.config.ts`: `serviceWorkers: "block"` por padrao. Motivo: no build de producao o SW atende as requisicoes e o `page.route` dos mocks das outras specs deixa de enxergar. `tests/e2e/pwa-offline.spec.ts` libera com `test.use({ serviceWorkers: "allow" })`.
+- Sem `responsive-fixes.css`: os e2e de todas as telas ja passam `expectNoOverlap` a 360/390/1280 PT e EN; a conferencia no celular de verdade ficou no CHECKLIST_MANUAL (secao PWA).
+
+### Testes (headless, sem slowMo, sem sleeps)
+- `npx playwright test tests/e2e/pwa-offline.spec.ts` (SEM `PW_DEV`: build + preview 4173): 4/4. (1) manifest instalavel e icones PNG respondem; (2) `navigator.serviceWorker.controller` no 2o load, precache contem index.html, current.json, os 3 JSON do boot e sfx, e NAO contem cries/sprites/items/species; (3) visita online Dex + ficha (artwork servido por `context.route`, que ve os fetch do SW), `context.setOffline(true)`, reload: Home, Dex e a MESMA ficha abrem, artwork `data-phase=ok` vindo do cache, 0 pageerror; (4) fluxo de atualizacao: sobe um servidor estatico proprio sobre `dist/` (porta livre) que muda o `sw.js` em memoria; `reg.update()` -> toast aparece, SW em espera; Atualizar -> recarrega, sem SW em espera, pagina controlada. Com `PW_DEV=1` a spec se pula (dev nao tem SW).
+- Medido: o fetch do SCRIPT do SW (checagem de atualizacao) NAO passa por `page.route`/`context.route` (nem com `PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS`); por isso o servidor proprio no teste 4. Os fetch de subrecursos feitos pelo SW passam pelo `context.route`.
+- `npm run typecheck` 0, `npm run lint` 0, `npx vitest --run` 44 arquivos / 333 testes verdes; `tests/e2e/shell.spec.ts` 15/15 com `PW_DEV=1 PW_PORT=4174` e 15/15 tambem no build+preview.
+
+### Como verificar offline na mao
+`npm run build` e `npx vite preview --port 4173`; abrir http://localhost:4173/, recarregar uma vez (DevTools > Application > Service Workers mostra `sw.js` ativo), abrir a Pokedex e uma ficha; DevTools > Network > Offline; recarregar: Home, Pokedex e a ficha vista continuam. Cache Storage mostra `workbox-precache-*`, `dataset`, `pokeapi-artwork`, `sprites` etc.
+
+### Para o T1
+- As specs que importam modulos com `import("/src/...")` em `page.evaluate` (ex.: `detail.spec.ts`, 44 falhas "Failed to fetch dynamically imported module") so rodam com `PW_DEV=1`; no build+preview isso falha por desenho (nao tem `/src` no dist). T1 precisa decidir: rodar essas no dev ou trocar a semeadura/navegacao por UI.
+- O caso "artwork offline nunca visto -> placeholder" da matriz do T1 nao esta na spec PWA (a ficha vista usa o artwork cacheado); o `ArtworkImage` ja cai no placeholder em erro.

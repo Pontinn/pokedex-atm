@@ -40,3 +40,11 @@ Como abrir: `npm run dev` e acessar `http://localhost:5173/`. Conferir em PT e E
 - [A] Busca PT/EN combinada com as abas Todos capturados / So faltando; sem resultado mostra o texto buscado; Voltar restaura busca e aba.
 - [ ] Com muitos capturados (100+) a lista continua fluida e a data aparece em todos os cards.
 - [ ] O botao x de desmarcar e facil de tocar no celular e nao e confundido com abrir a ficha.
+
+#### PWA (F12.1)
+- [A] Build de producao: o 2o load ja e controlado pelo service worker; offline (sem rede) recarrega Home, Pokedex e uma ficha ja aberta, com o artwork que ja tinha carregado.
+- [A] Deploy novo com a aba aberta: aparece "Nova versão disponível" com Atualizar; Atualizar recarrega uma vez na versao nova.
+- [ ] Instalar pelo navegador do PC (Chrome/Edge) e do celular (Android "Instalar app", iPhone "Adicionar à Tela de Início"): icone da pokebola, abre em janela propria com a cor vermelha no topo.
+- [ ] Botao "Instalar app" em Configuracoes abre o prompt do navegador (so aparece quando o navegador oferece).
+- [ ] No celular, modo aviao depois de ver algumas telas: o que ja foi visto abre; ficha nunca vista mostra erro com "Tentar de novo", nunca tela branca.
+- [ ] Todas as telas com chips/selos a 360 e 390 px no celular de verdade: nada cortado nem sobreposto (RNF-09).

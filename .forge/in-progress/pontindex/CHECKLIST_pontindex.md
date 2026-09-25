@@ -471,10 +471,10 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
 
 ### Sprint F12: PWA avancada
 
-- [ ] F12.1 PWA instalavel e cache
-  - hash:
+- [x] F12.1 PWA instalavel e cache
+  - hash: 70364fb7
   - Done when (literal da SPEC): `navigator.serviceWorker.controller` presente no 2o load; recarregar offline (Playwright `context.setOffline(true)`) mantem Home, Dex e uma ficha ja aberta.
-  - notas:
+  - notas: manifest (Pontindex, standalone, theme #DC0A2D, background #B0CDF3, icones 192/512/maskable de B1.4); precache 73 entradas / 2,49 MiB (shell JS/CSS/HTML/woff2, imagens do shell, icones, `data/current.json`, os 3 JSON do boot da versao atual, 20 sfx); runtime CacheFirst: artwork PokeAPI (600/30d, status 0/200), `/data/**` versionado (exceto current.json, que vai no precache), cries (300, rangeRequests), sprites (1100), items (1200). `UpdatePrompt` (toast "Nova versão disponível" + Atualizar, empilhado no ToastHost) com SKIP_WAITING + reload unico. Corrigido: registro do SW so no `load` (podia nunca registrar porque o boot e assincrono). Provas: `tests/e2e/pwa-offline.spec.ts` 4/4 no build+preview (controller no 2o load; offline recarrega Home, Dex e a ficha ja vista com artwork do cache; fluxo de atualizacao com servidor proprio sobre dist/). `playwright.config.ts` agora usa `serviceWorkers: "block"` por padrao (so a spec PWA libera). Checagem manual 360/390 em todas as telas fica no CHECKLIST_MANUAL (os e2e de tela ja cobrem expectNoOverlap 360/390/1280); `responsive-fixes.css` nao foi necessario. Agente F12: 2026-09-24 23:43 a 2026-09-25 00:12.
 
 HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend.md`
 
