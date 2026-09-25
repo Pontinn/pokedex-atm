@@ -387,27 +387,27 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
   - Done when (literal da SPEC): `desktop-detail-charizard-mega-x-form.png`: Mega X exibe Charizardite X + Keystone clicaveis.
   - notas: grupo A. e2e (+5): Charizard abas Normal/Mega-X/Mega-Y/Gmax (`current.ui.formIndex`, sem remontar a tela); Normal "Forma base, sem item"; Mega-X Fogo/Dragao, "Só em batalha", Charizardita X + Pedra Chave clicaveis (abre a pagina do item e Voltar mantem a aba), "(Mega Showdown)", Garras Duras, artwork 10034, BST 634; Gmax sem itens = "Nenhum item necessário" (Mega sem item = "Item não identificado nos dados do addon"); Ditto sem formas oculta o painel; sem sobreposicao 360/390/1280 PT/EN. Texturas de item animadas (faixa 16x32) vazavam do tile: `.it-link .it-tile img` mostra so o 1o quadro. Print conferido com desktop-detail-charizard-mega-x-form.png.
 
-- [ ] F5.3 Melhor Pokebola na ficha
-  - hash:
+- [x] F5.3 Melhor Pokebola na ficha
+  - hash: 2da2d45d
   - Done when (literal da SPEC): Magikarp: Net Ball (3x) acima da Poké Ball; Dusk Ball exibe "3.5x com luz 0".
-  - notas:
+  - notas: grupo A. `BestBallPanel` entre WherePanel e FormsPanel: `partitionBalls` (B6.4) -> top 3 (1o dourado) + botao "Ranking completo (n)" que expande a lista inteira (o Done cita Net 3x e Dusk 3.5x, que no Magikarp ficam abaixo do top 3: Love 8x, Quick 5x, Dream 4x), linha "Captura garantida: Bola Mestra, ...", "Captura critica" pelo total de capturados conhecidos, "Ver todas" -> Pokebolas, bola clicavel -> pagina do item. Condicoes/motivos em chaves `detail.ballCond.*`/`detail.ballWhy.*` (idioma da UI; toggle PT/EN do card troca so os nomes). e2e (+5): Magikarp top 3, Net acima da Poke Ball, Net "3x"/"Tipo Água / Inseto", Dusk "3.5x com luz 0", clique abre item e Voltar, Ver todas abre Pokebolas; Magneton (sem genero) sem Love/Lure/Dive; sem sobreposicao 360/390/1280 PT/EN. Unit `detail-best-ball.test.ts` (3).
 
-- [ ] F5.4 Calculadoras (stats e efetividade)
-  - hash:
+- [x] F5.4 Calculadoras (stats e efetividade)
+  - hash: 90c0422e (+ 68200aae)
   - Done when (literal da SPEC): base 100/L100/IV31/EV252 neutro = 299, favoravel = 328, desfavoravel = 269; Charizard recomenda IV 31 em Sp. Atk (109) e Speed (100); Fogo/Agua vs Fogo = x1/2.
-  - notas:
+  - notas: grupo A. `<details class="panel calc">` no fim da coluna direita (`StatsCalculator.tsx` + `TypeCalculator.tsx`): nivel/natureza (25, com +/-), IV e EV por stat com clamp e min/max/step, soma de EV > 510 = campos e total em vermelho e saida congelada (`.stale`) ate corrigir; saida no nivel e no 100 com up/down; Recomendacao "IV 31 em At. Esp. (109) e Velocidade (100); EV 252/252/4 sugeridos" + Aplicar (so preenche ao clicar); efetividade com Tipo 1/Tipo 2 (pre-preenchidos, editaveis) e grade dos 18 atacantes x4..x0. Tudo em `current.ui.calcInputs`/`calcOpen` (restaura no Voltar). OBS: o Done do checklist diz Fogo/Agua vs Fogo = x1/2, a SPEC diz x1/4 e a tabela real da x1/4 (0.5 x 0.5, divergencia 1 do HANDOFF_rules-storage); o teste afirma x1/4. e2e (+6, Mew 151: 299/328/269, clamp do nivel, EV > 510; Charizard recomendacao/Aplicar/Voltar; efetividade Fogo/Voador e Fogo/Agua; sem sobreposicao 360/390/1280 PT/EN). Unit `detail-calc.test.ts` (4). Fix junto (`68200aae`): Mew tem `synchronize` normal e oculta, chave React duplicada no AbilitiesPanel gerava erro de console.
 
 ### Sprint F6: Captura (animacao) e lista de capturados
 
-- [ ] F6.1 Animacao de captura
-  - hash:
+- [x] F6.1 Animacao de captura
+  - hash: 788bf7a3
   - Done when (literal da SPEC): capturas `capture-outros-01-start` ... `08-final-reveal`, `capture-legendario-*`, `capture-mitico-*`; teste (Vitest, fake timers do Vitest no hook, nao no Playwright): a timeline dispara os 7 sons na ordem `poke_ball_throw_1`, `poke_ball_shake_1`, `poke_ball_shake_2`, `poke_ball_shake_3`, `poke_ball_open`, `poke_ball_shake_critical`, `poke_ball_capture_succeeded`, e fechar o overlay toca o 8o, `pokedex_close` (spy).
-  - notas:
+  - notas: grupo A. `src/components/CaptureOverlay.tsx` + `src/styles/capture.css` (porta literal de style.css:712-782). Montagem SEM editar arquivo congelado: a ficha renderiza o overlay por `createPortal(document.body)` a partir do `onCapture` do HeroCard (2o clique ignorado); desmontar a ficha (Voltar/popstate) fecha e limpa os timers. `useCaptureSequence` com a linha do tempo exata, fundo por `labels` (bg-lendario/bg-mitico/bg-outros) com os relampagos/faiscas do CAP_SVG, silhueta = artwork (shiny se ligado) com fallback para a pokebola, toque pula, Esc/clique no final/Fechar fecham com `pokedex_close`, marca o capturado 1 vez no s-final. Reduzir animacoes: s-final apos 300 ms (so `poke_ball_capture_succeeded` toca; os sons respeitam o toggle, `playSfx`). Unit `capture-sequence.test.tsx` (5, fake timers: 7 sons na ordem + `pokedex_close` como 8o, pulo, desmontagem, reduzir animacoes, fundo). e2e `capture.spec.ts` (8): ordem dos 8 estagios por MutationObserver + 8 sons, persistencia no reload, pulo/Esc/re-marcar, Voltar no meio fecha e para os sons, Mewtwo/Mew com fundos, reduzir animacoes, `.cap-text` sem sobreposicao 360/390/1280 PT/EN. Prints conferidos contra capture-outros-*/legendario/mitico (o s-flash dura 200 ms e nao e fotografado; a ordem e conferida pelo observador). Teste F4.1 da ficha ajustado (Capturei agora abre o overlay).
 
-- [ ] F6.2 Lista de capturados
-  - hash:
+- [x] F6.2 Lista de capturados
+  - hash: 4cc507ce (+ b6262271)
   - Done when (literal da SPEC): `desktop-captured-list.png` com "X de 1.027" (formatado pelo `Intl.NumberFormat` do idioma); reload mantem a lista. + barra de busca PT/EN no topo combinada com os filtros (decisao do Pontin; ver SPEC)
-  - notas:
+  - notas: grupo A. `CapturedScreen` (resumo com pokebola wobble, "X de 1.027" via Intl.NumberFormat, barra e "{pct} da Pontindex"; busca `ListSearch` da Pokedex em `current.ui.filters.query`; abas Todos capturados / So faltando em `current.ui.tab`; `DexGrid`/`PokemonCard` com rodape "Capturado em dd/mm/aaaa" (en yyyy-mm-dd) + botao x com Modal de confirmacao). Ordem: capturados do mais recente ao mais antigo, faltando por numero (o `UiStateMap.captured` nao tem ordenacao; nao criei seletor). Orfaos fora da contagem e da lista. Vazio: sem capturados -> "Nenhum Pokemon capturado ainda." + Abrir a Pokedex; faltando vazio -> "Voce completou a Pontindex!"; busca sem resultado -> texto buscado. `src/navigation/types.ts` (congelado, excecao autorizada): `UiStateMap.captured.filters` no molde de 767b349b, commit `b6262271`. e2e `captured.spec.ts` (6): vazio + link; 7 semeados em ordem por data, datas PT/EN, reload mantem, desmarcar com Modal (6 de 1.027 / 6 of 1,027), abrir ficha; busca "char" = Charmeleon/Charmander, "pantano" vazio em Todos e Quagsire em Faltando, "char" em Faltando sem capturados, numero, Voltar restaura texto e aba; sem sobreposicao 360/390/1280 PT/EN. Unit `captured-list.test.ts` (3). Prints conferidos com desktop-captured-list.png e mobile-captured.png (data e desmarcar ficam no rodape fora do botao do card, decisao do F3.1 para o botao nao ficar aninhado).
 
 ### Sprint F7: Comparar
 

@@ -269,6 +269,22 @@ Agente: forge-imp-frontend (Grupo A, continuacao). Inicio 2026-09-24 22:16. Fim 
 - `HeroCard` aceita `onCapture` (F6.1 liga o overlay; hoje "Capturei" marca direto).
 - Falhas atuais FORA do grupo A (arquivos nao commitados do grupo B): `tests/unit/ui-foundation/i18n.test.tsx` falha porque `src/i18n/messages/item.ts` ganhou `ip.noDesc` (chave excluida pela SPEC); `npm run typecheck` falha em `tests/e2e/compare.spec.ts:42` (import `/src/...` sem o cast `as string`).
 
+### F5.3 (`2da2d45d`), F5.4 (`90c0422e` + fix `68200aae`), F6.1 (`788bf7a3`), F6.2 (`4cc507ce` + `b6262271`)
+
+Agente: forge-imp-frontend (Grupo A, continuacao 2). Inicio 2026-09-24 22:57. Fim 23:42.
+
+- Novos em `src/screens/Detail/`: `BestBallPanel({ detail })` (entre WherePanel e FormsPanel; `partitionBalls` -> top 3 + "Ranking completo (n)", garantidas, captura critica, Ver todas; helpers `formatMultiplier`, `criticalBonus`, `bestBallReason`), `CalculatorsPanel({ baseStats, types })` em `StatsCalculator.tsx` (`<details class="panel calc">`, `clampInt`, `readCalcState`) e `TypeCalculator({ initial })` (`selectedTypes`, `EFFECT_LABEL`). Estado em `current.ui.calcInputs` (chaves `level`, `nature`, `iv.<stat>`, `ev.<stat>`, `t1`, `t2`) e `calcOpen`.
+- `src/components/CaptureOverlay.tsx` (+ `src/styles/capture.css`): `CaptureOverlay({ dex, name, labels, artworkSrc, onCaptured, onClose })`, `useCaptureSequence(onFinal, onClosed)`, `CAPTURE_TIMELINE`, `captureBackground(labels)`. Montado SEM arquivo congelado: a ficha (`DetailScreen`) renderiza por portal no body a partir do `onCapture` do HeroCard; desmontar a ficha fecha e limpa os timers. Nenhum pedido de arquivo congelado.
+- `src/screens/Captured/CapturedScreen.tsx`: `capturedList(index, entries, tab, query)`, `formatCaptureDate(ms, lang)`. `src/navigation/types.ts`: `UiStateMap.captured.filters` (excecao autorizada, `b6262271`).
+- Testes: e2e `detail.spec.ts` (+11: F5.3 5, F5.4 6; teste F4.1 do Capturei ajustado ao overlay), `capture.spec.ts` (8), `captured.spec.ts` (6); unit `detail-best-ball` (3), `detail-calc` (4), `capture-sequence` (5), `captured-list` (3). Opcionais: `DETAIL_SHOTS_DIR`, `CAPTURE_SHOTS_DIR`, `CAPTURED_SHOTS_DIR`.
+- Suite completa: fim de F5 42 arquivos / 325 testes verdes; fim de F6 44 arquivos / 333 testes verdes; `npm run typecheck` e `npm run lint` limpos.
+- Decisoes: (1) Done de F5.3 cita Net 3x e Dusk 3.5x, que no Magikarp ficam fora do top 3 (Love 8x, Quick 5x, Dream 4x): top 3 visivel + ranking completo expansivel. (2) Condicoes das bolas no idioma da UI (`detail.ballCond.*`); o toggle PT/EN do card troca so os nomes. (3) F5.4: Fogo/Agua vs Fogo = x1/4 (SPEC e tabela real; o checklist dizia x1/2). (4) Reduzir animacoes na captura: s-final apos 300 ms, toca so `poke_ball_capture_succeeded`; sons da captura respeitam o toggle (`playSfx`, edge case da SPEC). (5) Capturados sem seletor de ordenacao (o `UiStateMap.captured` nao tem campo): capturados por data desc, faltando por numero. (6) Chave `captured.progress` e excluida pela SPEC; o rodape usa `captured.percent`.
+- Observacao de ambiente: com o grupo B editando `src/` ao mesmo tempo, o dev server do Vite faz HMR no meio do e2e e a tampa do boot pode reaparecer por cima (o modulo do BootSplash e reexecutado e o flag de sessao zera). Os testes passam; so os prints esperam `.boot` sumir.
+
+### Onde parei (fim da sessao do agente, 2026-09-24 23:42)
+
+- Grupo A COMPLETO: F3.1..F6.2 todos `[x]`. Parte do grupo A em `CHECKLIST_MANUAL_pontindex.md` (secao Frontend) escrita. Nada pendente do grupo A; proximo e do orquestrador (F7-F9 do grupo B, depois F12/T1).
+
 ## Correcao compartilhada (grupo B)
 
 Agente: forge-imp-backend (fix, orquestrador). 2026-09-24 22:08-22:35. Arquivos congelados editados com autorizacao do orquestrador.
