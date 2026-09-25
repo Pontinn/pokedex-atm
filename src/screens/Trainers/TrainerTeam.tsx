@@ -12,7 +12,7 @@ import { gameName, useT } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import type { UiLanguage } from "../../storage/types";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
-import { humanizeId, itemTexturePath } from "./trainer-model";
+import { humanizeId } from "./trainer-model";
 import { useLoader } from "./use-loader";
 
 const loadTeamTerms = () => Promise.all([loadMoves(), loadAbilities()]);
@@ -29,7 +29,7 @@ export function ItemChip({ id, items, lang, quantity, className }: { id: string;
       data-item-open={id}
       onClick={() => navigate("item", { itemId: id })}
     >
-      <ItemTile texture={itemTexturePath(item?.texture)} size={className?.includes("tr-spawn-chip") ? 36 : 24} />
+      <ItemTile texture={item?.texture} size={className?.includes("tr-spawn-chip") ? 36 : 24} />
       <span>
         {name}
         {quantity !== undefined ? ` x${quantity}` : ""}

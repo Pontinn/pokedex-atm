@@ -8,7 +8,7 @@ import type { BiomeLabels, ItemsFile, SpeciesSummary, TrainerInfo } from "../../
 import { gameName, useT } from "../../i18n/useT";
 import type { UiLanguage } from "../../storage/types";
 import { TrainerTeam } from "./TrainerTeam";
-import { biomeLabel, itemTexturePath, roleClass, type TrainerStepState } from "./trainer-model";
+import { biomeLabel, roleClass, type TrainerStepState } from "./trainer-model";
 
 export interface TrainerStepProps {
   trainer: TrainerInfo;
@@ -84,7 +84,7 @@ export const TrainerStep = memo(function TrainerStep(p: TrainerStepProps) {
                 </span>
                 {trainer.signatureItem ? (
                   <span className="tr-spawn-mini" title={`${t("tr.spawnItem")}: ${signature ? gameName(signature, p.lang) : trainer.signatureItem}`}>
-                    <ItemTile texture={itemTexturePath(signature?.texture)} size={24} />
+                    <ItemTile texture={signature?.texture} size={24} />
                   </span>
                 ) : null}
                 {trainer.biomes.whitelist.length > 0 ? (

@@ -11,7 +11,6 @@ import {
   buildSeriesView,
   filterTrainers,
   humanizeId,
-  itemTexturePath,
   keyTrainersOf,
   orderSeries,
   roleClass,
@@ -141,8 +140,6 @@ describe("helpers", () => {
     const biomes = read<Record<string, { pt: string; en: string }>>("biomes.json");
     expect(biomeLabel("is_cave", biomes)).toEqual({ pt: "Caverna", en: "Cave" });
     expect(biomeLabel("is_unknown_xyz", null).en).toBe("Unknown xyz");
-    expect(itemTexturePath("assets/items/cobblemon/potion.png")).toBe("cobblemon/potion.png");
-    expect(itemTexturePath(null)).toBeNull();
     expect(humanizeId("minecraft:gunpowder")).toBe("Gunpowder");
   });
 });

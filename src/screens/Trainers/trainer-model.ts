@@ -131,11 +131,6 @@ export function biomeLabel(tag: string, biomes: Readonly<Record<string, Localize
   return { pt: text, en: text };
 }
 
-/** Textura do item para o ItemTile (que ja prefixa /assets/items/). */
-export function itemTexturePath(texture: string | null | undefined): string | null {
-  return texture ? texture.replace(/^assets\/items\//, "") : null;
-}
-
 /** Nome humanizado de um id sem entrada no items.json (ex. "minecraft:gunpowder" -> "Gunpowder"). */
 export function humanizeId(id: string): string {
   const path = id.includes(":") ? id.slice(id.indexOf(":") + 1) : id;

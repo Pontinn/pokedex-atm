@@ -1,45 +1,52 @@
 // Barra de busca das telas de lista do grupo B (Treinadores, Pokebolas, Itens): MESMO visual da busca da Home
-// (pilula .search), sem dropdown: filtra a lista da tela. O texto vive em current.ui.filters.query (restaura ao
-// voltar) e sai com debounce de 120 ms (regra geral de Frontend da SPEC).
+// (pilula .search), sem dropdown: filtra a lista da tela. O texto vive no estado de UI da entrada atual (restaura ao
+// voltar): `filters.query` em Treinadores/Pokebolas e `query` em Itens (UiStateMap). Debounce de 120 ms (regra geral
+// de Frontend da SPEC).
 import { memo, useEffect, useState } from "react";
 import { Search, X } from "../../components/Icon";
 import { useT, type TranslationKey } from "../../i18n/useT";
 import { useNavigationStore } from "../../navigation/navigation-store";
+import type { UiStateMap } from "../../navigation/types";
 import "./list-search.css";
 
 export const LIST_SEARCH_DEBOUNCE_MS = 120;
 
-type UiWithFilters = { filters?: { query?: string } };
+export type ListScreen = "trainers" | "balls" | "items";
 
-/** Texto da busca da tela atual (current.ui.filters.query). */
-export function useListQuery(): string {
-  return useNavigationStore((s) => (s.current.ui as UiWithFilters).filters?.query ?? "");
+function readQuery(ui: unknown, screen: ListScreen): string {
+  if (screen === "items") return (ui as UiStateMap["items"]).query ?? "";
+  return (ui as UiStateMap[typeof screen]).filters?.query ?? "";
 }
 
-function writeListQuery(query: string): void {
-  const store = useNavigationStore.getState();
-  const prev = (store.current.ui as UiWithFilters).filters ?? {};
-  // O UiStateMap congelado ainda nao declara `filters` para estas telas (pedido ao orquestrador); o patch e parcial.
-  (store.updateUi as (patch: Record<string, unknown>) => void)({ filters: { ...prev, query } });
+/** Texto da busca da tela de lista atual. */
+export function useListQuery(screen: ListScreen): string {
+  return useNavigationStore((s) => readQuery(s.current.ui, screen));
+}
+
+function writeListQuery(screen: ListScreen, query: string): void {
+  const { updateUi } = useNavigationStore.getState();
+  if (screen === "items") updateUi<"items">({ query });
+  else updateUi<typeof screen>({ filters: { query } });
 }
 
 export interface ListSearchProps {
+  screen: ListScreen;
   id: string;
   labelKey: TranslationKey;
   placeholderKey: TranslationKey;
   clearKey: TranslationKey;
 }
 
-export const ListSearch = memo(function ListSearch({ id, labelKey, placeholderKey, clearKey }: ListSearchProps) {
+export const ListSearch = memo(function ListSearch({ screen, id, labelKey, placeholderKey, clearKey }: ListSearchProps) {
   const t = useT();
-  const stored = useListQuery();
+  const stored = useListQuery(screen);
   const [text, setText] = useState(stored);
 
   useEffect(() => {
     if (text === stored) return undefined;
-    const timer = setTimeout(() => writeListQuery(text), LIST_SEARCH_DEBOUNCE_MS);
+    const timer = setTimeout(() => writeListQuery(screen, text), LIST_SEARCH_DEBOUNCE_MS);
     return () => clearTimeout(timer);
-  }, [text, stored]);
+  }, [text, stored, screen]);
 
   return (
     <div className="search list-search" role="search">
@@ -58,7 +65,7 @@ export const ListSearch = memo(function ListSearch({ id, labelKey, placeholderKe
         onKeyDown={(e) => {
           if (e.key === "Escape" && text) {
             setText("");
-            writeListQuery("");
+            writeListQuery(screen, "");
           }
         }}
       />
@@ -70,7 +77,7 @@ export const ListSearch = memo(function ListSearch({ id, labelKey, placeholderKe
           title={t(clearKey)}
           onClick={() => {
             setText("");
-            writeListQuery("");
+            writeListQuery(screen, "");
           }}
         >
           <X aria-hidden="true" />

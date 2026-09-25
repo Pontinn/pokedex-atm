@@ -37,7 +37,7 @@ interface TrainerListProps {
 }
 
 const TrainerList = memo(function TrainerList(p: TrainerListProps) {
-  const query = useListQuery();
+  const query = useListQuery("trainers");
   const speciesByDex = useSpeciesByDex();
   const lang = useTermsLanguage("trainers");
   const uiLang = usePreferencesStore((s) => s.uiLanguage);
@@ -125,7 +125,7 @@ export function SeriesTimeline({ series, config }: { series: SeriesInfo; config:
         nextNames={view.cap.available.map((tr) => tr.name)}
       />
       <div className="tr-search">
-        <ListSearch id="tr-q" labelKey="tr.searchLabel" placeholderKey="tr.searchPh" clearKey="tr.searchClear" />
+        <ListSearch screen="trainers" id="tr-q" labelKey="tr.searchLabel" placeholderKey="tr.searchPh" clearKey="tr.searchClear" />
       </div>
       <TrainerList
         series={series}
