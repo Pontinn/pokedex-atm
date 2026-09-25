@@ -175,3 +175,36 @@ rodando vitest em paralelo, suite grande com 1 worker). Ver "Onde parei".
   MutationObserver de estagios nunca registra `s-open`).
 - Nada foi deixado quebrado: todo commit desta sessao (`665c38a2`, `7c554217`, `eb1a09c6`, `8ec62e97`,
   `d3864b27`, `3692c4fa`) foi individualmente rodado e ficou verde antes de commitar.
+
+## Correcoes producao (as 5 falhas "so em producao" de capture/detail)
+
+Agente de depuracao forge-imp-frontend, 2026-09-25 00:53, contexto limpo. Build de producao
+(`npx vite build` + `vite preview --port 4173`) comparado com dev (`PW_DEV=1 PW_PORT=4174`).
+
+**Achado principal: as 5 NAO eram so de producao.** No HEAD `fe024ebb` as mesmas 5 falham TAMBEM com `PW_DEV=1`
+(rodado: 5/5 falhas em dev). O "passa em dev" era de antes do `665c38a2`, que trocou a navegacao direta pela store
+(`navigate("detail")`) pela busca da Home. Nenhuma das 5 e bug do app: todas sao fragilidade do teste. Nenhum arquivo
+de `src/` foi alterado.
+
+| # | Teste | Causa (evidencia) | Correcao |
+|---|---|---|---|
+| 1 | `capture.spec.ts` linha do tempo completa | Fragilidade: a linha do tempo e feita de `setTimeout` com janelas curtas (s-open 350 ms, s-flash 200 ms, "on" 450 ms). Instrumentado (MutationObserver com `performance.now()` + `PerformanceObserver` de longtask, 6 workers): long tasks de 194-506 ms logo apos o `s-bg` com a maquina carregada; numa rodada o `s-flash` nem chegou ao DOM (s-grow 3554 -> s-final 6769): 2 timers vencem juntos e o React junta os 2 `setStage` num commit. Numa rodada isolada todos os estagios aparecem nos tempos exatos (3208 s-open, 3552 s-grow...). Com `--repeat-each=6` a falha variou (uma vez "esperado on, recebido s-final": o polling do expect nem viu o "on"). O comportamento do app e o do prototipo (timers por tempo); um `flushSync` so faria o DOM registrar o estagio, a classe CSS continuaria sem ser vista pelo navegador num travamento, entao nao ha correcao real a fazer no app | `page.clock.install()` + `pauseAt` antes do clique e `runFor` ate o inicio de cada estagio (tempos de `CAPTURE_TIMELINE`); cada estagio conferido com `toHaveAttribute`, inclusive `s-flash` (antes pulado), e a ordem do observer continua conferida; `clock.resume()` antes do Fechar/reload |
+| 2 | `capture.spec.ts` Voltar durante a captura | Fragilidade: `openDetail` agora passa pela Home (`[data-nav="home"]` empilha a Home), entao a pilha e ficha 1 > Home > ficha 4 e o Voltar cai na Home, nao na ficha 1 (snapshot do erro mostra a Home). O overlay fecha certo | Espera `.home-screen` e overlay fechado apos o 1o Voltar, depois 2o Voltar ate a ficha 1 |
+| 3 | `detail.spec.ts` troca de aba mantem o scroll | Fragilidade da ferramenta: instrumentado o `#main` (evento scroll, setter de `scrollTop`, `scrollIntoView/scrollTo/scrollBy/focus` embrulhados). Nenhuma chamada JS do app mexe no scroll; logo apos o render da aba TM o `#main` anima suave (571 -> 150, ou -> 914). Mesmo cenario com `page.mouse.click` no centro da aba: 3/3 sem mudar (571 -> 571); com `locator.click()`: 2/3 pulando. O pulo vem do "scrolling into view if needed" do Playwright (log `pw:api`: "element is not stable" x3 por causa das animacoes `cardIn`/`screenIn`, depois scroll-into-view) somado ao `scroll-behavior: smooth` do `#main`. `overflow-anchor: none` e `scroll-behavior: auto` nao mudaram nada | `settle(page)` (espera as animacoes) antes de medir e clique de mouse cru no centro da aba (como o usuario faz) |
+| 4 | `detail.spec.ts` aba/linha aberta restauradas apos Voltar | Fragilidade: mesma causa do 2 (pilha ficha 6 > Home > ficha 132, o Voltar cai na Home; snapshot do erro mostra a Home). O `useScreenUi` restaura certo ao chegar na ficha 6 | 2 Voltar (Home no meio, conferida) |
+| 5 | `detail.spec.ts` calculadoras sobrevivem ao Voltar | Fragilidade: mesma causa do 2 (pilha ficha 6 > Home > ficha 1) | 2 Voltar (Home no meio, conferida) |
+
+Resultados (headless, sem slowMo, sem sleeps):
+- os 5 casos corrigidos com `--repeat-each=4` em producao (workers padrao, maquina carregada): 20/20;
+- `capture.spec.ts` + `detail.spec.ts` + `shell.spec.ts` em producao (build+preview 4173): 68 passed, 1 skipped (o
+  dev-only "unknown dex");
+- os mesmos 3 arquivos em dev (`PW_DEV=1 PW_PORT=4174`): 68 passed, 1 failed que NAO e das 5 (ver "Bug novo" abaixo);
+- typecheck 0, lint 0, vitest 55 arquivos / 384 testes verdes.
+
+Commit: `fb2ecac9` test(e2e): fix capture and detail specs flaky outside the store navigation path.
+
+**Bug novo achado (NAO corrigido, fora do escopo deste agente)**: `detail.spec.ts` "Eevee: 8 branches... Jolteon stone opens the item page" falha SO em dev (3/3) com o aviso do React "Encountered two children with the same key ... 25-26" (o aviso so existe no build de desenvolvimento do React, por isso passa em producao). Causa com evidencia: `items.json` publicado tem `thunder_stone.usedIn.evolutions` com `{"from":25,"to":26}` DUAS vezes (Raichu de Kanto e de Alola, sem campo de forma) e `src/screens/Item/ItemScreen.tsx` (UsedIn) usa `key={`${e.from}-${e.to}`}`: a pagina da Pedra do Trovao mostra Pikachu -> Raichu repetido. Correcao sugerida: deduplicar os pares (ou levar a forma no dado) no ItemScreen/dataset; e do grupo B (pagina de item), por isso nao mexi.
+
+### Onde parei
+
+As 5 falhas estao resolvidas e commitadas (`fb2ecac9`). Falta so o bug novo acima (duplicata 25-26 na pagina de item).
