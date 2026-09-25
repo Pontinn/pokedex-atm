@@ -26,10 +26,10 @@ async function boot(page: Page, width = 1280, height = 800) {
 async function openCompare(page: Page, history: number[]) {
   await page.evaluate(
     async ({ history }) => {
-      const h = (await import(/* @vite-ignore */ "/src/state/history-store.ts")) as HistoryModule;
+      const h = (await import(/* @vite-ignore */ "/src/state/history-store.ts" as string)) as HistoryModule;
       let at = Date.now() - 10_000;
       for (const dex of history) await h.useHistoryStore.getState().push(dex, at++);
-      const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts")) as NavModule;
+      const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts" as string)) as NavModule;
       nav.useNavigationStore.getState().navigate("compare");
     },
     { history },
@@ -39,7 +39,7 @@ async function openCompare(page: Page, history: number[]) {
 
 async function navigate(page: Page, screen: "settings") {
   await page.evaluate(async (screen) => {
-    const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts")) as NavModule;
+    const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts" as string)) as NavModule;
     nav.useNavigationStore.getState().navigate(screen);
   }, screen);
 }
