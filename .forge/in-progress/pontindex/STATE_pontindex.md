@@ -336,3 +336,4 @@ updated: 2026-09-26
 - Nenhum agente rodando. Nada pendente no working tree alem dos 2 arquivos gerados que so mudam LF/CRLF (types.generated.css e snapshot do type-css).
 - RETOMADA_pontindex.md reescrita com todo o contexto: onde paramos, PRIORIDADE 1 (verificar os fixes de hoje), 10 PENDENCIAS, ordem sugerida, regras, ambiente (pouca RAM, HMR durante edicao).
 - Dev server `npm run dev` (porta 5173) foi deixado rodando para o Pontin nesta sessao; ele morre junto com a sessao.
+- 06:20 Pontin: site e app separados. Criada .forge/ideas/pontindex-app/ (IDEA semente + STATE); RF-105..109 e P1-P3 marcados como MOVIDOS no PRD/SPEC/CHECKLIST; RETOMADA atualizada.

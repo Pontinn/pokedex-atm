@@ -287,6 +287,8 @@ Notacao: `[MUST]` em todos os RFs de Fase 1 (a IDEA declara tudo must-have). RFs
 
 ### 6.20 Fase 2 - apps nativos (planejado, obrigatorio, entrega adiada)
 
+> MOVIDO em 2026-09-26 (Pontin): os apps (RF-105 a RF-109, sprints P1-P3) sairam desta feature e viraram a ideia separada `pontindex-app` (`.forge/ideas/pontindex-app/`). Esta feature (pontindex) e SO o site. O texto abaixo fica apenas como historico.
+
 - **RF-105** `[MUST - Fase 2]` O mesmo codigo/`dist/` da Fase 1 deve ser empacotado como app desktop Windows via Electron, gerando um instalador `.exe`.
 - **RF-106** `[MUST - Fase 2]` O mesmo codigo/`dist/` da Fase 1 deve ser empacotado como app Android via Capacitor 8, gerando um `.apk` distribuivel sem Play Store.
 - **RF-107** `[MUST - Fase 2]` Os apps Windows e Android devem usar a mesma camada de storage duravel definida em RF-95, adaptada ao ambiente nativo (arquivo proprio fora de cache), preservando os dados entre atualizacoes do app (mesmo requisito de RF-96, testado tambem nos apps).

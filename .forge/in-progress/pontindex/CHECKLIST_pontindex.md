@@ -505,6 +505,8 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_tests.md`
 
 ## Fase 2 - NAO executar agora
 
+> MOVIDO em 2026-09-26 (Pontin): os apps (RF-105 a RF-109, sprints P1-P3) sairam desta feature e viraram a ideia separada `pontindex-app` (`.forge/ideas/pontindex-app/`). Esta feature (pontindex) e SO o site. O texto abaixo fica apenas como historico.
+
 Sprints P1-P3 da SPEC (so depois que o Pontin testar e aprovar o site):
 
 - [ ] P1 Electron (Windows .exe)

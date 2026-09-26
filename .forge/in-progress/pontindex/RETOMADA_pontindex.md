@@ -6,13 +6,13 @@ Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --te
 
 ## Onde paramos (2026-09-26 06:15, Pontin saiu; proxima sessao e NOVA)
 
-- Stage 4 (implementacao) da Fase 1 (site/PWA) CONCLUIDA: TODAS as telas e a PWA estao prontas e commitadas. Checklist: tudo `[x]` menos T1 (testes finais feitos por T1a/T1b, mas a suite e2e completa nunca rodou de uma vez) e P1-P3 (apps, Fase 2, NAO fazer agora).
+- Stage 4 (implementacao) da Fase 1 (site/PWA) CONCLUIDA: TODAS as telas e a PWA estao prontas e commitadas. Checklist: tudo `[x]` menos T1 (testes finais feitos por T1a/T1b, mas a suite e2e completa nunca rodou de uma vez) (P1-P3 movidos para a ideia `pontindex-app`).
 - Feito na noite de 2026-09-24/25 (autonomia total): grupos A (F3-F6) e B (F8, F9, F7), F12 (PWA: precache 73 entradas 2,49 MiB, offline, UpdatePrompt), T1a (unit/componente/cobertura/README/manual), T1b (e2e mode-agnostic, navigation, team-history, perf, responsive + 14 baselines, pwa artwork offline), correcoes: schema das bolas (5f1f18dc), ItemTile prefixo duplo (59500a8e), item page evolucoes duplicadas (7221dc51), 5 falhas de e2e que eram fragilidade de teste (fb2ecac9).
 - Feito em 2026-09-26 com o Pontin testando no navegador: chip "Cap -> X" dos treinadores agora mostra o cap APOS derrotar o treinador (99dd56fe; BDSP Roark 16, Mars 20, Jupiter 22; o cabecalho "Seu cap atual" ja estava certo e nao mudou); scroll vertical nas barras de abas `.tabs` (91d26ec1, box-shadow inset no lugar de border + margin negativa); auditoria independente (90e00346, `AUDIT_2026-09-26.md`): level cap 155 passos = app, 50 especies (semente 1558599613) 0 erros, 1 BUG real (itens segurados dos treinadores).
 - Ultima verificacao completa conhecida (antes dos 2 fixes de hoje): typecheck 0, lint 0, vitest 55 arquivos / 385 testes verdes. Os fixes de hoje NAO foram verificados por inteiro (ver PRIORIDADE 1).
 - Dataset publicado: `public/data/atm1.3.0-cobblemon1.7.3-20260924-1344fc8b/` (1027 especies, 964 itens, 48 bolas, 1589 treinadores, 6 series).
 - Stage 5 (validacao) NAO comecou: `forge-test` ainda nao foi disparado. Nao ha API (site estatico); Stage 5 = suite completa + itens do CHECKLIST_MANUAL.
-- Proxima grande etapa depois de tudo isso: Stage 5 com o Pontin, mover a feature para `.forge/complete/`, e merge/deploy (Vercel) SO quando ele pedir.
+- Proxima grande etapa depois de tudo isso: Stage 5 com o Pontin, mover a feature para `.forge/complete/`, e merge/deploy (Vercel) SO quando ele pedir. Os apps sao outra feature (`pontindex-app`).
 
 ## Proximo passo ao retomar
 
@@ -49,7 +49,7 @@ Ordem sugerida ao retomar (confirmar com o Pontin antes de executar as PENDENCIA
 - Playwright SEMPRE `headless: true`, sem `slowMo`, sem timers/sleeps.
 - Paralelizar SO quando o risco para a qualidade for baixo ou nulo.
 - Avisar ANTES de instalar qualquer coisa neste PC. PC atual (milap, 2026-09-24): Node 24.19.0 + npm 11.17.0 (winget, `C:/Program Files/nodejs`; o shell do Claude Code NAO tem no PATH: prefixar `export PATH="/c/Program Files/nodejs:$APPDATA/npm:$PATH"`), Playwright 1.63.0 global + Chromium, git identidade local `Pontinn <leo.pontin2@gmail.com>`, gh logado como Pontinn. Sem JDK/Android SDK (Pontin: nao instalar, objetivo e terminar o site). NAO ha Python: nunca rodar `python`/`python3` (abre a Microsoft Store). Cache `tools/dataset/.cache` reaquecido neste PC (join.test depende dele). Arquivos gerados (`types.generated.css`, snapshot do type-css) aparecem modificados so por LF/CRLF (core.autocrlf=true): conteudo identico, ignorar.
-- Site primeiro (Fase 1, PWA); apps Windows/Android so depois que o Pontin testar tudo.
+- Esta feature e SO o site (PWA). Apps Windows/Android foram movidos para a ideia separada `pontindex-app` (`.forge/ideas/pontindex-app/`, 2026-09-26) e so comecam depois do site aprovado. NUNCA citar P1-P3 como pendencia do site.
 - O Pontin acompanha pelo Remote Control: mandar so avisos curtos de andamento, sem prints.
 - Modelos: dados e regras criticas e frontend em Opus; coleta mecanica em Sonnet; checklist/contagens em Sonnet. NUNCA usar Haiku (Pontin, 2026-09-24: o Haiku errou o checklist).
 

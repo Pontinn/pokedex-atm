@@ -1530,6 +1530,8 @@ Regras gerais de toda feature de frontend (auto-fill da categoria `frontend`, va
 
 ## Fase 2 (futura, nao executar na Fase 1)
 
+> MOVIDO em 2026-09-26 (Pontin): os apps (RF-105 a RF-109, sprints P1-P3) sairam desta feature e viraram a ideia separada `pontindex-app` (`.forge/ideas/pontindex-app/`). Esta feature (pontindex) e SO o site. O texto abaixo fica apenas como historico.
+
 Os sprints P1-P3 sao obrigatorios (RF-105 a RF-109, `[MUST - Fase 2]`) mas so comecam depois que o site da Fase 1 estiver finalizado e aprovado. Ficam aqui para que a Fase 1 nao tome decisoes que os inviabilizem (interface `StorageAdapter`, `platform/`, `dist/` unico).
 
 ### Sprint P1: Electron (Windows .exe) `[Fase 2]`
