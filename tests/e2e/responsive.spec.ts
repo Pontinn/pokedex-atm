@@ -33,7 +33,7 @@ async function boot(page: Page, width: number, height = 844) {
   await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
 }
 
-async function go(page: Page, screen: "home" | "dex" | "captured") {
+async function go(page: Page, screen: "home" | "dex" | "captured" | "items" | "balls") {
   let link = page.locator(`[data-nav="${screen}"]:visible`).first();
   if ((await link.count()) === 0) {
     await page.locator('[data-nav="more"]:visible').first().click();
@@ -199,6 +199,58 @@ test.describe("T1 responsive: 7 themes x Home/ficha (baseline do proprio app, 2%
         fullPage: true,
         mask: [page.locator(".hero-art .sparkles"), page.locator(".sheen")],
       });
+    });
+  }
+});
+
+/**
+ * Barras de abas/segmentos/chips com scroll horizontal nunca podem rolar na VERTICAL (bug do Pontin 2026-09-26:
+ * `.tabs` com `overflow-x: auto` + botoes com `margin-bottom` negativo = 1.5px de overflow e barra de rolagem
+ * vertical nas categorias de Itens). Mede toda faixa visivel do seletor.
+ */
+async function expectNoVerticalScroll(page: Page, selector: string) {
+  const els = page.locator(`${selector}:visible`);
+  await expect(els.first()).toBeVisible();
+  const bad = await els.evaluateAll((list) =>
+    list
+      .filter((el) => el.scrollHeight > el.clientHeight || getComputedStyle(el).overflowY === "scroll")
+      .map((el) => ({ id: el.id, cls: el.className, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight })),
+  );
+  expect(bad, `${selector} rola na vertical`).toEqual([]);
+}
+
+const TABS_SHOTS = process.env.TABS_SHOTS_DIR;
+
+test.describe("tabs bars never scroll vertically (360/390/1280px)", () => {
+  for (const width of [...WIDTHS, 1280] as const) {
+    test(`items, detail moves/forms, balls, captured, dex filters (${width}px)`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      await boot(page, width);
+      await go(page, "items");
+      await expect(page.locator("#item-tabs button").first()).toBeVisible();
+      await settle(page);
+      if (TABS_SHOTS) await page.locator("#item-tabs").screenshot({ path: `${TABS_SHOTS}/item-tabs-${width}.png` });
+      await expectNoVerticalScroll(page, "#item-tabs");
+
+      await go(page, "balls");
+      await expectNoVerticalScroll(page, ".seg-tabs");
+
+      await seedData(page);
+      await go(page, "captured");
+      await expectNoVerticalScroll(page, ".seg-tabs");
+
+      await go(page, "dex");
+      await expect(page.locator(".dex-screen .pcard").first()).toBeVisible({ timeout: 30_000 });
+      if (await page.locator("#filter-types").isVisible()) await expectNoVerticalScroll(page, "#filter-types");
+
+      await openDetail(page, 6);
+      for (const sel of ["#move-tabs", "#form-tabs"]) {
+        await page.locator(sel).evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
+        await settle(page);
+        if (TABS_SHOTS) await page.locator(sel).screenshot({ path: `${TABS_SHOTS}/${sel.slice(1)}-${width}.png` });
+        await expectNoVerticalScroll(page, sel);
+      }
+      expect(errors).toEqual([]);
     });
   }
 });
