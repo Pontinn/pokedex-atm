@@ -25,6 +25,7 @@ Para fazer:
 6. Tempo do 1o carregamento: medido so em dev (tampa some em 3,6 a 4,5 s; 247 arquivos; 1,4 s de espera da tampa pela SPEC). Medir em producao (build + preview) e decidir se reduz a espera da tampa.
 7. Stage 5: itens do CHECKLIST_MANUAL que so o Pontin faz (instalar no PC e no celular, modo aviao, 360/390 no celular real, conferir no jogo: Meltan sem Melmetal, cap apos um Cedric).
 8. Push: a branch foi enviada ao GitHub em 2026-09-25 05:52 sem registro do Claude; perguntar ao Pontin se foi ele. Nao dar push sem pedido explicito. Merge e deploy so quando ele pedir.
+10. Layout quebrado visto pelo Pontin as 05:55 (pokebola gigante, sidebar no meio): o npm run dev dele pega na hora (HMR) as edicoes que os agentes estao fazendo; nessa hora um agente editava src/styles/components.css (HMR as 05:53, 05:55 e 05:56). Recarregando depois, a Home renderiza certa (conferido com screenshot headless). Causa provavel, nao 100% provada. Para o Pontin testar sem pegar edicao pela metade: servir o build (npm run build + npx vite preview) em vez do dev, ou nao rodar agentes enquanto ele testa. Vitest --coverage tambem gera coverage/ e faz o Vite recarregar a pagina: ignorar coverage/ no watcher do vite.config.
 9. Detalhe: checklist F5.4 dizia Fogo/Agua vs Fogo x1/2; o correto (SPEC e tabela de tipos) e x1/4, implementado x1/4. Corrigir o texto do checklist.
 
 1. Ler este arquivo e o STATE; rodar `npm run typecheck`, `npm run lint`, `npx vitest --run` para confirmar o verde.
