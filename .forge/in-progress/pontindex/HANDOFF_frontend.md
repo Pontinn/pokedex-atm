@@ -322,3 +322,6 @@ Agente: forge-imp-frontend (F12, unico agente de implementacao). 2026-09-24 23:4
 ### Para o T1
 - As specs que importam modulos com `import("/src/...")` em `page.evaluate` (ex.: `detail.spec.ts`, 44 falhas "Failed to fetch dynamically imported module") so rodam com `PW_DEV=1`; no build+preview isso falha por desenho (nao tem `/src` no dist). T1 precisa decidir: rodar essas no dev ou trocar a semeadura/navegacao por UI.
 - O caso "artwork offline nunca visto -> placeholder" da matriz do T1 nao esta na spec PWA (a ficha vista usa o artwork cacheado); o `ArtworkImage` ja cai no placeholder em erro.
+
+- Onde parei (2026-09-26 fix chip/tabs): Fix 1 (cap chip) commitado em 99dd56fe; Fix 2 (.tabs rolando na vertical) em andamento: teste novo em tests/e2e/responsive.spec.ts ("tabs bars never scroll vertically") ja reproduz o bug (#item-tabs scrollHeight 37 > clientHeight).
+- Onde parei: Fix 2 commitado em 91d26ec1; falta vitest completo + docs (CHECKLIST Bugs, HANDOFF, SPEC).

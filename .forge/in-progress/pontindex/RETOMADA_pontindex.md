@@ -12,9 +12,12 @@ Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/D
 
 ## Proximo passo ao retomar
 
+## PRIORIDADE 1 (Pontin 2026-09-26 06:0x): VERIFICAR O ULTIMO PUSH
+O Pontin mandou parar, commitar e dar push SEM esperar verificacao. O agente commitou o fix das abas + teste (91d26ec1) e foi parado antes do vitest completo e da conferencia final; eu nao verifiquei nada antes do push (nem typecheck/lint). Ao retomar, rodar tudo isso PRIMEIRO; se algo falhar, corrigir antes de qualquer outra pendencia. O chip do cap (99dd56fe) o agente commitou verde.
+
 ## PENDENCIAS (Pontin 2026-09-26: "anota tudo pra fazer depois"; NAO executar sem o ok dele)
 
-Em andamento quando anotado: agente de correcao do chip de cap (cap apos derrotar o treinador: Roark 16, Mars 20, Jupiter 22) e do scroll vertical das abas (.tabs). Ao retomar: conferir no git log se commitou (fix(trainers)... e fix(ui): tabs...); se nao, disparar agente novo a partir do disco (HANDOFF_frontend.md, "Onde parei").
+Chip do cap: FEITO (99dd56fe). Scroll das abas: 91d26ec1, sem verificacao completa (ver PRIORIDADE 1).
 
 Para fazer:
 1. Calculadora de stats (RF-110). ATUALIZACAO Pontin 2026-09-26: exibir de forma SIMPLES, sem valores exatos de EV/IV: so a funcao (ex. "Atacante rapido") e os 2 stats para priorizar (ex. "Priorize Ataque Especial e Velocidade"). Pontin: deixar CLARO na UI que e so recomendacao, nao regra (o usuario escolhe o que quiser), e que foi feita por IA. Texto sugerido pelo Claude (confirmar com o Pontin): PT "Sugestao automatica, criada com ajuda de IA. E so uma recomendacao: treine o que preferir." / EN "Automatic suggestion, created with the help of AI. It is only a recommendation: train whatever you prefer." (a regra e fixa, o app nao consulta IA em tempo real). Em aberto: mostrar natureza sugerida? manter botao Aplicar? A regra abaixo continua decidindo o que priorizar. Regra original: trocar a regra pela recomendacao por funcao + natureza. Pontin escolheu a opcao 2. Regra: lado ofensivo = maior entre Atk e SpA (empate Atk); DEFENSIVO se maior ataque < 80 e maior defesa >= 100 (252 HP / 252 maior defesa / 4 outra; natureza Bold/Impish/Calm/Careful); ATACANTE RAPIDO se Spe >= 80 (252 ataque / 252 Spe / 4 HP; Jolly ou Timid); senao ATACANTE LENTO (252 HP / 252 ataque / 4 maior defesa; Adamant ou Modest); IV 31 em tudo. Exemplos: Charizard Timid 252SpA/252Spe/4HP; Gyarados Jolly 252Atk/252Spe/4HP; Snorlax Adamant 252HP/252Atk/4SpD; Blissey Calm 252HP/252SpD/4Def; Shuckle Bold 252HP/252Def/4SpD; Mew Jolly. Atualizar PRD RF-110 e SPEC B6.2/F5.4. Mostrar natureza e funcao na UI; Aplicar tambem seta a natureza.
