@@ -3,7 +3,6 @@
 import type { LevelCapConfig, LocalizedText, SeriesInfo, SpeciesSummary, TrainerInfo } from "../../data/types";
 import {
   computeSeriesCap,
-  computeTrainerLevel,
   isSeriesCompleted,
   isSeriesUnlocked,
   requiredDefeatsSatisfied,
@@ -26,7 +25,10 @@ export function keyTrainersOf(series: Pick<SeriesInfo, "keyTrainerIds">, trainer
 
 export interface SeriesView {
   cap: SeriesCapResult;
-  /** nivel do treinador (tr-capchip "Cap -> N") por id */
+  /**
+   * tr-capchip "Cap -> N" por id: o cap APOS derrotar este treinador (decisao do Pontin 2026-09-26), ou seja
+   * computeSeriesCap com defeated + este + todos os anteriores na ordem da linha do tempo. Ultimo da serie = 100.
+   */
   levels: Map<string, number>;
   states: Map<string, TrainerStepState>;
   /** pre-requisito pendente (vale tambem para derrotado cujo pre-requisito foi desmarcado, RF-60) */
@@ -41,16 +43,16 @@ export function buildSeriesView(
   config: Pick<LevelCapConfig, "initialLevelCap" | "relativeLevelCap">,
 ): SeriesView {
   const cap = computeSeriesCap({ keyTrainers, allTrainers, defeated, config, mode: "series" });
-  const byId = new Map(allTrainers.map((t) => [t.id, t]));
-  for (const t of keyTrainers) if (!byId.has(t.id)) byId.set(t.id, t);
-  const memo = new Map<string, number>();
+  // Chip = mesma regra do header (B6.3) sobre um defeated simulado que cresce na ordem da linha do tempo.
+  const simulated = new Set(defeated);
   const availableIds = new Set(cap.available.map((t) => t.id));
   const levels = new Map<string, number>();
   const states = new Map<string, TrainerStepState>();
   const blocked = new Set<string>();
   let defeatedCount = 0;
   for (const t of keyTrainers) {
-    levels.set(t.id, computeTrainerLevel(t, byId, config.relativeLevelCap, memo));
+    simulated.add(t.id);
+    levels.set(t.id, computeSeriesCap({ keyTrainers, allTrainers, defeated: simulated, config, mode: "series" }).cap);
     const ok = requiredDefeatsSatisfied(t.requiredDefeats, defeated);
     if (!ok) blocked.add(t.id);
     if (defeated.has(t.id)) {

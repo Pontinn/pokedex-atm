@@ -64,6 +64,7 @@ async function seedDefeated(page: Page, ids: string[], active: string | null = "
 
 const cap = (page: Page) => page.getByTestId("tr-cap");
 const step = (page: Page, id: string) => page.locator(`.tr-step[data-trainer="${id}"]`);
+const chip = (page: Page, id: string) => step(page, id).getByTestId("tr-capchip").locator("b");
 
 async function defeat(page: Page, id: string) {
   await step(page, id).locator(".tr-check").click();
@@ -134,6 +135,13 @@ test.describe("F8.2 timeline and live level cap", () => {
     await page.locator('.seg-chip[data-series="bdsp"]').click();
     await expect(cap(page)).toHaveText("15");
     await expect(step(page, ROARK)).toHaveAttribute("data-state", "next");
+    // chip "Cap -> N" = cap alcancado APOS derrotar o treinador (decisao do Pontin 2026-09-26), nao o nivel do time
+    await expect(chip(page, ROARK)).toHaveText("16");
+    await expect(chip(page, MARS)).toHaveText("20");
+    await expect(chip(page, JUPITER)).toHaveText("22");
+    await expect(chip(page, GARDENIA)).toHaveText("22");
+    for (const [i, n] of ["22", "22", "30"].entries()) await expect(chip(page, CEDRIC[i]!)).toHaveText(n);
+    await expect(page.locator(".tr-step").last().getByTestId("tr-capchip").locator("b")).toHaveText("100");
     await defeat(page, ROARK);
     await expect(cap(page)).toHaveText("16");
     await defeat(page, MARS);
@@ -151,7 +159,7 @@ test.describe("F8.2 timeline and live level cap", () => {
     await defeat(page, CEDRIC[2]!);
     await expect(cap(page)).toHaveText("30");
     await expect(page.getByTestId("tr-count")).toHaveText("7 de 43 treinadores-chave derrotados");
-    await expect(step(page, MAYLENE).getByTestId("tr-capchip")).toContainText("30");
+    await expect(chip(page, MAYLENE)).toHaveText("30");
 
     // desmarcar do meio: Jupiter fica derrotado mas bloqueado, o cap desce
     await step(page, MARS).locator(".tr-check").click();

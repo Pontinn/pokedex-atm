@@ -77,10 +77,23 @@ describe("F8.2 level cap on the real BDSP data", () => {
     expect(v.cap.cap).toBe(16);
   });
 
-  it("trainer levels drive the Cap -> N chip", () => {
+  it("the Cap -> N chip is the cap reached after defeating that trainer (and every one before it)", () => {
     const v = view([]);
-    expect(v.levels.get(ROARK)).toBe(14);
-    expect(v.levels.get(MAYLENE)).toBe(30);
+    expect(v.levels.get(ROARK)).toBe(16);
+    expect(v.levels.get(MARS)).toBe(20);
+    expect(v.levels.get(JUPITER)).toBe(22);
+    expect(v.levels.get(GARDENIA)).toBe(22);
+    expect(CEDRIC.map((id) => v.levels.get(id))).toEqual([22, 22, 30]);
+    // ultimo treinador da serie: serie concluida = 100
+    expect(v.levels.get(keyTrainers.at(-1)!.id)).toBe(100);
+    // cada chip bate com o header depois de derrotar ate aquele treinador
+    keyTrainers.forEach((t, i) => {
+      const prefix = keyTrainers.slice(0, i + 1).map((k) => k.id);
+      expect(v.levels.get(t.id)).toBe(view(prefix).cap.cap);
+    });
+    // simulacao parte do progresso atual: treinadores a frente mantem o chip ao avancar na ordem
+    const progressed = view([ROARK, MARS]);
+    for (const t of keyTrainers.slice(2)) expect(progressed.levels.get(t.id)).toBe(v.levels.get(t.id));
   });
 });
 
