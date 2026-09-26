@@ -12,6 +12,9 @@ Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/D
 
 ## Proximo passo ao retomar
 
+- PENDENTE (Pontin 2026-09-26, "so anotar pra executar depois"): trocar a recomendacao da calculadora de stats (RF-110) pela regra por funcao + natureza. Regra e exemplos completos no STATE (entrada das 05:49). Nao executar sem o ok do Pontin.
+- PENDENTE (auditoria 2026-09-26): corrigir heldItem em lista no pipeline (tools/dataset/src/trainers/merge.ts:41) e regenerar o dataset; decidir com o Pontin os pontos "SPEC x JOGO" do AUDIT_2026-09-26.md.
+
 1. Ler este arquivo e o STATE; rodar `npm run typecheck`, `npm run lint`, `npx vitest --run` para confirmar o verde.
 2. Disparar em PARALELO (risco baixo, avaliado e aprovado pelo Pontin):
    - Grupo A (opus): F3 -> F4 -> F5 -> F6 (em fila). Sugestao PENDENTE de resposta do Pontin: mover F7 (comparar) do grupo A para o B.
