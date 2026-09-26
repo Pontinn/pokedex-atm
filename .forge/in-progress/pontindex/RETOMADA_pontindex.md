@@ -12,8 +12,20 @@ Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/D
 
 ## Proximo passo ao retomar
 
-- PENDENTE (Pontin 2026-09-26, "so anotar pra executar depois"): trocar a recomendacao da calculadora de stats (RF-110) pela regra por funcao + natureza. Regra e exemplos completos no STATE (entrada das 05:49). Nao executar sem o ok do Pontin.
-- PENDENTE (auditoria 2026-09-26): corrigir heldItem em lista no pipeline (tools/dataset/src/trainers/merge.ts:41) e regenerar o dataset; decidir com o Pontin os pontos "SPEC x JOGO" do AUDIT_2026-09-26.md.
+## PENDENCIAS (Pontin 2026-09-26: "anota tudo pra fazer depois"; NAO executar sem o ok dele)
+
+Em andamento quando anotado: agente de correcao do chip de cap (cap apos derrotar o treinador: Roark 16, Mars 20, Jupiter 22) e do scroll vertical das abas (.tabs). Ao retomar: conferir no git log se commitou (fix(trainers)... e fix(ui): tabs...); se nao, disparar agente novo a partir do disco (HANDOFF_frontend.md, "Onde parei").
+
+Para fazer:
+1. Calculadora de stats (RF-110): trocar a regra pela recomendacao por funcao + natureza. Pontin escolheu a opcao 2. Regra: lado ofensivo = maior entre Atk e SpA (empate Atk); DEFENSIVO se maior ataque < 80 e maior defesa >= 100 (252 HP / 252 maior defesa / 4 outra; natureza Bold/Impish/Calm/Careful); ATACANTE RAPIDO se Spe >= 80 (252 ataque / 252 Spe / 4 HP; Jolly ou Timid); senao ATACANTE LENTO (252 HP / 252 ataque / 4 maior defesa; Adamant ou Modest); IV 31 em tudo. Exemplos: Charizard Timid 252SpA/252Spe/4HP; Gyarados Jolly 252Atk/252Spe/4HP; Snorlax Adamant 252HP/252Atk/4SpD; Blissey Calm 252HP/252SpD/4Def; Shuckle Bold 252HP/252Def/4SpD; Mew Jolly. Atualizar PRD RF-110 e SPEC B6.2/F5.4. Mostrar natureza e funcao na UI; Aplicar tambem seta a natureza.
+2. Bug de dados (auditoria 2026-09-26, AUDIT_2026-09-26.md): itens segurados dos times de treinador viram null quando o arquivo cru usa LISTA (729 casos; tools/dataset/src/trainers/merge.ts:41 so aceita string). Ex.: Scrafty do Giovanni = Psychic Seed. Corrigir no pipeline, regenerar e publicar o dataset, re-rodar auditoria.
+3. Decisoes do Pontin (auditoria): (a) 219 Pokemon com 2 itens (ex. Mega Stone + item): mostrar os dois?; (b) groups/ de mobs de treinadores nao mesclados (so opcionais, ex. soldados Galactic/Rocket; nao afeta o cap); (c) golpes legacy:/special: nao publicados (40 de 50 especies da amostra tem); (d) Magby/Mantyke com Como obter = nenhum apesar de nascerem no mundo (regra 5.1.5); (e) 12 especies ccc/mega_showdown com o mesmo caminho do Cobblemon: no jogo o arquivo inteiro e substituido, o app mostra o do Cobblemon (ex. Dialga do ccc sem golpes).
+4. Cobertura de testes: linhas de src/screens 35% (meta 70) e global 70% (meta 80); limiares rebaixados no vitest.config. Pontin aceita ou quer testes de unidade das telas?
+5. Suite e2e COMPLETA nunca rodou de uma vez (morreu por falta de RAM no teste 9/210). Rodar com o PC folgado: PW_DEV=1 PW_PORT=4178 npx playwright test --workers=1 --grep-invert pwa-offline; depois npm run build e npx playwright test tests/e2e/pwa-offline.spec.ts.
+6. Tempo do 1o carregamento: medido so em dev (tampa some em 3,6 a 4,5 s; 247 arquivos; 1,4 s de espera da tampa pela SPEC). Medir em producao (build + preview) e decidir se reduz a espera da tampa.
+7. Stage 5: itens do CHECKLIST_MANUAL que so o Pontin faz (instalar no PC e no celular, modo aviao, 360/390 no celular real, conferir no jogo: Meltan sem Melmetal, cap apos um Cedric).
+8. Push: a branch foi enviada ao GitHub em 2026-09-25 05:52 sem registro do Claude; perguntar ao Pontin se foi ele. Nao dar push sem pedido explicito. Merge e deploy so quando ele pedir.
+9. Detalhe: checklist F5.4 dizia Fogo/Agua vs Fogo x1/2; o correto (SPEC e tabela de tipos) e x1/4, implementado x1/4. Corrigir o texto do checklist.
 
 1. Ler este arquivo e o STATE; rodar `npm run typecheck`, `npm run lint`, `npx vitest --run` para confirmar o verde.
 2. Disparar em PARALELO (risco baixo, avaliado e aprovado pelo Pontin):
