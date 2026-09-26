@@ -1,20 +1,20 @@
 ---
 feature: pontindex
-stage: implementation
-status: impl-in-progress
+stage: implementation (Fase 1 concluida; T1 parcial; Stage 5 nao iniciada)
+status: impl-done-pending-verification
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: autonomous (grupos A e B em paralelo, opus, desde 2026-09-24 21:30)
+mode: PARADO (Pontin saiu 2026-09-26 06:15; proxima sessao nova: ler RETOMADA_pontindex.md, secoes PRIORIDADE 1 e PENDENCIAS)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: grupo A (F3-F6, porta 4174) e grupo B (F8, F9, F7 por ultimo, porta 4175); ids e timers na ultima entrada do corpo
+running_agent: nenhum (todos parados/concluidos em 2026-09-26 06:10)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
   PRD: { commit: fe314db, deps: [IDEA_pontindex.md, CONTEXT_pontindex.md] }
   UISPEC: { commit: fe314db, deps: [design/prototipo/index.html, design/prototipo/style.css, design/prototipo/app.js, design/tipos/cores.json] }
   IDEA: { commit: <ver git log: ultimo commit de 2026-09-23>, deps: [design/prototipo/**, design/tipos/**, design/capture/**] }
-updated: 2026-09-24
+updated: 2026-09-26
 ---
 ## 2026-09-23 10:30 - Stage 1 iniciado
 - Projeto do zero: pasta vazia, sem git, sem codigo. forge-context nao tem o que ler ainda.
@@ -330,3 +330,9 @@ updated: 2026-09-24
 - 05:49 Pontin escolheu melhorar a recomendacao da calculadora (opcao 2): regra por funcao (defensivo se maior ataque < 80 e maior defesa >= 100; atacante rapido se Spe >= 80; senao lento) + natureza. Exemplos: Charizard Timid 252SpA/252Spe/4HP, Gyarados Jolly, Snorlax Adamant 252HP/252Atk/4SpD, Blissey Calm, Shuckle Bold. PONTIN: NAO EXECUTAR AGORA, so anotar para depois. Agente parado antes de mexer em qualquer arquivo (conferido: nenhuma mudanca). PENDENTE.
 - 05:51 AUDITORIA 2026-09-26 (90e00346, AUDIT_2026-09-26.md): level caps 155 passos = app (0 divergencia); 50 especies semente 1558599613: 0 erros. BUG REAL: heldItem dos times de treinador vira null quando o cru e LISTA (729 casos; merge.ts:41 so aceita string; 219 listas com 2 itens, ex. mega stone + item). Decisoes pendentes p/ Pontin: como mostrar 2 itens; groups/ de mobs nao mesclados (so opcionais); golpes legacy:/special: nao publicados; Magby/Mantyke "Como obter"=none por regra 5.1.5; 12 especies ccc/mega_showdown com mesmo caminho do Cobblemon (jogo substitui o arquivo inteiro, publicado mantem base). Nada corrigido ainda.
 - 06:09 Pontin: parar, commitar tudo e dar PUSH (autorizacao explicita), sem esperar verificacao; o que nao estiver verde vira prioridade 1 (anotado na RETOMADA). Agente das abas parado antes do vitest final.
+
+## 2026-09-26 06:15 - SESSAO ENCERRADA (Pontin vai continuar numa sessao NOVA)
+- Push feito a pedido explicito do Pontin: c62eee65 em origin/feature/pontindex.
+- Nenhum agente rodando. Nada pendente no working tree alem dos 2 arquivos gerados que so mudam LF/CRLF (types.generated.css e snapshot do type-css).
+- RETOMADA_pontindex.md reescrita com todo o contexto: onde paramos, PRIORIDADE 1 (verificar os fixes de hoje), 10 PENDENCIAS, ordem sugerida, regras, ambiente (pouca RAM, HMR durante edicao).
+- Dev server `npm run dev` (porta 5173) foi deixado rodando para o Pontin nesta sessao; ele morre junto com a sessao.

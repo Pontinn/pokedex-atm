@@ -1,14 +1,18 @@
 # Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
-Atualizado em 2026-09-24 19:35 (PC atual desde 21:00: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm`; PC anterior: `C:/Users/mateu/Desktop/Nova pasta`). Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Tudo do `.forge` e versionado. Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + ultimas entradas) -> `CHECKLIST_pontindex.md` -> `HANDOFF_frontend.md` (secoes F1.4, Grupo C, F2) -> SPEC da proxima feature.
+Atualizado em 2026-09-26 06:15 pelo orquestrador (Claude). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `c62eee65` (2026-09-26 06:1x, pedido explicito do Pontin). Tudo do `.forge` e versionado.
 
-## Onde paramos (PARADO a pedido do Pontin, 2026-09-24)
+Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --test pontindex` para a Stage 5). Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + entradas de 2026-09-25 e 2026-09-26 no fim) -> `CHECKLIST_pontindex.md` (+ "Bugs encontrados") -> `HANDOFF_frontend.md` (todas as secoes) -> `HANDOFF_tests.md` -> `AUDIT_2026-09-26.md` -> `CHECKLIST_MANUAL_pontindex.md`.
 
-- Stage 4 (implementacao) em andamento, pasta `.forge/in-progress/pontindex/`.
-- Checklist: 40 de 59 itens `[x]` (58 features da Fase 1 + A1 auditoria). Prontos: TODO o backend (B1-B7), fundacao visual (F1.1-F1.4), Home e busca (F2), Configuracoes (F10) e Sincronizar (F11), auditoria A1 limpa.
-- Faltam: grupo A (F3 Pokedex, F4 ficha, F5 ficha parte 2, F6 captura e capturados, F7 comparar), grupo B (F8 treinadores, F9 pokebolas, itens, pagina de item), depois F12 (PWA) e T1 (testes finais), depois Stage 5 (testes de validacao com o Pontin).
-- Ultima verificacao completa (19:32): typecheck 0 erros, lint 0, vitest 27 arquivos / 256 testes verdes, build ok, `public/` intacto, nenhum commit com assinatura.
-- Dataset publicado e auditado: `public/data/atm1.3.0-cobblemon1.7.3-20260924-1344fc8b/` (1027 especies, 964 itens, 48 bolas, 1589 treinadores, 6 series). Auditoria rodada 2: 0 divergencias em 42.992 checagens.
+## Onde paramos (2026-09-26 06:15, Pontin saiu; proxima sessao e NOVA)
+
+- Stage 4 (implementacao) da Fase 1 (site/PWA) CONCLUIDA: TODAS as telas e a PWA estao prontas e commitadas. Checklist: tudo `[x]` menos T1 (testes finais feitos por T1a/T1b, mas a suite e2e completa nunca rodou de uma vez) e P1-P3 (apps, Fase 2, NAO fazer agora).
+- Feito na noite de 2026-09-24/25 (autonomia total): grupos A (F3-F6) e B (F8, F9, F7), F12 (PWA: precache 73 entradas 2,49 MiB, offline, UpdatePrompt), T1a (unit/componente/cobertura/README/manual), T1b (e2e mode-agnostic, navigation, team-history, perf, responsive + 14 baselines, pwa artwork offline), correcoes: schema das bolas (5f1f18dc), ItemTile prefixo duplo (59500a8e), item page evolucoes duplicadas (7221dc51), 5 falhas de e2e que eram fragilidade de teste (fb2ecac9).
+- Feito em 2026-09-26 com o Pontin testando no navegador: chip "Cap -> X" dos treinadores agora mostra o cap APOS derrotar o treinador (99dd56fe; BDSP Roark 16, Mars 20, Jupiter 22; o cabecalho "Seu cap atual" ja estava certo e nao mudou); scroll vertical nas barras de abas `.tabs` (91d26ec1, box-shadow inset no lugar de border + margin negativa); auditoria independente (90e00346, `AUDIT_2026-09-26.md`): level cap 155 passos = app, 50 especies (semente 1558599613) 0 erros, 1 BUG real (itens segurados dos treinadores).
+- Ultima verificacao completa conhecida (antes dos 2 fixes de hoje): typecheck 0, lint 0, vitest 55 arquivos / 385 testes verdes. Os fixes de hoje NAO foram verificados por inteiro (ver PRIORIDADE 1).
+- Dataset publicado: `public/data/atm1.3.0-cobblemon1.7.3-20260924-1344fc8b/` (1027 especies, 964 itens, 48 bolas, 1589 treinadores, 6 series).
+- Stage 5 (validacao) NAO comecou: `forge-test` ainda nao foi disparado. Nao ha API (site estatico); Stage 5 = suite completa + itens do CHECKLIST_MANUAL.
+- Proxima grande etapa depois de tudo isso: Stage 5 com o Pontin, mover a feature para `.forge/complete/`, e merge/deploy (Vercel) SO quando ele pedir.
 
 ## Proximo passo ao retomar
 
@@ -27,19 +31,15 @@ Para fazer:
 5. Suite e2e COMPLETA nunca rodou de uma vez (morreu por falta de RAM no teste 9/210). Rodar com o PC folgado: PW_DEV=1 PW_PORT=4178 npx playwright test --workers=1 --grep-invert pwa-offline; depois npm run build e npx playwright test tests/e2e/pwa-offline.spec.ts.
 6. Tempo do 1o carregamento: medido so em dev (tampa some em 3,6 a 4,5 s; 247 arquivos; 1,4 s de espera da tampa pela SPEC). Medir em producao (build + preview) e decidir se reduz a espera da tampa.
 7. Stage 5: itens do CHECKLIST_MANUAL que so o Pontin faz (instalar no PC e no celular, modo aviao, 360/390 no celular real, conferir no jogo: Meltan sem Melmetal, cap apos um Cedric).
-8. Push: a branch foi enviada ao GitHub em 2026-09-25 05:52 sem registro do Claude; perguntar ao Pontin se foi ele. Nao dar push sem pedido explicito. Merge e deploy so quando ele pedir.
+8. Push: houve um push em 2026-09-25 05:52 sem registro do Claude (perguntar ao Pontin se foi ele). Em 2026-09-26 o Pontin pediu e foi feito o push de c62eee65. Continuar: push so com pedido explicito; merge e deploy so quando ele pedir.
 10. Layout quebrado visto pelo Pontin as 05:55 (pokebola gigante, sidebar no meio): o npm run dev dele pega na hora (HMR) as edicoes que os agentes estao fazendo; nessa hora um agente editava src/styles/components.css (HMR as 05:53, 05:55 e 05:56). Recarregando depois, a Home renderiza certa (conferido com screenshot headless). Causa provavel, nao 100% provada. Para o Pontin testar sem pegar edicao pela metade: servir o build (npm run build + npx vite preview) em vez do dev, ou nao rodar agentes enquanto ele testa. Vitest --coverage tambem gera coverage/ e faz o Vite recarregar a pagina: ignorar coverage/ no watcher do vite.config.
 9. Detalhe: checklist F5.4 dizia Fogo/Agua vs Fogo x1/2; o correto (SPEC e tabela de tipos) e x1/4, implementado x1/4. Corrigir o texto do checklist.
 
-1. Ler este arquivo e o STATE; rodar `npm run typecheck`, `npm run lint`, `npx vitest --run` para confirmar o verde.
-2. Disparar em PARALELO (risco baixo, avaliado e aprovado pelo Pontin):
-   - Grupo A (opus): F3 -> F4 -> F5 -> F6 (em fila). Sugestao PENDENTE de resposta do Pontin: mover F7 (comparar) do grupo A para o B.
-   - Grupo B (opus): F8, F9 (e F7 se o Pontin aprovar).
-   - Cada grupo: arquivos proprios (lista em `HANDOFF_frontend.md`, secao F1.4), modulo i18n proprio em `src/i18n/messages/<tela>.ts`, porta de e2e propria (A 4174, B 4175), `PW_DEV=1`.
-   - Grupo A PRECISA chamar `useHistoryStore.getState().push(dex)` ao abrir a ficha; stores ouvem o evento `pontindex:data-changed`; o store de treinadores (grupo B) tambem deve ouvir esse evento.
-   - Toda tela de lista tem barra de busca PT e EN (regra geral de Frontend na SPEC; F3.2, F6.2, F8.2, F9.1, F9.2).
-3. Rodar a suite COMPLETA no fim de cada onda (licao de 2026-09-24), nao so no fim da sessao.
-4. Depois dos grupos: F12, T1, Stage 5. Merge e deploy na Vercel so quando o Pontin pedir (deploy so no fim do projeto).
+Ordem sugerida ao retomar (confirmar com o Pontin antes de executar as PENDENCIAS):
+1. PRIORIDADE 1: typecheck, lint, vitest completo e e2e das abas/treinadores (PW_DEV=1, --workers=1). Corrigir o que falhar.
+2. Suite e2e completa (item 5), com o PC folgado.
+3. Perguntar ao Pontin as decisoes em aberto (itens 1, 3, 4, 6) e executar o que ele aprovar (itens 1 e 2 via agentes).
+4. Stage 5 (item 7).
 
 ## Regras combinadas com o Pontin (valem ate o fim)
 
@@ -68,3 +68,8 @@ Para fazer:
 - `npm run dataset` publica em `public/`; testes usam `--publish-dir tools/dataset/out/_publish_test` e nunca tocam `public/`.
 - `prints/` (raiz) e rascunho do Pontin, fora do git. Feedbacks versionados em `.forge/in-progress/pontindex/feedback/`.
 - Para ver o site: `npm run dev` e abrir http://localhost:5173/.
+- Novo PC com pouca RAM: o Claude Code mata processos em segundo plano quando a memoria acaba (aconteceu 2x: instalacao do Node e a suite e2e completa). Rodar e2e com `--workers=1`, um arquivo por vez se possivel, e com o navegador do Pontin fechado ou leve.
+- Enquanto agentes editam codigo, o `npm run dev` aberto pelo Pontin recarrega na hora e pode mostrar a tela quebrada no meio de uma edicao (visto em 2026-09-26 05:55). Para ele testar com calma: `npm run build` + `npx vite preview` (porta 4173) ou esperar os agentes terminarem.
+- `vitest --coverage` gera a pasta `coverage/` e o Vite recarrega a pagina a cada arquivo gerado (pendencia: ignorar `coverage/` no watcher do vite.config).
+- Comandos: typecheck `npm run typecheck`; lint `npm run lint`; unit `npx vitest --run`; e2e dev `PW_DEV=1 PW_PORT=4178 npx playwright test <spec> --workers=1`; PWA em producao `npm run build` e `npx playwright test tests/e2e/pwa-offline.spec.ts` (sem PW_DEV, porta 4173). Detalhes em `HANDOFF_tests.md`.
+- Auditoria de dados: ferramenta `tools/dataset/audit/` (AUDIT_REPORT.md) + scripts independentes `tools/dataset/audit/manual-2026-09-26/`.
