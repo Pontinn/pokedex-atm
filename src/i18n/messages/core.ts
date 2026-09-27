@@ -25,6 +25,7 @@ export const CORE_MESSAGES = {
   "obtain.breedText": { pt: "Crie a partir de pais do grupo de ovo {g} no pasture", en: "Breed from parents in the {g} egg group in the pasture" },
   "obtain.none": { pt: "Sem rota confirmada no All the Mons nesta versão", en: "No confirmed route in All the Mons in this version" },
   "obtain.noneHint": { pt: "Assim que o pack ganhar uma forma de obter, ela aparece aqui.", en: "Once the pack adds a way to obtain it, it will show up here." },
+  "obtain.wildOnly": { pt: "Nasce no mundo: veja Onde encontrar", en: "Spawns in the wild: see Where to find" },
   "obtain.packTag": { pt: "Adicionado pelo pack", en: "Added by the pack" },
   "obtain.open": { pt: "Abrir ficha", en: "Open entry" },
   "stat.hp": { pt: "HP", en: "HP" },

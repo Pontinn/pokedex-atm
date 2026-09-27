@@ -196,11 +196,32 @@ function ObtainRow({ icon, title, children, extra, kind }: { icon: ReactNode; ti
   );
 }
 
-function ObtainPanel({ routes, items, biomes, lang }: { routes: readonly ObtainRoute[]; items: ItemsFile | null; biomes: BiomeLabels | null; lang: UiLanguage }) {
+/**
+ * Auditoria S2 (SPEC 5.1.5 / F5.1 passo 3): a unica rota e `none` mas a especie nasce no mundo (ex. Magby, Mantyke,
+ * bebes `undiscovered`) -> o painel aponta para "Onde encontrar" em vez de dizer "sem rota".
+ */
+export function isWildOnly(routes: readonly ObtainRoute[], spawnCount: number): boolean {
+  return spawnCount > 0 && routes.every((r) => r.kind === "none");
+}
+
+function ObtainPanel({
+  routes,
+  items,
+  biomes,
+  lang,
+  spawnCount,
+}: {
+  routes: readonly ObtainRoute[];
+  items: ItemsFile | null;
+  biomes: BiomeLabels | null;
+  lang: UiLanguage;
+  spawnCount: number;
+}) {
   const t = useT();
   const byDex = useSpeciesByDex();
   const { navigate } = useNavigationActions();
   const list = routes.length ? routes : ([{ kind: "none" }] as const);
+  const wildOnly = isWildOnly(list, spawnCount);
   return (
     <div className="obtain">
       <div className="ob-head">{t("obtain.title")}</div>
@@ -267,7 +288,9 @@ function ObtainPanel({ routes, items, biomes, lang }: { routes: readonly ObtainR
                 </ObtainRow>
               );
             default:
-              return (
+              return wildOnly ? (
+                <ObtainRow key={i} kind="none" icon={<MapPin aria-hidden="true" />} title={t("obtain.wildOnly")} />
+              ) : (
                 <ObtainRow key={i} kind="none" icon={<Info aria-hidden="true" />} title={t("obtain.none")}>
                   {t("obtain.noneHint")}
                 </ObtainRow>
@@ -308,7 +331,7 @@ export const WherePanel = memo(function WherePanel({ detail }: { detail: Species
           <Drops drops={drops} items={items} lang={lang} />
         </div>
       ) : null}
-      <ObtainPanel routes={obtain} items={items} biomes={biomes} lang={lang} />
+      <ObtainPanel routes={obtain} items={items} biomes={biomes} lang={lang} spawnCount={spawns.length} />
     </div>
   );
 });

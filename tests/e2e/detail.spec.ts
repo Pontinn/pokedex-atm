@@ -454,7 +454,7 @@ test.describe("F5.1 where to find and how to obtain", () => {
     await expect(panel.locator(".ob-none")).toHaveCount(0);
   });
 
-  test("Magikarp collapses 46 entries after 6; Pichu shows .ob-none; Ivysaur evolution links to Bulbasaur", async ({ page }) => {
+  test("Magikarp collapses 46 entries after 6; Pichu and Magby point to Where to find (audit S2); Ivysaur evolution links to Bulbasaur", async ({ page }) => {
     await boot(page);
     await openDetail(page, 129);
     const panel = page.locator("#where-panel");
@@ -463,6 +463,12 @@ test.describe("F5.1 where to find and how to obtain", () => {
     await expect(panel.locator(".spawn-entry")).toHaveCount(46);
     await openDetail(page, 172);
     await expect(page.locator("#where-panel .ob-none")).toHaveCount(1);
+    // auditoria S2: Pichu so tem obtain none mas nasce no mundo -> aponta para Onde encontrar
+    await expect(page.locator("#where-panel .ob-none")).toContainText("Nasce no mundo: veja Onde encontrar");
+    await openDetail(page, 240);
+    await expect(page.locator("#where-panel .spawn-entry")).toHaveCount(3);
+    await expect(page.locator("#where-panel .ob-none")).toHaveText("Nasce no mundo: veja Onde encontrar");
+    await expect(page.locator("#where-panel")).not.toContainText("Sem rota confirmada");
     await openDetail(page, 2);
     const evo = page.locator("#where-panel [data-obtain='evolution']");
     await expect(evo).toContainText("Evolua Bulbasaur (Nível 16)");
