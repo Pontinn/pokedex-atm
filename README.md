@@ -58,7 +58,7 @@ No dataset atual: 1.027 especies, 3.197 entradas de spawn, 797 golpes, 316 habil
 
 ## Como foi feito
 
-Desenvolvido com o Claude Code como par de programacao. Primeiro a pesquisa das fontes de dados e das regras do jogo, depois um prototipo em HTML aprovado como referencia visual, um PRD com os requisitos e so entao o codigo. Os dados passaram por uma auditoria independente antes de publicar, e o app tem testes de unidade, componente e e2e.
+Primeiro veio a pesquisa das fontes de dados e das regras do jogo, depois um prototipo em HTML aprovado como referencia visual, um PRD com os requisitos e so entao o codigo. Os dados passaram por uma auditoria independente antes de publicar, e o app tem testes de unidade, componente e e2e.
 
 ## Tecnologias
 
