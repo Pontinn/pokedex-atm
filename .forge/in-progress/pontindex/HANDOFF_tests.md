@@ -324,3 +324,56 @@ Recomendacao (regra de decisao do orquestrador): o tempo de tampa em producao es
 pronto muito antes de 1.4 s, entao **recomendo reduzir o atraso de 1.4 s**. Nao alterei nada (decisao do Pontin).
 Ressalva: localhost nao tem latencia de rede; numa conexao real o "pronto" frio sobe, mas o atraso fixo continua
 somando por cima dele.
+
+## 2026-09-27 Cobertura das telas (RTL)
+
+Agente: forge-imp-frontend (so testes), contexto limpo, sessao de ~25 min dentro do limite de 50. Nenhuma mudanca em
+`src/**`; so `tests/unit/ui-screens/*` novos, `vitest.config.ts` (metas) e estes docs.
+
+### Arquivos escritos (um commit `test(screens): <Tela> RTL coverage` por arquivo, cada um verde em typecheck + lint + o proprio arquivo)
+
+| Arquivo | Testes | O que cobre (comportamento real, stores/loaders mockados) |
+|---|---|---|
+| `tests/unit/ui-screens/detail-screen.test.tsx` | 8 | DetailScreen inteira com a ficha real do Charizard (`tests/fixtures/rules-storage/species-6.json`): notFound sem pedir a ficha, skeleton, erro + retry, historico/grito apos `CRY_DELAY_MS`/som de evolucao (e nada com som desligado), shiny em `current.ui.shiny`, time, Capturei (overlay unico) e Desmarcar com confirmacao, calculadora por `current.ui.calcOpen`, recomendacao RF-110 "Aplicar" gravando natureza/IVs/EVs em `calcInputs`, clamp do nivel, Voltar |
+| `tests/unit/ui-screens/trainers-screen.test.tsx` | 10 | picker (serie bloqueada, Modo Livre bloqueado/desbloqueado com cap 100), serie ativa persistida, cap/contador/proximo, Derrotado sobe o cap + `levelup` + desbloqueia o proximo, acordeao em `openTrainerId`, time com golpes/habilidade, **0, 1 e 2 chips de `heldItems`**, item de spawn, mochila, chip abre a pagina do item, busca em `filters.query`, vazio, erros, serie salva que sumiu -> toast `tr.seriesGone` |
+| `tests/unit/ui-screens/dex-screen.test.tsx` | 7 | chips de tipo (OR), geracao/evolucao/ordem, status capturado, busca com debounce + Esc/x, texto restaurado da pilha, tela nao remonta ao filtrar, spinner sem indice. A grade virtualizada so e montada (jsdom sem layout; ver nota abaixo) |
+| `tests/unit/ui-screens/settings-screen.test.tsx` | 10 | tema, idioma, som, animacoes (seguir sistema), termos (limpa overrides), instalar, Sobre com/sem manifesto, exportar backup (download), importar invalido (erro da matriz), importar valido (resumo, Mesclar/Substituir, Aplicar grava e rehidrata), apagar selecao e Tudo com palavra de confirmacao, restaurar snapshot (vazio, sucesso, falha) |
+| `tests/unit/ui-screens/sync-screen.test.tsx` | 13 | gerar (vazio `sync.nothingYet`, resumo, copiar com e sem clipboard, baixar `.pdx`, falha), carrossel do QR, receber (vazio, invalido, frame invalido, codigo valido com Mesclar/Substituir e Aplicar que grava/rehidrata/zera `current.ui.mode`, Cancelar, frames parciais com progresso, arquivo `.pdx`, camera indisponivel, falha ao gravar). Codec real de `src/sync` |
+| `tests/unit/ui-screens/item-screen.test.tsx` | 5 | todas as rotas de Como obter e blocos de Usado em (par de evolucao repetido uma vez so), bola, efeito + aviso de cozinha, item de outro mod, erro + retry, Voltar, chip abre a ficha |
+| `tests/unit/ui-screens/compare-screen.test.tsx` | 4 | lados vazios, padrao pelos 2 ultimos do historico, vencedor/Total, Trocar lados em `current.ui`, picker com teclado/Esc/fechar, erro |
+| `tests/unit/ui-screens/items-screen.test.tsx` | 4 | abas por categoria, caret em `openItemId`, abrir pagina do item, busca em todas as categorias, vazio, erro + retry |
+
+Total: 8 arquivos, 61 testes novos. Suite completa com `--coverage`: 64 arquivos / 459 testes, todos verdes (a
+rodada saiu com codigo 1 so por um "Unhandled Error: Timeout calling onTaskUpdate" do worker do vitest na maquina
+carregada, o mesmo erro de infraestrutura ja registrado em 2026-09-26; nenhum teste vermelho e nenhuma meta falhou).
+
+### Cobertura antes/depois (linhas / branches, `coverage-summary.json`)
+
+| Area | Antes | Depois |
+|---|---|---|
+| `src/screens/**` (agregado) | 35.02% / 80.04% | **90.74% / 85.70%** |
+| Detail | 32.6% | 85.2% |
+| Trainers | 37.8% | 98.6% |
+| Dex | 45.0% | 93.3% |
+| Settings | 15.6% | 96.8% |
+| Sync | 1.3% | 94.6% |
+| Item | 24.5% | 100% |
+| Compare | 16.9% | 100% |
+| Items | 50.2% | 99.5% |
+| `src/components/**` | 83.67% / 92.21% | 93.62% / 92.13% |
+| Global | 70.00% / 85.76% | **92.40% / 86.71%** |
+
+Metas da SPEC restauradas em `vitest.config.ts` (comentario com o historico mantido): global linhas 80% (era 69%),
+`src/screens/**` linhas 70% (era 34%); as demais metas nao mudaram.
+
+### Bugs encontrados
+
+Nenhum bug real do app. Notas (nao sao bugs, nada foi alterado em `src/`):
+- `isFreeroamUnlocked` (`src/domain/level-cap.ts`) conta como "concluida" uma serie nao especial com `keyTrainerIds`
+  vazio (o `every` de lista vazia e `true`), enquanto `seriesChips().completed` exige `keyTrainerIds.length > 0`.
+  Inconsistencia latente: no dataset publicado atual nenhuma serie normal tem lista vazia (atm_team 21, bdsp 43,
+  contentcreators 9, radicalred 39, unbound 38), entao nao afeta o app hoje. Apareceu so com uma fixture de teste.
+- A grade virtualizada da Pokedex (`DexGrid`, `@tanstack/react-virtual`) entra em "Maximum update depth exceeded"
+  quando o jsdom recebe largura/altura falsas por mock de `clientWidth`/`getBoundingClientRect`. Nao investiguei a
+  fundo (e artefato do layout falso do jsdom; o e2e real da Pokedex passa), por isso o teste so monta a grade.
+- jsdom nao implementa `Blob.text()`; os testes de importar backup/arquivo `.pdx` definem `text()` no `File` da fixture.
