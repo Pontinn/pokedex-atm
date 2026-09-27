@@ -7,7 +7,11 @@ import { computeSeriesCap } from "../../../../src/domain/level-cap";
 const ROOT = process.cwd();
 const cur = JSON.parse(fs.readFileSync(path.join(ROOT, "public/data/current.json"), "utf8")).datasetVersion;
 const PUB = path.join(ROOT, "public/data", cur);
-const own = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const inputPath = process.argv[2];
+if (!inputPath) {
+  throw new Error("Uso: npx tsx tools/dataset/audit/manual-2026-09-26/caps-compare.ts <saida-do-trainers.mjs.json>");
+}
+const own = JSON.parse(fs.readFileSync(inputPath, "utf8"));
 const series = JSON.parse(fs.readFileSync(path.join(PUB, "series.json"), "utf8"));
 const cfg = own.summary.config;
 
