@@ -493,7 +493,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend.md`
 
 ### Sprint T1: Testes e2e, cobertura, visual
 
-- [ ] T1 Testes e2e, visual snapshot, cobertura e documentacao final
+- [~] T1 Testes e2e, visual snapshot, cobertura e documentacao final (suite e2e COMPLETA rodou ponta a ponta em 2026-09-27 00:35: 18 arquivos, 217 verdes, 1 falha F1 pwa-offline update em investigacao; relatorio REPORT_TEST_UI_pontindex.md commit a7ebce96)
   - hash:
   - Done when (literal da SPEC): ver SPEC Sprint T1 (matriz de testes); todos os testes definidos la verdes, headless, sem slowMo nem timers
   - notas:

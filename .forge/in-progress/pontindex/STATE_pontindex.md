@@ -7,7 +7,7 @@ branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
 mode: AUTONOMO NOTURNO (Pontin dormindo desde 2026-09-26 ~23:00; decisoes proprias; msgs curtas; sem push)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: B=forge-imp-backend (opus) heldItems+dataset; F=forge-imp-frontend (opus) RF-110+wildOnly+vite watcher; concluidos 23:56
+running_agent: forge-test 2 (opus) investigacao F1 pwa update + medicao 1o carregamento; inicio 2026-09-27 00:45; timer 25min
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -366,3 +366,7 @@ updated: 2026-09-26
 - 805 membros de time com item (112 com 2 itens); 76 antigos sem namespace geravam 20 itens quebrados em items.json (removidos); items.json 966 -> 949. Auditoria trainers.mjs 9.036 checks (so os 14 T2 cosmeticos), audit/run.ts 42.992 checks 0 divergencias. typecheck/lint 0, vitest direcionado 135/135, e2e trainers 11/11.
 - Observacao anotada (nao mexer sem pedido): items.json tem 2 ids sem namespace pre-existentes (`karrablast`, `shelmet`), nao vem de treinadores.
 - Horarios anteriores desta secao noturna foram estimados; relogio local confirmado 23:56.
+
+## 2026-09-27 00:40 - Suite e2e completa rodou pela 1a vez
+- 18 arquivos, 217 verdes / 1 falha / 0 pulados, ~23 min, um arquivo por vez. Relatorio REPORT_TEST_UI_pontindex.md (a7ebce96), escrito pelo orquestrador (harness bloqueou a gravacao pelo agente).
+- F1 (Medium, aberta): pwa-offline "Atualizar" nao ativa o SW em espera em producao headless; codigo PWA nao mudou desde 70364fb7; passou em 2026-09-25. Proximo agente compara com build de c62eee65 e mede o 1o carregamento em producao (item 6).
