@@ -293,3 +293,34 @@ Commit: `fb2ecac9` test(e2e): fix capture and detail specs flaky outside the sto
 ### Onde parei
 
 As 5 falhas estao resolvidas e commitadas (`fb2ecac9`). Falta so o bug novo acima (duplicata 25-26 na pagina de item).
+
+## 2026-09-27 Medicao do 1o carregamento (producao)
+
+Agente forge-test (investigacao). Build atual (`dec90eb2`, `npm run build`) servido por `npx vite preview --port 4173`,
+Chromium headless do Playwright, localhost (sem latencia de rede real). Script fora do repo (scratchpad `first-load.mjs`):
+MutationObserver injetado por `addInitScript` marca o `DOMContentLoaded`, o momento em que o `.boot` passa para
+`data-phase="opening"` (dataset pronto, `useDatasetStore.ready`) e o momento em que o `.boot` sai do DOM (tampa sumiu).
+Frio = contexto novo a cada rodada (sem SW, sem cache), 5 rodadas. Quente = 2o carregamento no mesmo contexto, ja
+controlado pelo SW (`navigator.serviceWorker.controller` = true), 3 rodadas.
+
+| Medida (mediana) | Frio (5x) | Quente, SW (3x) |
+|---|---|---|
+| DOMContentLoaded | 104 ms | 40 ms |
+| Dataset pronto (tampa comeca a abrir) | 304 ms | 166 ms |
+| Tampa sumiu | 2467 ms | 2310 ms |
+| Requisicoes da pagina | 18 | 18 (todas atendidas pelo SW) |
+| Bytes da pagina pela rede | ~505 KB | 0 (tudo do SW) |
+| Requisicoes do SW (instalacao do precache, em paralelo) | 70 | 0 |
+
+Valores individuais: frio 2433 a 2493 ms (pronto em 276 a 336 ms); quente 2301 a 2322 ms (pronto em 157 a 174 ms).
+
+Leitura: o 1.4 s nao e uma espera minima desde a abertura, e o `animation-delay` do `lidUp`/`lidDown`
+(`src/styles/shell.css:28-29`) que so comeca quando o dataset fica pronto. Por isso a tampa some sempre ~2.15 s depois do
+"pronto" (1.4 s de atraso + 0.7 s de animacao + ~50 ms). Em producao o dataset fica pronto em ~0.3 s (frio) e ~0.17 s
+(quente), bem antes de 1.4 s; ~87% do tempo de tampa e o atraso fixo mais a animacao. Comparado ao dev (3.6 a 4.5 s,
+247 arquivos), a producao fica em ~2.5 s com 18 requisicoes.
+
+Recomendacao (regra de decisao do orquestrador): o tempo de tampa em producao esta bem abaixo do dev e o dataset fica
+pronto muito antes de 1.4 s, entao **recomendo reduzir o atraso de 1.4 s**. Nao alterei nada (decisao do Pontin).
+Ressalva: localhost nao tem latencia de rede; numa conexao real o "pronto" frio sobe, mas o atraso fixo continua
+somando por cima dele.
