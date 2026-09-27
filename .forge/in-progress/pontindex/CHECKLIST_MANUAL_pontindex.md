@@ -20,7 +20,7 @@ Como abrir: `npm run dev` e acessar `http://localhost:5173/`. Conferir em PT e E
 - [A] Stats, fraquezas (filtro Todos/Fraquezas/Resistencias), evolucoes clicaveis, habilidades, golpes por aba com descricao.
 - [A] Onde encontrar (raridade, biomas, luz, horario), drops e Como obter clicaveis; formas com itens clicaveis.
 - [A] Melhor Pokebola: top 3 com o 1o dourado, "Ranking completo", "Captura garantida", "Captura critica"; clicar numa bola abre a pagina do item.
-- [A] Calculadora: 299/328/269 no exemplo base 100; Recomendacao + Aplicar; EV acima de 510 fica vermelho e congela o resultado; efetividade Fogo/Agua contra Fogo = x1/4.
+- [A] Calculadora: 299/328/269 no exemplo base 100; Recomendacao por funcao (RF-110 rev 7: funcao, "Priorize X e Y", natureza sugerida e aviso de IA, sem numeros de EV/IV; no Charizard: Atacante rapido, At. Esp. e Velocidade, Timida) + Aplicar (preenche IV 31, EVs 252 SpA/252 Spe/4 HP e a natureza Timida); EV acima de 510 fica vermelho e congela o resultado; efetividade Fogo/Agua contra Fogo = x1/4.
 - [ ] A ordem das bolas faz sentido para 3 ou 4 Pokemon que o Pontin conhece no jogo (ex. Magikarp, Gastly, Onix).
 - [ ] Digitar nos campos da calculadora e confortavel no celular (teclado numerico, sem pular o cursor).
 - [ ] A calculadora aberta e os valores digitados continuam la depois de ir a outra ficha e Voltar.
