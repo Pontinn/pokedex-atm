@@ -325,3 +325,10 @@ Agente: forge-imp-frontend (F12, unico agente de implementacao). 2026-09-24 23:4
 
 - Onde parei (2026-09-26 fix chip/tabs): Fix 1 (cap chip) commitado em 99dd56fe; Fix 2 (.tabs rolando na vertical) em andamento: teste novo em tests/e2e/responsive.spec.ts ("tabs bars never scroll vertically") ja reproduz o bug (#item-tabs scrollHeight 37 > clientHeight).
 - Onde parei: Fix 2 commitado em 91d26ec1; falta vitest completo + docs (CHECKLIST Bugs, HANDOFF, SPEC).
+
+## 2026-09-26 heldItems
+
+- `TrainerInfo.team[].heldItem: string | null` virou `heldItems: string[]` (0 a 2 ids, ordem do cru, sempre com namespace: sem namespace no cru ganha `cobblemon:`; ex. `["mega_showdown:garchompite", "cobblemon:loaded_dice"]`). Tipo em `src/data/types.ts`, zod em `src/data/schemas.ts`.
+- `TrainerTeam.tsx` mostra o rotulo `tr.heldItem` uma vez e um `ItemChip` por item (sem estilo novo; o i18n nao tem padrao de plural).
+- Dataset publicado: `public/data/atm1.3.0-cobblemon1.7.3-20260927-1344fc8b/` (`current.json` aponta para ele; a pasta 20260924 foi removida). Todo id de `heldItems` existe no `items.json`; 3 sem textura (`mega_showdown:baxcalibrite`, `darkinium-z`, `mimikium-z`), o chip cai no nome humanizado.
+- Commits: f2983a6d (fix), 61d8f8f9 (dados).
