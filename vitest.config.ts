@@ -29,22 +29,20 @@ export default defineConfig({
       provider: "v8",
       include: ["src/**", "tools/dataset/src/**"],
       thresholds: {
-        // Global de linhas ajustado ao alcancado (T1a, 2026-09-25): a meta de 80% da SPEC pressupoe telas
-        // inteiras cobertas por unit/component; aqui as telas (src/screens/**) sao majoritariamente validadas
-        // pela suite e2e Playwright paralela (tests/e2e/*.spec.ts, agente T1b), e as suites unit cobrem a logica
-        // extraida (domain, storage, sync, *-model.ts) e os componentes citados na SPEC (TypeChip, TermsToggle,
-        // PokemonCard, ArtworkImage, WeaknessPanel, MovesTable/MovesPanel, SearchBox, Modal, Toast). Ver
-        // HANDOFF_tests.md (secao T1a) para o detalhamento e a justificativa completa.
-        lines: 69,
+        // Historico: a T1a (2026-09-25) baixou as linhas globais de 80% para 69% porque as telas (src/screens/**)
+        // so eram cobertas pelo e2e. Na sessao de 2026-09-27 (testes RTL das telas: Detail, Trainers, Dex, Settings,
+        // Sync, Item, Compare, Items em tests/unit/ui-screens/*-screen.test.tsx) o global foi a 92.40% de linhas e a meta
+        // da SPEC (80%) foi restaurada. Ver HANDOFF_tests.md, secoes T1a e "2026-09-27 Cobertura das telas (RTL)".
+        lines: 80,
         branches: 80,
         "src/domain/**": { lines: 95, branches: 95 },
         "src/storage/**": { lines: 90, branches: 90 },
         "src/sync/**": { lines: 90, branches: 90 },
         "tools/dataset/src/**": { lines: 80, branches: 80 },
         "src/components/**": { lines: 70, branches: 70 },
-        // Linhas ajustadas ao alcancado (34.98%, T1a): telas inteiras ficam para a suite e2e (tests/e2e/**);
-        // branches (79.71%) ja atinge a meta original de 70%, mantida.
-        "src/screens/**": { lines: 34, branches: 70 },
+        // Historico: linhas reduzidas para 34% na T1a (34.98%, telas so no e2e); restauradas para a meta da SPEC (70%)
+        // em 2026-09-27, com os testes RTL das telas (linhas 90.74%, branches 85.70%).
+        "src/screens/**": { lines: 70, branches: 70 },
       },
     },
   },
