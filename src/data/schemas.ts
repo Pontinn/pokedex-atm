@@ -341,7 +341,7 @@ export const trainersFileSchema: z.ZodType<TrainersFile> = z.object({
           nature: z.string().nullable(),
           ability: z.string().nullable(),
           moveset: z.array(z.string()),
-          heldItem: z.string().nullable(),
+          heldItems: z.array(z.string()),
         }),
       ),
       maxTeamLevel: z.number(),

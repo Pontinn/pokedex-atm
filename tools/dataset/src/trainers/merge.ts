@@ -8,6 +8,20 @@ const strArray = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x i
 const strArrayArray = (v: unknown): string[][] =>
   Array.isArray(v) ? v.map((inner) => strArray(inner)).filter((inner) => inner.length > 0) : [];
 
+/** Id de item referenciado pelo cru: sem namespace ganha `cobblemon:` (padrao do Cobblemon; auditoria T1). */
+export function withItemNamespace(id: string): string {
+  return id.includes(":") ? id : `cobblemon:${id}`;
+}
+
+/**
+ * `team[].heldItem` do cru: string, lista de 1-2 strings, ausente ou lista vazia (auditoria T1, 2026-09-26).
+ * Normaliza para `string[]` na ordem do cru, so strings nao vazias, com namespace.
+ */
+export function normalizeHeldItems(raw: unknown): string[] {
+  const list = typeof raw === "string" ? [raw] : Array.isArray(raw) ? raw : [];
+  return list.filter((x): x is string => typeof x === "string" && x.trim() !== "").map((x) => withItemNamespace(x.trim()));
+}
+
 export function humanize(id: string): string {
   return id
     .split(/[_\s]+/)
@@ -38,7 +52,7 @@ function parseTeamMember(raw: unknown, slugIndex: ReadonlyMap<string, number>, t
     nature: typeof obj.nature === "string" ? obj.nature : null,
     ability: typeof obj.ability === "string" ? obj.ability : null,
     moveset: strArray(obj.moveset),
-    heldItem: typeof obj.heldItem === "string" ? obj.heldItem : null,
+    heldItems: normalizeHeldItems(obj.heldItem),
   };
 }
 

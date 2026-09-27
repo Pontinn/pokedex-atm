@@ -86,10 +86,12 @@ function TeamMon({
             ))}
           </div>
         ) : null}
-        {mon.heldItem ? (
+        {mon.heldItems.length > 0 ? (
           <div className="tr-held">
             <span className="muted">{`${t("tr.heldItem")}:`}</span>
-            <ItemChip id={mon.heldItem} items={items} lang={lang} />
+            {mon.heldItems.map((id) => (
+              <ItemChip key={id} id={id} items={items} lang={lang} />
+            ))}
           </div>
         ) : null}
       </div>

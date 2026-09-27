@@ -73,7 +73,7 @@ export function collectFossilReferencedIds(fossils: readonly { fossils: readonly
   return ids;
 }
 
-/** ids referenciados por signatureItem/bag/heldItem dos treinadores ja escritos no staging (etapa trainers, antes de items). */
+/** ids referenciados por signatureItem/bag/heldItems dos treinadores ja escritos no staging (etapa trainers, antes de items). */
 function collectTrainerReferencedIds(ctx: PipelineContext): Set<string> {
   const ids = new Set<string>();
   const series = readJsonIfExists<SeriesInfo[]>(ctx.dataPath("series.json"));
@@ -84,7 +84,7 @@ function collectTrainerReferencedIds(ctx: PipelineContext): Set<string> {
     for (const trainer of file.trainers) {
       if (trainer.signatureItem) ids.add(trainer.signatureItem);
       for (const bagEntry of trainer.bag) ids.add(bagEntry.item);
-      for (const member of trainer.team) if (member.heldItem) ids.add(member.heldItem);
+      for (const member of trainer.team) for (const item of member.heldItems) ids.add(item);
     }
   }
   return ids;

@@ -42,11 +42,8 @@ function mobFor(id) {
   const s = singleMobs.get(id);
   return s ? { ...defaultMob, ...s } : { ...defaultMob, __src: "default" };
 }
-const normHeld = (h) => {
-  if (h == null) return null;
-  if (Array.isArray(h)) return h.length ? String(h[0]) : null;
-  return String(h);
-};
+// cru: string, lista de 1-2 strings, ausente ou lista vazia -> lista completa (T1: compara TODOS os itens, na ordem)
+const normHeld = (h) => (h == null ? [] : (Array.isArray(h) ? h : [h]).filter((x) => typeof x === "string" && x.trim() !== "").map((x) => x.trim()));
 const stripNs = (s) => (s == null ? s : String(s).replace(/^cobblemon:/, ""));
 
 // ---------- publicado ----------
@@ -135,7 +132,7 @@ for (const [sid, pubList] of pubTrainers) {
       check("WRONG DATA", wi, "moveset", p.moveset ?? [], q.moveset);
       check("WRONG DATA", wi, "gender", p.gender ?? null, q.gender ?? null);
       check("COSMETIC", wi, "nature", p.nature ?? null, q.nature ?? null);
-      check("WRONG DATA", wi, "heldItem", stripNs(normHeld(p.heldItem)), stripNs(q.heldItem ?? null));
+      check("WRONG DATA", wi, "heldItems", normHeld(p.heldItem).map(stripNs), (q.heldItems ?? []).map(stripNs));
     });
     const bag = (rt.bag ?? []).map((b) => ({ item: b.item, quantity: b.quantity }));
     check("WRONG DATA", w, "bag", bag, (pt.bag ?? []).map((b) => ({ item: b.item, quantity: b.quantity })));

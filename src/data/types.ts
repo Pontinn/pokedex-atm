@@ -475,7 +475,8 @@ export interface TrainerTeamMember {
   nature: string | null;
   ability: string | null;
   moveset: string[];
-  heldItem: string | null;
+  /** 0 a 2 ids de item com namespace, ordem do cru (auditoria T1: antes `heldItem: string | null`). */
+  heldItems: string[];
 }
 
 export interface TrainerInfo {

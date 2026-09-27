@@ -5,6 +5,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { BallsFile, SeriesInfo, TrainersFile } from "../../../src/data/types";
 import { runPipeline } from "../../../tools/dataset/src/index";
+import { normalizeHeldItems } from "../../../tools/dataset/src/trainers/merge";
 import { orderKeyTrainers } from "../../../tools/dataset/src/trainers/order";
 
 process.env.DATASET_QUIET = "1";
@@ -88,6 +89,25 @@ describe("trainers stage (B5.1, B5.2) on the real snapshot", () => {
     60_000,
   );
 
+  it("team heldItems keeps held items given as a list (audit T1)", async () => {
+    await runPipeline(["--only", "trainers", "--out", "tools/dataset/out/_trainers-balls"]);
+    const rr = dataFile("trainers/radicalred.json") as TrainersFile;
+    const giovanni = rr.trainers.find((t) => t.id === "boss_giovanni_0045");
+    expect(giovanni?.team[0]?.species).toBe("scrafty");
+    expect(giovanni?.team[0]?.heldItems).toEqual(["cobblemon:psychic_seed"]);
+
+    const atm = dataFile("trainers/atm_team.json") as TrainersFile;
+    const lego = atm.trainers.find((t) => t.id === "allthemods_trainer_lego");
+    expect(lego?.team.map((m) => m.heldItems)).toEqual([
+      ["cobblemon:life_orb"],
+      ["mega_showdown:garchompite", "cobblemon:loaded_dice"],
+      ["cobblemon:heavy_duty_boots"],
+      ["cobblemon:throat_spray"],
+      ["mega_showdown:baxcalibrite", "cobblemon:loaded_dice"],
+      ["cobblemon:choice_band"],
+    ]);
+  }, 60_000);
+
   it("levelCapConfig matches config/rctmod-server.toml", async () => {
     const ctx = await runPipeline(["--only", "trainers", "--out", "tools/dataset/out/_trainers-balls"]);
     expect(ctx.levelCapConfig).toEqual({
@@ -97,6 +117,18 @@ describe("trainers stage (B5.1, B5.2) on the real snapshot", () => {
       freeroamRequiresCompletedSeries: true,
     });
   }, 60_000);
+});
+
+describe("normalizeHeldItems (pure, audit T1)", () => {
+  it("string, list, missing, empty and junk entries", () => {
+    expect(normalizeHeldItems("life_orb")).toEqual(["cobblemon:life_orb"]);
+    expect(normalizeHeldItems(["psychic_seed"])).toEqual(["cobblemon:psychic_seed"]);
+    expect(normalizeHeldItems(["mega_showdown:garchompite", "loaded_dice"])).toEqual(["mega_showdown:garchompite", "cobblemon:loaded_dice"]);
+    expect(normalizeHeldItems(["minecraft:gold_nugget"])).toEqual(["minecraft:gold_nugget"]);
+    expect(normalizeHeldItems(undefined)).toEqual([]);
+    expect(normalizeHeldItems([])).toEqual([]);
+    expect(normalizeHeldItems(["", 3, null, "  "])).toEqual([]);
+  });
 });
 
 describe("orderKeyTrainers (pure)", () => {
