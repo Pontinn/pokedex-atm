@@ -17,7 +17,10 @@ export function UpdatePrompt() {
   return (
     <div className="toast toast-info pwa-update" role="status">
       <span className="toast-text">{t("pwa.updateAvailable")}</span>
-      <button type="button" className="toast-action" onClick={applyPwaUpdate}>
+      {/* data-silent: sem o som de clique. A pagina recarrega logo em seguida, e o fetch do click.ogg (1o clique
+          da sessao) caia no SW antigo enquanto ele parava para o novo ativar: o SW antigo reiniciava e a ativacao
+          nunca terminava (F1, provado: com o som desligado 6/6 recarregam, com som 4/6). */}
+      <button type="button" className="toast-action" data-silent onClick={applyPwaUpdate}>
         {t("pwa.update")}
       </button>
       <button type="button" className="toast-close" aria-label={t("shell.close")} onClick={dismiss}>
