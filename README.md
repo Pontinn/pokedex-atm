@@ -16,6 +16,10 @@
 
 ## A ideia
 
+Acho que todo mundo que comeca a programar faz uma Pokedex em algum momento, e comigo nao foi diferente. Em 2024, ainda no inicio dos estudos, fiz uma [Pokedex bem simples](https://github.com/Pontinn/projetos-estudo/tree/main/pokedex) em HTML, CSS e JavaScript puro, so consumindo a PokeAPI, para testar o que eu ja conseguia fazer. Para quem estava comecando, ate que ficou boa.
+
+Alguns anos de experiencia depois, resolvi fazer a Pokedex definitiva: uma que nao se limita a PokeAPI, mas entende um modpack de Minecraft com Pokemon, o Cobblemon e todos os addons que vem junto, com as regras que valem de verdade dentro do jogo.
+
 Eu e meus amigos jogamos All the Mons, um modpack de Minecraft baseado no Cobblemon. No meio do jogo sempre surge a duvida: em que nivel evolui, qual Pokebola usar, quem e o proximo treinador que libera o level cap, o que aquele item faz. Sites de Pokemon nao servem porque o Cobblemon e os addons do pack mudam evolucoes, spawns e itens. E no celular nao da para abrir a pasta dos mods.
 
 O Pontindex resolve isso com quatro regras:
