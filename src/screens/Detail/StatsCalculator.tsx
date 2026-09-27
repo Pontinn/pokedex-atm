@@ -1,6 +1,6 @@
 // Calculadoras da ficha (F5.4; porta renderCalc app.js:1002-1008 e <details class="calc"> 984-995, style.css:649-661):
 // IV (0-31) e EV (0-252, soma <= 510) por stat, nivel 1-100, natureza (25, com +/-); saida no nivel escolhido e no 100
-// (calculateStats, B6.2) com up/down coloridos; "Recomendacao" (recommendedInvestment) com botao Aplicar (nunca
+// (calculateStats, B6.2) com up/down coloridos; "Recomendacao" por funcao (recommendedInvestment, RF-110 rev 7: funcao, 2 stats, natureza, aviso de IA, sem numeros) com botao Aplicar (nunca
 // substitui sozinho, RF-110). Estado dos inputs e "aberto" em current.ui.calcInputs/calcOpen (RF-01). A calculadora
 // de efetividade (TypeCalculator) fica no mesmo <details>.
 import { memo, useMemo, useRef, type CSSProperties } from "react";
@@ -137,21 +137,24 @@ function natureLabel(n: (typeof NATURES)[number], lang: "pt" | "en", t: ReturnTy
   return `${main} (+${s(n.up)} -${s(n.down)})`;
 }
 
-const Recommendation = memo(function Recommendation({ baseStats }: { baseStats: BaseStats }) {
+const Recommendation = memo(function Recommendation({ baseStats, lang }: { baseStats: BaseStats; lang: "pt" | "en" }) {
   const t = useT();
   const rec = useMemo(() => recommendedInvestment(baseStats), [baseStats]);
   const [a, b] = rec.highlight;
-  const label = (k: StatKey) => `${t(STAT_LABEL[k] as never)} (${baseStats[k]})`;
+  const stat = (k: StatKey) => t(STAT_LABEL[k] as never);
+  const nature = NATURES.find((n) => n.id === rec.natureId) ?? NATURES[0]!;
   return (
-    <div className="calc-rec" id="calc-rec">
+    <div className="calc-rec" id="calc-rec" data-role={rec.role}>
       <div className="calc-rec-text">
-        <b>{`${t("calc.recTitle")}:`}</b> {t("calc.recText", { a: label(a), b: label(b) })}
+        <b className="calc-rec-role">{t(`calc.role.${rec.role}`)}</b>
+        <span className="calc-rec-line">{t("calc.prioritize", { a: stat(a), b: stat(b) })}</span>
+        <span className="calc-rec-line">{t("calc.suggestedNature", { name: natureLabel(nature, lang, t) })}</span>
       </div>
       <button
         type="button"
         className="btn btn-ghost calc-apply"
         onClick={() => {
-          const patch: CalcInputs = {};
+          const patch: CalcInputs = { nature: rec.natureId };
           for (const k of STAT_KEYS) {
             patch[`iv.${k}`] = rec.ivs[k];
             patch[`ev.${k}`] = rec.evs[k];
@@ -161,6 +164,7 @@ const Recommendation = memo(function Recommendation({ baseStats }: { baseStats: 
       >
         {t("calc.apply")}
       </button>
+      <p className="muted calc-rec-ai">{t("calc.aiDisclaimer")}</p>
     </div>
   );
 });
@@ -204,7 +208,7 @@ const CalcBody = memo(function CalcBody({ baseStats }: { baseStats: BaseStats })
         <div className="calc-right">
           <CalcOutput baseStats={baseStats} state={state} />
           <p className="muted calc-hint">{t("calc.hint")}</p>
-          <Recommendation baseStats={baseStats} />
+          <Recommendation baseStats={baseStats} lang={lang} />
         </div>
       </div>
     </div>

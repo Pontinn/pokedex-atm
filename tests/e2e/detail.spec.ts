@@ -635,18 +635,29 @@ test.describe("F5.4 calculators", () => {
     expect(errors).toEqual([]);
   });
 
-  test("Charizard recommends IV 31 in Sp. Atk (109) and Speed (100) and Apply fills the inputs; state survives Back", async ({ page }) => {
+  test("Charizard: fast attacker, prioritize Sp. Atk and Speed, Timid, AI disclaimer, no EV/IV numbers; Apply fills the inputs; state survives Back", async ({ page }) => {
     await boot(page);
     await openDetail(page, 6);
     const calc = page.locator("#calc");
     await calc.locator("summary").click();
-    await expect(calc.locator("#calc-rec")).toContainText("IV 31 em At. Esp. (109) e Velocidade (100); EV 252/252/4 sugeridos");
+    const rec = calc.locator("#calc-rec");
+    await expect(rec).toContainText("Atacante rápido");
+    await expect(rec).toContainText("Priorize At. Esp. e Velocidade");
+    await expect(rec).toContainText("Natureza sugerida: Tímida (+Velocidade -Ataque)");
+    await expect(rec.locator(".calc-rec-ai")).toHaveText(
+      "Sugestão automática, criada com ajuda de IA. É só uma recomendação: treine o que preferir.",
+    );
+    await expect(rec).not.toContainText("252");
+    await expect(rec).not.toContainText("IV");
+    await expect(calc.locator("#c-nat")).toHaveValue("hardy");
     await expect(calc.locator("[data-ev='specialAttack']")).toHaveValue("0");
     await calc.locator(".calc-apply").click();
     await expect(calc.locator("[data-ev='specialAttack']")).toHaveValue("252");
     await expect(calc.locator("[data-ev='speed']")).toHaveValue("252");
-    await expect(calc.locator("[data-ev='specialDefence']")).toHaveValue("4");
+    await expect(calc.locator("[data-ev='specialDefence']")).toHaveValue("0");
     await expect(calc.locator("[data-iv='hp']")).toHaveValue("31");
+    await expect(calc.locator("[data-ev='hp']")).toHaveValue("4");
+    await expect(calc.locator("#c-nat")).toHaveValue("timid");
     await openDetail(page, 1);
     // openDetail passa pela Home (busca): pilha ficha 6 > Home > ficha 1, entao sao 2 Voltar ate a ficha 6
     await page.goBack();
