@@ -4,10 +4,10 @@ stage: implementation (Fase 1 concluida; T1 parcial; Stage 5 nao iniciada)
 status: impl-done-pending-verification
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: PARADO (Pontin saiu 2026-09-26 06:15; proxima sessao nova: ler RETOMADA_pontindex.md, secoes PRIORIDADE 1 e PENDENCIAS)
+mode: AUTONOMO NOTURNO (Pontin dormindo desde 2026-09-26 ~23:00; decisoes proprias; msgs curtas; sem push)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: nenhum (todos parados/concluidos em 2026-09-26 06:10)
+running_agent: B=forge-imp-backend (opus) heldItems+dataset; F=forge-imp-frontend (opus) RF-110+wildOnly+vite watcher; concluidos 23:56
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
@@ -337,3 +337,32 @@ updated: 2026-09-26
 - RETOMADA_pontindex.md reescrita com todo o contexto: onde paramos, PRIORIDADE 1 (verificar os fixes de hoje), 10 PENDENCIAS, ordem sugerida, regras, ambiente (pouca RAM, HMR durante edicao).
 - Dev server `npm run dev` (porta 5173) foi deixado rodando para o Pontin nesta sessao; ele morre junto com a sessao.
 - 06:20 Pontin: site e app separados. Criada .forge/ideas/pontindex-app/ (IDEA semente + STATE); RF-105..109 e P1-P3 marcados como MOVIDOS no PRD/SPEC/CHECKLIST; RETOMADA atualizada.
+
+## 2026-09-26 23:05 - Sessao autonoma noturna iniciada (Pontin dormindo)
+- Regras: orquestrador nao coda; agentes Opus max / Sonnet min; timer 25 min por agente; paralelo so sem risco (testes pesados em fila); msgs curtas; sem push.
+- P1 verificacao: typecheck 1 erro e lint 16 erros, TODOS em `tools/dataset/audit/manual-2026-09-26/` (scripts .mjs sem globals node: eslint `files` nao inclui .mjs; caps-compare.ts argv sem guarda). Produto limpo. Agente forge-imp-backend (sonnet) corrigindo + rodando vitest completo + e2e abas/treinadores.
+- Decisoes tomadas pelo orquestrador (base: escolhas anteriores do Pontin):
+  - RF-110: recomendacao por funcao + 2 stats + natureza + aviso de IA; mantem Aplicar (seta natureza). PRD rev 7 e SPEC B6.2/F5.4 ja atualizados.
+  - Auditoria T1 (heldItem lista): corrigir; campo vira `heldItems: string[]`, UI mostra todos (decisao 3a = mostrar os dois). SPEC §5.1.3 e B5 atualizados.
+  - S2 (Magby/Mantyke): so UI, `obtain.wildOnly` quando none + spawns. SPEC §5.1.5 e F5.1 atualizados.
+  - S3 (12 overrides ccc/mega_showdown): MANTER a regra por campo da SPEC (R10, decisao consciente da SPEC; base do Cobblemon vence). Sem acao.
+  - S1 (golpes legacy/special): manter sem publicar (nao aprendiveis normalmente). Sem acao.
+  - T3 (groups opcionais): sem acao (nao afeta cap); registrado como limitacao conhecida.
+  - Cobertura (item 4): tentar RTL nas telas de maior valor (DetailScreen, TrainersScreen) em agente limitado a 50 min; restaurar limiares so se atingidos.
+  - Item 6: medir 1o carregamento em build+preview; reduzir espera da tampa so se medido acima da SPEC.
+- Fila: (1) P1 [rodando] -> (2) backend heldItems + regen dataset + auditoria -> (3) frontend: calculadora RF-110, heldItems UI, obtain.wildOnly, vite watcher ignora coverage/ -> (4) suite e2e completa -> (5) cobertura -> (6) tempo de carregamento -> (7) atualizar RETOMADA.
+
+## 2026-09-26 23:20 - P1 concluida; agentes B e F em paralelo
+- P1 VERDE: typecheck 0, lint 0, vitest 55/385, e2e trainers 11/11 + responsive 18/18. Commits 90bd2689 (lint .mjs + argv) e 9a2718a9 (checklist + F5.4 x1/4). Nenhuma regressao de produto.
+- Paralelo B (tools/dataset, schemas/types, TrainerTeam, public/data) x F (domain stats, Detail, i18n exceto trainers, vite.config): arquivos disjuntos, testes so direcionados, portas 4180/4179.
+
+## 2026-09-26 23:40 - Agente F concluido
+- 8fcc1268 RF-110 rev 7 (funcao + 2 stats + natureza + aviso IA; Aplicar seta natureza); db52b4a2 obtain.wildOnly (vale tambem para Pichu); 37e54a2e vite ignora coverage/; ebd9d5fc docs. Vitest direcionado 24/24, e2e F5.4 6/6, build ok, render Charizard e Magby sem erro de console.
+- Nota: rotulo PT do stat e "At. Esp." (core.ts), nao "Atq. Esp." como na prosa da SPEC; mantido.
+- Agente B (heldItems) continua rodando; dataset em regeneracao (public/data em transicao).
+
+## 2026-09-26 23:56 - Agente B concluido (T1 corrigido)
+- f2983a6d fix pipeline (`heldItems: string[]`, `withItemNamespace`), 61d8f8f9 dataset republicado `atm1.3.0-cobblemon1.7.3-20260927-1344fc8b` (data em UTC; pasta 20260924 removida, current.json atualizado), fe2019a6 docs (CHECKLIST, AUDIT T1 CORRIGIDO, HANDOFF_frontend "2026-09-26 heldItems").
+- 805 membros de time com item (112 com 2 itens); 76 antigos sem namespace geravam 20 itens quebrados em items.json (removidos); items.json 966 -> 949. Auditoria trainers.mjs 9.036 checks (so os 14 T2 cosmeticos), audit/run.ts 42.992 checks 0 divergencias. typecheck/lint 0, vitest direcionado 135/135, e2e trainers 11/11.
+- Observacao anotada (nao mexer sem pedido): items.json tem 2 ids sem namespace pre-existentes (`karrablast`, `shelmet`), nao vem de treinadores.
+- Horarios anteriores desta secao noturna foram estimados; relogio local confirmado 23:56.
