@@ -1,12 +1,12 @@
 # Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
-Atualizado em 2026-09-27 01:30 pelo orquestrador (Claude), ao fim da sessao autonoma noturna (ver a secao "Sessao noturna" logo abaixo; o resto do arquivo e o contexto anterior, ainda valido onde nao foi marcado como FEITO). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `c62eee65` (2026-09-26 06:1x, pedido explicito do Pontin). Tudo do `.forge` e versionado.
+Atualizado em 2026-09-27 01:30 pelo orquestrador (Claude), ao fim da sessao autonoma noturna (ver a secao "Sessao noturna" logo abaixo; o resto do arquivo e o contexto anterior, ainda valido onde nao foi marcado como FEITO). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `15362d9b` (2026-09-27 ~01:45, pedido explicito do Pontin; 26 commits da sessao noturna). Tudo do `.forge` e versionado.
 
 Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --test pontindex` para a Stage 5). Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + entradas de 2026-09-25 e 2026-09-26 no fim) -> `CHECKLIST_pontindex.md` (+ "Bugs encontrados") -> `HANDOFF_frontend.md` (todas as secoes) -> `HANDOFF_tests.md` -> `AUDIT_2026-09-26.md` -> `CHECKLIST_MANUAL_pontindex.md`.
 
 ## Sessao noturna 2026-09-26 23:00 a 2026-09-27 ~01:30 (Pontin dormindo, autonomia total) - LEIA ISTO PRIMEIRO
 
-Regras da noite (Pontin): orquestrador nao coda, so agentes (Opus max, Sonnet min); timer de 25 min por agente; paralelo so sem risco; sem push; mensagens curtas. Tudo abaixo esta commitado em `feature/pontindex` (ultimo push continua `c62eee65`; NAO houve push).
+Regras da noite (Pontin): orquestrador nao coda, so agentes (Opus max, Sonnet min); timer de 25 min por agente; paralelo so sem risco; sem push; mensagens curtas. Tudo abaixo esta commitado em `feature/pontindex` (push feito depois, a pedido do Pontin: 15362d9b).
 
 FEITO (tudo verde, em ordem):
 1. PRIORIDADE 1 verificada: typecheck e lint falhavam SO nos scripts de auditoria `tools/dataset/audit/manual-2026-09-26/` (eslint sem `.mjs` no glob; argv sem guarda). Fix 90bd2689. vitest 55/385, e2e trainers 11/11 e responsive 18/18 verdes. Nenhuma regressao de produto dos fixes do chip/abas.
@@ -24,7 +24,7 @@ PARA O PONTIN DECIDIR DE MANHA (nao executado de proposito):
 - A. Reduzir o atraso de 1,4 s da tampa? Agente recomenda reduzir (producao fica em ~2,5 s). Nao mexi: e escolha estetica sua.
 - B. Conferir as decisoes do item 4 acima (principalmente (e), overrides mantidos, e (d), texto do Magby).
 - C. Stage 5 manual (item 7 antigo): instalar no PC e no celular, modo aviao, 360/390 no celular real, conferir no jogo Meltan sem Melmetal e cap apos um Cedric. So voce faz.
-- D. Push: nada foi enviado; quando quiser, pedir explicitamente.
+- D. Push: FEITO em 2026-09-27 ~01:45 a pedido do Pontin (15362d9b).
 - E. Depois do Stage 5 manual: mover para `.forge/complete/` e merge/deploy (Vercel) so com pedido seu.
 
 ## Onde paramos (2026-09-26 06:15, Pontin saiu; contexto ANTERIOR a sessao noturna)
