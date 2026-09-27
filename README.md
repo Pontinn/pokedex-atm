@@ -20,14 +20,14 @@ Acho que todo mundo que comeca a programar faz uma Pokedex em algum momento, e c
 
 Alguns anos de experiencia depois, resolvi fazer a Pokedex definitiva: uma que nao se limita a PokeAPI, mas entende um modpack de Minecraft com Pokemon, o Cobblemon e todos os addons que vem junto, com as regras que valem de verdade dentro do jogo.
 
-Eu e meus amigos jogamos All the Mons, um modpack de Minecraft baseado no Cobblemon. No meio do jogo sempre surge a duvida: em que nivel evolui, qual Pokebola usar, quem e o proximo treinador que libera o level cap, o que aquele item faz. Sites de Pokemon nao servem porque o Cobblemon e os addons do pack mudam evolucoes, spawns e itens. E no celular nao da para abrir a pasta dos mods.
+Eu e meus amigos jogamos All the Mons, um modpack de Minecraft baseado no Cobblemon. No meio do jogo sempre surge a duvida: em que nivel evolui, qual Pokebola usar, quem e o proximo treinador que libera o level cap, o que aquele item faz. Sites de Pokemon nao servem porque o Cobblemon e os addons do pack mudam evolucoes, spawns e itens. E no celular nao da para abrir a pasta dos mods. E mesmo os sites feitos para o Cobblemon separam demais as informacoes: raridade de spawn num lugar, treinadores em outro, itens em outro, e voce acaba com cinco abas abertas para responder uma pergunta. A ideia e centralizar tudo num lugar so, com um design que traga a essencia de Pokemon, com animacoes e sons, e nao algo generico.
 
 O Pontindex resolve isso com quatro regras:
 
 - **Estetica de Pokemon**: cores de Pokedex, cards com gradiente por tipo, sons do jogo, animacao de captura. Um layout para desktop e outro para celular.
 - **Plug and play**: sem conta, sem login, sem servidor. Os dados de cada pessoa ficam so no aparelho dela.
 - **Dados 100% do modpack**: os jars e configs da instancia sao lidos uma vez, no build, e viram JSON, texturas, sons e traducoes PT/EN dentro do app. Em runtime so o artwork grande vem da PokeAPI.
-- **Custo zero**: site estatico na Vercel, nenhuma API paga.
+- **Custo zero**: site estatico, nenhuma API paga.
 
 ## O que o app faz
 
@@ -58,7 +58,7 @@ No dataset atual: 1.027 especies, 3.197 entradas de spawn, 797 golpes, 316 habil
 
 ## Como foi feito
 
-Desenvolvido em cinco dias, em setembro de 2026, com o Claude Code como par de programacao. Primeiro a pesquisa das fontes de dados e das regras do jogo, depois um prototipo em HTML aprovado como referencia visual, um PRD com os requisitos e so entao o codigo. Os dados passaram por uma auditoria independente antes de publicar, e o app tem testes de unidade, componente e e2e.
+Desenvolvido com o Claude Code como par de programacao. Primeiro a pesquisa das fontes de dados e das regras do jogo, depois um prototipo em HTML aprovado como referencia visual, um PRD com os requisitos e so entao o codigo. Os dados passaram por uma auditoria independente antes de publicar, e o app tem testes de unidade, componente e e2e.
 
 ## Tecnologias
 
@@ -70,7 +70,6 @@ Desenvolvido em cinco dias, em setembro de 2026, com o Claude Code como par de p
 | UI           | Lucide (icones), SVG proprios dos 18 tipos, fontes Fredoka / Nunito / Silkscreen |
 | Pipeline     | Node 24 + tsx, sharp                                                             |
 | Testes       | Vitest, Testing Library, Playwright                                              |
-| Deploy       | Vercel (estatico, cache imutavel para dados e assets)                            |
 
 ## Estrutura
 
