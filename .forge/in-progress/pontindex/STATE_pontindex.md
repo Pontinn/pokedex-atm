@@ -1,20 +1,20 @@
 ---
 feature: pontindex
 stage: implementation (Fase 1 concluida; T1 parcial; Stage 5 nao iniciada)
-status: impl-done-pending-verification
+status: impl-done-verified (sessao noturna 2026-09-27 concluida; falta Stage 5 manual do Pontin)
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: AUTONOMO NOTURNO (Pontin dormindo desde 2026-09-26 ~23:00; decisoes proprias; msgs curtas; sem push)
+mode: PARADO ao fim da sessao noturna (2026-09-27 ~01:35); proxima acao e do Pontin: ler RETOMADA secao "Sessao noturna", decisoes A-E
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: forge-test 2 (opus) investigacao F1 pwa update + medicao 1o carregamento; inicio 2026-09-27 00:45; timer 25min
+running_agent: nenhum (todos concluidos 2026-09-27 01:30)
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
   PRD: { commit: fe314db, deps: [IDEA_pontindex.md, CONTEXT_pontindex.md] }
   UISPEC: { commit: fe314db, deps: [design/prototipo/index.html, design/prototipo/style.css, design/prototipo/app.js, design/tipos/cores.json] }
   IDEA: { commit: <ver git log: ultimo commit de 2026-09-23>, deps: [design/prototipo/**, design/tipos/**, design/capture/**] }
-updated: 2026-09-26
+updated: 2026-09-27
 ---
 ## 2026-09-23 10:30 - Stage 1 iniciado
 - Projeto do zero: pasta vazia, sem git, sem codigo. forge-context nao tem o que ler ainda.
@@ -370,3 +370,14 @@ updated: 2026-09-26
 ## 2026-09-27 00:40 - Suite e2e completa rodou pela 1a vez
 - 18 arquivos, 217 verdes / 1 falha / 0 pulados, ~23 min, um arquivo por vez. Relatorio REPORT_TEST_UI_pontindex.md (a7ebce96), escrito pelo orquestrador (harness bloqueou a gravacao pelo agente).
 - F1 (Medium, aberta): pwa-offline "Atualizar" nao ativa o SW em espera em producao headless; codigo PWA nao mudou desde 70364fb7; passou em 2026-09-25. Proximo agente compara com build de c62eee65 e mede o 1o carregamento em producao (item 6).
+
+## 2026-09-27 01:00 - F1 corrigida; 1o carregamento medido
+- F1 (pwa update): bug REAL, nao regressao (build de c62eee65 falhava 4/6). Causa provada via CDP: som de clique do botao Atualizar (fetch click.ogg) reanima o SW antigo enquanto ele para, o novo fica `installed`. Fix dec90eb2: `data-silent` no botao Atualizar (mecanismo ja existente). pwa-offline 5/5 x5, update 8/8 repeat. REPORT atualizado (c9e454f1).
+- 1o carregamento em producao (vite preview, medianas): frio DOMContentLoaded 104 ms, dataset pronto 304 ms, tampa some 2467 ms (18 req, ~505 KB); quente com SW: 40 / 166 / 2310 ms, 0 bytes. O 1,4 s e `animation-delay` da tampa (shell.css:28-29) que comeca apos o dataset pronto. Agente recomenda reduzir. DECISAO DO ORQUESTRADOR: NAO alterar sem o Pontin (tempo da tampa e escolha estetica dele, animacoes eram prioridade); fica como pergunta da manha com os numeros (HANDOFF_tests.md, 9eee00d8).
+- Cobertura (agente em andamento): commits parciais 5f5ab188 compare, c6bf044b items, 2309a9cb limiares 80 global / 70 screens (metas da SPEC atingidas, aguardando retorno).
+
+## 2026-09-27 01:30 - Verificacao final consolidada (agente Sonnet) e fim da sessao noturna
+- typecheck 0; lint 0; vitest 64 arquivos / 459 testes verdes (78 s, sem erro de worker); build ok (precache 68 entradas, 2.422 KiB); pwa-offline producao 5/5; detail + trainers dev 57/57; worktrees limpos.
+- Cobertura final: 8 arquivos RTL (61 testes), telas 90,74% linhas / global 92,40%; metas da SPEC restauradas (2309a9cb, 6727c062).
+- Commits da noite (em ordem): 90bd2689, 9a2718a9, 8fcc1268, db52b4a2, 37e54a2e, ebd9d5fc, f2983a6d, 61d8f8f9, fe2019a6, 2ab2e5d7, a7ebce96, ad2d78b0, 3a4fb326, 6b9f626f, d45a2c50, 2f98a690, 5dc08ec2, 5155480b, 5f5ab188, c6bf044b, dec90eb2, c9e454f1, 9eee00d8, 2309a9cb, 6727c062 (+ este docs). SEM push.
+- Pendente do Pontin: decisoes A-E na RETOMADA (atraso da tampa, conferir decisoes da auditoria, Stage 5 manual, push, complete/merge).

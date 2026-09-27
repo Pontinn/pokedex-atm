@@ -1,10 +1,33 @@
 # Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
-Atualizado em 2026-09-26 06:15 pelo orquestrador (Claude). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `c62eee65` (2026-09-26 06:1x, pedido explicito do Pontin). Tudo do `.forge` e versionado.
+Atualizado em 2026-09-27 01:30 pelo orquestrador (Claude), ao fim da sessao autonoma noturna (ver a secao "Sessao noturna" logo abaixo; o resto do arquivo e o contexto anterior, ainda valido onde nao foi marcado como FEITO). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `c62eee65` (2026-09-26 06:1x, pedido explicito do Pontin). Tudo do `.forge` e versionado.
 
 Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --test pontindex` para a Stage 5). Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + entradas de 2026-09-25 e 2026-09-26 no fim) -> `CHECKLIST_pontindex.md` (+ "Bugs encontrados") -> `HANDOFF_frontend.md` (todas as secoes) -> `HANDOFF_tests.md` -> `AUDIT_2026-09-26.md` -> `CHECKLIST_MANUAL_pontindex.md`.
 
-## Onde paramos (2026-09-26 06:15, Pontin saiu; proxima sessao e NOVA)
+## Sessao noturna 2026-09-26 23:00 a 2026-09-27 ~01:30 (Pontin dormindo, autonomia total) - LEIA ISTO PRIMEIRO
+
+Regras da noite (Pontin): orquestrador nao coda, so agentes (Opus max, Sonnet min); timer de 25 min por agente; paralelo so sem risco; sem push; mensagens curtas. Tudo abaixo esta commitado em `feature/pontindex` (ultimo push continua `c62eee65`; NAO houve push).
+
+FEITO (tudo verde, em ordem):
+1. PRIORIDADE 1 verificada: typecheck e lint falhavam SO nos scripts de auditoria `tools/dataset/audit/manual-2026-09-26/` (eslint sem `.mjs` no glob; argv sem guarda). Fix 90bd2689. vitest 55/385, e2e trainers 11/11 e responsive 18/18 verdes. Nenhuma regressao de produto dos fixes do chip/abas.
+2. Calculadora de stats (RF-110, PRD rev 7): recomendacao por FUNCAO (Atacante rapido / lento / Defensivo) + "Priorize X e Y" + natureza sugerida + aviso "Sugestao automatica, criada com ajuda de IA...". Sem numeros de EV/IV na tela; Aplicar seta IV 31, EVs da regra e a natureza. 8fcc1268. PRD/SPEC atualizados (2ab2e5d7). Prints em `ui-refs/rf110-*.png`. Detalhe: o rotulo PT do stat e "At. Esp." (ja existia), nao "Atq. Esp.".
+3. Bug dos itens segurados (auditoria T1): pipeline aceita string OU lista; campo virou `heldItems: string[]` (0-2 itens, UI mostra todos, decisao 3a = mostrar os dois). f2983a6d. Dataset republicado `public/data/atm1.3.0-cobblemon1.7.3-20260927-1344fc8b/` (61d8f8f9; data em UTC; pasta antiga removida). 805 membros com item (112 com 2). Bonus: 76 itens antigos sem namespace geravam 20 ids quebrados em items.json (966 -> 949). Auditoria re-rodada: 0 divergencias. AUDIT_2026-09-26.md marca T1 CORRIGIDO.
+4. Decisoes da auditoria (item 3 antigo), tomadas pelo orquestrador com base nas escolhas anteriores: (a) 2 itens: mostrar os dois (feito); (b) groups/ opcionais: sem acao (nao afeta cap); (c) golpes legacy/special: continuam nao publicados; (d) Magby/Mantyke: SO UI, "Como obter" mostra "Nasce no mundo: veja Onde encontrar" quando so ha `none` + spawns (db52b4a2; vale para Pichu tambem); (e) 12 overrides ccc/mega_showdown: MANTIDA a regra por campo da SPEC (R10, base do Cobblemon vence), sem acao. Pontin pode reverter qualquer uma.
+5. Vite: watcher ignora `coverage/` (37e54a2e). Texto do checklist F5.4 corrigido para x1/4 (9a2718a9).
+6. Suite e2e COMPLETA rodou pela 1a vez: 18 arquivos, 217 verdes, 1 falha (F1). ~23 min, um arquivo por vez. Relatorio `REPORT_TEST_UI_pontindex.md` (a7ebce96).
+7. F1 (pwa-offline, botao Atualizar nao ativava o SW novo): BUG REAL e antigo (build de c62eee65 tambem falhava 4/6), nao regressao. Causa provada via CDP: o som de clique do botao (fetch de click.ogg) reanimava o SW antigo enquanto ele parava. Fix dec90eb2: `data-silent` no botao Atualizar. pwa-offline 5/5 x5. Detalhes na secao "Resolucao" do REPORT.
+8. Cobertura (item 4 antigo): 8 arquivos RTL novos em `tests/unit/ui-screens/` (61 testes; Detail, Trainers, Dex, Settings, Sync, Item, Compare, Items). Linhas: telas 35% -> 90,7%, global 70% -> 92,4%. Metas da SPEC restauradas no vitest.config (80 global / 70 telas), 2309a9cb. Nenhum bug real; 2 observacoes no HANDOFF_tests.md (isFreeroamUnlocked x seriesChips com serie sem treinador-chave; grade virtualizada em jsdom).
+9. Tempo do 1o carregamento em PRODUCAO medido (HANDOFF_tests.md, 9eee00d8): frio DOMContentLoaded 104 ms, dataset pronto 304 ms, tampa some 2,47 s (18 req, ~505 KB); quente com SW 40 / 166 ms / 2,31 s, 0 bytes. O 1,4 s e `animation-delay` da tampa (shell.css:28-29) que comeca DEPOIS do dataset pronto.
+10. Verificacao final consolidada (agente Sonnet, ~01:15): resultado na entrada final do STATE.
+
+PARA O PONTIN DECIDIR DE MANHA (nao executado de proposito):
+- A. Reduzir o atraso de 1,4 s da tampa? Agente recomenda reduzir (producao fica em ~2,5 s). Nao mexi: e escolha estetica sua.
+- B. Conferir as decisoes do item 4 acima (principalmente (e), overrides mantidos, e (d), texto do Magby).
+- C. Stage 5 manual (item 7 antigo): instalar no PC e no celular, modo aviao, 360/390 no celular real, conferir no jogo Meltan sem Melmetal e cap apos um Cedric. So voce faz.
+- D. Push: nada foi enviado; quando quiser, pedir explicitamente.
+- E. Depois do Stage 5 manual: mover para `.forge/complete/` e merge/deploy (Vercel) so com pedido seu.
+
+## Onde paramos (2026-09-26 06:15, Pontin saiu; contexto ANTERIOR a sessao noturna)
 
 - Stage 4 (implementacao) da Fase 1 (site/PWA) CONCLUIDA: TODAS as telas e a PWA estao prontas e commitadas. Checklist: tudo `[x]` menos T1 (testes finais feitos por T1a/T1b, mas a suite e2e completa nunca rodou de uma vez) (P1-P3 movidos para a ideia `pontindex-app`).
 - Feito na noite de 2026-09-24/25 (autonomia total): grupos A (F3-F6) e B (F8, F9, F7), F12 (PWA: precache 73 entradas 2,49 MiB, offline, UpdatePrompt), T1a (unit/componente/cobertura/README/manual), T1b (e2e mode-agnostic, navigation, team-history, perf, responsive + 14 baselines, pwa artwork offline), correcoes: schema das bolas (5f1f18dc), ItemTile prefixo duplo (59500a8e), item page evolucoes duplicadas (7221dc51), 5 falhas de e2e que eram fragilidade de teste (fb2ecac9).
@@ -16,10 +39,10 @@ Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --te
 
 ## Proximo passo ao retomar
 
-## PRIORIDADE 1 (Pontin 2026-09-26 06:0x): VERIFICAR O ULTIMO PUSH
+## PRIORIDADE 1 (Pontin 2026-09-26 06:0x): VERIFICAR O ULTIMO PUSH - FEITO em 2026-09-26 23:20 (ver "Sessao noturna", item 1)
 O Pontin mandou parar, commitar e dar push SEM esperar verificacao. O agente commitou o fix das abas + teste (91d26ec1) e foi parado antes do vitest completo e da conferencia final; eu nao verifiquei nada antes do push (nem typecheck/lint). Ao retomar, rodar tudo isso PRIMEIRO; se algo falhar, corrigir antes de qualquer outra pendencia. O chip do cap (99dd56fe) o agente commitou verde.
 
-## PENDENCIAS (Pontin 2026-09-26: "anota tudo pra fazer depois"; NAO executar sem o ok dele)
+## PENDENCIAS (Pontin 2026-09-26: "anota tudo pra fazer depois") - STATUS apos a sessao noturna: 1 FEITO, 2 FEITO, 3 DECIDIDO (ver item 4 da sessao noturna), 4 FEITO, 5 FEITO, 6 MEDIDO (decisao A pendente), 7 PENDENTE (so o Pontin), 8 sem push, 9 FEITO, 10 FEITO (watcher). Texto original mantido abaixo como historico.
 
 Chip do cap: FEITO (99dd56fe). Scroll das abas: 91d26ec1, sem verificacao completa (ver PRIORIDADE 1).
 
