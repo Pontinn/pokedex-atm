@@ -1,5 +1,5 @@
 // F9.3: pagina do item com o dataset REAL, headless, sem slowMo, sem esperas fixas. PW_DEV=1 PW_PORT=4175.
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.ITEM_SHOTS_DIR;
@@ -79,6 +79,29 @@ async function setLanguage(page: Page, lang: "pt" | "en") {
 
 const mainScroll = (page: Page) => page.locator("#main").evaluate((m) => m.scrollTop);
 
+// Espera as animacoes e transicoes finitas (screenIn/cardIn, abrir .desc-wrap) terminarem, como em detail.spec.ts.
+async function settle(page: Page) {
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect?.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished.catch(() => undefined)),
+    ),
+  );
+}
+
+// Clique de mouse cru no centro do alvo (como o usuario), com o alvo levado a vista SEM animacao: o locator.click()
+// faz o "scroll into view if needed" do Playwright, que com o scroll-behavior: smooth do #main segue animando o
+// scroll depois do clique (mesma fragilidade corrigida em detail.spec.ts).
+async function clickCenter(page: Page, target: Locator) {
+  await target.evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
+  await settle(page);
+  const box = await target.boundingBox();
+  if (!box) throw new Error("click target without bounding box");
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+}
+
 test.beforeEach(async ({ page }) => {
   await page.route((url) => url.pathname.startsWith("/assets/sfx/"), (route) => route.fulfill({ status: 200, contentType: "audio/ogg", body: "" }));
 });
@@ -156,11 +179,15 @@ test("F9.3 Charizard > TM moves > scroll > item > Back restores tab, scroll and 
   await openDetail(page, 6);
   const panel = page.locator("#moves-panel");
   await expect(panel).toBeVisible({ timeout: 30_000 });
-  await panel.locator("#move-tabs [data-mtab='tm']").click();
+  // medido (scroll do #main instrumentado): com locator.click() o #main anima suave depois de cada clique e a
+  // transicao de abrir a descricao ainda cresce a pagina (a ancoragem de scroll soma ~7 px) DEPOIS de "saved" ser
+  // lido; o app salva e restaura exatamente o scroll que tinha ao sair (2640 -> 2640), o teste e que media cedo.
+  await clickCenter(page, panel.locator("#move-tabs [data-mtab='tm']"));
   await expect(panel.locator("#move-tabs [data-mtab='tm']")).toHaveClass(/active/);
   const eq = panel.locator(".mv-row[data-mv='earthquake']");
-  await eq.click();
+  await clickCenter(page, eq);
   await expect(eq).toHaveClass(/open/);
+  await settle(page);
   await page.locator("#main").evaluate((m) => m.scrollTo({ top: m.scrollTop + 700, behavior: "instant" }));
   const saved = await mainScroll(page);
   expect(saved).toBeGreaterThan(0);
