@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from "node:fs";
 import type { LocalizedText, SeriesInfo, TrainersFile } from "../../../../src/data/types";
 import type { DerivedSpecies } from "../species/stage-derive";
 import type { LangTable, PipelineContext } from "../context";
+import { createGameDescriptionResolver } from "./descriptions";
 
 export interface CatalogEntry {
   id: string;
@@ -113,22 +114,22 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
   }
   for (const id of referenced) allIds.add(id);
 
+  const gameDescription = createGameDescriptionResolver(deps.lang);
   const catalog: CatalogEntry[] = [];
   for (const id of allIds) {
     const [namespace, ...rest] = id.split(":");
     const itemPath = rest.join(":");
     const ns = namespace ?? "unknown";
     const nameKey = `item.${ns}.${itemPath}`;
-    const tooltipKey = `${nameKey}.tooltip`;
     const name = deps.lang.text(nameKey);
-    const description = deps.lang.text(tooltipKey);
+    const description = gameDescription(ns, itemPath);
     const texture = deps.textureManifest.get(`${ns}:${itemPath.split("/").pop()}`) ?? deps.textureManifest.get(id) ?? null;
     catalog.push({
       id,
       namespace: ns,
       path: itemPath,
       name: name ?? humanizeItemPath(itemPath),
-      description: description ?? null,
+      description,
       texture: texture ? `assets/items/${texture}` : null,
       fromLang: name !== null,
     });
