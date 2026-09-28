@@ -1,5 +1,15 @@
 # Relatorio de auditoria do dataset (A1)
 
+## Rodada 3 (2026-09-28, item-descriptions D4)
+
+Dataset: `public/data/atm1.3.0-cobblemon1.7.3-20260928-f3c842d2`. A ferramenta passou a aplicar `kubejs/assets/<ns>/lang/{pt_br,en_us}.json` por cima do lang dos jars (mesma regra do pipeline desde item-descriptions D6; JSON invalido ignorado; entre pastas do kubejs a primeira em ordem alfabetica vence). Antes disso a rodada deu WRONG DATA 1 (nome PT Flabebe -> Flabébé) e COSMETIC 90 (`pokedexText.pt`), todos vindos do lang do kubejs.
+
+| WRONG DATA | MISSING | EXTRA | SPEC x JOGO | SEM ORDEM | COSMETIC |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | 0 |
+
+42992 checks, 1027 fichas. As secoes abaixo sao da rodada 2 (sem mudanca de estrutura).
+
 ## Rodada 2 (2026-09-24)
 
 Dataset: `public/data/atm1.3.0-cobblemon1.7.3-20260924-1344fc8b` (commits `f5b0d0f0` fix(dataset) ordem de carga transitiva + `19a7cd3d` regeneracao). Ferramenta corrigida em `f5dce003`:

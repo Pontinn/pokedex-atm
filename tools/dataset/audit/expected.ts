@@ -234,6 +234,30 @@ function loadLang(srcs: RawSource[], extraRoots: string[]): Lang {
       }
     }
   }
+  // kubejs/assets/<ns>/lang vale por cima dos jars (no jogo o kubejs e aplicado depois; item-descriptions D6).
+  // JSON invalido e ignorado; entre pastas do kubejs a primeira em ordem alfabetica vence.
+  const kube = srcs.find((s) => s.name === "kubejs");
+  const kubeAssets = kube ? path.join(kube.root, "assets") : null;
+  const kubeSet = new Set<string>();
+  if (kubeAssets && fs.existsSync(kubeAssets)) {
+    for (const ns of fs.readdirSync(kubeAssets).sort()) {
+      for (const [code, map] of [["pt_br", pt], ["en_us", en]] as const) {
+        const f = path.join(kubeAssets, ns, "lang", `${code}.json`);
+        if (!fs.existsSync(f)) continue;
+        let obj: Record<string, string>;
+        try {
+          obj = readJson<Record<string, string>>(f);
+        } catch {
+          continue;
+        }
+        for (const [k, v] of Object.entries(obj)) {
+          if (typeof v !== "string" || kubeSet.has(`${code}|${k}`)) continue;
+          kubeSet.add(`${code}|${k}`);
+          map.set(k, v);
+        }
+      }
+    }
+  }
   return { pt, en };
 }
 
