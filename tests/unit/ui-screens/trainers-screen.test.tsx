@@ -253,17 +253,22 @@ describe("TrainersScreen", () => {
     // golpe ausente do moves.json cai no id humanizado
     expect(geodude.textContent).toContain("Rock throw");
     const held = geodude.querySelectorAll(".tr-held [data-item-open]");
-    expect([...held].map((b) => b.getAttribute("data-item-open"))).toEqual(["cobblemon:hard_stone", "cobblemon:oran_berry"]);
+    // U9: so o item do items.json vira link; oran_berry (fora do fixture) e texto simples, sem pagina inexistente
+    expect([...held].map((b) => b.getAttribute("data-item-open"))).toEqual(["cobblemon:hard_stone"]);
+    expect(held[0]!.tagName).toBe("BUTTON");
+    const missing = geodude.querySelector(".tr-held [data-item-missing='cobblemon:oran_berry']");
+    expect(missing?.tagName).toBe("SPAN");
+    expect(missing?.textContent).toContain("Oran berry");
     expect(held[0]!.textContent).toContain("Pedra Dura");
     expect(document.querySelector("[data-species='onix'] .tr-held")).toBeNull();
-    expect(document.querySelectorAll("[data-species='mystery_mon'] .tr-held [data-item-open]")).toHaveLength(1);
+    expect(document.querySelectorAll("[data-species='mystery_mon'] .tr-held [data-item-missing]")).toHaveLength(1);
     expect(document.querySelector("[data-species='mystery_mon']")!.textContent).toContain("Mystery mon");
     expect(document.querySelector(".tr-spawn [data-item-open='cobblemon:hard_stone']")).not.toBeNull();
-    expect(document.querySelector(".tr-foot [data-item-open='cobblemon:potion']")!.textContent).toContain("x3");
+    expect(document.querySelector(".tr-foot [data-item-missing='cobblemon:potion']")!.textContent).toContain("x3");
 
-    fireEvent.click(held[1]!);
+    fireEvent.click(held[0]!);
     expect(useNavigationStore.getState().current.screen).toBe("item");
-    expect(useNavigationStore.getState().current.params).toEqual({ itemId: "cobblemon:oran_berry" });
+    expect(useNavigationStore.getState().current.params).toEqual({ itemId: "cobblemon:hard_stone" });
   });
 
   it("treinador sem time conhecido mostra tr.teamUnknown; caret fecha o acordeao", async () => {

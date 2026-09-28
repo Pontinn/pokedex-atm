@@ -1,5 +1,6 @@
 // Item clicavel da ficha (drops, fossil, formas, melhor bola): textura (ItemTile) + nome no idioma do card; abre a
-// pagina do item (RF-71). Id sem entrada no items.json -> nome humanizado.
+// pagina do item (RF-71). Id sem entrada no items.json -> nome humanizado em texto simples, sem link (U9: nao abre
+// pagina de item que nao existe).
 import { memo } from "react";
 import { ItemTile } from "../../components/ItemTile";
 import type { ItemsFile } from "../../data/types";
@@ -16,6 +17,14 @@ export function itemDisplayName(items: ItemsFile | null, id: string, lang: UiLan
   return info ? info.name[lang] || info.name.en : humanItemId(id);
 }
 
+/**
+ * O id tem pagina de item? `items === null` (catalogo ainda carregando) conta como sim, para nao piscar texto simples
+ * antes do link; com o catalogo carregado, so ids presentes no items.json viram link.
+ */
+export function hasItemPage(items: ItemsFile | null, id: string): boolean {
+  return items === null || Object.prototype.hasOwnProperty.call(items, id);
+}
+
 export const ItemLink = memo(function ItemLink({
   id,
   items,
@@ -30,6 +39,14 @@ export const ItemLink = memo(function ItemLink({
   size?: number;
 }) {
   const { navigate } = useNavigationActions();
+  if (!hasItemPage(items, id)) {
+    return (
+      <span className={className.split(/\s+/).filter((c) => c !== "it-link").join(" ")} data-item={id} data-item-missing="">
+        <ItemTile texture={null} size={size} />
+        <span>{humanItemId(id)}</span>
+      </span>
+    );
+  }
   return (
     <button
       type="button"

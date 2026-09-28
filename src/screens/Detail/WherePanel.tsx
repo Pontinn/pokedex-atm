@@ -15,7 +15,7 @@ import type { UiLanguage } from "../../storage/types";
 import { RARITY_BADGE } from "../Dex/PokemonCard";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { useSpeciesByDex } from "../Home/TeamSlots";
-import { methodParts, useItems } from "./EvolutionPanel";
+import { methodParts, tradePartner, useItems, usePartnerName } from "./EvolutionPanel";
 import { ItemLink, itemDisplayName } from "./ItemLink";
 
 export const SPAWN_COLLAPSE_AFTER = 6;
@@ -219,6 +219,7 @@ function ObtainPanel({
 }) {
   const t = useT();
   const byDex = useSpeciesByDex();
+  const partnerName = usePartnerName(lang);
   const { navigate } = useNavigationActions();
   const list = routes.length ? routes : ([{ kind: "none" }] as const);
   const wildOnly = isWildOnly(list, spawnCount);
@@ -232,8 +233,8 @@ function ObtainPanel({
               const pre = byDex.get(r.from);
               const preName = name(pre?.name, lang, r.fromSlug);
               const method = [
-                ...(r.edge.requiredItem ? [itemDisplayName(items, r.edge.requiredItem, lang)] : []),
-                ...methodParts(r.edge, t, lang, (id) => itemDisplayName(items, id, lang)),
+                ...(r.edge.requiredItem && !tradePartner(r.edge) ? [itemDisplayName(items, r.edge.requiredItem, lang)] : []),
+                ...methodParts(r.edge, t, lang, (id) => itemDisplayName(items, id, lang), partnerName),
               ].join(" + ");
               return (
                 <ObtainRow

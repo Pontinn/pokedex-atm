@@ -1,21 +1,25 @@
 // Cadeia de evolucao (F4.3; porta evoHTML app.js:839-850, style.css:530-564). Linear quando cada no tem <= 1 saida;
 // ramificada (Eevee) quando algum no tem > 1. Cada aresta mostra o metodo EXATO do Cobblemon (RF-19): item clicavel
 // (RF-71), nivel, amizade, horario, golpe de tipo, item segurado, troca; "Condicao especial" com o raw no tooltip.
+// U9: item fora do items.json vira texto simples (sem link); em aresta de troca o `requiredItem` do Cobblemon e a
+// especie parceira da troca (ex. Karrablast <-> Shelmet), nao um item: "Troca com <especie>", link para a ficha.
 // Nos clicaveis abrem a ficha; no ausente do dataset renderiza sem link. Som `evolution_ui` uma vez por montagem.
 import { Fragment, memo, useEffect, useState, type CSSProperties } from "react";
 import { playSfx } from "../../audio/sfx";
 import { ArrowRight } from "../../components/Icon";
 import { ItemTile } from "../../components/ItemTile";
 import { TermsToggle } from "../../components/TermsToggle";
-import type { EvolutionChain, EvolutionChainNode, EvolutionEdge, ItemsFile } from "../../data/types";
+import type { EvolutionChain, EvolutionChainNode, EvolutionEdge, ItemsFile, SpeciesSummary } from "../../data/types";
 import { loadItems } from "../../data/loaders";
 import { typeName } from "../../components/TypeChip";
 import { gameName, useT } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import { useKnownDexSet } from "../../state/captured-store";
+import { useDatasetStore } from "../../state/dataset-store";
 import { useTermsLanguage } from "../../state/preferences-store";
 import type { UiLanguage } from "../../storage/types";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
+import { hasItemPage } from "./ItemLink";
 
 /** textura do dataset ("assets/items/x.png") -> caminho aceito pelo ItemTile (relativo a /assets/items/) */
 export function itemTexture(texture: string | null | undefined): string | null {
@@ -42,10 +46,36 @@ function humanItem(id: string): string {
   return path.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+/** Parceiro da troca: em aresta `trade` o `requiredItem` do Cobblemon e a especie do outro lado, nao um item. */
+export function tradePartner(edge: EvolutionEdge): string | null {
+  return edge.variant === "trade" && edge.requiredItem ? edge.requiredItem : null;
+}
+
+/** Especie do parceiro da troca pelo slug ("shelmet" ou "cobblemon:shelmet"); undefined se nao estiver no dataset. */
+export function findPartnerSpecies(index: readonly SpeciesSummary[] | null, id: string): SpeciesSummary | undefined {
+  const slug = id.includes(":") ? id.slice(id.indexOf(":") + 1) : id;
+  return index?.find((sp) => sp.slug === slug);
+}
+
+/** Nome do parceiro da troca no idioma: especie do dataset ou id humanizado. */
+export function usePartnerName(lang: UiLanguage): (id: string) => string {
+  const index = useDatasetStore((st) => st.speciesIndex);
+  return (id: string) => {
+    const sp = findPartnerSpecies(index, id);
+    return sp ? gameName(sp, lang) : humanItem(id);
+  };
+}
+
 type T = (key: string, vars?: Record<string, string | number>) => string;
 
 /** Partes de texto do metodo (sem o item clicavel, que e renderizado a parte). */
-export function methodParts(edge: EvolutionEdge, t: T, lang: UiLanguage, itemName: (id: string) => string): string[] {
+export function methodParts(
+  edge: EvolutionEdge,
+  t: T,
+  lang: UiLanguage,
+  itemName: (id: string) => string,
+  partnerName: (id: string) => string = humanItem,
+): string[] {
   const parts: string[] = [];
   for (const r of edge.requirements) {
     if (r.kind === "level") parts.push(t("evo.levelN", { n: r.minLevel }));
@@ -55,7 +85,9 @@ export function methodParts(edge: EvolutionEdge, t: T, lang: UiLanguage, itemNam
     else if (r.kind === "heldItem") parts.push(t("evo.holding", { item: itemName(r.item) }));
     else parts.push(t("evo.special"));
   }
-  if (edge.variant === "trade") parts.unshift(t("evo.trade"));
+  const partner = tradePartner(edge);
+  if (partner) parts.unshift(`${t("evo.tradeWith")} ${partnerName(partner)}`);
+  else if (edge.variant === "trade") parts.unshift(t("evo.trade"));
   if (parts.length === 0 && !edge.requiredItem) parts.push(edge.variant === "level_up" ? t("evo.levelUp") : t("evo.special"));
   return parts;
 }
@@ -68,12 +100,43 @@ function rawTooltip(edge: EvolutionEdge): string | undefined {
 const MethodChip = memo(function MethodChip({ edge, items, lang }: { edge: EvolutionEdge; items: ItemsFile | null; lang: UiLanguage }) {
   const t = useT();
   const { navigate } = useNavigationActions();
+  const index = useDatasetStore((st) => st.speciesIndex);
   const itemName = (id: string) => (items?.[id] ? gameName(items[id], lang) : humanItem(id));
-  const parts = methodParts(edge, t, lang, itemName);
-  const item = edge.requiredItem;
+  const partner = tradePartner(edge);
+  const partnerSp = partner ? findPartnerSpecies(index, partner) : undefined;
+  const parts = methodParts(edge, t, lang, itemName, (id) => (partnerSp ? gameName(partnerSp, lang) : humanItem(id)));
+  const item = partner ? null : edge.requiredItem;
+  const rest = partner ? parts.slice(1) : parts;
   return (
     <span className="method" title={rawTooltip(edge)} data-edge={edge.id}>
-      {item ? (
+      {partner ? (
+        <>
+          <span className="method-text">{`${t("evo.tradeWith")} `}</span>
+          {partnerSp ? (
+            <button
+              type="button"
+              className="evo-item evo-partner it-link"
+              data-nav=""
+              data-species={partnerSp.slug}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("detail", { dex: partnerSp.dex });
+              }}
+            >
+              <span>{gameName(partnerSp, lang)}</span>
+            </button>
+          ) : (
+            <span className="evo-item evo-item-plain" data-partner={partner}>
+              {humanItem(partner)}
+            </span>
+          )}
+        </>
+      ) : item && !hasItemPage(items, item) ? (
+        <span className="evo-item evo-item-plain" data-item-missing={item}>
+          <ItemTile texture={null} size={18} />
+          <span>{humanItem(item)}</span>
+        </span>
+      ) : item ? (
         <button
           type="button"
           className="evo-item it-link"
@@ -88,7 +151,7 @@ const MethodChip = memo(function MethodChip({ edge, items, lang }: { edge: Evolu
           <span>{itemName(item)}</span>
         </button>
       ) : null}
-      {parts.length ? <span className="method-text">{(item ? " + " : "") + parts.join(" + ")}</span> : null}
+      {rest.length ? <span className="method-text">{(item || partner ? " + " : "") + rest.join(" + ")}</span> : null}
     </span>
   );
 });

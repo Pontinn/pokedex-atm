@@ -120,6 +120,7 @@ button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
 .method { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
 .evo-item { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-weight: 800; color: var(--text); text-decoration: underline dotted; }
 .evo-item .it-tile { border-radius: 4px; }
+.evo-item-plain { text-decoration: none; font-weight: 700; }
 .evo-item .it-tile img, .evo-item .it-tile svg { width: 14px; height: 14px; }
 .evo-branching { display: grid; grid-template-columns: auto 1fr; gap: 12px 18px; align-items: center; margin-top: 6px; }
 .evo-root { display: grid; justify-items: center; gap: 4px; }

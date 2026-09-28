@@ -6,6 +6,7 @@ export const DETAIL_MESSAGES = {
   "evo.level": { pt: "Nível", en: "Level" },
   "evo.stone": { pt: "Pedra", en: "Stone" },
   "evo.trade": { pt: "Troca", en: "Trade" },
+  "evo.tradeWith": { pt: "Troca com", en: "Trade with" },
   "evo.friendship": { pt: "Amizade", en: "Friendship" },
   "evo.friendshipDay": { pt: "Amizade + dia", en: "Friendship + day" },
   "evo.none": { pt: "Não evolui", en: "Does not evolve" },

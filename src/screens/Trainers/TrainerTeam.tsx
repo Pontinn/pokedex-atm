@@ -11,6 +11,7 @@ import { loadAbilities, loadMoves } from "../../data/loaders";
 import { gameName, useT } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import type { UiLanguage } from "../../storage/types";
+import { hasItemPage } from "../Detail/ItemLink";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { humanizeId } from "./trainer-model";
 import { useLoader } from "./use-loader";
@@ -21,6 +22,23 @@ export function ItemChip({ id, items, lang, quantity, className }: { id: string;
   const { navigate } = useNavigationActions();
   const item = items?.[id];
   const name = item ? gameName(item, lang) : humanizeId(id);
+  const label = (
+    <>
+      <ItemTile texture={item?.texture} size={className?.includes("tr-spawn-chip") ? 36 : 24} />
+      <span>
+        {name}
+        {quantity !== undefined ? ` x${quantity}` : ""}
+      </span>
+    </>
+  );
+  // U9: id fora do items.json (o pack cita, o catalogo nao tem) -> chip sem link, nada de pagina de item inexistente
+  if (!hasItemPage(items, id)) {
+    return (
+      <span className={`biome biome-item ${className ?? ""}`.trim()} data-item-missing={id}>
+        {label}
+      </span>
+    );
+  }
   return (
     <button
       type="button"
@@ -29,11 +47,7 @@ export function ItemChip({ id, items, lang, quantity, className }: { id: string;
       data-item-open={id}
       onClick={() => navigate("item", { itemId: id })}
     >
-      <ItemTile texture={item?.texture} size={className?.includes("tr-spawn-chip") ? 36 : 24} />
-      <span>
-        {name}
-        {quantity !== undefined ? ` x${quantity}` : ""}
-      </span>
+      {label}
     </button>
   );
 }
