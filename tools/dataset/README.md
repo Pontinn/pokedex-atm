@@ -28,6 +28,7 @@ O modo e decidido SO por `fs.statSync(<fonte>/mods/<jar>)` dos 7 jars obrigatori
 ## Saida
 
 - Staging: JSON em `<out>/data/`, midia em `<out>/assets/{cries,sfx,items,sprites}/`, `report.json` e `merge-report.json` na raiz de `<out>`.
+- Cache busting (U3): `items.json` grava `texture` como `assets/items/<ns>/<caminho>.png?v=<8 hex do sha256 dos bytes publicados>`; o arquivo em disco nao muda de nome, a query muda quando os bytes mudam (`src/media/asset-version.ts`).
 - Cache: `tools/dataset/.cache/<etapa>/` (`ctx.cacheDir("pokeapi" | "sprites")`), ignorado pelo git.
 - Contrato: `src/context.ts` (`PipelineContext`, `COUNT_OWNERS`: cada etapa grava so as proprias contagens com `ctx.setCount`).
 
