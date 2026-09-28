@@ -12,7 +12,7 @@
 - [x] U7d Catalogo sem ids fantasma; fonte `unobtainable`; zero `none`. `be290046`
 - [x] U7e Frontend: fontes novas (inclui U5b) no Como obter. `9e5cf387` (trainerDrop, unobtainable), `5faaff47` (rotulos de receita), `336cad00` (tipos + zod do contrato v2), `0bb335d3` (UI das 9 fontes v2 + "e mais N"), `c86a3ef2` (RTL), `4d60f4da` + `84470d6b` (e2e 360/390)
 - [ ] U8 Lang de todos os mods + vanilla (en_us/pt_br) no data-source: nomes de mobs/blocos/estruturas, nomes PT dos 110 itens minecraft, notas sem id cru; texturas vanilla dos itens minecraft (com ?v=hash).
-- [ ] U9 Frontend: chip/link de item inexistente vira texto (TrainerTeam ItemChip, EvolutionPanel requiredItem).
+- [x] U9 Frontend: chip/link de item inexistente vira texto (TrainerTeam ItemChip, EvolutionPanel requiredItem). `7b08a3b4`: `hasItemPage` em `ItemLink.tsx` (catalogo carregando = link; carregado, so id do items.json); ItemLink (drops, fossil, formas), ItemChip (segurado, spawn, mochila) e item da evolucao sem link quando o id falta. Aresta `trade` com `requiredItem` = especie parceira do Cobblemon (Karrablast/Shelmet): "Troca com <especie>" com link para a ficha (texto simples se a especie nao estiver no indice), tambem no Como obter da ficha. Pagina do item com id desconhecido ja tinha estado proprio (nome humanizado + dica). Teste `tests/unit/ui-screens/item-link-missing.test.tsx`; vitest 75/586, typecheck e lint ok.
 - [ ] U6 Republicar dataset + testes completos + smoke.
 ## Notas
 - U1: pwa-offline.spec.ts --repeat-each=3 21/21 (producao); vitest completo 476 ok, 1 suite falha so no run paralelo (tests/unit/dataset/join.test.ts, ENOTEMPTY/EPERM em tools/dataset/out, passa sozinha; outro agente mexendo em tools/dataset no mesmo working tree).
