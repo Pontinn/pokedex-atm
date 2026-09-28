@@ -1,9 +1,11 @@
 // Pagina do item (F9.3; porta itemPageBodyHTML/renderItemPage, app.js:883-915): hero com textura pixelada, Como obter
-// honesto (RF-68/69: receita so "Sim", drops, plantavel, loot, pesca, fossil, drop de treinador; sem rota ou nao obtivel = .ob-none) e Usado em (RF-70:
+// honesto (RF-68/69: receita so "Sim", drops, plantavel, loot, pesca, fossil, drop de treinador e as fontes do contrato v2: bloco, mob,
+// missao, loja de BP, estrutura, ritual, troca, worldgen, mecanica especial; sem rota ou nao obtivel = .ob-none; listas longas com
+// "e mais N" expansivel) e Usado em (RF-70:
 // evolucoes, fosseis, formas, bola). Todo item citado no app abre aqui; Voltar restaura a origem (pilha F1.3).
 import "./item.css";
-import { memo, useMemo, type ReactNode } from "react";
-import { Ban, Bone, CircleArrowUp, Fish, Gift, Hammer, PackageOpen, Sprout, Swords } from "lucide-react";
+import { memo, useMemo, useState, type ReactNode } from "react";
+import { Ban, Bone, CircleArrowUp, Fish, Flame, Gift, Hammer, Handshake, Landmark, Lightbulb, Mountain, PackageOpen, Pickaxe, ScrollText, Skull, Sprout, Store, Swords } from "lucide-react";
 import type { ScreenProps } from "../../components/ScreenRouter";
 import { ArrowLeft, ArrowRight, HeartPulse, Info, Package, Sparkles, Target } from "../../components/Icon";
 import { InlineError } from "../../components/InlineError";
@@ -22,7 +24,22 @@ import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
-import { chanceLabel, lootLabels, obtainRows, recipeLabels, seriesTitle, showsEffect, uniqueEvolutions, unknownItemName, unobtainableKey } from "./item-page-model";
+import {
+  capList,
+  chanceLabel,
+  idLabels,
+  lootLabels,
+  namedRefLabels,
+  obtainRows,
+  questLabel,
+  recipeLabels,
+  seriesTitle,
+  showsEffect,
+  traderKey,
+  uniqueEvolutions,
+  unknownItemName,
+  unobtainableKey,
+} from "./item-page-model";
 
 const loadItemPageData = () => Promise.all([loadItems(), loadBalls(), loadBiomes().catch(() => null)]);
 /** Titulos das series (Drop de treinador): carregados a parte, sem segurar a pagina; falha cai no id humanizado. */
@@ -86,6 +103,41 @@ function TrainerDropChip({ drop, series, uiLang }: { drop: ItemTrainerDrop; seri
   );
 }
 
+/**
+ * Lista de uma fonte (chips, Pokemon, treinadores) com limite (U7e): mostra os primeiros `OBTAIN_LIST_CAP` e um chip
+ * "e mais N" que abre o resto; aberta, "mostrar menos" fecha de novo. Vale para todas as fontes de lista.
+ */
+function CappedList({ entries, className }: { entries: { key: string; node: ReactNode }[]; className: string }) {
+  const t = useT();
+  const [expanded, setExpanded] = useState(false);
+  const { shown, hidden } = capList(entries, expanded);
+  const collapsible = expanded && capList(entries, false).hidden > 0;
+  return (
+    <span className={className}>
+      {shown.map((e) => (
+        <span key={e.key} className="ob-entry">
+          {e.node}
+        </span>
+      ))}
+      {hidden > 0 ? (
+        <button type="button" className="biome ob-more" aria-expanded="false" title={t("ip.moreTitle", { n: hidden })} onClick={() => setExpanded(true)}>
+          {t("ip.more", { n: hidden })}
+        </button>
+      ) : null}
+      {collapsible ? (
+        <button type="button" className="biome ob-more" aria-expanded="true" onClick={() => setExpanded(false)}>
+          {t("ip.less")}
+        </button>
+      ) : null}
+    </span>
+  );
+}
+
+/** Chips de texto (.biome) com limite. */
+function LabelChips({ labels }: { labels: readonly string[] }) {
+  return <CappedList className="chips" entries={labels.map((l) => ({ key: l, node: <span className="biome">{l}</span> }))} />;
+}
+
 function Row({ icon, title, children, none, index, kind }: { icon: ReactNode; title: string; children: ReactNode; none?: boolean; index: number; kind: string }) {
   return (
     <div className={`ob-row${none ? " ob-none" : ""}`} style={{ ["--i" as string]: index }} data-row={kind}>
@@ -114,11 +166,13 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { ro
     case "drop":
       return (
         <Row icon={<Gift />} title={t("ip.drop")} index={index} kind="drop">
-          <span className="mon-chips">
-            {route.from.map((d) => (
-              <MonChip key={d.dex} dex={d.dex} species={species.get(d.dex)} lang={lang} extra={d.percentage != null ? `${d.percentage}%` : (d.quantityRange ?? undefined)} />
-            ))}
-          </span>
+          <CappedList
+            className="mon-chips"
+            entries={route.from.map((d) => ({
+              key: String(d.dex),
+              node: <MonChip dex={d.dex} species={species.get(d.dex)} lang={lang} extra={d.percentage != null ? `${d.percentage}%` : (d.quantityRange ?? undefined)} />,
+            }))}
+          />
         </Row>
       );
     case "plantable":
@@ -127,13 +181,7 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { ro
           {route.biomeTags.length ? (
             <>
               <span>{t("ip.plantText")}</span>
-              <span className="chips">
-                {route.biomeTags.map((b) => (
-                  <span key={b} className="biome">
-                    {biomeLabel(b, biomes)[uiLang]}
-                  </span>
-                ))}
-              </span>
+              <LabelChips labels={[...new Set(route.biomeTags.map((b) => biomeLabel(b, biomes)[uiLang]))]} />
             </>
           ) : (
             <span>{t("ip.plantAny")}</span>
@@ -143,13 +191,7 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { ro
     case "structureLoot":
       return (
         <Row icon={<PackageOpen />} title={t("ip.loot")} index={index} kind="structureLoot">
-          <span className="chips">
-            {lootLabels(route.tables).map((l) => (
-              <span key={l} className="biome">
-                {l}
-              </span>
-            ))}
-          </span>
+          <LabelChips labels={lootLabels(route.tables)} />
         </Row>
       );
     case "fishing":
@@ -161,22 +203,85 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { ro
     case "fossilRevive":
       return (
         <Row icon={<Bone />} title={t("ip.revive")} index={index} kind="fossilRevive">
-          <span className="mon-chips">
-            {route.species.map((dex) => (
-              <MonChip key={dex} dex={dex} species={species.get(dex)} lang={lang} />
-            ))}
-          </span>
+          <CappedList className="mon-chips" entries={route.species.map((dex) => ({ key: String(dex), node: <MonChip dex={dex} species={species.get(dex)} lang={lang} /> }))} />
         </Row>
       );
     case "trainerDrop":
       return (
         <Row icon={<Swords />} title={t("ip.trainerDrop")} index={index} kind="trainerDrop">
           <span>{t("ip.trainerDropText")}</span>
-          <span className="ob-trainers">
-            {route.trainers.map((d) => (
-              <TrainerDropChip key={d.id} drop={d} series={series} uiLang={uiLang} />
-            ))}
-          </span>
+          <CappedList className="ob-trainers" entries={route.trainers.map((d) => ({ key: d.id, node: <TrainerDropChip drop={d} series={series} uiLang={uiLang} /> }))} />
+        </Row>
+      );
+    case "blockDrop":
+      return (
+        <Row icon={<Pickaxe />} title={t("ip.blockDrop")} index={index} kind="blockDrop">
+          <span>{t("ip.blockDropText")}</span>
+          <LabelChips labels={namedRefLabels(route.blocks, lang)} />
+        </Row>
+      );
+    case "mobDrop":
+      return (
+        <Row icon={<Skull />} title={t("ip.mobDrop")} index={index} kind="mobDrop">
+          <span>{t("ip.mobDropText")}</span>
+          <LabelChips labels={namedRefLabels(route.mobs, lang)} />
+        </Row>
+      );
+    case "questReward":
+      return (
+        <Row icon={<ScrollText />} title={t("ip.questReward")} index={index} kind="questReward">
+          <CappedList
+            className="ob-quests"
+            entries={route.quests.map((q, i) => {
+              const { title, chapter } = questLabel(q, lang);
+              return {
+                key: `${i}-${chapter ?? ""}-${title ?? ""}`,
+                node: (
+                  <span className="biome ob-quest">
+                    <span>{title ?? t("ip.questUntitled")}</span>
+                    {chapter ? <small>{chapter}</small> : null}
+                  </span>
+                ),
+              };
+            })}
+          />
+        </Row>
+      );
+    case "shop":
+      return (
+        <Row icon={<Store />} title={t(`ip.shop.${route.shop}`)} index={index} kind="shop">
+          {route.price != null ? <b>{t("ip.shopPrice", { price: route.price })}</b> : <span>{t("ip.shopNoPrice")}</span>}
+        </Row>
+      );
+    case "structurePlaced":
+      return (
+        <Row icon={<Landmark />} title={t("ip.structurePlaced")} index={index} kind="structurePlaced">
+          <span>{t("ip.structurePlacedText")}</span>
+          <LabelChips labels={namedRefLabels(route.structures, lang)} />
+        </Row>
+      );
+    case "ritual":
+      return (
+        <Row icon={<Flame />} title={t("ip.ritual")} index={index} kind="ritual">
+          <LabelChips labels={idLabels(route.rituals)} />
+        </Row>
+      );
+    case "trade":
+      return (
+        <Row icon={<Handshake />} title={t("ip.trade")} index={index} kind="trade">
+          <LabelChips labels={[...new Set(route.traders)].map((tr) => t(traderKey(tr)))} />
+        </Row>
+      );
+    case "worldgen":
+      return (
+        <Row icon={<Mountain />} title={t("ip.worldgen")} index={index} kind="worldgen">
+          <LabelChips labels={idLabels(route.features)} />
+        </Row>
+      );
+    case "special":
+      return (
+        <Row icon={<Lightbulb />} title={t("ip.special")} index={index} kind="special">
+          <span data-evidence={route.evidence}>{route.note[uiLang] || route.note.en}</span>
         </Row>
       );
     case "unobtainable":

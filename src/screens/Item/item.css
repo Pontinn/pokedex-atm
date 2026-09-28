@@ -45,6 +45,13 @@ html[data-theme="green"] .item-screen .mon-chip b, html[data-theme="blue"] .item
 .item-screen .trainer-chip { padding: 4px 10px 4px 8px; }
 .item-screen .trainer-chip svg { width: 16px; height: 16px; color: var(--muted); }
 .item-screen .ob-first { color: var(--muted); }
+.item-screen .ob-entry { display: contents; }
+.item-screen .biome { max-width: 100%; overflow-wrap: anywhere; }
+.item-screen .ob-more { cursor: pointer; color: var(--muted); border-style: dashed; font: inherit; font-size: 12px; font-weight: 800; }
+.item-screen .ob-more:hover { color: var(--text); border-color: var(--secondary); }
+.item-screen .ob-quests { display: flex; flex-wrap: wrap; gap: 6px; }
+.item-screen .ob-quest { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; }
+.item-screen .ob-quest small { color: var(--muted); font-size: 11px; font-weight: 700; }
 .item-screen .evo-pair { display: inline-flex; align-items: center; gap: 4px; }
 .item-screen .evo-pair > svg { width: 14px; height: 14px; color: var(--muted); }
 .item-screen .badge-uncommon { white-space: normal; text-transform: none; letter-spacing: 0; font-size: 12px; flex: 0 1 auto; min-width: 0; max-width: 100%; overflow-wrap: anywhere; }

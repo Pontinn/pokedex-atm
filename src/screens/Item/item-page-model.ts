@@ -1,5 +1,5 @@
 // Regras de exibicao da pagina do item (F9.3), puras e testaveis com o dataset real.
-import type { ItemInfo, ItemObtainRoute, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
+import type { ItemInfo, ItemNamedRef, ItemObtainRoute, ItemQuestRef, ItemTrader, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
 import { humanizeId } from "../Trainers/trainer-model";
 
 /** Rota "sem rota" quando o item nao tem nenhuma rota conhecida (RF-69). */
@@ -157,6 +157,45 @@ export function seriesTitle(seriesId: string, series: readonly SeriesInfo[] | nu
 /** Chave i18n do titulo de "Nao obtivel" conforme o motivo. */
 export function unobtainableKey(reason: ItemUnobtainableReason | undefined): string {
   return reason ? `ip.unobtainable.${reason}` : "ip.unobtainable";
+}
+
+/** Quantos chips uma fonte de lista mostra antes do "e mais N" (U7e: diamante tem 199 tabelas de loot). */
+export const OBTAIN_LIST_CAP = 12;
+
+/** Corta a lista no limite quando fechada; `hidden` = quantos ficaram de fora (0 = nada escondido). */
+export function capList<T>(list: readonly T[], expanded: boolean, cap: number = OBTAIN_LIST_CAP): { shown: readonly T[]; hidden: number } {
+  if (expanded || list.length <= cap) return { shown: list, hidden: 0 };
+  return { shown: list.slice(0, cap), hidden: list.length - cap };
+}
+
+/** Texto no idioma pedido, caindo para o EN quando o PT esta vazio. */
+function pick(text: LocalizedText, lang: "pt" | "en"): string {
+  return text[lang] || text.en;
+}
+
+/** Nome de bloco / mob / estrutura (contrato v2): nome do lang do pack, fallback id humanizado. */
+export function namedRefLabel(ref: ItemNamedRef, lang: "pt" | "en"): string {
+  return ref.name ? pick(ref.name, lang) || humanizeId(ref.id) : humanizeId(ref.id);
+}
+
+/** Rotulos de refs sem repeticao, na ordem do array. */
+export function namedRefLabels(refs: readonly ItemNamedRef[], lang: "pt" | "en"): string[] {
+  return [...new Set(refs.map((r) => namedRefLabel(r, lang)))];
+}
+
+/** Missao do FTB Quests: titulo e capitulo no idioma pedido (null quando o jogo nao tem o texto). */
+export function questLabel(quest: ItemQuestRef, lang: "pt" | "en"): { title: string | null; chapter: string | null } {
+  return { title: quest.title ? pick(quest.title, lang) || null : null, chapter: quest.chapter ? pick(quest.chapter, lang) || null : null };
+}
+
+/** Chave i18n do comerciante (fonte "trade"). */
+export function traderKey(trader: ItemTrader): string {
+  return `ip.trader.${trader}`;
+}
+
+/** Ids crus (rituais, features de worldgen) humanizados sem repeticao. */
+export function idLabels(ids: readonly string[]): string[] {
+  return [...new Set(ids.map(humanizeId))];
 }
 
 /** Item citado mas fora do items.json (ex. minecraft:gunpowder): pagina minima com o id humanizado. */
