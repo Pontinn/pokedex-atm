@@ -75,7 +75,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   }
 
   const baitIds = collectBaitItemIds(ctx);
-  const craftable = collectCraftable(ctx);
+  const craftable = collectCraftable(ctx, new Set(catalog.map((e) => e.id)));
   const dropsIndex = buildDropsIndex(ctx);
   const berryPlantable = collectBerryPlantable(ctx);
   const loot = collectLoot(ctx);
