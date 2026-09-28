@@ -7,6 +7,7 @@ import { writeJsonAtomic } from "../lib/fs-atomic";
 import { collectFossils, resolveFossils } from "../species/fossils";
 import { buildCatalog, collectFossilReferencedIds } from "./catalog";
 import { categorize } from "./categories";
+import { applyCuratedDescriptions, loadCuratedDescriptions } from "./descriptions";
 import { collectBerryPlantable } from "./berries";
 import { collectCraftable } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
@@ -42,7 +43,16 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const fossils: FossilRoute[] = resolveFossils(collectFossils(ctx), slugToDex, ctx.report);
   const fossilItemIds = collectFossilReferencedIds(fossils);
 
-  const catalog = buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds });
+  // descricao curada so para itens sem texto no jogo (o jogo vence); ids curados fora do catalogo sao ignorados
+  const curated = applyCuratedDescriptions(buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds }), loadCuratedDescriptions());
+  const catalog = curated.entries;
+  if (curated.unknownIds.length > 0) {
+    ctx.report.warn(
+      "W_CURATED_ITEM_UNKNOWN",
+      `${curated.unknownIds.length} id(s) em curated/item-descriptions.json fora do catalogo (ignorados): ${curated.unknownIds.join(", ")}`,
+      curated.unknownIds,
+    );
+  }
 
   const baitIds = collectBaitItemIds(ctx);
   const craftable = collectCraftable(ctx);
@@ -94,5 +104,15 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
 
   writeJsonAtomic(ctx.dataPath("items.json"), items);
   ctx.setCount("items", Object.keys(items).length);
-  ctx.report.section("items", { count: Object.keys(items).length });
+  const withoutDescription = catalog.filter((e) => e.description === null).length;
+  ctx.report.section("items", {
+    count: Object.keys(items).length,
+    descriptions: {
+      fromGame: catalog.length - curated.fromCurated.length - withoutDescription,
+      fromCurated: curated.fromCurated.length,
+      none: withoutDescription,
+      curatedShadowedByGame: curated.shadowedByGame,
+      curatedUnknownIds: curated.unknownIds,
+    },
+  });
 }

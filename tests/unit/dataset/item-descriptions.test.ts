@@ -1,11 +1,18 @@
-// item-descriptions D1: descricao do item a partir das chaves de tooltip do jogo (fixtures em memoria, sem snapshot).
+// item-descriptions D1/D2: descricao do item a partir das chaves de tooltip do jogo e do arquivo curado (fixtures, sem snapshot).
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { buildLangTable, type LangLayer } from "../../../tools/dataset/src/lang";
 import {
+  applyCuratedDescriptions,
   createGameDescriptionResolver,
   joinTooltipLines,
+  loadCuratedDescriptions,
+  parseCuratedDescriptions,
   stripFormattingCodes,
 } from "../../../tools/dataset/src/items/descriptions";
+import { PipelineError } from "../../../tools/dataset/src/lib/errors";
 
 function langOf(en: Record<string, string>, pt: Record<string, string> = {}) {
   const layers: LangLayer[] = [
@@ -114,5 +121,60 @@ describe("createGameDescriptionResolver", () => {
 
   it("returns null when the game has no description", () => {
     expect(createGameDescriptionResolver(langOf({ "item.cobblemon.plain": "Plain" }))("cobblemon", "plain")).toBeNull();
+  });
+});
+
+describe("curated descriptions (D2)", () => {
+  const entry = (id: string, description: { pt: string; en: string } | null) => ({ id, description });
+
+  it("accepts entries with both languages and trims them", () => {
+    const curated = parseCuratedDescriptions({ "minecraft:stick": { en: " A stick ", pt: "Um graveto" } }, "fixture");
+    expect(curated.get("minecraft:stick")).toEqual({ en: "A stick", pt: "Um graveto" });
+  });
+
+  it("rejects an entry with only one language", () => {
+    expect(() => parseCuratedDescriptions({ "cobblemon:x": { en: "Only EN" } }, "fixture")).toThrow(PipelineError);
+    expect(() => parseCuratedDescriptions({ "cobblemon:x": { en: "EN", pt: "  " } }, "fixture")).toThrow(/E_JSON_INVALID.*cobblemon:x/);
+  });
+
+  it("rejects unknown fields and malformed ids", () => {
+    expect(() => parseCuratedDescriptions({ "cobblemon:x": { en: "EN", pt: "PT", es: "ES" } }, "fixture")).toThrow(PipelineError);
+    expect(() => parseCuratedDescriptions({ "no-namespace": { en: "EN", pt: "PT" } }, "fixture")).toThrow(PipelineError);
+    expect(() => parseCuratedDescriptions([], "fixture")).toThrow(PipelineError);
+  });
+
+  it("treats a missing file as no curated descriptions and fails on invalid JSON", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "curated-"));
+    try {
+      expect(loadCuratedDescriptions(path.join(dir, "missing.json")).size).toBe(0);
+      const bad = path.join(dir, "bad.json");
+      writeFileSync(bad, "{ not json");
+      expect(() => loadCuratedDescriptions(bad)).toThrow(/E_JSON_INVALID/);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("fills only items without game text; game wins; unknown ids are reported and ignored", () => {
+    const curated = parseCuratedDescriptions(
+      {
+        "cobblemon:empty": { en: "Curated EN", pt: "Curado PT" },
+        "cobblemon:has_game": { en: "Curated", pt: "Curado" },
+        "cobblemon:not_in_catalog": { en: "Ghost", pt: "Fantasma" },
+      },
+      "fixture",
+    );
+    const game = { pt: "Jogo", en: "Game" };
+    const result = applyCuratedDescriptions(
+      [entry("cobblemon:empty", null), entry("cobblemon:has_game", game), entry("cobblemon:other", null)],
+      curated,
+    );
+    expect(result.entries.map((e) => e.id)).toEqual(["cobblemon:empty", "cobblemon:has_game", "cobblemon:other"]);
+    expect(result.entries[0]?.description).toEqual({ en: "Curated EN", pt: "Curado PT" });
+    expect(result.entries[1]?.description).toBe(game);
+    expect(result.entries[2]?.description).toBeNull();
+    expect(result.fromCurated).toEqual(["cobblemon:empty"]);
+    expect(result.shadowedByGame).toEqual(["cobblemon:has_game"]);
+    expect(result.unknownIds).toEqual(["cobblemon:not_in_catalog"]);
   });
 });
