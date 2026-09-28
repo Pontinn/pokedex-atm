@@ -1,5 +1,7 @@
 # Checklist manual do Pontindex (testes de UX com o Pontin)
 
+> **FECHADA em 2026-09-28.** Validada pelo Pontin, que fez os testes por conta propria e publicou o deploy em https://pontindex.pontin.dev. Os itens `[ ]` abaixo nao foram marcados um a um.
+
 Legenda: `[ ]` conferir a mao; `[A]` ja coberto pelo e2e automatico (headless), conferir so a sensacao/visual.
 
 ## Frontend

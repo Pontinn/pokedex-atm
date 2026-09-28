@@ -61,7 +61,7 @@
   - Done when (literal da SPEC): teste unitario (`tests/unit/dataset/species-merge.test.ts`, fixtures em `tests/fixtures/species-merge/`: bulbasaur, charizard do Cobblemon + charizard do mega_showdown) garante `baseStats` do Cobblemon e `forms` com Mega-X/Mega-Y/Gmax; Quagsire `name.pt === "Pântano"`; `counts.species === 1027`; Mareep (`dex 179`) tem `SpeciesDetail.drops` (array achatado de `drops.entries` da adicao do allthemons, `amount: 5` descartado) contendo `{ item: "silentgear:sinew", percentage: 25, quantityRange: null }` e 4 entradas no total. (A verificacao `items.json["silentgear:sinew"].obtain` contem `{kind:"drop", from:[{dex:179,...}]}` (RF-68) pertence ao Done de B4.2, Onda 2.)
   - notas: species-merge.test.ts (8 testes) verde (fixtures + snapshot real): Charizard com baseStats do Cobblemon e formas Mega-X/Mega-Y/Gmax; Quagsire pt Pântano; 1027 especies; Mareep 4 drops com silentgear:sinew 25%. O comando do B2.1 agora imprime species 1027 (0 avisos). Merge (a) CORRIGIDO no fix 994cade8 (bug achado pelo orquestrador): o base vence SO na lista fechada da SPEC (baseStats, moves, evolutions, abilities, eggGroups, drops, catchRate, weight, height, maleRatio, preEvolution); demais campos seguem o addon (ex. implemented de zygarde/lycanroc via ccc); forms uniao por name, labels uniao. Teste de regressao em species-merge.test.ts (10 testes, suite 27/27 verde); notImplemented agora 0. Detalhes em HANDOFF_base.md.
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_base.md`
 
 **inicio**: 2026-09-24 15:53 / **fim**: 2026-09-24 16:21 / **duracao**: 28 min
 
@@ -87,7 +87,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_base.md`
   - Done when (literal da SPEC): (em `tests/unit/dataset/species.test.ts`) Eevee `evolutionChain.edges.length === 8` (Espeon = friendship 160 + timeRange day; Sylveon = friendship + hasMoveType fairy), Charizard `forms` = Mega-X (`requiredItems = ["mega_showdown:charizardite_x","mega_showdown:keystone"]`), Mega-Y, Gmax (`[]`); Kadabra -> Alakazam `variant trade`; Clefairy -> Clefable `requiredItem cobblemon:moon_stone`.
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_species.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_species.md`
 
 **inicio**: 2026-09-24 16:25 / **fim**: 16:52 / **duracao**: 27 min
 
@@ -118,7 +118,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_species.md`
   - Done when (literal da SPEC): `tests/unit/dataset/pokeapi-media.test.ts` chama `runMediaStage(ctx)` com `outDir = tools/dataset/out/_pokeapi-media/` (equivalente: `npm run dataset -- --only media --out tools/dataset/out/_pokeapi-media`) e confere em `tools/dataset/out/_pokeapi-media/assets/`: `cries/` >= 1072 arquivos, `sfx/` = os 20 nomes de `SFX_NAMES`, `items/cobblemon/` >= 800; soma cries + sfx + texturas <= 26 MB (a faixa final de `media.totalBytes`, 18 a 26 MB com sprites, e conferida em B2.5).
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_pokeapi-media.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_pokeapi-media.md`
 
 **inicio**: 2026-09-24 16:25 / **fim**: 16:56 / **duracao**: 31 min
 
@@ -151,7 +151,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_pokeapi-media.md`
   - Done when (literal da SPEC): (sem pipeline completo nem escrita em `public/`: `tests/unit/dataset/trainers-balls.test.ts` chama `runBallsStage(ctx)` com `outDir = tools/dataset/out/_trainers-balls/`, equivalente a `npm run dataset -- --only balls --out tools/dataset/out/_trainers-balls`, e le `tools/dataset/out/_trainers-balls/data/balls.json`) `balls.json.length === 48` (igual ao numero de texturas em `poke_balls/`) e `counts.balls` bate; `net_ball.rule.applies.types` = `[water, bug]`; `ancient_gigaton_ball.rule` = `{kind:"flat", multiplier:2}` e `ancient_wing_ball.rule` = `{kind:"flat", multiplier:1.5}`; `heavy_ball.rule` = `{kind:"conditional", bestMultiplier:4, worstMultiplier:1, condition:"heavyTarget"}` sem `applies`; `park_ball` = `conditional 2.5/1 forestOrPlains`; `sport_ball` = `flat 1.5`; `dusk_ball.effect.pt` = "3.5× se o Pokémon estiver no Nível de Luz 0, e 3× se estiver no Nível de Luz 1-7".
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_trainers-balls.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_trainers-balls.md`
 
 **inicio**: 2026-09-24 16:25 / **fim**: 16:55 / **duracao**: 30 min
 
@@ -219,7 +219,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_trainers-balls.md`
   - Done when (literal da SPEC): testes com `fetch` mockado (`tests/unit/data/loaders.test.ts`; `schemas.ts` aceita uma ficha de exemplo de `tests/fixtures/rules-storage/`): cache hit nao refaz request; 2 falhas + sucesso; JSON invalido -> `INVALID`.
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_rules-storage.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_rules-storage.md`
 
 **inicio**: 2026-09-24 16:25 / **fim**: 16:56 / **duracao**: 31 min
 
@@ -250,7 +250,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_rules-storage.md`
   - Done when (literal da SPEC): `tests/unit/ui-foundation/navigation.test.ts`: `navigate` A -> B -> C e `goBack` duas vezes restaura `current.ui` de B e A exatamente (ex. `moveTab: "tm"`, `openMoveRows: ["flamethrower"]`) e o `scroll` salvo; pilha limitada a 40 (41o push descarta o mais antigo); `goBack` com pilha vazia vai para `home`; `updateUi` nao faz push; o gancho de som e chamado 1 vez por `navigate` (spy via `setNavigationSoundHook`) e o padrao no-op nao lanca; `tests/harness/foundation.spec.ts` (Playwright `headless: true`, sem `slowMo`, sem timers) no harness com telas ficticias rolaveis: navegar, rolar 800 px, navegar, `page.goBack()` (popstate) restaura o scroll com tolerancia de 2 px (`expect.poll`) e Alt+Seta esquerda tambem volta. Os fluxos reais foram movidos: "Dex com filtro Fogo + scroll > ficha > Voltar" para F4.1 (primeira feature com Dex e ficha) e "Charizard > Golpes TM > scroll > item > Voltar" para F9.3 (primeira com a pagina de item), ambos repetidos em T1 `tests/e2e/navigation.spec.ts`.
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend-foundation.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_frontend-foundation.md`
 
 **inicio**: 2026-09-24 16:53 / **fim**: 17:10 / **duracao**: 17 min
 
@@ -290,7 +290,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend-foundation.md`
   - Done when (literal da SPEC): (testes em `tests/unit/dataset/join.test.ts`, fixtures em `tests/fixtures/join/`) `speciesDetailSchema` de `src/data/schemas.ts` valida 100% dos `species/*.json`; `species-index.json` tem 1027 entradas e `searchKey` de Quagsire contem `pantano`. (CONDICIONAL, movido de B2.1) Somente se `ATM_INSTANCE_DIR` apontar para uma instancia real disponivel na maquina: rodar o pipeline com ela produz um `species-index.json` identico ao do snapshot (paridade por hash); sem instancia real, o teste e marcado `skip` com o motivo e NAO bloqueia o Done.
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_join.md`
 
 **inicio**: 2026-09-24 17:12 / **fim**: 17:58 / **duracao**: 46 min
 
@@ -308,7 +308,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_join.md`
   - Done when: checagem exaustiva das 1027 especies (campos mecanicos) + bolas, itens e treinadores-chave; amostra manual de 50 especies campo a campo (PT/EN); `AUDIT_REPORT.md` sem divergencia aberta (ou aceita pelo Pontin)
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_audit.md`
 
 **inicio**: 2026-09-24 17:15 / **fim**: 18:24 / **duracao**: 50 min (rodada 1) + 9 min (rodada 2, agente novo). Rodada 2: 0 divergencias em 42.992 checagens; amostra manual 0 diferencas.
 
@@ -477,7 +477,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_audit.md`
   - Done when (literal da SPEC): `navigator.serviceWorker.controller` presente no 2o load; recarregar offline (Playwright `context.setOffline(true)`) mantem Home, Dex e uma ficha ja aberta.
   - notas: manifest (Pontindex, standalone, theme #DC0A2D, background #B0CDF3, icones 192/512/maskable de B1.4); precache 73 entradas / 2,49 MiB (shell JS/CSS/HTML/woff2, imagens do shell, icones, `data/current.json`, os 3 JSON do boot da versao atual, 20 sfx); runtime CacheFirst: artwork PokeAPI (600/30d, status 0/200), `/data/**` versionado (exceto current.json, que vai no precache), cries (300, rangeRequests), sprites (1100), items (1200). `UpdatePrompt` (toast "Nova versão disponível" + Atualizar, empilhado no ToastHost) com SKIP_WAITING + reload unico. Corrigido: registro do SW so no `load` (podia nunca registrar porque o boot e assincrono). Provas: `tests/e2e/pwa-offline.spec.ts` 4/4 no build+preview (controller no 2o load; offline recarrega Home, Dex e a ficha ja vista com artwork do cache; fluxo de atualizacao com servidor proprio sobre dist/). `playwright.config.ts` agora usa `serviceWorkers: "block"` por padrao (so a spec PWA libera). Checagem manual 360/390 em todas as telas fica no CHECKLIST_MANUAL (os e2e de tela ja cobrem expectNoOverlap 360/390/1280); `responsive-fixes.css` nao foi necessario. Agente F12: 2026-09-24 23:43 a 2026-09-25 00:12.
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_frontend.md`
 
 **inicio**: / **fim**: / **duracao**:
 
@@ -498,7 +498,7 @@ HANDOFF: `.forge/in-progress/pontindex/HANDOFF_frontend.md`
   - Done when (literal da SPEC): ver SPEC Sprint T1 (matriz de testes); todos os testes definidos la verdes, headless, sem slowMo nem timers
   - notas:
 
-HANDOFF: `.forge/in-progress/pontindex/HANDOFF_tests.md`
+HANDOFF: `.forge/complete/pontindex/HANDOFF_tests.md`
 
 **inicio**: / **fim**: / **duracao**:
 

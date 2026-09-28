@@ -4,7 +4,7 @@ Criada em 2026-09-26 a pedido do Pontin: "criar uma ideia separada so para o app
 
 ## Regra principal
 
-- So comeca DEPOIS que o site (`pontindex`, em `.forge/in-progress/pontindex/`) estiver finalizado, testado pelo Pontin e aprovado. Pontin, 2026-09-26: "agora e so site; app vai ser so depois".
+- So comeca DEPOIS que o site (`pontindex`, em `.forge/complete/pontindex/`) estiver finalizado, testado pelo Pontin e aprovado (FEITO em 2026-09-28: site no ar em https://pontindex.pontin.dev). Pontin, 2026-09-26: "agora e so site; app vai ser so depois".
 - A feature `pontindex` (site) nao executa nada de app: os antigos sprints P1-P3 e RF-105 a RF-109 foram movidos para ca.
 
 ## O que ja estava decidido (vem da IDEA/PRD/SPEC do pontindex; conferir com o Pontin na Stage 1)

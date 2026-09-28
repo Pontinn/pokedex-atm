@@ -1,5 +1,11 @@
 # Retomada do Pontindex (LEIA PRIMEIRO numa sessao nova)
 
+## FEATURE CONCLUIDA (2026-09-28)
+
+O site esta pronto e no ar: https://pontindex.pontin.dev (deploy na Vercel feito pelo Pontin). Tudo esta na `main` (`origin/main` = `origin/feature/pontindex`). A Stage 5 foi validada pelo Pontin por conta propria, e a feature foi movida para `.forge/complete/`. As decisoes A (atraso da tampa) e B (conferir decisoes da auditoria) ficam como melhorias futuras. O resto deste arquivo e historico.
+
+Proximo trabalho: a ideia `pontindex-app` (`.forge/ideas/pontindex-app/`), com Stage 1 ainda por fazer (`/forge --resume-idea pontindex-app`).
+
 Atualizado em 2026-09-27 01:30 pelo orquestrador (Claude), ao fim da sessao autonoma noturna (ver a secao "Sessao noturna" logo abaixo; o resto do arquivo e o contexto anterior, ainda valido onde nao foi marcado como FEITO). PC atual: `C:/Users/milap/OneDrive/Desktop/leo/pokedex-atm` (Windows 11, 7,8 GB de RAM: POUCA MEMORIA, ver "Ambiente"). PC anterior: `C:/Users/mateu/Desktop/Nova pasta`. Branch `feature/pontindex`, remoto `origin` = github.com/Pontinn/pokedex-atm. Ultimo push: `15362d9b` (2026-09-27 ~01:45, pedido explicito do Pontin; 26 commits da sessao noturna). Tudo do `.forge` e versionado.
 
 Como retomar: rodar `/forge` e pedir para continuar o pontindex (ou `/forge --test pontindex` para a Stage 5). Ordem de leitura: este arquivo -> `STATE_pontindex.md` (frontmatter + entradas de 2026-09-25 e 2026-09-26 no fim) -> `CHECKLIST_pontindex.md` (+ "Bugs encontrados") -> `HANDOFF_frontend.md` (todas as secoes) -> `HANDOFF_tests.md` -> `AUDIT_2026-09-26.md` -> `CHECKLIST_MANUAL_pontindex.md`.
@@ -89,7 +95,7 @@ Ordem sugerida ao retomar (confirmar com o Pontin antes de executar as PENDENCIA
 
 - O Desktop deste PC esta sincronizado com o OneDrive: causou EPERM ao renomear pastas. Mitigado (delete-then-rename com retry; Vite ignora `tools/dataset/out` e `.cache`). Sugerido ao Pontin tirar o repo do OneDrive.
 - `npm run dataset` publica em `public/`; testes usam `--publish-dir tools/dataset/out/_publish_test` e nunca tocam `public/`.
-- `prints/` (raiz) e rascunho do Pontin, fora do git. Feedbacks versionados em `.forge/in-progress/pontindex/feedback/`.
+- `prints/` (raiz) e rascunho do Pontin, fora do git. Feedbacks versionados em `.forge/complete/pontindex/feedback/`.
 - Para ver o site: `npm run dev` e abrir http://localhost:5173/.
 - Novo PC com pouca RAM: o Claude Code mata processos em segundo plano quando a memoria acaba (aconteceu 2x: instalacao do Node e a suite e2e completa). Rodar e2e com `--workers=1`, um arquivo por vez se possivel, e com o navegador do Pontin fechado ou leve.
 - Enquanto agentes editam codigo, o `npm run dev` aberto pelo Pontin recarrega na hora e pode mostrar a tela quebrada no meio de uma edicao (visto em 2026-09-26 05:55). Para ele testar com calma: `npm run build` + `npx vite preview` (porta 4173) ou esperar os agentes terminarem.

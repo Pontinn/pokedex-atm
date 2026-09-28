@@ -1,20 +1,20 @@
 ---
 feature: pontindex
-stage: implementation (Fase 1 concluida; T1 parcial; Stage 5 nao iniciada)
-status: impl-done-verified (sessao noturna 2026-09-27 concluida; falta Stage 5 manual do Pontin)
+stage: complete
+status: done (Stage 5 validada pelo Pontin fora do forge; deploy na Vercel em https://pontindex.pontin.dev; fechada em 2026-09-28)
 language: pt-BR
 branch: feature/pontindex (criada de main em 5700491, 2026-09-23)
-mode: PARADO ao fim da sessao noturna (2026-09-27 ~01:35); proxima acao e do Pontin: ler RETOMADA secao "Sessao noturna", decisoes A-E
+mode: encerrada (feature completa; proxima e a ideia pontindex-app)
 autonomy: total (usuario 2026-09-23: "quero q siga 100% autonomo"; gates auto-aprovados, perguntas abertas resolvidas pelo default recomendado e registradas como premissa; PARAR antes da Stage 4 (implementacao) e esperar o usuario; push/merge continuam exigindo pedido explicito)
 top_model: fable
-running_agent: nenhum (todos concluidos 2026-09-27 01:30)
+running_agent: nenhum
 agent_time_limit: 1h por agente (usuario 2026-09-23); ao bater 1h, parar e continuar com agente novo de contexto zerado a partir do disco
 baselines:
   CONTEXT: { commit: 5700491, deps: [IDEA_pontindex.md, design/prototipo/**, design/tipos/**, instancia ATMons (fora do repo)] }
   PRD: { commit: fe314db, deps: [IDEA_pontindex.md, CONTEXT_pontindex.md] }
   UISPEC: { commit: fe314db, deps: [design/prototipo/index.html, design/prototipo/style.css, design/prototipo/app.js, design/tipos/cores.json] }
   IDEA: { commit: <ver git log: ultimo commit de 2026-09-23>, deps: [design/prototipo/**, design/tipos/**, design/capture/**] }
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 ## 2026-09-23 10:30 - Stage 1 iniciado
 - Projeto do zero: pasta vazia, sem git, sem codigo. forge-context nao tem o que ler ainda.
@@ -205,11 +205,11 @@ updated: 2026-09-27
 - F4.1 passo 2: .seal reserva largura dos botoes (124/76 px) e titulo sem padding-top fixo (causa real do feedback/1.png).
 - F9.2 e UISPEC linha 205: tag acima do nome; cabecalho do .item-card mascarado na comparacao com desktop-items-grid.png. Fingerprint do UISPEC atualizado na SPEC (c791c6d).
 - Badges: nao quebram o proprio texto, a linha pode quebrar (F3.1, T1). expectNoOverlap tambem a 360 px.
-- prints do Pontin versionados em .forge/in-progress/pontindex/feedback/{1,2}.png (prints/ e rascunho dele, fora do git).
+- prints do Pontin versionados em .forge/complete/pontindex/feedback/{1,2}.png (prints/ e rascunho dele, fora do git).
 - Onda 3 dona de tests/harness/no-overlap.ts e dos testes F1.4-F12.1.
 - CHECKLIST: 58 Done when copiados LITERALMENTE da SPEC por script (o Haiku tinha parafraseado errado B2.2, B4.3, F3.2, F9.1, F9.2, F10.2, F12.1, F7.1, F4.4); T1 aponta para a matriz da SPEC; cabecalhos das Ondas 1/1b/3 corrigidos.
 
-## 2026-09-24 15:52 - Stage 4 iniciada: feature movida para .forge/in-progress/pontindex (git mv). Referencias de caminho atualizadas em SPEC/CHECKLIST/STATE/RETOMADA/data-source README; IDEA/PRD/CONTEXT mantidos byte a byte (fingerprints intactos).
+## 2026-09-24 15:52 - Stage 4 iniciada: feature movida para .forge/complete/pontindex (git mv). Referencias de caminho atualizadas em SPEC/CHECKLIST/STATE/RETOMADA/data-source README; IDEA/PRD/CONTEXT mantidos byte a byte (fingerprints intactos).
 - 2026-09-24 15:53 Onda 0 disparada (inicio registrado para o relatorio de tempos).
 
 ## 2026-09-24 16:21 - Onda 0 voltou (15:53-16:21, 28 min): B1.1-B1.5, B2.1, B2.2 verdes
@@ -381,3 +381,10 @@ updated: 2026-09-27
 - Cobertura final: 8 arquivos RTL (61 testes), telas 90,74% linhas / global 92,40%; metas da SPEC restauradas (2309a9cb, 6727c062).
 - Commits da noite (em ordem): 90bd2689, 9a2718a9, 8fcc1268, db52b4a2, 37e54a2e, ebd9d5fc, f2983a6d, 61d8f8f9, fe2019a6, 2ab2e5d7, a7ebce96, ad2d78b0, 3a4fb326, 6b9f626f, d45a2c50, 2f98a690, 5dc08ec2, 5155480b, 5f5ab188, c6bf044b, dec90eb2, c9e454f1, 9eee00d8, 2309a9cb, 6727c062 (+ este docs). SEM push.
 - Pendente do Pontin: decisoes A-E na RETOMADA (atraso da tampa, conferir decisoes da auditoria, Stage 5 manual, push, complete/merge).
+
+## 2026-09-28 - Feature concluida e movida para complete/
+- Pontin informou que ja testou o site e fez o deploy na Vercel: https://pontindex.pontin.dev (responde 200). `origin/main` = `origin/feature/pontindex` = 91277ceb (tudo ja na main, nenhuma outra branch).
+- Stage 5 considerada validada pelo Pontin (testes manuais feitos por ele fora do forge; os itens `[ ]` do CHECKLIST_MANUAL nao foram marcados um a um).
+- `git mv .forge/in-progress/pontindex -> .forge/complete/pontindex`; referencias de caminho atualizadas.
+- Decisoes A (atraso de 1,4 s da tampa) e B (conferir decisoes da auditoria: Magby/Mantyke/Pichu "Nasce no mundo", 12 overrides ccc/mega_showdown mantidos) ficam como melhorias futuras, sem acao.
+- Proxima feature: `pontindex-app` (`.forge/ideas/pontindex-app/`), Stage 1 ainda nao feita.
