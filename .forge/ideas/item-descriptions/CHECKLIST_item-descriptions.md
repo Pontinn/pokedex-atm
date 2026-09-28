@@ -9,7 +9,7 @@ Legenda: `[ ]` pendente, `[x]` feito (hash), `[!]` bloqueado.
 - [ ] D4 Dataset regenerado e publicado; auditoria e testes verdes; 3 paginas de item renderizadas.
 
 ## Textos
-- [ ] D3 `tools/dataset/curated/item-descriptions.json` com os 283 ids de `MISSING_ITEMS_item-descriptions.txt`.
+- [x] D3 (05245de0) `tools/dataset/curated/item-descriptions.json` com os 283 ids de `MISSING_ITEMS_item-descriptions.txt` (174 nao-minecraft escritos por este agente + `cobblemon:medicinal_brew` adicional; os 110 `minecraft:` ficam com outro agente).
 
 ## Notas
 - D1 medido (pipeline completo, publicado so em tools/dataset/out/_publish_test): ids do catalogo iguais ao publicado (949 = 949, mesmo conjunto); description null 605 -> 286; nenhum outro campo mudou. 2 descricoes existentes mudaram so por espaco no fim removido (allthemons:unobtainium_ball, allthemons:ancient_unobtainium_ball).
