@@ -13,7 +13,7 @@ import { collectCraftable } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
-import { buildTrainerDrops, collectRctLootTables, type TrainerDropRoute, type TrainerRef } from "./trainer-drops";
+import { buildTrainerDrops, collectRctLootTables, type TrainerRef } from "./trainer-drops";
 import { versionStagedAsset } from "../media/asset-version";
 
 const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
@@ -36,14 +36,6 @@ function readJsonIfExists<T>(file: string): T | null {
   if (!existsSync(file)) return null;
   return JSON.parse(readFileSync(file, "utf8")) as T;
 }
-
-/**
- * U5a: rota "trainerDrop" ainda nao existe em src/data/types.ts (ItemObtainRoute, compartilhado com o app).
- * Enquanto o frontend (U5b) nao a acrescenta, o pipeline usa este tipo alargado; depois do U5b,
- * PipelineItemInfo pode voltar a ser ItemInfo.
- */
-type PipelineItemObtainRoute = ItemObtainRoute | TrainerDropRoute;
-type PipelineItemInfo = Omit<ItemInfo, "obtain"> & { obtain: PipelineItemObtainRoute[] };
 
 /** id do treinador -> nome + serie, dos trainers/*.json ja escritos no staging (etapa trainers roda antes). */
 function collectTrainerRefs(ctx: PipelineContext): Map<string, TrainerRef> {
@@ -83,14 +75,14 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
   const trainerDrops = buildTrainerDrops(collectRctLootTables(ctx), collectTrainerRefs(ctx));
 
-  const items: Record<string, PipelineItemInfo> = {};
+  const items: Record<string, ItemInfo> = {};
   const unversionedTextures: string[] = [];
   for (const entry of catalog) {
     const { category, tags: baseTags } = categorize(entry.path, entry.texture);
     const tags = new Set<ItemTag>(baseTags);
     if (baitIds.has(entry.id)) tags.add("bait");
 
-    const obtain: PipelineItemObtainRoute[] = [];
+    const obtain: ItemObtainRoute[] = [];
     const recipeTypes = craftable.get(entry.id);
     if (recipeTypes) obtain.push({ kind: "craftable", recipeTypes: [...recipeTypes].sort() });
     const drops = dropsIndex.get(entry.id);
@@ -131,7 +123,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       obtain,
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
-    } satisfies PipelineItemInfo;
+    } satisfies ItemInfo;
   }
 
   if (unversionedTextures.length > 0) {

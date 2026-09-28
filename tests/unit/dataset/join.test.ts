@@ -7,7 +7,6 @@
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { z } from "zod";
 import { runPipeline } from "../../../tools/dataset/src/index";
 import { sha256Hex } from "../../../tools/dataset/src/lib/hash";
 import {
@@ -139,29 +138,7 @@ describe("sprites and artwork ids (B3.3)", () => {
 describe("item catalog with categories, tags and textures (B4.1)", () => {
   it("items.json has at least 932 entries and validates against itemsFileSchema", () => {
     expect(Object.keys(items).length).toBeGreaterThanOrEqual(932);
-    // U5a: a rota "trainerDrop" ainda nao esta em src/data/schemas.ts (U5b, frontend). Ate la ela e validada
-    // aqui pelo formato do HANDOFF_backend.md e retirada antes do schema do app. Depois do U5b: tirar o filtro.
-    const trainerDropSchema = z.object({
-      kind: z.literal("trainerDrop"),
-      trainers: z.array(
-        z.object({
-          id: z.string(),
-          name: z.string().nullable(),
-          series: z.string().nullable(),
-          chance: z.number().min(0).max(1).nullable(),
-          levelRange: z.object({ min: z.number(), max: z.number() }).nullable(),
-          firstDefeatOnly: z.boolean(),
-        }).strict(),
-      ).min(1),
-    }).strict();
-    const withoutTrainerDrop: Record<string, unknown> = {};
-    for (const [id, item] of Object.entries(items)) {
-      const routes = item.obtain as { kind: string }[];
-      for (const r of routes) if (r.kind === "trainerDrop") expect(trainerDropSchema.safeParse(r).success, id).toBe(true);
-      const kept = routes.filter((r) => r.kind !== "trainerDrop");
-      withoutTrainerDrop[id] = { ...item, obtain: kept.length > 0 ? kept : [{ kind: "none" }] };
-    }
-    expect(itemsFileSchema.safeParse(withoutTrainerDrop).success).toBe(true);
+    expect(itemsFileSchema.safeParse(items).success).toBe(true);
   });
 
   it("allthemons:the_kitty_badge is a trainer drop of Satherov, linked to the atm_team trainers file (U5a)", () => {
