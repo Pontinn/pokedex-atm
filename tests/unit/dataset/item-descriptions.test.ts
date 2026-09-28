@@ -1,9 +1,11 @@
 // item-descriptions D1/D2: descricao do item a partir das chaves de tooltip do jogo e do arquivo curado (fixtures, sem snapshot).
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { buildLangTable, type LangLayer } from "../../../tools/dataset/src/lang";
+import { buildLangTable, readKubejsLangLayers, type LangLayer } from "../../../tools/dataset/src/lang";
+import type { ReportSink } from "../../../tools/dataset/src/context";
+import type { SourceReader } from "../../../tools/dataset/src/source-reader";
 import {
   applyCuratedDescriptions,
   createGameDescriptionResolver,
@@ -189,5 +191,58 @@ describe("curated descriptions (D2)", () => {
     expect(result.fromCurated).toEqual(["cobblemon:empty"]);
     expect(result.shadowedByGame).toEqual(["cobblemon:has_game"]);
     expect(result.unknownIds).toEqual(["cobblemon:not_in_catalog"]);
+  });
+});
+
+describe("kubejs lang overlay (D6)", () => {
+  const layer = (origin: string, lang: "pt_br" | "en_us", entries: Record<string, string>): LangLayer => ({ origin, lang, entries });
+
+  it("kubejs wins over the jars per locale; first kubejs folder wins between folders; counts overrides and additions", () => {
+    const jars = [
+      layer("jar:en", "en_us", { "ability.stamina": "Stamina", "item.x": "Great Ball" }),
+      layer("jar:pt", "pt_br", { "ability.stamina": "Estamina", "item.x": "Bola Grande" }),
+    ];
+    const kubejs = [
+      layer("kubejs:a/pt", "pt_br", { "ability.stamina": "Vigor", "item.x": "Grande Bola", "item.only_pt": "So PT" }),
+      layer("kubejs:b/pt", "pt_br", { "item.x": "Outra" }),
+    ];
+    const result = buildLangTable(jars, undefined, kubejs);
+    expect(result.table.text("ability.stamina")).toEqual({ pt: "Vigor", en: "Stamina" });
+    expect(result.table.text("item.x")).toEqual({ pt: "Grande Bola", en: "Great Ball" });
+    expect(result.table.en.has("item.only_pt")).toBe(false);
+    expect(result.kubejs).toEqual({ overridden: { pt_br: 2, en_us: 0 }, added: { pt_br: 1, en_us: 0 } });
+    expect(result.conflicts).toEqual([{ key: "item.x", lang: "pt_br", kept: "Grande Bola", ignored: "Outra", origin: "kubejs:b/pt" }]);
+  });
+
+  it("reads kubejs/assets/<folder>/lang/*.json in folder order and skips invalid JSON with a warning", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "kubejs-lang-"));
+    try {
+      const put = (rel: string, text: string) => {
+        mkdirSync(path.dirname(path.join(root, rel)), { recursive: true });
+        writeFileSync(path.join(root, rel), text);
+      };
+      put("kubejs/assets/zeta/lang/pt_br.json", JSON.stringify({ k: "zeta" }));
+      put("kubejs/assets/alpha/lang/pt_br.json", JSON.stringify({ k: "alpha", n: 1 }));
+      put("kubejs/assets/alpha/lang/en_us.json", JSON.stringify({ k: "alpha en" }));
+      put("kubejs/assets/broken/lang/pt_br.json", "{ \"k\": \"x\" \"y\" }");
+      put("kubejs/assets/alpha/lang/ru_ru.json", JSON.stringify({ k: "ru" }));
+      const reader = {
+        root,
+        exists: (rel: string) => existsSync(path.join(root, rel)),
+        readFile: (rel: string) => new Uint8Array(readFileSync(path.join(root, rel))),
+      } as unknown as SourceReader;
+      const warnings: string[] = [];
+      const report = { warn: (code: string) => warnings.push(code) } as unknown as ReportSink;
+      const layers = readKubejsLangLayers(reader, report);
+      expect(layers.map((l) => l.origin)).toEqual([
+        "kubejs:assets/alpha/lang/en_us.json",
+        "kubejs:assets/alpha/lang/pt_br.json",
+        "kubejs:assets/zeta/lang/pt_br.json",
+      ]);
+      expect(layers[1]?.entries).toEqual({ k: "alpha" });
+      expect(warnings).toEqual(["W_KUBEJS_LANG_INVALID"]);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 });

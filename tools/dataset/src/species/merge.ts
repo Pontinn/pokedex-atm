@@ -9,7 +9,7 @@ import path from "node:path";
 import type { AbilityRef, BaseStats, SpeciesDrop, SpeciesMoves, TypeId } from "../../../../src/data/types";
 import { normalizeSearch } from "../../../../src/domain/normalize";
 import type { LangTable, MergedForm, MergedSpecies, PipelineContext, ReportSink } from "../context";
-import { loadLang } from "../lang";
+import { loadLang, type LangLoadResult } from "../lang";
 import { PipelineError } from "../lib/errors";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import { collectSpecies, type AdditionEntry, type CollectedSpecies, type SpeciesFileEntry } from "./collect";
@@ -65,6 +65,8 @@ export interface MergeReport {
   unknownMovePrefixes: Record<string, number>;
   langConflicts: number;
   langConflictSample: { key: string; lang: string; kept: string; ignored: string; origin: string }[];
+  /** chaves de lang trocadas/acrescentadas pelo kubejs (D6) */
+  langKubejs: LangLoadResult["kubejs"] | null;
 }
 
 function emptyReport(): MergeReport {
@@ -79,6 +81,7 @@ function emptyReport(): MergeReport {
     unknownMovePrefixes: {},
     langConflicts: 0,
     langConflictSample: [],
+    langKubejs: null,
   };
 }
 
@@ -448,6 +451,7 @@ export async function runSpeciesCore(ctx: PipelineContext): Promise<void> {
   const { species, report } = mergeSpecies(collected, ctx.lang);
   report.langConflicts = langResult.conflicts.length;
   report.langConflictSample = langResult.conflicts.slice(0, 50);
+  report.langKubejs = langResult.kubejs;
   ctx.species = species;
   ctx.setCount("species", species.size);
   if (species.size !== EXPECTED_SPECIES) {

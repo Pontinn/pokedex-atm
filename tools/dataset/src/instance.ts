@@ -156,10 +156,10 @@ function statSource(full: string, label: string): DatasetSource {
   return { file: label, sizeBytes: size, mtime: new Date(mtime).toISOString() };
 }
 
-/** Fingerprint das entradas lidas (jars, kubejs/data, config, metadados). */
+/** Fingerprint das entradas lidas (jars, kubejs/data, kubejs/assets, config, metadados). */
 export function collectSources(root: string, mode: SourceMode, jars: JarRef[]): DatasetSource[] {
   const out: DatasetSource[] = jars.map((j) => statSource(j.path, `mods/${j.fileName}`));
-  for (const rel of ["kubejs/data", "config/rctmod-server.toml", mode === "snapshot" ? "MANIFEST.json" : "manifest.json"]) {
+  for (const rel of ["kubejs/data", "kubejs/assets", "config/rctmod-server.toml", mode === "snapshot" ? "MANIFEST.json" : "manifest.json"]) {
     const full = path.join(root, rel);
     if (existsSync(full)) out.push(statSource(full, rel));
   }

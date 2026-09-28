@@ -121,7 +121,9 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
     const itemPath = rest.join(":");
     const ns = namespace ?? "unknown";
     const nameKey = `item.${ns}.${itemPath}`;
-    const name = deps.lang.text(nameKey);
+    const langName = deps.lang.text(nameKey);
+    // nome so em pt (ex. kubejs traz so pt_br para itens do allthemodium): EN fica com o path humanizado, nunca o texto PT
+    const name = langName && !deps.lang.en.has(nameKey) ? { pt: langName.pt, en: humanizeItemPath(itemPath).en } : langName;
     const description = gameDescription(ns, itemPath);
     const texture = deps.textureManifest.get(`${ns}:${itemPath.split("/").pop()}`) ?? deps.textureManifest.get(id) ?? null;
     catalog.push({
