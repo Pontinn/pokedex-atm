@@ -98,6 +98,19 @@ describe("createGameDescriptionResolver", () => {
     });
   });
 
+  it("reads tooltip.<ns>.<path> (no trailing .tooltip) after tooltip.<ns>.<path>.tooltip and before block.*", () => {
+    const shard = "Fragments of the Dark stone, it seems to hold immense power";
+    const lang = langOf({
+      "tooltip.legendarymonuments.darkstone_shard": shard,
+      "block.legendarymonuments.darkstone_shard.tooltip": "Block text",
+      "tooltip.legendarymonuments.both.tooltip": "Suffixed wins",
+      "tooltip.legendarymonuments.both": "Plain",
+    });
+    const resolve = createGameDescriptionResolver(lang);
+    expect(resolve("legendarymonuments", "darkstone_shard")).toEqual({ pt: shard, en: shard });
+    expect(resolve("legendarymonuments", "both")?.en).toBe("Suffixed wins");
+  });
+
   it("reads block.<ns>.<path>.tooltip as the last game source", () => {
     const lang = langOf({ "block.cobblemon.big_root.tooltip": "Boosts the amount of HP the holder recovers from HP-stealing moves" });
     expect(createGameDescriptionResolver(lang)("cobblemon", "big_root")?.en).toBe("Boosts the amount of HP the holder recovers from HP-stealing moves");

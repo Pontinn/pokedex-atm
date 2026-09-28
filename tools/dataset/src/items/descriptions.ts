@@ -1,6 +1,6 @@
 // item-descriptions: descricao do item. Fonte 1 (jogo, sempre vence), na ordem:
 //   item.<ns>.<path>.tooltip, item.<ns>.<path>.tooltip_1..N (juntadas), tooltip.<ns>.<path>.tooltip,
-//   block.<ns>.<path>.tooltip. Codigos de formatacao do Minecraft (`§` + 1 caractere) sao removidos.
+//   tooltip.<ns>.<path> (ex. legendarymonuments:darkstone_shard), block.<ns>.<path>.tooltip. Codigos de formatacao do Minecraft (`§` + 1 caractere) sao removidos.
 // Fonte 2 (curado): tools/dataset/curated/item-descriptions.json, so para itens sem texto no jogo.
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -75,6 +75,7 @@ export function createGameDescriptionResolver(lang: LangTable): GameDescriptionR
       singleKey(lang, `${itemKey}.tooltip`) ??
       (lineKeys.length > 0 ? joinedKeys(lang, lineKeys) : null) ??
       singleKey(lang, `tooltip.${namespace}.${itemPath}.tooltip`) ??
+      singleKey(lang, `tooltip.${namespace}.${itemPath}`) ??
       singleKey(lang, `block.${namespace}.${itemPath}.tooltip`)
     );
   };
