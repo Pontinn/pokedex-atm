@@ -260,6 +260,20 @@ export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
       z.object({ kind: z.literal("structureLoot"), tables: z.array(z.string()) }),
       z.object({ kind: z.literal("fishing") }),
       z.object({ kind: z.literal("fossilRevive"), species: z.array(z.number()) }),
+      z.object({
+        kind: z.literal("trainerDrop"),
+        trainers: z.array(
+          z.object({
+            id: z.string(),
+            name: z.string().nullable(),
+            series: z.string().nullable(),
+            chance: z.number().nullable(),
+            levelRange: z.object({ min: z.number(), max: z.number() }).nullable(),
+            firstDefeatOnly: z.boolean(),
+          }),
+        ),
+      }),
+      z.object({ kind: z.literal("unobtainable"), reason: z.enum(["creativeOnly", "notRegistered"]).optional() }),
       z.object({ kind: z.literal("none") }),
     ]),
   ),

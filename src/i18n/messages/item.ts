@@ -26,4 +26,12 @@ export const ITEM_MESSAGES = {
   "ip.otherModHint": { pt: "Este item vem de outro mod do pack e não tem dados no Cobblemon.", en: "This item comes from another mod in the pack and has no Cobblemon data." },
   "ip.cookingPending": { pt: "Efeito numérico ainda não confirmado; descrição oficial acima", en: "Numeric effect not confirmed yet; official description above" },
   "ip.openEntry": { pt: "Abrir ficha de {name}", en: "Open {name} entry" },
+  "ip.trainerDrop": { pt: "Drop de treinador", en: "Trainer drop" },
+  "ip.trainerDropText": { pt: "Cai ao vencer:", en: "Drops when you beat:" },
+  "ip.firstWinOnly": { pt: "só na 1ª vitória", en: "first win only" },
+  "ip.openTrainer": { pt: "Ver {name} em Treinadores", en: "See {name} in Trainers" },
+  "ip.unobtainable": { pt: "Não obtível no All the Mons", en: "Not obtainable in All the Mons" },
+  "ip.unobtainable.creativeOnly": { pt: "Não obtível no All the Mons (só no modo criativo)", en: "Not obtainable in All the Mons (creative mode only)" },
+  "ip.unobtainable.notRegistered": { pt: "Não obtível no All the Mons (não existe no jogo)", en: "Not obtainable in All the Mons (not in the game)" },
+  "ip.unobtainableHint": { pt: "Nenhuma receita, drop, loot ou recompensa do pack entrega este item.", en: "No recipe, drop, loot or reward in the pack gives this item." },
 } as const satisfies Record<string, Message>;

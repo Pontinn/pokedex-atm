@@ -1,5 +1,5 @@
 // Regras de exibicao da pagina do item (F9.3), puras e testaveis com o dataset real.
-import type { ItemInfo, ItemObtainRoute, LocalizedText } from "../../data/types";
+import type { ItemInfo, ItemObtainRoute, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
 import { humanizeId } from "../Trainers/trainer-model";
 
 /** Rota "sem rota" quando o item nao tem nenhuma rota conhecida (RF-69). */
@@ -45,6 +45,24 @@ export function lootTableLabel(table: string): string {
 /** Tabelas humanizadas sem repeticao. */
 export function lootLabels(tables: readonly string[]): string[] {
   return [...new Set(tables.map(lootTableLabel))];
+}
+
+/** Chance por vitoria (0..1) como porcentagem curta: 1 -> "100%", 0.125 -> "12.5%"; null quando nao calculavel. */
+export function chanceLabel(chance: number | null): string | null {
+  if (chance == null || !Number.isFinite(chance)) return null;
+  const pct = Math.round(Math.min(Math.max(chance, 0), 1) * 1000) / 10;
+  return `${pct}%`;
+}
+
+/** Titulo da serie do treinador (series.json), com fallback para o id humanizado. */
+export function seriesTitle(seriesId: string, series: readonly SeriesInfo[] | null, lang: "pt" | "en"): string {
+  const hit = series?.find((s) => s.id === seriesId);
+  return hit ? hit.title[lang] || hit.title.en : humanizeId(seriesId);
+}
+
+/** Chave i18n do titulo de "Nao obtivel" conforme o motivo. */
+export function unobtainableKey(reason: ItemUnobtainableReason | undefined): string {
+  return reason ? `ip.unobtainable.${reason}` : "ip.unobtainable";
 }
 
 /** Item citado mas fora do items.json (ex. minecraft:gunpowder): pagina minima com o id humanizado. */

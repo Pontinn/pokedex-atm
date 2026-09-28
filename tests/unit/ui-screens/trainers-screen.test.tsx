@@ -325,4 +325,38 @@ describe("TrainersScreen", () => {
     await waitFor(() => expect(useTrainersStore.getState().progress.freeroam.active).toBe(false));
     expect(within(document.getElementById("tr-series")!).getAllByRole("button").length).toBe(3);
   });
+
+  it("link de Drop de treinador (ui.seriesId + openTrainerId) mostra a serie sem mudar a ativa e rola ate o treinador", async () => {
+    const scrolled: string[] = [];
+    const proto = HTMLElement.prototype as unknown as { scrollIntoView?: (this: HTMLElement) => void };
+    const original = proto.scrollIntoView;
+    proto.scrollIntoView = function (this: HTMLElement) {
+      scrolled.push(this.dataset.trainer ?? "");
+    };
+    try {
+      useNavigationStore.getState().navigate("trainers", {}, { seriesId: "s1", openTrainerId: "t_b" });
+      render(<TrainersScreen entryId={1} params={{}} />);
+      const notice = await waitFor(() => {
+        const el = document.querySelector<HTMLElement>(".tr-viewing");
+        if (!el) throw new Error("carregando");
+        return el;
+      });
+      expect(notice.getAttribute("data-viewing")).toBe("s1");
+      expect(notice.textContent).toContain("Serie Um");
+      const step = await waitFor(() => {
+        const el = document.querySelector<HTMLElement>(".tr-list [data-trainer='t_b']");
+        if (!el) throw new Error("carregando");
+        return el;
+      });
+      expect(step.classList.contains("open")).toBe(true);
+      await waitFor(() => expect(scrolled).toEqual(["t_b"]));
+      expect(useTrainersStore.getState().progress.activeSeriesId).toBeNull();
+
+      fireEvent.click(within(notice).getByRole("button", { name: tr("tr.viewingBack") }));
+      expect(document.querySelector(".tr-viewing")).toBeNull();
+      expect(document.querySelector(".tr-choose")).not.toBeNull();
+    } finally {
+      proto.scrollIntoView = original;
+    }
+  });
 });

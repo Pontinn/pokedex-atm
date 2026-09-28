@@ -10,6 +10,7 @@ import { TermsToggle } from "../../components/TermsToggle";
 import { loadSeries } from "../../data/loaders";
 import { defeatedSet } from "../../domain/level-cap";
 import { useT } from "../../i18n/useT";
+import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
 import { useDatasetStore } from "../../state/dataset-store";
 import { usePreferencesStore } from "../../state/preferences-store";
 import { useShellStore } from "../../state/shell-store";
@@ -37,6 +38,9 @@ function SeriesArea() {
 
   // Serie ativa salva que sumiu do dataset: volta a "nenhuma" com aviso (o progresso orfao continua salvo).
   const activeId = progress.activeSeriesId;
+  // Serie aberta por link (ex. Drop de treinador na pagina do item): so visualiza, nao muda a serie ativa.
+  const viewId = useScreenUi("trainers", "seriesId");
+  const { updateUi } = useNavigationActions();
   useEffect(() => {
     if (!hydrated || !series.data || activeId === null) return;
     if (!series.data.some((s) => s.id === activeId && s.special === null)) {
@@ -46,15 +50,17 @@ function SeriesArea() {
   }, [hydrated, series.data, activeId]);
 
   const onPick = useCallback((chip: SeriesChipView) => {
+    updateUi<"trainers">({ seriesId: null });
     const store = useTrainersStore.getState();
     if (chip.series.special === "freeroam") {
       void (store.progress.freeroam.active ? store.leaveFreeroam() : store.enterFreeroam());
     } else void store.setActiveSeries(chip.series.id);
-  }, []);
+  }, [updateUi]);
 
   if (series.error) return <InlineError onRetry={series.retry} />;
   if (!ordered || !config || !hydrated) return <PokeballSpinner />;
   const active = progress.freeroam.active ? null : (ordered.find((s) => s.id === activeId && s.special === null) ?? null);
+  const viewed = viewId !== null && viewId !== active?.id ? (ordered.find((s) => s.id === viewId && s.special === null) ?? null) : null;
   return (
     <>
       <div className="tr-top">
@@ -70,7 +76,20 @@ function SeriesArea() {
           <div>{t("tr.explain")}</div>
         </div>
       </div>
-      {progress.freeroam.active ? (
+      {viewed ? (
+        <>
+          <div className="notice notice-info tr-viewing" role="status" data-viewing={viewed.id}>
+            <Info aria-hidden="true" />
+            <div>
+              {t("tr.viewing", { name: viewed.title[uiLang] || viewed.title.en })}{" "}
+              <button type="button" className="tr-viewing-back" onClick={() => updateUi<"trainers">({ seriesId: null, openTrainerId: null })}>
+                {t("tr.viewingBack")}
+              </button>
+            </div>
+          </div>
+          <SeriesTimeline key={viewed.id} series={viewed} config={config} />
+        </>
+      ) : progress.freeroam.active ? (
         <div className="card tr-headcard" id="tr-header" data-mode="freeroam">
           <h3>{t("tr.progress")}</h3>
           <div className="tr-cap">

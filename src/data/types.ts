@@ -365,7 +365,28 @@ export type ItemObtainRoute =
   | { kind: "structureLoot"; tables: string[] }
   | { kind: "fishing" }
   | { kind: "fossilRevive"; species: number[] }
+  | { kind: "trainerDrop"; trainers: ItemTrainerDrop[] }
+  /** Comprovadamente sem rota no pack (U7d): so no modo criativo ou nem registrado no jogo. */
+  | { kind: "unobtainable"; reason?: ItemUnobtainableReason }
   | { kind: "none" };
+
+export type ItemUnobtainableReason = "creativeOnly" | "notRegistered";
+
+/** Um treinador que dropa o item (loot rctmod do kubejs, U5a). */
+export interface ItemTrainerDrop {
+  /** TrainerInfo.id */
+  id: string;
+  /** TrainerInfo.name; null se o treinador nao esta em trainers/*.json */
+  name: string | null;
+  /** SeriesInfo.id cujo trainersFile tem o treinador; null se nao esta */
+  series: string | null;
+  /** 0..1 por vitoria; 1 = garantido; null = nao calculavel */
+  chance: number | null;
+  /** condicao rctmod:level_range crua (semantica nao confirmada: a UI nao mostra) */
+  levelRange: { min: number; max: number } | null;
+  /** so na primeira vitoria (rctmod:defeat_count == 1) */
+  firstDefeatOnly: boolean;
+}
 
 export interface ItemUsedIn {
   evolutions: { from: number; to: number }[];

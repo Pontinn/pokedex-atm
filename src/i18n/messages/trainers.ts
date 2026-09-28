@@ -26,6 +26,8 @@ export const TRAINERS_MESSAGES = {
   "tr.freeroamLocked": { pt: "Requer uma série concluída", en: "Requires a completed series" },
   "tr.freeroamActive": { pt: "Modo Livre ativo: cap 100. Escolha uma série para voltar a acompanhar o cap.", en: "Free Roam active: cap 100. Pick a series to track the cap again." },
   "tr.completed": { pt: "Série concluída", en: "Series completed" },
+  "tr.viewing": { pt: "Vendo a série {name}. Sua série ativa não mudou.", en: "Viewing the {name} series. Your active series did not change." },
+  "tr.viewingBack": { pt: "Voltar para a série ativa", en: "Back to the active series" },
   "tr.seriesGone": { pt: "A série salva não existe mais neste dataset; escolha outra.", en: "The saved series no longer exists in this dataset; choose another." },
   "tr.searchLabel": { pt: "Buscar treinador ou Pokémon do time", en: "Search trainer or team Pokémon" },
   "tr.searchPh": { pt: "Buscar treinador ou Pokémon (PT ou EN)", en: "Search trainer or Pokémon (PT or EN)" },

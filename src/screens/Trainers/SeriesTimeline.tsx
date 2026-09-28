@@ -1,6 +1,6 @@
 // Serie ativa (F8.2): cabecalho do cap + busca + linha do tempo dos treinadores-chave.
 // O cap/proximo/derrotados usam a serie inteira; so TrainerList le a busca (RF-04: so a lista re-renderiza).
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyState } from "../../components/EmptyState";
 import { InlineError } from "../../components/InlineError";
 import { PokeballSpinner } from "../../components/PokeballSpinner";
@@ -8,6 +8,7 @@ import { playSfx } from "../../audio/sfx";
 import type { BiomeLabels, ItemsFile, LevelCapConfig, SeriesInfo, SpeciesSummary, TrainerInfo } from "../../data/types";
 import { loadBiomes, loadItems, loadTrainers } from "../../data/loaders";
 import { computeSeriesCap, defeatedSet } from "../../domain/level-cap";
+import { useNavigationStore } from "../../navigation/navigation-store";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
 import { useDatasetStore } from "../../state/dataset-store";
 import { useTermsLanguage, usePreferencesStore } from "../../state/preferences-store";
@@ -50,6 +51,14 @@ const TrainerList = memo(function TrainerList(p: TrainerListProps) {
     [openId, updateUi],
   );
   const shown = useMemo(() => filterTrainers(p.keyTrainers, query, speciesByDex), [p.keyTrainers, query, speciesByDex]);
+  // Entrada nova com um treinador ja aberto (link da pagina do item): rola ate ele; o Voltar restaura o scroll salvo.
+  const [fresh] = useState(() => useNavigationStore.getState().restoredScroll === null);
+  const [initialOpen] = useState(openId);
+  useEffect(() => {
+    if (!fresh || initialOpen === null) return;
+    const el = [...document.querySelectorAll<HTMLElement>(".tr-list [data-trainer]")].find((n) => n.dataset.trainer === initialOpen);
+    el?.scrollIntoView?.({ block: "center" });
+  }, [fresh, initialOpen]);
   if (shown.length === 0) {
     return (
       <EmptyState messageKey="tr.searchNone">

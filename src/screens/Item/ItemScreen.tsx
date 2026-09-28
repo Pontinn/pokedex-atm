@@ -1,17 +1,17 @@
 // Pagina do item (F9.3; porta itemPageBodyHTML/renderItemPage, app.js:883-915): hero com textura pixelada, Como obter
-// honesto (RF-68/69: receita so "Sim", drops, plantavel, loot, pesca, fossil; sem rota = .ob-none) e Usado em (RF-70:
+// honesto (RF-68/69: receita so "Sim", drops, plantavel, loot, pesca, fossil, drop de treinador; sem rota ou nao obtivel = .ob-none) e Usado em (RF-70:
 // evolucoes, fosseis, formas, bola). Todo item citado no app abre aqui; Voltar restaura a origem (pilha F1.3).
 import "./item.css";
 import { memo, useMemo, type ReactNode } from "react";
-import { Bone, CircleArrowUp, Fish, Gift, Hammer, PackageOpen, Sprout } from "lucide-react";
+import { Ban, Bone, CircleArrowUp, Fish, Gift, Hammer, PackageOpen, Sprout, Swords } from "lucide-react";
 import type { ScreenProps } from "../../components/ScreenRouter";
 import { ArrowLeft, ArrowRight, HeartPulse, Info, Package, Sparkles, Target } from "../../components/Icon";
 import { InlineError } from "../../components/InlineError";
 import { itemTextureUrl } from "../../components/ItemTile";
 import { PokeballSpinner } from "../../components/PokeballSpinner";
 import { TermsToggle } from "../../components/TermsToggle";
-import type { BallInfo, BallsFile, BiomeLabels, ItemInfo, ItemObtainRoute, SpeciesSummary } from "../../data/types";
-import { loadBalls, loadBiomes, loadItems } from "../../data/loaders";
+import type { BallInfo, BallsFile, BiomeLabels, ItemInfo, ItemObtainRoute, ItemTrainerDrop, SeriesFile, SpeciesSummary } from "../../data/types";
+import { loadBalls, loadBiomes, loadItems, loadSeries } from "../../data/loaders";
 import { termPair, useT } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import { useDatasetStore } from "../../state/dataset-store";
@@ -22,9 +22,11 @@ import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
-import { lootLabels, obtainRows, recipeLabels, showsEffect, uniqueEvolutions, unknownItemName } from "./item-page-model";
+import { chanceLabel, lootLabels, obtainRows, recipeLabels, seriesTitle, showsEffect, uniqueEvolutions, unknownItemName, unobtainableKey } from "./item-page-model";
 
 const loadItemPageData = () => Promise.all([loadItems(), loadBalls(), loadBiomes().catch(() => null)]);
+/** Titulos das series (Drop de treinador): carregados a parte, sem segurar a pagina; falha cai no id humanizado. */
+const loadSeriesTitles = () => loadSeries().catch((): SeriesFile | null => null);
 
 function useSpeciesMap(): Map<number, SpeciesSummary> {
   const index = useDatasetStore((s) => s.speciesIndex);
@@ -45,6 +47,45 @@ const MonChip = memo(function MonChip({ dex, species, lang, extra }: { dex: numb
   );
 });
 
+/**
+ * Treinador que dropa o item (U5b): chip com o nome + chance, abre o treinador na tela Treinadores (serie em
+ * `ui.seriesId`, acordeao em `ui.openTrainerId`); serie e "so na 1a vitoria" em pilulas. `levelRange` fica de fora:
+ * o pipeline nao confirmou se a condicao e o nivel do treinador ou do jogador.
+ */
+function TrainerDropChip({ drop, series, uiLang }: { drop: ItemTrainerDrop; series: SeriesFile | null; uiLang: UiLanguage }) {
+  const t = useT();
+  const { navigate } = useNavigationActions();
+  const name = drop.name ?? drop.id;
+  const chance = chanceLabel(drop.chance);
+  const body = (
+    <>
+      <Swords aria-hidden="true" />
+      <span>{name}</span>
+      {chance != null ? <b>{chance}</b> : null}
+    </>
+  );
+  const seriesId = drop.series;
+  return (
+    <span className="ob-trainer" data-trainer={drop.id}>
+      {seriesId != null ? (
+        <button
+          type="button"
+          className="mon-chip trainer-chip"
+          data-nav
+          title={t("ip.openTrainer", { name })}
+          onClick={() => navigate("trainers", {}, { seriesId, openTrainerId: drop.id })}
+        >
+          {body}
+        </button>
+      ) : (
+        <span className="mon-chip trainer-chip">{body}</span>
+      )}
+      {seriesId != null ? <span className="biome">{seriesTitle(seriesId, series, uiLang)}</span> : null}
+      {drop.firstDefeatOnly ? <span className="biome ob-first">{t("ip.firstWinOnly")}</span> : null}
+    </span>
+  );
+}
+
 function Row({ icon, title, children, none, index, kind }: { icon: ReactNode; title: string; children: ReactNode; none?: boolean; index: number; kind: string }) {
   return (
     <div className={`ob-row${none ? " ob-none" : ""}`} style={{ ["--i" as string]: index }} data-row={kind}>
@@ -59,7 +100,7 @@ function Row({ icon, title, children, none, index, kind }: { icon: ReactNode; ti
   );
 }
 
-function ObtainRow({ route, index, lang, uiLang, species, biomes }: { route: ItemObtainRoute; index: number; lang: UiLanguage; uiLang: UiLanguage; species: Map<number, SpeciesSummary>; biomes: BiomeLabels | null }) {
+function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { route: ItemObtainRoute; index: number; lang: UiLanguage; uiLang: UiLanguage; species: Map<number, SpeciesSummary>; biomes: BiomeLabels | null; series: SeriesFile | null }) {
   const t = useT();
   switch (route.kind) {
     case "craftable":
@@ -125,6 +166,23 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes }: { route: Ite
               <MonChip key={dex} dex={dex} species={species.get(dex)} lang={lang} />
             ))}
           </span>
+        </Row>
+      );
+    case "trainerDrop":
+      return (
+        <Row icon={<Swords />} title={t("ip.trainerDrop")} index={index} kind="trainerDrop">
+          <span>{t("ip.trainerDropText")}</span>
+          <span className="ob-trainers">
+            {route.trainers.map((d) => (
+              <TrainerDropChip key={d.id} drop={d} series={series} uiLang={uiLang} />
+            ))}
+          </span>
+        </Row>
+      );
+    case "unobtainable":
+      return (
+        <Row icon={<Ban />} title={t(unobtainableKey(route.reason))} none index={index} kind="unobtainable">
+          {t("ip.unobtainableHint")}
         </Row>
       );
     default:
@@ -227,7 +285,7 @@ function ItemHero({ item, name, lang, uiLang, unknown }: { item: ItemInfo | null
   );
 }
 
-function ItemBody({ itemId, items, balls, biomes }: { itemId: string; items: Record<string, ItemInfo>; balls: BallsFile; biomes: BiomeLabels | null }) {
+function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; items: Record<string, ItemInfo>; balls: BallsFile; biomes: BiomeLabels | null; series: SeriesFile | null }) {
   const t = useT();
   const lang = useTermsLanguage("itempage");
   const uiLang = usePreferencesStore((s) => s.uiLanguage);
@@ -243,7 +301,7 @@ function ItemBody({ itemId, items, balls, biomes }: { itemId: string; items: Rec
         <h3>{t("ip.obtain")}</h3>
         <div className="ob-list">
           {obtainRows(item).map((r, i) => (
-            <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} />
+            <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} series={series} />
           ))}
         </div>
       </section>
@@ -257,6 +315,7 @@ export function ItemScreen({ params }: ScreenProps) {
   const { goBack } = useNavigationActions();
   const itemId = (params as { itemId?: string }).itemId ?? "";
   const data = useLoader(loadItemPageData, []);
+  const series = useLoader(loadSeriesTitles, []);
   return (
     <div className="item-screen">
       <div className="item-page-head">
@@ -269,7 +328,7 @@ export function ItemScreen({ params }: ScreenProps) {
       {data.error ? (
         <InlineError onRetry={data.retry} />
       ) : data.data ? (
-        <ItemBody itemId={itemId} items={data.data[0]} balls={data.data[1]} biomes={data.data[2]} />
+        <ItemBody itemId={itemId} items={data.data[0]} balls={data.data[1]} biomes={data.data[2]} series={series.data ?? null} />
       ) : (
         <PokeballSpinner />
       )}

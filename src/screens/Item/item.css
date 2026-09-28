@@ -40,6 +40,11 @@ html[data-theme="black"] .item-hero .item-hero-tile { background: #1F1D14; }
 .item-screen .mon-chip img { width: 28px; height: 28px; image-rendering: pixelated; }
 .item-screen .mon-chip b { color: var(--secondary); }
 html[data-theme="green"] .item-screen .mon-chip b, html[data-theme="blue"] .item-screen .mon-chip b { color: var(--primary); }
+.item-screen .ob-trainers { display: grid; gap: 6px; width: 100%; }
+.item-screen .ob-trainer { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.item-screen .trainer-chip { padding: 4px 10px 4px 8px; }
+.item-screen .trainer-chip svg { width: 16px; height: 16px; color: var(--muted); }
+.item-screen .ob-first { color: var(--muted); }
 .item-screen .evo-pair { display: inline-flex; align-items: center; gap: 4px; }
 .item-screen .evo-pair > svg { width: 14px; height: 14px; color: var(--muted); }
 .item-screen .badge-uncommon { white-space: normal; text-transform: none; letter-spacing: 0; font-size: 12px; }

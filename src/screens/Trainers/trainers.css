@@ -13,6 +13,8 @@
 .trainers-screen .notice-info { background: var(--secondary-soft); color: var(--text); border-color: transparent; align-items: center; }
 .trainers-screen .notice > svg { width: 18px; height: 18px; flex: none; }
 .tr-choose { margin-top: 4px; }
+.tr-viewing { margin-bottom: 12px; }
+.tr-viewing-back { font-weight: 800; color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Picker de series */
 .seg-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--border); font-weight: 800; font-size: 13px; color: var(--muted); flex: none; transition: transform .2s var(--ease-bounce), background .2s, color .2s; white-space: nowrap; }
