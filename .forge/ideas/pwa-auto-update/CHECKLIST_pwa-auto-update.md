@@ -11,6 +11,8 @@
 - [x] U7c FTB Quests, loja BP, estruturas .nbt, loot modifiers, rituais, interactions, tera shard. `180f3f7c` (blockDrop/mobDrop/GLM), `700deaeb` (questReward/shop/structurePlaced/ritual/trade/worldgen/special); data-source `45502291`, `34d8fd19`
 - [x] U7d Catalogo sem ids fantasma; fonte `unobtainable`; zero `none`. `be290046`
 - [x] U7e Frontend: fontes novas (inclui U5b) no Como obter. `9e5cf387` (trainerDrop, unobtainable), `5faaff47` (rotulos de receita), `336cad00` (tipos + zod do contrato v2), `0bb335d3` (UI das 9 fontes v2 + "e mais N"), `c86a3ef2` (RTL), `4d60f4da` + `84470d6b` (e2e 360/390)
+- [ ] U8 Lang de todos os mods + vanilla (en_us/pt_br) no data-source: nomes de mobs/blocos/estruturas, nomes PT dos 110 itens minecraft, notas sem id cru; texturas vanilla dos itens minecraft (com ?v=hash).
+- [ ] U9 Frontend: chip/link de item inexistente vira texto (TrainerTeam ItemChip, EvolutionPanel requiredItem).
 - [ ] U6 Republicar dataset + testes completos + smoke.
 ## Notas
 - U1: pwa-offline.spec.ts --repeat-each=3 21/21 (producao); vitest completo 476 ok, 1 suite falha so no run paralelo (tests/unit/dataset/join.test.ts, ENOTEMPTY/EPERM em tools/dataset/out, passa sozinha; outro agente mexendo em tools/dataset no mesmo working tree).
