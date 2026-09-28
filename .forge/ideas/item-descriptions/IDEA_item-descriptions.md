@@ -56,3 +56,7 @@ Nenhum.
 1. Agente pipeline (Opus): em `catalog.ts`/`lang.ts`, ler as chaves extras + remover `§x` + ler o arquivo curado (schema validado, PT e EN obrigatorios, jogo vence). Testes unitarios. Commit.
 2. Agente textos (Sonnet, em paralelo, arquivos disjuntos): escrever `tools/dataset/curated/item-descriptions.json` para os 283 ids. Commit.
 3. Agente pipeline (continua): regenerar e publicar o dataset, rodar a auditoria e os testes, abrir a pagina de 3 itens (um de cada fonte) para ver que renderiza. Commit do dataset.
+
+## Adendo 2026-09-28: texturas animadas (Pontin, print da "Insignia da Gatinha")
+- 18 texturas de item publicadas sao tiras animadas (16x128 a 16x288): no jogo um `.png.mcmeta` anima os quadros; o site mostra a tira inteira espremida. `data-source/` nao tem nenhum `.mcmeta`.
+- Decisao do orquestrador (default seguro, Pontin pode pedir animacao depois): publicar SO o quadro de `frames[0]` (ou o 0 se nao houver lista), quadrado (largura x largura, ou `width`/`height` do mcmeta). Ids do catalogo e UI nao mudam.

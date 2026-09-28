@@ -5,6 +5,7 @@ Legenda: `[ ]` pendente, `[x]` feito (hash), `[!]` bloqueado.
 ## Backend (pipeline)
 - [x] D1 (e4920b1c) Pipeline le `tooltip_N`, `tooltip.<ns>.<path>.tooltip`, `block.<ns>.<path>.tooltip`; remove `§x`; testes.
 - [x] D2 (0399be87) Pipeline le `tools/dataset/curated/item-descriptions.json` (jogo vence; PT e EN obrigatorios; id inexistente = aviso); testes.
+- [ ] D5 Texturas animadas (18 itens, ex. insignias do allthemons, stellar_tera_shard): copiar os `.png.mcmeta` do modpack para `data-source/` e publicar so o 1o quadro (o de `frames[0]`), sem esticar.
 - [ ] D4 Dataset regenerado e publicado; auditoria e testes verdes; 3 paginas de item renderizadas.
 
 ## Textos
