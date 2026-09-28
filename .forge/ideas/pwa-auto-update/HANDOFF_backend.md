@@ -119,3 +119,36 @@ Exemplos (`_publish_test`):
 Report (`report.json`, secao `recipes`): `droppedForCatalog` (receitas de itens do catalogo descartadas por condicao), `removedByKubejs` (com `arquivo:linha` do filtro), `kubejsRemovalsUnparsed`, `kubejsAddedForCatalog`, `kubejsAdditionsUnparsed` (inclui `recipes.summoningrituals.altar`, que fica para o U7c).
 
 Pendente para U7b/U7c/U7d: 72 itens ainda so com `none`.
+
+## U7b: loot tables de todos os namespaces (`9eb3b1c5`, data-source `c4915b79`)
+
+Schema: NENHUMA mudanca. So as rotas existentes `structureLoot` (`tables: string[]`) e `fishing` ganham conteudo:
+- Fontes: `data/<ns>/loot_table/**` do jar vanilla 1.21.1, de todo jar de `mods/` e de `kubejs/data` (mesmo id: vanilla < jars < kubejs); tabela com `neoforge:conditions` que nao passam fica de fora (24).
+- Itens de uma tabela: `minecraft:item`, `minecraft:tag` (tags de item de todas as fontes), `minecraft:loot_table` (referencia em qualquer namespace, recursiva com visitados, ou inline) e filhos de `alternatives`/`group`/`sequence`.
+- `structureLoot.tables`: ids `<ns>:<caminho>` para os namespaces novos (ex. `legendarymonuments:chests/bell_tower_chest`); cobblemon continua sem namespace e com a regra antiga (tudo que nao e pesca, inclusive `blocks/`, `sets/`), para nao tirar rota que o site ja mostra. `lootTableLabel` do app ja tira o namespace: `legendarymonuments:chests/bell_tower_chest` -> "Chests (bell tower chest)".
+- Estrutura = primeiro segmento `chests`, `archaeology`/`archeology`, `archaeological_site`, `wishing_weald`, `structures`, `ruins`/`ruin`, `village(s)`, `shipwreck_coves`, `spawners`, `pots`, `dispensers`, pastas do terralith, `*_dungeon`, `inject(ion)/chests`, ou qualquer caminho com o segmento `chests`. `fishing` = segmento `fishing` fora de `chests` (`cobblemonextrastructures:chests/fishing` e bau). `sets/`, `selectors/`, `rctmod:generic/` so por referencia.
+- `_publish_test`: 949 ids iguais; `items.json` identico ao gerado da instancia real; 189 itens ganham rota de loot (182 `structureLoot`, 15 `fishing`); 14 dos 72 so com `none` cobertos; nenhuma tabela perdida; sem rota duplicada; `itemsFileSchema` aceita o arquivo inteiro.
+
+Exemplos (`_publish_test`):
+- `mega_showdown:red_orb`: `structureLoot ["legendarymonuments:chests/bell_tower_chest"]`
+- `mega_showdown:sparkling_stone_dark`: `structureLoot ["mega_showdown:archaeological_site/archaeological_site_rare"]` (arqueologia)
+- `cobblemon:sweet_apple`: `structureLoot ["mega_showdown:archaeology/observatory_sus"]`
+- `minecraft:totem_of_undying`: `structureLoot` com 10 tabelas (`dungeons_arise:chests/...`, `legendarymonuments:chests/bell_tower_chest`)
+- `mega_showdown:zygarde_core`: `structureLoot ["legendarymonuments:chests/regigigas_chest", "legendarymonuments:chests/registeel_chest"]`
+
+Atencao UI (U7e): itens comuns agora tem MUITAS tabelas (`minecraft:diamond` 199, `iron_ingot` 194, `emerald` 166, `coal` 110). A UI mostra um chip por rotulo; talvez agrupar por namespace/pasta ou limitar com "e mais N".
+
+## U7b needs (contrato proposto, NAO emitido)
+
+O pipeline ja calcula estas categorias (report `loot.pendingContract`, item -> tabelas), mas o app nao tem rota para elas; emitir quebraria o zod do `items.json`. Proposta:
+
+```ts
+| { kind: "blockDrop"; tables: string[] }   // "<ns>:blocks/<bloco>", ex. "mega_showdown:blocks/mega_stone_crystal"; UI "Drop de bloco" / "Block drop", chip = bloco (caminho sem "blocks/")
+| { kind: "mobDrop"; tables: string[] }     // "<ns>:entities/<mob>" (e "eternal_starlight:bosses/*", "*:inject(ion)/entities/*"); UI "Drop de criatura" / "Mob drop"
+| { kind: "trainerGroupDrop"; groups: string[] } // "rctmod:trainers/groups/<grupo>"; UI "Loot aleatorio de treinadores (<grupo>)"
+```
+
+- blockDrop: 62 itens do catalogo, entre eles 2 so com `none` (`mega_showdown:mega_stone` <- `blocks/mega_stone_crystal`, `mega_showdown:wishing_star` <- `blocks/wishing_star_crystal`). Bloco que derruba o proprio bloco (39 itens, ex. `mega_showdown:max_mushroom`) nao e rota (circular) e fica em `loot.blockSelfDrops`; `max_mushroom` precisa da prova de worldgen (U7c). Quando `blockDrop` existir, as 146 entradas `blocks/...` do cobblemon que hoje vao em `structureLoot` devem migrar para ele.
+- mobDrop: 70 itens (ex. `minecraft:totem_of_undying` <- `minecraft:entities/evoker`).
+- trainerGroupDrop: 440 itens (ex. `cobblemon:sweet_apple` em 37 grupos). Nao cabe no `trainerDrop`: qual treinador pertence a qual grupo nao esta em nenhum arquivo de dados (nem `trainers/*.json`, nem `mobs/trainers/**`); so no codigo do rctmod (`DataPackManager.class`). Listar cada treinador exigiria inferir a regra do codigo (proibido: nada de rota inventada). Por isso a proposta e mostrar o grupo, nao o treinador.
+- `gameplay` (25 itens: pescaria fora de `fishing/`, escambo de piglin, presente de gato, heroi da vila...) e `other` (259: `botanytrees:tree_drops`, `cobbleloots:loot_ball`, `aquaculture:box`, `cobblemonraiddens:raid`, `supplementaries:loot`...) ficam so no report; nenhum dos 58 itens ainda so com `none` depende deles.
