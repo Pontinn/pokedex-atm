@@ -8,7 +8,7 @@ Legenda: `[ ]` pendente, `[x]` feito (hash), `[!]` bloqueado.
 - [x] D1b (00d74ff4) Pipeline le tambem `tooltip.<ns>.<path>` (sem `.tooltip`), depois de `tooltip.<ns>.<path>.tooltip`; testes.
 - [x] D5 (2fca6667) Texturas animadas (18 itens, ex. insignias do allthemons, stellar_tera_shard): copiar os `.png.mcmeta` do modpack para `data-source/` e publicar so o 1o quadro (o de `frames[0]`), sem esticar.
 - [x] D6 (9b127dea dados, da8dd7b0 pipeline) Lang do kubejs (pt_br e en_us, se houver) copiado para `data-source/` e aplicado por cima dos jars; ids iguais; diff por categoria medido.
-- [ ] D7 Textos curados: nomes PT alinhados ao lang do kubejs + 110 textos minecraft revisados mesclados no arquivo curado.
+- [x] D7 (89fc218f) Textos curados: nomes PT alinhados ao lang do kubejs + 110 textos minecraft revisados mesclados no arquivo curado.
 - [ ] D4 Dataset regenerado e publicado; auditoria e testes verdes; 3 paginas de item renderizadas.
 
 ## Textos
