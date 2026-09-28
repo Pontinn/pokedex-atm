@@ -196,7 +196,9 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
     for (const [id, it] of Object.entries(items)) {
       if (!it.texture) continue;
       checks++;
-      const cands = [path.join(REPO_ROOT, "public", it.texture), path.join(datasetDir, it.texture), path.join(REPO_ROOT, it.texture)];
+      // U3: o valor publicado tem "?v=<hash>" (cache busting); o arquivo em disco nao
+      const file = it.texture.replace(/\?v=[0-9a-f]{8}$/, "");
+      const cands = [path.join(REPO_ROOT, "public", file), path.join(datasetDir, file), path.join(REPO_ROOT, file)];
       if (!cands.some((c) => fs.existsSync(c))) push({ severity: "MISSING", scope: `item ${id}`, field: "texture (arquivo)", expected: "arquivo existe", actual: it.texture, evidence: exp.itemTextures.has(id) ? `textura crua existe (${id})` : "sem textura crua", published: pub(itemsFile) });
     }
     for (const b of exp.balls) {

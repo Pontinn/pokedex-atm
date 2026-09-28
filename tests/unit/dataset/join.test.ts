@@ -8,6 +8,7 @@ import { existsSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { runPipeline } from "../../../tools/dataset/src/index";
+import { sha256Hex } from "../../../tools/dataset/src/lib/hash";
 import {
   speciesDetailSchema,
   speciesIndexSchema,
@@ -145,6 +146,17 @@ describe("item catalog with categories, tags and textures (B4.1)", () => {
     expect(potion?.description?.pt).toBeTruthy();
     expect(potion?.description?.en).toBeTruthy();
     expect(potion?.texture).toBeTruthy();
+  });
+
+  it("every texture path carries ?v=<sha8 of the published file bytes> (U3 cache busting)", () => {
+    const textures = Object.values(items).flatMap((it) => (it.texture ? [it.texture] : []));
+    expect(textures.length).toBeGreaterThan(0);
+    for (const texture of textures) {
+      const match = /^(assets\/items\/.+\.png)\?v=([0-9a-f]{8})$/.exec(texture);
+      expect(match, texture).not.toBeNull();
+      const bytes = readFileSync(path.join(REPO_ROOT, PUBLISH_DIR, match?.[1] ?? ""));
+      expect(match?.[2]).toBe(sha256Hex(bytes).slice(0, 8));
+    }
   });
 
   it("cobblemon:aguav_berry has the 'bait' tag", () => {

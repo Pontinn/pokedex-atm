@@ -13,6 +13,7 @@ import { collectCraftable } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
+import { versionStagedAsset } from "../media/asset-version";
 
 const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
 type Json = Record<string, unknown>;
@@ -63,6 +64,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
 
   const items: ItemsFile = {};
+  const unversionedTextures: string[] = [];
   for (const entry of catalog) {
     const { category, tags: baseTags } = categorize(entry.path, entry.texture);
     const tags = new Set<ItemTag>(baseTags);
@@ -87,6 +89,14 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     if (fossilRevive.length > 0) obtain.push({ kind: "fossilRevive", species: fossilRevive });
     if (obtain.length === 0) obtain.push({ kind: "none" });
 
+    // U3: textura publicada com ?v=<sha8 dos bytes> (cache busting); categorize acima usa o caminho sem query
+    let texture = entry.texture;
+    if (texture) {
+      const versioned = versionStagedAsset(ctx.outDir, texture);
+      if (versioned.missing) unversionedTextures.push(entry.id);
+      texture = versioned.path;
+    }
+
     items[entry.id] = {
       id: entry.id,
       namespace: entry.namespace,
@@ -94,12 +104,20 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       name: entry.name,
       description: entry.description,
       category,
-      texture: entry.texture,
+      texture,
       tags: [...tags],
       obtain,
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
     } satisfies ItemInfo;
+  }
+
+  if (unversionedTextures.length > 0) {
+    ctx.report.warn(
+      "W_ASSET_UNVERSIONED",
+      `${unversionedTextures.length} textura(s) sem arquivo no staging (publicadas sem ?v=): ${unversionedTextures.slice(0, 10).join(", ")}`,
+      unversionedTextures,
+    );
   }
 
   writeJsonAtomic(ctx.dataPath("items.json"), items);
