@@ -1,6 +1,6 @@
 // B4.1 (catalogo) + B4.2 (rotas de obtencao e "Usado em"). Nunca escreve em public/ (so ctx.outDir).
 import { existsSync, readFileSync } from "node:fs";
-import type { BallsFile, FossilRoute, ItemInfo, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
+import type { BallsFile, FossilRoute, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
 import { readJsonEntries } from "../jar-reader";
 import { writeJsonAtomic } from "../lib/fs-atomic";
@@ -30,6 +30,15 @@ function collectBaitItemIds(ctx: Pick<PipelineContext, "reader">): Set<string> {
     }
   }
   return ids;
+}
+
+/** {id, name} com o nome do lang do pack (`<prefixo>.<ns>.<caminho com .>`); sem chave = null (nunca inventado). */
+export function namedRefs(ids: Iterable<string>, prefix: "block" | "entity", lang: PipelineContext["lang"]): ItemNamedRef[] {
+  return [...new Set(ids)].sort().map((id) => {
+    const [ns, ...rest] = id.split(":");
+    const key = `${prefix}.${ns}.${rest.join(":").split("/").join(".")}`;
+    return { id, name: lang.has(key) ? lang.text(key) : null };
+  });
 }
 
 function readJsonIfExists<T>(file: string): T | null {
@@ -97,6 +106,10 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     const structureTables = loot.structureLoot.get(entry.id);
     if (structureTables && structureTables.size > 0) obtain.push({ kind: "structureLoot", tables: [...structureTables].sort() });
     if (loot.fishing.has(entry.id)) obtain.push({ kind: "fishing" });
+    const blocks = loot.blockDrop.get(entry.id);
+    if (blocks && blocks.size > 0) obtain.push({ kind: "blockDrop", blocks: namedRefs(blocks, "block", ctx.lang) });
+    const mobs = loot.mobDrop.get(entry.id);
+    if (mobs && mobs.size > 0) obtain.push({ kind: "mobDrop", mobs: namedRefs(mobs, "entity", ctx.lang) });
     const fossilRevive = fossils.filter((f) => f.fossils.includes(entry.id)).map((f) => f.result);
     if (fossilRevive.length > 0) obtain.push({ kind: "fossilRevive", species: fossilRevive });
     const droppedBy = trainerDrops.get(entry.id);

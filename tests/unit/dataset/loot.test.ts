@@ -2,7 +2,7 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { openSource } from "../../../tools/dataset/src/instance";
-import { buildLootIndex, classifyLootTable, collectLoot, lootTableItems } from "../../../tools/dataset/src/items/loot";
+import { buildLootIndex, classifyLootTable, collectLoot, lootTableItems, mobIdOfTable, parseLootModifiers } from "../../../tools/dataset/src/items/loot";
 
 const snapshot = path.resolve(import.meta.dirname, "../../../data-source/atm-1.3.0");
 
@@ -27,8 +27,9 @@ describe("classifyLootTable", () => {
     expect(classifyLootTable("rctmod:trainers/single/boss_giovanni_0045")).toBe("trainer");
     expect(classifyLootTable("rctmod:trainers/groups/cue_ball")).toBe("trainerGroup");
     expect(classifyLootTable("botanytrees:tree_drops/minecraft/oak")).toBe("other");
-    // regra antiga do cobblemon (tudo que nao e pesca e structureLoot)
-    expect(classifyLootTable("cobblemon:blocks/apricorn_black")).toBe("structure");
+    // U7c: blocos do cobblemon viram blockDrop; o resto do cobblemon segue a regra antiga (structureLoot)
+    expect(classifyLootTable("cobblemon:blocks/apricorn_black")).toBe("block");
+    expect(classifyLootTable("cobblemon:ruins/common")).toBe("structure");
   });
 });
 
@@ -63,8 +64,15 @@ describe("buildLootIndex", () => {
     ["rctmod:generic/epic", table(item("cobblemon:sweet_apple"))],
     ["rctmod:trainers/single/x", table(item("allthemons:the_kitty_badge"))],
     ["cobblemon:ruins/common", table(item("cobblemon:dome_fossil"))],
+    ["cobblemon:blocks/apricorn_black", table(item("cobblemon:black_apricorn"))],
+    ["minecraft:entities/sheep/blue", table(item("minecraft:blue_wool"))],
+    ["minecraft:entities/cow", table(item("minecraft:leather"))],
+    ["artifacts:inject/entities/cow", table(item("artifacts:everlasting_beef"))],
+    ["eternal_starlight:bosses/boss_common", table(item("x:shared"))],
+    ["eternal_starlight:bosses/starlight_golem", table(ref("eternal_starlight:bosses/boss_common"))],
   ]);
-  const idx = buildLootIndex(tables, new Map());
+  const modifiers = [{ modifier: "allthemons:cataclysm_red_orb", item: "mega_showdown:red_orb", tables: ["cataclysm:entities/ignis", "legendarymonuments:chests/x"] }];
+  const idx = buildLootIndex(tables, new Map(), modifiers);
 
   it("chests of other namespaces become structureLoot with the namespaced id; sub-tables only through references", () => {
     expect([...(idx.structureLoot.get("minecraft:totem_of_undying") ?? [])]).toEqual(["dungeons_arise:chests/aviary/barrels"]);
@@ -73,11 +81,25 @@ describe("buildLootIndex", () => {
     expect(idx.fishing.has("minecraft:cod")).toBe(true);
   });
 
-  it("block, entity and trainer group tables stay out of the routes (report only); a block dropping itself is not a route", () => {
-    expect([...(idx.pending.block.get("mega_showdown:keystone") ?? [])]).toEqual(["mega_showdown:blocks/keystone_ore"]);
-    expect(idx.pending.block.has("mega_showdown:max_mushroom")).toBe(false);
+  it("block and entity tables become blockDrop/mobDrop by block/mob id; a block dropping itself is not a route (U7c)", () => {
+    expect([...(idx.blockDrop.get("mega_showdown:keystone") ?? [])]).toEqual(["mega_showdown:keystone_ore"]);
+    expect([...(idx.blockDrop.get("cobblemon:black_apricorn") ?? [])]).toEqual(["cobblemon:apricorn_black"]);
+    expect(idx.structureLoot.has("cobblemon:black_apricorn")).toBe(false);
+    expect(idx.blockDrop.has("mega_showdown:max_mushroom")).toBe(false);
     expect([...(idx.blockSelfDrops.get("mega_showdown:max_mushroom") ?? [])]).toEqual(["mega_showdown:blocks/max_mushroom"]);
-    expect([...(idx.pending.entity.get("minecraft:totem_of_undying") ?? [])]).toEqual(["minecraft:entities/evoker"]);
+    expect([...(idx.mobDrop.get("minecraft:totem_of_undying") ?? [])]).toEqual(["minecraft:evoker"]);
+    expect([...(idx.mobDrop.get("minecraft:blue_wool") ?? [])]).toEqual(["minecraft:sheep"]);
+    expect([...(idx.mobDrop.get("artifacts:everlasting_beef") ?? [])]).toEqual(["minecraft:cow"]);
+    // tabela de boss referenciada por outra (boss_common) so conta pelo boss que a usa
+    expect([...(idx.mobDrop.get("x:shared") ?? [])]).toEqual(["eternal_starlight:starlight_golem"]);
+  });
+
+  it("global loot modifiers add their item to the target tables (mob or chest), even when the table is not in the sources", () => {
+    expect([...(idx.mobDrop.get("mega_showdown:red_orb") ?? [])]).toEqual(["cataclysm:ignis"]);
+    expect([...(idx.structureLoot.get("mega_showdown:red_orb") ?? [])]).toEqual(["legendarymonuments:chests/x"]);
+  });
+
+  it("trainer group tables stay out of the routes (report only)", () => {
     expect([...(idx.pending.trainerGroup.get("cobblemon:sweet_apple") ?? [])]).toEqual(["rctmod:trainers/groups/cue_ball"]);
     expect(idx.structureLoot.has("cobblemon:sweet_apple")).toBe(false);
     expect(idx.structureLoot.has("allthemons:the_kitty_badge")).toBe(false);
@@ -102,9 +124,27 @@ describe("collectLoot on the snapshot", () => {
     expect(warnings).not.toContain("W_LOOT_VANILLA_MISSING");
   });
 
-  it("keeps block drops (keystone ore) and mob drops (evoker) out of structureLoot", () => {
-    expect(loot.pending.block.get("mega_showdown:mega_stone")?.has("mega_showdown:blocks/mega_stone_crystal")).toBe(true);
-    expect(loot.pending.entity.get("minecraft:totem_of_undying")?.has("minecraft:entities/evoker")).toBe(true);
+  it("block drops (mega stone crystal), mob drops (evoker) and the kubejs loot modifiers (cataclysm orbs), none in structureLoot", () => {
+    expect(loot.blockDrop.get("mega_showdown:mega_stone")?.has("mega_showdown:mega_stone_crystal")).toBe(true);
+    expect(loot.mobDrop.get("minecraft:totem_of_undying")?.has("minecraft:evoker")).toBe(true);
+    expect([...(loot.mobDrop.get("mega_showdown:red_orb") ?? [])]).toEqual(["cataclysm:ignis", "cataclysm:maledictus"]);
+    expect([...(loot.mobDrop.get("mega_showdown:blue_orb") ?? [])].sort()).toEqual(["cataclysm:scylla", "cataclysm:the_leviathan"]);
     expect([...loot.structureLoot.values()].some((s) => [...s].some((t) => /:(blocks|entities)\//.test(t)))).toBe(false);
+  });
+});
+
+describe("parseLootModifiers / mobIdOfTable", () => {
+  const enc = (v: unknown) => new TextEncoder().encode(JSON.stringify(v));
+  it("reads only the modifiers listed in global_loot_modifiers.json with addition.id and loot_table_id conditions", () => {
+    const files = [
+      { path: "data/neoforge/loot_modifiers/global_loot_modifiers.json", bytes: enc({ replace: false, entries: ["a:orb", "a:crop", "a:missing"] }) },
+      { path: "data/a/loot_modifiers/orb.json", bytes: enc({ type: "productivelib:item_modifier", addition: { id: "x:orb" }, conditions: [{ condition: "minecraft:any_of", terms: [{ condition: "neoforge:loot_table_id", loot_table_id: "m:entities/boss" }] }] }) },
+      { path: "data/a/loot_modifiers/crop.json", bytes: enc({ type: "productivelib:item_modifier", addition: { id: "x:sprig" }, conditions: [{ condition: "minecraft:block_state_property", block: "y:wheat" }] }) },
+      { path: "data/a/loot_modifiers/unlisted.json", bytes: enc({ addition: { id: "x:no" }, conditions: [{ condition: "neoforge:loot_table_id", loot_table_id: "m:entities/z" }] }) },
+    ];
+    expect(parseLootModifiers(files)).toEqual([{ modifier: "a:orb", item: "x:orb", tables: ["m:entities/boss"] }]);
+  });
+  it("keeps the injection table id when the vanilla target table is unknown", () => {
+    expect(mobIdOfTable("artifacts:inject/entities/cow", new Map())).toBe("artifacts:inject/entities/cow");
   });
 });
