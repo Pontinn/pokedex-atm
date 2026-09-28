@@ -56,6 +56,18 @@ async function setLanguage(page: Page, lang: "pt" | "en") {
   await expect(page.locator("html")).toHaveAttribute("lang", lang === "en" ? "en" : "pt-BR");
 }
 
+// Espera as animacoes finitas (screenIn/cardIn/popIn) terminarem, como em detail.spec.ts.
+async function settle(page: Page) {
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect?.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished.catch(() => undefined)),
+    ),
+  );
+}
+
 const side = (page: Page, s: "left" | "right") => page.locator(`.cmp-poke[data-side="${s}"]`);
 const values = (page: Page, cls: string) => page.locator(`.cmp-row .v${cls}`).allTextContents();
 
@@ -86,7 +98,14 @@ test("F7.1 last 2 of history, mirrored stats with winners, swap keeps scroll, ch
   await page.locator("#main").evaluate((m) => m.scrollTo({ top: m.scrollHeight, behavior: "instant" }));
   const before = await page.locator("#main").evaluate((m) => m.scrollTop);
   expect(before).toBeGreaterThan(0);
-  await page.locator("#cmp-swap").click();
+  // clique de mouse cru no centro do botao (como o usuario), depois das animacoes: o locator.click() espera o
+  // elemento ficar estavel e faz o "scroll into view if needed" do Playwright, que com o scroll-behavior: smooth do
+  // #main anima o scroll DEPOIS do clique (medido: 45 -> 41 -> 19 cerca de 1 s depois, sem nenhuma chamada de
+  // scroll do app e com scrollHeight constante; com settle + mouse.click fica 45 em 3/3).
+  await settle(page);
+  const swapBox = await page.locator("#cmp-swap").boundingBox();
+  if (!swapBox) throw new Error("#cmp-swap without bounding box");
+  await page.mouse.click(swapBox.x + swapBox.width / 2, swapBox.y + swapBox.height / 2);
   await expect(side(page, "left").locator("h3")).toHaveText("Lucario");
   await expect(side(page, "right").locator("h3")).toHaveText("Charizard");
   await expect(page.locator(".screen")).toHaveAttribute("data-entry-id", entry ?? "");
