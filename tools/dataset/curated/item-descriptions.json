@@ -13,7 +13,7 @@
   },
   "allthemons:allthemodium_apricorn": {
     "en": "Grows on Allthemodium Apricorn trees. Cut in half with a Create saw, then into bits, to make the Allthemodium Ball Lid.",
-    "pt": "Cresce nas árvores de Bolota de Allthemodium. Cortada ao meio com a serra do Create e depois em pedaços, vira a Tampa da Bola de Allthemodium."
+    "pt": "Cresce nas árvores de Bolota de Allthemodium. Cortada ao meio com a Serra Mecânica do Create e depois em pedaços, vira a Tampa da Bola de Allthemodium."
   },
   "allthemons:allthemodium_apricorn_bits": {
     "en": "Small pieces cut from a Half Allthemodium Apricorn, the key ingredient infused into a lid to make the Allthemodium Ball Lid.",
@@ -37,11 +37,11 @@
   },
   "allthemons:allthemodium_stamped_plate_lid": {
     "en": "A Allthemodium plate stamped with a rubber lid stamp. Pressed or put in a lathe, it becomes a Allthemodium Ball Base.",
-    "pt": "Uma chapa de Allthemodium prensada com um carimbo de borracha de tampa. Prensada ou torneada, vira a Base da Bola de Allthemodium."
+    "pt": "Uma chapa de Allthemodium prensada com um Carimbo de Borracha (Tampa). Prensada ou torneada, vira a Base da Bola de Allthemodium."
   },
   "allthemons:ancient_allthemodium_ball_lid": {
     "en": "The Allthemodium Ball Lid coated with Tumblestone coating fluid, used for the Ancient Allthemodium Ball.",
-    "pt": "A Tampa da Bola de Allthemodium banhada em revestimento de Jaspe, usada na Bola de Allthemodium Ancestral."
+    "pt": "A Tampa da Bola de Allthemodium banhada em Revestimento de Pedra de Tombo, usada na Bola de Allthemodium Ancestral."
   },
   "allthemons:ancient_allthemodium_ball_mechanism": {
     "en": "Like the regular mechanism, but built with a full Allthemodium ingot instead of a nugget. Used for the Ancient Allthemodium Ball.",
@@ -65,7 +65,7 @@
   },
   "allthemons:ancient_vibranium_ball_lid": {
     "en": "The Vibranium Ball Lid coated with Tumblestone coating fluid, used for the Ancient Vibranium Ball.",
-    "pt": "A Tampa da Bola de Vibranium banhada em revestimento de Jaspe, usada na Bola de Vibranium Ancestral."
+    "pt": "A Tampa da Bola de Vibranium banhada em Revestimento de Pedra de Tombo, usada na Bola de Vibranium Ancestral."
   },
   "allthemons:ancient_vibranium_ball_mechanism": {
     "en": "Like the regular mechanism, but built with a full Vibranium ingot instead of a nugget. Used for the Ancient Vibranium Ball.",
@@ -73,15 +73,15 @@
   },
   "allthemons:half_allthemodium_apricorn": {
     "en": "One of two halves cut from a Allthemodium Apricorn with a Create saw. Cutting it again gives Allthemodium Apricorn Bits.",
-    "pt": "Uma das duas metades cortadas de uma Bolota de Allthemodium com a serra do Create. Cortada de novo, vira Pedaços de Bolota de Allthemodium."
+    "pt": "Uma das duas metades cortadas de uma Bolota de Allthemodium com a Serra Mecânica do Create. Cortada de novo, vira Pedaços de Bolota de Allthemodium."
   },
   "allthemons:half_unobtainium_apricorn": {
     "en": "One of two halves cut from a Unobtainium Apricorn with a Create saw. Cutting it again gives Unobtainium Apricorn Bits.",
-    "pt": "Uma das duas metades cortadas de uma Bolota de Unobtainium com a serra do Create. Cortada de novo, vira Pedaços de Bolota de Unobtainium."
+    "pt": "Uma das duas metades cortadas de uma Bolota de Unobtainium com a Serra Mecânica do Create. Cortada de novo, vira Pedaços de Bolota de Unobtainium."
   },
   "allthemons:half_vibranium_apricorn": {
     "en": "One of two halves cut from a Vibranium Apricorn with a Create saw. Cutting it again gives Vibranium Apricorn Bits.",
-    "pt": "Uma das duas metades cortadas de uma Bolota de Vibranium com a serra do Create. Cortada de novo, vira Pedaços de Bolota de Vibranium."
+    "pt": "Uma das duas metades cortadas de uma Bolota de Vibranium com a Serra Mecânica do Create. Cortada de novo, vira Pedaços de Bolota de Vibranium."
   },
   "allthemons:healing_station_on_a_stick": {
     "en": "A Cobblemon Healing Machine on a stick, crafted from a Healing Machine and a wooden rod.",
@@ -93,7 +93,7 @@
   },
   "allthemons:pika_star": {
     "en": "Crafted with all twelve ATM Team badges plus rare items and berries. Paired with an Ancient DNA Sample to revive Mewtwo.",
-    "pt": "Fabricada com as doze insígnias da Equipe ATM mais itens raros e frutas. Combinada com a Amostra de DNA Ancestral, revive o Mewtwo."
+    "pt": "Fabricada com as doze insígnias da Equipe ATM mais itens raros e bagas. Combinada com a Amostra de DNA Ancestral, revive o Mewtwo."
   },
   "allthemons:soul_lava_ball_lid": {
     "en": "A Great Ball lid filled with molten soul lava, for the Great Ball of Fire (2x catch rate, 50x vs Fire types, fails vs Water types).",
@@ -153,7 +153,7 @@
   },
   "allthemons:unobtainium_apricorn": {
     "en": "Grows on Unobtainium Apricorn trees. Cut in half with a Create saw, then into bits, to make the Unobtainium Ball Lid.",
-    "pt": "Cresce nas árvores de Bolota de Unobtainium. Cortada ao meio com a serra do Create e depois em pedaços, vira a Tampa da Bola de Unobtainium."
+    "pt": "Cresce nas árvores de Bolota de Unobtainium. Cortada ao meio com a Serra Mecânica do Create e depois em pedaços, vira a Tampa da Bola de Unobtainium."
   },
   "allthemons:unobtainium_apricorn_bits": {
     "en": "Small pieces cut from a Half Unobtainium Apricorn, the key ingredient infused into a lid to make the Unobtainium Ball Lid.",
@@ -177,11 +177,11 @@
   },
   "allthemons:unobtainium_stamped_plate_lid": {
     "en": "A Unobtainium plate stamped with a rubber lid stamp. Pressed or put in a lathe, it becomes a Unobtainium Ball Base.",
-    "pt": "Uma chapa de Unobtainium prensada com um carimbo de borracha de tampa. Prensada ou torneada, vira a Base da Bola de Unobtainium."
+    "pt": "Uma chapa de Unobtainium prensada com um Carimbo de Borracha (Tampa). Prensada ou torneada, vira a Base da Bola de Unobtainium."
   },
   "allthemons:vibranium_apricorn": {
     "en": "Grows on Vibranium Apricorn trees. Cut in half with a Create saw, then into bits, to make the Vibranium Ball Lid.",
-    "pt": "Cresce nas árvores de Bolota de Vibranium. Cortada ao meio com a serra do Create e depois em pedaços, vira a Tampa da Bola de Vibranium."
+    "pt": "Cresce nas árvores de Bolota de Vibranium. Cortada ao meio com a Serra Mecânica do Create e depois em pedaços, vira a Tampa da Bola de Vibranium."
   },
   "allthemons:vibranium_apricorn_bits": {
     "en": "Small pieces cut from a Half Vibranium Apricorn, the key ingredient infused into a lid to make the Vibranium Ball Lid.",
@@ -205,11 +205,11 @@
   },
   "allthemons:vibranium_stamped_plate_lid": {
     "en": "A Vibranium plate stamped with a rubber lid stamp. Pressed or put in a lathe, it becomes a Vibranium Ball Base.",
-    "pt": "Uma chapa de Vibranium prensada com um carimbo de borracha de tampa. Prensada ou torneada, vira a Base da Bola de Vibranium."
+    "pt": "Uma chapa de Vibranium prensada com um Carimbo de Borracha (Tampa). Prensada ou torneada, vira a Base da Bola de Vibranium."
   },
   "artifacts:everlasting_beef": {
     "en": "Never consumed when eaten, it only goes on a cooldown. Cooks into an Eternal Steak. Rarely dropped by cows and mooshrooms.",
-    "pt": "Nunca é consumida ao ser comida, só entra em recarga. Assada, vira Bife Eterno. Cai raramente de vacas e coguvacas."
+    "pt": "Nunca é consumida ao ser comida, só entra em recarga. Assada, vira Bife Eterno. Cai raramente de vacas e mooshrooms."
   },
   "cobblemon:apricorn_boat": {
     "en": "A boat crafted from Apricorn wood, works just like a vanilla Minecraft boat on water.",
@@ -253,7 +253,7 @@
   },
   "cobblemon:automaton_armor_trim_smithing_template": {
     "en": "A smithing template found in Cobblemon ruins that applies the Automaton trim to armor. Duplicate it with diamonds and cobblestone.",
-    "pt": "Molde de ferraria achado em ruínas do Cobblemon que aplica o acabamento Automaton em armaduras. Duplique com diamantes e pedregulho."
+    "pt": "Molde de ferraria achado em ruínas do Cobblemon que aplica o enfeite Autômato em armaduras. Duplique com diamantes e pedregulho."
   },
   "cobblemon:big_malasada": {
     "en": "An Alola pastry cooked in a Campfire Pot. Use it on a Pokémon to cure its status condition, or Shift-use it to eat it yourself.",
@@ -269,7 +269,7 @@
   },
   "cobblemon:black_tumblestone": {
     "en": "A rare black Tumblestone. Milled into dust, it makes the dense coating for the Ancient Heavy, Leaden and Gigaton Ball lids.",
-    "pt": "Um Jaspe raro e preto. Moído em pó, vira o revestimento denso das tampas das Bolas Pesada, Massiva e Titânica Ancestrais."
+    "pt": "Um Jaspe raro e preto. Moído em pó, vira o Revestimento de Pedra de Tombo Denso das tampas das Bolas Pesada, Chumbo e Gigatonelada Ancestrais."
   },
   "cobblemon:blue_apricorn": {
     "en": "A blue apricorn. This pack removes crafting-table Poké Balls: cut and washed with Create, it becomes the lid of a Azure Ball.",
@@ -313,7 +313,7 @@
   },
   "cobblemon:coarse_mulch": {
     "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Mountain or Taiga biome, indefinitely.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Montanha ou Taiga, por tempo indeterminado."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Faz com que ela se comporte como se estivesse num bioma de Montanha ou Taiga, por tempo indeterminado."
   },
   "cobblemon:cover_fossil": {
     "en": "An ancient fossil. Revived in the Restoration Machine, it becomes Tirtouga.",
@@ -345,7 +345,7 @@
   },
   "cobblemon:galarica_nuts": {
     "en": "Harvested from Galarica Nut Bushes. Crafts the Galarica Cuff and Wreath, which evolve Galarian Slowpoke, and goes into Smoked-Tail Curry.",
-    "pt": "Colhidas do Arbusto de Noz de Galarica. Fabricam a Pulseira e a Coroa de Galanoz, que evoluem o Slowpoke de Galar, e entram no Curry de Cauda Defumada."
+    "pt": "Colhidas do Arbusto de Noz de Galarica. Fabricam o Bracelete e a Coroa de Galarica, que evoluem o Slowpoke de Galar, e entram no Curry de Cauda Defumada."
   },
   "cobblemon:green_apricorn": {
     "en": "A green apricorn. This pack removes crafting-table Poké Balls: cut and washed with Create, it becomes the lid of a Verdant Ball.",
@@ -361,11 +361,11 @@
   },
   "cobblemon:growth_mulch": {
     "en": "Farming mulch applied to a berry tree. Speeds up its growth for the next three harvests.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Acelera seu crescimento pelas próximas três colheitas."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Acelera seu crescimento pelas próximas três colheitas."
   },
   "cobblemon:hearty_grains": {
     "en": "A Cobblemon grain crop and a staple cooking ingredient, used in Poké Snacks, mochi, Jubilife Muffins and more.",
-    "pt": "Um grão cultivável do Cobblemon e ingrediente básico de culinária, usado em Poké-lanches, mochis, Muffins de Jubilife e mais."
+    "pt": "Um grão cultivável do Cobblemon e ingrediente básico de culinária, usado em Poké-Lanches, mochis, Muffins de Jubilife e mais."
   },
   "cobblemon:helix_fossil": {
     "en": "An ancient fossil. Revived in the Restoration Machine, it becomes Omanyte.",
@@ -377,7 +377,7 @@
   },
   "cobblemon:humid_mulch": {
     "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Jungle or Swamp biome, indefinitely.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Selva ou Pântano, por tempo indeterminado."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Faz com que ela se comporte como se estivesse num bioma de Selva ou Pântano, por tempo indeterminado."
   },
   "cobblemon:jaw_fossil": {
     "en": "An ancient fossil. Revived in the Restoration Machine, it becomes Tyrunt.",
@@ -397,11 +397,11 @@
   },
   "cobblemon:leek_and_potato_stew": {
     "en": "A stew of Medicinal Leek and baked potato made in a Campfire Pot, or crafted from Roasted Leek, baked potato and a bowl.",
-    "pt": "Um ensopado de Alho-poró Medicinal e batata assada feito na Panela de Fogueira, ou fabricado com Alho-poró Assado, batata assada e tigela."
+    "pt": "Um ensopado de Alho-Poró Medicinal e batata assada feito na Panela de Fogueira, ou fabricado com Alho-Poró Assado, batata assada e tigela."
   },
   "cobblemon:loamy_mulch": {
     "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Plains biome, indefinitely.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Planície, por tempo indeterminado."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Faz com que ela se comporte como se estivesse num bioma de Planície, por tempo indeterminado."
   },
   "cobblemon:luminous_moss": {
     "en": "A held item that is consumed to raise the holder's Special Defense by one stage after being hit by a Water type move.",
@@ -413,7 +413,7 @@
   },
   "cobblemon:medicinal_brew": {
     "en": "Cobblemon's base potion, brewed from a Medicinal Leek at a Brewing Stand or Campfire Pot. Base for Potions, Ethers, Elixirs and PP Up.",
-    "pt": "Poção base do Cobblemon, feita com Alho-poró Medicinal no Suporte de Poções ou na Panela de Fogueira. Base de Poções, Éteres, Elixires e PP Up."
+    "pt": "Poção base do Cobblemon, feita com Alho-Poró Medicinal no Suporte de Poções ou na Panela de Fogueira. Base de Poções, Éteres, Elixires e Melhoria de PP."
   },
   "cobblemon:mulch_base": {
     "en": "Plain mulch crafted from bone meal, rotten flesh, dirt and paper. The base used to craft every other Cobblemon mulch.",
@@ -441,7 +441,7 @@
   },
   "cobblemon:peat_mulch": {
     "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Forest biome, indefinitely.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Floresta, por tempo indeterminado."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Faz com que ela se comporte como se estivesse num bioma de Floresta, por tempo indeterminado."
   },
   "cobblemon:pewter_crunchies": {
     "en": "A Kanto snack cooked in a Campfire Pot. Use it on a Pokémon to cure its status condition, or Shift-use it to eat it yourself.",
@@ -521,11 +521,11 @@
   },
   "cobblemon:rich_mulch": {
     "en": "Farming mulch applied to a berry tree. Increases the yield of its next three harvests.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Aumenta a quantidade colhida nas próximas três colheitas."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Aumenta a quantidade colhida nas próximas três colheitas."
   },
   "cobblemon:roasted_leek": {
     "en": "A Medicinal Leek cooked in a furnace, smoker or campfire. Used in Leek and Potato Stew; Capsakid and Scovillain can drop it.",
-    "pt": "Um Alho-poró Medicinal assado em fornalha, defumador ou fogueira. Usado no Ensopado de Batata com Alho-poró; Capsakid e Scovillain podem derrubá-lo."
+    "pt": "Um Alho-Poró Medicinal assado em fornalha, defumador ou fogueira. Usado no Ensopado de Batata com Alho-poró; Capsakid e Scovillain podem derrubá-lo."
   },
   "cobblemon:root_fossil": {
     "en": "An ancient fossil. Revived in the Restoration Machine, it becomes Lileep.",
@@ -549,7 +549,7 @@
   },
   "cobblemon:sandy_mulch": {
     "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in an Arid biome, indefinitely.",
-    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma Árido, por tempo indeterminado."
+    "pt": "Adubo agrícola aplicado a uma árvore de baga. Faz com que ela se comporte como se estivesse num bioma Árido, por tempo indeterminado."
   },
   "cobblemon:shalour_sable": {
     "en": "Named after a Kalos treat. Cobblemon 1.7.3 ships its art but does not register the item, so it cannot be obtained in this pack.",
@@ -561,7 +561,7 @@
   },
   "cobblemon:sky_tumblestone": {
     "en": "A rare sky-blue Tumblestone. Milled into dust, it makes the light coating for the Ancient Feather, Wing and Jet Ball lids.",
-    "pt": "Um Jaspe raro azul-celeste. Moído em pó, vira o revestimento leve das tampas das Bolas Pena, Asa e Jato Ancestrais."
+    "pt": "Um Jaspe raro azul-celeste. Moído em pó, vira o Revestimento de Pedra de Tombo Leve das tampas das Bolas de Penas, Asa e Jato Ancestrais."
   },
   "cobblemon:smoked_tail_curry": {
     "en": "A Galar curry cooked in a Campfire Pot. Use it on a Pokémon to cure its status condition, or Shift-use it to eat it yourself.",
@@ -569,7 +569,7 @@
   },
   "cobblemon:surprise_mulch": {
     "en": "Farming mulch for berry trees. Raises mutation chance for three harvests; on a young Revival Herb it can make a Mental, Power, White or Mirror Herb.",
-    "pt": "Adubo para árvores de frutas. Aumenta a chance de mutação por três colheitas; numa Erva da Vida nova pode gerar Erva Mental, do Poder, Branca ou Imitadora."
+    "pt": "Adubo para árvores de baga. Aumenta a chance de mutação por três colheitas; numa Erva Revigorante nova pode gerar Erva Mental, Poderosa, Branca ou Espelho."
   },
   "cobblemon:suspicious_sherd": {
     "en": "A pottery sherd depicting Ditto transforming. Brushed from suspicious blocks in Cobblemon ruins; decorates Decorated Pots.",
@@ -581,11 +581,11 @@
   },
   "cobblemon:tumblestone": {
     "en": "Cobblemon's crystal, grown from buds like amethyst or found in ruins. Milled and mixed into a coating used on Ancient Poké Ball lids.",
-    "pt": "Cristal do Cobblemon, cresce em brotos como a ametista ou aparece em ruínas. Moído, vira revestimento para tampas de Pokébolas Ancestrais."
+    "pt": "Cristal do Cobblemon, cresce em brotos como a ametista ou aparece em ruínas. Moído, vira Revestimento de Pedra de Tombo para tampas de Pokébolas Ancestrais."
   },
   "cobblemon:vivichoke": {
     "en": "A rare vegetable from a grown Vivichoke crop. Used in Vivichoke Dip, Poké Snacks, Max Revives and to brew PP Up and Max Potions.",
-    "pt": "Um vegetal raro de uma plantação madura de Brotovital. Usado no Ensopado de Brotovital, Poké-lanches, Revivers Máximos, PP Up e Poções Máximas."
+    "pt": "Um vegetal raro de uma plantação madura de Brotovital. Usado no Ensopado de Brotovital, Poké-Lanches, Reanimadores Máximos, Melhoria de PP e Poções Máximas."
   },
   "cobblemon:vivichoke_dip": {
     "en": "A Campfire Pot dish of Vivichoke, milk and bread served in a bowl, eaten by the player to restore hunger.",
@@ -613,11 +613,11 @@
   },
   "legendarymonuments:darkstone_shard": {
     "en": "A Dark Stone fragment that seems to hold immense power. Nine craft the Dark Stone, used with an electric gem to revive Zekrom.",
-    "pt": "Fragmento da Pedra das Trevas que parece conter um poder imenso. Nove formam a Pedra das Trevas, usada com uma gema elétrica para ressuscitar Zekrom."
+    "pt": "Fragmento de Pedra das Trevas que parece conter um poder imenso. Nove formam a Pedra das Trevas, usada com uma Gema do Elétrico para ressuscitar Zekrom."
   },
   "legendarymonuments:lightstone_shard": {
     "en": "A Light Stone fragment that seems to hold immense power. Nine craft the Light Stone, used with a fire gem to revive Reshiram.",
-    "pt": "Fragmento da Pedra da Luz que parece conter um poder imenso. Nove formam a Pedra da Luz, usada com uma gema de fogo para ressuscitar Reshiram."
+    "pt": "Fragmento de Pedra da Luz que parece conter um poder imenso. Nove formam a Pedra da Luz, usada com uma Gema do Fogo para ressuscitar Reshiram."
   },
   "mega_showdown:darkinium-z": {
     "en": "Dark-type Z-Crystal from the Mega Showdown add-on; lets Pokémon upgrade their Dark-type moves into Z-Moves.",
@@ -690,6 +690,446 @@
   "mega_showdown:tera_pouch_yellow": {
     "en": "A yellow Mega Showdown pouch that stores Tera Shards, the items that change a Pokémon's Tera Type.",
     "pt": "Bolsa amarela do addon Mega Showdown que guarda Fragmentos Tera, os itens que mudam o Tipo Tera de um Pokémon."
+  },
+  "minecraft:acacia_log": {
+    "en": "Log from acacia trees, which grow in savannas. Burns as fuel and is crafted into acacia planks.",
+    "pt": "Tronco das acácias, árvores típicas das savanas. Serve de combustível e vira tábuas de acácia."
+  },
+  "minecraft:amethyst_shard": {
+    "en": "Mined from amethyst clusters in geodes. Crafts spyglasses, tinted glass and amethyst blocks, and is an armor trim material.",
+    "pt": "Obtido de agregados de ametista em geodos. Cria luneta, vidro fosco e bloco de ametista, e serve de material de enfeite de armadura."
+  },
+  "minecraft:apple": {
+    "en": "Food that drops from oak and dark oak leaves. Restores hunger and, with eight gold ingots, becomes a golden apple.",
+    "pt": "Alimento que cai de folhas de carvalho e de carvalho escuro. Restaura fome e, com oito lingotes de ouro, vira maçã dourada."
+  },
+  "minecraft:armadillo_scute": {
+    "en": "Shed by armadillos every few minutes, or brushed off them. Six craft wolf armor, which it also repairs.",
+    "pt": "Solta pelo tatu de tempos em tempos, ou removida com um pincel. Seis criam a armadura de lobo, que ela também repara."
+  },
+  "minecraft:bamboo": {
+    "en": "Fast growing plant from jungle biomes. Used as fuel, scaffolding material, and food for pandas.",
+    "pt": "Planta de crescimento rápido dos biomas de selva. Serve de combustível, para andaimes e como alimento de pandas."
+  },
+  "minecraft:basalt": {
+    "en": "Volcanic rock from the Nether's basalt deltas and soul sand valleys. Also forms when lava flows over soul soil next to blue ice.",
+    "pt": "Rocha vulcânica dos deltas de basalto e vales de areia das almas do Nether. Também surge quando lava flui sobre terra das almas ao lado de gelo azul."
+  },
+  "minecraft:beef": {
+    "en": "Raw meat dropped by cows and mooshrooms. Cooked in a furnace, smoker or campfire, it becomes steak, a strong food.",
+    "pt": "Carne crua que cai de vacas e mooshrooms. Assada na fornalha, no defumador ou na fogueira, vira filé, um alimento forte."
+  },
+  "minecraft:blaze_powder": {
+    "en": "Crafted from a blaze rod, which blazes drop in Nether fortresses. A brewing ingredient and the fuel of brewing stands.",
+    "pt": "Feito com vara de blaze, deixada por blazes nas fortalezas do Nether. Ingrediente de poções e combustível do suporte de poções."
+  },
+  "minecraft:blue_ice": {
+    "en": "Crafted from nine packed ice or found in frozen ocean icebergs. The most slippery block, ideal for fast boat tracks.",
+    "pt": "Feito com nove gelos compactados ou encontrado em icebergs de oceanos congelados. É o bloco mais escorregadio, ótimo para pistas de bote."
+  },
+  "minecraft:blue_wool": {
+    "en": "Wool dyed with blue dye, made from lapis lazuli or cornflowers. Sheep never spawn blue. A basic building block.",
+    "pt": "Lã tingida com corante azul, feito de lápis-lazúli ou centáurea. Ovelhas nunca nascem azuis. Bloco básico de construção."
+  },
+  "minecraft:bone": {
+    "en": "Dropped by skeletons and similar mobs. Crafted into bone meal and used to tame wolves.",
+    "pt": "Cai de esqueletos e mobs parecidos. Vira farinha de osso e é usado para domar lobos."
+  },
+  "minecraft:bone_block": {
+    "en": "Block crafted from nine bone meal, and it can be turned back into bone meal. Mainly used for building and decoration.",
+    "pt": "Bloco feito com nove farinhas de osso, que pode voltar a ser farinha. Usado principalmente em construção e decoração."
+  },
+  "minecraft:bone_meal": {
+    "en": "Crafted from bones. Speeds up the growth of crops, saplings and other plants, and is crafted into white dye.",
+    "pt": "Feita com ossos. Acelera o crescimento de plantações, mudas e outras plantas, e vira corante branco."
+  },
+  "minecraft:bread": {
+    "en": "Food crafted from three wheat, also common in village chests. Restores a good amount of hunger.",
+    "pt": "Alimento feito com três trigos, também comum em baús de vilas. Restaura uma boa quantidade de fome."
+  },
+  "minecraft:brown_mushroom": {
+    "en": "Small fungus that grows in dark areas or on podzol and mycelium. Combined with a bowl and a red mushroom to make mushroom stew.",
+    "pt": "Cogumelo pequeno que cresce em áreas escuras ou sobre podzol e micélio. Com uma tigela e um cogumelo vermelho, faz ensopado de cogumelos."
+  },
+  "minecraft:brown_wool": {
+    "en": "Wool from naturally brown sheep, or dyed with brown dye made from cocoa beans. A basic building block.",
+    "pt": "Lã de ovelhas que nascem marrons, ou tingida com corante marrom, feito de grãos de cacau. Bloco básico de construção."
+  },
+  "minecraft:cactus": {
+    "en": "Desert plant that damages mobs and players touching it. Smelted into green dye.",
+    "pt": "Planta do deserto que causa dano a mobs e jogadores que encostam nela. Vira corante verde na fornalha."
+  },
+  "minecraft:cake": {
+    "en": "Food block baked from wheat, sugar, milk and an egg. Placed on the ground and eaten one slice at a time.",
+    "pt": "Bloco de comida feito com trigo, açúcar, leite e ovo. Colocado no chão e comido fatia por fatia."
+  },
+  "minecraft:calcite": {
+    "en": "Soft white stone found in amethyst geodes and stony peaks. Used only for building and decoration.",
+    "pt": "Pedra branca e macia encontrada em geodos de ametista e picos rochosos. Usada só em construção e decoração."
+  },
+  "minecraft:candle": {
+    "en": "Craftable light source made from string and honeycomb. Can be placed on cakes and dyed in many colors.",
+    "pt": "Fonte de luz feita com linha e favo de mel. Pode ser colocada sobre bolos e tingida em várias cores."
+  },
+  "minecraft:carrot": {
+    "en": "Crop grown on farmland, sometimes dropped by zombies. Breeds and lures pigs and rabbits, and crafts golden carrots.",
+    "pt": "Cultivada em terra arada e às vezes deixada por zumbis. Reproduz e atrai porcos e coelhos, e vira cenoura dourada."
+  },
+  "minecraft:charcoal": {
+    "en": "Made by smelting logs or wood. A fuel that replaces coal in torches, campfires and fire charges.",
+    "pt": "Feito ao fundir troncos ou madeira na fornalha. Combustível que substitui o carvão em tochas, fogueiras e bolas de fogo."
+  },
+  "minecraft:chicken": {
+    "en": "Raw meat dropped by chickens. Eating it raw may cause the Hunger effect; cooking it is safer and more filling.",
+    "pt": "Carne crua que cai de galinhas. Crua, pode causar o efeito Fome; assada é mais segura e alimenta mais."
+  },
+  "minecraft:clay_ball": {
+    "en": "Dropped by clay blocks, found near water. Smelted into bricks, and four make a clay block again.",
+    "pt": "Obtida de blocos de argila, comuns perto da água. Vira tijolo na fornalha, e quatro formam de novo um bloco de argila."
+  },
+  "minecraft:clock": {
+    "en": "Crafted from gold ingots and redstone dust. Shows the in-game time of day, but only works in the Overworld.",
+    "pt": "Feito com lingotes de ouro e pó de redstone. Mostra a hora do dia no jogo, mas só funciona na Superfície."
+  },
+  "minecraft:coal": {
+    "en": "Mined from coal ore and dropped by wither skeletons. A basic fuel, also crafted into torches and coal blocks.",
+    "pt": "Extraído do minério de carvão e deixado por esqueletos wither. Combustível básico que também vira tochas e bloco de carvão."
+  },
+  "minecraft:cod": {
+    "en": "Raw fish caught by fishing or dropped by cod. Safe to eat raw, but cooking it restores more hunger.",
+    "pt": "Peixe cru obtido pescando ou de bacalhaus. Pode ser comido cru, mas assado restaura mais fome."
+  },
+  "minecraft:cooked_chicken": {
+    "en": "Chicken cooked in a furnace, smoker or campfire. Restores more hunger than raw chicken, with no risk of the Hunger effect.",
+    "pt": "Frango assado na fornalha, no defumador ou na fogueira. Restaura mais fome que o cru e sem risco do efeito Fome."
+  },
+  "minecraft:dark_oak_sapling": {
+    "en": "Sapling from a dark oak tree. Four must be planted together in a 2x2 square to grow into a tree.",
+    "pt": "Muda de carvalho escuro. É preciso plantar quatro juntas, em um quadrado 2x2, para crescerem em uma árvore."
+  },
+  "minecraft:dead_bush": {
+    "en": "Shrub found in deserts and badlands. Breaking it without shears drops sticks.",
+    "pt": "Arbusto encontrado em desertos e terras áridas. Quebrado sem tesoura, solta gravetos."
+  },
+  "minecraft:diamond": {
+    "en": "Valuable gem mined from diamond ore. Crafts diamond tools and armor, the enchanting table and the jukebox.",
+    "pt": "Gema valiosa extraída do minério de diamante. Cria ferramentas e armaduras de diamante, a mesa de encantamentos e o toca-discos."
+  },
+  "minecraft:diamond_sword": {
+    "en": "Sword crafted from two diamonds and a stick. Second only to netherite, it deals strong melee damage.",
+    "pt": "Espada feita com dois diamantes e um graveto. Só perde para a de netherita e causa muito dano corpo a corpo."
+  },
+  "minecraft:dirt": {
+    "en": "One of the most common blocks in the Overworld. Can be tilled into farmland or covered by grass over time.",
+    "pt": "Um dos blocos mais comuns da Superfície. Pode virar terra arada com uma enxada, ou se cobrir de grama com o tempo."
+  },
+  "minecraft:dragon_breath": {
+    "en": "Collected in a glass bottle from the Ender Dragon's breath attack. Turns splash potions into lingering potions.",
+    "pt": "Coletado com um frasco de vidro no ataque de sopro do Dragão de Ender. Transforma poções arremessáveis em poções prolongadas."
+  },
+  "minecraft:echo_shard": {
+    "en": "Rare item found only in ancient city chests, in the Deep Dark. Eight of them craft a recovery compass.",
+    "pt": "Item raro encontrado só em baús de cidades ancestrais, nas Profundezas Sombrias. Oito deles criam a bússola de retomada."
+  },
+  "minecraft:egg": {
+    "en": "Laid by chickens every few minutes. Used in cakes and pumpkin pie, and when thrown it may hatch a chick.",
+    "pt": "Posto pelas galinhas a cada poucos minutos. Usado em bolo e torta de abóbora, e se arremessado pode chocar um pintinho."
+  },
+  "minecraft:emerald": {
+    "en": "Rare gem whose ore only generates in mountain biomes. The main currency for trading with villagers.",
+    "pt": "Gema rara cujo minério só aparece em biomas de montanha. É a principal moeda de troca com aldeões."
+  },
+  "minecraft:ender_eye": {
+    "en": "Crafted from an ender pearl and blaze powder. Leads the way to strongholds and fills End portal frames.",
+    "pt": "Feito com pérola de Ender e pó de blaze. Indica o caminho das fortalezas e preenche as molduras do portal do End."
+  },
+  "minecraft:ender_pearl": {
+    "en": "Dropped by endermen. Thrown to teleport the player to where it lands, taking a bit of fall damage.",
+    "pt": "Deixada por endermen. Arremessada, teleporta o jogador até onde cai, causando um pouco de dano de queda."
+  },
+  "minecraft:feather": {
+    "en": "Dropped by chickens. Used to craft arrows, book and quills, brushes and firework stars.",
+    "pt": "Deixada por galinhas. Usada para criar flechas, livro e pena, pincéis e estrelas de fogo de artifício."
+  },
+  "minecraft:fire_charge": {
+    "en": "Crafted from gunpowder, blaze powder and coal or charcoal. Lights fires like flint and steel, or shoots fireballs from a dispenser.",
+    "pt": "Feita com pólvora, pó de blaze e carvão (mineral ou vegetal). Acende fogo como a pederneira ou dispara bolas de fogo de um ejetor."
+  },
+  "minecraft:flint": {
+    "en": "Occasionally dropped when mining gravel. Used to craft flint and steel, arrows and fletching tables.",
+    "pt": "Cai às vezes ao quebrar cascalho. Usado para criar pederneira, flechas e bancada de arco e flecha."
+  },
+  "minecraft:glow_ink_sac": {
+    "en": "Dropped by glow squids. Makes sign text glow in the dark, and crafts glowing item frames.",
+    "pt": "Deixada por lulas-brilhantes. Faz o texto de placas brilhar no escuro e cria a moldura de item brilhante."
+  },
+  "minecraft:gold_nugget": {
+    "en": "Smelted from gold tools or armor, or dropped by zombified piglins and Nether gold ore. Crafts golden carrots and gold ingots.",
+    "pt": "Fundida de ferramentas ou armaduras de ouro, ou deixada por piglins-zumbificados e minério de ouro do Nether. Cria cenoura dourada e lingote de ouro."
+  },
+  "minecraft:golden_helmet": {
+    "en": "Helmet crafted from gold ingots. Weaker than iron but the easiest to enchant, and piglins ignore players wearing gold.",
+    "pt": "Capacete feito com lingotes de ouro. Protege menos que o de ferro, mas é o mais fácil de encantar, e piglins ignoram quem usa ouro."
+  },
+  "minecraft:gravel": {
+    "en": "Loose block affected by gravity. Mining it has a chance to drop flint instead of gravel.",
+    "pt": "Bloco solto afetado pela gravidade. Ao ser quebrado, tem chance de soltar sílex em vez de cascalho."
+  },
+  "minecraft:gunpowder": {
+    "en": "Dropped by creepers, witches and ghasts. Crafts TNT, firework rockets and fire charges, and turns potions into splash potions.",
+    "pt": "Deixada por creepers, bruxas e ghasts. Cria TNT, fogos de artifício e bolas de fogo, e transforma poções em arremessáveis."
+  },
+  "minecraft:heart_of_the_sea": {
+    "en": "Found only in buried treasure chests. Combined with eight nautilus shells to craft a conduit.",
+    "pt": "Encontrado apenas em baús de tesouro enterrado. Com oito conchas de náutilo, cria um conduto."
+  },
+  "minecraft:honey_bottle": {
+    "en": "Collected from a full beehive or bee nest with a glass bottle. Restores hunger and removes the Poison effect.",
+    "pt": "Coletado de uma colmeia natural ou artificial cheia, com um frasco de vidro. Restaura fome e remove o efeito Veneno."
+  },
+  "minecraft:honeycomb": {
+    "en": "Harvested from a full beehive or bee nest with shears. Crafts beehives, candles and honeycomb blocks, and waxes copper.",
+    "pt": "Coletado de uma colmeia natural ou artificial cheia, usando tesoura. Cria colmeias artificiais, velas e blocos de favo de mel, e encera cobre."
+  },
+  "minecraft:ink_sac": {
+    "en": "Dropped by squids. Crafted into black dye and into a book and quill.",
+    "pt": "Deixada por lulas. Vira corante preto e é usada para criar livro e pena."
+  },
+  "minecraft:iron_helmet": {
+    "en": "Armor piece crafted from iron ingots, offering solid mid-tier protection for the head.",
+    "pt": "Peça de armadura feita com lingotes de ferro, oferecendo boa proteção intermediária para a cabeça."
+  },
+  "minecraft:iron_ingot": {
+    "en": "Smelted from raw iron in a furnace. A key material for tools, armor, rails, buckets and many machines.",
+    "pt": "Fundido a partir de ferro bruto na fornalha. Material essencial para ferramentas, armaduras, trilhos, baldes e várias máquinas."
+  },
+  "minecraft:iron_nugget": {
+    "en": "Smelted from iron tools or armor, or obtained bartering with piglins. Used to craft chains, lanterns and iron ingots.",
+    "pt": "Fundida de ferramentas ou armaduras de ferro, ou obtida em trocas com piglins. Usada para criar correntes, lampiões e lingote de ferro."
+  },
+  "minecraft:iron_sword": {
+    "en": "Sword forged from iron and a stick. A reliable mid-tier weapon for melee combat.",
+    "pt": "Espada forjada com ferro e um graveto. Uma arma confiável de nível intermediário para combate corpo a corpo."
+  },
+  "minecraft:jack_o_lantern": {
+    "en": "Carved pumpkin combined with a torch. Gives maximum light even underwater, but unlike a carved pumpkin it cannot be worn.",
+    "pt": "Abóbora esculpida com uma tocha. Dá luz máxima até debaixo d'água, mas, ao contrário da abóbora esculpida, não pode ser vestida."
+  },
+  "minecraft:kelp": {
+    "en": "Underwater plant that grows quickly in columns. Smelted into dried kelp, a cheap and fast food.",
+    "pt": "Planta aquática que cresce rápido em colunas. Vira algas secas na fornalha, uma comida barata e rápida de comer."
+  },
+  "minecraft:leather": {
+    "en": "Dropped by cows, horses and other mobs, or crafted from four rabbit hides. Used for leather armor, books and item frames.",
+    "pt": "Deixado por vacas, cavalos e outros mobs, ou feito com quatro peles de coelho. Usado em armaduras de couro, livros e molduras de item."
+  },
+  "minecraft:light_blue_wool": {
+    "en": "Wool dyed with light blue dye, made from blue orchids or blue and white dye. Sheep never spawn this color.",
+    "pt": "Lã tingida com corante azul-claro, feito de orquídea-azul ou de corantes azul e branco. Ovelhas nunca nascem dessa cor."
+  },
+  "minecraft:lily_pad": {
+    "en": "Plant that floats on water. Placed on the surface, it lets players and some mobs walk across without swimming.",
+    "pt": "Planta que flutua na água. Colocada na superfície, permite que jogadores e alguns mobs andem sobre ela sem nadar."
+  },
+  "minecraft:magma_cream": {
+    "en": "Crafted from a slimeball and blaze powder, or dropped by magma cubes. Used to brew fire resistance potions and craft magma blocks.",
+    "pt": "Feito com bola de slime e pó de blaze, ou deixado por cubos de magma. Usado na poção de resistência ao fogo e para criar bloco de magma."
+  },
+  "minecraft:melon_seeds": {
+    "en": "Crafted from a melon slice. Planted on farmland to grow a melon stem, which eventually produces melon blocks.",
+    "pt": "Feitas com uma fatia de melancia. Plantadas em terra arada, geram um caule que depois produz blocos de melancia."
+  },
+  "minecraft:mud": {
+    "en": "Made by using a water bottle on dirt, or found in mangrove swamps. With wheat it becomes packed mud, used for mud bricks.",
+    "pt": "Feito ao usar um frasco de água na terra, ou encontrado em manguezais. Com trigo vira barro seco, usado nos tijolos de barro."
+  },
+  "minecraft:mutton": {
+    "en": "Raw meat dropped by sheep. Safe to eat raw, but cooking it restores more hunger.",
+    "pt": "Carne crua que cai de ovelhas. Pode ser comida crua, mas assada restaura mais fome."
+  },
+  "minecraft:name_tag": {
+    "en": "Found by fishing or in chests such as dungeons and mineshafts. Renamed on an anvil, it names a mob so it never despawns.",
+    "pt": "Obtida pescando ou em baús de masmorras e minas abandonadas. Renomeada na bigorna, dá nome a um mob, que deixa de sumir sozinho."
+  },
+  "minecraft:nautilus_shell": {
+    "en": "Held and dropped by some drowned, fished up as treasure, or sold by wandering traders. Eight craft a conduit with a heart of the sea.",
+    "pt": "Segurada e deixada por alguns afogados, pescada como tesouro ou vendida por mercadores ambulantes. Oito criam um conduto com um coração do mar."
+  },
+  "minecraft:nether_star": {
+    "en": "Dropped by the Wither when defeated. The key ingredient for crafting a beacon.",
+    "pt": "Deixada pelo Wither ao ser derrotado. É o ingrediente principal do sinalizador."
+  },
+  "minecraft:oak_sapling": {
+    "en": "Sapling from an oak tree. Plant it on grass or dirt and it grows into a full oak tree over time.",
+    "pt": "Muda de carvalho. Plantada em grama ou terra, cresce até virar uma árvore de carvalho completa."
+  },
+  "minecraft:ochre_froglight": {
+    "en": "Light block dropped when a temperate frog eats a tiny magma cube. Emits the maximum light level.",
+    "pt": "Bloco de luz que surge quando um sapo temperado come um cubo de magma minúsculo. Emite o nível máximo de luz."
+  },
+  "minecraft:ominous_trial_key": {
+    "en": "Dropped by ominous trial spawners, triggered by the Trial Omen effect. Opens an ominous vault with better loot.",
+    "pt": "Deixada por geradores do desafio sombrios, ativados pelo efeito Presságio de Desafio. Abre um cofre sombrio com recompensas melhores."
+  },
+  "minecraft:pearlescent_froglight": {
+    "en": "Light block dropped when a warm frog eats a tiny magma cube. Emits the maximum light level.",
+    "pt": "Bloco de luz que surge quando um sapo quente come um cubo de magma minúsculo. Emite o nível máximo de luz."
+  },
+  "minecraft:phantom_membrane": {
+    "en": "Dropped by phantoms. Repairs an elytra on an anvil and brews the potion of slow falling.",
+    "pt": "Deixada por espectros. Repara élitros na bigorna e é usada na poção de queda lenta."
+  },
+  "minecraft:poppy": {
+    "en": "Common red flower found in plains and forests. Crafted into red dye.",
+    "pt": "Flor vermelha comum encontrada em planícies e florestas. Usada para criar corante vermelho."
+  },
+  "minecraft:porkchop": {
+    "en": "Raw meat dropped by pigs and hoglins. Safe to eat raw, but cooking it restores much more hunger.",
+    "pt": "Carne crua que cai de porcos e hoglins. Pode ser comida crua, mas assada restaura bem mais fome."
+  },
+  "minecraft:potato": {
+    "en": "Vegetable grown on farmland or rarely dropped by zombies. Can be baked into a baked potato in a furnace.",
+    "pt": "Cultivada em terra arada ou deixada às vezes por zumbis. Assada na fornalha, vira batata assada."
+  },
+  "minecraft:prismarine_crystals": {
+    "en": "Dropped by guardians and elder guardians. Combined with prismarine shards to craft sea lanterns.",
+    "pt": "Deixados por guardiões e guardiões-mestres. Com pedaços de prismarinho, criam lanternas marinhas."
+  },
+  "minecraft:prismarine_shard": {
+    "en": "Dropped by guardians and elder guardians. Crafts prismarine, prismarine bricks, dark prismarine and sea lanterns.",
+    "pt": "Deixado por guardiões e guardiões-mestres. Cria prismarinho, tijolos de prismarinho, prismarinho escuro e lanternas marinhas."
+  },
+  "minecraft:pufferfish": {
+    "en": "Poisonous fish caught by fishing or dropped by pufferfish. Brews the potion of water breathing, but eating it is dangerous.",
+    "pt": "Peixe venenoso obtido pescando ou de baiacus. Usado na poção de respiração aquática, mas comê-lo é perigoso."
+  },
+  "minecraft:pumpkin_seeds": {
+    "en": "Crafted from a pumpkin. Planted on farmland to grow a pumpkin stem, which produces pumpkin blocks.",
+    "pt": "Feitas a partir de uma abóbora. Plantadas em terra arada, geram um caule que produz blocos de abóbora."
+  },
+  "minecraft:rabbit": {
+    "en": "Raw meat dropped by rabbits. Cooking it restores more hunger, and cooked rabbit is used in rabbit stew.",
+    "pt": "Carne crua que cai de coelhos. Assada restaura mais fome, e o coelho assado é usado no ensopado de coelho."
+  },
+  "minecraft:rabbit_foot": {
+    "en": "Rare drop from rabbits. Used to brew the potion of leaping, which boosts jump height.",
+    "pt": "Item raro deixado por coelhos. Usado na poção de salto, que aumenta a altura do pulo."
+  },
+  "minecraft:rabbit_hide": {
+    "en": "Dropped by rabbits. Four hides can be crafted into one piece of leather.",
+    "pt": "Deixada por coelhos. Quatro peles de coelho formam um couro."
+  },
+  "minecraft:raw_copper": {
+    "en": "Mined from copper ore. Smelted into copper ingots, used to craft copper blocks, lightning rods and spyglasses.",
+    "pt": "Extraído do minério de cobre. Fundido em lingotes de cobre, usados para criar blocos de cobre, para-raios e lunetas."
+  },
+  "minecraft:raw_iron": {
+    "en": "Mined from iron ore. Smelted into iron ingots, a core material for tools, armor and many mechanisms.",
+    "pt": "Extraído do minério de ferro. Fundido em lingotes de ferro, material essencial para ferramentas, armaduras e vários mecanismos."
+  },
+  "minecraft:red_mushroom": {
+    "en": "Small fungus that grows in dark areas or on podzol and mycelium. Combined with a bowl and a brown mushroom to make mushroom stew.",
+    "pt": "Cogumelo pequeno que cresce em áreas escuras ou sobre podzol e micélio. Com uma tigela e um cogumelo marrom, faz ensopado de cogumelos."
+  },
+  "minecraft:redstone": {
+    "en": "Mined from redstone ore. The base material for redstone circuits, powering doors, pistons, lamps and other mechanisms.",
+    "pt": "Extraído do minério de redstone. Material base dos circuitos de redstone, que alimentam portas, pistões, lâmpadas e outros mecanismos."
+  },
+  "minecraft:rose_bush": {
+    "en": "Tall two-block flower found in forest biomes. Each one is crafted into two red dyes.",
+    "pt": "Flor alta de dois blocos encontrada em florestas. Cada roseira vira dois corantes vermelhos na bancada."
+  },
+  "minecraft:rotten_flesh": {
+    "en": "Dropped by zombies and similar undead mobs. Edible in an emergency, but likely to cause the Hunger effect.",
+    "pt": "Deixada por zumbis e mortos-vivos parecidos. Comestível em emergências, mas costuma causar o efeito Fome."
+  },
+  "minecraft:salmon": {
+    "en": "Raw fish caught by fishing or dropped by salmon, which live in rivers and cold oceans. Cooking it restores more hunger.",
+    "pt": "Peixe cru obtido pescando ou de salmões, que vivem em rios e oceanos frios. Assado restaura mais fome."
+  },
+  "minecraft:sand": {
+    "en": "Loose block affected by gravity, common in deserts and beaches. Smelted into glass.",
+    "pt": "Bloco solto afetado pela gravidade, comum em desertos e praias. Vira vidro na fornalha."
+  },
+  "minecraft:slime_ball": {
+    "en": "Dropped by slimes. Used to craft leads, sticky pistons and magma cream.",
+    "pt": "Deixada por slimes. Usada para criar laços, pistões grudentos e creme de magma."
+  },
+  "minecraft:snowball": {
+    "en": "Gathered by breaking snow with a shovel, or dropped by snow golems. Thrown, it knocks back mobs and hurts blazes.",
+    "pt": "Obtida ao quebrar neve com uma pá, ou deixada por golens de neve. Arremessada, empurra mobs e causa dano a blazes."
+  },
+  "minecraft:spider_eye": {
+    "en": "Dropped by spiders, cave spiders and witches. Poisonous if eaten, and brews the potion of poison.",
+    "pt": "Deixado por aranhas, aranhas-das-cavernas e bruxas. Venenoso se comido e usado na poção de veneno."
+  },
+  "minecraft:stick": {
+    "en": "Crafted from planks or bamboo, and dropped by leaves and dead bushes. One of the most used crafting materials.",
+    "pt": "Feito com tábuas ou bambu, e deixado por folhas e arbustos mortos. Um dos materiais de criação mais usados."
+  },
+  "minecraft:stone": {
+    "en": "Obtained by smelting cobblestone, or by mining stone with a Silk Touch tool. A basic building block.",
+    "pt": "Obtida fundindo pedregulho na fornalha, ou quebrando pedra com Toque Suave. Bloco básico de construção."
+  },
+  "minecraft:stone_axe": {
+    "en": "Basic tool crafted from cobblestone and sticks. Chops wood faster than a wooden axe.",
+    "pt": "Ferramenta básica feita com pedregulho e gravetos. Corta madeira mais rápido que o machado de madeira."
+  },
+  "minecraft:string": {
+    "en": "Dropped by spiders or found in cobwebs. Used to craft bows, fishing rods, leads and the loom.",
+    "pt": "Deixada por aranhas ou obtida de teias de aranha. Usada para criar arcos, varas de pesca, laços e o tear."
+  },
+  "minecraft:sugar": {
+    "en": "Crafted from sugar cane or honey bottles. Used to brew potions of swiftness and to bake cakes.",
+    "pt": "Feito com cana-de-açúcar ou frascos de mel. Usado para fazer a poção de agilidade e para preparar bolos."
+  },
+  "minecraft:sunflower": {
+    "en": "Tall decorative plant that always faces east, useful for finding directions. Crafted into two yellow dyes.",
+    "pt": "Planta decorativa alta que sempre aponta para o leste, útil para se orientar. Vira dois corantes amarelos quando processada."
+  },
+  "minecraft:sweet_berries": {
+    "en": "Picked from sweet berry bushes in taiga biomes. Edible and plantable; the bushes hurt anything moving through them.",
+    "pt": "Colhidas de arbustos de bagas doces nas taigas. Comestíveis e plantáveis; os arbustos ferem quem passa por eles."
+  },
+  "minecraft:terracotta": {
+    "en": "Made by smelting clay blocks. A sturdy decorative block that can be dyed into sixteen colors.",
+    "pt": "Feita fundindo blocos de argila na fornalha. Bloco decorativo resistente que pode ser tingido em dezesseis cores."
+  },
+  "minecraft:totem_of_undying": {
+    "en": "Always dropped by evokers. Held in hand, it saves the holder from death once, healing and granting temporary effects.",
+    "pt": "Sempre deixado por invocadores. Na mão, salva o portador da morte uma vez, curando e dando efeitos temporários."
+  },
+  "minecraft:trial_key": {
+    "en": "Dropped by trial spawners in Trial Chambers. Opens a vault to claim its loot.",
+    "pt": "Deixada por geradores do desafio nas Câmaras do Desafio. Abre um cofre para pegar a recompensa."
+  },
+  "minecraft:turtle_scute": {
+    "en": "Dropped when a baby turtle grows into an adult. Five of them craft a turtle shell.",
+    "pt": "Solta quando um filhote de tartaruga vira adulto. Cinco delas criam o casco de tartaruga."
+  },
+  "minecraft:verdant_froglight": {
+    "en": "Light block dropped when a cold frog eats a tiny magma cube. Emits the maximum light level.",
+    "pt": "Bloco de luz que surge quando um sapo frio come um cubo de magma minúsculo. Emite o nível máximo de luz."
+  },
+  "minecraft:vine": {
+    "en": "Climbable plant that grows on jungle trees and other blocks. Also crafts mossy cobblestone and mossy stone bricks.",
+    "pt": "Planta escalável que cresce em árvores da selva e outros blocos. Também cria pedregulho musgoso e tijolos de pedra musgosos."
+  },
+  "minecraft:wheat_seeds": {
+    "en": "Gathered by breaking grass or harvesting wheat. Planted on farmland to grow wheat, and used to breed chickens.",
+    "pt": "Obtidas ao quebrar grama ou colher trigo. Plantadas em terra arada fazem crescer trigo e servem para reproduzir galinhas."
+  },
+  "minecraft:white_concrete": {
+    "en": "Made by letting white concrete powder touch water. A solid building block, unlike its powder unaffected by gravity.",
+    "pt": "Feito quando o cimento branco toca a água. Bloco sólido que, ao contrário do cimento, não é afetado pela gravidade."
+  },
+  "minecraft:white_wool": {
+    "en": "Wool from white sheep, the most common color, or crafted from four string. Other wool can be dyed white with white dye.",
+    "pt": "Lã de ovelhas brancas, a cor mais comum, ou feita com quatro linhas. Outras lãs podem ser tingidas com corante branco."
+  },
+  "minecraft:wind_charge": {
+    "en": "Crafted from a breeze rod, dropped by breezes. Thrown, it knocks back entities and flips levers, buttons and wooden doors.",
+    "pt": "Feito com vara de vórtice, deixada por vórtices. Arremessado, empurra entidades e aciona alavancas, botões e portas de madeira."
   },
   "silentgear:sinew": {
     "en": "Animal tissue dropped by some mobs. Smelted into Dried Sinew, then crafted into Sinew Fiber, a cord material for Silent Gear tools.",
