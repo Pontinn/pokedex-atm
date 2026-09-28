@@ -12,6 +12,7 @@ created: 2026-09-28
 Pontin (2026-09-28): "tem muito item que ta sem descricao, nao consegue buscar isso em algum lugar?". No dataset publicado `atm1.3.0-cobblemon1.7.3-20260927-1344fc8b`, 605 de 949 itens tem `description: null`.
 
 ## 2. Decisoes
+- Pontin (2026-09-28): "cheque tudo pra nao cometer erros, se necessario cheque mais de uma fonte". Cada fato do texto curado confirmado em mais de uma fonte quando possivel; divergencia = arquivos do modpack vencem e o id vira baixa confianca.
 - Rodar como `--quick` na branch `feature/item-descriptions` (criada de `feature/pontindex` em 753364a6). Pontin: "use agentes pra tudo".
 - Fonte 1 (jogo, prioridade maxima): os arquivos de idioma que ja estao em `data-source/atm-1.3.0/`. Hoje o pipeline so le `item.<ns>.<path>.tooltip` (`tools/dataset/src/items/catalog.ts:122`). Ha texto em outras chaves:
   - `item.<ns>.<path>.tooltip_1`, `tooltip_2`, ... (Cobblemon, ex. `air_balloon`, `kings_rock`, `brittle_candy`): 52 itens.

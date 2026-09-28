@@ -101,6 +101,7 @@ cobblemon:leek_and_potato_stew
 cobblemon:loamy_mulch
 cobblemon:luminous_moss
 cobblemon:lumiose_galette
+cobblemon:medicinal_brew
 cobblemon:mulch_base
 cobblemon:nostalgic_sherd
 cobblemon:npc_editor
