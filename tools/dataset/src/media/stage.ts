@@ -21,9 +21,10 @@ export async function runMediaStage(ctx: PipelineContext): Promise<void> {
   const sfx = extractSfx(ctx);
   ctx.media.register("sfx", sfx.files, sfx.bytes);
 
-  const textures = extractItemTextures(ctx);
+  const textures = await extractItemTextures(ctx);
   ctx.media.register("itemTextures", textures.files, textures.bytes);
   ctx.setCount("itemTextures", textures.files);
+  ctx.report.section("itemTexturesAnimated", textures.animated);
 
   checkBudget(ctx);
 }

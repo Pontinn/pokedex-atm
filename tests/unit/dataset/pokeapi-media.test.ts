@@ -12,6 +12,7 @@ import { buildLangTable } from "../../../tools/dataset/src/lang";
 import { extractCries } from "../../../tools/dataset/src/media/cries";
 import { checkBudget, MEDIA_BUDGET_BYTES } from "../../../tools/dataset/src/media/budget";
 import { extractItemTextures } from "../../../tools/dataset/src/media/item-textures";
+import { frameRect, parseTextureAnimation } from "../../../tools/dataset/src/media/animated-texture";
 import { extractSfx } from "../../../tools/dataset/src/media/sfx";
 import { runMediaStage } from "../../../tools/dataset/src/media/stage";
 import { buildMoves, collectMoveIds } from "../../../tools/dataset/src/moves";
@@ -20,6 +21,7 @@ import { runPokeapiStage } from "../../../tools/dataset/src/pokeapi/stage";
 import { createReportSink } from "../../../tools/dataset/src/report";
 import type { JarId, JarRef, SourceReader } from "../../../tools/dataset/src/source-reader";
 import { SFX_NAMES } from "../../../src/audio/sfx-names";
+import sharp from "sharp";
 
 process.env.DATASET_QUIET = "1";
 
@@ -455,7 +457,7 @@ describe("media: sfx (B3.4)", () => {
 });
 
 describe("media: item textures (B3.4)", () => {
-  it("preserva subpastas ao copiar; manifesto prefere a versao fora de models/", () => {
+  it("preserva subpastas ao copiar; manifesto prefere a versao fora de models/", async () => {
     const reader = new FakeSourceReader({
       cobblemon: new Map([
         ["assets/cobblemon/textures/item/poke_balls/azure_ball.png", bytesOf("icon")],
@@ -467,14 +469,87 @@ describe("media: item textures (B3.4)", () => {
     });
     const ctx = makeCtx();
     ctx.reader = reader;
-    const result = extractItemTextures(ctx);
+    const result = await extractItemTextures(ctx);
     expect(result.files).toBe(5);
+    expect(result.animated).toEqual([]);
     expect(result.manifest["cobblemon:azure_ball"]).toBe("cobblemon/poke_balls/azure_ball.png");
     expect(readFileSync(ctx.assetPath("items", "cobblemon", "poke_balls", "azure_ball.png"), "utf8")).toBe("icon");
     expect(readFileSync(ctx.assetPath("items", "cobblemon", "poke_balls", "models", "azure_ball.png"), "utf8")).toBe("model");
     expect(readFileSync(ctx.assetPath("items", "allthemons", "foo.png"), "utf8")).toBe("foo");
     const manifestFile = JSON.parse(readFileSync(ctx.dataPath("texture-manifest.json"), "utf8"));
     expect(manifestFile["mega_showdown:bar"]).toBe("mega_showdown/bar.png");
+  });
+});
+
+describe("media: animated item textures (item-descriptions D5)", () => {
+  const RED = { r: 255, g: 0, b: 0, alpha: 1 };
+  const GREEN = { r: 0, g: 255, b: 0, alpha: 1 };
+  const BLUE = { r: 0, g: 0, b: 255, alpha: 1 };
+
+  /** tira vertical 16x48 com 3 quadros de cor solida (vermelho, verde, azul) */
+  async function stripPng(): Promise<Uint8Array> {
+    const frame = (background: typeof RED) => sharp({ create: { width: 16, height: 16, channels: 4, background } }).png().toBuffer();
+    const [r, g, b] = await Promise.all([frame(RED), frame(GREEN), frame(BLUE)]);
+    const png = await sharp({ create: { width: 16, height: 48, channels: 4, background: RED } })
+      .composite([
+        { input: r, left: 0, top: 0 },
+        { input: g, left: 0, top: 16 },
+        { input: b, left: 0, top: 32 },
+      ])
+      .png()
+      .toBuffer();
+    return new Uint8Array(png);
+  }
+
+  const json = (value: unknown) => new TextEncoder().encode(JSON.stringify(value));
+
+  it("parseTextureAnimation: frames[0] as number or {index}; no animation section -> null", () => {
+    expect(parseTextureAnimation(json({ animation: { frametime: 3 } }), "t")).toEqual({ frameIndex: 0, frameWidth: null, frameHeight: null });
+    expect(parseTextureAnimation(json({ animation: { frames: [2, 0, 1] } }), "t")?.frameIndex).toBe(2);
+    expect(parseTextureAnimation(json({ animation: { frames: [{ index: 1, time: 70 }, 0] } }), "t")?.frameIndex).toBe(1);
+    expect(parseTextureAnimation(json({ animation: { width: 32, height: 16 } }), "t")).toEqual({ frameIndex: 0, frameWidth: 32, frameHeight: 16 });
+    expect(parseTextureAnimation(json({ villager: { hat: "full" } }), "t")).toBeNull();
+  });
+
+  it("frameRect: square min(w,h) frames by default, grid order, explicit width/height, out of bounds throws", () => {
+    const anim = (frameIndex: number, frameWidth: number | null = null, frameHeight: number | null = null) => ({ frameIndex, frameWidth, frameHeight });
+    expect(frameRect(16, 160, anim(0), "t")).toEqual({ left: 0, top: 0, width: 16, height: 16 });
+    expect(frameRect(32, 96, anim(2), "t")).toEqual({ left: 0, top: 64, width: 32, height: 32 });
+    expect(frameRect(32, 32, anim(1, 16, 16), "t")).toEqual({ left: 16, top: 0, width: 16, height: 16 });
+    expect(() => frameRect(16, 48, anim(3), "t")).toThrow(/E_MEDIA_CORRUPT/);
+  });
+
+  it("publishes only the frame frames[0] points to; mcmeta without animation and textures without mcmeta stay byte-identical", async () => {
+    const strip = await stripPng();
+    const reader = new FakeSourceReader({
+      cobblemon: new Map([["assets/cobblemon/textures/item/potion.png", bytesOf("potion")]]),
+      allthemons: new Map([
+        ["assets/allthemons/textures/item/badges/the_kitty_badge.png", strip],
+        ["assets/allthemons/textures/item/badges/the_kitty_badge.png.mcmeta", json({ animation: { frames: [{ index: 1, time: 70 }, 0, 2] } })],
+        ["assets/allthemons/textures/item/still.png", strip],
+        ["assets/allthemons/textures/item/still.png.mcmeta", json({ other: true })],
+      ]),
+      mega_showdown: new Map([
+        ["assets/mega_showdown/textures/item/stellar_tera_shard.png", strip],
+        ["assets/mega_showdown/textures/item/stellar_tera_shard.png.mcmeta", json({ animation: { frametime: 3 } })],
+      ]),
+    });
+    const ctx = makeCtx();
+    ctx.reader = reader;
+    const result = await extractItemTextures(ctx);
+    expect(result.files).toBe(4);
+    expect(result.animated).toEqual(["allthemons:badges/the_kitty_badge", "mega_showdown:stellar_tera_shard"]);
+
+    const pixel = async (file: string) => {
+      const img = sharp(readFileSync(file));
+      const { width, height } = await img.metadata();
+      const raw = await img.raw().toBuffer();
+      return { width, height, rgb: [raw[0], raw[1], raw[2]] };
+    };
+    expect(await pixel(ctx.assetPath("items", "allthemons", "badges", "the_kitty_badge.png"))).toEqual({ width: 16, height: 16, rgb: [0, 255, 0] });
+    expect(await pixel(ctx.assetPath("items", "mega_showdown", "stellar_tera_shard.png"))).toEqual({ width: 16, height: 16, rgb: [255, 0, 0] });
+    expect(new Uint8Array(readFileSync(ctx.assetPath("items", "allthemons", "still.png")))).toEqual(strip);
+    expect(readFileSync(ctx.assetPath("items", "cobblemon", "potion.png"), "utf8")).toBe("potion");
   });
 });
 

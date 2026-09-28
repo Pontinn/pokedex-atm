@@ -10,5 +10,16 @@
     "rctapi-neoforge-1.21.1-0.15.2-beta.jar": 1,
     "rctmod-neoforge-1.21.1-0.18.1-beta.jar": 2220,
     "zamega-neoforge-1.7.6.jar": 112
-  }
+  },
+  "additions": [
+    {
+      "date": "2026-09-28",
+      "what": "assets/<ns>/textures/item/**/*.png.mcmeta (animacao das texturas de item), copiados dos jars originais",
+      "files_per_jar": {
+        "Cobblemon-neoforge-1.7.3+1.21.1.jar": 3,
+        "allthemons-0.6.2.jar": 20,
+        "mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar": 1
+      }
+    }
+  ]
 }

@@ -4,10 +4,12 @@
 // sem extensao>" -> caminho relativo publicado, para o catalogo de itens (B4.1, Onda 2) resolver a
 // textura de cada item por id; quando o mesmo basename existe em mais de um caminho no namespace
 // (ex. poke_balls/<nome>.png e poke_balls/models/<nome>.png), a versao FORA de "models/" vence.
+// Textura com <nome>.png.mcmeta "animation" (tira de quadros) e publicada so com o primeiro quadro (animated-texture.ts).
 import type { JarId } from "../source-reader";
 import type { PipelineContext } from "../context";
 import { writeFileAtomic } from "../lib/fs-atomic";
 import { writeJsonAtomic } from "../lib/fs-atomic";
+import { extractAnimationFrame, parseTextureAnimation } from "./animated-texture";
 
 const NAMESPACE_JARS: { ns: string; jarId: JarId }[] = [
   { ns: "cobblemon", jarId: "cobblemon" },
@@ -21,6 +23,8 @@ export interface ItemTexturesResult {
   files: number;
   bytes: number;
   manifest: Record<string, string>;
+  /** "<ns>:<caminho relativo sem .png>" das texturas animadas publicadas so com um quadro */
+  animated: string[];
 }
 
 function basenameNoExt(relPath: string): string {
@@ -32,8 +36,9 @@ function isModelsPath(relPath: string): boolean {
   return relPath.includes("/models/") || relPath.startsWith("models/");
 }
 
-export function extractItemTextures(ctx: PipelineContext): ItemTexturesResult {
+export async function extractItemTextures(ctx: PipelineContext): Promise<ItemTexturesResult> {
   const manifest: Record<string, string> = {};
+  const animated: string[] = [];
   let files = 0;
   let bytes = 0;
 
@@ -57,11 +62,16 @@ export function extractItemTextures(ctx: PipelineContext): ItemTexturesResult {
     for (const [entryPath, data] of pngEntries) {
       if (data.byteLength === 0) throw new Error(`E_MEDIA_CORRUPT: ${jar.fileName}!${entryPath} tem 0 bytes`);
       const rel = entryPath.slice(prefix.length);
-      bytes += writeFileAtomic(ctx.assetPath("items", ns, rel), data);
+      const mcmeta = entries.get(`${entryPath}.mcmeta`);
+      const where = `${jar.fileName}!${entryPath}`;
+      const animation = mcmeta ? parseTextureAnimation(mcmeta, `${where}.mcmeta`) : null;
+      const out = animation ? await extractAnimationFrame(data, animation, where) : data;
+      if (animation) animated.push(`${ns}:${rel.replace(/.png$/, "")}`);
+      bytes += writeFileAtomic(ctx.assetPath("items", ns, rel), out);
       files++;
     }
   }
 
   writeJsonAtomic(ctx.dataPath("texture-manifest.json"), manifest);
-  return { files, bytes, manifest };
+  return { files, bytes, manifest, animated: animated.sort() };
 }
