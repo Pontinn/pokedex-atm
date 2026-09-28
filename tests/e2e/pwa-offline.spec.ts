@@ -302,4 +302,49 @@ test.describe("F12.1 PWA installable and cache", () => {
       await server.close();
     }
   });
+
+  // U1b: aba aberta num build antigo pede um chunk lazy cujo hash ja saiu do ar. Sem SW (o page.route ve o pedido
+  // do chunk direto) e com o chunk da tela Sincronizar abortado, simulando o 404 pos-deploy.
+  test.describe("stale lazy chunk after a deploy", () => {
+    test.use({ serviceWorkers: "block", viewport: { width: 1280, height: 900 } });
+    const SYNC_CHUNK = /\/assets\/SyncScreen-[^/]+\.js$/;
+    const openSync = (page: Page) => page.locator(".sidebar .nav-item").nth(7).click();
+
+    test("missing chunk reloads the page once, then the screen opens on the fresh build", async ({ page }) => {
+      const errors = trackPageErrors(page);
+      let aborted = 0;
+      await page.route(SYNC_CHUNK, (route) => {
+        if (aborted++ === 0) return route.abort();
+        return route.continue();
+      });
+      let loads = 0;
+      page.on("load", () => loads++);
+      await page.goto("/");
+      await bootHome(page);
+      await openSync(page);
+      await expect.poll(() => loads, { timeout: 30_000 }).toBe(2);
+      await bootHome(page);
+      await openSync(page);
+      await expect(page.locator(".sync-screen")).toBeVisible({ timeout: 30_000 });
+      expect(loads).toBe(2);
+      expect(errors).toEqual([]);
+    });
+
+    test("a chunk that is really gone reloads only once (no loop) and falls back to the error screen", async ({ page }) => {
+      await page.route(SYNC_CHUNK, (route) => route.abort());
+      let loads = 0;
+      page.on("load", () => loads++);
+      await page.goto("/");
+      await bootHome(page);
+      await openSync(page);
+      await expect.poll(() => loads, { timeout: 30_000 }).toBe(2);
+      await bootHome(page);
+      await openSync(page);
+      await expect(page.locator(".error-fallback")).toBeVisible({ timeout: 30_000 });
+      // a trava do sessionStorage segurou: nenhum reload a mais, nem abrindo a tela de novo
+      await page.locator(".error-fallback .btn-primary").click();
+      await expect(page.locator(".error-fallback")).toBeVisible();
+      expect(loads).toBe(2);
+    });
+  });
 });

@@ -1,7 +1,7 @@
 # Checklist pwa-auto-update (quick)
 - [x] U1 SW em autoUpdate (skipWaiting + clientsClaim), reload unico automatico, UpdatePrompt removido; unit + e2e pwa-offline adaptados (update sem clique, offline, dados preservados, sem loop); build ok. (dfac0441)
 - [x] U2 PRD/SPEC do pontindex com nota de revisao do F12.1. (8726584e)
-- [ ] U1b Recarregar uma vez quando um chunk antigo falhar (`vite:preloadError`), cobrindo a aba antiga na primeira troca.
+- [x] U1b Recarregar uma vez quando um chunk antigo falhar (`vite:preloadError`), cobrindo a aba antiga na primeira troca.
 - [ ] U3 Paths de asset do dataset com `?v=<hash>` (cache busting).
 - [x] U4 282 descricoes curadas sem obtencao. (284 ids, 208 reescritas) `009c1b55`
 - [ ] U5a Pipeline: loot de treinador do kubejs no `obtain`.

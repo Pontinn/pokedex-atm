@@ -3,6 +3,7 @@
 // Atualizacao automatica (F12.1, revisado 2026-09-28): o SW novo ativa sozinho (skipWaiting + clientsClaim no
 // vite.config.ts) e a pagina recarrega UMA vez quando ele assume o controle. Sem botao, sem aviso.
 import { setInstallPromptAvailable } from "../platform/web";
+import { installChunkReload } from "./chunk-reload";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -17,6 +18,8 @@ const initialController =
 
 export function registerServiceWorker(): void {
   if (typeof window === "undefined") return;
+  // chunk lazy de um build antigo que ja saiu do ar: recarrega uma vez no build novo
+  installChunkReload();
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     deferredPrompt = e as BeforeInstallPromptEvent;
