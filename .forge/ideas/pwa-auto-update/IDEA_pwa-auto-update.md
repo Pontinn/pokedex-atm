@@ -32,3 +32,9 @@ Duas abas abertas (as duas passam para a versao nova, sem loop); offline no mome
 
 ## 5-6, 9-12
 N/A: sem papeis, sem entidades, sem UI nova (so remove o aviso). Prioridade: must. Premissa confirmada: Pontin quer sem botao.
+
+## Adendo 2026-09-28 18:30 (print do Pontin: insignia da Gatinha ainda em tira + texto de obtencao na descricao)
+- U3 Cache das imagens: o servidor ja serve 16x16, mas `/assets/(.*)` sai com `Cache-Control: immutable, max-age=1 ano` (vercel.json) e o SW guarda `/assets/items/` em CacheFirst; o caminho nao tem versao, entao quem ja tinha a tira nunca busca de novo. Correcao: o pipeline grava cada caminho de asset referenciado pelo dataset com `?v=<hash curto do conteudo>` (itens, bolas e qualquer outro asset do dataset que possa mudar de conteudo no mesmo caminho). O frontend deve preservar a query.
+- U4 Descricoes curadas (282) sem informacao de obtencao (Pontin: "o texto de como obter ta aparecendo na descricao do item"). Descricao = o que o item e / para que serve; obtencao fica so em "Como obter". Textos do jogo nao mudam.
+- U5 Como obter com loot de treinador (Pontin aprovou nesta branch): o pipeline le as loot tables de treinador do kubejs (ex. insignia da Gatinha -> Satherov) e publica uma fonte "Drop de treinador" no `obtain`, mostrada no mesmo visual das outras fontes. Hoje a insignia mostra "Sem rota confirmada", contradizendo o fato.
+- U6 Uma unica republicacao do dataset + testes completos, depois de U1..U5.
