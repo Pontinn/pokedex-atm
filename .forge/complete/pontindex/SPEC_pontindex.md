@@ -643,7 +643,7 @@ Regras gerais (auto-fill por categoria, valem em todas as features abaixo):
 #### Feature B1.3: PWA base, fontes e icones empacotados `[category: build]`
 - **Traces**: RF-103, RNF-11, nota do orquestrador (sem CDN/pin).
 - **Steps**:
-  1. `vite.config.ts`: `react()`, `VitePWA({ registerType: "prompt", includeAssets: ["icons/*.png"], manifest: {...F12.1}, workbox: { globPatterns: ["**/*.{js,css,html,svg,webp,woff2}"], maximumFileSizeToCacheInBytes: 4_000_000, navigateFallback: "/index.html", runtimeCaching: [] } })` (o `runtimeCaching` completo entra em F12.1); `define: { __APP_VERSION__: JSON.stringify(pkg.version) }`; `build.rollupOptions.output.manualChunks`: `vendor-react`, `vendor-sync` (`fflate`, `qrcode`, `@zxing/*`).
+  1. `vite.config.ts` (revisado 2026-09-28: `registerType: "autoUpdate"`, ver F12.1): `react()`, `VitePWA({ registerType: "prompt", includeAssets: ["icons/*.png"], manifest: {...F12.1}, workbox: { globPatterns: ["**/*.{js,css,html,svg,webp,woff2}"], maximumFileSizeToCacheInBytes: 4_000_000, navigateFallback: "/index.html", runtimeCaching: [] } })` (o `runtimeCaching` completo entra em F12.1); `define: { __APP_VERSION__: JSON.stringify(pkg.version) }`; `build.rollupOptions.output.manualChunks`: `vendor-react`, `vendor-sync` (`fflate`, `qrcode`, `@zxing/*`).
   2. Fontes: `import "@fontsource/fredoka/400.css"` (+500/600/700), `@fontsource/nunito/{400,600,700,800}.css`, `@fontsource/silkscreen/400.css` em `src/styles/fonts.ts`; `font-display: swap`.
   3. `lucide-react` fixado; `src/components/Icon.tsx` reexporta os icones usados (`import { Search, ... } from "lucide-react"`), tree-shaken.
 - **Edge cases**: `maximumFileSizeToCacheInBytes` impede que um chunk gigante entre no precache (build falha se algum arquivo do shell passar de 4 MB); fontes ausentes -> fallback `system-ui` (declarado nos tokens).
@@ -1525,6 +1525,7 @@ Regras gerais de toda feature de frontend (auto-fill da categoria `frontend`, va
 - **Done when**: `navigator.serviceWorker.controller` presente no 2o load; recarregar offline (Playwright `context.setOffline(true)`) mantem Home, Dex e uma ficha ja aberta.
 - **Commit**: `feat(pwa): installable manifest, precache and runtime caching strategy`
 - **Rollback**: revert (remover SW: `registerType` + `self.skipWaiting` com `clientsClaim` e um deploy que desregistra).
+- **Revisao 2026-09-28 (Pontin, quick `pwa-auto-update`)**: `registerType: "prompt"` -> `"autoUpdate"` com reload automatico. O Pontin nunca pediu o botao ("era so pra atualizar de uma so vez"). Agora: `workbox.skipWaiting` + `clientsClaim` (explicitos, porque com `injectRegister: false` o plugin nao os liga), e `src/pwa/register-sw.ts` recarrega a pagina UMA vez no `controllerchange` (nunca na 1a visita, sem loop; aba aberta checa versao nova ao voltar a ficar visivel). `UpdatePrompt`, `update-store.ts` e as strings `pwa.update*` foram removidos. Offline/precache e o botao "Instalar app" (RF-103) nao mudam. Onde o texto acima fala em `registerType: "prompt"` e `UpdatePrompt`, vale esta revisao.
 
 
 
