@@ -12,10 +12,13 @@ const items = JSON.parse(readFileSync(join(root, version, "items.json"), "utf8")
 
 describe("F9.3 item page", () => {
   it("item without route shows a single 'none' row; unknown id too", () => {
-    const none = Object.values(items).find((i) => i.obtain.every((r) => r.kind === "none"))!;
+    // U7d: o dataset publicado nao tem mais `none` (zero item sem rota); o caso sai de um item sintetico.
+    expect(Object.values(items).some((i) => i.obtain.some((r) => r.kind === "none"))).toBe(false);
+    const none: ItemsFile[string] = { ...items["cobblemon:potion"]!, obtain: [{ kind: "none" }] };
     expect(obtainRows(none)).toEqual([{ kind: "none" }]);
     expect(obtainRows(null)).toEqual([{ kind: "none" }]);
-    expect(obtainRows(items["cobblemon:potion"]!).map((r) => r.kind)).toEqual(["craftable", "structureLoot"]);
+    // U7c: pocao ganhou recompensa de missao e estrutura gerada no mundo.
+    expect(obtainRows(items["cobblemon:potion"]!).map((r) => r.kind)).toEqual(["craftable", "structureLoot", "questReward", "structurePlaced"]);
   });
 
   it("recipe types become readable labels without repeats; never the recipe", () => {
