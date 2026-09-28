@@ -366,11 +366,44 @@ export type ItemObtainRoute =
   | { kind: "fishing" }
   | { kind: "fossilRevive"; species: number[] }
   | { kind: "trainerDrop"; trainers: ItemTrainerDrop[] }
+  /** Quebrar um bloco que solta o item (contrato v2, U7c). Bloco que so solta ele mesmo nao conta. */
+  | { kind: "blockDrop"; blocks: ItemNamedRef[] }
+  /** Mobs (entities/...), inclusive global loot modifiers de bosses. */
+  | { kind: "mobDrop"; mobs: ItemNamedRef[] }
+  /** Recompensas do FTB Quests. */
+  | { kind: "questReward"; quests: ItemQuestRef[] }
+  /** Loja de BP da Battle Tower. */
+  | { kind: "shop"; shop: ItemShopId; price: number | null }
+  /** Item ja colocado em estrutura .nbt (vitrine, moldura, recompensa de trial spawner). */
+  | { kind: "structurePlaced"; structures: ItemNamedRef[] }
+  /** Summoning Rituals (kubejs): ids dos rituais. */
+  | { kind: "ritual"; rituals: string[] }
+  /** Troca com aldeao / vendedor ambulante. */
+  | { kind: "trade"; traders: ItemTrader[] }
+  /** Gerado no mundo (features de worldgen), so com prova. */
+  | { kind: "worldgen"; features: string[] }
+  /** Mecanica pontual provada por arquivo/config; evidence = "arquivo:chave". */
+  | { kind: "special"; note: LocalizedText; evidence: string }
   /** Comprovadamente sem rota no pack (U7d): so no modo criativo ou nem registrado no jogo. */
   | { kind: "unobtainable"; reason?: ItemUnobtainableReason }
   | { kind: "none" };
 
 export type ItemUnobtainableReason = "creativeOnly" | "notRegistered";
+
+/** Referencia com nome do lang do pack (null quando o jogo nao tem nome). */
+export interface ItemNamedRef {
+  id: string;
+  name: LocalizedText | null;
+}
+
+export interface ItemQuestRef {
+  chapter: LocalizedText | null;
+  title: LocalizedText | null;
+}
+
+export type ItemShopId = "battleTowerBp";
+
+export type ItemTrader = "wanderingTrader" | "villager";
 
 /** Um treinador que dropa o item (loot rctmod do kubejs, U5a). */
 export interface ItemTrainerDrop {

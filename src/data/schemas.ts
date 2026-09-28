@@ -237,6 +237,9 @@ export const abilityInfoSchema: z.ZodType<AbilityInfo> = z.object({
 });
 export const abilitiesFileSchema: z.ZodType<AbilitiesFile> = z.record(z.string(), abilityInfoSchema);
 
+/** Contrato v2 (U7c/U7d): objetos estritos, campo desconhecido rejeita o items.json. */
+const itemNamedRefSchema = z.object({ id: z.string(), name: localizedTextSchema.strict().nullable() }).strict();
+
 export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
   id: z.string(),
   namespace: z.string(),
@@ -273,6 +276,20 @@ export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
           }),
         ),
       }),
+      z.object({ kind: z.literal("blockDrop"), blocks: z.array(itemNamedRefSchema) }).strict(),
+      z.object({ kind: z.literal("mobDrop"), mobs: z.array(itemNamedRefSchema) }).strict(),
+      z.object({
+        kind: z.literal("questReward"),
+        quests: z.array(
+          z.object({ chapter: localizedTextSchema.strict().nullable(), title: localizedTextSchema.strict().nullable() }).strict(),
+        ),
+      }).strict(),
+      z.object({ kind: z.literal("shop"), shop: z.literal("battleTowerBp"), price: z.number().nullable() }).strict(),
+      z.object({ kind: z.literal("structurePlaced"), structures: z.array(itemNamedRefSchema) }).strict(),
+      z.object({ kind: z.literal("ritual"), rituals: z.array(z.string()) }).strict(),
+      z.object({ kind: z.literal("trade"), traders: z.array(z.enum(["wanderingTrader", "villager"])) }).strict(),
+      z.object({ kind: z.literal("worldgen"), features: z.array(z.string()) }).strict(),
+      z.object({ kind: z.literal("special"), note: localizedTextSchema.strict(), evidence: z.string() }).strict(),
       z.object({ kind: z.literal("unobtainable"), reason: z.enum(["creativeOnly", "notRegistered"]).optional() }),
       z.object({ kind: z.literal("none") }),
     ]),
