@@ -75,3 +75,29 @@ OBRIGATORIO antes do U6: sem isso o app rejeita `items.json` inteiro (`src/data/
 ## Ambiente (vai afetar o U6)
 
 A publicacao falha com `E_WRITE_FAILED` (EPERM no rename de `data/species`) enquanto algum processo observa a pasta do repo. Repro: criar pasta em `tools/dataset/out`, esperar 3 s, renomear = EPERM; o mesmo em `Projetos/` ou no scratchpad = ok. Processo suspeito: dev server Vite na porta 4191 (pid 33680 no momento). Este agente nao o parou (nao e dele). Rodadas de teste usaram um preload do scratchpad (`--require copyrename.cjs`) que troca o rename de pasta por copia + remocao.
+
+## Frontend contract (U5b feito em `9e5cf387`; vale para U7d)
+
+O app (`src/data/types.ts` `ItemObtainRoute`, `src/data/schemas.ts` `itemInfoSchema.obtain`) aceita agora, alem das rotas antigas:
+
+```ts
+| { kind: "trainerDrop"; trainers: { id: string; name: string | null; series: string | null; chance: number | null;
+    levelRange: { min: number; max: number } | null; firstDefeatOnly: boolean }[] }   // exatamente o formato do U5a
+| { kind: "unobtainable"; reason?: "creativeOnly" | "notRegistered" }                // U7d emite este
+| { kind: "none" }                                                                   // ainda aceito (compatibilidade)
+```
+
+`unobtainable` (U7d):
+- Forma exata: `{ "kind": "unobtainable" }` ou `{ "kind": "unobtainable", "reason": "creativeOnly" }` ou `{ "kind": "unobtainable", "reason": "notRegistered" }`. Qualquer outro `reason` (ou campo extra com outro tipo) faz o zod rejeitar o `items.json` inteiro.
+- `creativeOnly`: o item existe no jogo mas so sai do modo criativo/op (ex. `cobblemon:npc_editor`, as 12 placas e 7 memorias do mega_showdown). UI: "Nao obtivel no All the Mons (so no modo criativo)" / "Not obtainable in All the Mons (creative mode only)".
+- `notRegistered`: o id nao esta registrado no jogo (ex. `cobblemon:bugwort`, `cobblemon:shalour_sable`). UI: "Nao obtivel no All the Mons (nao existe no jogo)" / "Not obtainable in All the Mons (not in the game)".
+- Sem `reason`: "Nao obtivel no All the Mons" / "Not obtainable in All the Mons".
+- Deve ser a unica rota do item (a UI mostra as rotas na ordem do array; `unobtainable` junto de outra rota seria contraditorio).
+- Todos com a dica "Nenhuma receita, drop, loot ou recompensa do pack entrega este item." e o visual tracejado (`.ob-none`).
+
+`trainerDrop` na UI:
+- Linha "Drop de treinador" / "Trainer drop", texto "Cai ao vencer:", um chip por treinador na ordem do array: nome (`name ?? id`) + chance (`chance` 0..1 -> "100%", "12.5%"; `null` -> sem numero), pilula com o titulo da serie (`series.json` `title`, fallback id humanizado) e pilula "so na 1a vitoria" / "first win only" quando `firstDefeatOnly`.
+- Chip com `series != null` e um botao: abre Treinadores com `ui.seriesId = series` e `ui.openTrainerId = id` (a tela mostra essa serie sem trocar a serie ativa do usuario, com aviso e botao "Voltar para a serie ativa", acordeao do treinador aberto e scroll ate ele). `series == null` -> chip sem link. O link so abre o treinador se `id` estiver em `keyTrainerIds` da serie e nao for `optional` (a linha do tempo so lista treinadores-chave); hoje Satherov e Boss Giovanni sao.
+- `levelRange` NAO e exibido: a semantica (nivel do treinador ou do jogador) nao foi confirmada. Se o pipeline confirmar, avisar para a UI rotular.
+
+Depois deste commit o pipeline pode fazer o item 5 do U5a: `tools/dataset/src/items/stage.ts` volta a usar `ItemInfo`/`ItemObtainRoute` (apagar `PipelineItemInfo`/`PipelineItemObtainRoute`) e `tests/unit/dataset/join.test.ts` tira o filtro que retira `trainerDrop` antes do `itemsFileSchema`. Este agente nao mexeu em `tools/dataset/**` nem em `tests/unit/dataset/**`.
