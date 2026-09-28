@@ -120,7 +120,18 @@ test("F9.3 Potion page: hero, honest obtain, used in effect, terms toggle", asyn
   expect(await img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
   const obtain = page.locator(".item-obtain");
   await expect(obtain.locator(".ob-row[data-row='craftable']")).toContainText("Sim, tem receita");
-  await expect(obtain.locator(".ob-row[data-row='structureLoot'] .biome")).toHaveText(["Blocks (potion)"]);
+  // U7b/U7c: blocks/** virou blockDrop (a tabela blocks/potion so derruba a propria pocao, nao conta) e o loot de
+  // bau vem de todos os namespaces.
+  await expect(obtain.locator(".ob-row[data-row='structureLoot'] .biome")).toHaveText([
+    "Chests (burned tower)",
+    "Chests (fishing)",
+    "Chests (generic dungeon)",
+    "Chests (great dungeon)",
+    "Chests (pharmacy)",
+    "Chests (snowpoint regice)",
+    "Chests (snowpoint regirock)",
+    "Chests (snowpoint registeel)",
+  ]);
   await expect(page.locator(".item-used .ob-row[data-row='effect']")).toContainText("Restaura 20 PV");
   if (SHOTS) await page.screenshot({ path: `${SHOTS}/item-potion-1280.png` });
   await page.locator('.terms-tgl[data-tcard="itempage"] [data-tl="en"]').click();
@@ -146,7 +157,11 @@ test("F9.3 Fire Stone used in evolutions, chips open the entry; no route; ball",
   await expect(page.locator(".item-body[data-item='cobblemon:fire_stone']")).toBeVisible();
 
   await openItem(page, "allthemodium:allthemodium_ingot", "allthemodium");
-  await expect(page.locator(".item-obtain .ob-none")).toContainText("Sem rota confirmada");
+  // U7a/U7c/U7d: o dataset publicado nao tem mais item sem rota; o lingote ganhou receita e missao. O texto sem rota
+  // segue conferido no item desconhecido (abaixo) e em tests/unit/ui-screens/item-page.test.ts.
+  await expect(page.locator(".item-obtain .ob-row[data-row='craftable']")).toContainText("Sim, tem receita");
+  await expect(page.locator(".item-obtain .ob-row[data-row='questReward']")).toBeVisible();
+  await expect(page.locator(".item-obtain .ob-none")).toHaveCount(0);
 
   await openItem(page, "cobblemon:dusk_ball", "dusk ball");
   await expect(page.locator(".item-used .ob-row[data-row='ball']")).toContainText("Multiplicador de captura");
