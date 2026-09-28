@@ -15,6 +15,7 @@ import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
 import { buildTrainerDrops, collectRctLootTables, type TrainerRef } from "./trainer-drops";
 import { versionStagedAsset } from "../media/asset-version";
+import { collectExtraSources, structureRefs } from "./extra-sources";
 
 const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
 type Json = Record<string, unknown>;
@@ -83,6 +84,8 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const balls = readJsonIfExists<BallsFile>(ctx.dataPath("balls.json")) ?? [];
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
   const trainerDrops = buildTrainerDrops(collectRctLootTables(ctx), collectTrainerRefs(ctx));
+  const speciesBySlug = new Map([...ctx.species.values()].map((ms) => [ms.slug, ms.name]));
+  const extra = collectExtraSources(ctx, (slug) => speciesBySlug.get(slug) ?? null);
 
   const items: Record<string, ItemInfo> = {};
   const unversionedTextures: string[] = [];
@@ -114,6 +117,18 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     if (fossilRevive.length > 0) obtain.push({ kind: "fossilRevive", species: fossilRevive });
     const droppedBy = trainerDrops.get(entry.id);
     if (droppedBy && droppedBy.length > 0) obtain.push({ kind: "trainerDrop", trainers: droppedBy });
+    // U7c: fontes fora de receita/loot (extra-sources.ts), sempre com prova num arquivo do pack
+    const quests = extra.quests.get(entry.id);
+    if (quests && quests.length > 0) obtain.push({ kind: "questReward", quests });
+    if (extra.shop.has(entry.id)) obtain.push({ kind: "shop", shop: "battleTowerBp", price: extra.shop.get(entry.id) ?? null });
+    const placedIn = extra.structures.get(entry.id);
+    if (placedIn && placedIn.length > 0) obtain.push({ kind: "structurePlaced", structures: structureRefs(placedIn) });
+    const rituals = extra.rituals.get(entry.id);
+    if (rituals && rituals.length > 0) obtain.push({ kind: "ritual", rituals: [...rituals].sort() });
+    if (extra.trades.has(entry.id)) obtain.push({ kind: "trade", traders: ["wanderingTrader"] });
+    const features = loot.blockSelfDrops.has(entry.id) ? extra.worldgenBlocks.get(entry.id) : undefined;
+    if (features && features.length > 0) obtain.push({ kind: "worldgen", features: [...features].sort() });
+    for (const sp of extra.special.get(entry.id) ?? []) obtain.push({ kind: "special", note: sp.note, evidence: sp.evidence });
     if (obtain.length === 0) obtain.push({ kind: "none" });
 
     // U3: textura publicada com ?v=<sha8 dos bytes> (cache busting); categorize acima usa o caminho sem query
