@@ -6,6 +6,8 @@ import { expectNoOverlap } from "../harness/no-overlap";
 
 type NavModule = typeof import("../../src/navigation/navigation-store");
 type PrefsModule = typeof import("../../src/state/preferences-store");
+const NAV_URL = "/src/navigation/navigation-store.ts";
+const PREFS_URL = "/src/state/preferences-store.ts";
 
 const LONG = "u7e:long_item";
 const ALL = "u7e:all_sources";
@@ -60,13 +62,13 @@ async function boot(page: Page, width: number) {
 
 async function openItem(page: Page, itemId: string, lang: "pt" | "en") {
   await page.evaluate(
-    async ({ itemId, lang }) => {
-      const prefs = (await import(/* @vite-ignore */ "/src/state/preferences-store.ts")) as PrefsModule;
+    async ({ itemId, lang, navUrl, prefsUrl }) => {
+      const prefs = (await import(/* @vite-ignore */ prefsUrl)) as PrefsModule;
       prefs.usePreferencesStore.setState({ uiLanguage: lang, termsLanguage: lang });
-      const nav = (await import(/* @vite-ignore */ "/src/navigation/navigation-store.ts")) as NavModule;
+      const nav = (await import(/* @vite-ignore */ navUrl)) as NavModule;
       (nav.useNavigationStore.getState().navigate as (s: string, p?: unknown) => void)("item", { itemId });
     },
-    { itemId, lang },
+    { itemId, lang, navUrl: NAV_URL, prefsUrl: PREFS_URL },
   );
   await expect(page.locator(`.item-body[data-item="${itemId}"] .item-obtain .ob-row`).first()).toBeVisible({ timeout: 30_000 });
 }
