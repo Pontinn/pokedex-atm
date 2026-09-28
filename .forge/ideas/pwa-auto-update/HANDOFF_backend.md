@@ -152,3 +152,19 @@ O pipeline ja calcula estas categorias (report `loot.pendingContract`, item -> t
 - mobDrop: 70 itens (ex. `minecraft:totem_of_undying` <- `minecraft:entities/evoker`).
 - trainerGroupDrop: 440 itens (ex. `cobblemon:sweet_apple` em 37 grupos). Nao cabe no `trainerDrop`: qual treinador pertence a qual grupo nao esta em nenhum arquivo de dados (nem `trainers/*.json`, nem `mobs/trainers/**`); so no codigo do rctmod (`DataPackManager.class`). Listar cada treinador exigiria inferir a regra do codigo (proibido: nada de rota inventada). Por isso a proposta e mostrar o grupo, nao o treinador.
 - `gameplay` (25 itens: pescaria fora de `fishing/`, escambo de piglin, presente de gato, heroi da vila...) e `other` (259: `botanytrees:tree_drops`, `cobbleloots:loot_ball`, `aquaculture:box`, `cobblemonraiddens:raid`, `supplementaries:loot`...) ficam so no report; nenhum dos 58 itens ainda so com `none` depende deles.
+
+## Frontend contract v2 (orquestrador, 2026-09-28, para U7c/U7d e U7e em paralelo)
+Tipos novos de `obtain` (item). O pipeline so emite estes formatos; o frontend aceita exatamente estes (zod estrito). `LocalizedText` = `{ pt: string, en: string }` (PT cai para EN quando o jogo nao tem PT). Nomes vem do lang do pack (jar + kubejs por cima), nunca inventados.
+- `{ kind: "blockDrop", blocks: { id: string, name: LocalizedText | null }[] }` quebrar um bloco que solta o item (bloco que so solta ele mesmo NAO conta). Mover para ca os `blocks/...` do cobblemon que hoje estao em `structureLoot`.
+- `{ kind: "mobDrop", mobs: { id: string, name: LocalizedText | null }[] }` mobs (entities/...), inclusive global loot modifiers de bosses.
+- `{ kind: "questReward", quests: { chapter: LocalizedText | null, title: LocalizedText | null }[] }` recompensas do FTB Quests.
+- `{ kind: "shop", shop: "battleTowerBp", price: number | null }` loja de BP da Battle Tower.
+- `{ kind: "structurePlaced", structures: { id: string, name: LocalizedText | null }[] }` item ja colocado em estrutura `.nbt` (vitrine, moldura, recompensa de trial spawner).
+- `{ kind: "ritual", rituals: string[] }` Summoning Rituals (kubejs).
+- `{ kind: "trade", traders: ("wanderingTrader" | "villager")[] }`.
+- `{ kind: "worldgen", features: string[] }` gerado no mundo (ex. max_mushroom), so com prova.
+- `{ kind: "special", note: LocalizedText, evidence: string }` mecanica pontual provada por arquivo/config (ex. Tera Shard pela config `teraShardDropRate`, leite de Miltank por `pokemon_interactions`, concreto em pó na agua). `evidence` = caminho do arquivo:chave; o texto de `note` e curto, factual, pt-BR natural, sem travessao.
+- `{ kind: "unobtainable", reason?: "creativeOnly" | "notRegistered" }` (ja existe, ver contrato v1) so quando nao ha NENHUMA outra rota.
+- `none` deixa de ser emitido (fica aceito no schema so por compatibilidade).
+Fora por enquanto: `trainerGroupDrop` (U7b needs: grupo -> treinadores so existe no codigo do rctmod).
+UI: listas longas (ex. diamante com 199 tabelas) agrupadas ou com "e mais N" / "and N more"; mesmo visual das fontes existentes; rotulos PT/EN.
