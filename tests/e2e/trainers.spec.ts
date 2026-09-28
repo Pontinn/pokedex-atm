@@ -180,7 +180,7 @@ test.describe("F8.2 timeline and live level cap", () => {
     await expect(body.locator(".tr-mon").first().locator(".chip")).toHaveCount(2);
     await expect(body.locator(".tr-mon").first()).toContainText("Cabeça de Pedra");
     await expect(body.locator(".tr-mon").first()).toContainText("Pedra Oculta");
-    await expect(body.locator(".tr-spawn-chip")).toContainText("Rocha Arenosa");
+    await expect(body.locator(".tr-spawn-chip")).toContainText("Rocha Lisa");
     await expect(body.locator(".tr-spawn-chip img")).toHaveJSProperty("complete", true);
     expect(await body.locator(".tr-spawn-chip img").evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
     await expect(body.locator(".tr-foot .biome-item")).toContainText("x1");
