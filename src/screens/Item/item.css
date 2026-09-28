@@ -47,7 +47,7 @@ html[data-theme="green"] .item-screen .mon-chip b, html[data-theme="blue"] .item
 .item-screen .ob-first { color: var(--muted); }
 .item-screen .evo-pair { display: inline-flex; align-items: center; gap: 4px; }
 .item-screen .evo-pair > svg { width: 14px; height: 14px; color: var(--muted); }
-.item-screen .badge-uncommon { white-space: normal; text-transform: none; letter-spacing: 0; font-size: 12px; }
+.item-screen .badge-uncommon { white-space: normal; text-transform: none; letter-spacing: 0; font-size: 12px; flex: 0 1 auto; min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .app.mobile .item-hero { flex-direction: column; text-align: center; padding: 18px 16px; }
 .app.mobile .item-hero-info { justify-items: center; }
 .app.mobile .item-hero-tile { width: 120px; height: 120px; }

@@ -20,12 +20,106 @@ const RECIPE_LABELS: ReadonlyArray<[RegExp, LocalizedText]> = [
   [/cooking_pot/, { pt: "Panela de cozinha", en: "Cooking pot" }],
 ];
 
+const SMITHING_TABLE: LocalizedText = { pt: "Mesa de ferraria", en: "Smithing table" };
+const ATOMIC_RECONSTRUCTOR: LocalizedText = { pt: "Reconstrutor Atômico", en: "Atomic Reconstructor" };
+
+/**
+ * Tipos de receita dos mods do pack (U7e), com o nome que o jogo mostra: o bloco da maquina quando a receita
+ * roda numa maquina so, senao o titulo da categoria no JEI. Textos das lang en_us/pt_br dos jars do pack, com os
+ * overrides pt_br do kubejs por cima; sem pt no jogo, o en nos dois.
+ */
+export const RECIPE_TYPE_LABELS: Readonly<Record<string, LocalizedText>> = {
+  "actuallyadditions:color_change": ATOMIC_RECONSTRUCTOR,
+  "actuallyadditions:crushing": { pt: "Triturador", en: "Crusher" },
+  "actuallyadditions:laser": ATOMIC_RECONSTRUCTOR,
+  "aether:freezing": { pt: "Congelador", en: "Freezer" },
+  "apokinetics:frostwork": { pt: "Congelamento", en: "Frostwork" },
+  "apokinetics:momentum": { pt: "Momento", en: "Momentum" },
+  "apotheosis:sized_upgrade_recipe": SMITHING_TABLE,
+  "apothic_enchanting:infusion": { pt: "Encantamento por Infusão", en: "Infusion Enchanting" },
+  "botanypots:crop": { pt: "Vaso de Botânica", en: "Botany Pot" },
+  "cobblegengalore:blockgen": { pt: "Block Generator", en: "Block Generator" },
+  "create:compacting": { pt: "Compactando", en: "Compacting" },
+  "create:crushing": { pt: "Roda Moedora", en: "Crushing Wheel" },
+  "create:cutting": { pt: "Serra Mecânica", en: "Mechanical Saw" },
+  "create:deploying": { pt: "Implantador", en: "Deployer" },
+  "create:filling": { pt: "Bica", en: "Spout" },
+  "create:haunting": { pt: "Assombração em massa", en: "Bulk Haunting" },
+  "create:mechanical_crafting": { pt: "Fabricador Mecânico", en: "Mechanical Crafter" },
+  "create:milling": { pt: "Moedor", en: "Millstone" },
+  "create:mixing": { pt: "Batedeira Mecânica", en: "Mechanical Mixer" },
+  "create:pressing": { pt: "Prensa Mecânica", en: "Mechanical Press" },
+  "create:sequenced_assembly": { pt: "Montagem sequenciada", en: "Recipe Sequence" },
+  "create:splashing": { pt: "Lavagem em massa", en: "Bulk Washing" },
+  "create_aquatic_ambitions:channeling": { pt: "Canalização com Aqueduto", en: "Conduit Channeling" },
+  "create_dragons_plus:ending": { pt: "Baforização em Massa", en: "Bulk Ending" },
+  "create_dragons_plus:freezing": { pt: "Congelamento em Massa", en: "Bulk Freezing" },
+  "enderio:alloy_smelting": { pt: "Fundição de Ligas", en: "Alloy Smelter" },
+  "enderio:sag_milling": { pt: "Triturador SAG", en: "SAG Mill" },
+  "enderio:tank": { pt: "Tanque de Fluido", en: "Fluid Tank" },
+  "eternal_starlight:alloy": { pt: "Fornalha de Liga", en: "Alloy Furnace" },
+  "eternal_starlight:drying": { pt: "Cremalheira de Secagem", en: "Drying Rack" },
+  "extendedae:circuit_cutter": { pt: "Fatiador de Circuitos", en: "Circuit Slicer" },
+  "farmersdelight:cutting": { pt: "Tábua de Corte", en: "Cutting Board" },
+  "farmingforblockheads:market": { pt: "Mercado", en: "Market" },
+  "forbidden_arcanus:clibano_combustion": { pt: "Clibano", en: "Clibano" },
+  "immersiveengineering:arc_furnace": { pt: "Forno de Arco", en: "Arc Furnace" },
+  "immersiveengineering:bottling_machine": { pt: "Máquina de Engarrafamento", en: "Bottling Machine" },
+  "immersiveengineering:cloche": { pt: "Redoma de Jardim", en: "Garden Cloche" },
+  "immersiveengineering:coke_oven": { pt: "Forno de Coque", en: "Coke Oven" },
+  "immersiveengineering:crusher": { pt: "Triturador", en: "Crusher" },
+  "immersiveengineering:mineral_mix": { pt: "Escavadeira", en: "Excavator" },
+  "industrialforegoing:crusher": { pt: "Fábrica de Processamento de Pedra", en: "Material StoneWork Factory" },
+  "industrialforegoing:laser_drill_ore": { pt: "Base de Laser de Minério", en: "Ore Laser Base" },
+  "integrateddynamics:drying_basin": { pt: "Bacia de Secagem", en: "Drying Basin" },
+  "integrateddynamics:mechanical_drying_basin": { pt: "Bacia de Secagem Mecânica", en: "Mechanical Drying Basin" },
+  "mekanism:combining": { pt: "Combinador", en: "Combiner" },
+  "mekanism:crushing": { pt: "Triturador", en: "Crusher" },
+  "mekanism:enriching": { pt: "Câmara de Enriquecimento", en: "Enrichment Chamber" },
+  "mekanism:injecting": { pt: "Câmara de Injeção Química", en: "Chemical Injection Chamber" },
+  "mekanism:metallurgic_infusing": { pt: "Infusor Metalúrgico", en: "Metallurgic Infuser" },
+  "mekanism:nucleosynthesizing": { pt: "Nucleossintetizador Antiprotônico", en: "Antiprotonic Nucleosynthesizer" },
+  "mekanism:painting": { pt: "Máquina de Pintura", en: "Painting Machine" },
+  "mekanism:sawing": { pt: "Serraria de Precisão", en: "Precision Sawmill" },
+  "mekmm:lathe": { pt: "Torno CNC", en: "CNC Lathe" },
+  "mekmm:stamper": { pt: "Estampador CNC", en: "CNC Stamper" },
+  "naturesaura:altar": { pt: "Altar Natural", en: "Natural Altar" },
+  "occultism:crushing": { pt: "Espírito Triturador", en: "Crusher Spirit" },
+  "occultism:crystallize": { pt: "Espírito Cristalizador", en: "Crystallizer Spirit" },
+  "oritech:assembler": { pt: "Montadora", en: "Assembler" },
+  "oritech:atomic_forge": { pt: "Forja Atômica", en: "Atomic Forge" },
+  "oritech:deep_drill": { pt: "Extrator de Rocha Matriz", en: "Bedrock Extractor" },
+  "oritech:foundry": { pt: "Fundição", en: "Foundry" },
+  "oritech:grinder": { pt: "Forja de Fragmentos", en: "Fragment Forge" },
+  "oritech:particle_collision": { pt: "Acelerador de Partículas", en: "Particle Accelerator" },
+  "oritech:pulverizer": { pt: "Pulverizador", en: "Pulverizer" },
+  "oritech:refinery": { pt: "Refinaria", en: "Refinery" },
+  "pneumaticcraft:assembly_drill": { pt: "Broca de Montagem", en: "Assembly Drill" },
+  "pneumaticcraft:assembly_laser": { pt: "Laser de Montagem", en: "Assembly Laser" },
+  "pneumaticcraft:pressure_chamber": { pt: "Câmara de Pressão", en: "Pressure Chamber" },
+  "productivebees:advanced_beehive": { pt: "Colmeia Avançada", en: "Advanced Beehive" },
+  "productivebees:bottler": { pt: "Engarrafador", en: "Bottler" },
+  "productivebees:centrifuge": { pt: "Centrífuga", en: "Centrifuge" },
+  "productivemetalworks:block_casting": { pt: "Bacia de Moldagem", en: "Casting Basin" },
+  "productivemetalworks:item_casting": { pt: "Mesa de Moldagem", en: "Casting Table" },
+  "pylons:harvesting": { pt: "Pilão Colhedor", en: "Harvester Pylon" },
+  "railcraft:coking": { pt: "Forno de Coque", en: "Coke Oven" },
+  "railcraft:crusher": { pt: "Triturador", en: "Crusher" },
+  "silentgear:salvaging": { pt: "Reciclador", en: "Salvager" },
+  "theurgy:incubation": { pt: "Incubadora", en: "Incubator" },
+};
+
+/** Rotulo do jogo para o tipo de receita, ou null quando nao ha rotulo conhecido. */
+export function recipeTypeLabel(type: string): LocalizedText | null {
+  return RECIPE_TYPE_LABELS[type] ?? RECIPE_LABELS.find(([re]) => re.test(type))?.[1] ?? null;
+}
+
 /** Tipos de receita legiveis e sem repeticao (nunca a receita em si, RF-68). */
 export function recipeLabels(types: readonly string[], lang: "pt" | "en"): string[] {
   const out: string[] = [];
   for (const type of types) {
-    const hit = RECIPE_LABELS.find(([re]) => re.test(type));
-    const label = hit ? hit[1][lang] : humanizeId(type);
+    const hit = recipeTypeLabel(type);
+    const label = hit ? hit[lang] : humanizeId(type);
     if (!out.includes(label)) out.push(label);
   }
   return out;
