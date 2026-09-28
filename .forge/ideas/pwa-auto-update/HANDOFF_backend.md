@@ -101,3 +101,21 @@ O app (`src/data/types.ts` `ItemObtainRoute`, `src/data/schemas.ts` `itemInfoSch
 - `levelRange` NAO e exibido: a semantica (nivel do treinador ou do jogador) nao foi confirmada. Se o pipeline confirmar, avisar para a UI rotular.
 
 Depois deste commit o pipeline pode fazer o item 5 do U5a: `tools/dataset/src/items/stage.ts` volta a usar `ItemInfo`/`ItemObtainRoute` (apagar `PipelineItemInfo`/`PipelineItemObtainRoute`) e `tests/unit/dataset/join.test.ts` tira o filtro que retira `trainerDrop` antes do `itemsFileSchema`. Este agente nao mexeu em `tools/dataset/**` nem em `tests/unit/dataset/**`.
+
+## U7a: receitas de todos os namespaces (`4ebd8568`, data-source `3124643d`)
+
+Schema: NENHUMA mudanca. A rota continua `{ kind: "craftable", recipeTypes: string[] }` (tipos ordenados, sem repeticao). O que muda e o conteudo:
+- `recipeTypes` agora traz tipos de qualquer mod (89 tipos distintos no catalogo), ex. `create:sequenced_assembly`, `oritech:assembler`, `pneumaticcraft:pressure_chamber`, `mekanism:sawing`, `botanypots:crop`, `productivebees:advanced_beehive`, `theurgy:incubation`, `immersiveengineering:cloche`. `recipeLabels` (`src/screens/Item/item-page-model.ts`) ja cai no `humanizeId` para tipo sem rotulo; opcional (U7e): rotulos PT/EN para os mais comuns (Create, Oritech, Mekanism, PneumaticCraft, Botany Pots, Productive Bees, Cooking Pot).
+- Sem ingredientes nem estacao alem do tipo (o schema nao tem campo para isso; se a UI quiser mostrar ingredientes, precisa de um campo novo, ex. `recipes: { type, id, inputs[] }[]`).
+- 500 itens ganham `craftable`; 276 dos 360 sem rota. Nenhum perde a rota; 46 bolas perdem so `minecraft:crafting_shaped` (o ATM remove esse crafting no kubejs).
+
+Exemplos (`_publish_test`):
+- `mega_showdown:zygarde_cube`: `["minecraft:crafting_shaped", "oritech:assembler"]` (o assembler vem de `kubejs/server_scripts/mods/Oritech/recipes.js:99`)
+- `mega_showdown:stellar_tera_shard`: `["productivebees:advanced_beehive"]` (abelha terabeegos do jar allthemons)
+- `allthemons:allthemodium_apricorn_bits`: `["create:cutting", "mekanism:sawing", "oritech:atomic_forge", "pneumaticcraft:assembly_drill"]`
+- `minecraft:clock`: `["create:sequenced_assembly", "minecraft:crafting_shaped", "productivemetalworks:item_casting"]`
+- `cobblemon:poke_ball`: `["create:sequenced_assembly", "oritech:assembler", "pneumaticcraft:pressure_chamber"]` (antes `["minecraft:crafting_shaped"]`, removido pelo kubejs)
+
+Report (`report.json`, secao `recipes`): `droppedForCatalog` (receitas de itens do catalogo descartadas por condicao), `removedByKubejs` (com `arquivo:linha` do filtro), `kubejsRemovalsUnparsed`, `kubejsAddedForCatalog`, `kubejsAdditionsUnparsed` (inclui `recipes.summoningrituals.altar`, que fica para o U7c).
+
+Pendente para U7b/U7c/U7d: 72 itens ainda so com `none`.
