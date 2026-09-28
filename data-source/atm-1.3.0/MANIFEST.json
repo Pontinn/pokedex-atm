@@ -109,6 +109,224 @@
       "vanilla_recipe_files": 75,
       "kubejs_server_scripts_files": 134,
       "kubejs_data_recipe_files": 79
+    },
+    {
+      "date": "2026-09-28",
+      "what": "U7b loot tables: data/<ns>/loot_table/**.json de todo jar (instancia), do jar vanilla (versions/1.21.1/1.21.1.jar, fora da instancia, em vanilla/1.21.1.jar/) e de kubejs/data, cuja arvore (itens diretos, referencias minecraft:loot_table recursivas em qualquer namespace, entradas minecraft:tag) contem um id do items.json publicado (949 ids), mais toda tabela alcancavel a partir delas e todo arquivo data/<ns>/tags/item(s)/** das tags de item usadas por elas (tags aninhadas incluidas), de todas as fontes. Arquivo ja presente com o mesmo conteudo (ignorando CR) nao foi copiado; nenhum arquivo existente mudou.",
+      "loot_and_tag_files_per_source": {
+        "ApothicEnchanting-1.21.1-1.6.2.jar": {
+          "loot": 0,
+          "tag": 1
+        },
+        "Aquaculture-1.21.1-2.7.21.jar": {
+          "loot": 36,
+          "tag": 1
+        },
+        "CreeperOverhaul-neoforge-1.21.1-4.0.6.jar": {
+          "loot": 16,
+          "tag": 0
+        },
+        "DungeonsArise-1.21.1-2.1.68-release.jar": {
+          "loot": 147,
+          "tag": 0
+        },
+        "FarmersDelight-1.21.1-1.3.4.jar": {
+          "loot": 6,
+          "tag": 3
+        },
+        "ImmersiveEngineering-1.21.1-12.4.2-194.jar": {
+          "loot": 3,
+          "tag": 11
+        },
+        "L_Ender's Cataclysm 1.21.1-3.33.jar": {
+          "loot": 19,
+          "tag": 3
+        },
+        "Mekanism-1.21.1-10.7.19.85.jar": {
+          "loot": 0,
+          "tag": 4
+        },
+        "Terralith_1.21.x_v2.6.2.jar": {
+          "loot": 53,
+          "tag": 3
+        },
+        "The_Undergarden-1.21.1-0.9.6.jar": {
+          "loot": 18,
+          "tag": 4
+        },
+        "YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar": {
+          "loot": 8,
+          "tag": 0
+        },
+        "YungsBetterStrongholds-1.21.1-NeoForge-5.1.3.jar": {
+          "loot": 8,
+          "tag": 0
+        },
+        "actuallyadditions-1.3.26+mc1.21.1.jar": {
+          "loot": 1,
+          "tag": 2
+        },
+        "aether-1.21.1-1.5.10-neoforge.jar": {
+          "loot": 39,
+          "tag": 1
+        },
+        "allthemodium-3.0.1_mc_1.21.1.jar": {
+          "loot": 6,
+          "tag": 0
+        },
+        "alltheores-3.2.0_neoforge_1.21.1.jar": {
+          "loot": 0,
+          "tag": 33
+        },
+        "ars_elemental-1.21.1-0.7.10.1.jar": {
+          "loot": 1,
+          "tag": 0
+        },
+        "ars_nouveau-1.21.1-5.13.1.jar": {
+          "loot": 4,
+          "tag": 0
+        },
+        "artifacts-neoforge-13.2.3.jar": {
+          "loot": 65,
+          "tag": 0
+        },
+        "botanypots-neoforge-1.21.1-21.1.44.jar": {
+          "loot": 10,
+          "tag": 0
+        },
+        "botanytrees-neoforge-1.21.1-21.1.7.jar": {
+          "loot": 18,
+          "tag": 0
+        },
+        "cobbleloots-neoforge-2.3.0.jar": {
+          "loot": 38,
+          "tag": 0
+        },
+        "cobblemonextrastructures-1.21.1-1.3.0-neoforge.jar": {
+          "loot": 10,
+          "tag": 0
+        },
+        "cobblemonraiddens-neoforge-0.11.7+1.21.1.jar": {
+          "loot": 7,
+          "tag": 0
+        },
+        "cobbleworkers-neoforge-1.8.0+1.7.0.jar": {
+          "loot": 2,
+          "tag": 0
+        },
+        "create-1.21.1-6.0.10.jar": {
+          "loot": 1,
+          "tag": 6
+        },
+        "createaddition-1.7.0.jar": {
+          "loot": 0,
+          "tag": 1
+        },
+        "deeperdarker-neoforge-1.21.1-1.4.1.jar": {
+          "loot": 21,
+          "tag": 3
+        },
+        "dyenamics-1.21.1-3.4.2.jar": {
+          "loot": 18,
+          "tag": 1
+        },
+        "enderio-8.2.11-beta.jar": {
+          "loot": 1,
+          "tag": 1
+        },
+        "endermanoverhaul-neoforge-1.21.1-2.0.3.jar": {
+          "loot": 14,
+          "tag": 0
+        },
+        "eternalstarlight-0.9.0+1.21.1+neoforge.jar": {
+          "loot": 43,
+          "tag": 5
+        },
+        "farmingforblockheads-neoforge-1.21.1-21.1.13.jar": {
+          "loot": 5,
+          "tag": 0
+        },
+        "forbidden_arcanus-2.6.1.jar": {
+          "loot": 3,
+          "tag": 2
+        },
+        "industrialforegoing-1.21-3.6.39.jar": {
+          "loot": 0,
+          "tag": 2
+        },
+        "integrateddynamics-1.21.1-neoforge-1.36.0.jar": {
+          "loot": 1,
+          "tag": 0
+        },
+        "justdirethings-1.5.7.jar": {
+          "loot": 4,
+          "tag": 0
+        },
+        "mekmm-1.21.1-1.4.1.jar": {
+          "loot": 0,
+          "tag": 1
+        },
+        "mifa-neoforge-1.21.x-2.1.0.jar": {
+          "loot": 0,
+          "tag": 2
+        },
+        "mob_grinding_utils-1.1.10+mc1.21.1.jar": {
+          "loot": 2,
+          "tag": 0
+        },
+        "occultism-1.21.1-neoforge-1.224.4.jar": {
+          "loot": 23,
+          "tag": 4
+        },
+        "oritech-neoforge-1.21.1-1.2.12.jar": {
+          "loot": 1,
+          "tag": 2
+        },
+        "productivebees-1.21.1-13.13.5.jar": {
+          "loot": 1,
+          "tag": 0
+        },
+        "productivefarming-1.21.1-0.5.3.jar": {
+          "loot": 3,
+          "tag": 72
+        },
+        "productivetrees-1.21.1-1.1.0.jar": {
+          "loot": 246,
+          "tag": 1
+        },
+        "railcraft-reborn-1.21.1-1.2.10.jar": {
+          "loot": 2,
+          "tag": 36
+        },
+        "reliquary-1.21.1-2.0.80.1570.jar": {
+          "loot": 0,
+          "tag": 1
+        },
+        "sawmill-1.21-1.8.1-neoforge.jar": {
+          "loot": 3,
+          "tag": 0
+        },
+        "silent-gear-1.21.1-neoforge-4.2.1.1.jar": {
+          "loot": 1,
+          "tag": 3
+        },
+        "silentgems-1.21.1-neoforge-5.1.3.jar": {
+          "loot": 0,
+          "tag": 23
+        },
+        "supplementaries-1.21.1-3.9.8-neoforge.jar": {
+          "loot": 13,
+          "tag": 5
+        },
+        "the_bumblezone-7.15.3+1.21.1-neoforge.jar": {
+          "loot": 74,
+          "tag": 4
+        },
+        "vanilla": {
+          "loot": 250,
+          "tag": 10
+        }
+      }
     }
   ]
 }

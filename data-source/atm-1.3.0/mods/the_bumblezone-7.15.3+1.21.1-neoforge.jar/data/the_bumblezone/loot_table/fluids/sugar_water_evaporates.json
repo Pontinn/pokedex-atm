@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:empty",
+  "random_sequence": "the_bumblezone:fluids",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "name": "minecraft:sugar",
+          "type": "minecraft:item"
+        }
+      ]
+    }
+  ]
+}

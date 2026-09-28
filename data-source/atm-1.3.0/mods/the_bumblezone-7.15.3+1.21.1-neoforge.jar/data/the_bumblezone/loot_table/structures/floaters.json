@@ -1,0 +1,165 @@
+{
+  "type": "minecraft:chest",
+  "random_sequence": "the_bumblezone:structures",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "name": "the_bumblezone:bee_stinger",
+          "type": "minecraft:item",
+          "weight": 3
+        },
+        {
+          "name": "minecraft:stick",
+          "type": "minecraft:item",
+          "weight": 3
+        },
+        {
+          "name": "minecraft:clay_ball",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "minecraft:sweet_berries",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "minecraft:bread",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "minecraft:honey_bottle",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:bee_bread",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:bee_soup",
+          "type": "minecraft:item",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "name": "the_bumblezone:honey_crystal",
+          "type": "minecraft:item",
+          "weight": 4
+        },
+        {
+          "name": "the_bumblezone:honey_web",
+          "type": "minecraft:item",
+          "weight": 3
+        },
+        {
+          "name": "the_bumblezone:sticky_honey_residue",
+          "type": "minecraft:item",
+          "weight": 3
+        },
+        {
+          "name": "the_bumblezone:empty_honeycomb_brood_block",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "the_bumblezone:honeycomb_brood_block",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "the_bumblezone:ancient_wax_bricks",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:ancient_wax_diamond",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:ancient_wax_compound_eyes",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:luminescent_wax_channel",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:luminescent_wax_corner",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:luminescent_wax_node",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "name": "the_bumblezone:luminescent_wax_node",
+          "type": "minecraft:item",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "name": "minecraft:emerald",
+          "type": "minecraft:item",
+          "weight": 8
+        },
+        {
+          "name": "minecraft:echo_shard",
+          "type": "minecraft:item",
+          "weight": 8
+        },
+        {
+          "name": "minecraft:amethyst_shard",
+          "type": "minecraft:item",
+          "weight": 8
+        },
+        {
+          "name": "minecraft:flower_pot",
+          "type": "minecraft:item",
+          "weight": 6
+        },
+        {
+          "name": "minecraft:decorated_pot",
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "name": "minecraft:howl_pottery_sherd",
+          "type": "minecraft:item",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 24
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 1,
+          "value": "the_bumblezone:structures/sempiternal_sanctum/compasses"
+        }
+      ]
+    }
+  ]
+}

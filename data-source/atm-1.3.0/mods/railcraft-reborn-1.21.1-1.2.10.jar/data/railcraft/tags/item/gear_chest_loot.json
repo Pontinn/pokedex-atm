@@ -1,0 +1,16 @@
+{
+  "values": [
+    "#c:gears/steel",
+    "#c:gears/iron",
+    "#c:gears/tin",
+    "#c:gears/gold",
+    "#c:gears/lead",
+    "#c:gears/zinc",
+    "#c:gears/brass",
+    "#c:gears/invar",
+    "#c:gears/bronze",
+    "#c:gears/copper",
+    "#c:gears/nickel",
+    "#c:gears/silver"
+  ]
+}
