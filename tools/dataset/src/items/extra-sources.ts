@@ -285,7 +285,11 @@ export function teraShardRoutes(config: unknown, file: string): Map<string, Spec
 }
 
 /** give_item de data/cobblemon/pokemon_interactions/<especie>.json -> item -> rotas (nome da especie do dataset). */
-export function interactionRoutes(files: ReadonlyMap<string, unknown>, speciesName: (slug: string) => LocalizedText | null): Map<string, SpecialRoute[]> {
+export function interactionRoutes(
+  files: ReadonlyMap<string, unknown>,
+  speciesName: (slug: string) => LocalizedText | null,
+  itemName: (id: string) => LocalizedText | null = () => null,
+): Map<string, SpecialRoute[]> {
   const out = new Map<string, SpecialRoute[]>();
   for (const [file, data] of [...files].sort(([a], [b]) => (a < b ? -1 : 1))) {
     if (!isObject(data) || !Array.isArray(data.interactions)) continue;
@@ -301,8 +305,11 @@ export function interactionRoutes(files: ReadonlyMap<string, unknown>, speciesNa
         if (!isObject(e) || e.variant !== "give_item" || typeof e.item !== "string") continue;
         const item = bareItemId(e.item);
         if (!item) continue;
-        const withItem = held ? ` com ${held.itemCondition as string} na mão` : "";
-        const withItemEn = held ? ` holding ${held.itemCondition as string}` : "";
+        // U8: item segurado pelo nome do jogo (lang); sem nome (tag, id desconhecido) fica o texto do arquivo
+        const heldId = held ? (held.itemCondition as string) : null;
+        const heldName = heldId ? (itemName(heldId.includes(":") ? heldId : `minecraft:${heldId}`) ?? { pt: heldId, en: heldId }) : null;
+        const withItem = heldName ? ` com ${heldName.pt} na mão` : "";
+        const withItemEn = heldName ? ` holding ${heldName.en}` : "";
         addTo(out, item, {
           note: { pt: `Interagir com ${name.pt}${withItem}.`, en: `Interact with ${name.en}${withItemEn}.` },
           evidence: `${file}:interactions[${k}]`,
@@ -340,7 +347,11 @@ function jsonMap(files: readonly { path: string; bytes: Uint8Array }[], re: RegE
   return out;
 }
 
-export function collectExtraSources(ctx: Pick<PipelineContext, "reader" | "report">, speciesName: (slug: string) => LocalizedText | null): ExtraSources {
+export function collectExtraSources(
+  ctx: Pick<PipelineContext, "reader" | "report">,
+  speciesName: (slug: string) => LocalizedText | null,
+  itemName: (id: string) => LocalizedText | null = () => null,
+): ExtraSources {
   const r = ctx.reader;
   const readOpt = (rel: string) => (r.exists(rel) ? r.readFile(rel) : null);
 
@@ -415,10 +426,11 @@ export function collectExtraSources(ctx: Pick<PipelineContext, "reader" | "repor
     const m = /^data\/cobblemon\/pokemon_interactions\/(.+)\.json$/.exec(f.path);
     if (m) interactions.set(f.path, parseLenient(f.bytes));
   }
-  for (const [item, routes] of interactionRoutes(interactions, speciesName)) for (const route of routes) addTo(special, item, route);
+  for (const [item, routes] of interactionRoutes(interactions, speciesName, itemName)) for (const route of routes) addTo(special, item, route);
 
   return { shop, rituals, quests, trades, worldgenBlocks: worldgen, structures, special };
 }
 
-/** Estruturas como ItemNamedRef (sem nome no lang do jogo: null). */
-export const structureRefs = (ids: readonly string[]): ItemNamedRef[] => [...new Set(ids)].sort().map((id) => ({ id, name: null }));
+/** Estruturas como ItemNamedRef; U8: nome pela chave `structure.<ns>.<caminho>` quando o jogo tem, senao null. */
+export const structureRefs = (ids: readonly string[], name: (id: string) => LocalizedText | null = () => null): ItemNamedRef[] =>
+  [...new Set(ids)].sort().map((id) => ({ id, name: name(id) }));

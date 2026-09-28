@@ -173,6 +173,27 @@ describe("item catalog with categories, tags and textures (B4.1)", () => {
     expect(kinds("mega_showdown:max_mushroom")).toContain("worldgen");
   });
 
+  it("U8: game names for refs and minecraft items, vanilla textures, special notes without raw ids", () => {
+    const all = Object.values(items);
+    const minecraft = all.filter((it) => it.namespace === "minecraft");
+    expect(minecraft.length).toBeGreaterThan(100);
+    // PT do lang pt_br do Minecraft (diferente do en) e textura versionada do jar vanilla
+    expect(minecraft.filter((it) => it.name.pt === it.name.en).map((it) => it.id)).toEqual([]);
+    expect(minecraft.filter((it) => !/^assets\/items\/minecraft\/[a-z0-9_]+\.png\?v=[0-9a-f]{8}$/.test(it.texture ?? "")).map((it) => it.id)).toEqual([]);
+    expect(items["minecraft:apple"]?.name).toEqual({ pt: "Maçã", en: "Apple" });
+    const refs = (kind: string) =>
+      all.flatMap((it) => it.obtain.flatMap((r) => (r.kind === kind ? ("blocks" in r ? r.blocks : "mobs" in r ? r.mobs : "structures" in r ? r.structures : []) : [])));
+    const named = (kind: string) => refs(kind).filter((r) => r.name !== null).length / refs(kind).length;
+    expect(named("blockDrop")).toBeGreaterThan(0.95);
+    expect(named("mobDrop")).toBeGreaterThan(0.95);
+    expect(refs("mobDrop").find((r) => r.id === "cataclysm:ignis")?.name?.en).toBe("Ignis");
+    const notes = all.flatMap((it) => it.obtain.flatMap((r) => (r.kind === "special" ? [r.note.pt, r.note.en] : [])));
+    expect(notes.filter((n) => /\b[a-z_]+:[a-z_]+\b/.test(n))).toEqual([]);
+    expect(items["cobblemon:moomoo_milk"]?.obtain.find((r) => r.kind === "special")).toMatchObject({
+      note: { pt: "Interagir com Miltank com Frasco de Vidro na mão.", en: "Interact with Miltank holding Glass Bottle." },
+    });
+  });
+
   it("cobblemon:potion has pt/en description and a texture", () => {
     const potion = items["cobblemon:potion"];
     expect(potion?.description?.pt).toBeTruthy();

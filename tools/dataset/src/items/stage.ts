@@ -17,6 +17,8 @@ import { buildTrainerDrops, collectRctLootTables, type TrainerRef } from "./trai
 import { versionStagedAsset } from "../media/asset-version";
 import { collectExtraSources, structureRefs } from "./extra-sources";
 import path from "node:path";
+import { createNameResolver, itemName, loadNameLang, refLangKey, type NameResolver } from "./ref-names";
+import { publishVanillaTextures } from "../media/vanilla-textures";
 
 /** U7d: ids comprovadamente nao registrados no jogo (id -> prova), curados de RESEARCH_obtain e conferidos nos registros do jar. */
 export const NOT_REGISTERED_FILE = path.resolve(import.meta.dirname, "../../curated/item-not-registered.json");
@@ -37,15 +39,25 @@ function collectBaitItemIds(ctx: Pick<PipelineContext, "reader">): Set<string> {
   return ids;
 }
 
-/** {id, name} com o nome do lang do pack (`<prefixo>.<ns>.<caminho com .>`); sem chave en = null (nunca inventado). */
-export function namedRefs(ids: Iterable<string>, prefix: "block" | "entity", lang: PipelineContext["lang"]): ItemNamedRef[] {
-  return [...new Set(ids)].sort().map((id) => {
-    const [ns, ...rest] = id.split(":");
-    const key = `${prefix}.${ns}.${rest.join(":").split("/").join(".")}`;
-    // en obrigatorio (pt cai para en quando o jogo nao tem pt; nunca o contrario: en com texto em portugues)
-    const en = lang.en.get(key);
-    return { id, name: en ? { pt: lang.pt.get(key) ?? en, en } : null };
-  });
+/** {id, name} com o nome do lang do jogo (`<prefixo>.<ns>.<caminho com .>`); sem chave en = null (nunca inventado).
+ * U8: `resolve` le ctx.lang (com kubejs por cima) e depois o lang de todos os jars + vanilla (ref-names.ts). */
+export function namedRefs(ids: Iterable<string>, prefix: "block" | "entity" | "structure", resolve: NameResolver): ItemNamedRef[] {
+  // en obrigatorio (pt cai para en quando o jogo nao tem pt; nunca o contrario: en com texto em portugues)
+  return [...new Set(ids)].sort().map((id) => ({ id, name: resolve(refLangKey(prefix, id)) }));
+}
+
+/** U8: por tipo de ref, ids unicos com e sem nome (para o report). */
+export function refNameCounts(items: Record<string, ItemInfo>): Record<"block" | "mob" | "structure", { named: number; unnamed: string[] }> {
+  const acc = { block: new Map<string, boolean>(), mob: new Map<string, boolean>(), structure: new Map<string, boolean>() };
+  for (const it of Object.values(items)) {
+    for (const r of it.obtain) {
+      const list = r.kind === "blockDrop" ? r.blocks : r.kind === "mobDrop" ? r.mobs : r.kind === "structurePlaced" ? r.structures : null;
+      const target = r.kind === "blockDrop" ? acc.block : r.kind === "mobDrop" ? acc.mob : acc.structure;
+      for (const ref of list ?? []) target.set(ref.id, ref.name !== null);
+    }
+  }
+  const summary = (m: Map<string, boolean>) => ({ named: [...m.values()].filter(Boolean).length, unnamed: [...m].filter(([, v]) => !v).map(([k]) => k).sort() });
+  return { block: summary(acc.block), mob: summary(acc.mob), structure: summary(acc.structure) };
 }
 
 function readJsonIfExists<T>(file: string): T | null {
@@ -72,7 +84,17 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const fossilItemIds = collectFossilReferencedIds(fossils);
 
   // descricao curada so para itens sem texto no jogo (o jogo vence); ids curados fora do catalogo sao ignorados
-  const curated = applyCuratedDescriptions(buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds }), loadCuratedDescriptions());
+  // U8: nomes do jogo fora do lang do app (blocos, mobs, estruturas, itens minecraft)
+  const resolveName = createNameResolver(ctx.lang, loadNameLang(ctx));
+  const gameItemName = (id: string) => itemName(resolveName, id);
+  const built = buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds, gameItemName });
+  // U8: itens minecraft sem textura do app ganham a do jar vanilla (modelo do item), publicada em assets/items/minecraft/
+  const vanillaTextures = await publishVanillaTextures(ctx, built.filter((e) => e.namespace === "minecraft" && e.texture === null).map((e) => e.path));
+  for (const entry of built) {
+    const rel = entry.namespace === "minecraft" && entry.texture === null ? vanillaTextures.published.get(entry.path) : undefined;
+    if (rel) entry.texture = `assets/items/${rel}`;
+  }
+  const curated = applyCuratedDescriptions(built, loadCuratedDescriptions());
   const catalog = curated.entries;
   if (curated.unknownIds.length > 0) {
     ctx.report.warn(
@@ -91,7 +113,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
   const trainerDrops = buildTrainerDrops(collectRctLootTables(ctx), collectTrainerRefs(ctx));
   const speciesBySlug = new Map([...ctx.species.values()].map((ms) => [ms.slug, ms.name]));
-  const extra = collectExtraSources(ctx, (slug) => speciesBySlug.get(slug) ?? null);
+  const extra = collectExtraSources(ctx, (slug) => speciesBySlug.get(slug) ?? null, gameItemName);
 
   const notRegistered = new Map(Object.entries(readJsonIfExists<Record<string, string>>(NOT_REGISTERED_FILE) ?? {}));
   const phantomIds: string[] = [];
@@ -119,9 +141,9 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     if (structureTables && structureTables.size > 0) obtain.push({ kind: "structureLoot", tables: [...structureTables].sort() });
     if (loot.fishing.has(entry.id)) obtain.push({ kind: "fishing" });
     const blocks = loot.blockDrop.get(entry.id);
-    if (blocks && blocks.size > 0) obtain.push({ kind: "blockDrop", blocks: namedRefs(blocks, "block", ctx.lang) });
+    if (blocks && blocks.size > 0) obtain.push({ kind: "blockDrop", blocks: namedRefs(blocks, "block", resolveName) });
     const mobs = loot.mobDrop.get(entry.id);
-    if (mobs && mobs.size > 0) obtain.push({ kind: "mobDrop", mobs: namedRefs(mobs, "entity", ctx.lang) });
+    if (mobs && mobs.size > 0) obtain.push({ kind: "mobDrop", mobs: namedRefs(mobs, "entity", resolveName) });
     const fossilRevive = fossils.filter((f) => f.fossils.includes(entry.id)).map((f) => f.result);
     if (fossilRevive.length > 0) obtain.push({ kind: "fossilRevive", species: fossilRevive });
     const droppedBy = trainerDrops.get(entry.id);
@@ -131,7 +153,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     if (quests && quests.length > 0) obtain.push({ kind: "questReward", quests });
     if (extra.shop.has(entry.id)) obtain.push({ kind: "shop", shop: "battleTowerBp", price: extra.shop.get(entry.id) ?? null });
     const placedIn = extra.structures.get(entry.id);
-    if (placedIn && placedIn.length > 0) obtain.push({ kind: "structurePlaced", structures: structureRefs(placedIn) });
+    if (placedIn && placedIn.length > 0) obtain.push({ kind: "structurePlaced", structures: structureRefs(placedIn, (id) => resolveName(refLangKey("structure", id))) });
     const rituals = extra.rituals.get(entry.id);
     if (rituals && rituals.length > 0) obtain.push({ kind: "ritual", rituals: [...rituals].sort() });
     if (extra.trades.has(entry.id)) obtain.push({ kind: "trade", traders: ["wanderingTrader"] });
@@ -203,6 +225,14 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     obtainKinds: Object.fromEntries(
       [...new Set(Object.values(items).flatMap((it) => it.obtain.map((r) => r.kind)))].sort().map((k) => [k, Object.values(items).filter((it) => it.obtain.some((r) => r.kind === k)).length]),
     ),
+    // U8: nomes de ref preenchidos pelo lang do jogo (ids unicos por tipo) e texturas vanilla
+    refNames: refNameCounts(items),
+    vanillaTextures: {
+      published: vanillaTextures.published.size,
+      blockFace: vanillaTextures.blockFace,
+      animated: vanillaTextures.animated,
+      missing: vanillaTextures.missing,
+    },
     trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },
     descriptions: {
       fromGame: catalog.length - curated.fromCurated.length - withoutDescription,

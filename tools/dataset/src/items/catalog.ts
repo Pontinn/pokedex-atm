@@ -98,6 +98,8 @@ export interface BuildCatalogDeps {
   lang: LangTable;
   textureManifest: ReadonlyMap<string, string>;
   fossilItemIds: ReadonlySet<string>;
+  /** U8: nome do jogo para item sem chave no ctx.lang (lang dos outros jars + vanilla; ex. `minecraft:*`) */
+  gameItemName?: (id: string) => LocalizedText | null;
 }
 
 /** Catalogo final: ids do lang (com textura OU tooltip) uniao ids referenciados (SPEC B4.1 passo 1). */
@@ -127,7 +129,12 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
     const nameKey = `item.${ns}.${itemPath}`;
     const langName = deps.lang.text(nameKey);
     // nome so em pt (ex. kubejs traz so pt_br para itens do allthemodium): EN fica com o path humanizado, nunca o texto PT
-    const name = langName && !deps.lang.en.has(nameKey) ? { pt: langName.pt, en: humanizeItemPath(itemPath).en } : langName;
+    // U8: o en vem do lang en_us do jar do mod quando existe (ex. allthemodium), senao do path humanizado
+    const ownName =
+      langName && !deps.lang.en.has(nameKey) ? { pt: langName.pt, en: deps.gameItemName?.(id)?.en ?? humanizeItemPath(itemPath).en } : langName;
+    // U8: sem chave no lang do app, nome do jogo (outros jars / vanilla; en obrigatorio, pt cai para en)
+    const gameName = ownName ? null : (deps.gameItemName?.(id) ?? null);
+    const name = ownName ?? gameName;
     const description = gameDescription(ns, itemPath);
     const texture = deps.textureManifest.get(`${ns}:${itemPath.split("/").pop()}`) ?? deps.textureManifest.get(id) ?? null;
     catalog.push({
@@ -137,7 +144,7 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
       name: name ?? humanizeItemPath(itemPath),
       description,
       texture: texture ? `assets/items/${texture}` : null,
-      fromLang: name !== null,
+      fromLang: ownName !== null,
       referenceOnly: !fromLangKeys.has(id),
     });
   }
