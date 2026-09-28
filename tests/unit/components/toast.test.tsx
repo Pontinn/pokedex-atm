@@ -1,23 +1,21 @@
 // T1: ToastHost (src/components/Toast.tsx, F1.4): toast normal fecha sozinho em 4s; toast persistente (erro de
-// storage) fica ate o X ser clicado. usePwaUpdateStore fixado como "sem update" para nao interferir no host.
+// storage) fica ate o X ser clicado.
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ToastHost } from "../../../src/components/Toast";
 import { TOAST_DURATION_MS, useShellStore } from "../../../src/state/shell-store";
-import { usePwaUpdateStore } from "../../../src/pwa/update-store";
 
 describe("ToastHost", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     useShellStore.setState({ toasts: [], moreOpen: false });
-    usePwaUpdateStore.setState({ waiting: null, dismissed: false });
   });
   afterEach(() => {
     cleanup();
     vi.useRealTimers();
   });
 
-  it("sem toasts nem update pendente, nao renderiza nada", () => {
+  it("sem toasts, nao renderiza nada", () => {
     render(<ToastHost />);
     expect(document.querySelector(".toast-host")).toBeNull();
   });

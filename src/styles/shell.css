@@ -129,6 +129,4 @@ html[data-theme="green"] .sheet-item svg.lucide, html[data-theme="blue"] .sheet-
 .modal-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
 .modal-title { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .modal-close { margin-left: auto; color: var(--text); background: var(--surface-2); }
-/* F12.1: aviso "Nova versao disponivel" (UpdatePrompt), mesmo visual do toast com botao de acao */
-.toast-action { flex: none; padding: 6px 12px; border-radius: 8px; background: var(--surface); color: var(--text); font-weight: 800; font-size: 13px; }
-.toast-action:focus-visible, .toast-close:focus-visible { outline: 2px solid var(--surface); outline-offset: 2px; }
+.toast-close:focus-visible { outline: 2px solid var(--surface); outline-offset: 2px; }

@@ -94,8 +94,6 @@ export const CORE_MESSAGES = {
   "empty.generic": { pt: "Nada por aqui.", en: "Nothing here." },
   "offline.notice": { pt: "Você está offline. O que já foi visto continua funcionando.", en: "You are offline. What you have already seen keeps working." },
   "offline.artwork": { pt: "Imagem indisponível offline", en: "Image unavailable offline" },
-  "pwa.updateAvailable": { pt: "Nova versão disponível", en: "New version available" },
-  "pwa.update": { pt: "Atualizar", en: "Update" },
   "shell.brand": { pt: "Pontindex", en: "Pontindex" },
   "shell.sound": { pt: "Som", en: "Sound" },
   "shell.language": { pt: "Idioma", en: "Language" },

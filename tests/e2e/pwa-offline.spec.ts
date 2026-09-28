@@ -30,14 +30,24 @@ const MIME: Record<string, string> = {
   ".ogg": "audio/ogg",
 };
 
-/** Servidor estatico minimo sobre dist/ (fallback SPA para index.html); sw.js ganha um sufixo por "deploy". */
+/**
+ * Servidor estatico minimo sobre dist/ (fallback SPA para index.html) que simula deploys sem tocar no dist/:
+ * no deploy N o index.html ganha <meta name="x-deploy" content="N"> e o sw.js muda a revisao do index.html no
+ * precache (como um build novo faria), entao o SW novo baixa e serve o index.html do deploy N.
+ */
 async function serveDist(deploy: () => number): Promise<{ url: string; close(): Promise<void> }> {
   const server = createServer((req, res) => {
     const pathname = decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname);
     let file = normalize(join(DIST, pathname));
     if (!file.startsWith(normalize(DIST)) || !existsSync(file) || !statSync(file).isFile()) file = join(DIST, "index.html");
     let body: Buffer | string = readFileSync(file);
-    if (pathname === "/sw.js") body = `${body.toString("utf8")}\n// deploy ${deploy()}\n`;
+    const n = deploy();
+    if (pathname === "/sw.js") {
+      body = body.toString("utf8").replace(/(url:"index\.html",revision:")([^"]+)"/, `$1$2-${n}"`);
+      body = `${body}\n// deploy ${n}\n`;
+    } else if (file.endsWith("index.html")) {
+      body = body.toString("utf8").replace("<head>", `<head><meta name="x-deploy" content="${n}">`);
+    }
     res.writeHead(200, { "content-type": MIME[extname(file)] ?? "application/octet-stream", "cache-control": "no-cache" });
     res.end(body);
   });
@@ -199,37 +209,96 @@ test.describe("F12.1 PWA installable and cache", () => {
     await context.setOffline(false);
   });
 
-  test("new service worker waiting -> 'Nova versão disponível' toast; Atualizar activates it and reloads", async ({ page }) => {
-    // O fetch do script do SW nao passa por page/context.route (medido: 0 interceptacoes, com ou sem
-    // PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS). Entao este teste sobe um servidor estatico proprio sobre
-    // dist/ (mesma origem localhost, porta livre) e simula o deploy novo trocando o conteudo do sw.js em memoria,
-    // sem tocar no dist/ que os outros testes usam.
+  // O fetch do script do SW nao passa por page/context.route (medido: 0 interceptacoes, com ou sem
+  // PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS). Entao os testes de atualizacao sobem um servidor estatico
+  // proprio sobre dist/ (mesma origem localhost, porta livre) e simulam o deploy novo em memoria (serveDist).
+
+  test("first visit: the service worker takes control with no reload", async ({ page }) => {
+    const server = await serveDist(() => 0);
+    try {
+      const errors = trackPageErrors(page);
+      let loads = 0;
+      page.on("load", () => loads++);
+      await page.goto(server.url);
+      await bootHome(page);
+      await page.evaluate(() => {
+        (window as unknown as { __firstPage: boolean }).__firstPage = true;
+      });
+      // clientsClaim: o 1o SW assume esta mesma pagina (controllerchange) sem recarregar
+      await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller), { timeout: 30_000 }).toBe(true);
+      await page.evaluate(() => navigator.serviceWorker.ready.then(() => undefined));
+      expect(await page.evaluate(() => (window as unknown as { __firstPage?: boolean }).__firstPage === true)).toBe(true);
+      expect(loads).toBe(1);
+      expect(errors).toEqual([]);
+    } finally {
+      await server.close();
+    }
+  });
+
+  test("new deploy is picked up with no click: page reloads once into the new version", async ({ page }) => {
     let deploy = 0;
     const server = await serveDist(() => deploy);
     try {
       const errors = trackPageErrors(page);
       await installAndControl(page, server.url);
-      deploy = 1;
-      await page.evaluate(async () => {
-        const reg = await navigator.serviceWorker.getRegistration();
-        await reg?.update();
-      });
-      const toast = page.locator(".pwa-update");
-      await expect(toast).toBeVisible({ timeout: 15_000 });
-      await expect(toast).toContainText("Nova versão disponível");
-      expect(await page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting)).toBe(true);
-      // o aviso se empilha com os toasts e nao cobre a tab bar/sidebar: mesmo host
-      await expect(page.locator(".toast-host .pwa-update")).toHaveCount(1);
+      await expect(page.locator('meta[name="x-deploy"]')).toHaveAttribute("content", "0");
+      let loads = 0;
+      page.on("load", () => loads++);
 
-      await Promise.all([page.waitForEvent("load"), toast.getByRole("button", { name: "Atualizar" }).click()]);
+      deploy = 1;
+      // usuario abre o site de novo: a navegacao ainda sai do SW antigo (deploy 0), o navegador acha o sw.js novo,
+      // ele ativa sozinho e a pagina recarrega UMA vez ja servida pelo SW novo (deploy 1). Nenhum clique.
+      await page.reload();
+      await expect(page.locator('meta[name="x-deploy"]')).toHaveAttribute("content", "1", { timeout: 30_000 });
       await bootHome(page);
-      await expect(page.locator(".pwa-update")).toHaveCount(0);
       await expect
         .poll(() => page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting))
         .toBe(false);
       await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
+      // sem botao/aviso de atualizacao em nenhum momento
+      await expect(page.locator(".pwa-update")).toHaveCount(0);
+      await expect(page.getByRole("button", { name: "Atualizar" })).toHaveCount(0);
+      // reload manual + o reload automatico; nada de loop
+      expect(loads).toBe(2);
       expect(errors).toEqual([]);
     } finally {
+      await server.close();
+    }
+  });
+
+  test("an open tab picks up a new deploy by itself, keeps local data and still works offline", async ({ page, context }) => {
+    let deploy = 0;
+    const server = await serveDist(() => deploy);
+    try {
+      const errors = trackPageErrors(page);
+      await installAndControl(page, server.url);
+      // dado local (IndexedDB): preferencia de som desligada
+      await page.locator(".sidebar .tgl-sound").click();
+      await expect(page.locator(".sidebar .tgl-sound")).toHaveClass(/off/);
+      const dbsBefore = await page.evaluate(async () => (await indexedDB.databases()).map((d) => d.name).sort());
+      expect(dbsBefore.length).toBeGreaterThan(0);
+
+      deploy = 1;
+      // aba parada (sem navegar): a mesma checagem de versao que o app faz quando o usuario volta para a aba
+      await page.evaluate(async () => {
+        const reg = await navigator.serviceWorker.getRegistration();
+        await reg?.update();
+      });
+      await expect(page.locator('meta[name="x-deploy"]')).toHaveAttribute("content", "1", { timeout: 30_000 });
+      await bootHome(page);
+      await expect(page.locator(".sidebar .tgl-sound")).toHaveClass(/off/);
+      expect(await page.evaluate(async () => (await indexedDB.databases()).map((d) => d.name).sort())).toEqual(dbsBefore);
+
+      // offline depois da atualizacao: abre a versao nova do cache, com os dados locais
+      await context.setOffline(true);
+      await page.reload();
+      await bootHome(page);
+      expect(await page.evaluate(() => navigator.onLine)).toBe(false);
+      await expect(page.locator('meta[name="x-deploy"]')).toHaveAttribute("content", "1");
+      await expect(page.locator(".sidebar .tgl-sound")).toHaveClass(/off/);
+      expect(errors).toEqual([]);
+    } finally {
+      await context.setOffline(false);
       await server.close();
     }
   });

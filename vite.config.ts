@@ -24,7 +24,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "prompt",
+      // atualizacao automatica (Pontin 2026-09-28): sem botao "Atualizar". O SW novo ativa na hora e o
+      // register-sw.ts recarrega a pagina uma vez no controllerchange.
+      registerType: "autoUpdate",
       injectRegister: false,
       includeAssets: ["icons/*.png"],
       // F12.1 (RF-103, SPEC 2.5): manifest instalavel com os icones da pokebola gerados em B1.4.
@@ -61,7 +63,10 @@ export default defineConfig({
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/data\//, /^\/assets\//],
         cleanupOutdatedCaches: true,
-        // registerType "prompt": o SW novo espera; o UpdatePrompt manda SKIP_WAITING quando o usuario aceita
+        // com injectRegister false o plugin NAO liga estes dois sozinho para o autoUpdate (so com injectRegister
+        // "auto"): o SW novo pula a espera e assume as abas abertas na hora.
+        skipWaiting: true,
+        clientsClaim: true,
         runtimeCaching: [
           {
             // artwork grande da PokeAPI (RF-102): opaco (img sem CORS), por isso status 0 tambem entra
