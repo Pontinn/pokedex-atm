@@ -20,6 +20,20 @@
         "allthemons-0.6.2.jar": 20,
         "mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar": 1
       }
+    },
+    {
+      "date": "2026-09-28",
+      "what": "kubejs/assets/<pasta>/lang/{pt_br,en_us}.json copiados como estao da instancia, so das 7 pastas com chaves que o pipeline le (itens do catalogo, especies, golpes, habilidades)",
+      "kubejs_lang_files": [
+        "allthemodium/lang/pt_br.json",
+        "artifacts/lang/pt_br.json",
+        "cobblemon/lang/pt_br.json",
+        "cobblemon_legendary_monuments/lang/en_us.json",
+        "cobblemon_legendary_monuments/lang/pt_br.json",
+        "cobblemon_mega_showdown/lang/pt_br.json",
+        "cobblemon_navas_za_megas/lang/pt_br.json",
+        "silent_gear/lang/pt_br.json"
+      ]
     }
   ]
 }
