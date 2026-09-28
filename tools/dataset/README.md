@@ -29,6 +29,7 @@ O modo e decidido SO por `fs.statSync(<fonte>/mods/<jar>)` dos 7 jars obrigatori
 
 - Staging: JSON em `<out>/data/`, midia em `<out>/assets/{cries,sfx,items,sprites}/`, `report.json` e `merge-report.json` na raiz de `<out>`.
 - Cache busting (U3): `items.json` grava `texture` como `assets/items/<ns>/<caminho>.png?v=<8 hex do sha256 dos bytes publicados>`; o arquivo em disco nao muda de nome, a query muda quando os bytes mudam (`src/media/asset-version.ts`).
+- Drop de treinador (U5a): `items.json` ganha a rota `{ kind: "trainerDrop", trainers: [{ id, name, series, chance, levelRange, firstDefeatOnly }] }` a partir de `data/rctmod/loot_table/trainers/single/<trainerId>.json` (jar rctmod + kubejs; entradas diretas e um nivel de `rctmod:generic/**`; o loot de `trainers/groups/**` fica de fora). Codigo: `src/items/trainer-drops.ts`.
 - Cache: `tools/dataset/.cache/<etapa>/` (`ctx.cacheDir("pokeapi" | "sprites")`), ignorado pelo git.
 - Contrato: `src/context.ts` (`PipelineContext`, `COUNT_OWNERS`: cada etapa grava so as proprias contagens com `ctx.setCount`).
 

@@ -1,6 +1,6 @@
 // B4.1 (catalogo) + B4.2 (rotas de obtencao e "Usado em"). Nunca escreve em public/ (so ctx.outDir).
 import { existsSync, readFileSync } from "node:fs";
-import type { BallsFile, FossilRoute, ItemInfo, ItemObtainRoute, ItemsFile, ItemTag } from "../../../../src/data/types";
+import type { BallsFile, FossilRoute, ItemInfo, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
 import { readJsonEntries } from "../jar-reader";
 import { writeJsonAtomic } from "../lib/fs-atomic";
@@ -13,6 +13,7 @@ import { collectCraftable } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
+import { buildTrainerDrops, collectRctLootTables, type TrainerDropRoute, type TrainerRef } from "./trainer-drops";
 import { versionStagedAsset } from "../media/asset-version";
 
 const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
@@ -34,6 +35,24 @@ function collectBaitItemIds(ctx: Pick<PipelineContext, "reader">): Set<string> {
 function readJsonIfExists<T>(file: string): T | null {
   if (!existsSync(file)) return null;
   return JSON.parse(readFileSync(file, "utf8")) as T;
+}
+
+/**
+ * U5a: rota "trainerDrop" ainda nao existe em src/data/types.ts (ItemObtainRoute, compartilhado com o app).
+ * Enquanto o frontend (U5b) nao a acrescenta, o pipeline usa este tipo alargado; depois do U5b,
+ * PipelineItemInfo pode voltar a ser ItemInfo.
+ */
+type PipelineItemObtainRoute = ItemObtainRoute | TrainerDropRoute;
+type PipelineItemInfo = Omit<ItemInfo, "obtain"> & { obtain: PipelineItemObtainRoute[] };
+
+/** id do treinador -> nome + serie, dos trainers/*.json ja escritos no staging (etapa trainers roda antes). */
+function collectTrainerRefs(ctx: PipelineContext): Map<string, TrainerRef> {
+  const refs = new Map<string, TrainerRef>();
+  for (const s of readJsonIfExists<SeriesInfo[]>(ctx.dataPath("series.json")) ?? []) {
+    const file = readJsonIfExists<TrainersFile>(ctx.dataPath(s.trainersFile));
+    for (const trainer of file?.trainers ?? []) if (!refs.has(trainer.id)) refs.set(trainer.id, { name: trainer.name, series: s.id });
+  }
+  return refs;
 }
 
 export async function runItemsStage(ctx: PipelineContext): Promise<void> {
@@ -62,15 +81,16 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const loot = collectLoot(ctx);
   const balls = readJsonIfExists<BallsFile>(ctx.dataPath("balls.json")) ?? [];
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
+  const trainerDrops = buildTrainerDrops(collectRctLootTables(ctx), collectTrainerRefs(ctx));
 
-  const items: ItemsFile = {};
+  const items: Record<string, PipelineItemInfo> = {};
   const unversionedTextures: string[] = [];
   for (const entry of catalog) {
     const { category, tags: baseTags } = categorize(entry.path, entry.texture);
     const tags = new Set<ItemTag>(baseTags);
     if (baitIds.has(entry.id)) tags.add("bait");
 
-    const obtain: ItemObtainRoute[] = [];
+    const obtain: PipelineItemObtainRoute[] = [];
     const recipeTypes = craftable.get(entry.id);
     if (recipeTypes) obtain.push({ kind: "craftable", recipeTypes: [...recipeTypes].sort() });
     const drops = dropsIndex.get(entry.id);
@@ -87,6 +107,8 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     if (loot.fishing.has(entry.id)) obtain.push({ kind: "fishing" });
     const fossilRevive = fossils.filter((f) => f.fossils.includes(entry.id)).map((f) => f.result);
     if (fossilRevive.length > 0) obtain.push({ kind: "fossilRevive", species: fossilRevive });
+    const droppedBy = trainerDrops.get(entry.id);
+    if (droppedBy && droppedBy.length > 0) obtain.push({ kind: "trainerDrop", trainers: droppedBy });
     if (obtain.length === 0) obtain.push({ kind: "none" });
 
     // U3: textura publicada com ?v=<sha8 dos bytes> (cache busting); categorize acima usa o caminho sem query
@@ -109,7 +131,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       obtain,
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
-    } satisfies ItemInfo;
+    } satisfies PipelineItemInfo;
   }
 
   if (unversionedTextures.length > 0) {
@@ -123,8 +145,10 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   writeJsonAtomic(ctx.dataPath("items.json"), items);
   ctx.setCount("items", Object.keys(items).length);
   const withoutDescription = catalog.filter((e) => e.description === null).length;
+  const withTrainerDrop = Object.values(items).filter((it) => it.obtain.some((r) => r.kind === "trainerDrop")).length;
   ctx.report.section("items", {
     count: Object.keys(items).length,
+    trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },
     descriptions: {
       fromGame: catalog.length - curated.fromCurated.length - withoutDescription,
       fromCurated: curated.fromCurated.length,
