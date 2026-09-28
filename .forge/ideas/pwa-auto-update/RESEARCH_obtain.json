@@ -1,0 +1,3149 @@
+{
+ "allthemodium:allthemodium_ingot": {
+  "mechanism": "recipe:minecraft:crafting_shaped + recipe:minecraft:crafting_shapeless + recipe:minecraft:blasting + recipe:minecraft:smelting + recipe:productivemetalworks:item_casting + questReward",
+  "evidence": [
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_block.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_dust_blasting.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_dust_smelting.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_ore_blasting.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_ore_smelting.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_raw_blasting.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/allthemodium_ingot_from_raw_smelting.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemodium:unobtainium_block": {
+  "mechanism": "recipe:minecraft:crafting_shapeless + recipe:minecraft:crafting_shaped + recipe:productivemetalworks:block_casting + lootTable:blockDrop + questReward",
+  "evidence": [
+   "mods/allthecompressed-1.21.1-4.4.0.jar!data/allthecompressed/recipe/decompress/unobtainium_block_1x.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/recipe/unobtainium_block.json",
+   "mods/productivemetalworks-1.21.1-1.15.1.jar!data/productivemetalworks/recipe/casting/atm/unobtainium_block.json",
+   "mods/allthemodium-3.0.1_mc_1.21.1.jar!data/allthemodium/loot_table/blocks/unobtainium_block.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id",
+   "config/ftbquests/quests/chapters/apotheosis_gear.snbt:rewards[].item.id",
+   "config/ftbquests/quests/chapters/chapter_2_the_star.snbt:rewards[].item.id",
+   "config/ftbquests/quests/reward_tables/mythic.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_apricorn_bits": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:create:cutting + recipe:mekanism:sawing + recipe:pneumaticcraft:assembly_drill + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/allthemodium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/cutting/allthemodium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/sawing/half_allthemodium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/allthemodium_apricorn_bits.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_apricorn_seed": {
+  "mechanism": "recipe:botanypots:crop + lootTable:blockDrop",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/botanypots/crop/allthemodium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/allthemodium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/allthemodium_apricorn_sapling.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/allthemodium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/allthemodium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/allthemodium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id",
+   "config/ftbquests/quests/chapters/chapter_2_the_star.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_ball_base": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:mekmm:lathe + recipe:pneumaticcraft:assembly_drill + recipe:create:pressing + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/allthemodium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/lathe/allthemodium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/allthemodium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pressing/allthemodium_ball_base.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/allthemodium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/allthemodium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/allthemodium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/allthemodium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/allthemodium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/allthemodium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:allthemodium_stamped_plate_lid": {
+  "mechanism": "recipe:create:deploying + recipe:mekmm:stamper",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/deploying/allthemodium_stamped_plate_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/stamping/allthemodium_stamped_plate_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_allthemodium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_allthemodium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_allthemodium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_allthemodium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_allthemodium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:mekanism:metallurgic_infusing + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/ancient_allthemodium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/infusing/ancient_allthemodium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_allthemodium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_allthemodium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_allthemodium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_allthemodium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_allthemodium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_allthemodium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_soul_lava_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_soul_lava_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_soul_lava_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_soul_lava_ball.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_soul_lava_ball_lid": {
+  "mechanism": "recipe:create:filling + recipe:pneumaticcraft:pressure_chamber + recipe:oritech:refinery",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/filling/ancient_soul_lava_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_soul_lava_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/refinery/ancient_soul_lava_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_unobtainium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_unobtainium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_unobtainium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_unobtainium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_unobtainium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/ancient_unobtainium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_unobtainium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_unobtainium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_unobtainium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_unobtainium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_unobtainium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_unobtainium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_vibranium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_vibranium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_vibranium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_vibranium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_vibranium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:mekanism:metallurgic_infusing + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/ancient_vibranium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/infusing/ancient_vibranium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_vibranium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_vibranium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:ancient_vibranium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/ancient_vibranium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/ancient_vibranium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/ancient_vibranium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:badge": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "catalog picked lang key item.allthemons.badge.tooltip (shared tooltip of BadgeItem \"Does not get consumed in crafting\"), not a registered item"
+ },
+ "allthemons:healing_station_on_a_stick": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/healing_station_on_a_stick.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:imbued_pokemon_egg": {
+  "mechanism": "summoningRitual",
+  "evidence": [
+   "kubejs/server_scripts/mods/Summoning Rituals/recipes.js:60 .displayOutputs([\"allthemons:imbued_pokemon_egg\"]) .id(\"allthemons:imbued_pokemon_egg\"); events/imbued_pokemon_egg.js:105 Item.of"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:pc_on_a_stick": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pc_on_a_stick.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:pika_star_chunk": {
+  "mechanism": "recipe:create:cutting + recipe:oritech:grinder + recipe:mekanism:sawing",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/cutting/pika_star_shard.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/grinder/pika_star_shard.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/sawing/pika_star_shard.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:shiny_pika_star": {
+  "mechanism": "summoningRitual",
+  "evidence": [
+   "kubejs/server_scripts/mods/Summoning Rituals/recipes.js:~300 .itemOutputs([\"allthemons:shiny_pika_star\"]) .id(\"allthemons:shiny_pika_star\")"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:soul_lava_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/soul_lava_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/soul_lava_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/soul_lava_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:soul_lava_ball_lid": {
+  "mechanism": "recipe:create:filling + recipe:pneumaticcraft:pressure_chamber + recipe:oritech:refinery + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/filling/soul_lava_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/soul_lava_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/refinery/soul_lava_ball_lid.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_artist_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_cesarzorak.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_drunk_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_whatthedrunk.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_helpful_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_joeychin01.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_kitty_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_satherov.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_lobster_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_lobsterjonn.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_microwave_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_dragondogemaster.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_notch_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_notch.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_ralph_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_rosary.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_skyblock_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_oly2o6.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_toblerone_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_toblerone0508.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_unknown_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_uncandango.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:the_vortex_badge": {
+  "mechanism": "lootTable:trainer",
+  "evidence": [
+   "kubejs/data/rctmod/loot_table/trainers/single/team_allthemods_thevortex.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:togepie": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/togepie.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_apricorn_bits": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:create:cutting + recipe:mekanism:sawing + recipe:pneumaticcraft:assembly_drill + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/unobtainium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/cutting/unobtainium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/sawing/half_unobtainium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/unobtainium_apricorn_bits.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_apricorn_seed": {
+  "mechanism": "recipe:botanypots:crop + lootTable:blockDrop",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/botanypots/crop/unobtainium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/unobtainium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/unobtainium_apricorn_sapling.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/unobtainium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/unobtainium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/unobtainium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id",
+   "config/ftbquests/quests/chapters/chapter_2_the_star.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_ball_base": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:mekmm:lathe + recipe:pneumaticcraft:assembly_drill + recipe:create:pressing + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/unobtainium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/lathe/unobtainium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/unobtainium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pressing/unobtainium_ball_base.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/unobtainium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/unobtainium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/unobtainium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/unobtainium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/unobtainium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/unobtainium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:unobtainium_stamped_plate_lid": {
+  "mechanism": "recipe:create:deploying + recipe:mekmm:stamper",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/deploying/unobtainium_stamped_plate_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/stamping/unobtainium_stamped_plate_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_apricorn_bits": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:create:cutting + recipe:mekanism:sawing + recipe:pneumaticcraft:assembly_drill + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/vibranium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/cutting/vibranium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/sawing/half_vibranium_apricorn_bits.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/vibranium_apricorn_bits.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_apricorn_seed": {
+  "mechanism": "recipe:botanypots:crop + lootTable:blockDrop",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/botanypots/crop/vibranium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/vibranium_apricorn.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/loot_table/blocks/vibranium_apricorn_sapling.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/vibranium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/vibranium_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/vibranium_ball.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id",
+   "config/ftbquests/quests/chapters/chapter_2_the_star.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_ball_base": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:mekmm:lathe + recipe:pneumaticcraft:assembly_drill + recipe:create:pressing + questReward",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/vibranium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/lathe/vibranium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/assembly/vibranium_ball_base.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pressing/vibranium_ball_base.json",
+   "config/ftbquests/quests/chapters/allthemodium_cobblemon.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_ball_lid": {
+  "mechanism": "recipe:oritech:atomic_forge + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/atomicforge/vibranium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/vibranium_ball_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/vibranium_ball_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_ball_mechanism": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/vibranium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/vibranium_ball_mechanism.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/vibranium_ball_mechanism.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "allthemons:vibranium_stamped_plate_lid": {
+  "mechanism": "recipe:create:deploying + recipe:mekmm:stamper",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/deploying/vibranium_stamped_plate_lid.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/stamping/vibranium_stamped_plate_lid.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:ancient_origin_ball": {
+  "mechanism": "recipe:create:sequenced_assembly + lootTable:trainer + battleTowerShop",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/sequenced_assembly/origin_ball.json",
+   "mods/rctmod-neoforge-1.21.1-0.18.1-beta.jar!data/rctmod/loot_table/generic/legendary/archeology.json",
+   "mods/rctmod-neoforge-1.21.1-0.18.1-beta.jar!data/rctmod/loot_table/generic/legendary/pokeballs.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": "kubejs removes createmonballsoverhaul and legendarymonuments recipes (Cobblemon/Recipes.js:5,13); remaining: allthemons sequenced_assembly origin_ball"
+ },
+ "cobblemon:bugwort": {
+  "mechanism": "unobtainable:notRegistered",
+  "evidence": [],
+  "confidence": "medium",
+  "notes": "only assets (blockstates/bugwort.json, models/item/bugwort.json, textures) in Cobblemon-neoforge-1.7.3 jar; string \"bugwort\" absent from every .class and data file of all 398 jars -> not registered in 1.7.3 (unreleased content)"
+ },
+ "cobblemon:cherish_ball": {
+  "mechanism": "recipe:oritech:assembler + recipe:pneumaticcraft:pressure_chamber + recipe:create:sequenced_assembly + battleTowerShop",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/assembler/cherish_ball.json",
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/pnc/chamber/cherish_ball.json",
+   "mods/createcobblemonballsoverhaul-0.0.4.jar!data/createmonballsoverhaul/recipe/sequenced_assembly/balls/cherish_ball.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:metal_alloy": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:moomoo_milk": {
+  "mechanism": "pokemonInteraction + questReward",
+  "evidence": [
+   "mods/Cobblemon-neoforge-1.7.3+1.21.1.jar!data/cobblemon/pokemon_interactions/miltank.json:interactions[].effects[variant=give_item]",
+   "config/ftbquests/quests/chapters/poke_farming.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:npc_editor": {
+  "mechanism": "unobtainable:creativeOnly",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "registered (CobblemonItems.class, NPCEditorScreen) but no recipe/loot/shop/quest in any jar, kubejs or config -> creative/op tool"
+ },
+ "cobblemon:scroll_of_darkness": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:scroll_of_waters": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:shalour_sable": {
+  "mechanism": "unobtainable:notRegistered",
+  "evidence": [],
+  "confidence": "medium",
+  "notes": "only assets/cobblemon/models/item/shalour_sable.json; string absent from every .class and data file -> not registered in 1.7.3"
+ },
+ "cobblemon:shell_helmet": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:sweet_apple": {
+  "mechanism": "lootTable:chest + lootTable:trainer",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/archaeology/observatory_sus.json",
+   "mods/rctmod-neoforge-1.21.1-0.18.1-beta.jar!data/rctmod/loot_table/generic/epic/evolution.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:syrupy_apple": {
+  "mechanism": "kubejsRecipe:shapeless",
+  "evidence": [
+   "kubejs/server_scripts/mods/Cobblemon/Recipes.js:16 allthemods.shapeless(\"cobblemon:syrupy_apple\", [\"cobblemon:sweet_apple\", \"#c:maple_syrup\"])"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "cobblemon:tart_apple": {
+  "mechanism": "recipe:mekanism:injecting + lootTable:trainer",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/allthemons/recipe/mekanism/injecting/tart_apple.json",
+   "mods/rctmod-neoforge-1.21.1-0.18.1-beta.jar!data/rctmod/loot_table/generic/epic/evolution.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "karrablast": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "species id used as held item in rctmod trainer data (rctmod jar data/rctmod/trainers/bug_catcher_cale_006e.json, trade-evolution partner); not an item"
+ },
+ "mega_showdown:abomasite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/abomasite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:absolite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/absolite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:adamant_crystal": {
+  "mechanism": "lootTable:chest + battleTowerShop",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:adamant_orb": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/adamant_orb.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:adrenaline_orb": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:set + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/adrenaline_orb.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/sets/any_showdown_held_item.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/archaeological_site/archaeological_site_chest.json -> mega_showdown:sets/any_showdown_held_item",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/wishing_weald/wishing_weald_chest.json -> mega_showdown:sets/any_showdown_held_item"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:aerodactylite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/aerodactylite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:aggronite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/aggronite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:alakazite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/alakazite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:aloraichium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/aloraichium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:altarianite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/altarianite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ampharosite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/ampharosite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:archie_anchor": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/archie_anchor.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ash_cap": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/ash_cap.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:audinite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/audinite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:banettite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/banettite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:barbaracite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/barbaracite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:baxcalibrite": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "wrong namespace in kubejs/data/rctmod/trainers/allthemods_trainer_lego.json; mega_showdown jar has no baxcalibrite model/lang/class string; the real item is zamega:baxcalibrite"
+ },
+ "mega_showdown:beedrillite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/beedrillite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:blank_z": {
+  "mechanism": "battleTowerShop + questReward + structurePlaced:placedItem",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/structure/observatory.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:blastoisinite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/blastoisinite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:blazikenite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/blazikenite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:blue_orb": {
+  "mechanism": "lootTable:chest + globalLootModifier + battleTowerShop + questReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/lugia_temple_chest.json",
+   "kubejs/data/allthemons/loot_modifiers/cataclysm_blue_orb.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/legendaries.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:booster_energy": {
+  "mechanism": "recipe:minecraft:crafting_shaped + battleTowerShop",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/booster_energy.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:brendan_mega_cuff": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/brendan_mega_cuff.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:bug_memory": {
+  "mechanism": "structurePlaced:itemFrame",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/outskirt_stand.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:bug_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/bug_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:buginium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/buginium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:burn_drive": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/burn_drive.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:cameruptite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/cameruptite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:chandelurite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/chandelurite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:charizardite_x": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/charizardite_x.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:charizardite_y": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/charizardite_y.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:chesnaughtite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/chesnaughtite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:chill_drive": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/chill_drive.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:chimechite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/chimechite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:clefablite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/clefablite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:cornerstone_mask": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:crabominite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/crabominite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dark_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/dark_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:dark_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/dark_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:darkinium-z": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "typo in kubejs/data/rctmod/trainers/team_allthemods_drackion.json (real id mega_showdown:darkinium_z)"
+ },
+ "mega_showdown:darkinium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/darkinium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:decidium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/decidium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:delphoxite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/delphoxite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:diancite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/diancite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:diantha_mega_charm": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/diantha_mega_charm.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dna_splicer": {
+  "mechanism": "recipe:minecraft:crafting_shaped + structurePlaced:placedItem",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dna_splicer.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/kyuremcave.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:douse_drive": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/douse_drive.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:draco_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:dragalgite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dragalgite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dragon_memory": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/snowpoint_temple/212.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:dragon_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/dragon_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/dragoeleki_chest.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dragoninite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dragoninite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dragonium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dragonium_z.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/dragoeleki_chest.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:drampanite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/drampanite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dread_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:dynamax_band": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dynamax_band.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:dynamax_candy": {
+  "mechanism": "recipe:minecraft:crafting_shaped + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/dynamax_candy.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:earth_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:eelektrossite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/eelektrossite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:eevium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/eevium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:electric_memory": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/snowpoint_temple/112.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:electric_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/electric_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/dragoeleki_chest.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:electrium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/electrium_z.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/dragoeleki_chest.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:emboarite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/emboarite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:excadrite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/excadrite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fairium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/fairium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fairy_memory": {
+  "mechanism": "structurePlaced:trialSpawnerReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_greavard_ceruledge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_honedge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_litwick.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:fairy_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + structurePlaced:displayCaseOrContainer + structurePlaced:trialSpawnerReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/fairy_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/throneroom.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_greavard_ceruledge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_honedge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_litwick.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:falinksite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/falinksite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:feraligite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/feraligite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fighting_memory": {
+  "mechanism": "structurePlaced:trialSpawnerReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_dreepy.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_golett_armorouge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_yamask_spiritomb.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:fighting_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + structurePlaced:displayCaseOrContainer + structurePlaced:trialSpawnerReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/fighting_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/throneroom.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_dreepy.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_golett_armorouge.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/spawners/pokespawner_yamask_spiritomb.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fightinium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/fightinium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fire_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/fire_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:fire_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + structurePlaced:trialSpawnerReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/fire_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/bell_tower_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/small_rooms/small_room_1.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:firium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/firium_z.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/bell_tower_chest.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:fist_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:flame_plate": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/traditional_village/ecruteak/bell_tower_middle.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:floettite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/floettite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:flying_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/flying_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:flying_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/flying_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:flyinium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/flyinium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:froslassite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/froslassite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:galladite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/galladite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:garchompite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/garchompite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:gardevoirite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/gardevoirite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:gengarite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/gengarite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ghost_memory": {
+  "mechanism": "lootTable:chest + structurePlaced:placedItem",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ghost_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + structurePlaced:placedItem + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/ghost_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/spawners/spawner_01.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/spawners/spawner_02.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/spawners/spawner_03.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/spawners/spawner_04.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ghostium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/ghostium_z.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:gladion_z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/gladion_z_power_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:glalitite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/glalitite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:glimmoranite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/glimmoranite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:golurkite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/golurkite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:grass_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/grass_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:grass_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + structurePlaced:trialSpawnerReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/grass_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/small_rooms/small_room_2.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:grassium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/grassium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:greninjite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/greninjite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:griseous_core": {
+  "mechanism": "lootTable:chest",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:griseous_orb": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest + battleTowerShop",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/griseous_orb.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ground_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/ground_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:ground_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/ground_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:groundium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/groundium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:gyaradosite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/gyaradosite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:hapu_z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/hapu_z_power_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:hapus_z_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/hapus_z_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:hawluchanite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/hawluchanite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:hearthflame_mask": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:heracronite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/heracronite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:houndoominite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/houndoominite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ice_memory": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/snowpoint_temple/212.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:ice_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/ice_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/calyrex_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regice_chest.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:icicle_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:icium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/icium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:incinium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/incinium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:insect_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:iron_plate": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/throneroom.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:kangaskhanite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/kangaskhanite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:keystone": {
+  "mechanism": "recipe:minecraft:crafting_shapeless + lootTable:blockDrop",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/keystone.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/blocks/keystone_ore.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:kommonium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/kommonium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:korrina_glove": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/korrina_glove.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:latiasite": {
+  "mechanism": "recipe:minecraft:crafting_shaped + structurePlaced:placedItem",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/latiasite.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/southern_island/113.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:latiosite": {
+  "mechanism": "recipe:minecraft:crafting_shaped + structurePlaced:placedItem",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/latiosite.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/southern_island/211.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:legend_plate": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": "Battle Tower BP shop only"
+ },
+ "mega_showdown:likos_pendant": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/likos_pendant.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lisia_mega_tiara": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lisia_mega_tiara.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lopunnite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lopunnite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lucarionite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lucarionite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lunalium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lunalium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lustrous_globe": {
+  "mechanism": "lootTable:chest + battleTowerShop",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lustrous_orb": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lustrous_orb.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lycanium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lycanium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:lysandre_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/lysandre_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:malamarite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/malamarite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:manectite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/manectite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:marshadium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/marshadium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mawilite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mawilite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:max_honey": {
+  "mechanism": "recipe:minecraft:crafting_shapeless",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/max_honey.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:max_mushroom": {
+  "mechanism": "lootTable:blockDrop + worldgen + battleTowerShop + questReward + structurePlaced:placedItem",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/blocks/max_mushroom.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/worldgen/configured_feature/max_mushroom.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:max_soup": {
+  "mechanism": "recipe:cobblemon:cooking_pot + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/max_soup.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:maxie_glasses": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/maxie_glasses.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:may_bracelet": {
+  "mechanism": "recipe:minecraft:crafting_shaped + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/may_bracelet.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:meadow_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:medichamite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/medichamite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_black": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_black.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_blue": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_blue.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_green": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_green.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_pink": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_pink.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_red": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_red.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_bracelet_yellow": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_bracelet_yellow.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mega_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mega_stone": {
+  "mechanism": "lootTable:blockDrop + battleTowerShop + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/blocks/mega_stone_crystal.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:meganiumite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/meganiumite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:meowsticite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/meowsticite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:metagrossite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/metagrossite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mewnium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mewnium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mewtwonite_x": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mewtwonite_x.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mewtwonite_y": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mewtwonite_y.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mimikium-z": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "typo in kubejs/data/rctmod/trainers/team_allthemods_ultramegaa.json (real id mega_showdown:mimikium_z)"
+ },
+ "mega_showdown:mimikium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/mimikium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:mind_plate": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:n_lunarizer": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/n_lunarizer.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:n_solarizer": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/n_solarizer.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:nanu_z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/nanu_z_power_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:normal_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/normal_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regigigas_chest.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:normalium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/normalium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:olivia_z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/olivia_z_power_ring.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:olivias_z_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/olivias_z_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:omni_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/omni_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pidgeotite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pidgeotite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pika_case": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pika_case.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pikanium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pikanium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pikashunium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pikashunium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pink_nectar": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pink_nectar.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pinsirite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pinsirite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pixie_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:poison_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/poison_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:poison_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/poison_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:poisonium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/poisonium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:primarium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/primarium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:prison_bottle": {
+  "mechanism": "battleTowerShop + structurePlaced:placedItem",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:psychic_memory": {
+  "mechanism": "structurePlaced:placedItem",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:psychic_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/psychic_tera_shards_from_block.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:psychium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/psychium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:purple_nectar": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/purple_nectar.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:pyroarite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/pyroarite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:raichunite_x": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/raichunite_x.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:raichunite_y": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/raichunite_y.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:red_nectar": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/red_nectar.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:red_orb": {
+  "mechanism": "lootTable:chest + globalLootModifier + battleTowerShop + questReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/bell_tower_chest.json",
+   "kubejs/data/allthemons/loot_modifiers/cataclysm_red_orb.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/legendaries.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:reins_of_unity": {
+  "mechanism": "recipe:minecraft:crafting_shaped + structurePlaced:placedItem",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/reins_of_unity.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/crown_shrine.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:reveal_glass": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rock_memory": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!assets/mega_showdown/models/item/rock_memory.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:rock_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/rock_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regirock_chest.json",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rocket_z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/rocket_z_power_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rockium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/rockium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rotom_catalogue": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/rotom_catalogue.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rusted_shield": {
+  "mechanism": "recipe:minecraft:crafting_shapeless + battleTowerShop",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/rusted_shield.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:rusted_sword": {
+  "mechanism": "recipe:minecraft:crafting_shapeless + battleTowerShop",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/rusted_sword.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sablenite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/sablenite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:salamencite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/salamencite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sceptilite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/sceptilite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:scizorite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/scizorite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:scolipite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/scolipite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:scovillainite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/scovillainite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:scraftinite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/scraftinite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sharpedonite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/sharpedonite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:shock_drive": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/shock_drive.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:skarmorite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/skarmorite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sky_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:slowbronite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/slowbronite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:snorlium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/snorlium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:solganium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/solganium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:soul_dew": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:set + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/soul_dew.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/sets/any_showdown_held_item.json",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/archaeological_site/archaeological_site_chest.json -> mega_showdown:sets/any_showdown_held_item",
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/wishing_weald/wishing_weald_chest.json -> mega_showdown:sets/any_showdown_held_item"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sparkling_stone_dark": {
+  "mechanism": "lootTable:chest + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/archaeological_site/archaeological_site_rare.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sparkling_stone_light": {
+  "mechanism": "lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/archaeological_site/archaeological_site_rare.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:splash_plate": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/lugia_temple.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:spooky_plate": {
+  "mechanism": "lootTable:chest",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:star_core": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:staraptite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/staraptite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:starminite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/starminite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:steel_memory": {
+  "mechanism": "lootTable:chest + structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/registeel_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/throneroom.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:steel_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + structurePlaced:displayCaseOrContainer + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/steel_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/registeel_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/throneroom_of_knightly_heroes/throneroom.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:steelium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped + lootTable:chest",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/steelium_z.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/registeel_chest.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:steelixite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/steelixite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:stellar_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + questReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:stone_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:swampertite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/swampertite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:sweet_max_soup": {
+  "mechanism": "recipe:cobblemon:cooking_pot + structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/sweet_max_soup.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/hoopa_pyramid.nbt"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tapunium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tapunium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_orb": {
+  "mechanism": "recipe:minecraft:crafting_shaped + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_orb.json",
+   "config/ftbquests/quests/chapters/legendaries.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_black": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_black.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_blue": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_blue.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_brown": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_brown.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_cyan": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_cyan.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_gray": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_gray.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_green": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_green.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_light_blue": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_light_blue.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_light_gray": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_light_gray.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_lime": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_lime.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_magenta": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_magenta.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_orange": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_orange.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_pink": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_pink.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_purple": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_purple.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_red": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_red.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_white": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_white.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:tera_pouch_yellow": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tera_pouch_yellow.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:toxic_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:tyranitarite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/tyranitarite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:ultranecrozium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/ultranecrozium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:venusaurite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/venusaurite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:victreebelite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/victreebelite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:water_memory": {
+  "mechanism": "structurePlaced:displayCaseOrContainer",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/lugia_temple.nbt"
+  ],
+  "confidence": "medium",
+  "notes": "only pre-placed in structure NBT (display case / item frame / trial spawner reward): finite, one per generated structure"
+ },
+ "mega_showdown:water_tera_shard": {
+  "mechanism": "recipe:productivebees:advanced_beehive + recipe:minecraft:crafting_shapeless + lootTable:chest + structurePlaced:placedItem + structurePlaced:trialSpawnerReward + codeDrop:defeatTerastalPokemon",
+  "evidence": [
+   "mods/allthemons-0.6.2.jar!data/productivebees/recipe/bee_produce/allthemons/terabeegos_bee.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/recipe/water_tera_shards_from_block.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/lugia_temple_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/lugia_temple.nbt",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/structure/turnback_cave/small_rooms/small_room_3.nbt",
+   "config/mega_showdown/config.json:teraShardDropRate=10.0 / stellarShardDropRate=1.0 (read by com/github/yajatkaul/mega_showdown/event/CobbleEvents.class)"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:waterium_z": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/waterium_z.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:wellspring_mask": {
+  "mechanism": "battleTowerShop",
+  "evidence": [
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:wishing_star": {
+  "mechanism": "lootTable:blockDrop + questReward",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/loot_table/blocks/wishing_star_crystal.json",
+   "config/ftbquests/quests/chapters/mega_showdown.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:yellow_nectar": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/yellow_nectar.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_power_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_power_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_black": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_black.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_blue": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_blue.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_green": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_green.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_pink": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_pink.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_red": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_red.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:z_ring_yellow": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/z_ring_yellow.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:zap_plate": {
+  "mechanism": "noRouteFound",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/tags/item/plates.json"
+  ],
+  "confidence": "medium",
+  "notes": "registered in MegaShowdownItems.class; searched recipes (all namespaces), loot tables (all namespaces incl. tag refs), GLMs, FTB quests + reward tables, BP shop, raid dens config, all structure .nbt of legendarymonuments/mega_showdown, kubejs scripts: no source. Pixie Plate is only a held item of rctmod trainers (not dropped). Likely creative-only in this pack."
+ },
+ "mega_showdown:zinnia_mega_anklet": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/zinnia_mega_anklet.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:zygarde_cell": {
+  "mechanism": "lootTable:chest + battleTowerShop + questReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/calyrex_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/dragoeleki_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regice_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regigigas_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regirock_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/registeel_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/turnback_cave_vault.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:zygarde_core": {
+  "mechanism": "lootTable:chest + battleTowerShop + questReward",
+  "evidence": [
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/regigigas_chest.json",
+   "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar!data/legendarymonuments/loot_table/chests/registeel_chest.json",
+   "config/cobblemon_battle_tower/bp_shop_items.json:items[].item_id",
+   "config/ftbquests/quests/chapters/legendaries.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "mega_showdown:zygarde_cube": {
+  "mechanism": "recipe:minecraft:crafting_shaped + kubejsRecipe:oritech",
+  "evidence": [
+   "mods/mega_showdown-neoforge-1.9.9+1.7.3+1.21.1.jar!data/mega_showdown/recipe/zygarde_cube.json",
+   "kubejs/server_scripts/mods/Oritech/recipes.js:122-126 result id mega_showdown:zygarde_cube"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:clock": {
+  "mechanism": "recipe:create:sequenced_assembly + recipe:productivemetalworks:item_casting + lootTable:chest + questReward + vanilla:recipe + vanilla:loot",
+  "evidence": [
+   "mods/create-1.21.1-6.0.10.jar!data/create/recipe/sequenced_assembly/precision_mechanism.json",
+   "mods/productivemetalworks-1.21.1-1.15.1.jar!data/productivemetalworks/recipe/casting/misc/clock.json",
+   "mods/Aquaculture-1.21.1-2.7.21.jar!data/aquaculture/loot_table/box/lockbox.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/monastery/monastery_map.json",
+   "mods/supplementaries-1.21.1-3.9.8-neoforge.jar!data/supplementaries/loot_table/loot/galleon/safe_tools.json",
+   "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar!data/the_bumblezone/loot_table/archaeology/pollinated_field_suspicious.json",
+   "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar!data/the_bumblezone/loot_table/structures/honitel.json",
+   "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar!data/the_bumblezone/loot_table/structures/subway_tunnel.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:ender_eye": {
+  "mechanism": "recipe:crafting_shaped + recipe:minecraft:crafting_shapeless + recipe:productivemetalworks:item_casting + wanderingTrader + lootTable:chest + lootTable:mobDrop + lootTable:trainer + questReward + vanilla:recipe",
+  "evidence": [
+   "mods/MysticalAgriculture-1.21.1-8.0.28.jar!data/mysticalagriculture/recipe/essence/minecraft/ender_eye.json",
+   "mods/endermanoverhaul-neoforge-1.21.1-2.0.3.jar!data/endermanoverhaul/recipe/ender_eye.json",
+   "mods/productivemetalworks-1.21.1-1.15.1.jar!data/productivemetalworks/recipe/casting/ender_eye.json",
+   "mods/Apotheosis-1.21.1-8.7.0.jar!data/apotheosis/wanderer_trades/eye_of_ender.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/archeology/kisegi_sanctuary/kisegi_sanctuary_archeology.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/jungle_tree_house/jungle_tree_house_treasure.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/mushroom_house/mushroom_house_treasure.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/plague_asylum/plague_asylum_cells.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:fire_charge": {
+  "mechanism": "recipe:minecraft:crafting_shapeless + recipe:oritech:assembler + lootTable:chest + questReward + vanilla:recipe + vanilla:loot",
+  "evidence": [
+   "mods/ars_nouveau-1.21.1-5.13.1.jar!data/ars_nouveau/recipe/fire_essence_to_charge.json",
+   "mods/oritech-neoforge-1.21.1-1.2.12.jar!data/oritech/recipe/assembler/fireball.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/greenwood_pub/greenwood_pub_barrels_hallways.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/greenwood_pub/greenwood_pub_barrels_normal.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/mining_complex/mining_complex_barrel.json",
+   "mods/supplementaries-1.21.1-3.9.8-neoforge.jar!data/supplementaries/loot_table/loot/galleon/chest.json",
+   "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar!data/the_bumblezone/loot_table/structures/candle_parkour.json",
+   "config/ftbquests/quests/chapters/create.snbt:rewards[].item.id"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:totem_of_undying": {
+  "mechanism": "wanderingTrader + lootTable:chest + lootTable:mobDrop + lootTable:trainer + beeQueenTrade + vanilla:mobDrop",
+  "evidence": [
+   "mods/Apotheosis-1.21.1-8.7.0.jar!data/apotheosis/wanderer_trades/totem_of_undying.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/aviary/aviary_barrels.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_challenger/heavenly_challenger_supply.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_challenger/heavenly_challenger_theater.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_conqueror/heavenly_conqueror_barrels.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_conqueror/heavenly_conqueror_normal.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_conqueror/heavenly_conqueror_treasure.json",
+   "mods/DungeonsArise-1.21.1-2.1.68-release.jar!data/dungeons_arise/loot_table/chests/heavenly_rider/heavenly_rider_barrels.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:white_concrete": {
+  "mechanism": "recipe:immersiveengineering:bottling_machine + recipe:mekanism:injecting + recipe:mekanism:painting + recipe:crafting_shaped + recipe:minecraft:crafting_shapeless + recipe:enderio:tank + recipe:minecraft:crafting_shaped + structurePlaced:placedItem + vanilla:loot + worldInteraction",
+  "evidence": [
+   "mods/ImmersiveEngineering-1.21.1-12.4.2-194.jar!data/immersiveengineering/recipe/bottling/white_concrete_powder.json",
+   "mods/Mekanism-1.21.1-10.7.19.85.jar!data/mekanism/recipe/injecting/concrete/white.json",
+   "mods/Mekanism-1.21.1-10.7.19.85.jar!data/mekanism/recipe/painting/concrete/white.json",
+   "mods/MysticalAgriculture-1.21.1-8.0.28.jar!data/mysticalagriculture/recipe/essence/minecraft/white_concrete.json",
+   "mods/allthecompressed-1.21.1-4.4.0.jar!data/allthecompressed/recipe/decompress/white_concrete_1x.json",
+   "mods/enderio-8.2.11-beta.jar!data/enderio/recipe/tank_fill/white_concrete.json",
+   "mods/utilitarian-1.21.1-0.19.2.jar!data/utilitarian/recipe/utility/redying/white_concrete.json",
+   "mods/utilitarian-1.21.1-0.19.2.jar!data/utilitarian/recipe/utility/redying/white_concrete_single.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "minecraft:wind_charge": {
+  "mechanism": "recipe:mekanism:crushing + recipe:occultism:crushing + recipe:productivebees:centrifuge + lootTable:mobDrop + vanilla:recipe + vanilla:loot",
+  "evidence": [
+   "mods/Mekanism-1.21.1-10.7.19.85.jar!data/mekanism/recipe/crushing/breeze_rod.json",
+   "mods/occultism-1.21.1-neoforge-1.224.4.jar!data/occultism/recipe/crushing/wind_charge_from_rod.json",
+   "mods/productivebees-1.21.1-13.13.5.jar!data/productivebees/recipe/centrifuge/honeycomb_breeze.json",
+   "mods/occultism-1.21.1-neoforge-1.224.4.jar!data/occultism/loot_table/entities/possessed_phantom.json",
+   "curseforge/minecraft/Install/versions/1.21.1/1.21.1.jar!data/minecraft/recipe/wind_charge.json",
+   "curseforge/minecraft/Install/versions/1.21.1/1.21.1.jar!data/minecraft/loot_table/chests/trial_chambers/reward_common.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "shelmet": {
+  "mechanism": "phantomId",
+  "evidence": [],
+  "confidence": "high",
+  "notes": "species id, not an item (same origin as karrablast; referenced by species/raid boss files only)"
+ },
+ "zamega:absolitez": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/absolitez.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:baxcalibrite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/baxcalibrite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:darkranite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/darkranite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:garchompitez": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/garchompitez.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:golisopite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/golisopite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:heatranite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/heatranite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:lucarionitez": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/lucarionitez.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:magearnite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/magearnite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:tatsugirinite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/tatsugirinite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:zeraorite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/zeraorite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ },
+ "zamega:zygardite": {
+  "mechanism": "recipe:minecraft:crafting_shaped",
+  "evidence": [
+   "mods/zamega-neoforge-1.7.6.jar!data/zamega/recipe/zygardite.json"
+  ],
+  "confidence": "high",
+  "notes": ""
+ }
+}

@@ -39,3 +39,13 @@ N/A: sem papeis, sem entidades, sem UI nova (so remove o aviso). Prioridade: mus
 - U5 Como obter com loot de treinador (Pontin aprovou nesta branch): o pipeline le as loot tables de treinador do kubejs (ex. insignia da Gatinha -> Satherov) e publica uma fonte "Drop de treinador" no `obtain`, mostrada no mesmo visual das outras fontes. Hoje a insignia mostra "Sem rota confirmada", contradizendo o fato.
 - U6 Uma unica republicacao do dataset + testes completos, depois de U1..U5.
 - U7 (Pontin 2026-09-28: "como obter deve estar preenchido sempre"): 360/949 itens so tem `obtain: none` (mega_showdown 273, allthemons 53, cobblemon 13, zamega 11, minecraft 6, allthemodium 2, + 4 ids fantasma). Pesquisa read-only em andamento classificando cada um com prova nos arquivos do pack; o que for achado vira fonte nova no pipeline. Item comprovadamente inexistente no jogo mostra "Nao obtivel no All the Mons" (nunca vazio). Nunca inventar rota.
+
+## Adendo U7 (resultado da pesquisa, `RESEARCH_obtain.md` + `RESEARCH_obtain.json`)
+Dos 360 sem rota: 332 tem rota real no pack; 6 sao ids fantasma (`karrablast`, `shelmet`, `mega_showdown:darkinium-z`, `mega_showdown:mimikium-z`, `mega_showdown:baxcalibrite` (o real e `zamega:baxcalibrite`), `allthemons:badge` (vem da chave de lang `item.allthemons.badge.tooltip`)); 3 nao obtiveis (`cobblemon:bugwort`, `cobblemon:shalour_sable` nao registrados; `cobblemon:npc_editor` ferramenta de criativo/op); 19 sem rota em lugar nenhum (12 placas e 7 memorias do mega_showdown: so criativo).
+Decisoes do orquestrador (Pontin: "como obter deve estar preenchido sempre"; nunca inventar rota):
+- U7a Receitas de TODOS os namespaces (jars, kubejs data, jar vanilla), saida lida de chaves de resultado; descartar receitas com `neoforge:conditions` de mod ausente; aplicar remocoes do kubejs (ex. `Cobblemon/Recipes.js` remove `crafting_shaped` de `#cobblemon:poke_balls`). Isso tambem pode REMOVER rotas erradas que o site mostra hoje.
+- U7b Loot tables de todos os namespaces (blocos, entidades, baus, arqueologia, treinadores rctmod), com referencias aninhadas.
+- U7c Outras fontes: recompensas do FTB Quests, loja BP da Battle Tower, itens colocados em estruturas `.nbt`, global loot modifiers, Summoning Rituals, `pokemon_interactions`, drop de Tera Shard por config.
+- U7d Catalogo sem os 6 ids fantasma (e sem nada vindo de chave `.tooltip`); os 22 sem rota (3 + 19) ganham fonte `unobtainable` mostrada como "Nao obtivel no All the Mons (so no modo criativo)". Nenhum item fica com `none`.
+- U5b/U7e Frontend: mostrar as fontes novas no "Como obter" no mesmo visual.
+Ordem: U3/U5a (em andamento) -> U7a -> U7b -> U7c -> U7d (pipeline, sequencial, mesmos arquivos) -> frontend -> U6 publicar + testes.
