@@ -1,0 +1,54 @@
+{
+  "structures": [
+    {
+      "structure": "the_bumblezone:overgrown_flower",
+      "weight": 50
+    },
+    {
+      "structure": "the_bumblezone:ancient_shrine",
+      "weight": 8
+    },
+    {
+      "structure": "the_bumblezone:honitel",
+      "weight": 5
+    },
+    {
+      "structure": "the_bumblezone:subway",
+      "weight": 5
+    },
+    {
+      "structure": "the_bumblezone:battle_cubes",
+      "weight": 2
+    },
+    {
+      "structure": "the_bumblezone:goliath_honey_fountain",
+      "weight": 2
+    },
+    {
+      "structure": "the_bumblezone:ancient_hoops",
+      "weight": 1
+    },
+    {
+      "structure": "the_bumblezone:mite_fortress",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "the_bumblezone:advanced_random_spread",
+    "salt": 578754875,
+    "spacing": 31,
+    "separation": 15,
+    "super_exclusion_zone": {
+      "list_of_avoids": [
+        {
+          "other_set": ["the_bumblezone:cell_maze", "the_bumblezone:pollinated_stream"],
+          "chunk_count": 5
+        },
+        {
+          "other_set": ["the_bumblezone:sempiternal_sanctums"],
+          "chunk_count": 4
+        }
+      ]
+    }
+  }
+}

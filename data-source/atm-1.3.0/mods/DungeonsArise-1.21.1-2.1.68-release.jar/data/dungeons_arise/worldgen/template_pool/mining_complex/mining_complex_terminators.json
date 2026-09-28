@@ -1,0 +1,177 @@
+{
+  "name": "dungeons_arise:mining_complex/mining_complex_terminators",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_1",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_2",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_3",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_4",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_6",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_7",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_8",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_mine_terminator_9",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_facility_terminator_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_facility_terminator_1",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_1",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_2",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_3",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_4",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_5",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_spawner_6",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_vault_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

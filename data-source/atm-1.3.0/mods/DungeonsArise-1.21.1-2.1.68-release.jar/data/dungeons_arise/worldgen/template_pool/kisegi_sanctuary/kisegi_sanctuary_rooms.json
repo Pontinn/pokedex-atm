@@ -1,0 +1,60 @@
+{
+  "name": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_rooms",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_lower_room_0",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_middle_room_0",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_top_room_0_0",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_top_room_0_1",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_top_room_0_2",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:kisegi_sanctuary/kisegi_sanctuary_top_room_1_0",
+        "processors": "dungeons_arise:kisegi_sanctuary_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

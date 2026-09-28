@@ -1,0 +1,33 @@
+{
+  "name": "dungeons_arise:mining_complex/mining_complex_deco",
+  "fallback": "dungeons_arise:mining_complex/mining_complex_terminators",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_blimp_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_blimp_1",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "dungeons_arise:mining_complex/mining_complex_chimney_0",
+        "processors": "dungeons_arise:mining_complex_main",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
