@@ -227,10 +227,13 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     ),
     // U8: nomes de ref preenchidos pelo lang do jogo (ids unicos por tipo) e texturas vanilla
     refNames: refNameCounts(items),
+    // U10: templates .nbt com item que nenhuma estrutura do worldgen gera (gametest, peca de codigo, estrutura desligada)
+    structureTemplatesUnreached: extra.structureTemplatesUnreached,
     vanillaTextures: {
       published: vanillaTextures.published.size,
       blockFace: vanillaTextures.blockFace,
       animated: vanillaTextures.animated,
+      tinted: vanillaTextures.tinted,
       missing: vanillaTextures.missing,
     },
     trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },

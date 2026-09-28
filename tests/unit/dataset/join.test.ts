@@ -21,6 +21,7 @@ import type {
   CurrentDatasetPointer,
   DatasetManifest,
   ItemsFile,
+  SeriesInfo,
   SpeciesDetail,
   SpeciesIndexFile,
 } from "../../../src/data/types";
@@ -192,6 +193,27 @@ describe("item catalog with categories, tags and textures (B4.1)", () => {
     expect(items["cobblemon:moomoo_milk"]?.obtain.find((r) => r.kind === "special")).toMatchObject({
       note: { pt: "Interagir com Miltank com Frasco de Vidro na mão.", en: "Interact with Miltank holding Glass Bottle." },
     });
+  });
+
+  it("U10: structurePlaced cites world-generated structures, series titles from the kubejs lang, tinted vine/lily pad", async () => {
+    const structures = Object.values(items).flatMap((it) => it.obtain.flatMap((r) => (r.kind === "structurePlaced" ? r.structures : [])));
+    expect(structures.filter((s) => s.id.includes("gametest"))).toEqual([]);
+    expect(items["mega_showdown:flame_plate"]?.obtain).toEqual([
+      { kind: "structurePlaced", structures: [{ id: "legendarymonuments:traditional_village/ecruteak", name: null }] },
+    ]);
+    expect(structures.find((s) => s.id === "the_bumblezone:cell_maze")?.name?.en).toBe("Cell Maze");
+    expect(items["cobblemon:life_orb"]?.obtain.some((r) => r.kind === "structurePlaced")).toBe(false);
+    const series = readJson<SeriesInfo[]>(PUB_DATA, datasetVersion, "series.json");
+    expect(series.find((s) => s.id === "atm_team")?.title).toEqual({ pt: "Equipe ATM", en: "ATM Team" });
+    expect(series.find((s) => s.id === "contentcreators")?.title).toEqual({ pt: "Equipe de Criadores de Conteúdo", en: "Content Creators Team" });
+    const { default: sharp } = await import("sharp");
+    for (const id of ["minecraft:vine", "minecraft:lily_pad"]) {
+      const file = path.join(REPO_ROOT, PUBLISH_DIR, (items[id]?.texture ?? "").replace(/\?v=.*$/, ""));
+      const { data } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+      let colored = 0;
+      for (let i = 0; i < data.length; i += 4) if ((data[i + 3] as number) > 0 && (data[i + 1] as number) > (data[i] as number) + 20) colored++;
+      expect(colored, id).toBeGreaterThan(0);
+    }
   });
 
   it("cobblemon:potion has pt/en description and a texture", () => {

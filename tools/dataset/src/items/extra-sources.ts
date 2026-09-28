@@ -7,14 +7,19 @@
 //   trade           data/<ns>/wanderer_trades/*.json (Apotheosis/Placebo, `output.id`) = vendedor ambulante
 //   worldgen        data/<ns>/neoforge/biome_modifier (neoforge:add_features) -> placed_feature -> configured_feature ->
 //                   bloco colocado; conta para o item de mesmo id cujo bloco so derruba ele mesmo (loot.blockSelfDrops)
-//   structurePlaced data/<ns>/structure/**/*.nbt (jars e kubejs/data): ids de item no NBT dos blocos/entidades
+//   structurePlaced data/<ns>/structure/**/*.nbt (jars e kubejs/data): ids de item no NBT dos blocos/entidades.
+//                   U10: so conta o template alcancado pela geracao do mundo: worldgen/structure_set -> worldgen/structure
+//                   (start_pool, inclusive dentro de "delegate") -> worldgen/template_pool (location de cada elemento,
+//                   list_pool_element aninhado, fallback) -> template -> blocos jigsaw do template (campo pool) -> ...
+//                   A rota cita a ESTRUTURA dona, nao o template. Template fora dessa cadeia (gametest, peca colocada
+//                   por codigo) fica de fora e vai para o report.
 //   special         tera shards (config/mega_showdown/config.json teraShardDropRate/stellarShardDropRate) e
 //                   data/cobblemon/pokemon_interactions/*.json (efeito give_item)
 import type { ItemNamedRef, ItemQuestRef, LocalizedText } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
 import { isNbtObject, parseNbt, type Nbt } from "../lib/nbt";
 import { isSnbtObject, parseSnbt, type Snbt } from "../lib/snbt";
-import { modJarPaths, parseLenient, readJarData } from "./recipes";
+import { evalConditions, modJarPaths, parseLenient, readJarData, readModIds } from "./recipes";
 
 type Json = Record<string, unknown>;
 const isObject = (v: unknown): v is Json => typeof v === "object" && v !== null && !Array.isArray(v);
@@ -208,6 +213,138 @@ export function structureItemIds(root: Nbt): Set<string> {
   return out;
 }
 
+/** Pools citados pelos blocos jigsaw de um template (`blocks[].nbt.pool`). */
+export function templateJigsawPools(root: Nbt): string[] {
+  const out = new Set<string>();
+  if (isNbtObject(root) && Array.isArray(root.blocks)) {
+    for (const b of root.blocks) if (isNbtObject(b) && isNbtObject(b.nbt) && typeof b.nbt.pool === "string") out.add(b.nbt.pool);
+  }
+  return [...out].sort();
+}
+
+export interface StructureWorldgen {
+  /** worldgen/structure_set id -> JSON */
+  sets: ReadonlyMap<string, unknown>;
+  /** worldgen/structure id -> JSON */
+  structures: ReadonlyMap<string, unknown>;
+  /** worldgen/template_pool id -> JSON */
+  pools: ReadonlyMap<string, unknown>;
+  /** template id -> pools dos blocos jigsaw */
+  jigsaw: ReadonlyMap<string, readonly string[]>;
+  /** neoforge:conditions do arquivo passa (so "ok" conta; mod ausente, false ou nao comprovavel = fora) */
+  enabled?: (data: unknown) => boolean;
+}
+
+const conditionsOf = (d: unknown): unknown => (isObject(d) ? d["neoforge:conditions"] : undefined);
+
+/** Config do Ars Additions: as condicoes `ars_additions:config` dos structure_sets (arcane_library, nexus_tower...) leem daqui. */
+export const ARS_ADDITIONS_CONFIG = "config/ars_additions-common.toml";
+
+/** `chave = true|false` de um .toml (secao ignorada; so booleanos). */
+export function tomlBooleans(text: string): Map<string, boolean> {
+  const out = new Map<string, boolean>();
+  for (const m of text.matchAll(/^\s*([A-Za-z0-9_]+)\s*=\s*(true|false)\s*$/gm)) out.set(m[1] as string, m[2] === "true");
+  return out;
+}
+
+/**
+ * Troca `ars_additions:config` pelo valor da config (neoforge:true/false); chave ausente fica como esta (nao comprovavel).
+ */
+export function resolveConfigConditions(conditions: unknown, flags: ReadonlyMap<string, boolean>): unknown {
+  if (!Array.isArray(conditions)) return conditions;
+  return conditions.map((c) => {
+    if (!isObject(c) || c.type !== "ars_additions:config" || typeof c.config !== "string") return c;
+    const v = flags.get(c.config);
+    return v === undefined ? c : { type: v ? "neoforge:true" : "neoforge:false" };
+  });
+}
+
+/** Todos os valores `start_pool` do JSON de uma estrutura (inclusive tipos que embrulham outra, ex. lithostitched:delegating). */
+function startPools(data: unknown): string[] {
+  const out: string[] = [];
+  const walk = (v: unknown): void => {
+    if (Array.isArray(v)) v.forEach(walk);
+    else if (isObject(v)) {
+      for (const [k, x] of Object.entries(v)) {
+        if (k === "start_pool" && typeof x === "string") out.push(x);
+        else walk(x);
+      }
+    }
+  };
+  walk(data);
+  return out;
+}
+
+/** `location` de um elemento de pool (single/legacy/yung/...), inclusive os de `list_pool_element` (`elements[]`). */
+function elementLocations(el: unknown, out: string[]): void {
+  if (!isObject(el)) return;
+  if (typeof el.location === "string") out.push(el.location);
+  if (Array.isArray(el.elements)) for (const e of el.elements) elementLocations(e, out);
+}
+
+/**
+ * template id -> estruturas (ids, ordenados) que o geram no mundo. Estrutura so conta se estiver num structure_set
+ * habilitado e ela mesma habilitada; pool/template seguem a cadeia start_pool -> elementos -> jigsaw -> fallback.
+ */
+export function templatesByStructure(w: StructureWorldgen): Map<string, string[]> {
+  const enabled = w.enabled ?? ((d: unknown) => conditionsOf(d) === undefined);
+  const inSets = new Set<string>();
+  for (const set of w.sets.values()) {
+    if (!isObject(set) || !enabled(set) || !Array.isArray(set.structures)) continue;
+    for (const e of set.structures) if (isObject(e) && typeof e.structure === "string") inSets.add(e.structure);
+  }
+  const poolContents = (id: string): { templates: string[]; next: string[] } => {
+    const pool = w.pools.get(id);
+    if (!isObject(pool) || !enabled(pool)) return { templates: [], next: [] };
+    const templates: string[] = [];
+    if (Array.isArray(pool.elements)) for (const e of pool.elements) if (isObject(e)) elementLocations(e.element, templates);
+    const next = typeof pool.fallback === "string" && pool.fallback !== "minecraft:empty" ? [pool.fallback] : [];
+    return { templates, next };
+  };
+  const out = new Map<string, Set<string>>();
+  for (const [sid, data] of [...w.structures].sort(([a], [b]) => (a < b ? -1 : 1))) {
+    if (!inSets.has(sid) || !enabled(data)) continue;
+    const seenPools = new Set<string>();
+    const seenTemplates = new Set<string>();
+    const queue = startPools(data);
+    while (queue.length > 0) {
+      const p = queue.shift() as string;
+      if (seenPools.has(p)) continue;
+      seenPools.add(p);
+      const { templates, next } = poolContents(p);
+      queue.push(...next);
+      for (const t of templates) {
+        if (seenTemplates.has(t)) continue;
+        seenTemplates.add(t);
+        const set = out.get(t) ?? new Set<string>();
+        set.add(sid);
+        out.set(t, set);
+        queue.push(...(w.jigsaw.get(t) ?? []));
+      }
+    }
+  }
+  return new Map([...out].map(([t, s]) => [t, [...s].sort()]));
+}
+
+/** item -> estruturas (dedup, ordenadas) a partir de item -> templates; devolve tambem os templates sem estrutura. */
+export function itemsByStructure(
+  itemTemplates: ReadonlyMap<string, readonly string[]>,
+  byTemplate: ReadonlyMap<string, readonly string[]>,
+): { structures: Map<string, string[]>; unreachedTemplates: string[] } {
+  const structures = new Map<string, string[]>();
+  const unreached = new Set<string>();
+  for (const [item, templates] of itemTemplates) {
+    const owners = new Set<string>();
+    for (const t of templates) {
+      const s = byTemplate.get(t);
+      if (s && s.length > 0) s.forEach((x) => owners.add(x));
+      else unreached.add(t);
+    }
+    if (owners.size > 0) structures.set(item, [...owners].sort());
+  }
+  return { structures, unreachedTemplates: [...unreached].sort() };
+}
+
 // ---------------------------------------------------------------------------------------------------------------
 // Worldgen
 // ---------------------------------------------------------------------------------------------------------------
@@ -330,7 +467,10 @@ export interface ExtraSources {
   quests: Map<string, ItemQuestRef[]>;
   trades: Set<string>;
   worldgenBlocks: Map<string, string[]>;
+  /** item -> estruturas (worldgen/structure ids) que geram um template com o item */
   structures: Map<string, string[]>;
+  /** U10: templates com item e sem estrutura que os gere (gametest, peca colocada por codigo, estrutura desligada) */
+  structureTemplatesUnreached: { template: string; items: string[] }[];
   special: Map<string, SpecialRoute[]>;
 }
 
@@ -375,7 +515,7 @@ export function collectExtraSources(
 
   const jarFiles: { path: string; bytes: Uint8Array }[] = [];
   const nbtFiles: { path: string; bytes: Uint8Array }[] = [];
-  const DATA_RE = /^data\/[^/]+\/(?:wanderer_trades\/.+|neoforge\/biome_modifier\/.+|worldgen\/(?:placed_feature|configured_feature)\/.+|pokemon_interactions\/.+)\.json$/;
+  const DATA_RE = /^data\/[^/]+\/(?:wanderer_trades\/.+|neoforge\/biome_modifier\/.+|worldgen\/(?:placed_feature|configured_feature|structure|structure_set|template_pool)\/.+|pokemon_interactions\/.+)\.json$/;
   const NBT_RE = /^data\/[^/]+\/structures?\/.+\.nbt$/;
   for (const jar of modJarPaths(r.root)) {
     jarFiles.push(...readJarData(jar.path, ["wanderer_trades", "neoforge", "worldgen", "pokemon_interactions"], DATA_RE));
@@ -401,7 +541,8 @@ export function collectExtraSources(
     configured: jsonMap(jarFiles, /^data\/([^/]+)\/worldgen\/configured_feature\/(.+)\.json$/),
   });
 
-  const structures = new Map<string, string[]>();
+  const itemTemplates = new Map<string, string[]>();
+  const jigsaw = new Map<string, string[]>();
   const nbtByPath = new Map<string, Uint8Array>();
   for (const f of nbtFiles) nbtByPath.set(f.path, f.bytes); // kubejs por ultimo: mesmo caminho sobrescreve o jar
   for (const [p, bytes] of [...nbtByPath].sort(([a], [b]) => (a < b ? -1 : 1))) {
@@ -415,8 +556,25 @@ export function collectExtraSources(
       continue;
     }
     const structureId = `${m[1] as string}:${m[2] as string}`;
-    for (const item of structureItemIds(root)) if (!(structures.get(item) ?? []).includes(structureId)) addTo(structures, item, structureId);
+    for (const item of structureItemIds(root)) if (!(itemTemplates.get(item) ?? []).includes(structureId)) addTo(itemTemplates, item, structureId);
+    const pools = templateJigsawPools(root);
+    if (pools.length > 0) jigsaw.set(structureId, pools);
   }
+  const modIds = readModIds(ctx);
+  const arsAdditions = readOpt(ARS_ADDITIONS_CONFIG);
+  const configFlags = arsAdditions ? tomlBooleans(textOf(arsAdditions)) : new Map<string, boolean>();
+  const byTemplate = templatesByStructure({
+    sets: jsonMap(jarFiles, /^data\/([^/]+)\/worldgen\/structure_set\/(.+)\.json$/),
+    structures: jsonMap(jarFiles, /^data\/([^/]+)\/worldgen\/structure\/(.+)\.json$/),
+    pools: jsonMap(jarFiles, /^data\/([^/]+)\/worldgen\/template_pool\/(.+)\.json$/),
+    jigsaw,
+    enabled: (d) => evalConditions(resolveConfigConditions(conditionsOf(d), configFlags), modIds) === "ok",
+  });
+  const { structures, unreachedTemplates } = itemsByStructure(itemTemplates, byTemplate);
+  const structureTemplatesUnreached = unreachedTemplates.map((template) => ({
+    template,
+    items: [...itemTemplates].filter(([, ts]) => ts.includes(template)).map(([item]) => item).sort(),
+  }));
 
   const special = new Map<string, SpecialRoute[]>();
   const msConfig = readOpt("config/mega_showdown/config.json");
@@ -428,9 +586,9 @@ export function collectExtraSources(
   }
   for (const [item, routes] of interactionRoutes(interactions, speciesName, itemName)) for (const route of routes) addTo(special, item, route);
 
-  return { shop, rituals, quests, trades, worldgenBlocks: worldgen, structures, special };
+  return { shop, rituals, quests, trades, worldgenBlocks: worldgen, structures, structureTemplatesUnreached, special };
 }
 
-/** Estruturas como ItemNamedRef; U8: nome pela chave `structure.<ns>.<caminho>` quando o jogo tem, senao null. */
+/** Estruturas (worldgen/structure ids) como ItemNamedRef; nome pela chave `structure.<ns>.<caminho>` quando o jogo tem, senao null. */
 export const structureRefs = (ids: readonly string[], name: (id: string) => LocalizedText | null = () => null): ItemNamedRef[] =>
   [...new Set(ids)].sort().map((id) => ({ id, name: name(id) }));

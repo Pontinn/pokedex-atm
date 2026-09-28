@@ -53,7 +53,7 @@ export function frameRect(imageWidth: number, imageHeight: number, animation: Te
   };
 }
 
-async function loadSharp(): Promise<typeof import("sharp")> {
+export async function loadSharp(): Promise<typeof import("sharp")> {
   try {
     return (await import("sharp")).default as unknown as typeof import("sharp");
   } catch (error) {
