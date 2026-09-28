@@ -1,0 +1,698 @@
+{
+  "allthemodium:allthemodium_ingot": {
+    "en": "A refined bar of Allthemodium, the Allthemodium mod's endgame tier metal, used to craft high tier tools, armor and machines.",
+    "pt": "Um lingote de Allthemodium, o metal de elite do mod Allthemodium, usado para fabricar ferramentas, armaduras e máquinas de ponta."
+  },
+  "allthemodium:piglich_heart": {
+    "en": "Dropped by the Piglich, an undead mini boss from the Allthemodium mod that haunts soul lava. Nine hearts compress into a block.",
+    "pt": "Derrubado pelo Piglich, um mini chefe morto-vivo do mod Allthemodium que ronda lagos de lava das almas. Nove corações viram um bloco."
+  },
+  "allthemodium:unobtainium_block": {
+    "en": "A storage block made from nine Unobtainium ingots, the Allthemodium mod's tier above Allthemodium itself.",
+    "pt": "Um bloco de armazenamento feito com nove lingotes de Unobtainium, o nível do mod Allthemodium acima do próprio Allthemodium."
+  },
+  "allthemons:allthemodium_apricorn": {
+    "en": "A fruit grown on Allthemodium Apricorn trees. Cut it down into bits to craft the Allthemodium tier Poke Ball lid.",
+    "pt": "Fruto que cresce nas árvores de Bolota de Allthemodium. Corte-a em pedaços para fabricar a tampa da bola desse nível."
+  },
+  "allthemons:allthemodium_apricorn_bits": {
+    "en": "Small pieces cut from a Half Allthemodium Apricorn, the key ingredient infused into a lid to make the Allthemodium Ball Lid.",
+    "pt": "Pedacinhos cortados de uma Metade de Bolota de Allthemodium, o ingrediente usado para fabricar a Tampa da Bola de Allthemodium."
+  },
+  "allthemons:allthemodium_apricorn_seed": {
+    "en": "Seed that grows into an Allthemodium Apricorn tree, the source of Allthemodium Apricorns.",
+    "pt": "Semente que faz crescer uma árvore de Bolota de Allthemodium, fonte dessas bolotas."
+  },
+  "allthemons:allthemodium_ball_base": {
+    "en": "A metal plate drilled into a rounded base, one of three parts (base, lid, mechanism) that combine into an Allthemodium Ball.",
+    "pt": "Uma chapa de metal perfurada em formato arredondado, uma das três partes (base, tampa, mecanismo) que formam a Bola de Allthemodium."
+  },
+  "allthemons:allthemodium_ball_lid": {
+    "en": "A blank lid infused with molten Allthemodium and Apricorn Bits: forms the lid of an Allthemodium Ball (4x catch rate).",
+    "pt": "Tampa banhada em Allthemodium derretido e Pedaços de Bolota de Allthemodium: forma a tampa da Bola de Allthemodium (4x de captura)."
+  },
+  "allthemons:allthemodium_ball_mechanism": {
+    "en": "Assembled from two Ball Bases, an Allthemodium nugget and a shaft: the catching mechanism used to craft an Allthemodium Ball.",
+    "pt": "Montado com duas Bases de Bola, um pedaço de Allthemodium e um eixo: o mecanismo de captura usado para fabricar a Bola de Allthemodium."
+  },
+  "allthemons:allthemodium_stamped_plate_lid": {
+    "en": "An Allthemodium plate stamped with a rubber mold, an alternate way to produce that tier's ball lid without apricorn bits.",
+    "pt": "Uma chapa de Allthemodium prensada com um molde de borracha, outra forma de obter a tampa da bola desse nível sem usar bolotas."
+  },
+  "allthemons:ancient_allthemodium_ball_lid": {
+    "en": "The Allthemodium Ball Lid infused with Tumblestone, giving it a weathered Ancient look for the Ancient Allthemodium Ball.",
+    "pt": "A Tampa da Bola de Allthemodium infundida com Tumblestone, ganhando visual Ancestral para a Bola de Allthemodium Ancestral."
+  },
+  "allthemons:ancient_allthemodium_ball_mechanism": {
+    "en": "Like the regular mechanism, but built with a full Allthemodium ingot instead of a nugget, for the Ancient Allthemodium Ball.",
+    "pt": "Como o mecanismo comum, mas feito com um lingote inteiro de Allthemodium em vez de um pedaço, para a Bola de Allthemodium Ancestral."
+  },
+  "allthemons:ancient_dna_sample": {
+    "en": "Combined with a Pika Star in the Fossil Machine to revive Mewtwo, a sci-fi twist on the usual fossil revival process.",
+    "pt": "Combinada com uma Estrela Pika na Máquina de Fósseis para reviver o Mewtwo, uma versão científica do processo de fóssil comum."
+  },
+  "allthemons:ancient_soul_lava_ball_lid": {
+    "en": "An Ancient Great Ball lid filled with molten soul lava, for the Ancient Great Ball of Fire (2x catch, 50x vs Fire, fails vs Water).",
+    "pt": "Tampa de Grande Bola Ancestral banhada em lava das almas, para a Grande Bola de Fogo Ancestral (2x de captura, 50x contra Fogo, 0x contra Água)."
+  },
+  "allthemons:ancient_unobtainium_ball_lid": {
+    "en": "The Unobtainium Ball Lid infused with Tumblestone, giving it a weathered Ancient look for the Ancient Unobtainium Ball.",
+    "pt": "A Tampa da Bola de Unobtainium infundida com Tumblestone, com visual Ancestral, usada na Bola de Unobtainium Ancestral."
+  },
+  "allthemons:ancient_unobtainium_ball_mechanism": {
+    "en": "Like the regular mechanism, but built with a full Unobtainium ingot instead of a nugget, for the Ancient Unobtainium Ball.",
+    "pt": "Como o mecanismo comum, mas com um lingote inteiro de Unobtainium em vez de um pedaço, para a Bola de Unobtainium Ancestral."
+  },
+  "allthemons:ancient_vibranium_ball_lid": {
+    "en": "The Vibranium Ball Lid infused with Tumblestone, giving it a weathered Ancient look for the Ancient Vibranium Ball.",
+    "pt": "A Tampa da Bola de Vibranium infundida com Tumblestone, com visual Ancestral, usada na Bola de Vibranium Ancestral."
+  },
+  "allthemons:ancient_vibranium_ball_mechanism": {
+    "en": "Like the regular mechanism, but built with a full Vibranium ingot instead of a nugget, for the Ancient Vibranium Ball.",
+    "pt": "Como o mecanismo comum, mas com um lingote inteiro de Vibranium em vez de um pedaço, para a Bola de Vibranium Ancestral."
+  },
+  "allthemons:half_allthemodium_apricorn": {
+    "en": "One of two halves cut from an Allthemodium Apricorn, an intermediate step before cutting it into Apricorn Bits.",
+    "pt": "Uma das duas metades cortadas de uma Bolota de Allthemodium, etapa intermediária antes de virar Pedaços de Bolota."
+  },
+  "allthemons:half_unobtainium_apricorn": {
+    "en": "One of two halves cut from an Unobtainium Apricorn, an intermediate step before cutting it into Apricorn Bits.",
+    "pt": "Uma das duas metades cortadas de uma Bolota de Unobtainium, etapa intermediária antes de virar Pedaços de Bolota."
+  },
+  "allthemons:half_vibranium_apricorn": {
+    "en": "One of two halves cut from a Vibranium Apricorn, an intermediate step before cutting it into Apricorn Bits.",
+    "pt": "Uma das duas metades cortadas de uma Bolota de Vibranium, etapa intermediária antes de virar Pedaços de Bolota."
+  },
+  "allthemons:healing_station_on_a_stick": {
+    "en": "A Cobblemon Healing Machine mounted on a stick, a portable version you can place anywhere to heal your party.",
+    "pt": "Uma Máquina de Cura da Cobblemon montada num graveto, versão portátil que cura sua equipe onde você quiser."
+  },
+  "allthemons:pc_on_a_stick": {
+    "en": "A Cobblemon PC mounted on a stick, a portable version you can place anywhere to access your storage boxes.",
+    "pt": "Um PC da Cobblemon montado num graveto, versão portátil que dá acesso às suas caixas de armazenamento em qualquer lugar."
+  },
+  "allthemons:pika_star": {
+    "en": "A relic crafted from all twelve ATM Team badges plus rare items and berries. Combined with an Ancient DNA Sample to revive Mewtwo.",
+    "pt": "Uma relíquia fabricada com as doze insígnias do Time ATM mais itens raros e berries. Combinada com a Amostra de DNA Ancestral revive o Mewtwo."
+  },
+  "allthemons:soul_lava_ball_lid": {
+    "en": "A Great Ball lid filled with molten soul lava, for the Great Ball of Fire (2x catch rate, 50x vs Fire types, fails vs Water types).",
+    "pt": "Tampa de Grande Bola banhada em lava das almas, para a Grande Bola de Fogo (2x de captura, 50x contra tipos Fogo, 0x contra Água)."
+  },
+  "allthemons:the_artist_badge": {
+    "en": "Earned by defeating CesarZorak in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer CesarZorak na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_drunk_badge": {
+    "en": "Earned by defeating WhatTheDrunk in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer WhatTheDrunk na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_helpful_badge": {
+    "en": "Earned by defeating JoeyChin01 in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer JoeyChin01 na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_kitty_badge": {
+    "en": "Earned by defeating Satherov in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer Satherov na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_lobster_badge": {
+    "en": "Earned by defeating LobsterJonn in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer LobsterJonn na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_microwave_badge": {
+    "en": "Earned by defeating DragonDogeMaster in the ATM Team gauntlet. One of twelve badges used to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer DragonDogeMaster na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika."
+  },
+  "allthemons:the_notch_badge": {
+    "en": "Earned by defeating Notch in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer Notch na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_ralph_badge": {
+    "en": "Earned by defeating Rosary in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer Rosary na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_skyblock_badge": {
+    "en": "Earned by defeating Oly2o6 in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer Oly2o6 na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_toblerone_badge": {
+    "en": "Earned by defeating Toblerone0508 in the ATM Team gauntlet. One of twelve badges used to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer Toblerone0508 na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika."
+  },
+  "allthemons:the_unknown_badge": {
+    "en": "Earned by defeating UncanDango in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer UncanDango na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:the_vortex_badge": {
+    "en": "Earned by defeating TheVortex in the ATM Team gauntlet. One of twelve badges combined to craft a Pika Star, not consumed in crafting.",
+    "pt": "Conquistada ao vencer TheVortex na jornada do Time ATM. Uma das doze insígnias usadas para fabricar a Estrela Pika, sem ser consumida."
+  },
+  "allthemons:togepie": {
+    "en": "A pie baked using a Togepi egg instead of letting it hatch, a joke recipe punning on Togepi and pie.",
+    "pt": "Uma torta feita com um ovo de Togepi em vez de deixá-lo chocar, uma piada com o nome Togepi e torta."
+  },
+  "allthemons:unobtainium_apricorn": {
+    "en": "A fruit grown on Unobtainium Apricorn trees. Cut it down into bits to craft the Unobtainium tier Poke Ball lid.",
+    "pt": "Fruto que cresce nas árvores de Bolota de Unobtainium. Corte-a em pedaços para fabricar a tampa da bola desse nível."
+  },
+  "allthemons:unobtainium_apricorn_bits": {
+    "en": "Small pieces cut from a Half Unobtainium Apricorn, the key ingredient infused into a lid to make the Unobtainium Ball Lid.",
+    "pt": "Pedacinhos cortados de uma Metade de Bolota de Unobtainium, ingrediente usado para fabricar a Tampa da Bola de Unobtainium."
+  },
+  "allthemons:unobtainium_apricorn_seed": {
+    "en": "Seed that grows into an Unobtainium Apricorn tree, the source of Unobtainium Apricorns.",
+    "pt": "Semente que faz crescer uma árvore de Bolota de Unobtainium, fonte dessas bolotas."
+  },
+  "allthemons:unobtainium_ball_base": {
+    "en": "A metal plate drilled into a rounded base, one of three parts (base, lid, mechanism) that combine into an Unobtainium Ball.",
+    "pt": "Uma chapa de metal perfurada em formato arredondado, uma das três partes (base, tampa, mecanismo) que formam a Bola de Unobtainium."
+  },
+  "allthemons:unobtainium_ball_lid": {
+    "en": "A lid infused with Unobtainium and Apricorn Bits: forms the lid of an Unobtainium Ball (10x catch rate, 30x vs legendaries).",
+    "pt": "Tampa banhada em Unobtainium e Pedaços de Bolota de Unobtainium: forma a tampa da Bola de Unobtainium (10x de captura, 30x contra lendários)."
+  },
+  "allthemons:unobtainium_ball_mechanism": {
+    "en": "Assembled from two Ball Bases, an Unobtainium nugget and a shaft: the catching mechanism used to craft an Unobtainium Ball.",
+    "pt": "Montado com duas Bases de Bola, um pedaço de Unobtainium e um eixo: o mecanismo de captura usado para fabricar a Bola de Unobtainium."
+  },
+  "allthemons:unobtainium_stamped_plate_lid": {
+    "en": "An Unobtainium plate stamped with a rubber mold, an alternate way to produce that tier's ball lid without apricorn bits.",
+    "pt": "Uma chapa de Unobtainium prensada com um molde de borracha, outra forma de obter a tampa da bola desse nível sem usar bolotas."
+  },
+  "allthemons:vibranium_apricorn": {
+    "en": "A fruit grown on Vibranium Apricorn trees. Cut it down into bits to craft the Vibranium tier Poke Ball lid.",
+    "pt": "Fruto que cresce nas árvores de Bolota de Vibranium. Corte-a em pedaços para fabricar a tampa da bola desse nível."
+  },
+  "allthemons:vibranium_apricorn_bits": {
+    "en": "Small pieces cut from a Half Vibranium Apricorn, the key ingredient infused into a lid to make the Vibranium Ball Lid.",
+    "pt": "Pedacinhos cortados de uma Metade de Bolota de Vibranium, ingrediente usado para fabricar a Tampa da Bola de Vibranium."
+  },
+  "allthemons:vibranium_apricorn_seed": {
+    "en": "Seed that grows into a Vibranium Apricorn tree, the source of Vibranium Apricorns.",
+    "pt": "Semente que faz crescer uma árvore de Bolota de Vibranium, fonte dessas bolotas."
+  },
+  "allthemons:vibranium_ball_base": {
+    "en": "A metal plate drilled into a rounded base, one of three parts (base, lid, mechanism) that combine into a Vibranium Ball.",
+    "pt": "Uma chapa de metal perfurada em formato arredondado, uma das três partes (base, tampa, mecanismo) que formam a Bola de Vibranium."
+  },
+  "allthemons:vibranium_ball_lid": {
+    "en": "A blank lid infused with Vibranium and Apricorn Bits: forms the lid of a Vibranium Ball (6x catch rate).",
+    "pt": "Tampa banhada em Vibranium e Pedaços de Bolota de Vibranium: forma a tampa da Bola de Vibranium (6x de taxa de captura)."
+  },
+  "allthemons:vibranium_ball_mechanism": {
+    "en": "Assembled from two Ball Bases, a Vibranium nugget and a shaft: the catching mechanism used to craft a Vibranium Ball.",
+    "pt": "Montado com duas Bases de Bola, um pedaço de Vibranium e um eixo: o mecanismo de captura usado para fabricar a Bola de Vibranium."
+  },
+  "allthemons:vibranium_stamped_plate_lid": {
+    "en": "A Vibranium plate stamped with a rubber mold, an alternate way to produce that tier's ball lid without apricorn bits.",
+    "pt": "Uma chapa de Vibranium prensada com um molde de borracha, outra forma de obter a tampa da bola desse nível sem usar bolotas."
+  },
+  "artifacts:everlasting_beef": {
+    "en": "A curio that never runs out: eating it restores hunger, but the item is never consumed, only put on a short cooldown.",
+    "pt": "Um acessório que nunca se esgota: comê-lo restaura a fome, mas o item nunca é consumido, só entra em um breve cooldown."
+  },
+  "cobblemon:apricorn_boat": {
+    "en": "A boat crafted from Apricorn wood, works just like a vanilla Minecraft boat on water.",
+    "pt": "Um bote feito de madeira de azinheira, funciona como um bote comum de Minecraft na água."
+  },
+  "cobblemon:apricorn_chest_boat": {
+    "en": "An Apricorn wood boat with a chest attached, carries extra items like a vanilla chest boat.",
+    "pt": "Um bote de azinheira com um baú acoplado, carrega itens extras como um bote com baú comum."
+  },
+  "cobblemon:aprijuice_black": {
+    "en": "Juice made by cooking Black Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Pretas numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_blue": {
+    "en": "Juice made by cooking Blue Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Azuis numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_green": {
+    "en": "Juice made by cooking Green Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Verdes numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_pink": {
+    "en": "Juice made by cooking Pink Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Rosas numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_red": {
+    "en": "Juice made by cooking Red Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Vermelhas numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_white": {
+    "en": "Juice made by cooking White Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Brancas numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:aprijuice_yellow": {
+    "en": "Juice made by cooking Yellow Apricorns in a Campfire Pot. Fed to a rideable Pokemon, it permanently boosts its riding stats.",
+    "pt": "Suco feito cozinhando Bolotas Amarelas numa Panela de Acampamento. Dado a um Pokémon montável, aumenta para sempre seus atributos de montaria."
+  },
+  "cobblemon:armor_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Shieldon.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Shieldon."
+  },
+  "cobblemon:automaton_armor_trim_smithing_template": {
+    "en": "A smithing template patterned after Golett and Golurk, applies the Automaton trim to armor at a smithing table.",
+    "pt": "Um molde de ferraria com um padrão inspirado em Golett e Golurk, aplica o acabamento Automaton em armaduras na bancada de ferraria."
+  },
+  "cobblemon:big_malasada": {
+    "en": "Named after Alola's fried bread specialty; in Cobblemon it's a Cooking Pot dish that restores hunger and saturation.",
+    "pt": "Batizada com a especialidade frita de Alola, no Cobblemon é um prato da Panela de Cozinha que restaura fome e saturação."
+  },
+  "cobblemon:black_apricorn": {
+    "en": "A black apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Slate Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota preta, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Slate Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:black_apricorn_seed": {
+    "en": "A black apricorn sprout. Plant it to grow an apricorn tree that produces Black Apricorns.",
+    "pt": "Um broto de azinheira preta. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Pretas."
+  },
+  "cobblemon:black_tumblestone": {
+    "en": "A rare black variant of Tumblestone. Combined with an ingot and Black Apricorns, it crafts the Heavy, Leaden and Gigaton Ancient Poke Balls.",
+    "pt": "Uma variante rara e preta do Jaspe. Combinada com um lingote e Bolotas Pretas, fabrica as Poké Bolas Antigas Heavy, Leaden e Gigaton."
+  },
+  "cobblemon:blue_apricorn": {
+    "en": "A blue apricorn, Cobblemon's own fruit. Crafted with a copper ingot into an Azure Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota azul, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Azure Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:blue_apricorn_seed": {
+    "en": "A blue apricorn sprout. Plant it to grow an apricorn tree that produces Blue Apricorns.",
+    "pt": "Um broto de azinheira azul. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Azuis."
+  },
+  "cobblemon:bugwort": {
+    "en": "A bitter medicinal wildflower used in the mainline games to craft status curing Remedies; not obtainable in this modpack build.",
+    "pt": "Uma erva medicinal amarga usada nos jogos originais para preparar Remédios que curam status; não obtenível nesta modpack."
+  },
+  "cobblemon:bygone_sherd": {
+    "en": "A pottery sherd with a nostalgic, old-school Cobblemon design. Combine with three more to craft a Decorated Pot; purely decorative.",
+    "pt": "Óstraco cerâmico com um desenho nostálgico, no estilo antigo do Cobblemon. Combine com outros três para criar um Vaso Decorado; puramente decorativo."
+  },
+  "cobblemon:candied_apple": {
+    "en": "An apple candied with sugar on a stick, a player food that restores hunger and saturation when eaten.",
+    "pt": "Uma maçã cristalizada com açúcar em um palito, um alimento que restaura fome e saturação ao ser comido."
+  },
+  "cobblemon:candied_berry": {
+    "en": "A berry candied with sugar on a stick, a player food that restores hunger and saturation when eaten.",
+    "pt": "Uma fruta cristalizada com açúcar em um palito, um alimento que restaura fome e saturação ao ser comida."
+  },
+  "cobblemon:capture_sherd": {
+    "en": "A pottery sherd depicting a Poke Ball. Combine with three more to craft a Decorated Pot; purely decorative, unrelated to fossils.",
+    "pt": "Óstraco cerâmico com o desenho de uma Poké Bola. Combine com outros três para criar um Vaso Decorado; puramente decorativo, sem ligação com fósseis."
+  },
+  "cobblemon:casteliacone": {
+    "en": "Named after Castelia City's soft serve ice cream; in Cobblemon it's cooked from wheat, milk, and snow to restore hunger.",
+    "pt": "Batizado com o sorvete de Castelia City, no Cobblemon é preparado com trigo, leite e neve para restaurar fome."
+  },
+  "cobblemon:claw_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Anorith.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Anorith."
+  },
+  "cobblemon:clear_amulet": {
+    "en": "A held item that stops the holder's stats from being lowered by an opposing Pokemon's moves or abilities.",
+    "pt": "Um item para segurar que impede que os status do portador sejam reduzidos por golpes ou habilidades de Pokémon adversários."
+  },
+  "cobblemon:coarse_mulch": {
+    "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Mountain or Taiga biome, indefinitely.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Montanha ou Taiga, por tempo indeterminado."
+  },
+  "cobblemon:cover_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Tirtouga.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Tirtouga."
+  },
+  "cobblemon:dome_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Kabuto.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Kabuto."
+  },
+  "cobblemon:dome_sherd": {
+    "en": "A pottery sherd depicting Kabuto and the Dome Fossil. Combine with three more to craft a Decorated Pot; purely decorative.",
+    "pt": "Óstraco cerâmico com o desenho de Kabuto e do Fóssil Cúpula. Combine com outros três para criar um Vaso Decorado; puramente decorativo."
+  },
+  "cobblemon:fossilized_bird": {
+    "en": "Half of an ancient fossil. Paired with a Fossilized Dino it revives Arctozolt; paired with a Fossilized Drake, Dracozolt.",
+    "pt": "Metade de um fóssil antigo. Combinado com o Dino Fossilizado revive Arctozolt; combinado com o Draco Fossilizado, Dracozolt."
+  },
+  "cobblemon:fossilized_dino": {
+    "en": "Half of an ancient fossil. Paired with a Fossilized Bird it revives Arctozolt; paired with a Fossilized Fish, Arctovish.",
+    "pt": "Metade de um fóssil antigo. Combinado com o Pássaro Fossilizado revive Arctozolt; combinado com o Peixe Fossilizado, Arctovish."
+  },
+  "cobblemon:fossilized_drake": {
+    "en": "Half of an ancient fossil. Paired with a Fossilized Bird it revives Dracozolt; paired with a Fossilized Fish, Dracovish.",
+    "pt": "Metade de um fóssil antigo. Combinado com o Pássaro Fossilizado revive Dracozolt; combinado com o Peixe Fossilizado, Dracovish."
+  },
+  "cobblemon:fossilized_fish": {
+    "en": "Half of an ancient fossil. Paired with a Fossilized Dino it revives Arctovish; paired with a Fossilized Drake, Dracovish.",
+    "pt": "Metade de um fóssil antigo. Combinado com o Dino Fossilizado revive Arctovish; combinado com o Draco Fossilizado, Dracovish."
+  },
+  "cobblemon:galarica_nuts": {
+    "en": "A farmable nut used to craft items that evolve Galarian Slowpoke, Cobblemon's version of the mainline Galarica Twig.",
+    "pt": "Uma noz cultivável usada para fabricar itens que evoluem o Slowpoke de Galar, a versão do Cobblemon do item Galarica Twig original."
+  },
+  "cobblemon:green_apricorn": {
+    "en": "A green apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Verdant Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota verde, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Verdant Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:green_apricorn_seed": {
+    "en": "A green apricorn sprout. Plant it to grow an apricorn tree that produces Green Apricorns.",
+    "pt": "Um broto de azinheira verde. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Verdes."
+  },
+  "cobblemon:grip_claw": {
+    "en": "A held item that extends the duration of multi-turn moves like Bind and Wrap by three turns.",
+    "pt": "Um item para segurar que estende em três turnos a duração de golpes de múltiplos turnos, como Bind e Wrap."
+  },
+  "cobblemon:growth_mulch": {
+    "en": "Farming mulch applied to a berry tree. Speeds up its growth for the next three harvests.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Acelera seu crescimento pelas próximas três colheitas."
+  },
+  "cobblemon:hearty_grains": {
+    "en": "A wild swamp crop and one of Cobblemon's most common cooking ingredients, used in Poke Snacks and many recipes.",
+    "pt": "Uma plantação selvagem de pântano e um dos ingredientes culinários mais comuns do Cobblemon, usado em Petiscos Poke e muitas receitas."
+  },
+  "cobblemon:helix_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Omanyte.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Omanyte."
+  },
+  "cobblemon:helix_sherd": {
+    "en": "A pottery sherd depicting Omanyte and the Helix Fossil. Combine with three more to craft a Decorated Pot; purely decorative.",
+    "pt": "Óstraco cerâmico com o desenho de Omanyte e do Fóssil Espiral. Combine com outros três para criar um Vaso Decorado; puramente decorativo."
+  },
+  "cobblemon:humid_mulch": {
+    "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Jungle or Swamp biome, indefinitely.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Selva ou Pântano, por tempo indeterminado."
+  },
+  "cobblemon:jaw_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Tyrunt.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Tyrunt."
+  },
+  "cobblemon:jubilife_muffin": {
+    "en": "Named after Jubilife Village's muffin from Legends: Arceus; in Cobblemon it's a hearty grains dish that restores hunger.",
+    "pt": "Batizado com o muffin de Jubilife Village, de Legends: Arceus, no Cobblemon é um prato de grãos saudáveis que restaura fome."
+  },
+  "cobblemon:lagging_tail": {
+    "en": "A held item that makes its holder act last within its priority bracket, regardless of Speed.",
+    "pt": "Um item para segurar que faz o portador agir por último em sua faixa de prioridade, independentemente da Velocidade."
+  },
+  "cobblemon:lava_cookie": {
+    "en": "Named after Lavaridge Town's local specialty; in Cobblemon it's a small snack cooked in the Cooking Pot.",
+    "pt": "Batizado com a especialidade de Lavaridge Town, no Cobblemon é um lanche pequeno preparado na Panela de Cozinha."
+  },
+  "cobblemon:leek_and_potato_stew": {
+    "en": "A Cooking Pot stew made from leek and potato, a hearty player food in Cobblemon's cooking system.",
+    "pt": "Um ensopado de alho-poró com batata feito na Panela de Cozinha, um prato substancioso do sistema de culinária do Cobblemon."
+  },
+  "cobblemon:loamy_mulch": {
+    "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Plains biome, indefinitely.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Planície, por tempo indeterminado."
+  },
+  "cobblemon:luminous_moss": {
+    "en": "A held item that is consumed to raise the holder's Special Defense by one stage after being hit by a Water type move.",
+    "pt": "Um item para segurar que é consumido para aumentar em um nível a Defesa Especial do portador ao ser atingido por um golpe do tipo Água."
+  },
+  "cobblemon:lumiose_galette": {
+    "en": "Named after a popular pastry from Lumiose City in Kalos; in Cobblemon it's a Cooking Pot treat that restores hunger.",
+    "pt": "Batizada com um doce popular de Lumiose City, em Kalos, no Cobblemon é um petisco da Panela que restaura fome."
+  },
+  "cobblemon:medicinal_brew": {
+    "en": "Cobblemon's base potion, brewed from a Medicinal Leek at a Brewing Stand; used to craft Potions, vitamins and other cures.",
+    "pt": "Poção base do Cobblemon, feita fermentando um Alho-poró Medicinal numa Bancada de Fermentação; usada para fabricar Poções, vitaminas e outros remédios."
+  },
+  "cobblemon:mulch_base": {
+    "en": "Plain, uncolored mulch made from bone meal, rotten flesh, dirt and paper. The base ingredient used to craft all other Cobblemon mulches.",
+    "pt": "Adubo simples, sem cor, feito de farinha de osso, carne podre, terra e papel. Ingrediente base para fabricar todos os outros adubos do Cobblemon."
+  },
+  "cobblemon:nostalgic_sherd": {
+    "en": "A pottery sherd styled after classic Gen 1-2 Pokemon sprite art. Combine with three more to craft a Decorated Pot; purely decorative.",
+    "pt": "Óstraco cerâmico no estilo dos sprites clássicos da 1ª e 2ª geração. Combine com outros três para criar um Vaso Decorado; puramente decorativo."
+  },
+  "cobblemon:npc_editor": {
+    "en": "An experimental creative mode tool tied to Cobblemon's NPC editor interface, used to configure NPC trainers.",
+    "pt": "Uma ferramenta experimental do modo criativo ligada à interface de edição de NPCs do Cobblemon, usada para configurar treinadores NPC."
+  },
+  "cobblemon:old_amber_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Aerodactyl.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Aerodactyl."
+  },
+  "cobblemon:old_gateau": {
+    "en": "Named after the Old Chateau's hidden specialty from Sinnoh; in Cobblemon it's a filling Cooking Pot dish.",
+    "pt": "Batizado com a especialidade secreta do Casarão Antigo, em Sinnoh, no Cobblemon é um prato farto da Panela de Cozinha."
+  },
+  "cobblemon:open_faced_sandwich": {
+    "en": "A Cooking Pot sandwich that cures a Pokemon's status condition when fed to it, or restores hunger if eaten by the player.",
+    "pt": "Um sanduíche aberto da Panela de Cozinha que cura o status de um Pokémon ao ser dado a ele, ou restaura fome se comido pelo jogador."
+  },
+  "cobblemon:peat_mulch": {
+    "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in a Forest biome, indefinitely.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma de Floresta, por tempo indeterminado."
+  },
+  "cobblemon:pewter_crunchies": {
+    "en": "Named after Pewter City's crunchy snack; in Cobblemon it's a Cooking Pot treat made from grains, honey, and pumpkin seeds.",
+    "pt": "Batizados com o lanche crocante de Pewter City, no Cobblemon são um petisco de grãos, mel e sementes de abóbora da Panela."
+  },
+  "cobblemon:pink_apricorn": {
+    "en": "A pink apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Roseate Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota rosa, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Roseate Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:pink_apricorn_seed": {
+    "en": "A pink apricorn sprout. Plant it to grow an apricorn tree that produces Pink Apricorns.",
+    "pt": "Um broto de azinheira rosa. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Rosas."
+  },
+  "cobblemon:plume_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Archen.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Archen."
+  },
+  "cobblemon:poke_bait": {
+    "en": "A combined fishing bait that stacks up to three bait effects when attached to a Poké Rod's hook.",
+    "pt": "Uma isca de pesca combinada que acumula até três efeitos de isca ao ser presa no anzol da Pokévara."
+  },
+  "cobblemon:poke_rod": {
+    "en": "Cobblemon's fishing rod, made by smithing a Fishing Rod with a Poke Ball; casts a bobber to reel in water Pokemon.",
+    "pt": "A vara de pesca do Cobblemon, feita na ferraria com uma Vara de Pescar e uma Poké Bola, fisga Pokémon aquáticos."
+  },
+  "cobblemon:pokedex_black": {
+    "en": "This black Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex preta abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_blue": {
+    "en": "This blue Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex azul abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_green": {
+    "en": "This green Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex verde abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_pink": {
+    "en": "This pink Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex rosa abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_red": {
+    "en": "This red Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex vermelha abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_white": {
+    "en": "This white Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex branca abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokedex_yellow": {
+    "en": "This yellow Pokedex opens the Pokedex screen to browse species you've seen or caught; a cosmetic color with no gameplay difference.",
+    "pt": "Esta Pokédex amarela abre a tela da Pokédex para ver as espécies encontradas ou capturadas; uma cor cosmética, sem diferença de jogabilidade."
+  },
+  "cobblemon:pokerod_smithing_template": {
+    "en": "A smithing template used to upgrade a Fishing Rod into a Poké Rod; can be duplicated with diamonds like other templates.",
+    "pt": "Um molde de ferraria usado para transformar uma Vara de Pescar em uma Pokévara, pode ser duplicado com diamantes, como os outros moldes."
+  },
+  "cobblemon:potato_mochi": {
+    "en": "A Cooking Pot dish made from potato, hearty grains, and honey, restores hunger and saturation.",
+    "pt": "Um prato da Panela de Cozinha feito com batata, grãos saudáveis e mel, restaura fome e saturação."
+  },
+  "cobblemon:rage_candy_bar": {
+    "en": "Named after Mahogany Town's famous candy from Johto; in Cobblemon it's cooked from wheat, milk, sugar, and cocoa.",
+    "pt": "Batizada com o doce famoso de Mahogany Town, em Johto, no Cobblemon é feita com trigo, leite, açúcar e cacau."
+  },
+  "cobblemon:red_apricorn": {
+    "en": "A red apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Poke Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota vermelha, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Poké Bola, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:red_apricorn_seed": {
+    "en": "A red apricorn sprout. Plant it to grow an apricorn tree that produces Red Apricorns.",
+    "pt": "Um broto de azinheira vermelha. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Vermelhas."
+  },
+  "cobblemon:relic_coin": {
+    "en": "A currency coin that fills Gimmighoul's Coin Stash meter, needed to evolve it into Gholdengo at 999 coins.",
+    "pt": "Uma moeda usada para encher o medidor de moedas do Gimmighoul, necessário para evoluí-lo em Gholdengo ao chegar a 999."
+  },
+  "cobblemon:rich_mulch": {
+    "en": "Farming mulch applied to a berry tree. Increases the yield of its next three harvests.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Aumenta a quantidade colhida nas próximas três colheitas."
+  },
+  "cobblemon:roasted_leek": {
+    "en": "A leek roasted by smelting or smoking, used as a cooking ingredient and a rare drop from Capsakid and Scovillain.",
+    "pt": "Um alho-poró assado ao ser fundido ou defumado, usado como ingrediente culinário e drop raro de Capsakid e Scovillain."
+  },
+  "cobblemon:root_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Lileep.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Lileep."
+  },
+  "cobblemon:saccharine_boat": {
+    "en": "A boat crafted from Saccharine wood, works just like a vanilla Minecraft boat on water.",
+    "pt": "Um bote feito de madeira de sacarina, funciona como um bote comum de Minecraft na água."
+  },
+  "cobblemon:saccharine_chest_boat": {
+    "en": "A Saccharine wood boat with a chest attached, carries extra items like a vanilla chest boat.",
+    "pt": "Um bote de sacarina com um baú acoplado, carrega itens extras como um bote com baú comum."
+  },
+  "cobblemon:sacred_ash": {
+    "en": "Revives every fainted Pokemon in the party and fully restores their HP; in this modpack it can drop from Entei and Ho-Oh.",
+    "pt": "Reanima todos os Pokémon desmaiados da equipe e restaura o HP por completo, nesta modpack pode cair de Entei e Ho-Oh."
+  },
+  "cobblemon:sail_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Amaura.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Amaura."
+  },
+  "cobblemon:sandy_mulch": {
+    "en": "Farming mulch applied to a berry tree. Makes it behave as if planted in an Arid biome, indefinitely.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Faz com que ela se comporte como se estivesse num bioma Árido, por tempo indeterminado."
+  },
+  "cobblemon:shalour_sable": {
+    "en": "Named after Shalour City's famous shortbread from Kalos; not currently obtainable in this modpack.",
+    "pt": "Batizado com o biscoito amanteigado famoso de Shalour City, em Kalos, não obtenível atualmente nesta modpack."
+  },
+  "cobblemon:skull_fossil": {
+    "en": "An ancient fossil. Revived at a Fossil Machine, it becomes Cranidos.",
+    "pt": "Um fóssil antigo. Revivido numa Máquina de Fósseis, vira Cranidos."
+  },
+  "cobblemon:sky_tumblestone": {
+    "en": "A rare sky-blue variant of Tumblestone. Combined with an ingot and White Apricorns, it crafts the Feather and Wing Ancient Poke Balls.",
+    "pt": "Uma variante rara e azul-celeste do Jaspe. Combinada com um lingote e Bolotas Brancas, fabrica as Poké Bolas Antigas Feather e Wing."
+  },
+  "cobblemon:smoked_tail_curry": {
+    "en": "A curry made with smoked tail meat, a filling Cooking Pot dish that restores hunger and saturation.",
+    "pt": "Um curry feito com cauda defumada, um prato farto da Panela de Cozinha que restaura fome e saturação."
+  },
+  "cobblemon:surprise_mulch": {
+    "en": "Farming mulch applied to a berry tree. Raises its mutation chance for three harvests and can turn a Revival Herb into another rare herb.",
+    "pt": "Adubo agrícola aplicado a uma árvore de frutas. Aumenta a chance de mutação por três colheitas e pode transformar uma Erva Revival em outra erva rara."
+  },
+  "cobblemon:suspicious_sherd": {
+    "en": "A pottery sherd depicting Ditto mid-transformation. Combine with three more to craft a Decorated Pot; purely decorative.",
+    "pt": "Óstraco cerâmico com o desenho de um Ditto se transformando. Combine com outros três para criar um Vaso Decorado; puramente decorativo."
+  },
+  "cobblemon:tasty_tail": {
+    "en": "A tail sheared from Slowpoke, Slowbro, or Slowking, used as a meat ingredient in cooking recipes.",
+    "pt": "Uma cauda tosquiada de Slowpoke, Slowbro ou Slowking, usada como ingrediente de carne em receitas culinárias."
+  },
+  "cobblemon:tumblestone": {
+    "en": "Cobblemon's own crystal, mined like amethyst or found as loot in ruins. Combined with an ingot and apricorns, it crafts Ancient Poke Balls.",
+    "pt": "Cristal próprio do Cobblemon, minerado como ametista ou achado em ruínas. Combinado com um lingote e bolotas, fabrica Poké Bolas Antigas."
+  },
+  "cobblemon:vivichoke": {
+    "en": "A rare vegetable harvested from a fully grown Vivichoke crop, used as a cooking ingredient and nutrition seasoning.",
+    "pt": "Um vegetal raro colhido de uma plantação madura de Brotovital, usado como ingrediente culinário e tempero nutritivo."
+  },
+  "cobblemon:vivichoke_dip": {
+    "en": "A dip made from Vivichoke, milk, and bread; eating it restores hunger and grants brief Absorption.",
+    "pt": "Um molho feito de Brotovital, leite e pão, ao ser comido restaura fome e concede Absorção por um curto período."
+  },
+  "cobblemon:vivichoke_seeds": {
+    "en": "Seeds planted on farmland to grow a Vivichoke crop through several growth stages.",
+    "pt": "Sementes plantadas em terra fértil para cultivar uma planta de Brotovital ao longo de vários estágios de crescimento."
+  },
+  "cobblemon:white_apricorn": {
+    "en": "A white apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Premier Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota branca, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Premier Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:white_apricorn_seed": {
+    "en": "A white apricorn sprout. Plant it to grow an apricorn tree that produces White Apricorns.",
+    "pt": "Um broto de azinheira branca. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Brancas."
+  },
+  "cobblemon:yellow_apricorn": {
+    "en": "A yellow apricorn, Cobblemon's own fruit. Crafted with a copper ingot into a Citrine Ball, one of the mod's seven basic Poke Balls.",
+    "pt": "Uma bolota amarela, o fruto próprio do Cobblemon. Combinada com um lingote de cobre, vira uma Citrine Ball, uma das sete Poké Bolas básicas do mod."
+  },
+  "cobblemon:yellow_apricorn_seed": {
+    "en": "A yellow apricorn sprout. Plant it to grow an apricorn tree that produces Yellow Apricorns.",
+    "pt": "Um broto de azinheira amarela. Plante-o para cultivar uma árvore de bolotas que produz Bolotas Amarelas."
+  },
+  "legendarymonuments:darkstone_shard": {
+    "en": "A shard of the Dark Stone, said to hold immense hidden power; combined with an electric gem it forms the stone that revives Zekrom.",
+    "pt": "Um fragmento da Pedra das Trevas, que guarda um poder imenso; combinado com uma gema elétrica, forma a pedra que ressuscita Zekrom."
+  },
+  "legendarymonuments:lightstone_shard": {
+    "en": "A shard of the Light Stone, said to hold immense hidden power; combined with a fire gem it forms the stone that revives Reshiram.",
+    "pt": "Um fragmento da Pedra da Luz, que guarda um poder imenso; combinado com uma gema de fogo, forma a pedra que ressuscita Reshiram."
+  },
+  "mega_showdown:darkinium-z": {
+    "en": "Dark-type Z-Crystal from the Mega Showdown add-on; lets a Pokemon upgrade a Dark-type move into the Z-Move Black Hole Eclipse.",
+    "pt": "Cristal Z do tipo Sombrio do addon Mega Showdown: permite que o Pokémon melhore um golpe do tipo Sombrio em um Z-Move exclusivo desse tipo."
+  },
+  "mega_showdown:mimikium-z": {
+    "en": "Mimikyu's exclusive Z-Crystal from the Mega Showdown add-on; upgrades its move Play Rough into the Z-Move Let's Snuggle Forever.",
+    "pt": "Cristal Z exclusivo de Mimikyu do addon Mega Showdown: melhora o golpe Jogo Duro para o Z-Move Vamos nos Aninhar Para Sempre."
+  },
+  "mega_showdown:tera_pouch_black": {
+    "en": "Mega Showdown add-on pouch (black) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (preta) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_blue": {
+    "en": "Mega Showdown add-on pouch (blue) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (azul) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_brown": {
+    "en": "Default, undyed Mega Showdown pouch for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa padrão (sem tingir) do addon Mega Showdown para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_cyan": {
+    "en": "Mega Showdown add-on pouch (cyan) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (ciano) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_gray": {
+    "en": "Mega Showdown add-on pouch (gray) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (cinza) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_green": {
+    "en": "Mega Showdown add-on pouch (green) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (verde) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_light_blue": {
+    "en": "Mega Showdown add-on pouch (light blue) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (azul-clara) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_light_gray": {
+    "en": "Mega Showdown add-on pouch (light gray) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (cinza-clara) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_lime": {
+    "en": "Mega Showdown add-on pouch (lime) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (verde-limão) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_magenta": {
+    "en": "Mega Showdown add-on pouch (magenta) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (magenta) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_orange": {
+    "en": "Mega Showdown add-on pouch (orange) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (laranja) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_pink": {
+    "en": "Mega Showdown add-on pouch (pink) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (rosa) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_purple": {
+    "en": "Mega Showdown add-on pouch (purple) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (roxa) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_red": {
+    "en": "Mega Showdown add-on pouch (red) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (vermelha) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_white": {
+    "en": "Mega Showdown add-on pouch (white) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (branca) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "mega_showdown:tera_pouch_yellow": {
+    "en": "Mega Showdown add-on pouch (yellow) for storing Tera Shards, the items used to Terastallize a Pokemon and change its Tera Type.",
+    "pt": "Bolsa do addon Mega Showdown (amarela) para guardar Fragmentos Tera, usados para Teracristalizar um Pokémon e mudar seu Tipo Tera."
+  },
+  "silentgear:sinew": {
+    "en": "Animal tissue dropped by some mobs; smelted into Dried Sinew and crafted into Sinew Fiber, a flexible binding/cord material for Silent Gear tools.",
+    "pt": "Tecido animal que cai de alguns mobs; vira Tendão Seco ao ser fundido e depois Fibra de Tendão, material flexível para amarrações de ferramentas do Silent Gear."
+  }
+}
