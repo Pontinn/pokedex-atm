@@ -154,7 +154,7 @@ export interface RecipeRecord {
 
 const decoder = new TextDecoder("utf-8");
 
-function parseLenient(bytes: Uint8Array): unknown {
+export function parseLenient(bytes: Uint8Array): unknown {
   let text = decoder.decode(bytes);
   if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
   try {
@@ -625,7 +625,7 @@ function walkFiles(dir: string, base: string, out: string[]): void {
 }
 
 /** Arquivos `data/<ns>/<sub>/**` de um jar aberto (pasta) ou zip, filtrados por regex. */
-function readJarData(jarPath: string, subdirs: readonly string[], re: RegExp): { path: string; bytes: Uint8Array }[] {
+export function readJarData(jarPath: string, subdirs: readonly string[], re: RegExp): { path: string; bytes: Uint8Array }[] {
   const out: { path: string; bytes: Uint8Array }[] = [];
   if (statSync(jarPath).isDirectory()) {
     const dataDir = path.join(jarPath, "data");
@@ -646,13 +646,13 @@ function readJarData(jarPath: string, subdirs: readonly string[], re: RegExp): {
   return out.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
 }
 
-function vanillaJarPath(root: string, mode: "snapshot" | "instance"): string {
+export function vanillaJarPath(root: string, mode: "snapshot" | "instance"): string {
   return mode === "snapshot"
     ? path.join(root, "vanilla", `${VANILLA_VERSION}.jar`)
     : path.resolve(root, "..", "..", "Install", "versions", VANILLA_VERSION, `${VANILLA_VERSION}.jar`);
 }
 
-function modJarPaths(root: string): { fileName: string; path: string }[] {
+export function modJarPaths(root: string): { fileName: string; path: string }[] {
   const modsDir = path.join(root, "mods");
   return readdirSync(modsDir)
     .sort()
@@ -675,7 +675,7 @@ function modIdsOfZip(bytes: Uint8Array, depth: number): string[] {
 }
 
 /** Mods instalados: snapshot = `mod-ids.json`; instancia = modId de todo neoforge.mods.toml (incl. jarjar). */
-function readModIds(ctx: Pick<PipelineContext, "reader" | "report">): Set<string> {
+export function readModIds(ctx: Pick<PipelineContext, "reader" | "report">): Set<string> {
   const ids = new Set(["minecraft", "neoforge", "c"]);
   if (ctx.reader.mode === "snapshot") {
     if (!ctx.reader.exists("mod-ids.json")) {

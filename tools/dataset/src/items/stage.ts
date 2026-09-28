@@ -70,7 +70,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const craftable = collectCraftable(ctx, new Set(catalog.map((e) => e.id)));
   const dropsIndex = buildDropsIndex(ctx);
   const berryPlantable = collectBerryPlantable(ctx);
-  const loot = collectLoot(ctx);
+  const loot = collectLoot(ctx, new Set(catalog.map((e) => e.id)));
   const balls = readJsonIfExists<BallsFile>(ctx.dataPath("balls.json")) ?? [];
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
   const trainerDrops = buildTrainerDrops(collectRctLootTables(ctx), collectTrainerRefs(ctx));
