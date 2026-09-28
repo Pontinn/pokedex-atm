@@ -60,3 +60,9 @@ Nenhum.
 ## Adendo 2026-09-28: texturas animadas (Pontin, print da "Insignia da Gatinha")
 - 18 texturas de item publicadas sao tiras animadas (16x128 a 16x288): no jogo um `.png.mcmeta` anima os quadros; o site mostra a tira inteira espremida. `data-source/` nao tem nenhum `.mcmeta`.
 - Decisao do orquestrador (default seguro, Pontin pode pedir animacao depois): publicar SO o quadro de `frames[0]` (ou o 0 se nao houver lista), quadrado (largura x largura, ou `width`/`height` do mcmeta). Ids do catalogo e UI nao mudam.
+
+## Adendo 2026-09-28: traducao PT-BR do kubejs (Pontin aprovou nesta branch)
+- O modpack traz `kubejs/assets/<ns>/lang/pt_br.json` (154 arquivos, 61 mil chaves), que no jogo em portugues vale por cima do lang dos jars. `data-source/` nao tem esses arquivos e o pipeline nao os le. A regra do projeto ja e "kubejs substitui o jar" (dados); passa a valer tambem para idioma.
+- Impacto medido vs dataset publicado: 113 nomes PT de item (ex. Bola Grande -> Grande Bola; Allthemodium Ingot -> Lingote de Allthemodium), 317 descricoes PT de item novas, 19 diferentes, 44 nomes de golpe (maiusculas), 138 descricoes de especie, 63 de golpe, 1 habilidade (Estamina -> Vigor), 1 especie (Flabebe -> Flabébé).
+- O resource pack "Cobblemon PT-BR.zip" da instancia NAO esta ativo (options.txt) e fica de fora. 2 arquivos do kubejs sao JSON invalido (modular_bees, supplementaries): namespaces fora do app; ignorados com aviso.
+- D6: pipeline le o lang do kubejs por cima dos jars. D7: textos curados passam a citar os nomes PT novos + mesclar os 110 textos minecraft revisados. D4: publicar.
