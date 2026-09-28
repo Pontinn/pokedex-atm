@@ -327,6 +327,23 @@
           "tag": 10
         }
       }
+    },
+    {
+      "date": "2026-09-28",
+      "what": "U7c global loot modifiers: kubejs/data/neoforge/loot_modifiers/global_loot_modifiers.json e todos os kubejs/data/allthemons/loot_modifiers/*.json, copiados como estao (os modifiers dos jars nao entram: nenhum com addition.id e so condicao loot_table_id soma item do catalogo; conferido snapshot = instancia)",
+      "files": [
+        "kubejs/data/allthemons/loot_modifiers/ange_calyrex.json",
+        "kubejs/data/allthemons/loot_modifiers/ange_suerebe.json",
+        "kubejs/data/allthemons/loot_modifiers/cataclysm_blue_orb.json",
+        "kubejs/data/allthemons/loot_modifiers/cataclysm_red_orb.json",
+        "kubejs/data/allthemons/loot_modifiers/pecharunt_doll_aether_1.json",
+        "kubejs/data/allthemons/loot_modifiers/pecharunt_doll_aether_2.json",
+        "kubejs/data/allthemons/loot_modifiers/pecharunt_doll_aether_3.json",
+        "kubejs/data/allthemons/loot_modifiers/pecharunt_doll_aether_4.json",
+        "kubejs/data/allthemons/loot_modifiers/pecharunt_doll_aether_5.json",
+        "kubejs/data/allthemons/loot_modifiers/verdant_sprig_from_pf_crops.json",
+        "kubejs/data/neoforge/loot_modifiers/global_loot_modifiers.json"
+      ]
     }
   ]
 }
