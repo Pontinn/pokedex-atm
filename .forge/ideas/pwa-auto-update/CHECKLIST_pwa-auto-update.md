@@ -2,9 +2,9 @@
 - [x] U1 SW em autoUpdate (skipWaiting + clientsClaim), reload unico automatico, UpdatePrompt removido; unit + e2e pwa-offline adaptados (update sem clique, offline, dados preservados, sem loop); build ok. (dfac0441)
 - [x] U2 PRD/SPEC do pontindex com nota de revisao do F12.1. (8726584e)
 - [x] U1b Recarregar uma vez quando um chunk antigo falhar (`vite:preloadError`), cobrindo a aba antiga na primeira troca.
-- [ ] U3 Paths de asset do dataset com `?v=<hash>` (cache busting).
+- [x] U3 Paths de asset do dataset com `?v=<hash>` (cache busting). `99d6035a` (+ README `26906d9d`)
 - [x] U4 282 descricoes curadas sem obtencao. (284 ids, 208 reescritas) `009c1b55`
-- [ ] U5a Pipeline: loot de treinador do kubejs no `obtain`.
+- [x] U5a Pipeline: loot de treinador do kubejs no `obtain`. `142e2ef7`
 - [ ] U5b Frontend: fonte "Drop de treinador" no Como obter.
 - [ ] U7a Receitas de todos os namespaces + remocoes do kubejs + conditions.
 - [ ] U7b Loot tables de todos os namespaces.
@@ -14,4 +14,7 @@
 - [ ] U6 Republicar dataset + testes completos + smoke.
 ## Notas
 - U1: pwa-offline.spec.ts --repeat-each=3 21/21 (producao); vitest completo 476 ok, 1 suite falha so no run paralelo (tests/unit/dataset/join.test.ts, ENOTEMPTY/EPERM em tools/dataset/out, passa sozinha; outro agente mexendo em tools/dataset no mesmo working tree).
+- U3: so `items.json.texture` carrega caminho de asset no dataset (813 itens). Gritos (`cry` = slug), sprites (`hasSprite`) e sfx sao montados pelo app com nome fixo (`/assets/cries/<slug>.ogg`, `/assets/sprites/<dex>.png`, `/assets/sfx/<nome>.ogg`): sem caminho no JSON, sem `?v=`. `texture-manifest.json` (valores relativos, sem query) nao e lido pelo app. Frontend preserva a query: `itemTextureUrl` concatena string; `EvolutionPanel.itemTexture` so tira o prefixo `assets/items/`; nada deriva da extensao; SW casa `/assets/items/` por regex e o CacheFirst usa a URL com query como chave. Rodada `_publish_test`: 949 ids iguais ao publicado, 813 strings de textura mudaram (so a query, hash confere com os bytes), 0 outros arquivos de dados diferentes; unica outra diferenca em items.json = 208 descricoes do U4 (`009c1b55`). Kitty: `assets/items/allthemons/badges/the_kitty_badge.png?v=baded6c2`.
+- U5a: 14 itens ganham `trainerDrop` (12 insignias `allthemons:the_*_badge` do ATM Team, `allthemons:ancient_dna_sample` de Notch, `cobblemon:master_ball` de Boss Giovanni `boss_giovanni_0045`, so na 1a vitoria). 19 ids das tabelas ficam fora do catalogo (`allthemons:atm_badge_box` da Cynthia, 18 `pkgbadges:*`). Os 30 arquivos `kubejs/data/rctmod/loot_table/**` do data-source sao identicos aos da instancia real (nada copiado). Loot de `trainers/groups/**` (generico, sorteado para o grupo) fica de fora: entra no U7b. Formato e impacto no frontend: `HANDOFF_backend.md`.
+- Bloqueio de ambiente (U3/U5a): a publicacao em `tools/dataset/out/_publish_test` falha com EPERM no rename de `data/species` enquanto algum processo observa a pasta do repo (repro: pasta criada em `tools/dataset/out`, 3 s de espera, rename = EPERM; mesma coisa em `Projetos/` ou no scratchpad = ok). Suspeito: o dev server Vite na porta 4191 (pid 33680), apesar do `ignored` de `tools/dataset/out`. As rodadas deste agente usaram um `--require` do scratchpad que troca o rename de pasta por copia + remocao, sem mudar o repo. U6 (publicar em public/) vai bater no mesmo erro com esse processo aberto.
 ## Bugs encontrados
