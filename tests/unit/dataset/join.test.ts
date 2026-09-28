@@ -150,6 +150,29 @@ describe("item catalog with categories, tags and textures (B4.1)", () => {
     expect(atm.trainers.some((t) => t.id === "team_allthemods_satherov")).toBe(true);
   });
 
+  it("every item shows how to get it: zero `none`, `unobtainable` only as the single route, phantom ids out (U7d)", () => {
+    const all = Object.values(items);
+    expect(all.filter((it) => it.obtain.length === 0 || it.obtain.some((r) => r.kind === "none")).map((it) => it.id)).toEqual([]);
+    expect(all.filter((it) => it.obtain.length > 1 && it.obtain.some((r) => r.kind === "unobtainable")).map((it) => it.id)).toEqual([]);
+    for (const id of ["karrablast", "shelmet", "mega_showdown:darkinium-z", "mega_showdown:mimikium-z", "mega_showdown:baxcalibrite", "allthemons:badge"]) {
+      expect(items[id]).toBeUndefined();
+    }
+    expect(items["cobblemon:bugwort"]?.obtain).toEqual([{ kind: "unobtainable", reason: "notRegistered" }]);
+    expect(items["cobblemon:npc_editor"]?.obtain).toEqual([{ kind: "unobtainable", reason: "creativeOnly" }]);
+    expect(items["zamega:baxcalibrite"]?.obtain.some((r) => r.kind === "craftable")).toBe(true);
+  });
+
+  it("U7c sources reach items.json (shop, ritual, structurePlaced, questReward, blockDrop, mobDrop, special)", () => {
+    const kinds = (id: string) => (items[id]?.obtain ?? []).map((r) => r.kind);
+    expect(items["cobblemon:metal_alloy"]?.obtain).toEqual([{ kind: "shop", shop: "battleTowerBp", price: 5 }]);
+    expect(kinds("allthemons:imbued_pokemon_egg")).toEqual(["ritual"]);
+    expect(kinds("mega_showdown:flame_plate")).toEqual(["structurePlaced"]);
+    expect(kinds("mega_showdown:wishing_star")).toEqual(["blockDrop", "questReward"]);
+    expect(kinds("mega_showdown:red_orb")).toContain("mobDrop");
+    expect(kinds("cobblemon:moomoo_milk")).toContain("special");
+    expect(kinds("mega_showdown:max_mushroom")).toContain("worldgen");
+  });
+
   it("cobblemon:potion has pt/en description and a texture", () => {
     const potion = items["cobblemon:potion"];
     expect(potion?.description?.pt).toBeTruthy();

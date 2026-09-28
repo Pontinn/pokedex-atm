@@ -1,0 +1,4 @@
+{
+  "cobblemon:bugwort": "Cobblemon-neoforge-1.7.3+1.21.1.jar: so assets (blockstates/bugwort.json, models/item/bugwort.json, textures/item/bugwort.png) e a classe BugwortBlock; o registro de itens (com/cobblemon/mod/common/CobblemonItems.class) e o de blocos (CobblemonBlocks.class) nao citam bugwort, e nenhum arquivo de data de nenhum dos 398 jars o cita",
+  "cobblemon:shalour_sable": "Cobblemon-neoforge-1.7.3+1.21.1.jar: so assets (models/item/shalour_sable.json, textures/item/food/shalour_sable.png); CobblemonItems.class e CobblemonBlocks.class nao citam shalour_sable, e nenhum arquivo de data de nenhum dos 398 jars o cita"
+}

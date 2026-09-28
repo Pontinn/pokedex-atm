@@ -16,6 +16,10 @@ import { buildUsedInIndex } from "./used-in";
 import { buildTrainerDrops, collectRctLootTables, type TrainerRef } from "./trainer-drops";
 import { versionStagedAsset } from "../media/asset-version";
 import { collectExtraSources, structureRefs } from "./extra-sources";
+import path from "node:path";
+
+/** U7d: ids comprovadamente nao registrados no jogo (id -> prova), curados de RESEARCH_obtain e conferidos nos registros do jar. */
+export const NOT_REGISTERED_FILE = path.resolve(import.meta.dirname, "../../curated/item-not-registered.json");
 
 const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
 type Json = Record<string, unknown>;
@@ -33,12 +37,14 @@ function collectBaitItemIds(ctx: Pick<PipelineContext, "reader">): Set<string> {
   return ids;
 }
 
-/** {id, name} com o nome do lang do pack (`<prefixo>.<ns>.<caminho com .>`); sem chave = null (nunca inventado). */
+/** {id, name} com o nome do lang do pack (`<prefixo>.<ns>.<caminho com .>`); sem chave en = null (nunca inventado). */
 export function namedRefs(ids: Iterable<string>, prefix: "block" | "entity", lang: PipelineContext["lang"]): ItemNamedRef[] {
   return [...new Set(ids)].sort().map((id) => {
     const [ns, ...rest] = id.split(":");
     const key = `${prefix}.${ns}.${rest.join(":").split("/").join(".")}`;
-    return { id, name: lang.has(key) ? lang.text(key) : null };
+    // en obrigatorio (pt cai para en quando o jogo nao tem pt; nunca o contrario: en com texto em portugues)
+    const en = lang.en.get(key);
+    return { id, name: en ? { pt: lang.pt.get(key) ?? en, en } : null };
   });
 }
 
@@ -87,6 +93,9 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const speciesBySlug = new Map([...ctx.species.values()].map((ms) => [ms.slug, ms.name]));
   const extra = collectExtraSources(ctx, (slug) => speciesBySlug.get(slug) ?? null);
 
+  const notRegistered = new Map(Object.entries(readJsonIfExists<Record<string, string>>(NOT_REGISTERED_FILE) ?? {}));
+  const phantomIds: string[] = [];
+  const unobtainable: Record<"creativeOnly" | "notRegistered", string[]> = { creativeOnly: [], notRegistered: [] };
   const items: Record<string, ItemInfo> = {};
   const unversionedTextures: string[] = [];
   for (const entry of catalog) {
@@ -129,7 +138,20 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     const features = loot.blockSelfDrops.has(entry.id) ? extra.worldgenBlocks.get(entry.id) : undefined;
     if (features && features.length > 0) obtain.push({ kind: "worldgen", features: [...features].sort() });
     for (const sp of extra.special.get(entry.id) ?? []) obtain.push({ kind: "special", note: sp.note, evidence: sp.evidence });
-    if (obtain.length === 0) obtain.push({ kind: "none" });
+    if (obtain.length === 0) {
+      // U7d: id so referenciado (treinador, evolucao, forma...), sem textura e sem nenhuma rota no pack = nao e item
+      // registrado: typo (mega_showdown:darkinium-z), especie usada como parceiro de troca (karrablast) ou chave de lang
+      // sem item (mega_showdown:baxcalibrite: so o lang do jar, sem modelo nem classe; o item real e zamega:baxcalibrite)
+      if (entry.referenceOnly && entry.texture === null) {
+        phantomIds.push(entry.id);
+        continue;
+      }
+      const reason = notRegistered.has(entry.id) ? "notRegistered" : "creativeOnly";
+      unobtainable[reason].push(entry.id);
+      obtain.push({ kind: "unobtainable", reason });
+    } else if (notRegistered.has(entry.id)) {
+      ctx.report.warn("W_NOT_REGISTERED_HAS_ROUTE", `${entry.id} esta em curated/item-not-registered.json mas tem rota no pack`, { id: entry.id });
+    }
 
     // U3: textura publicada com ?v=<sha8 dos bytes> (cache busting); categorize acima usa o caminho sem query
     let texture = entry.texture;
@@ -162,12 +184,25 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     );
   }
 
+  if (phantomIds.length > 0) {
+    ctx.report.warn(
+      "W_ITEM_REFERENCE_UNKNOWN",
+      `${phantomIds.length} id(s) so referenciados (treinador/evolucao/forma), sem textura nem rota (fora do items.json): ${phantomIds.join(", ")}`,
+      phantomIds,
+    );
+  }
+
   writeJsonAtomic(ctx.dataPath("items.json"), items);
   ctx.setCount("items", Object.keys(items).length);
   const withoutDescription = catalog.filter((e) => e.description === null).length;
   const withTrainerDrop = Object.values(items).filter((it) => it.obtain.some((r) => r.kind === "trainerDrop")).length;
   ctx.report.section("items", {
     count: Object.keys(items).length,
+    unobtainable,
+    phantomIds,
+    obtainKinds: Object.fromEntries(
+      [...new Set(Object.values(items).flatMap((it) => it.obtain.map((r) => r.kind)))].sort().map((k) => [k, Object.values(items).filter((it) => it.obtain.some((r) => r.kind === k)).length]),
+    ),
     trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },
     descriptions: {
       fromGame: catalog.length - curated.fromCurated.length - withoutDescription,

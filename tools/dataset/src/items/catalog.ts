@@ -17,6 +17,8 @@ export interface CatalogEntry {
   texture: string | null;
   /** false = id so existe por causa de uma referencia (drop/evolucao/forma/fossil/treinador), sem lang proprio */
   fromLang: boolean;
+  /** U7d: id que so entrou por referencia (drop/evolucao/forma/fossil/treinador), nao pelo lang (nome + textura ou tooltip) */
+  referenceOnly: boolean;
 }
 
 const LANG_ITEM_NAMESPACES = ["cobblemon", "allthemons", "mega_showdown"] as const;
@@ -39,8 +41,9 @@ function collectLangItemIds(lang: LangTable): Map<string, { namespace: string; p
       const match = ITEM_KEY.exec(key);
       if (!match) continue;
       const namespace = match[1] as string;
-      let restPath = match[2] as string;
-      if (restPath.endsWith(".tooltip")) restPath = restPath.slice(0, -".tooltip".length);
+      const restPath = match[2] as string;
+      // U7d: chave com sufixo (`.tooltip`, `.desc`...) nao cria id; so a chave do nome (ex. `item.allthemons.badge.tooltip` nao e item)
+      if (restPath.includes(".")) continue;
       out.set(`${namespace}:${restPath}`, { namespace, path: restPath });
     }
   };
@@ -112,6 +115,7 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
     const hasTooltip = deps.lang.has(`item.${entry.namespace}.${entry.path}.tooltip`);
     if (hasTexture || hasTooltip) allIds.add(id);
   }
+  const fromLangKeys = new Set(allIds);
   for (const id of referenced) allIds.add(id);
 
   const gameDescription = createGameDescriptionResolver(deps.lang);
@@ -134,6 +138,7 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
       description,
       texture: texture ? `assets/items/${texture}` : null,
       fromLang: name !== null,
+      referenceOnly: !fromLangKeys.has(id),
     });
   }
   return catalog.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
