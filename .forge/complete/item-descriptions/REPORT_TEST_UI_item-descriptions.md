@@ -40,3 +40,12 @@ TOTAL: 218 testes, 215 passaram, 3 falharam, 0 pulados.
 
 ## Conclusao
 Nenhuma regressao de produto. F3 precisa de ajuste do teste; F1/F2 sao fragilidade de teste pre-existente.
+
+## Correcoes (2026-09-28)
+Agente forge-imp-frontend. So arquivos de teste; nenhum bug de produto. Dev (`PW_DEV=1 PW_PORT=4178`, `--workers=1`), headless, sem slowMo, sem sleeps.
+
+- **F3** `0f3c3577` test(e2e): expect kubejs PT name Rocha Lisa for smooth_rock in trainers spec. Os e2e usam strings fixas (nao leem o dataset), entao so a string mudou. Diff de todos os nomes PT/EN (items, moves, abilities, balls) entre o dataset antigo (20260927-1344fc8b) e o novo: 217 mudancas; grep em `tests/` so achou esta expectativa. `tests/fixtures/rules-storage/balls.json` tem nomes antigos, mas e fixture congelada, auto consistente, sem assercao sobre esses nomes; `item-descriptions.test.ts` usa "Estamina"/"Bola Grande" como entrada sintetica. trainers.spec 11/11.
+- **F1** `8d0a5d26` test(e2e): stop smooth scroll flake in compare swap keeps scroll. Evidencia: `#main` instrumentado, nenhuma chamada de scroll do app e scrollHeight constante (565); depois do `locator.click()` no Trocar lados o `#main` anima 45 -> 41 -> 19 (~1 s). Com settle + `page.mouse.click` no centro: 45 -> 45 em 3/3. `--repeat-each=5`: 5/5; compare.spec 9/9.
+- **F2** `7b0d8399` test(e2e): stop smooth scroll flake in item Back restores scroll. Evidencia: os `locator.click()` na aba TM e na linha do Terremoto animam o `#main` (3 -> 151, 185 -> 533) e a transicao de abrir `.desc-wrap` cresce a pagina (scrollHeight 7558 -> 7565, scrollTop 2633 -> 2640) depois do teste ler `saved`; o app salva 2640 e restaura 2640 exato. Correcao: alvo levado a vista com `behavior: "instant"`, settle, clique de mouse cru, settle antes de medir. `--repeat-each=5`: 5/5; item.spec 16/16.
+
+Lint e typecheck verdes.
