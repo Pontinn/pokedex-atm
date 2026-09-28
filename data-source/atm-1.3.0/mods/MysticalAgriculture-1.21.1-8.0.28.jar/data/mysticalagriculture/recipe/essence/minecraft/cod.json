@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:fish"
+    }
+  ],
+  "pattern": [
+    "E  ",
+    " E ",
+    "  E"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:fish_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:cod",
+    "count": 6
+  }
+}

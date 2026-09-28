@@ -1,0 +1,13 @@
+{
+  "type": "cobblegengalore:blockgen",
+  "result": {
+    "id": "minecraft:mud",
+    "count": 1
+  },
+  "left": {
+    "Name": "minecraft:water"
+  },
+  "right": {
+    "Name": "minecraft:dirt"
+  }
+}

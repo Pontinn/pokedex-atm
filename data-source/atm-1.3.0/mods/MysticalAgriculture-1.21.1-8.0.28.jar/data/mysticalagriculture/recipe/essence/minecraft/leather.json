@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:cow"
+    }
+  ],
+  "pattern": [
+    "E  ",
+    " E ",
+    "  E"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:cow_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:leather",
+    "count": 6
+  }
+}

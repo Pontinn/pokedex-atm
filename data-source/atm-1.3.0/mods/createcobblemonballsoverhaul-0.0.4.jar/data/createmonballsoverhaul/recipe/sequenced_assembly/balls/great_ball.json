@@ -1,0 +1,53 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:iron_ball_mechanism"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "cobblemon:great_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_great_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:great_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_great_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_great_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:blank_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_great_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_great_ball"
+  }
+}

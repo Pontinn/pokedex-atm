@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "allthemodium",
+  "key": {
+    "a": {
+      "tag": "c:ingots/unobtainium"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemodium:unobtainium_block"
+  }
+}

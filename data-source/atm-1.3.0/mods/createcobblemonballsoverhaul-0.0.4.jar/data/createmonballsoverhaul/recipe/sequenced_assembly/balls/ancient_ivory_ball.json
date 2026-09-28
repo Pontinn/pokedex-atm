@@ -1,0 +1,53 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:copper_ancient_ball_mechanism"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "cobblemon:ancient_ivory_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_ivory_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:coated_white_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_ivory_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_ivory_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:blank_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_ivory_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_ancient_ivory_ball"
+  }
+}

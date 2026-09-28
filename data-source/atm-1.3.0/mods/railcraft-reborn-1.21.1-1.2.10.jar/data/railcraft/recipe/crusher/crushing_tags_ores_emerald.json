@@ -1,0 +1,35 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/emerald"
+      }
+    }
+  ],
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "tag": "c:ores/emerald"
+  },
+  "outputs": [
+    {
+      "probability": 1.0,
+      "result": {
+        "item": "minecraft:emerald"
+      }
+    },
+    {
+      "probability": 0.85,
+      "result": {
+        "item": "minecraft:emerald"
+      }
+    },
+    {
+      "probability": 0.25,
+      "result": {
+        "item": "minecraft:emerald"
+      }
+    }
+  ]
+}

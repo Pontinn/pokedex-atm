@@ -1,0 +1,17 @@
+{
+  "type": "productivebees:advanced_beehive",
+  "ingredient": "minecraft:bee",
+  "results": [
+    {
+      "item": {
+        "item": "minecraft:honeycomb"
+      }
+    },
+    {
+      "item": {
+        "tag": "c:pollens"
+      },
+      "chance": 0.15
+    }
+  ]
+}

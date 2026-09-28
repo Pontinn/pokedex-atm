@@ -1,0 +1,53 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:brass_ball_mechanism"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "cobblemon:repeat_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_repeat_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:repeat_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_repeat_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_repeat_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:blank_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_repeat_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_repeat_ball"
+  }
+}

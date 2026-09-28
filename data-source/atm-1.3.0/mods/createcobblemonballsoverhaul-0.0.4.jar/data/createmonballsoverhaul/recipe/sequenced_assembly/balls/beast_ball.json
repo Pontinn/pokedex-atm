@@ -1,0 +1,71 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:sturdy_ball_mechanism"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "cobblemon:beast_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_beast_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:beast_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_beast_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_beast_ball"
+        },
+        [
+          {
+            "tag": "c:nuggets/gold"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_beast_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_beast_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:beast_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_beast_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_beast_ball"
+  }
+}

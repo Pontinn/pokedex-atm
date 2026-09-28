@@ -1,0 +1,26 @@
+{
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "item": "railcraft:blast_furnace_bricks"
+  },
+  "outputs": [
+    {
+      "probability": 0.75,
+      "result": {
+        "item": "minecraft:nether_brick"
+      }
+    },
+    {
+      "probability": 0.75,
+      "result": {
+        "item": "minecraft:soul_sand"
+      }
+    },
+    {
+      "probability": 0.05,
+      "result": {
+        "item": "minecraft:blaze_powder"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "cobblemon:green_mint_leaf"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+
+  "pattern": [
+    " L ",
+    "LFL",
+    " L "
+  ],
+  "result": {
+    "count": 4,
+    "id": "cobblemon:swift_feather"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "item": "minecraft:mossy_cobblestone"
+  },
+  "outputs": [
+    {
+      "probability": 1.0,
+      "result": {
+        "item": "minecraft:gravel"
+      }
+    },
+    {
+      "probability": 0.8,
+      "result": {
+        "item": "minecraft:vine"
+      }
+    }
+  ]
+}

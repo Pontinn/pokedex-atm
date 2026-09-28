@@ -1,0 +1,53 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "createmonballsoverhaul:copper_ancient_ball_mechanism"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "cobblemon:ancient_roseate_ball"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_roseate_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:coated_pink_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_roseate_ball"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createmonballsoverhaul:unfinished_ancient_roseate_ball"
+        },
+        [
+          {
+            "item": "createmonballsoverhaul:apricorn_ball_lid"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "id": "createmonballsoverhaul:unfinished_ancient_roseate_ball"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createmonballsoverhaul:unfinished_ancient_roseate_ball"
+  }
+}

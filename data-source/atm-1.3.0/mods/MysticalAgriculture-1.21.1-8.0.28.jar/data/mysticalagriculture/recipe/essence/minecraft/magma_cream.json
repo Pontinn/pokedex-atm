@@ -1,0 +1,30 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:slime"
+    },
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:blaze"
+    }
+  ],
+  "pattern": [
+    " E ",
+    "EBE",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:slime_essence"
+    },
+    "B": {
+      "item": "mysticalagriculture:blaze_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:magma_cream",
+    "count": 6
+  }
+}

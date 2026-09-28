@@ -1,0 +1,14 @@
+{
+  "type": "apokinetics:frostwork",
+  "input": {
+    "item": "minecraft:slime_ball"
+  },
+  "processing_time": 80,
+  "required_gem_level": 2,
+  "results": [
+    {
+      "id": "minecraft:snowball",
+      "count": 1
+    }
+  ]
+}

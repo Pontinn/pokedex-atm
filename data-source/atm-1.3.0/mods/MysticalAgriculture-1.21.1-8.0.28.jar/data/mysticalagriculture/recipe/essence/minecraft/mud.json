@@ -1,0 +1,30 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:dirt"
+    },
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:water"
+    }
+  ],
+  "pattern": [
+    " E ",
+    "EWE",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:dirt_essence"
+    },
+    "W": {
+      "item": "mysticalagriculture:water_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:mud",
+    "count": 12
+  }
+}

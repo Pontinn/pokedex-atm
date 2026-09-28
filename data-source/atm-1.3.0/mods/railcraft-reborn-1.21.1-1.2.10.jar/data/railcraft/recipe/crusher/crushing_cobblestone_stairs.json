@@ -1,0 +1,14 @@
+{
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "item": "minecraft:cobblestone_stairs"
+  },
+  "outputs": [
+    {
+      "probability": 1.0,
+      "result": {
+        "item": "minecraft:gravel"
+      }
+    }
+  ]
+}

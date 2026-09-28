@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:rabbit"
+    }
+  ],
+  "pattern": [
+    " E ",
+    "E E",
+    "   "
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:rabbit_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:rabbit_foot",
+    "count": 3
+  }
+}

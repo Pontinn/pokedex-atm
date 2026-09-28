@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:squid"
+    }
+  ],
+  "pattern": [
+    " E ",
+    " E ",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:squid_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:glow_ink_sac",
+    "count": 4
+  }
+}

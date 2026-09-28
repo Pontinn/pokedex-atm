@@ -1,0 +1,14 @@
+{
+  "type": "apokinetics:momentum",
+  "input": {
+    "item": "minecraft:cobblestone"
+  },
+  "processing_time": 80,
+  "required_gem_level": 2,
+  "results": [
+    {
+      "id": "minecraft:gravel",
+      "count": 1
+    }
+  ]
+}

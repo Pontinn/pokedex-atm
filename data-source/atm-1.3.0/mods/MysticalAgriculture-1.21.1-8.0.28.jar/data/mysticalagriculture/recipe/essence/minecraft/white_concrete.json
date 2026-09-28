@@ -1,0 +1,26 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:water"
+    }
+  ],
+  "pattern": [
+    "CCC",
+    "CEC",
+    "CCC"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:water_essence"
+    },
+    "C": {
+      "item": "minecraft:white_concrete_powder"
+    }
+  },
+  "result": {
+    "id": "minecraft:white_concrete",
+    "count": 8
+  }
+}

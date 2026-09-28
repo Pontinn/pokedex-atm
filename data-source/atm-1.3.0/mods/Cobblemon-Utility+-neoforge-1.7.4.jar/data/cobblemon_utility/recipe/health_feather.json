@@ -1,0 +1,24 @@
+{
+
+
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "cobblemon:revival_herb"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+
+  "pattern": [
+    " L ",
+    "LFL",
+    " L "
+  ],
+  "result": {
+    "count": 4,
+    "id": "cobblemon:health_feather"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "outputs": [
+    {
+      "probability": 0.85,
+      "result": {
+        "item": "minecraft:snow_block"
+      }
+    },
+    {
+      "probability": 0.25,
+      "result": {
+        "item": "minecraft:snowball"
+      }
+    }
+  ]
+}

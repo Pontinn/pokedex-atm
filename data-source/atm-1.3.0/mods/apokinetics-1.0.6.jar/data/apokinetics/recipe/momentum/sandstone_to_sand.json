@@ -1,0 +1,14 @@
+{
+  "type": "apokinetics:momentum",
+  "input": {
+    "item": "minecraft:sandstone"
+  },
+  "processing_time": 80,
+  "required_gem_level": 4,
+  "results": [
+    {
+      "id": "minecraft:sand",
+      "count": 4
+    }
+  ]
+}

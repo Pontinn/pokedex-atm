@@ -1,0 +1,41 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/diamond"
+      }
+    }
+  ],
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "tag": "c:ores/diamond"
+  },
+  "outputs": [
+    {
+      "probability": 1.0,
+      "result": {
+        "item": "minecraft:diamond"
+      }
+    },
+    {
+      "probability": 0.85,
+      "result": {
+        "item": "minecraft:diamond"
+      }
+    },
+    {
+      "probability": 0.25,
+      "result": {
+        "item": "minecraft:diamond"
+      }
+    },
+    {
+      "probability": 0.1,
+      "result": {
+        "item": "minecraft:coal"
+      }
+    }
+  ]
+}

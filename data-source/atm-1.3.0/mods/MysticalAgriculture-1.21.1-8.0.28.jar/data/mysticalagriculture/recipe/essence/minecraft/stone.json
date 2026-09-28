@@ -1,0 +1,30 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:stone"
+    },
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:coal"
+    }
+  ],
+  "pattern": [
+    "EEE",
+    "ECE",
+    "EEE"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:stone_essence"
+    },
+    "C": {
+      "item": "mysticalagriculture:coal_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:stone",
+    "count": 20
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:prismarine"
+    },
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:fish"
+    }
+  ],
+  "pattern": [
+    "EFE",
+    "FEF",
+    "EFE"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:prismarine_essence"
+    },
+    "F": {
+      "item": "mysticalagriculture:fish_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:nautilus_shell"
+  }
+}

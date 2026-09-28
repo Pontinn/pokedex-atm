@@ -1,0 +1,30 @@
+{
+  "type": "crafting_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:stone"
+    },
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "mysticalagriculture:fire"
+    }
+  ],
+  "pattern": [
+    "EF ",
+    "FE ",
+    "   "
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:stone_essence"
+    },
+    "F": {
+      "item": "mysticalagriculture:fire_essence"
+    }
+  },
+  "result": {
+    "id": "minecraft:flint",
+    "count": 8
+  }
+}

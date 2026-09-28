@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createmonballsoverhaul:stamped_iron_nugget_lid"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_nugget"
+  }
+}

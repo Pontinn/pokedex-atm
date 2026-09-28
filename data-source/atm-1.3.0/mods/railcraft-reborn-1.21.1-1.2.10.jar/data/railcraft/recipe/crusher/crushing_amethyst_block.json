@@ -1,0 +1,15 @@
+{
+  "type": "railcraft:crusher",
+  "ingredient": {
+    "item": "minecraft:amethyst_block"
+  },
+  "outputs": [
+    {
+      "count": 4,
+      "probability": 1.0,
+      "result": {
+        "item": "minecraft:amethyst_shard"
+      }
+    }
+  ]
+}
