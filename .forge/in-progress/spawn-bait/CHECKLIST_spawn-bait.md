@@ -20,13 +20,13 @@
 
 - [x] **B1.2** Condicoes de pesca tipadas no spawn `[category: build]`
   - Done when: pipeline no snapshot; em `tools/dataset/out/_sb_pub/data/<versao>/species/`: `120.json` spawn `allthemons:staryu-10` igual ao exemplo da secao 5.3 (fishing e extra); `194.json` `cobblemon:wooper-true-16` com `rodBall "cobblemon:love_ball"` e 2 multiplicadores; `704.json` Goomy `minLureLevel 2, maxLureLevel 2`; script de contagem (node inline) sobre todos os `species/*.json`: 143 spawns com `fishing.minLureLevel != null`, 3 com `maxLureLevel`, 3 com `bait`, 6 com `rodType`, soma de `lureMultipliers` = 357 (159 singular + 198 da lista), e 0 ocorrencias de `minLureLevel`/`maxLureLevel`/`rodType`/`bait` dentro de `extra`; `species` em bytes <= 5.693.585.
-  - commit: (ver commit feat(dataset): condicoes de pesca tipadas)
+  - commit: 400300dd
   - status: done
 
-- [ ] **B1.3** Efeitos de isca e temperos aceitos em items.json `[category: build]`
+- [x] **B1.3** Efeitos de isca e temperos aceitos em items.json `[category: build]`
   - Done when: pipeline no snapshot; em `items.json`: `cobblemon:occa_berry.bait` igual ao exemplo da secao 5.3 (texto PT e EN exatos); `cobblemon:lum_berry.bait.effects` = 2 `eggGroup` (`dragon`, `monster`); `cobblemon:starf_berry` tem `shinyReroll` com texto en "100% - 5× Shiny Chance"; nenhum `subcategory` com ":" (script inline); 73 itens com `bait != null` nesta etapa (os 72 bagas/frutas ja no catalogo + `poke_bait`; conferir contagem real e registrar); `cobblemon:pecha_berry.bait.seasoning === true`; `items.json` em bytes <= 1.659.908.
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(dataset): efeitos de isca)
+  - status: done
 
 - [ ] **B1.4** Catalogo com os 8 itens novos, tag/categoria e ingredientes da panela `[category: build]`
   - Done when: pipeline no snapshot; `items.json`: `cobblemon:poke_snack` igual ao exemplo da secao 5.3 (categoria `bait`, tag `bait`, `cooking: null`, `potRecipes` com os 4 ingredientes 3/2/1/3 nessa ordem); `cobblemon:poke_bait` com `potRecipes` mel x1, `c:mushrooms` x1, `minecraft:wheat` x1 (`name.pt` "Trigo"); nenhum outro item com `potRecipes` (script inline: exatamente 2); os 9 itens da regra de categoria (secao 2.4 item 7) com `category: "bait"` e as 72 bagas com `berry`; `minecraft:golden_apple` e `minecraft:enchanted_golden_apple` presentes com tag `bait` (a textura vanilla ja resolve pelo `publishVanillaTextures` se B1.5 ja copiou os modelos; senao registrar e seguir); `tools/dataset/out/_sb_stage/report.json` secao `recipes` com as mesmas chaves e contagens de antes (`recipeIds`, `status`, `removedByKubejsTotal` iguais aos do report anterior do mesmo snapshot); `npx vitest run tests/unit/dataset/recipes.test.ts` verde.
@@ -140,6 +140,8 @@
 - 2026-09-29 (backend, B1.1): janela quebrada B1.1 -> B2.3 aberta. Com o contrato novo (fishing/bait obrigatorios), `tests/unit/data/published-schemas.test.ts` e `tests/unit/dataset/join.test.ts` falham contra o dataset publicado antigo, e o app/e2e nao abrem, ate B2.3 republicar. Vitest de B1.x/B2.1/B2.2 roda com os 2 excluidos. Fixtures tipadas de `tests/unit/ui-screens/*`, `tests/e2e/item-obtain-v2.spec.ts` e `tests/unit/domain/ball-ranking.test.ts` ganharam `bait: null`/`fishing: null` (lista da SPEC B1.1).
 
 - B1.2: conferido no snapshot: 3194 spawns unicos; 143 minLureLevel, 3 maxLureLevel, 3 bait, 6 rodType, 357 lureMultipliers, 0 chaves tipadas em extra; species = 5.246.713 bytes (<= 5.693.585). Staryu-10/Staryu-4/Staryu-2/Wooper-16/Wooper-17/Goomy-13/Whiscash iguais a SPEC 5.3.
+
+- B1.3: contagem real = 73 itens com bait (72 com seasoning true: bagas + minecraft:apple + minecraft:sweet_berries; mais cobblemon:poke_bait com effects [] e seasoning false). Occa/Lum/Starf/Pecha iguais a SPEC; 0 subcategory com ':'; items.json = 1.471.579 bytes (<= 1.659.908). Report `bait`: withTyping 18, withEggGroup 7, boosters [starf_berry] (os outros reforcos entram no catalogo em B1.4).
 
 ## Bugs encontrados
 

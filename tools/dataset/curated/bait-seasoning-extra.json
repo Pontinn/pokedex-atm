@@ -1,0 +1,4 @@
+{
+  "allthemodium:allthemodium_apple": "kubejs/server_scripts/Tweaks/tags.js:269: ServerEvents.tags('item') allthemods.add('cobblemon:recipe_filters/bait_seasoning', [\"allthemodium:allthemodium_apple\", \"allthemodium:allthemodium_carrot\"])",
+  "allthemodium:allthemodium_carrot": "kubejs/server_scripts/Tweaks/tags.js:269: ServerEvents.tags('item') allthemods.add('cobblemon:recipe_filters/bait_seasoning', [\"allthemodium:allthemodium_apple\", \"allthemodium:allthemodium_carrot\"])"
+}

@@ -1,15 +1,14 @@
 // B4.1 (catalogo) + B4.2 (rotas de obtencao e "Usado em"). Nunca escreve em public/ (so ctx.outDir).
 import { existsSync, readFileSync } from "node:fs";
-import type { BallsFile, FossilRoute, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
+import type { BallsFile, FossilRoute, ItemBait, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
-import { readJsonEntries } from "../jar-reader";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import { collectFossils, resolveFossils } from "../species/fossils";
 import { buildCatalog, collectFossilReferencedIds } from "./catalog";
 import { categorize } from "./categories";
 import { applyCuratedDescriptions, loadCuratedDescriptions } from "./descriptions";
 import { collectBerryPlantable } from "./berries";
-import { collectCraftable } from "./recipes";
+import { collectRecipes } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
@@ -19,25 +18,10 @@ import { collectExtraSources, structureRefs } from "./extra-sources";
 import path from "node:path";
 import { createNameResolver, itemName, loadNameLang, refLangKey, type NameResolver } from "./ref-names";
 import { publishVanillaTextures } from "../media/vanilla-textures";
+import { baitTypePath, buildSeasoningSet, collectBaitEffects, loadSeasoningExtra, normalizeBaitEffects, renderBaitTooltip } from "./bait";
 
 /** U7d: ids comprovadamente nao registrados no jogo (id -> prova), curados de RESEARCH_obtain e conferidos nos registros do jar. */
 export const NOT_REGISTERED_FILE = path.resolve(import.meta.dirname, "../../curated/item-not-registered.json");
-
-const BAIT_PREFIX = "data/cobblemon/spawn_bait_effects/";
-type Json = Record<string, unknown>;
-const isObject = (v: unknown): v is Json => typeof v === "object" && v !== null && !Array.isArray(v);
-
-/** Todo item referenciado em spawn_bait_effects/**.json (berries/, fruits/ e o proprio poke_bait.json) ganha tag "bait". */
-function collectBaitItemIds(ctx: Pick<PipelineContext, "reader">): Set<string> {
-  const ids = new Set<string>();
-  for (const jar of ctx.reader.listJars()) {
-    const entries = ctx.reader.readJar(jar, [BAIT_PREFIX]);
-    for (const { data } of readJsonEntries<Json>(entries, BAIT_PREFIX, jar.fileName)) {
-      if (isObject(data) && typeof data.item === "string") ids.add(data.item);
-    }
-  }
-  return ids;
-}
 
 /** {id, name} com o nome do lang do jogo (`<prefixo>.<ns>.<caminho com .>`); sem chave en = null (nunca inventado).
  * U8: `resolve` le ctx.lang (com kubejs por cima) e depois o lang de todos os jars + vanilla (ref-names.ts). */
@@ -104,8 +88,16 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     );
   }
 
-  const baitIds = collectBaitItemIds(ctx);
-  const craftable = collectCraftable(ctx, new Set(catalog.map((e) => e.id)));
+  // spawn-bait: todo item com arquivo em spawn_bait_effects (jars + kubejs, kubejs vence) ganha tag "bait" e ItemInfo.bait
+  const baitEffects = collectBaitEffects(ctx);
+  const recipeData = collectRecipes(ctx, new Set(catalog.map((e) => e.id)));
+  const craftable = recipeData.craftable;
+  const seasoningExtra = loadSeasoningExtra();
+  const seasoning = buildSeasoningSet(recipeData.itemTags, seasoningExtra);
+  const extraWithoutEffect = [...seasoningExtra.keys()].filter((id) => !baitEffects.has(id)).sort();
+  if (extraWithoutEffect.length > 0) {
+    ctx.report.warn("W_BAIT_SEASONING_EXTRA_UNKNOWN", `${extraWithoutEffect.length} id(s) em curated/bait-seasoning-extra.json sem efeito de isca: ${extraWithoutEffect.join(", ")}`, extraWithoutEffect);
+  }
   const dropsIndex = buildDropsIndex(ctx);
   const berryPlantable = collectBerryPlantable(ctx);
   const loot = collectLoot(ctx, new Set(catalog.map((e) => e.id)));
@@ -120,10 +112,16 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const unobtainable: Record<"creativeOnly" | "notRegistered", string[]> = { creativeOnly: [], notRegistered: [] };
   const items: Record<string, ItemInfo> = {};
   const unversionedTextures: string[] = [];
+  const baitOf = (id: string): ItemBait | null => {
+    const raw = baitEffects.get(id);
+    if (!raw) return null;
+    const effects = normalizeBaitEffects(raw, ctx.report, id).map((e) => ({ ...e, text: renderBaitTooltip(e, baitTypePath(e.kind), ctx.lang, ctx.report) }));
+    return { effects, seasoning: seasoning.has(id) };
+  };
   for (const entry of catalog) {
     const { category, tags: baseTags } = categorize(entry.path, entry.texture);
     const tags = new Set<ItemTag>(baseTags);
-    if (baitIds.has(entry.id)) tags.add("bait");
+    if (baitEffects.has(entry.id)) tags.add("bait");
 
     const obtain: ItemObtainRoute[] = [];
     const recipeTypes = craftable.get(entry.id);
@@ -195,7 +193,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       obtain,
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
-      bait: null,
+      bait: baitOf(entry.id),
     } satisfies ItemInfo;
   }
 
@@ -216,6 +214,14 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   }
 
   writeJsonAtomic(ctx.dataPath("items.json"), items);
+  const withBait = Object.values(items).filter((it) => it.bait !== null);
+  ctx.report.section("bait", {
+    items: withBait.length,
+    seasoning: withBait.filter((it) => it.bait?.seasoning).length,
+    withTyping: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "typing")).length,
+    withEggGroup: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "eggGroup")).length,
+    boosters: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "rarityBucket" || e.kind === "shinyReroll")).map((it) => it.id).sort(),
+  });
   ctx.setCount("items", Object.keys(items).length);
   const withoutDescription = catalog.filter((e) => e.description === null).length;
   const withTrainerDrop = Object.values(items).filter((it) => it.obtain.some((r) => r.kind === "trainerDrop")).length;

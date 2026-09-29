@@ -699,6 +699,8 @@ export interface RecipeCollection {
   removed: { id: string; outputs: string[]; type: string | null; by: string }[];
   unparsedRemovals: UnparsedRemoval[];
   scriptRecipes: ScriptRecipe[];
+  /** tag de item -> itens (tags aninhadas resolvidas; 7 jars do app + kubejs/data) */
+  itemTags: Map<string, Set<string>>;
 }
 
 /** Le todas as fontes, aplica condicoes e remocoes do kubejs. `catalogIds` so filtra o que vai para o report. */
@@ -811,7 +813,7 @@ export function collectRecipes(
     kubejsAddedForCatalog: additions.recipes.filter(relevant).map((r) => ({ id: r.id, type: r.type, outputs: r.outputs, where: r.where })),
     kubejsAdditionsUnparsed: additions.unparsed,
   });
-  return { craftable, recipes, removed, unparsedRemovals: unparsed, scriptRecipes: additions.recipes };
+  return { craftable, recipes, removed, unparsedRemovals: unparsed, scriptRecipes: additions.recipes, itemTags: tags };
 }
 
 /** itemId -> conjunto de tipos de receita ("minecraft:crafting_shaped", "create:pressing", ...). */
