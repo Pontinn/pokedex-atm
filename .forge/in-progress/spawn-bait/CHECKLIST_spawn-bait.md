@@ -102,7 +102,7 @@
 - [x] **T1.1** Unitarios da regra das 3 melhores `[category: teste]`
   - escrito por: frontend (dominio)
   - Done when: `npx vitest run tests/unit/domain/bait.test.ts` verde; cobertura de `src/domain/bait.ts` >= 95/95.
-  - commit: (ver commit test(domain): regra das 3 melhores bagas)
+  - commit: b876e065
   - status: done
 
 - [x] **T1.2** Pipeline (pesca, efeitos, kubejs, tempero, receitas, catalogo, midia) `[category: teste]`
@@ -117,11 +117,11 @@
   - commit: 2f1ab0d3
   - status: done
 
-- [ ] **T1.4** RTL do bloco, dos chips de pesca e da pagina do item `[category: teste]`
+- [x] **T1.4** RTL do bloco, dos chips de pesca e da pagina do item `[category: teste]`
   - escrito por: frontend
   - Done when: `npx vitest run tests/unit/ui-screens` verde; cobertura `src/screens/**` >= 70/70 e `src/components/**` >= 70/70.
-  - commit: 
-  - status: pending
+  - commit: (ver commit test(ui): bloco de iscas)
+  - status: done
 
 - [ ] **T1.5** e2e headless (ficha, pagina do item, lista) sem quebrar contagens existentes `[category: teste]`
   - escrito por: frontend
@@ -172,6 +172,8 @@
 - F2.2: ip.station.campfirePot no dicionario e RECIPE_LABELS cooking_pot apontando para ele; INGREDIENT_TAG_KEYS + ingredientTagLabel em item-page-model; PotRecipeList na rota craftable (ObtainRow recebe items); item-page.test.ts:26 -> Campfire Pot + caso PT Panela de Fogueira. Spec temporario: Poke-Lanche 4 .pot-ing na ordem (3x Qualquer leite, 2x Frasco de Mel, 1x Brotovital, 3x Grãos Saudáveis) + nota dos temperos, chip Iscas, sem .item-cooking-note, badge 'Panela de Fogueira'; Pokeisca chip Iscas, Trigo sem button, Qualquer cogumelo; love_sweet Panela de Fogueira / Campfire Pot; ability_capsule sem [data-pot-recipe]; aba Iscas com os 8 ids novos + poke_bait (chip Iscas, img) e Occa com chip Berries; expectNoOverlap 360/390/1280. 9 capturas after-item-poke_{snack,bait}-* e after-items-list-bait-*. Obs: tests/unit/ui-screens/items-screen.test.tsx (arquivo e tela nao tocados) falhou 2 vezes em rodadas de ui-screens com a maquina carregada (asserts sincronos logo apos click: 'open' e abas); 10/10 verdes sem a F2.2 e 10/10 verdes com a F2.2 em seguida: flake de tempo preexistente, nao causado pela feature.
 
 - T1.1: tests/unit/domain/bait.test.ts, 13 testes (dataset real: 6/130/95/129/120/349/132/172/194, contextos 6/349/129/1011, 7 reforcos com rarity/shiny, WeakMap, desempenho < 5 ms nas 1027 fichas; sinteticos: seasoning false, natureza/EV, empate por id, max, dedupe, grupos sem baga; lureRange 4 casos). Cobertura src/domain/bait.ts: linhas 100, branches 96,55, funcoes 100.
+
+- T1.4: detail-bait.test.tsx (16: BaitBlock PT/EN pelo toggle do card e pela interface, linhas por contexto, skeleton com items null, fixture seasoning false e sem baga, clique navega, 0 classes proibidas, eggGroupLabel; FishingConds Staryu-10, so multiplicadores/'até', Wooper-16/17, vara sem boia e isca fora do catalogo, Goomy EN; WherePanel: contagens .spawn-entry/.badge/.tag/.biome/.cond iguais com e sem fishing, ordem kv > spawn-list > bait > drops, 1011 sem bloco) + item-bait.test.tsx (11: painel de efeitos PT/EN, ordem das secoes, maca encantada +10/6×, so na vara, sem painel com effects [], PotRecipeList Poke-Lanche/Pokeisca/tag desconhecida/nome nulo/outro filtro, craftable sem potRecipes, estacao PT/EN, ingredientTagLabel). vitest --coverage inteiro: 84 arquivos / 694 testes, limites ok (global 94,29 linhas; src/components 93,99; src/domain 99,61; BaitBlock 100/95; BaitParts 100/95; ItemScreen 100/94).
 
 ## Bugs encontrados
 
