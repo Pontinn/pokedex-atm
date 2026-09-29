@@ -114,7 +114,7 @@
 - [x] **T1.3** Contrato publicado e paridade com o dataset real `[category: teste]`
   - escrito por: backend
   - Done when: `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` verde.
-  - commit: (ver commit test(data): contrato e dataset publicado)
+  - commit: 2f1ab0d3
   - status: done
 
 - [ ] **T1.4** RTL do bloco, dos chips de pesca e da pagina do item `[category: teste]`
@@ -156,6 +156,8 @@
 - T1.2 (escrito pelo backend logo depois de B2.3, antes do frontend: so toca pipeline/auditoria): `tests/unit/dataset/spawn-bait.test.ts` (17 testes) + 2 em recipes.test.ts + 2 em audit.test.ts. `npx vitest run tests/unit/dataset` 17 arquivos / 219 testes verdes; vitest --coverage inteiro 81 arquivos / 648 testes, limites ok; `tools/dataset/src/**` linhas 93,77% / branches 84,56% (>= 80/80). DESVIO da SPEC T1.2: `collectBaitEffects` e `buildExpected().baitItems` tem 80 itens, nao 81 (81 = arquivos; enchanted_golden_apple no jar e no kubejs). O teste confere 80.
 
 - T1.3: +1 it em published-schemas.test.ts (poke_snack com potRecipes passa; campo extra em potRecipes/fishing rejeitado) e +5 its em join.test.ts (951 itens, 9 bait, efeitos, 2 potRecipes, Staryu-10, 0 Lure tipado em extra, bytes e texturas). `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` 19 arquivos / 245 testes verdes.
+
+- T1.6 (parte backend): passos 5 (auditoria 0 divergencias, 46558 checks), 6 (byte a byte instancia x snapshot: items.json + 1027 species iguais), 7 (determinismo: 2a execucao = mesma datasetVersion 2ef2f512) e 8 (`git grep USERPROFILE|Usuario` em data-source/tools/src: nada) rodados verdes em B2.3. T1.6 fica [ ] ate a regressao final com o frontend (e2e, build/PWA).
 
 ## Bugs encontrados
 
