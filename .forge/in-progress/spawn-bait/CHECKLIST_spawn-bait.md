@@ -47,13 +47,13 @@
 
 - [x] **B2.2** Auditoria com checks de isca, tempero, receita e pesca `[category: outro]`
   - Done when: `run.ts` contra `_sb_snap` imprime `divergencias {}` (0 em todas as severidades) com o numero de checks maior que 43102 (checks novos contados); `AUDIT_REPORT.md` com a tabela da rodada 5 toda 0; `npx vitest run tests/unit/dataset/audit.test.ts` verde.
-  - commit: (ver commit feat(audit): checks de isca)
+  - commit: f944fd87
   - status: done
 
-- [ ] **B2.3** Republicar o dataset `[category: build]`
+- [x] **B2.3** Republicar o dataset `[category: build]`
   - Done when: `current.json` com `datasetVersion` != `atm1.3.0-cobblemon1.7.3-20260929-1a7afcba`; `published-schemas.test.ts` e `join.test.ts` verdes; os 3 numeros dentro das metas; `items.json` publicado identico (sha256) ao de `_sb_snap` e `_sb_inst` (mesmo conteudo).
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(data): dataset republicado)
+  - status: done
 
 ## Frontend
 
@@ -150,6 +150,8 @@
 - B2.1: 2 rodadas, 41 arquivos copiados (17 receitas U7a, 18 loot tables U7b, 2 .nbt + 4 da cadeia worldgen U7c/U10). items.json (sha256 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95) e os 1027 species/*.json iguais byte a byte entre instancia e snapshot. DESVIO do Done when: as duas `datasetVersion` NAO podem ser iguais (instancia dd869603, snapshot a7736f6b) porque o hash inclui o `dataset-manifest.json`, que guarda `sources` (tamanho/mtime dos jars de origem) e `counts.cries`/`media` (o snapshot tem so parte dos gritos, 1102 x 2141); e assim desde o U11 e nao muda com esta feature. O que o RF-44 pede (items.json + species identicos) esta cumprido; B2.3 confere o sha256 do items.json publicado.
 
 - B2.2: auditoria contra _sb_snap: 46558 checks (> 43102), divergencias {} (0 em todas as severidades). A 1a rodada deu MISSING 7 (texture arquivo) so porque a ferramenta procurava o PNG em public/ e nao na raiz do --publish-dir: corrigido em compare.ts (candidato <datasetDir>/../../<textura>). Achado: `buildExpected().baitItems.size` = 80, nao 81 (81 sao ARQUIVOS: 78 do jar + 3 do kubejs; enchanted_golden_apple esta nos dois e o kubejs vence). AUDIT_REPORT.md: so a nota da Rodada 5 no topo (mesmo formato das rodadas 3 e 4).
+
+- B2.3: publicado `atm1.3.0-cobblemon1.7.3-20260929-2ef2f512` (pasta 1a7afcba removida pelo write.ts). Segunda rodada no snapshot (_sb_again) = mesma datasetVersion, items.json e 1027 species iguais. sha256 items.json publicado = _sb_snap = _sb_inst = 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95. Metas: items.json 1.499.586 bytes (<= 1.659.908), species 5.246.713 bytes (<= 5.693.585), 931 texturas distintas (<= 931, < 1200), 951 itens. Auditoria no publicado: 46558 checks, 0 divergencias. published-schemas.test.ts + join.test.ts + item-page.test.ts verdes; vitest inteiro 80 arquivos / 627 testes verdes. Janela quebrada B1.1 -> B2.3 FECHADA: o frontend pode comecar.
 
 ## Bugs encontrados
 

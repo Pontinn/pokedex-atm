@@ -67,3 +67,6 @@ updated: 2026-09-29 03:45
 ## 2026-09-29 03:45 - checklist criado, backend disparado
 - forge-checklist (sonnet): 5 fases, 20 tarefas, tudo [ ]. Atribuicao dos T1.x inferida (T1.1/T1.4/T1.5 frontend; T1.2/T1.3 backend; T1.6 os dois).
 - forge-imp-backend (opus, autonomous) disparado: B1.1..B1.5, B2.1..B2.3, T1.2, T1.3 e a parte backend de T1.6. Timer 1h (ao estourar: parar, conferir o checklist em disco, agente novo continua do primeiro [ ]).
+
+## 2026-09-29 - forge-imp-backend: B2.3 republicado (numeros RNF-01/02)
+- datasetVersion atm1.3.0-cobblemon1.7.3-20260929-2ef2f512; items.json 1.499.586 bytes (meta <= 1.659.908); species 5.246.713 bytes (meta <= 5.693.585); 931 texturas distintas (meta <= 931, < 1200); sha256 items.json 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95 (publicado = snapshot = instancia). Auditoria 46558 checks, 0 divergencias.
