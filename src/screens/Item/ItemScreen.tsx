@@ -21,6 +21,7 @@ import { usePreferencesStore, useTermsLanguage } from "../../state/preferences-s
 import type { UiLanguage } from "../../storage/types";
 import { ballMultiplier } from "../Balls/ball-model";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
+import { BaitEffectsPanel } from "./BaitParts";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
@@ -138,7 +139,7 @@ function LabelChips({ labels }: { labels: readonly string[] }) {
   return <CappedList className="chips" entries={labels.map((l) => ({ key: l, node: <span className="biome">{l}</span> }))} />;
 }
 
-function Row({ icon, title, children, none, index, kind }: { icon: ReactNode; title: string; children: ReactNode; none?: boolean; index: number; kind: string }) {
+export function Row({ icon, title, children, none, index, kind }: { icon: ReactNode; title: string; children: ReactNode; none?: boolean; index: number; kind: string }) {
   return (
     <div className={`ob-row${none ? " ob-none" : ""}`} style={{ ["--i" as string]: index }} data-row={kind}>
       <span className="ob-ico" aria-hidden="true">
@@ -410,6 +411,7 @@ function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; it
           ))}
         </div>
       </section>
+      {item?.bait && item.bait.effects.length ? <BaitEffectsPanel bait={item.bait} lang={lang} /> : null}
       {item ? <UsedIn item={item} ball={ball} lang={lang} uiLang={uiLang} species={species} /> : null}
     </div>
   );

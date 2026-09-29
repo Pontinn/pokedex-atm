@@ -78,15 +78,15 @@
 
 - [x] **F1.4** Condicoes de pesca na linha do spawn `[category: frontend]`
   - Done when: capturas `after-detail-where-wooper-fishing-expanded-{pt,en}.png` (apos "Mostrar todas") e `after-detail-where-staryu-lure-expanded-{pt,en,pt-mobile}.png` em `ui-refs/`; no spec temporario: `[data-spawn='cobblemon:wooper-true-17'] [data-fishing] [data-item='cobblemon:love_sweet']` visivel e clicavel (abre a pagina, Voltar volta); `[data-spawn='allthemons:staryu-10'] [data-fishing]` contem "Lure 3+: x3"; os asserts do Mewtwo (`entry.locator(".badge")` "Ultra-raro", `.tag` "Cobblemon Community Content") continuam verdes (`-g "F5.1"`).
-  - commit: (ver commit feat(detail): isca exigida, vara e Lure)
+  - commit: 08349772
   - status: done
 
 ### Fase F2: Pagina do item (efeitos e receita da panela)
 
-- [ ] **F2.1** Painel "Efeitos de isca" na pagina do item `[category: frontend]`
+- [x] **F2.1** Painel "Efeitos de isca" na pagina do item `[category: frontend]`
   - Done when: capturas `after-item-occa_berry-{pt,en,pt-mobile}.png`, `after-item-lum_berry-{pt,en,pt-mobile}.png`, `after-item-enchanted_golden_apple-{pt,en}.png` em `ui-refs/` (comparar com `item-occa_berry-*`/`item-lum_berry-*` do UISPEC: hero e "Como obter" iguais, painel novo abaixo); no spec temporario: Occa `[data-bait-effects]` contem "Tipo Fogo" (PT) e "Fire Types" (EN); maca dourada encantada contem "+10" e "6×"; `.item-obtain .ob-row` do Occa com a mesma contagem de antes; `expectNoOverlap` na pagina a 360/390/1280.
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(item): painel de efeitos de isca)
+  - status: done
 
 - [ ] **F2.2** Ingredientes da receita da Panela de Fogueira `[category: frontend]`
   - Done when: capturas `after-item-poke_snack-{pt,en,pt-mobile}.png`, `after-item-poke_bait-{pt,en,pt-mobile}.png`, `after-items-list-bait-{pt,en,pt-mobile}.png` (lista Itens, aba "Iscas" `[data-icat="bait"]`, comparar com `items-list-iscas-*` do UISPEC) em `ui-refs/`; no spec temporario: Poke-Lanche `[data-pot-recipe]` com 4 `.pot-ing` na ordem leite(3x, "Qualquer leite"), `[data-item='minecraft:honey_bottle']` (2x), `[data-item='cobblemon:vivichoke']` (1x), `[data-item='cobblemon:hearty_grains']` (3x) + nota dos 3 temperos; hero com chip "Iscas" e sem `.item-cooking-note`; Pokeisca com chip "Iscas" (era "Outros", decisao de categoria); na lista, os cards dos 7 itens novos e do `poke_bait` com chip "Iscas" e os das bagas com chip de bagas; Pokeisca: `[data-ingredient='minecraft:wheat'] button` count 0 e texto "Trigo"; "Qualquer cogumelo"; "Panela de Fogueira" no badge; aba Iscas lista os 8 ids novos (`[data-item]` de cada um visivel).
@@ -166,6 +166,8 @@
 - F1.3: BaitBlock entre SpawnList e Drops; eggGroupLabel(group, lang) em WherePanel; CSS bait-* so com variaveis (bait .k com o estilo do rotulo .k, .bait-badge no lugar de Badge). Spec temporario (dev 4178): Charizard occa/coba/lum com (Fogo)/(Voador)/(Dragão/Monstro), sem x<digito>, bloco entre .spawn-list e .drops, 0 .badge/.tag/.drop/.ob-none/.ob-link/[data-obtain]/.spawn-entry/.biome no bloco; Magikarp 2 linhas e 6 .spawn-entry; Feebas so rod; 1011 sem [data-bait]; clique na Occa abre o item e Voltar volta; Gyarados expectNoOverlap 360/390/1280 PT/EN sem scroll horizontal; 15 capturas after-detail-where-* (1011 igual pixel a pixel as de antes nas 3 variantes); detail.spec -g 'F5.1|where panel' 6/6 verdes; tests/unit/ui-screens 205 verdes. Capturas mobile com viewport 390x3000 (painel inteiro) e -en com a interface e o toggle do card em EN, como o recon.
 
 - F1.4: FishingConds (chips .fish-cond dentro de .chips.fish-conds[data-fishing]) na linha do spawn; SpawnList/SpawnEntryRow recebem items. Spec temporario: wooper-true-17 Isca exigida + Doce Amor clicavel (abre e Voltar volta); wooper-true-16 boia Bola Amor + 'Lure 2 a 2: x3' + 'Lure 3+: x5'; staryu-4 e staryu-10 'Lure 1+' + 'Lure 3+: x3'; goomy-hisui-13 'Lure 2 a 2' / 'Lure 2 to 2'; 0 .badge/.tag/.biome/.cond dentro de [data-fishing], 1 .badge por .spawn-entry; bagas do Wooper intactas; expectNoOverlap Staryu/Wooper expandidos 360/1280; detail.spec -g F5.1 6/6; ui-screens 205 verdes. 5 capturas after-detail-where-*-expanded-*.
+
+- F2.1: BaitEffectsPanel (section.panel.item-bait[data-bait-effects], Row exportado do ItemScreen) depois de Como obter e antes de Usado em; so com effects nao vazio. Spec temporario: Occa 'Tipo Fogo' (PT) / 'Fire Types' (EN pelo toggle itempage), 4 .item-obtain .ob-row (igual a captura de antes); maca dourada encantada '+10' e '6×'; poke_bait (effects []) e item sem bait sem painel; expectNoOverlap 360/390/1280 sem scroll horizontal; 8 capturas after-item-{occa_berry,lum_berry,enchanted_golden_apple}-*; ui-screens verdes.
 
 ## Bugs encontrados
 

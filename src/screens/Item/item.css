@@ -62,3 +62,5 @@ html[data-theme="green"] .item-screen .mon-chip b, html[data-theme="blue"] .item
 .app.mobile .item-hero-info h2 { font-size: 26px; }
 .app.mobile .item-screen .ob-row { flex-wrap: wrap; }
 .app.mobile .item-screen .ob-body { flex: 1 1 calc(100% - 48px); }
+/* Efeitos de isca (spawn-bait F2.1): valores em <b> no tom de .mon-chip b (reservado; o texto do jogo vem inteiro) */
+.item-screen .item-bait .bait-effect-text b { color: var(--secondary); }
