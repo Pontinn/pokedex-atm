@@ -22,3 +22,12 @@ Insignia da Gatinha (16x16 `?v=baded6c2`, descricao sem obtencao, Drop de treina
 
 ## Observacoes
 Rotulos de loot de estrutura continuam como id humanizado em ingles ("Chests (burned tower)"), ja era assim. Artwork do Karrablast mostra placeholder no headless (sem erro de console).
+
+## U11: versao do dataset por conteudo (2026-09-28 21:00 a 21:15)
+- Bloqueio de deploy resolvido. `datasetVersion` = `atm<pack>-cobblemon<ver>-<yyyymmdd UTC>-<hash8>`, hash = SHA-256 de todos os arquivos do staging (caminho + tamanho + bytes, ordem de caminho) + manifest sem `datasetVersion`/`generatedAt` (chaves ordenadas). Mesmo conteudo no mesmo dia = mesma pasta; qualquer mudanca em qualquer arquivo = pasta nova. Consumidores (loader, vite.config precache, testes, auditoria) so leem `current.json`; nada dependia do hash do indice.
+- Nova pasta: `atm1.3.0-cobblemon1.7.3-20260929-1a7afcba` (data UTC; conteudo byte a byte igual ao U6, so o manifest muda). `20260928-f3c842d2` removida. Segunda rodada do pipeline (em pasta de teste) gerou a mesma versao.
+- `vercel.json`: `/data/((?!current\.json$).*)` immutable 1 ano; `/data/current.json` no-cache; `/assets/(.*)` immutable; `/sw.js` no-cache. Cada caminho casa com uma regra so (conferido com path-to-regexp 6, o do Vercel), sem depender de precedencia. Teste `tests/unit/build/vercel-headers.test.ts`.
+- `dist/sw.js`: `data/current.json` com revisao nova (`49ed5be4...`, antes `7fc07816...`), precache dos 3 JSON do boot na pasta nova, 0 referencia a `f3c842d2` em `dist/`.
+- Auditoria: 43102 checks, 0 divergencias (antes MISSING 2 de karrablast/shelmet). Rodada 4 no `AUDIT_REPORT.md`.
+- Testes: dataset 16 arquivos um por vez (198, inclui `dataset-version.test.ts` 6); typecheck 0; lint 0; vitest 79 arquivos 618 testes; build ok (precache 68); e2e pwa-offline 9/9 (producao), item 16/16, items 7/7, item-obtain-v2 8/8, trainers 11/11, home 24/24 (dev, 1 worker, um arquivo por vez).
+- Commits: `9e83d40c`, `5fe343e1`, `a75b30ac`, `d3e79e0e`.
