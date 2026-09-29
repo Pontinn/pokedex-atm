@@ -1,18 +1,18 @@
 ---
 feature: spawn-bait
-stage: impl
+stage: testing
 status: in-progress
 language: pt-BR
 branch: feature/spawn-bait
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend (opus, retomado) - provando e corrigindo 2 falhas e2e preexistentes (dex scroll, items overlap)
+running_agent: forge-test (sonnet) - Stage 5
 baselines:
   CONTEXT: { commit: e76ec23a, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
   PRD:     { commit: e76ec23a, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
   UISPEC:  { commit: e76ec23a, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
   SPEC:    { commit: e76ec23a, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
-updated: 2026-09-29 05:15
+updated: 2026-09-29 05:45
 ---
 ## 2026-09-29 - ideia criada
 - Pontin pediu iscas de spawn na tela do Pokemon. Investigacao do orquestrador nos dados do pack + wiki: o bolo e o Poke-Lanche (poke_snack), nao o Poke-Bolo. Escopo: Poke-Lanche + Pokeisca. 5 assuncoes aprovadas.
@@ -83,3 +83,7 @@ updated: 2026-09-29 05:15
 ## 2026-09-29 05:15 - Frontend CONCLUIDO (Stage 4 quase fechada)
 - forge-imp-frontend (opus, ~43 min): 6 features + 4 itens de teste, commits 240462f8..1be8ac8b + af8accb2 (checklist manual). Regressao: vitest 84 arquivos / 694 testes (94,3% linhas), Playwright completo 236 verdes / 16 skipped / 1 falha em teste EXISTENTE (dex.spec scroll 1529 vs 1500, falhava tambem em 1006b753) + flake existente em items.spec F9.2. Exemplos do PRD conferidos no dataset real. 38 capturas after-* em ui-refs/. Servidores parados, arvore limpa.
 - Orquestrador: mandou o mesmo agente provar se a falha do dex existe na main (worktree em 5cf52024) e corrigir as duas pela causa raiz (sem afrouxar asserts). Timer 1h. Depois: Stage 5 (forge-test).
+
+## 2026-09-29 05:45 - Stage 4 CONCLUIDA, Stage 5 iniciada
+- Falhas e2e: 96af2763 (fix(e2e)). dex scroll: preexistente (provado na main 5cf52024, 3/3), causa = react-virtual corrigindo scrollTop 1-2 frames depois; fix so no teste (scrollMainSettled). items overlap: 3 causas (animacao, promise finished pendurada, harness contava texto clampado); fix no teste + harness no-overlap.ts (clip a overflow). Suite completa: 237 verdes / 16 skipped / 0 falhas. Nada de produto mudou.
+- forge-test disparado (sonnet). Timer 1h.
