@@ -6,6 +6,7 @@ import { PipelineError } from "../lib/errors";
 import TOML from "@iarna/toml";
 import { MODS_TOML, type JarId, type JarRef, type SourceReader } from "../source-reader";
 import { isRarityBucket } from "./rarity";
+import { collectPokeRods, fishingOf, lureMultiplierOf } from "./fishing";
 
 /**
  * Namespaces com pasta spawn_pool_world verificados no snapshot atm-1.3.0 (Cobblemon base + os 3
@@ -35,13 +36,30 @@ const KNOWN_TOP_KEYS = new Set([
 ]);
 const KNOWN_CONDITION_KEYS = new Set(["biomes", "minSkyLight", "maxSkyLight", "canSeeSky", "structures", "neededBaseBlocks", "timeRange"]);
 
+/** spawn-bait B1.2: chaves de condition tipadas em SpawnEntry.fishing (so saem de extra quando o tipo bate). */
+function isTypedFishingKey(k: string, v: unknown): boolean {
+  if (k === "bait" || k === "rodType") return typeof v === "string";
+  if (k === "minLureLevel" || k === "maxLureLevel") return typeof v === "number";
+  return false;
+}
+
 function extraOf(raw: Json): Record<string, unknown> {
   const extra: Record<string, unknown> = {};
-  for (const [k, v] of Object.entries(raw)) if (!KNOWN_TOP_KEYS.has(k)) extra[k] = v;
+  for (const [k, v] of Object.entries(raw)) {
+    if (KNOWN_TOP_KEYS.has(k)) continue;
+    // multiplicadores so de Lure vao para fishing.lureMultipliers (nao ficam duplicados em extra)
+    if (k === "weightMultiplier" && lureMultiplierOf(v)) continue;
+    if (k === "weightMultipliers" && Array.isArray(v)) {
+      const others = v.filter((m) => !lureMultiplierOf(m));
+      if (others.length) extra[k] = others;
+      continue;
+    }
+    extra[k] = v;
+  }
   const condition = raw.condition;
   if (isObject(condition)) {
     const rest: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(condition)) if (!KNOWN_CONDITION_KEYS.has(k)) rest[k] = v;
+    for (const [k, v] of Object.entries(condition)) if (!KNOWN_CONDITION_KEYS.has(k) && !isTypedFishingKey(k, v)) rest[k] = v;
     if (Object.keys(rest).length) extra.condition = rest;
   }
   return extra;
@@ -79,7 +97,7 @@ function deriveTimeRange(raw: unknown): SpawnTimeRange {
 
 let sequence = 0;
 
-function parseEntry(raw: unknown, source: string, report: PipelineContext["report"], where: string): SpawnEntry | null {
+function parseEntry(raw: unknown, source: string, report: PipelineContext["report"], where: string, rods: ReadonlyMap<string, string>): SpawnEntry | null {
   if (!isObject(raw)) return null;
   const pokemonRaw = raw.pokemon;
   if (typeof pokemonRaw !== "string" || !pokemonRaw.trim()) {
@@ -112,12 +130,19 @@ function parseEntry(raw: unknown, source: string, report: PipelineContext["repor
     timeRange: deriveTimeRange(condition.timeRange),
     structures: strArray(condition.structures),
     neededBaseBlocks: strArray(condition.neededBaseBlocks),
-    fishing: null,
+    fishing: fishingOf(raw, rods),
     extra: extraOf(raw),
   };
 }
 
-function collectFile(data: unknown, source: string, where: string, report: PipelineContext["report"], out: Map<string, SpawnEntry[]>): void {
+function collectFile(
+  data: unknown,
+  source: string,
+  where: string,
+  report: PipelineContext["report"],
+  out: Map<string, SpawnEntry[]>,
+  rods: ReadonlyMap<string, string>,
+): void {
   if (!isObject(data) || !Array.isArray(data.spawns)) return;
   // "enabled": false -> arquivo inteiro ignorado (verificado no snapshot: 0000_pidgey_herd.json e um teste
   // desabilitado, type "pokemon-herd", sem campo "pokemon" no nivel esperado).
@@ -127,7 +152,7 @@ function collectFile(data: unknown, source: string, where: string, report: Pipel
     // uma especie (SpawnEntry); nao ha spawn "pokemon-herd" habilitado no snapshot, mas o filtro fica por
     // seguranca (evita um aviso W_SPAWN_INVALID espurio para um tipo de entrada fora do escopo do B2.3).
     if (isObject(raw) && typeof raw.type === "string" && raw.type !== "pokemon") continue;
-    const entry = parseEntry(raw, source, report, where);
+    const entry = parseEntry(raw, source, report, where, rods);
     if (!entry) continue;
     // sufixo de aspecto ("magikarp calico=...") nunca visto no snapshot, mas tratado por seguranca (SPEC B2.3 passo 1).
     const slug = (isObject(raw) && typeof raw.pokemon === "string" ? raw.pokemon : "").split(" ")[0] as string;
@@ -321,9 +346,14 @@ export function collectSpawnsBySlug(
   for (const { path, data } of readJsonEntries(kubejs, KUBEJS_SPAWN_PREFIX, "kubejs")) {
     files.push({ source: "kubejs", where: `kubejs!${path}`, path, data });
   }
+  const rods = collectPokeRods(ctx);
   const out = new Map<string, SpawnEntry[]>();
   for (const f of resolveSpawnFiles(files, buildLoadOrder(ctx.reader as SourceReader), collisions)) {
-    collectFile(f.data, f.source, f.where, ctx.report, out);
+    collectFile(f.data, f.source, f.where, ctx.report, out, rods);
   }
+  // rodType sem arquivo de pokerod: rodBall null + um aviso por rodType
+  const unknownRods = new Set<string>();
+  for (const list of out.values()) for (const e of list) if (e.fishing?.rodType && e.fishing.rodBall === null) unknownRods.add(e.fishing.rodType);
+  for (const rod of [...unknownRods].sort()) ctx.report.warn("W_SPAWN_ROD_UNKNOWN", `rodType sem arquivo em data/cobblemon/pokerods: ${rod}`, { rodType: rod });
   return out;
 }
