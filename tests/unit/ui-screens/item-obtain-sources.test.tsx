@@ -18,6 +18,7 @@ function item(id: string, patch: Partial<ItemInfo>): ItemInfo {
     obtain: [],
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
+    bait: null,
     ...patch,
   };
 }

@@ -87,6 +87,7 @@ const items: ItemsFile = {
     obtain: [],
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
+    bait: null,
   },
 };
 

@@ -18,6 +18,7 @@ function item(id: string, patch: Partial<ItemInfo>): ItemInfo {
     obtain: [],
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
+    bait: null,
     ...patch,
   };
 }
@@ -55,6 +56,7 @@ const items: ItemsFile = {
     description: { pt: "Cura 10 PS.", en: "Heals 10 HP." },
     category: "berry",
     cooking: { effectNote: "pending" },
+    bait: null,
   }),
 };
 

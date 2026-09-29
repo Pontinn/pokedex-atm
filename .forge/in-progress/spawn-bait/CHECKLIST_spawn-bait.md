@@ -13,10 +13,10 @@
 
 ### Fase B1: Contrato e pipeline
 
-- [ ] **B1.1** Contrato do dataset (tipos, zod e fixtures) `[category: estrutura]`
+- [x] **B1.1** Contrato do dataset (tipos, zod e fixtures) `[category: estrutura]`
   - Done when: `npm run typecheck` e `npm run lint` limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts --exclude tests/unit/dataset/join.test.ts` verde com o dataset ATUAL (os dois arquivos excluidos validam o dataset PUBLICADO com os schemas, `join.test.ts:91` e `:140`, e so voltam a passar em B2.3; o app e o e2e tambem ficam quebrados de B1.1 ate B2.3; o agente de backend registra isso nas notas do checklist e no HANDOFF); o pipeline no snapshot (comando das regras gerais) roda sem erro e todo `species/*.json` tem `"fishing":null` e todo item `"bait":null`.
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(data): contrato do spawn-bait)
+  - status: done
 
 - [ ] **B1.2** Condicoes de pesca tipadas no spawn `[category: build]`
   - Done when: pipeline no snapshot; em `tools/dataset/out/_sb_pub/data/<versao>/species/`: `120.json` spawn `allthemons:staryu-10` igual ao exemplo da secao 5.3 (fishing e extra); `194.json` `cobblemon:wooper-true-16` com `rodBall "cobblemon:love_ball"` e 2 multiplicadores; `704.json` Goomy `minLureLevel 2, maxLureLevel 2`; script de contagem (node inline) sobre todos os `species/*.json`: 143 spawns com `fishing.minLureLevel != null`, 3 com `maxLureLevel`, 3 com `bait`, 6 com `rodType`, soma de `lureMultipliers` = 357 (159 singular + 198 da lista), e 0 ocorrencias de `minLureLevel`/`maxLureLevel`/`rodType`/`bait` dentro de `extra`; `species` em bytes <= 5.693.585.
@@ -136,6 +136,8 @@
   - status: pending
 
 ## Notas por fase
+
+- 2026-09-29 (backend, B1.1): janela quebrada B1.1 -> B2.3 aberta. Com o contrato novo (fishing/bait obrigatorios), `tests/unit/data/published-schemas.test.ts` e `tests/unit/dataset/join.test.ts` falham contra o dataset publicado antigo, e o app/e2e nao abrem, ate B2.3 republicar. Vitest de B1.x/B2.1/B2.2 roda com os 2 excluidos. Fixtures tipadas de `tests/unit/ui-screens/*`, `tests/e2e/item-obtain-v2.spec.ts` e `tests/unit/domain/ball-ranking.test.ts` ganharam `bait: null`/`fishing: null` (lista da SPEC B1.1).
 
 ## Bugs encontrados
 

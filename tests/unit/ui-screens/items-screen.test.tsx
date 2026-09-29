@@ -6,7 +6,7 @@ import type { ItemInfo, ItemsFile } from "../../../src/data/types";
 
 function item(id: string, pt: string, en: string, category: ItemInfo["category"], description: ItemInfo["description"], texture: string | null = null): ItemInfo {
   const path = id.slice(id.indexOf(":") + 1);
-  return { id, namespace: "cobblemon", path, name: { pt, en }, description, category, texture, tags: [], obtain: [], usedIn: { evolutions: [], fossils: [], forms: [], ball: false }, cooking: null };
+  return { id, namespace: "cobblemon", path, name: { pt, en }, description, category, texture, tags: [], obtain: [], usedIn: { evolutions: [], fossils: [], forms: [], ball: false }, cooking: null, bait: null };
 }
 
 const items: ItemsFile = {

@@ -112,6 +112,7 @@ function parseEntry(raw: unknown, source: string, report: PipelineContext["repor
     timeRange: deriveTimeRange(condition.timeRange),
     structures: strArray(condition.structures),
     neededBaseBlocks: strArray(condition.neededBaseBlocks),
+    fishing: null,
     extra: extraOf(raw),
   };
 }

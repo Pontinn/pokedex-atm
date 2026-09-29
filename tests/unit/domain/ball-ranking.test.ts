@@ -23,6 +23,7 @@ const spawn = (context: string): SpawnEntry => ({
   timeRange: "any",
   structures: [],
   neededBaseBlocks: [],
+  fishing: null,
   extra: {},
 });
 

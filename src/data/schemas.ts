@@ -146,6 +146,7 @@ export const spawnEntrySchema: z.ZodType<SpawnEntry> = z.object({
   timeRange: z.enum(["day", "night", "any"]),
   structures: z.array(z.string()),
   neededBaseBlocks: z.array(z.string()),
+  fishing: z.object({ bait: z.string().nullable(), rodType: z.string().nullable(), rodBall: z.string().nullable(), minLureLevel: z.number().nullable(), maxLureLevel: z.number().nullable(), lureMultipliers: z.array(z.object({ lureMin: z.number().nullable(), lureMax: z.number().nullable(), multiplier: z.number() }).strict()) }).strict().nullable(),
   extra: z.record(z.string(), z.unknown()),
 });
 
@@ -240,6 +241,14 @@ export const abilitiesFileSchema: z.ZodType<AbilitiesFile> = z.record(z.string()
 /** Contrato v2 (U7c/U7d): objetos estritos, campo desconhecido rejeita o items.json. */
 const itemNamedRefSchema = z.object({ id: z.string(), name: localizedTextSchema.strict().nullable() }).strict();
 
+/** spawn-bait: efeitos de isca e receitas da panela (objetos estritos). */
+const baitEffectKindSchema = z.enum(["typing", "eggGroup", "nature", "ev", "iv", "biteTime", "levelRaise", "pokemonChance", "genderChance", "haChance", "friendship", "dropsReroll", "shinyReroll", "rarityBucket"]);
+const recipeIngredientSchema = z.union([
+  z.object({ kind: z.literal("item"), id: z.string(), count: z.number(), name: localizedTextSchema.strict().nullable() }).strict(),
+  z.object({ kind: z.literal("tag"), id: z.string(), count: z.number() }).strict(),
+]);
+const potRecipeSchema = z.object({ recipeId: z.string(), recipeType: z.string(), seasoningTag: z.string(), ingredients: z.array(recipeIngredientSchema) }).strict();
+
 export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
   id: z.string(),
   namespace: z.string(),
@@ -254,7 +263,7 @@ export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
   tags: z.array(z.enum(["bait", "evBerry", "apricorn"])),
   obtain: z.array(
     z.union([
-      z.object({ kind: z.literal("craftable"), recipeTypes: z.array(z.string()) }),
+      z.object({ kind: z.literal("craftable"), recipeTypes: z.array(z.string()), potRecipes: z.array(potRecipeSchema).optional() }),
       z.object({
         kind: z.literal("drop"),
         from: z.array(z.object({ dex: z.number(), percentage: z.number().nullable(), quantityRange: z.string().nullable() })),
@@ -301,6 +310,7 @@ export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
     ball: z.boolean(),
   }),
   cooking: z.object({ effectNote: z.literal("pending") }).nullable(),
+  bait: z.object({ effects: z.array(z.object({ kind: baitEffectKindSchema, subcategory: z.string().nullable(), chance: z.number(), value: z.number().nullable(), text: localizedTextSchema.strict() }).strict()), seasoning: z.boolean() }).strict().nullable(),
 });
 export const itemsFileSchema: z.ZodType<ItemsFile> = z.record(z.string(), itemInfoSchema);
 

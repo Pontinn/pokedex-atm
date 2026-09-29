@@ -18,6 +18,7 @@ function item(id: string, obtain: ItemObtainRoute[]): ItemInfo {
     obtain,
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
+    bait: null,
   };
 }
 

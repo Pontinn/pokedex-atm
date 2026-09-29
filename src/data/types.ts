@@ -231,6 +231,27 @@ export interface SpeciesForm {
 
 export type SpawnTimeRange = "day" | "night" | "any";
 
+/** Multiplicador de peso cuja condicao e SO nivel de Lure (spawn-bait RF-46). null = sem limite nesse lado. */
+export interface SpawnLureMultiplier {
+  lureMin: number | null;
+  lureMax: number | null;
+  multiplier: number;
+}
+
+/** Condicoes de pesca tipadas (spawn-bait RF-41/RF-46); null no SpawnEntry quando o spawn nao tem nenhuma. */
+export interface SpawnFishing {
+  /** condition.bait: isca exigida na vara, ex. "cobblemon:love_sweet" */
+  bait: string | null;
+  /** condition.rodType, ex. "cobblemon:love_rod" */
+  rodType: string | null;
+  /** pokeBallId da vara (data/<ns>/pokerods/<path>.json), ex. "cobblemon:love_ball"; null sem rodType ou sem arquivo */
+  rodBall: string | null;
+  minLureLevel: number | null;
+  maxLureLevel: number | null;
+  /** weightMultiplier (objeto) + weightMultipliers (lista) com condicao so de Lure, singular primeiro, ordem do arquivo */
+  lureMultipliers: SpawnLureMultiplier[];
+}
+
 export interface SpawnEntry {
   id: string;
   source: string;
@@ -249,6 +270,7 @@ export interface SpawnEntry {
   timeRange: SpawnTimeRange;
   structures: string[];
   neededBaseBlocks: string[];
+  fishing: SpawnFishing | null;
   extra: Record<string, unknown>;
 }
 
@@ -357,9 +379,48 @@ export type ItemCategory =
 
 export type ItemTag = "bait" | "evBerry" | "apricorn";
 
+/** Tipos de efeito de isca publicados (type "cobblemon:<snake>" do spawn_bait_effects em camelCase). */
+export type BaitEffectKind =
+  | "typing" | "eggGroup" | "nature" | "ev" | "iv" | "biteTime" | "levelRaise"
+  | "pokemonChance" | "genderChance" | "haChance" | "friendship" | "dropsReroll" | "shinyReroll" | "rarityBucket";
+
+export interface BaitEffect {
+  kind: BaitEffectKind;
+  /** path da subcategoria sem namespace ("fire", "water_1", "atk", "male"); null quando o efeito nao tem */
+  subcategory: string | null;
+  /** 0..1 */
+  chance: number;
+  /** valor cru do arquivo; null quando ausente (pokemon_chance, ha_chance, gender_chance) */
+  value: number | null;
+  /** tooltip do jogo renderizado (cobblemon.fishing_bait_effects.<tipo>.tooltip), PT cai para EN */
+  text: LocalizedText;
+}
+
+export interface ItemBait {
+  /** na ordem do arquivo vencedor (kubejs > jar) */
+  effects: BaitEffect[];
+  /** aceito como tempero pela Panela de Fogueira (tag bait_seasoning + excecao curada) */
+  seasoning: boolean;
+}
+
+export type RecipeIngredient =
+  | { kind: "item"; id: string; count: number; name: LocalizedText | null }
+  | { kind: "tag"; id: string; count: number };
+
+/** Receita da Panela de Fogueira com temperos de isca (Poke-Lanche, Pokeisca). */
+export interface PotRecipe {
+  /** id da receita, ex. "cobblemon:campfire_pot/poke_snack" */
+  recipeId: string;
+  /** "cobblemon:cooking_pot" | "cobblemon:cooking_pot_shapeless" */
+  recipeType: string;
+  /** "cobblemon:recipe_filters/bait_seasoning" */
+  seasoningTag: string;
+  ingredients: RecipeIngredient[];
+}
+
 /** Rotas "Como obter" do item (secao 5.1.6). */
 export type ItemObtainRoute =
-  | { kind: "craftable"; recipeTypes: string[] }
+  | { kind: "craftable"; recipeTypes: string[]; potRecipes?: PotRecipe[] }
   | { kind: "drop"; from: { dex: number; percentage: number | null; quantityRange: string | null }[] }
   | { kind: "plantable"; biomeTags: string[]; mulches: string[] }
   | { kind: "structureLoot"; tables: string[] }
@@ -444,6 +505,8 @@ export interface ItemInfo {
   usedIn: ItemUsedIn;
   /** itens de cozinha sem efeito numerico confirmado */
   cooking: { effectNote: "pending" } | null;
+  /** efeitos de isca (spawn_bait_effects); null quando o item nao tem arquivo de efeito */
+  bait: ItemBait | null;
 }
 
 export type ItemsFile = Record<string, ItemInfo>;
