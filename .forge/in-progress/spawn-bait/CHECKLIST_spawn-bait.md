@@ -90,7 +90,7 @@
 
 - [x] **F2.2** Ingredientes da receita da Panela de Fogueira `[category: frontend]`
   - Done when: capturas `after-item-poke_snack-{pt,en,pt-mobile}.png`, `after-item-poke_bait-{pt,en,pt-mobile}.png`, `after-items-list-bait-{pt,en,pt-mobile}.png` (lista Itens, aba "Iscas" `[data-icat="bait"]`, comparar com `items-list-iscas-*` do UISPEC) em `ui-refs/`; no spec temporario: Poke-Lanche `[data-pot-recipe]` com 4 `.pot-ing` na ordem leite(3x, "Qualquer leite"), `[data-item='minecraft:honey_bottle']` (2x), `[data-item='cobblemon:vivichoke']` (1x), `[data-item='cobblemon:hearty_grains']` (3x) + nota dos 3 temperos; hero com chip "Iscas" e sem `.item-cooking-note`; Pokeisca com chip "Iscas" (era "Outros", decisao de categoria); na lista, os cards dos 7 itens novos e do `poke_bait` com chip "Iscas" e os das bagas com chip de bagas; Pokeisca: `[data-ingredient='minecraft:wheat'] button` count 0 e texto "Trigo"; "Qualquer cogumelo"; "Panela de Fogueira" no badge; aba Iscas lista os 8 ids novos (`[data-item]` de cada um visivel).
-  - commit: (ver commit feat(item): ingredientes da receita)
+  - commit: 930663e6
   - status: done
 
 ## Testes
@@ -99,11 +99,11 @@
 
 ### Fase T1: Testes (definidos aqui, escritos na etapa de testes)
 
-- [ ] **T1.1** Unitarios da regra das 3 melhores `[category: teste]`
+- [x] **T1.1** Unitarios da regra das 3 melhores `[category: teste]`
   - escrito por: frontend (dominio)
   - Done when: `npx vitest run tests/unit/domain/bait.test.ts` verde; cobertura de `src/domain/bait.ts` >= 95/95.
-  - commit: 
-  - status: pending
+  - commit: (ver commit test(domain): regra das 3 melhores bagas)
+  - status: done
 
 - [x] **T1.2** Pipeline (pesca, efeitos, kubejs, tempero, receitas, catalogo, midia) `[category: teste]`
   - escrito por: backend
@@ -170,6 +170,8 @@
 - F2.1: BaitEffectsPanel (section.panel.item-bait[data-bait-effects], Row exportado do ItemScreen) depois de Como obter e antes de Usado em; so com effects nao vazio. Spec temporario: Occa 'Tipo Fogo' (PT) / 'Fire Types' (EN pelo toggle itempage), 4 .item-obtain .ob-row (igual a captura de antes); maca dourada encantada '+10' e '6×'; poke_bait (effects []) e item sem bait sem painel; expectNoOverlap 360/390/1280 sem scroll horizontal; 8 capturas after-item-{occa_berry,lum_berry,enchanted_golden_apple}-*; ui-screens verdes.
 
 - F2.2: ip.station.campfirePot no dicionario e RECIPE_LABELS cooking_pot apontando para ele; INGREDIENT_TAG_KEYS + ingredientTagLabel em item-page-model; PotRecipeList na rota craftable (ObtainRow recebe items); item-page.test.ts:26 -> Campfire Pot + caso PT Panela de Fogueira. Spec temporario: Poke-Lanche 4 .pot-ing na ordem (3x Qualquer leite, 2x Frasco de Mel, 1x Brotovital, 3x Grãos Saudáveis) + nota dos temperos, chip Iscas, sem .item-cooking-note, badge 'Panela de Fogueira'; Pokeisca chip Iscas, Trigo sem button, Qualquer cogumelo; love_sweet Panela de Fogueira / Campfire Pot; ability_capsule sem [data-pot-recipe]; aba Iscas com os 8 ids novos + poke_bait (chip Iscas, img) e Occa com chip Berries; expectNoOverlap 360/390/1280. 9 capturas after-item-poke_{snack,bait}-* e after-items-list-bait-*. Obs: tests/unit/ui-screens/items-screen.test.tsx (arquivo e tela nao tocados) falhou 2 vezes em rodadas de ui-screens com a maquina carregada (asserts sincronos logo apos click: 'open' e abas); 10/10 verdes sem a F2.2 e 10/10 verdes com a F2.2 em seguida: flake de tempo preexistente, nao causado pela feature.
+
+- T1.1: tests/unit/domain/bait.test.ts, 13 testes (dataset real: 6/130/95/129/120/349/132/172/194, contextos 6/349/129/1011, 7 reforcos com rarity/shiny, WeakMap, desempenho < 5 ms nas 1027 fichas; sinteticos: seasoning false, natureza/EV, empate por id, max, dedupe, grupos sem baga; lureRange 4 casos). Cobertura src/domain/bait.ts: linhas 100, branches 96,55, funcoes 100.
 
 ## Bugs encontrados
 
