@@ -1,5 +1,15 @@
 # Relatorio de auditoria do dataset (A1)
 
+## Rodada 4 (2026-09-28, pwa-auto-update U11)
+
+Dataset: `public/data/atm1.3.0-cobblemon1.7.3-20260929-1a7afcba` (mesmo conteudo do U6, pasta nomeada pelo hash do conteudo). Ferramenta: na evolucao por troca (`variant: "trade"`) o `requiredContext` do Cobblemon e a especie parceira (ex. `shelmet`), nao um item; a auditoria deixou de exigir `cobblemon:karrablast`/`cobblemon:shelmet` em `items.json` (ids fantasmas removidos de proposito no U7d) e passou a conferir que a especie parceira existe no cru (check `evolution trade partner`). Os outros itens de evolucao (`item_interact`, `level_up` com item) continuam checados em `items.json`. Na rodada do U6 isso dava MISSING 2.
+
+| WRONG DATA | MISSING | EXTRA | SPEC x JOGO | SEM ORDEM | COSMETIC |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | 0 |
+
+43102 checks, 1027 fichas.
+
 ## Rodada 3 (2026-09-28, item-descriptions D4)
 
 Dataset: `public/data/atm1.3.0-cobblemon1.7.3-20260928-f3c842d2`. A ferramenta passou a aplicar `kubejs/assets/<ns>/lang/{pt_br,en_us}.json` por cima do lang dos jars (mesma regra do pipeline desde item-descriptions D6; JSON invalido ignorado; entre pastas do kubejs a primeira em ordem alfabetica vence). Antes disso a rodada deu WRONG DATA 1 (nome PT Flabebe -> Flabébé) e COSMETIC 90 (`pokedexText.pt`), todos vindos do lang do kubejs.

@@ -182,9 +182,21 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
   if (fs.existsSync(path.join(datasetDir, itemsFile))) {
     const items: ItemsFile = readJson<ItemsFile>(path.join(datasetDir, itemsFile));
     const referenced = new Map<string, string>();
+    const expSlugs = new Set([...exp.species.values()].map((s) => s.slug));
     for (const e of exp.species.values()) {
       for (const d of e.drops) referenced.set(d.item, `drop de ${e.slug}`);
-      for (const ev of e.evolutions) if (ev.requiredItem) referenced.set(ev.requiredItem, `evolucao de ${e.slug}`);
+      for (const ev of e.evolutions) {
+        if (!ev.requiredItem) continue;
+        // Evolucao por troca do Cobblemon: requiredContext e a especie parceira (PokemonProperties, ex. "shelmet"),
+        // nao um item (U7d removeu os ids fantasma cobblemon:karrablast/shelmet). Confere que a especie existe.
+        if (ev.variant === "trade") {
+          const partner = ev.requiredItem.replace(/^cobblemon:/, "").split(" ")[0]!;
+          checks++;
+          if (!expSlugs.has(partner)) push({ severity: "MISSING", scope: `species ${e.dex} ${e.slug}`, field: "evolution trade partner", expected: `especie ${partner}`, actual: "ausente no cru", evidence: `evolucao ${ev.id}`, published: "-" });
+          continue;
+        }
+        referenced.set(ev.requiredItem, `evolucao de ${e.slug}`);
+      }
       for (const fo of e.forms) for (const it of fo.requiredItems) referenced.set(it, `forma ${fo.name} de ${e.slug}`);
     }
     for (const r of exp.fossilRoutes) for (const it of r.fossils) referenced.set(it, `fossil de ${r.result}`);
