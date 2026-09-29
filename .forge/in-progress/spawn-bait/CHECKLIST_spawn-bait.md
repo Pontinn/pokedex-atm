@@ -30,13 +30,13 @@
 
 - [x] **B1.4** Catalogo com os 8 itens novos, tag/categoria e ingredientes da panela `[category: build]`
   - Done when: pipeline no snapshot; `items.json`: `cobblemon:poke_snack` igual ao exemplo da secao 5.3 (categoria `bait`, tag `bait`, `cooking: null`, `potRecipes` com os 4 ingredientes 3/2/1/3 nessa ordem); `cobblemon:poke_bait` com `potRecipes` mel x1, `c:mushrooms` x1, `minecraft:wheat` x1 (`name.pt` "Trigo"); nenhum outro item com `potRecipes` (script inline: exatamente 2); os 9 itens da regra de categoria (secao 2.4 item 7) com `category: "bait"` e as 72 bagas com `berry`; `minecraft:golden_apple` e `minecraft:enchanted_golden_apple` presentes com tag `bait` (a textura vanilla ja resolve pelo `publishVanillaTextures` se B1.5 ja copiou os modelos; senao registrar e seguir); `tools/dataset/out/_sb_stage/report.json` secao `recipes` com as mesmas chaves e contagens de antes (`recipeIds`, `status`, `removedByKubejsTotal` iguais aos do report anterior do mesmo snapshot); `npx vitest run tests/unit/dataset/recipes.test.ts` verde.
-  - commit: (ver commit feat(dataset): iscas e Poke-Lanche no catalogo)
+  - commit: 414db5a3
   - status: done
 
-- [ ] **B1.5** Texturas dos itens novos e copia para o snapshot `[category: build]`
+- [x] **B1.5** Texturas dos itens novos e copia para o snapshot `[category: build]`
   - Done when: pipeline no snapshot; os 8 ids em `items.json` com `texture` nao nula e arquivo existente em `tools/dataset/out/_sb_pub/assets/items/` (`minecraft/golden_apple.png` etc., `allthemodium/allthemodium_apple.png`, `cobblemon/food/poke_snack.png`); texturas distintas referenciadas por `items.json` = 931 (< 1200); abrir os 7 PNGs novos com o Read (conferencia visual).
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(dataset): texturas das iscas)
+  - status: done
 
 ### Fase B2: Snapshot, auditoria e publicacao
 
@@ -144,6 +144,8 @@
 - B1.3: contagem real = 73 itens com bait (72 com seasoning true: bagas + minecraft:apple + minecraft:sweet_berries; mais cobblemon:poke_bait com effects [] e seasoning false). Occa/Lum/Starf/Pecha iguais a SPEC; 0 subcategory com ':'; items.json = 1.471.579 bytes (<= 1.659.908). Report `bait`: withTyping 18, withEggGroup 7, boosters [starf_berry] (os outros reforcos entram no catalogo em B1.4).
 
 - B1.4: poke_snack e poke_bait iguais a SPEC 5.3 (nomes do jogo: Poké-Lanche, Frasco de Mel, Brotovital, Grãos Saudáveis, Trigo); exatamente 2 itens com potRecipes; report recipes identico ao anterior (so a chave nova potRecipes). As "72 bagas" da SPEC sao na verdade 70 itens de categoria berry com efeito de isca + minecraft:apple e minecraft:sweet_berries (other, tag bait); as 70 seguem berry. Nesta etapa 949 itens e 7 com categoria bait: os 2 allthemodium ainda caem como fantasma (sem textura nem rota no snapshot); entram com a textura em B1.5. Vanilla com texture null ate B1.5.
+
+- B1.5: no snapshot 951 itens, 9 com categoria bait, os 8 ids novos com textura publicada (5 minecraft pelo publishVanillaTextures, 2 allthemodium pelo publishModItemTextures, poke_snack em cobblemon/food), 931 texturas distintas (< 1200); 7 PNGs conferidos visualmente. Os 2 allthemodium saem `unobtainable` no snapshot (receitas ainda fora do snapshot): paridade com a instancia e em B2.1.
 
 ## Bugs encontrados
 

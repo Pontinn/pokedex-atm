@@ -18,6 +18,7 @@ import { collectExtraSources, structureRefs } from "./extra-sources";
 import path from "node:path";
 import { createNameResolver, itemName, loadNameLang, refLangKey, type NameResolver } from "./ref-names";
 import { publishVanillaTextures } from "../media/vanilla-textures";
+import { MOD_TEXTURE_JAR_PREFIX, publishModItemTextures } from "../media/mod-item-textures";
 import { baitTypePath, buildSeasoningSet, collectBaitEffects, loadSeasoningExtra, normalizeBaitEffects, renderBaitTooltip } from "./bait";
 
 /** U7d: ids comprovadamente nao registrados no jogo (id -> prova), curados de RESEARCH_obtain e conferidos nos registros do jar. */
@@ -82,6 +83,15 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const vanillaTextures = await publishVanillaTextures(ctx, built.filter((e) => e.namespace === "minecraft" && e.texture === null).map((e) => e.path));
   for (const entry of built) {
     const rel = entry.namespace === "minecraft" && entry.texture === null ? vanillaTextures.published.get(entry.path) : undefined;
+    if (rel) entry.texture = `assets/items/${rel}`;
+  }
+  // spawn-bait: iscas de mod sem textura do app (allthemodium) ganham a do jar do mod, publicada em assets/items/<ns>/
+  const modTextures = await publishModItemTextures(
+    ctx,
+    built.filter((e) => e.texture === null && e.namespace in MOD_TEXTURE_JAR_PREFIX && baitItemIds.has(e.id)),
+  );
+  for (const entry of built) {
+    const rel = entry.texture === null ? modTextures.published.get(entry.id) : undefined;
     if (rel) entry.texture = `assets/items/${rel}`;
   }
   const curated = applyCuratedDescriptions(built, loadCuratedDescriptions());
@@ -256,6 +266,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       tinted: vanillaTextures.tinted,
       missing: vanillaTextures.missing,
     },
+    modTextures: { published: [...modTextures.published.keys()].sort(), missing: modTextures.missing },
     trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },
     bait: { newCatalogIds: catalog.filter((e) => e.viaBait && e.id in items).map((e) => e.id) },
     descriptions: {

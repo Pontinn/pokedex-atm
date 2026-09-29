@@ -1744,6 +1744,25 @@
         "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar/data/the_bumblezone/worldgen/template_pool/subway/start_pool.json",
         "mods/the_bumblezone-7.15.3+1.21.1-neoforge.jar/data/the_bumblezone/worldgen/template_pool/subway/straight.json"
       ]
+    },
+    {
+      "date": "2026-09-29",
+      "what": "spawn-bait: modelos e texturas dos 5 itens de isca vanilla (jar do cliente 1.21.1) e dos 2 itens de isca do allthemodium (jar allthemodium-3.0.1 da instancia), lidos por vanilla-textures.ts e mod-item-textures.ts. O modelo de enchanted_golden_apple aponta layer0 minecraft:item/golden_apple (sem png proprio). Copiados como estao (unzip -j, conferidos com cmp contra unzip -p).",
+      "files": [
+        "vanilla/1.21.1.jar/assets/minecraft/models/item/enchanted_golden_apple.json",
+        "vanilla/1.21.1.jar/assets/minecraft/models/item/glistering_melon_slice.json",
+        "vanilla/1.21.1.jar/assets/minecraft/models/item/glow_berries.json",
+        "vanilla/1.21.1.jar/assets/minecraft/models/item/golden_apple.json",
+        "vanilla/1.21.1.jar/assets/minecraft/models/item/golden_carrot.json",
+        "vanilla/1.21.1.jar/assets/minecraft/textures/item/glistering_melon_slice.png",
+        "vanilla/1.21.1.jar/assets/minecraft/textures/item/glow_berries.png",
+        "vanilla/1.21.1.jar/assets/minecraft/textures/item/golden_apple.png",
+        "vanilla/1.21.1.jar/assets/minecraft/textures/item/golden_carrot.png",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/models/item/allthemodium_apple.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/models/item/allthemodium_carrot.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/textures/item/allthemodium_apple.png",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/textures/item/allthemodium_carrot.png"
+      ]
     }
   ]
 }
