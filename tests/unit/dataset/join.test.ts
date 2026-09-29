@@ -239,6 +239,93 @@ describe("item catalog with categories, tags and textures (B4.1)", () => {
   });
 });
 
+// spawn-bait T1.3: contrato publicado (iscas, receitas da panela, pesca) e metas de tamanho (RNF-01/RNF-02)
+describe("spawn-bait: bait items, pot recipes and typed fishing", () => {
+  const NEW_BAIT_IDS = [
+    "allthemodium:allthemodium_apple",
+    "allthemodium:allthemodium_carrot",
+    "cobblemon:poke_snack",
+    "minecraft:enchanted_golden_apple",
+    "minecraft:glistering_melon_slice",
+    "minecraft:glow_berries",
+    "minecraft:golden_apple",
+    "minecraft:golden_carrot",
+  ];
+
+  it("951 items; the 8 new ids have a texture and the bait tag; 9 items with category bait", () => {
+    expect(Object.keys(items)).toHaveLength(951);
+    for (const id of NEW_BAIT_IDS) {
+      expect(items[id]?.texture, id).toBeTruthy();
+      expect(items[id]?.tags, id).toContain("bait");
+    }
+    const baitCategory = Object.values(items).filter((it) => it.category === "bait").map((it) => it.id).sort();
+    expect(baitCategory).toEqual([...NEW_BAIT_IDS, "cobblemon:poke_bait"].sort());
+    expect(items["cobblemon:poke_snack"]?.cooking).toBeNull();
+    expect(items["cobblemon:occa_berry"]?.category).toBe("berry");
+    expect(items["minecraft:apple"]?.category).toBe("other");
+    expect(items["minecraft:apple"]?.tags).toContain("bait");
+    expect(items["allthemons:mythical_pecha_berry"]).toBeUndefined();
+  });
+
+  it("bait effects: kubejs wins for the enchanted golden apple, subcategory without namespace", () => {
+    expect(items["minecraft:enchanted_golden_apple"]?.bait?.effects.map((e) => [e.kind, e.value])).toEqual([
+      ["biteTime", 0.1],
+      ["rarityBucket", 10],
+      ["shinyReroll", 5],
+    ]);
+    expect(items["minecraft:enchanted_golden_apple"]?.bait?.effects[2]?.text.en).toBe("100% - 6× Shiny Chance");
+    expect(items["cobblemon:occa_berry"]?.bait?.effects[0]?.subcategory).toBe("fire");
+    const subcategories = Object.values(items).flatMap((it) => it.bait?.effects.map((e) => e.subcategory) ?? []);
+    expect(subcategories.filter((s) => s?.includes(":"))).toEqual([]);
+    expect(items["cobblemon:poke_bait"]?.bait).toEqual({ effects: [], seasoning: false });
+    expect(items["cobblemon:potion"]?.bait).toBeNull();
+  });
+
+  it("exactly 2 items with potRecipes (Poke Snack 3/2/1/3, Poke Bait with Wheat named by the game)", () => {
+    const withPot = Object.values(items).filter((it) => it.obtain.some((r) => r.kind === "craftable" && r.potRecipes));
+    expect(withPot.map((it) => it.id).sort()).toEqual(["cobblemon:poke_bait", "cobblemon:poke_snack"]);
+    const pots = (id: string) => {
+      const route = items[id]?.obtain.find((r) => r.kind === "craftable");
+      return route?.kind === "craftable" ? route.potRecipes : undefined;
+    };
+    expect(pots("cobblemon:poke_snack")?.[0]?.ingredients.map((i) => i.count)).toEqual([3, 2, 1, 3]);
+    expect(pots("cobblemon:poke_bait")?.[0]?.ingredients.find((i) => i.id === "minecraft:wheat")).toEqual({
+      kind: "item",
+      id: "minecraft:wheat",
+      count: 1,
+      name: { pt: "Trigo", en: "Wheat" },
+    });
+  });
+
+  it("Staryu-10 fishing equals the SPEC 5.3 example and no spawn keeps a typed Lure key in extra.condition", () => {
+    const staryu = speciesFile(120).spawns.find((s) => s.id === "allthemons:staryu-10");
+    expect(staryu?.fishing).toEqual({ bait: null, rodType: null, rodBall: null, minLureLevel: 1, maxLureLevel: null, lureMultipliers: [{ lureMin: 3, lureMax: null, multiplier: 3 }] });
+    expect(staryu?.extra).toEqual({ weight: 1.84, condition: { minY: -60, maxY: 13 } });
+    let typedInExtra = 0;
+    let speciesBytes = 0;
+    for (let dex = 1; dex <= 1025; dex++) {
+      const file = path.join(REPO_ROOT, PUB_DATA, datasetVersion, "species", `${dex}.json`);
+      speciesBytes += readFileSync(file).length;
+      for (const s of speciesFile(dex).spawns) {
+        const cond = (s.extra.condition ?? {}) as Record<string, unknown>;
+        if ("minLureLevel" in cond || "maxLureLevel" in cond || "rodType" in cond || "bait" in cond) typedInExtra++;
+      }
+    }
+    for (const dex of [9901, 9902]) speciesBytes += readFileSync(path.join(REPO_ROOT, PUB_DATA, datasetVersion, "species", `${dex}.json`)).length;
+    expect(typedInExtra).toBe(0);
+    // RNF-01: species <= +10% dos 5.175.986 bytes de partida
+    expect(speciesBytes).toBeLessThanOrEqual(5_693_585);
+  });
+
+  it("new dataset version, items.json within RNF-01 and at most 931 distinct textures (RNF-02)", () => {
+    expect(datasetVersion).not.toBe("atm1.3.0-cobblemon1.7.3-20260929-1a7afcba");
+    expect(readFileSync(path.join(REPO_ROOT, PUB_DATA, datasetVersion, "items.json")).length).toBeLessThanOrEqual(1_659_908);
+    const textures = new Set(Object.values(items).flatMap((it) => (it.texture ? [it.texture.split("?")[0]] : [])));
+    expect(textures.size).toBeLessThanOrEqual(931);
+    expect(textures.size).toBeLessThan(1200);
+  });
+});
+
 describe("item obtain routes and used-in index (B4.2)", () => {
   it("cobblemon:fire_stone is craftable and used by the Eevee -> Flareon evolution", () => {
     const fireStone = items["cobblemon:fire_stone"];

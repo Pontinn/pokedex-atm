@@ -108,14 +108,14 @@
 - [x] **T1.2** Pipeline (pesca, efeitos, kubejs, tempero, receitas, catalogo, midia) `[category: teste]`
   - escrito por: backend
   - Done when: `npx vitest run tests/unit/dataset` verde; cobertura `tools/dataset/src/**` >= 80/80.
-  - commit: (ver commit test(dataset): pesca tipada)
+  - commit: bffdb9c5
   - status: done
 
-- [ ] **T1.3** Contrato publicado e paridade com o dataset real `[category: teste]`
+- [x] **T1.3** Contrato publicado e paridade com o dataset real `[category: teste]`
   - escrito por: backend
   - Done when: `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` verde.
-  - commit: 
-  - status: pending
+  - commit: (ver commit test(data): contrato e dataset publicado)
+  - status: done
 
 - [ ] **T1.4** RTL do bloco, dos chips de pesca e da pagina do item `[category: teste]`
   - escrito por: frontend
@@ -154,6 +154,8 @@
 - B2.3: publicado `atm1.3.0-cobblemon1.7.3-20260929-2ef2f512` (pasta 1a7afcba removida pelo write.ts). Segunda rodada no snapshot (_sb_again) = mesma datasetVersion, items.json e 1027 species iguais. sha256 items.json publicado = _sb_snap = _sb_inst = 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95. Metas: items.json 1.499.586 bytes (<= 1.659.908), species 5.246.713 bytes (<= 5.693.585), 931 texturas distintas (<= 931, < 1200), 951 itens. Auditoria no publicado: 46558 checks, 0 divergencias. published-schemas.test.ts + join.test.ts + item-page.test.ts verdes; vitest inteiro 80 arquivos / 627 testes verdes. Janela quebrada B1.1 -> B2.3 FECHADA: o frontend pode comecar.
 
 - T1.2 (escrito pelo backend logo depois de B2.3, antes do frontend: so toca pipeline/auditoria): `tests/unit/dataset/spawn-bait.test.ts` (17 testes) + 2 em recipes.test.ts + 2 em audit.test.ts. `npx vitest run tests/unit/dataset` 17 arquivos / 219 testes verdes; vitest --coverage inteiro 81 arquivos / 648 testes, limites ok; `tools/dataset/src/**` linhas 93,77% / branches 84,56% (>= 80/80). DESVIO da SPEC T1.2: `collectBaitEffects` e `buildExpected().baitItems` tem 80 itens, nao 81 (81 = arquivos; enchanted_golden_apple no jar e no kubejs). O teste confere 80.
+
+- T1.3: +1 it em published-schemas.test.ts (poke_snack com potRecipes passa; campo extra em potRecipes/fishing rejeitado) e +5 its em join.test.ts (951 itens, 9 bait, efeitos, 2 potRecipes, Staryu-10, 0 Lure tipado em extra, bytes e texturas). `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` 19 arquivos / 245 testes verdes.
 
 ## Bugs encontrados
 
