@@ -3,7 +3,7 @@
 import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
-import { readDoc } from "./idb-helpers";
+import { readDoc, writeDoc } from "./idb-helpers";
 
 const DEV = process.env.PW_DEV === "1";
 
@@ -486,6 +486,138 @@ test.describe("F5.1 where to find and how to obtain", () => {
         await page.mouse.move(1, 1);
         await settle(page);
         await expectNoOverlap(page, page.locator("#where-panel"));
+      }
+    });
+  }
+});
+
+test.describe("spawn-bait: Iscas e pesca", () => {
+  const berries = (page: Page) => page.locator("#where-panel [data-bait] [data-bait-berry]");
+  const berryIds = (page: Page) => berries(page).evaluateAll((els) => els.map((e) => e.getAttribute("data-bait-berry")));
+  const rows = (page: Page) => page.locator("#where-panel [data-bait] [data-bait-row]").evaluateAll((els) => els.map((e) => e.getAttribute("data-bait-row")));
+
+  test("Charizard (CA-01/05/06/07): block between spawns and drops, snack row, Occa/Coba/Lum, 7 boosters, no numbers, berry opens the item and Back returns", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 6);
+    const bait = page.locator("#where-panel [data-bait]");
+    await expect(berries(page)).toHaveCount(3);
+    expect(await berryIds(page)).toEqual(["cobblemon:occa_berry", "cobblemon:coba_berry", "cobblemon:lum_berry"]);
+    expect(await rows(page)).toEqual(["snack"]);
+    const text = await bait.innerText();
+    for (const s of ["(Fogo)", "(Voador)", "(Dragão/Monstro)"]) expect(text).toContain(s);
+    expect(text).not.toMatch(/x\d/);
+    const order = await page.evaluate(() => {
+      const b = document.querySelector("#where-panel [data-bait]")!;
+      const pos = (a: Element, c: Element) => !!(a.compareDocumentPosition(c) & Node.DOCUMENT_POSITION_FOLLOWING);
+      return [pos(document.querySelector("#where-panel .spawn-list")!, b), pos(b, document.querySelector("#where-panel .drops")!)];
+    });
+    expect(order).toEqual([true, true]);
+    await expect(bait.locator("[data-bait-boost]")).toHaveCount(7);
+    await expect(bait.locator("[data-bait-boost='minecraft:golden_apple']")).toContainText("raridade");
+    await expect(bait.locator("[data-bait-boost='minecraft:golden_apple']")).toContainText("shiny");
+    await expect(bait.locator("[data-bait-boost='cobblemon:starf_berry'] .bait-badge")).toHaveText(["shiny"]);
+    for (const sel of [".badge", ".tag", ".drop", ".ob-none", ".ob-link", "[data-obtain]", ".spawn-entry"]) await expect(bait.locator(sel)).toHaveCount(0);
+    await bait.locator("[data-bait-berry='cobblemon:occa_berry'] button").click();
+    await expect(page.locator('.item-body[data-item="cobblemon:occa_berry"] .item-hero')).toBeVisible();
+    await page.goBack();
+    await expect(page.locator(".detail-screen[data-dex='6'] #where-panel [data-bait]")).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("Gyarados, Onix, Magikarp, Feebas, Dipplin (CA-02/03/04/08/09)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 130);
+    await expect(berries(page)).toHaveCount(3);
+    expect(await berryIds(page)).toEqual(["cobblemon:passho_berry", "cobblemon:coba_berry", "cobblemon:aspear_berry"]);
+    expect(await rows(page)).toEqual(["snack", "rod"]);
+    await openDetail(page, 95);
+    await expect(berries(page)).toHaveCount(3);
+    expect(await berryIds(page)).toEqual(["cobblemon:charti_berry", "cobblemon:shuca_berry", "cobblemon:persim_berry"]);
+    await openDetail(page, 129);
+    await expect(berries(page)).toHaveCount(3);
+    expect(await berryIds(page)).toEqual(["cobblemon:passho_berry", "cobblemon:aspear_berry", "cobblemon:lum_berry"]);
+    expect(await rows(page)).toEqual(["snack", "rod"]);
+    const panel = page.locator("#where-panel");
+    await expect(panel.locator(".spawn-entry")).toHaveCount(6);
+    await panel.locator(".spawn-more").click();
+    await expect(panel.locator(".spawn-entry")).toHaveCount(46);
+    expect(await panel.locator("[data-bait]").innerText()).not.toMatch(/x\d/);
+    await openDetail(page, 349);
+    await expect(berries(page)).toHaveCount(3);
+    expect(await rows(page)).toEqual(["rod"]);
+    await openDetail(page, 1011);
+    await expect(page.locator("#where-panel .obtain")).toBeVisible();
+    await expect(page.locator("[data-bait]")).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+
+  test("Wooper (CA-14/15): required bait clickable, rod bobber and Lure multipliers; berries still there", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 194);
+    await expect(berries(page)).toHaveCount(3);
+    expect(await berryIds(page)).toEqual(["cobblemon:passho_berry", "cobblemon:shuca_berry", "cobblemon:aspear_berry"]);
+    await page.locator("#where-panel .spawn-more").click();
+    const w16 = page.locator("[data-spawn='cobblemon:wooper-true-16'] [data-fishing]");
+    await expect(w16).toContainText("Pokévara com boia:");
+    await expect(w16.locator("[data-item='cobblemon:love_ball']")).toBeVisible();
+    await expect(w16).toContainText("Lure 2 a 2: x3");
+    await expect(w16).toContainText("Lure 3+: x5");
+    await expect(page.locator("[data-spawn='cobblemon:wooper-true-17'] [data-fishing]")).toContainText("Isca exigida:");
+    const sweet = page.locator("[data-spawn='cobblemon:wooper-true-17'] [data-fishing] [data-item='cobblemon:love_sweet']");
+    await sweet.evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
+    await sweet.click();
+    await expect(page.locator('.item-body[data-item="cobblemon:love_sweet"] .item-hero')).toBeVisible();
+    await page.goBack();
+    await expect(page.locator(".detail-screen[data-dex='194'] #where-panel")).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("Staryu (CA-16/17): Lure chips on fishing spawns without changing the spawn-entry counts", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 120);
+    const panel = page.locator("#where-panel");
+    await expect(panel.locator("[data-spawn='allthemons:staryu-4'] [data-fishing]")).toContainText("Lure 1+");
+    await panel.locator(".spawn-more").click();
+    await expect(panel.locator(".spawn-entry")).toHaveCount(17);
+    const s10 = panel.locator("[data-spawn='allthemons:staryu-10'] [data-fishing]");
+    await expect(s10).toContainText("Lure 1+");
+    await expect(s10).toContainText("Lure 3+: x3");
+    // por spawn: .badge/.tag/.biome/.cond dentro dos chips de pesca = 0 (a contagem do spawn e a mesma sem eles)
+    const counts = await panel.locator(".spawn-entry").evaluateAll((els) =>
+      els.map((e) => {
+        const inFishing = (sel: string) => e.querySelectorAll(`[data-fishing] ${sel}`).length;
+        return [inFishing(".badge"), inFishing(".tag"), inFishing(".biome"), inFishing(".cond"), e.querySelectorAll(".badge").length];
+      }),
+    );
+    for (const c of counts) expect(c).toEqual([0, 0, 0, 0, 1]);
+    expect(await panel.locator("[data-fishing]").count()).toBe(5);
+    expect(errors).toEqual([]);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`Gyarados where panel with Iscas without overlap at ${width}px (PT/EN, classic/black) (CA-33)`, async ({ page }) => {
+      await boot(page, width, 900);
+      for (const theme of ["classic", "black"] as const) {
+        if (theme === "black") {
+          await writeDoc(page, "preferences", { schemaVersion: 1, theme, uiLanguage: "pt", termsLanguage: "pt", termsOverrides: {}, soundEnabled: false, reduceMotion: true });
+          await page.reload();
+          await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+          await expect(page.locator("html")).toHaveAttribute("data-theme", "black");
+        }
+        await openDetail(page, 130);
+        await expect(berries(page)).toHaveCount(3);
+        for (const lang of ["pt", "en"] as const) {
+          await setLanguage(page, lang);
+          await page.mouse.move(1, 1);
+          await settle(page);
+          await expectNoOverlap(page, page.locator("#where-panel"));
+          expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
+        }
+        await setLanguage(page, "pt");
       }
     });
   }

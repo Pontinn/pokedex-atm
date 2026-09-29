@@ -247,3 +247,91 @@ for (const lang of ["pt", "en"] as const) {
     });
   }
 }
+test.describe("spawn-bait: item page (bait effects and Campfire Pot recipe)", () => {
+  test("Occa (CA-18): bait effects panel with the game text in PT and EN, seasoning yes; Como obter unchanged", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:occa_berry", "Occa");
+    const panel = page.locator("[data-bait-effects]");
+    await expect(panel.locator("h3")).toHaveText("Efeitos de isca");
+    await expect(panel).toContainText("Tipo Fogo");
+    await expect(panel.locator("[data-row='bait-seasoning']")).toContainText("Aceito como tempero");
+    await expect(page.locator(".item-obtain .ob-row")).toHaveCount(4);
+    await page.locator("[data-tcard='itempage'] [data-tl='en']").click();
+    await expect(panel).toContainText("Fire Types");
+    expect(errors).toEqual([]);
+  });
+
+  test("enchanted golden apple (CA-19): bite time, rarity +10 and shiny 6x", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "minecraft:enchanted_golden_apple", "Enchanted Golden Apple");
+    const panel = page.locator("[data-bait-effects]");
+    await expect(panel.locator("[data-row]")).toHaveCount(4);
+    await expect(panel).toContainText("+10");
+    await expect(panel).toContainText("6×");
+    await expect(page.locator(".item-hero .badge")).toHaveText("Iscas");
+    expect(errors).toEqual([]);
+  });
+
+  test("Poké Snack (CA-20): ingredients in order, seasoning note, Iscas chip, no cooking note, Campfire Pot", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:poke_snack", "Poke Snack");
+    const recipe = page.locator("[data-pot-recipe='cobblemon:campfire_pot/poke_snack']");
+    const ings = recipe.locator(".pot-ing");
+    await expect(ings).toHaveCount(4);
+    expect(await ings.evaluateAll((els) => els.map((e) => e.getAttribute("data-ingredient")))).toEqual(["c:drinks/milk", "minecraft:honey_bottle", "cobblemon:vivichoke", "cobblemon:hearty_grains"]);
+    await expect(ings.nth(0)).toContainText("3x");
+    await expect(ings.nth(0)).toContainText("Qualquer leite");
+    await expect(ings.nth(1)).toContainText("2x");
+    await expect(ings.nth(2)).toContainText("1x");
+    await expect(ings.nth(3)).toContainText("3x");
+    await expect(recipe.locator(".pot-seasoning")).toContainText("mais até 3 temperos");
+    await expect(page.locator(".item-hero .badge")).toHaveText("Iscas");
+    await expect(page.locator(".item-cooking-note")).toHaveCount(0);
+    await expect(page.locator("[data-bait-effects]")).toHaveCount(0);
+    await expect(page.locator(".item-obtain [data-row='craftable'] .badge")).toContainText("Panela de Fogueira");
+    await ings.nth(1).locator("[data-item='minecraft:honey_bottle']").click();
+    await expect(page.locator('.item-body[data-item="minecraft:honey_bottle"] .item-hero')).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
+  test("Poké Bait (CA-21): Iscas chip, wheat as plain text, mushrooms tag, no effects panel", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:poke_bait", "Poke Bait");
+    await expect(page.locator(".item-hero .badge")).toHaveText("Iscas");
+    await expect(page.locator("[data-ingredient='minecraft:wheat'] button")).toHaveCount(0);
+    await expect(page.locator("[data-ingredient='minecraft:wheat']")).toContainText("Trigo");
+    await expect(page.locator("[data-ingredient='c:mushrooms']")).toContainText("Qualquer cogumelo");
+    await expect(page.locator("[data-bait-effects]")).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+
+  test("Love Sweet (CA-22): Campfire Pot station label in PT and EN", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:love_sweet", "Love Sweet");
+    const badge = page.locator(".item-obtain [data-row='craftable'] .badge");
+    await expect(badge).toContainText("Panela de Fogueira");
+    await setLanguage(page, "en");
+    await expect(badge).toContainText("Campfire Pot");
+    expect(errors).toEqual([]);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`bait item pages without overlap at ${width}px`, async ({ page }) => {
+      await boot(page, width, 900);
+      for (const [id, query] of [
+        ["cobblemon:poke_snack", "Poke Snack"],
+        ["cobblemon:poke_bait", "Poke Bait"],
+        ["minecraft:enchanted_golden_apple", "Enchanted Golden Apple"],
+      ] as const) {
+        await openItem(page, id, query);
+        await settle(page);
+        await expectNoOverlap(page, ".item-screen");
+      }
+    });
+  }
+});

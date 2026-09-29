@@ -120,14 +120,14 @@
 - [x] **T1.4** RTL do bloco, dos chips de pesca e da pagina do item `[category: teste]`
   - escrito por: frontend
   - Done when: `npx vitest run tests/unit/ui-screens` verde; cobertura `src/screens/**` >= 70/70 e `src/components/**` >= 70/70.
-  - commit: (ver commit test(ui): bloco de iscas)
+  - commit: 95960154
   - status: done
 
-- [ ] **T1.5** e2e headless (ficha, pagina do item, lista) sem quebrar contagens existentes `[category: teste]`
+- [x] **T1.5** e2e headless (ficha, pagina do item, lista) sem quebrar contagens existentes `[category: teste]`
   - escrito por: frontend
   - Done when: `npx playwright test tests/e2e/detail.spec.ts tests/e2e/item.spec.ts tests/e2e/items.spec.ts` (build + preview, headless) verde, incluindo TODOS os testes existentes desses arquivos.
-  - commit: 
-  - status: pending
+  - commit: (ver commit test(e2e): iscas na ficha)
+  - status: done
 
 - [ ] **T1.6** Regressao completa, qualidade, PWA, auditoria e byte a byte `[category: teste]`
   - escrito por: backend + frontend (regressao final, so anotacoes no STATE)
@@ -175,8 +175,11 @@
 
 - T1.4: detail-bait.test.tsx (16: BaitBlock PT/EN pelo toggle do card e pela interface, linhas por contexto, skeleton com items null, fixture seasoning false e sem baga, clique navega, 0 classes proibidas, eggGroupLabel; FishingConds Staryu-10, so multiplicadores/'até', Wooper-16/17, vara sem boia e isca fora do catalogo, Goomy EN; WherePanel: contagens .spawn-entry/.badge/.tag/.biome/.cond iguais com e sem fishing, ordem kv > spawn-list > bait > drops, 1011 sem bloco) + item-bait.test.tsx (11: painel de efeitos PT/EN, ordem das secoes, maca encantada +10/6×, so na vara, sem painel com effects [], PotRecipeList Poke-Lanche/Pokeisca/tag desconhecida/nome nulo/outro filtro, craftable sem potRecipes, estacao PT/EN, ingredientTagLabel). vitest --coverage inteiro: 84 arquivos / 694 testes, limites ok (global 94,29 linhas; src/components 93,99; src/domain 99,61; BaitBlock 100/95; BaitParts 100/95; ItemScreen 100/94).
 
+- T1.5: detail.spec.ts describe 'spawn-bait: Iscas e pesca' (7: Charizard CA-01/05/06/07, Gyarados/Onix/Magikarp/Feebas/Dipplin CA-02/03/04/08/09 com 6/46 .spawn-entry, Wooper CA-14/15, Staryu CA-16/17 com contagens por spawn, Gyarados sem sobreposicao 360/390/1280 PT/EN classic/black CA-33); item.spec.ts (8: Occa CA-18, maca encantada CA-19, Poke-Lanche CA-20, Pokeisca CA-21, Doce Amor CA-22, sem sobreposicao 360/390/1280); items.spec.ts (1: aba Iscas CA-23/24). Build + preview dos 3 arquivos: 76 verdes, 8 skipped (dev-only existentes), 1 falha no teste EXISTENTE 'F9.2 no overlap pt 1280px' de items.spec.ts: flake preexistente (ver Bugs), todos os testes novos e os demais existentes verdes.
+
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Fix / commit |
 |---|---|---|---|
 | B2.2 | auditoria acusou MISSING 7 (texture arquivo) no dataset de teste | compare.ts so procurava o PNG em public/, datasetDir e raiz do repo | candidato novo <datasetDir>/../../<textura> (raiz do --publish-dir), no commit do B2.2 |
+| T1.5 | tests/e2e/items.spec.ts `F9.2 no overlap <lang> <w>px (long names)` (existente, nao tocado) falha de forma intermitente: p.item-desc de um card sobrepoe o .item-link do card seguinte | preexistente: o teste mede a grade sem esperar a animacao cardIn da troca de aba/busca; reproduzido no commit 1006b753 (antes de todo o frontend do spawn-bait): 4 falhas em 21 com --repeat-each=3; no HEAD do frontend 1 falha em 16 com --workers=1. A tela Itens e o CSS da grade nao foram alterados por esta feature | nao corrigido (teste existente fora do escopo; nao afrouxar). Sugestao: esperar as animacoes finitas (settle) antes do expectNoOverlap. Registrado para o Pontin decidir |

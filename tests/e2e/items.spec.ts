@@ -125,3 +125,34 @@ for (const lang of ["pt", "en"] as const) {
     });
   }
 }
+test("spawn-bait (CA-23/24): Iscas tab lists the 8 new bait items and the Poke Bait with the Iscas chip and texture; berries keep their chip", async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  await openItems(page);
+  await page.locator("#item-tabs button[data-icat='bait']").click();
+  await expect(page.locator("#item-tabs button[data-icat='bait']")).toHaveClass(/active/);
+  const ids = [
+    "minecraft:golden_apple",
+    "minecraft:enchanted_golden_apple",
+    "minecraft:golden_carrot",
+    "minecraft:glistering_melon_slice",
+    "minecraft:glow_berries",
+    "allthemodium:allthemodium_apple",
+    "allthemodium:allthemodium_carrot",
+    "cobblemon:poke_snack",
+    "cobblemon:poke_bait",
+  ];
+  for (const id of ids) {
+    const c = card(page, id);
+    await c.scrollIntoViewIfNeeded();
+    await expect(c).toBeVisible();
+    await expect(c.locator(".item-tag")).toHaveText(/iscas/i);
+    await expect.poll(() => c.locator("img").evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  }
+  const occa = card(page, "cobblemon:occa_berry");
+  await occa.scrollIntoViewIfNeeded();
+  await expect(occa.locator(".item-tag")).toHaveText(/berries/i);
+  const apple = card(page, "minecraft:apple");
+  await apple.scrollIntoViewIfNeeded();
+  await expect(apple).toBeVisible();
+  expect(errors).toEqual([]);
+});
