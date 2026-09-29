@@ -83,7 +83,9 @@ interface RawSpawnEntry {
   level?: string | number;
   spawnablePositionType?: string;
   context?: string;
-  condition?: { biomes?: string[] };
+  condition?: { biomes?: string[]; bait?: string; rodType?: string; minLureLevel?: number; maxLureLevel?: number; [k: string]: unknown };
+  weightMultiplier?: { multiplier: number; condition?: Record<string, unknown> };
+  weightMultipliers?: { multiplier: number; condition?: Record<string, unknown> }[];
 }
 
 interface RawSpawnFile {
@@ -130,6 +132,29 @@ export interface ExpSpawn {
   shadowedBy: string | null;
   /** colide com estes pacotes sem nenhuma ordem de carga declarada (indeterminavel; somado) */
   unorderedWith: string[];
+  /** spawn-bait: condicoes de pesca (mesma forma de SpawnEntry.fishing, chaves na ordem do contrato) */
+  fishing: ExpFishing | null;
+}
+
+export interface ExpFishing {
+  bait: string | null;
+  rodType: string | null;
+  rodBall: string | null;
+  minLureLevel: number | null;
+  maxLureLevel: number | null;
+  lureMultipliers: { lureMin: number | null; lureMax: number | null; multiplier: number }[];
+}
+
+export interface ExpBaitItem {
+  effects: { kind: string; subcategory: string | null; chance: number; value: number | null }[];
+  seasoning: boolean;
+  file: string;
+}
+
+export interface ExpPotRecipe {
+  type: string;
+  ingredients: { kind: string; id: string; count: number }[];
+  file: string;
 }
 
 export interface ExpEdge {
@@ -206,6 +231,10 @@ export interface Expected {
   levelCap: { initialLevelCap: number; relativeLevelCap: number; initialSeries: string; freeroamRequiresCompletedSeries: boolean };
   lang: Lang;
   itemTextures: Set<string>; // "<ns>:<path>" com textura em assets/<ns>/textures/item/**
+  /** spawn-bait: item -> efeitos de isca (spawn_bait_effects do cobblemon, kubejs vence) + tempero aceito pela panela */
+  baitItems: Map<string, ExpBaitItem>;
+  /** spawn-bait: item de saida -> receita da panela com seasoningTag bait_seasoning (fonte cobblemon) */
+  potRecipes: Map<string, ExpPotRecipe>;
   notes: string[]; // achados estruturais descobertos durante a leitura (sombreamento, enabled:false, adicoes fora da SPEC)
 }
 
@@ -423,6 +452,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
     const unordered = others.filter((o) => !me || !modOf.get(o) || order.cmp(me, modOf.get(o)!) === 0);
     return { shadowedBy: null, unorderedWith: unordered };
   };
+  const rods = readPokeRods(srcs);
   const spawnsAllByDex = new Map<number, ExpSpawn[]>();
   for (const f of spawnFiles) {
     const j = readJson<RawSpawnFile>(f.file);
@@ -442,6 +472,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
         disabled: j.enabled === false,
         shadowedBy,
         unorderedWith,
+        fishing: expFishing(sp, rods),
       };
       spawnsAllByDex.set(dex, [...(spawnsAllByDex.get(dex) ?? []), e]);
     }
@@ -634,8 +665,148 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
     levelCap: readLevelCap(src),
     lang,
     itemTextures,
+    baitItems: buildBaitItems(src, srcs),
+    potRecipes: buildPotRecipes(srcs),
     notes,
   };
+}
+
+// ---------------------------------------------------------------------------------------------
+// spawn-bait: pesca, efeitos de isca, tempero e receitas da panela (regras da SPEC 2.4 itens 2-10, reescritas aqui)
+// ---------------------------------------------------------------------------------------------
+const LURE_KEYS = new Set(["minLureLevel", "maxLureLevel"]);
+const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+const numOrNull = (v: unknown): number | null => (typeof v === "number" ? v : null);
+
+function lureOnly(m: unknown): { lureMin: number | null; lureMax: number | null; multiplier: number } | null {
+  if (!isObj(m) || typeof m.multiplier !== "number" || !isObj(m.condition)) return null;
+  const c = m.condition;
+  const keys = Object.keys(c);
+  if (!keys.length || !keys.every((k) => LURE_KEYS.has(k) && typeof c[k] === "number")) return null;
+  return { lureMin: numOrNull(c.minLureLevel), lureMax: numOrNull(c.maxLureLevel), multiplier: m.multiplier };
+}
+
+/** "cobblemon:<arquivo>" -> pokeBallId de data/cobblemon/pokerods/*.json (cobblemon, depois kubejs, que vence). */
+function readPokeRods(srcs: RawSource[]): Map<string, string> {
+  const rods = new Map<string, string>();
+  for (const s of srcs.filter((x) => x.name === "cobblemon" || x.name === "kubejs")) {
+    for (const f of datapackFiles(s, "pokerods").filter((x) => x.ns === "cobblemon")) {
+      const j = readJson<{ pokeBallId?: string }>(f.file);
+      if (typeof j.pokeBallId === "string") rods.set(`cobblemon:${path.basename(f.file, ".json")}`, j.pokeBallId);
+    }
+  }
+  return rods;
+}
+
+function expFishing(sp: RawSpawnEntry, rods: ReadonlyMap<string, string>): ExpFishing | null {
+  const c = sp.condition ?? {};
+  const bait = typeof c.bait === "string" ? c.bait : null;
+  const rodType = typeof c.rodType === "string" ? c.rodType : null;
+  const minLureLevel = numOrNull(c.minLureLevel);
+  const maxLureLevel = numOrNull(c.maxLureLevel);
+  const lureMultipliers = [lureOnly(sp.weightMultiplier), ...(sp.weightMultipliers ?? []).map(lureOnly)].filter((m): m is NonNullable<typeof m> => m !== null);
+  if (bait === null && rodType === null && minLureLevel === null && maxLureLevel === null && !lureMultipliers.length) return null;
+  return { bait, rodType, rodBall: rodType ? (rods.get(rodType) ?? null) : null, minLureLevel, maxLureLevel, lureMultipliers };
+}
+
+const BAIT_KIND: Record<string, string> = {
+  typing: "typing", egg_group: "eggGroup", nature: "nature", ev: "ev", iv: "iv", bite_time: "biteTime", level_raise: "levelRaise",
+  pokemon_chance: "pokemonChance", gender_chance: "genderChance", ha_chance: "haChance", friendship: "friendship",
+  drops_reroll: "dropsReroll", shiny_reroll: "shinyReroll", rarity_bucket: "rarityBucket",
+};
+const BAIT_SEASONING = "cobblemon:recipe_filters/bait_seasoning";
+const noNs = (id: string) => (id.includes(":") ? id.slice(id.indexOf(":") + 1) : id);
+
+/** Tag de item resolvida (tags aninhadas, replace) a partir de data/<ns>/tags/item(s)/** das fontes, em ordem. */
+function resolveTag(srcs: RawSource[], tag: string): Set<string> {
+  const raw = new Map<string, string[]>();
+  for (const s of srcs) {
+    for (const kind of ["tags/item", "tags/items"]) {
+      for (const f of datapackFiles(s, kind)) {
+        const t = `${f.ns}:${f.rl.slice(`${f.ns}:${kind}/`.length).replace(/\.json$/, "")}`;
+        const j = readJson<{ replace?: boolean; values?: unknown[] }>(f.file);
+        const vals = (j.values ?? []).map((v) => (typeof v === "string" ? v : isObj(v) && typeof v.id === "string" ? v.id : null)).filter((v): v is string => v !== null);
+        raw.set(t, j.replace === true ? vals : [...(raw.get(t) ?? []), ...vals]);
+      }
+    }
+  }
+  const out = new Set<string>();
+  const seen = new Set<string>();
+  const visit = (t: string) => {
+    if (seen.has(t)) return;
+    seen.add(t);
+    for (const v of raw.get(t) ?? []) if (v.startsWith("#")) visit(v.slice(1));
+      else out.add(v);
+  };
+  visit(tag);
+  return out;
+}
+
+/** Ids postos na tag bait_seasoning por script do kubejs (`.add('cobblemon:recipe_filters/bait_seasoning', [...])`). */
+function kubejsSeasoningIds(src: string): Set<string> {
+  const out = new Set<string>();
+  const re = /\.add\(\s*['"]cobblemon:recipe_filters\/bait_seasoning['"]\s*,\s*\[([^\]]*)\]/g;
+  for (const f of walk(path.join(src, "kubejs", "server_scripts"), ".js")) {
+    const txt = fs.readFileSync(f, "utf8");
+    for (const m of txt.matchAll(re)) for (const q of m[1]!.matchAll(/['"]([^'"]+)['"]/g)) out.add(q[1]!);
+  }
+  return out;
+}
+
+function buildBaitItems(src: string, srcs: RawSource[]): Map<string, ExpBaitItem> {
+  const seasoning = new Set([...resolveTag(srcs, BAIT_SEASONING), ...kubejsSeasoningIds(src)]);
+  const out = new Map<string, ExpBaitItem>();
+  for (const s of srcs) {
+    for (const f of datapackFiles(s, "spawn_bait_effects").filter((x) => x.ns === "cobblemon")) {
+      const j = readJson<{ item?: string; effects?: { type?: string; subcategory?: string; chance?: number; value?: number }[] }>(f.file);
+      if (typeof j.item !== "string") continue;
+      const effects: ExpBaitItem["effects"] = [];
+      const seen = new Set<string>();
+      for (const e of j.effects ?? []) {
+        const kind = BAIT_KIND[noNs(String(e.type ?? ""))];
+        if (!kind) continue;
+        const subcategory = typeof e.subcategory === "string" ? noNs(e.subcategory) : null;
+        if (seen.has(`${kind}|${subcategory}`)) continue;
+        seen.add(`${kind}|${subcategory}`);
+        effects.push({ kind, subcategory, chance: typeof e.chance === "number" ? e.chance : 0, value: numOrNull(e.value) });
+      }
+      out.set(j.item, { effects, seasoning: seasoning.has(j.item), file: rel(f.file) });
+    }
+  }
+  return out;
+}
+
+/** Ingredientes da receita: shaped conta simbolos do pattern (ordem da 1a ocorrencia), shapeless conta entradas. */
+function potIngredients(j: Record<string, unknown>): ExpPotRecipe["ingredients"] | null {
+  const seq: unknown[] = [];
+  if (Array.isArray(j.pattern) && isObj(j.key)) {
+    for (const row of j.pattern as string[]) for (const ch of String(row)) if (ch !== " ") seq.push((j.key as Record<string, unknown>)[ch]);
+  } else if (Array.isArray(j.ingredients)) seq.push(...j.ingredients);
+  else return null;
+  const out: ExpPotRecipe["ingredients"] = [];
+  for (const x of seq) {
+    const ing = isObj(x) && typeof x.item === "string" ? { kind: "item", id: x.item } : isObj(x) && typeof x.tag === "string" ? { kind: "tag", id: x.tag } : null;
+    if (!ing) return null;
+    const prev = out.find((o) => o.kind === ing.kind && o.id === ing.id);
+    if (prev) prev.count++;
+    else out.push({ ...ing, count: 1 });
+  }
+  return out;
+}
+
+function buildPotRecipes(srcs: RawSource[]): Map<string, ExpPotRecipe> {
+  const out = new Map<string, ExpPotRecipe>();
+  const cob = srcs.find((s) => s.name === "cobblemon");
+  if (!cob) return out;
+  for (const f of datapackFiles(cob, "recipe").filter((x) => x.ns === "cobblemon")) {
+    const j = readJson<Record<string, unknown>>(f.file);
+    if (j.seasoningTag !== BAIT_SEASONING) continue;
+    const result = isObj(j.result) ? String(j.result.id ?? j.result.item ?? "") : "";
+    const ingredients = potIngredients(j);
+    if (!result || !ingredients) continue;
+    out.set(result, { type: String(j.type), ingredients, file: rel(f.file) });
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------------------------------------

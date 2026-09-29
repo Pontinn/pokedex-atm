@@ -41,6 +41,18 @@ export interface CompareResult {
   divergences: Divergence[];
 }
 
+/** spawn-bait: os 8 ids que entram no catalogo pela fonte de isca (SPEC 2.3). */
+export const SPAWN_BAIT_NEW_ITEMS = [
+  "allthemodium:allthemodium_apple",
+  "allthemodium:allthemodium_carrot",
+  "cobblemon:poke_snack",
+  "minecraft:enchanted_golden_apple",
+  "minecraft:glistering_melon_slice",
+  "minecraft:glow_berries",
+  "minecraft:golden_apple",
+  "minecraft:golden_carrot",
+] as const;
+
 const J = (v: unknown) => (v === undefined ? "undefined" : JSON.stringify(v));
 const sortStr = (a: string[]) => [...a].sort();
 const canonSource = (s: string) => (/^(ccc|complete)/.test(s) ? "ccc" : /^cobblemon/i.test(s) ? "cobblemon" : s.split(/[-_]neoforge|-\d/)[0]!);
@@ -210,7 +222,8 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       checks++;
       // U3: o valor publicado tem "?v=<hash>" (cache busting); o arquivo em disco nao
       const file = it.texture.replace(/\?v=[0-9a-f]{8}$/, "");
-      const cands = [path.join(REPO_ROOT, "public", file), path.join(datasetDir, file), path.join(REPO_ROOT, file)];
+      // spawn-bait: tambem a raiz do --publish-dir (<raiz>/data/<versao>/ e <raiz>/assets/), para auditar um dataset de teste
+      const cands = [path.join(REPO_ROOT, "public", file), path.join(datasetDir, file), path.join(datasetDir, "..", "..", file), path.join(REPO_ROOT, file)];
       if (!cands.some((c) => fs.existsSync(c))) push({ severity: "MISSING", scope: `item ${id}`, field: "texture (arquivo)", expected: "arquivo existe", actual: it.texture, evidence: exp.itemTextures.has(id) ? `textura crua existe (${id})` : "sem textura crua", published: pub(itemsFile) });
     }
     for (const b of exp.balls) {
@@ -218,6 +231,27 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
       checks++;
       if (it && !it.texture) push({ severity: "MISSING", scope: `item ${b.itemId}`, field: "texture", expected: b.textureFile, actual: "null", evidence: b.textureFile, published: pub(itemsFile) });
     }
+    // spawn-bait: efeitos de isca, tempero, tag bait (o catalogo decide quem entra) e ingredientes da panela
+    for (const [id, b] of exp.baitItems) {
+      const it = items[id];
+      if (!it) continue;
+      const scope = `item ${id}`;
+      eq(scope, "bait.effects", b.effects, it.bait?.effects.map(({ kind, subcategory, chance, value }) => ({ kind, subcategory, chance, value })), b.file, pub(itemsFile));
+      eq(scope, "bait.seasoning", b.seasoning, it.bait?.seasoning, `${b.file} + tag ${"cobblemon:recipe_filters/bait_seasoning"} + kubejs/server_scripts`, pub(itemsFile));
+      eq(scope, "tags has bait", true, it.tags.includes("bait"), b.file, pub(itemsFile));
+    }
+    for (const [id, r] of exp.potRecipes) {
+      const craft = items[id]?.obtain.find((o) => o.kind === "craftable");
+      const pots = craft && craft.kind === "craftable" ? craft.potRecipes : undefined;
+      eq(`item ${id}`, "potRecipes ingredients", r.ingredients, pots?.[0]?.ingredients.map(({ kind, id: ingId, count }) => ({ kind, id: ingId, count })), r.file, pub(itemsFile));
+    }
+    for (const id of SPAWN_BAIT_NEW_ITEMS) {
+      checks++;
+      if (!items[id]) push({ severity: "MISSING", scope: `item ${id}`, field: "items.json", expected: "presente (isca spawn-bait)", actual: "ausente", evidence: exp.baitItems.get(id)?.file ?? "receita de isca da panela", published: pub(itemsFile) });
+      else if (!items[id]!.texture) push({ severity: "MISSING", scope: `item ${id}`, field: "texture", expected: "textura publicada", actual: "null", evidence: exp.baitItems.get(id)?.file ?? "-", published: pub(itemsFile) });
+    }
+    checks++;
+    if (items["allthemons:mythical_pecha_berry"]) push({ severity: "EXTRA", scope: "item allthemons:mythical_pecha_berry", field: "items.json", expected: "ausente (sem spawn_bait_effects nem rota)", actual: "presente", evidence: "spawn_bait_effects do cobblemon", published: pub(itemsFile) });
   } else push({ severity: "MISSING", scope: "items", field: "arquivo", expected: itemsFile, actual: "ausente", evidence: "-", published: pub(itemsFile) });
 
   return { datasetDir, checks, speciesChecked, divergences: out };
@@ -318,6 +352,8 @@ function compareSpecies(
     eq(scope, `spawn ${s.id} level`, s.level, m.level, s.file, pf);
     eq(scope, `spawn ${s.id} context`, s.context, m.context, s.file, pf);
     eq(scope, `spawn ${s.id} biomes`, sortStr(s.biomes), sortStr(m.biomes ?? []), s.file, pf);
+    // spawn-bait: condicoes de pesca tipadas (isca, vara, Lure, multiplicadores so de Lure)
+    eq(scope, `spawn ${s.id} fishing`, s.fishing, m.fishing ?? null, s.file, pf);
   }
   // raridade
   const pr = a.rarity ?? idx?.rarity;
