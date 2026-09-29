@@ -16,7 +16,7 @@ import { normalizeSearch } from "../../../../src/domain/normalize";
 import { buildBiomeLabels } from "../biomes";
 import type { PipelineContext } from "../context";
 import { resolvePublishDir } from "../config";
-import { sha8 } from "../lib/hash";
+import { buildDatasetVersion, datasetContentHash, type ManifestContent } from "../lib/dataset-version";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import { MEDIA_BUDGET_BYTES } from "../media/budget";
 import { publish } from "../write";
@@ -197,12 +197,10 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
   }
   if (!ctx.levelCapConfig) throw new Error("E_LEVEL_CAP_CONFIG_MISSING: trainers stage nao rodou (levelCapConfig nulo)");
 
-  const indexJsonText = JSON.stringify(index);
-  const datasetVersion = `atm${ctx.source.pack.version}-cobblemon${ctx.source.cobblemonVersion}-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${sha8(indexJsonText)}`;
-
-  const manifest: DatasetManifest = {
-    datasetVersion,
-    generatedAt: new Date().toISOString(),
+  // U11: o sufixo da versao e o hash do conteudo de TODOS os arquivos do staging (ja escritos pelas etapas
+  // anteriores e acima) + o manifest sem datasetVersion/generatedAt. Mesmo conteudo = mesma pasta.
+  const generatedAt = new Date();
+  const manifestContent: ManifestContent = {
     pack: ctx.source.pack,
     cobblemonVersion: ctx.source.cobblemonVersion,
     sources: ctx.source.sources,
@@ -223,6 +221,14 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
       trainersDir: "trainers",
     },
   };
+  const datasetVersion = buildDatasetVersion(
+    ctx.source.pack.version,
+    ctx.source.cobblemonVersion,
+    generatedAt,
+    datasetContentHash(ctx.dataPath(), manifestContent),
+  );
+
+  const manifest: DatasetManifest = { datasetVersion, generatedAt: generatedAt.toISOString(), ...manifestContent };
   const manifestCheck = datasetManifestSchema.safeParse(manifest);
   if (!manifestCheck.success) {
     throw new Error(`E_SCHEMA_INVALID: dataset-manifest.json nao valida: ${manifestCheck.error.message}`);

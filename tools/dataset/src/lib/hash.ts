@@ -5,7 +5,7 @@ export function sha256Hex(data: string | Uint8Array): string {
   return createHash("sha256").update(data).digest("hex");
 }
 
-/** 8 primeiros hex do SHA-256 (sufixo do datasetVersion, SPEC 5.1.1). */
+/** 8 primeiros hex do SHA-256 (cache busting de assets; o sufixo do datasetVersion vem de dataset-version.ts). */
 export function sha8(data: string | Uint8Array): string {
   return sha256Hex(data).slice(0, 8);
 }
