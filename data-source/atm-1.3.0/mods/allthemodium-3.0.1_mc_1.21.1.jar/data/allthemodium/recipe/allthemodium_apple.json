@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "allthemodium",
+  "key": {
+    "a": {
+      "item": "minecraft:apple"
+    },
+    "n": {
+      "tag": "c:nuggets/allthemodium"
+    }
+  },
+  "pattern": [
+    "nnn",
+    "nan",
+    "nnn"
+  ],
+  "result": {
+    "count": 1,
+    "id": "allthemodium:allthemodium_apple"
+  }
+}

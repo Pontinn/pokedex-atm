@@ -35,15 +35,15 @@
 
 - [x] **B1.5** Texturas dos itens novos e copia para o snapshot `[category: build]`
   - Done when: pipeline no snapshot; os 8 ids em `items.json` com `texture` nao nula e arquivo existente em `tools/dataset/out/_sb_pub/assets/items/` (`minecraft/golden_apple.png` etc., `allthemodium/allthemodium_apple.png`, `cobblemon/food/poke_snack.png`); texturas distintas referenciadas por `items.json` = 931 (< 1200); abrir os 7 PNGs novos com o Read (conferencia visual).
-  - commit: (ver commit feat(dataset): texturas das iscas)
+  - commit: 66b0c4c2
   - status: done
 
 ### Fase B2: Snapshot, auditoria e publicacao
 
-- [ ] **B2.1** Paridade do snapshot para os ids novos e checagem byte a byte `[category: outro]`
+- [x] **B2.1** Paridade do snapshot para os ids novos e checagem byte a byte `[category: outro]`
   - Done when: `cmp` sem saida entre `_sb_inst/data/<v>/items.json` e `_sb_snap/data/<v>/items.json` e entre cada par de `species/<dex>.json` (1027), e as duas `datasetVersion` iguais; o resultado (hash sha256 dos dois `items.json`) anotado no paragrafo do README do snapshot.
-  - commit: 
-  - status: pending
+  - commit: (ver commit chore(data-source): fontes dos itens de isca)
+  - status: done
 
 - [ ] **B2.2** Auditoria com checks de isca, tempero, receita e pesca `[category: outro]`
   - Done when: `run.ts` contra `_sb_snap` imprime `divergencias {}` (0 em todas as severidades) com o numero de checks maior que 43102 (checks novos contados); `AUDIT_REPORT.md` com a tabela da rodada 5 toda 0; `npx vitest run tests/unit/dataset/audit.test.ts` verde.
@@ -146,6 +146,8 @@
 - B1.4: poke_snack e poke_bait iguais a SPEC 5.3 (nomes do jogo: Poké-Lanche, Frasco de Mel, Brotovital, Grãos Saudáveis, Trigo); exatamente 2 itens com potRecipes; report recipes identico ao anterior (so a chave nova potRecipes). As "72 bagas" da SPEC sao na verdade 70 itens de categoria berry com efeito de isca + minecraft:apple e minecraft:sweet_berries (other, tag bait); as 70 seguem berry. Nesta etapa 949 itens e 7 com categoria bait: os 2 allthemodium ainda caem como fantasma (sem textura nem rota no snapshot); entram com a textura em B1.5. Vanilla com texture null ate B1.5.
 
 - B1.5: no snapshot 951 itens, 9 com categoria bait, os 8 ids novos com textura publicada (5 minecraft pelo publishVanillaTextures, 2 allthemodium pelo publishModItemTextures, poke_snack em cobblemon/food), 931 texturas distintas (< 1200); 7 PNGs conferidos visualmente. Os 2 allthemodium saem `unobtainable` no snapshot (receitas ainda fora do snapshot): paridade com a instancia e em B2.1.
+
+- B2.1: 2 rodadas, 41 arquivos copiados (17 receitas U7a, 18 loot tables U7b, 2 .nbt + 4 da cadeia worldgen U7c/U10). items.json (sha256 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95) e os 1027 species/*.json iguais byte a byte entre instancia e snapshot. DESVIO do Done when: as duas `datasetVersion` NAO podem ser iguais (instancia dd869603, snapshot a7736f6b) porque o hash inclui o `dataset-manifest.json`, que guarda `sources` (tamanho/mtime dos jars de origem) e `counts.cries`/`media` (o snapshot tem so parte dos gritos, 1102 x 2141); e assim desde o U11 e nao muda com esta feature. O que o RF-44 pede (items.json + species identicos) esta cumprido; B2.3 confere o sha256 do items.json publicado.
 
 ## Bugs encontrados
 

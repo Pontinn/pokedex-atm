@@ -1763,6 +1763,53 @@
         "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/textures/item/allthemodium_apple.png",
         "mods/allthemodium-3.0.1_mc_1.21.1.jar/assets/allthemodium/textures/item/allthemodium_carrot.png"
       ]
+    },
+    {
+      "date": "2026-09-29",
+      "what": "spawn-bait: fontes dos 8 ids novos do catalogo (paridade byte a byte instancia x snapshot). U7a: receitas data/<ns>/recipe/** cuja saida e um dos ids (17, de 10 jars de mods/ e do jar vanilla; nenhuma sobrescrita de mesmo id). U7b: loot tables que citam um dos ids (18, de jars de mods/, do jar vanilla e kubejs/data/allthemodium/loot_table/chest/generic_loot.json). U7c/U10: templates .nbt do kubejs com minecraft:enchanted_golden_apple gerados no mundo (elite_gym_200, team_rocket_volcano_33) e a cadeia que falta (template_pool elite_gym_200, structure_set + structure + template_pool team_rocket_volcano). Copiados como estao (unzip -p / cp, conferidos com cmp). Conferido: items.json e os 1027 species/*.json da instancia real e deste snapshot iguais byte a byte (sha256 items.json 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95).",
+      "files": [
+        "kubejs/data/allthemodium/loot_table/chest/generic_loot.json",
+        "kubejs/data/allthemons/structure/elite_gym_200.nbt",
+        "kubejs/data/allthemons/structure/team_rocket_volcano_33.nbt",
+        "kubejs/data/allthemons/worldgen/structure/team_rocket_volcano.json",
+        "kubejs/data/allthemons/worldgen/structure_set/team_rocket_volcano.json",
+        "kubejs/data/allthemons/worldgen/template_pool/elite_gym_200.json",
+        "kubejs/data/allthemons/worldgen/template_pool/team_rocket_volcano_33.json",
+        "mods/Apotheosis-1.21.1-8.7.0.jar/data/apotheosis/loot_table/chests/chest_valuable.json",
+        "mods/Apotheosis-1.21.1-8.7.0.jar/data/apotheosis/loot_table/chests/spawner_brutal.json",
+        "mods/Apotheosis-1.21.1-8.7.0.jar/data/apotheosis/loot_table/chests/spawner_swarm.json",
+        "mods/Apotheosis-1.21.1-8.7.0.jar/data/apotheosis/loot_table/entity/treasure_goblin.json",
+        "mods/ApothicEnchanting-1.21.1-1.6.2.jar/data/apothic_enchanting/recipe/infusion/carrot.json",
+        "mods/DungeonsArise-1.21.1-2.1.68-release.jar/data/dungeons_arise/loot_table/chests/mining_complex/mining_complex_lush_normal.json",
+        "mods/ImmersiveEngineering-1.21.1-12.4.2-194.jar/data/immersiveengineering/recipe/cloche/glow_berries.json",
+        "mods/Mekanism-1.21.1-10.7.19.85.jar/data/mekanism/recipe/combining/glow/berries.json",
+        "mods/Mekanism-1.21.1-10.7.19.85.jar/data/mekanism/recipe/nucleosynthesizing/enchanted_golden_apple.json",
+        "mods/aether-1.21.1-1.5.10-neoforge.jar/data/aether/loot_table/blocks/golden_oak_leaves.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/loot_table/chest/generic_loot.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/loot_table/chest/hallway_loot.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/loot_table/chest/treasure_room.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/loot_table/chest/treasure_room_loot.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/recipe/allthemodium_apple.json",
+        "mods/allthemodium-3.0.1_mc_1.21.1.jar/data/allthemodium/recipe/allthemodium_carrot.json",
+        "mods/baubley-heart-canisters-1.21.1-1.4.1.jar/data/bhc/recipe/enchanted_golden_apple.json",
+        "mods/botanytrees-neoforge-1.21.1-21.1.7.jar/data/botanytrees/loot_table/tree_drops/aether/golden_oak.json",
+        "mods/botanytrees-neoforge-1.21.1-21.1.7.jar/data/botanytrees/loot_table/tree_drops/golden_apple_tree/enchanted_golden_apple.json",
+        "mods/botanytrees-neoforge-1.21.1-21.1.7.jar/data/botanytrees/loot_table/tree_drops/golden_apple_tree/golden_apple.json",
+        "mods/create-1.21.1-6.0.10.jar/data/create/recipe/haunting/glow_berries.json",
+        "mods/eternalstarlight-0.9.0+1.21.1+neoforge.jar/data/eternal_starlight/loot_table/chests/cursed_garden.json",
+        "mods/mekmm-1.21.1-1.4.1.jar/data/mekmm/recipe/planting/glow_berries.json",
+        "mods/productivemetalworks-1.21.1-1.15.1.jar/data/productivemetalworks/recipe/casting/atm/apple.json",
+        "mods/productivemetalworks-1.21.1-1.15.1.jar/data/productivemetalworks/recipe/casting/atm/carrot.json",
+        "mods/productivemetalworks-1.21.1-1.15.1.jar/data/productivemetalworks/recipe/casting/misc/glistering_melon.json",
+        "mods/productivemetalworks-1.21.1-1.15.1.jar/data/productivemetalworks/recipe/casting/misc/golden_apple.json",
+        "mods/productivemetalworks-1.21.1-1.15.1.jar/data/productivemetalworks/recipe/casting/misc/golden_carrot.json",
+        "vanilla/1.21.1.jar/data/minecraft/loot_table/blocks/cave_vines.json",
+        "vanilla/1.21.1.jar/data/minecraft/loot_table/blocks/cave_vines_plant.json",
+        "vanilla/1.21.1.jar/data/minecraft/loot_table/spawners/ominous/trial_chamber/consumables.json",
+        "vanilla/1.21.1.jar/data/minecraft/recipe/glistering_melon_slice.json",
+        "vanilla/1.21.1.jar/data/minecraft/recipe/golden_apple.json",
+        "vanilla/1.21.1.jar/data/minecraft/recipe/golden_carrot.json"
+      ]
     }
   ]
 }
