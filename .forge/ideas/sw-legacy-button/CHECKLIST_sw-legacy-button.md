@@ -1,1 +1,2 @@
 - [ ] L1 SW trata SKIP_WAITING recarregando a aba de origem; teste em producao; merge + push.
+- [ ] L2 Link do portfolio (rodape lateral, fim das telas no mobile, sheet Mais, card Sobre).
