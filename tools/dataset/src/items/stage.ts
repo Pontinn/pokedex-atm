@@ -1,6 +1,6 @@
 // B4.1 (catalogo) + B4.2 (rotas de obtencao e "Usado em"). Nunca escreve em public/ (so ctx.outDir).
 import { existsSync, readFileSync } from "node:fs";
-import type { BallsFile, FossilRoute, ItemBait, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemTag, SeriesInfo, TrainersFile } from "../../../../src/data/types";
+import type { BallsFile, FossilRoute, ItemBait, ItemCategory, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemTag, PotRecipe, SeriesInfo, TrainersFile } from "../../../../src/data/types";
 import type { PipelineContext } from "../context";
 import { writeJsonAtomic } from "../lib/fs-atomic";
 import { collectFossils, resolveFossils } from "../species/fossils";
@@ -8,7 +8,7 @@ import { buildCatalog, collectFossilReferencedIds } from "./catalog";
 import { categorize } from "./categories";
 import { applyCuratedDescriptions, loadCuratedDescriptions } from "./descriptions";
 import { collectBerryPlantable } from "./berries";
-import { collectRecipes } from "./recipes";
+import { gatherRecipes, reportRecipes, type PotRecipeRecord } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
 import { buildUsedInIndex } from "./used-in";
@@ -71,7 +71,13 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   // U8: nomes do jogo fora do lang do app (blocos, mobs, estruturas, itens minecraft)
   const resolveName = createNameResolver(ctx.lang, loadNameLang(ctx));
   const gameItemName = (id: string) => itemName(resolveName, id);
-  const built = buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds, gameItemName });
+  // spawn-bait: receitas lidas UMA vez antes do catalogo (saidas das receitas de isca da panela entram no catalogo)
+  const recipeData = gatherRecipes(ctx);
+  // todo item com arquivo em spawn_bait_effects (jars + kubejs, kubejs vence) ganha tag "bait" e ItemInfo.bait
+  const baitEffects = collectBaitEffects(ctx);
+  const potOutputs = new Set(recipeData.potRecipes.keys());
+  const baitItemIds = new Set([...baitEffects.keys(), ...potOutputs]);
+  const built = buildCatalog(ctx, { lang: ctx.lang, textureManifest, fossilItemIds, gameItemName, baitItemIds });
   // U8: itens minecraft sem textura do app ganham a do jar vanilla (modelo do item), publicada em assets/items/minecraft/
   const vanillaTextures = await publishVanillaTextures(ctx, built.filter((e) => e.namespace === "minecraft" && e.texture === null).map((e) => e.path));
   for (const entry of built) {
@@ -88,9 +94,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     );
   }
 
-  // spawn-bait: todo item com arquivo em spawn_bait_effects (jars + kubejs, kubejs vence) ganha tag "bait" e ItemInfo.bait
-  const baitEffects = collectBaitEffects(ctx);
-  const recipeData = collectRecipes(ctx, new Set(catalog.map((e) => e.id)));
+  reportRecipes(ctx, recipeData, new Set(catalog.map((e) => e.id)));
   const craftable = recipeData.craftable;
   const seasoningExtra = loadSeasoningExtra();
   const seasoning = buildSeasoningSet(recipeData.itemTags, seasoningExtra);
@@ -112,6 +116,12 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   const unobtainable: Record<"creativeOnly" | "notRegistered", string[]> = { creativeOnly: [], notRegistered: [] };
   const items: Record<string, ItemInfo> = {};
   const unversionedTextures: string[] = [];
+  const toPublished = (r: PotRecipeRecord): PotRecipe => ({
+    recipeId: r.recipeId,
+    recipeType: r.recipeType,
+    seasoningTag: r.seasoningTag,
+    ingredients: r.ingredients.map((i) => (i.kind === "item" ? { kind: "item", id: i.id, count: i.count, name: gameItemName(i.id) } : { kind: "tag", id: i.id, count: i.count })),
+  });
   const baitOf = (id: string): ItemBait | null => {
     const raw = baitEffects.get(id);
     if (!raw) return null;
@@ -119,13 +129,16 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     return { effects, seasoning: seasoning.has(id) };
   };
   for (const entry of catalog) {
-    const { category, tags: baseTags } = categorize(entry.path, entry.texture);
+    const { category: baseCategory, tags: baseTags } = categorize(entry.path, entry.texture);
+    // spawn-bait: categoria "bait" = entrou so pela fonte de isca OU e saida de receita de isca da panela (9 itens hoje)
+    const category: ItemCategory = entry.viaBait || potOutputs.has(entry.id) ? "bait" : baseCategory;
     const tags = new Set<ItemTag>(baseTags);
-    if (baitEffects.has(entry.id)) tags.add("bait");
+    if (baitEffects.has(entry.id) || potOutputs.has(entry.id)) tags.add("bait");
 
     const obtain: ItemObtainRoute[] = [];
     const recipeTypes = craftable.get(entry.id);
-    if (recipeTypes) obtain.push({ kind: "craftable", recipeTypes: [...recipeTypes].sort() });
+    const pots = recipeData.potRecipes.get(entry.id);
+    if (recipeTypes) obtain.push({ kind: "craftable", recipeTypes: [...recipeTypes].sort(), ...(pots && pots.length ? { potRecipes: pots.map(toPublished) } : {}) });
     const drops = dropsIndex.get(entry.id);
     if (drops && drops.length > 0) obtain.push({ kind: "drop", from: drops });
     const plantable = berryPlantable.get(entry.id);
@@ -244,6 +257,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       missing: vanillaTextures.missing,
     },
     trainerDrop: { items: withTrainerDrop, lootItemsOutsideCatalog: [...trainerDrops.keys()].filter((id) => !(id in items)).sort() },
+    bait: { newCatalogIds: catalog.filter((e) => e.viaBait && e.id in items).map((e) => e.id) },
     descriptions: {
       fromGame: catalog.length - curated.fromCurated.length - withoutDescription,
       fromCurated: curated.fromCurated.length,

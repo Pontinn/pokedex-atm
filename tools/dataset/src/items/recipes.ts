@@ -11,6 +11,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { unzipSync } from "fflate";
 import type { PipelineContext } from "../context";
+import { BAIT_SEASONING_TAG } from "./bait";
+import { toPotRecipe, type RawIngredient, type RawPotRecipe } from "./pot-recipes";
 
 type Json = Record<string, unknown>;
 const isObject = (v: unknown): v is Json => typeof v === "object" && v !== null && !Array.isArray(v);
@@ -150,6 +152,8 @@ export interface RecipeRecord {
   status: ConditionResult | "invalidJson";
   /** tipos das condicoes nao comprovaveis (status "unknown") */
   unknownConditionTypes: string[];
+  /** spawn-bait: receita da Panela de Fogueira (tem seasoningTag); null nas outras */
+  potRecipe: RawPotRecipe | null;
 }
 
 const decoder = new TextDecoder("utf-8");
@@ -193,7 +197,7 @@ export function buildRecipeIndex(
     if (recipes.has(id)) overridden++;
     const data = parseLenient(file.bytes);
     if (!isObject(data)) {
-      recipes.set(id, { id, type: null, outputs: [], source: file.source, status: "invalidJson", unknownConditionTypes: [] });
+      recipes.set(id, { id, type: null, outputs: [], source: file.source, status: "invalidJson", unknownConditionTypes: [], potRecipe: null });
       continue;
     }
     const status = evalConditions(data["neoforge:conditions"], modIds, facts);
@@ -205,6 +209,7 @@ export function buildRecipeIndex(
       source: file.source,
       status,
       unknownConditionTypes: status === "unknown" ? conditionTypes(data["neoforge:conditions"]) : [],
+      potRecipe: toPotRecipe(data),
     });
   }
   return { recipes, overridden };
@@ -701,13 +706,34 @@ export interface RecipeCollection {
   scriptRecipes: ScriptRecipe[];
   /** tag de item -> itens (tags aninhadas resolvidas; 7 jars do app + kubejs/data) */
   itemTags: Map<string, Set<string>>;
+  /** spawn-bait: item de saida -> receitas de isca da panela (seasoningTag bait_seasoning), ordenadas por recipeId */
+  potRecipes: Map<string, PotRecipeRecord[]>;
+  /** listas NAO filtradas pelo catalogo; reportRecipes aplica o filtro */
+  stats: RecipeStats;
 }
 
-/** Le todas as fontes, aplica condicoes e remocoes do kubejs. `catalogIds` so filtra o que vai para o report. */
-export function collectRecipes(
-  ctx: Pick<PipelineContext, "reader" | "report">,
-  catalogIds?: ReadonlySet<string>,
-): RecipeCollection {
+export interface PotRecipeRecord {
+  recipeId: string;
+  recipeType: string;
+  seasoningTag: string;
+  ingredients: RawIngredient[];
+}
+
+export interface RecipeStats {
+  files: number;
+  overriddenById: number;
+  status: Record<"ok" | "absentMod" | "unknown" | "invalidJson", number>;
+  unknownConditionTypes: Map<string, number>;
+  /** receitas com status != ok (sem invalidJson), outputs completos */
+  dropped: { id: string; status: string; outputs: string[]; conditions?: string[] }[];
+  noOutputByType: Map<string, number>;
+  kubejsRemovalFilters: number;
+  kubejsRemovalsByInputNotApplied: string[];
+  kubejsAdditionsUnparsed: ReturnType<typeof parseKubejsAdditions>["unparsed"];
+}
+
+/** Le todas as fontes, aplica condicoes e remocoes do kubejs, sem escrever o report (reportRecipes faz isso). */
+export function gatherRecipes(ctx: Pick<PipelineContext, "reader" | "report">): RecipeCollection {
   const root = ctx.reader.root;
   const files: RecipeFile[] = [];
   const vanilla = vanillaJarPath(root, ctx.reader.mode);
@@ -749,14 +775,14 @@ export function collectRecipes(
   const noOutputByType = new Map<string, number>();
   const statusCount = { ok: 0, absentMod: 0, unknown: 0, invalidJson: 0 };
   const unknownTypes = new Map<string, number>();
-  const relevant = (r: { outputs: readonly string[] }) => !catalogIds || r.outputs.some((o) => catalogIds.has(o));
-  const droppedCatalog: { id: string; status: string; outputs: string[]; conditions?: string[] }[] = [];
+  const dropped: RecipeStats["dropped"] = [];
+  const potRecipes = new Map<string, PotRecipeRecord[]>();
   for (const r of recipes.values()) {
     statusCount[r.status]++;
     if (r.status !== "ok") {
       for (const t of r.unknownConditionTypes) unknownTypes.set(t, (unknownTypes.get(t) ?? 0) + 1);
-      if (relevant(r) && r.status !== "invalidJson") {
-        droppedCatalog.push({ id: r.id, status: r.status, outputs: r.outputs.filter((o) => !catalogIds || catalogIds.has(o)), ...(r.status === "unknown" ? { conditions: r.unknownConditionTypes } : {}) });
+      if (r.status !== "invalidJson") {
+        dropped.push({ id: r.id, status: r.status, outputs: r.outputs, ...(r.status === "unknown" ? { conditions: r.unknownConditionTypes } : {}) });
       }
       continue;
     }
@@ -764,6 +790,18 @@ export function collectRecipes(
     if (by) {
       removed.push({ id: r.id, outputs: r.outputs, type: r.type, by: by.where });
       continue;
+    }
+    // spawn-bait: receitas de isca da panela (Poke-Lanche, Pokeisca) guardam os ingredientes
+    if (r.potRecipe?.seasoningTag === BAIT_SEASONING_TAG && r.type) {
+      if (r.potRecipe.unparsed) {
+        ctx.report.warn("W_POT_RECIPE_UNPARSED", `receita de isca da panela com ingrediente em formato desconhecido: ${r.id} (sem potRecipes)`, { id: r.id });
+      } else {
+        for (const o of r.outputs) {
+          const list = potRecipes.get(o) ?? [];
+          list.push({ recipeId: r.id, recipeType: r.type, seasoningTag: r.potRecipe.seasoningTag, ingredients: r.potRecipe.ingredients });
+          potRecipes.set(o, list);
+        }
+      }
     }
     if (!r.type) continue;
     if (r.outputs.length === 0) {
@@ -795,25 +833,54 @@ export function collectRecipes(
       { unparsed, inputFilters },
     );
   }
-  const sortObj = (m: Map<string, number>) => Object.fromEntries([...m].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
-  ctx.report.section("recipes", {
+  for (const list of potRecipes.values()) list.sort((a, b) => (a.recipeId < b.recipeId ? -1 : a.recipeId > b.recipeId ? 1 : 0));
+  const stats: RecipeStats = {
     files: files.length,
-    recipeIds: recipes.size,
     overriddenById: overridden,
     status: statusCount,
-    unknownConditionTypes: sortObj(unknownTypes),
-    droppedForCatalog: droppedCatalog.sort((a, b) => (a.id < b.id ? -1 : 1)),
-    noOutputByType: sortObj(noOutputByType),
+    unknownConditionTypes: unknownTypes,
+    dropped,
+    noOutputByType,
     kubejsRemovalFilters: filters.length,
+    kubejsRemovalsByInputNotApplied: inputFilters,
+    kubejsAdditionsUnparsed: additions.unparsed,
+  };
+  return { craftable, recipes, removed, unparsedRemovals: unparsed, scriptRecipes: additions.recipes, itemTags: tags, potRecipes, stats };
+}
+
+/** Secao "recipes" do report; `catalogIds` filtra as listas por relevancia (receita com saida no catalogo). */
+export function reportRecipes(ctx: Pick<PipelineContext, "report">, collection: RecipeCollection, catalogIds?: ReadonlySet<string>): void {
+  const { stats, removed, unparsedRemovals, scriptRecipes } = collection;
+  const relevant = (r: { outputs: readonly string[] }) => !catalogIds || r.outputs.some((o) => catalogIds.has(o));
+  const sortObj = (m: Map<string, number>) => Object.fromEntries([...m].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+  const droppedCatalog = stats.dropped
+    .filter(relevant)
+    .map(({ id, status, outputs, conditions }) => ({ id, status, outputs: outputs.filter((o) => !catalogIds || catalogIds.has(o)), ...(conditions ? { conditions } : {}) }));
+  ctx.report.section("recipes", {
+    files: stats.files,
+    recipeIds: collection.recipes.size,
+    overriddenById: stats.overriddenById,
+    status: stats.status,
+    unknownConditionTypes: sortObj(stats.unknownConditionTypes),
+    droppedForCatalog: droppedCatalog.sort((a, b) => (a.id < b.id ? -1 : 1)),
+    noOutputByType: sortObj(stats.noOutputByType),
+    kubejsRemovalFilters: stats.kubejsRemovalFilters,
     removedByKubejs: removed.filter(relevant).sort((a, b) => (a.id < b.id ? -1 : 1)),
     removedByKubejsTotal: removed.length,
-    kubejsRemovalsUnparsed: unparsed,
-    kubejsRemovalsByInputNotApplied: inputFilters,
-    kubejsAdded: additions.recipes.length,
-    kubejsAddedForCatalog: additions.recipes.filter(relevant).map((r) => ({ id: r.id, type: r.type, outputs: r.outputs, where: r.where })),
-    kubejsAdditionsUnparsed: additions.unparsed,
+    kubejsRemovalsUnparsed: unparsedRemovals,
+    kubejsRemovalsByInputNotApplied: stats.kubejsRemovalsByInputNotApplied,
+    kubejsAdded: scriptRecipes.length,
+    kubejsAddedForCatalog: scriptRecipes.filter(relevant).map((r) => ({ id: r.id, type: r.type, outputs: r.outputs, where: r.where })),
+    kubejsAdditionsUnparsed: stats.kubejsAdditionsUnparsed,
+    potRecipes: [...collection.potRecipes.keys()].sort(),
   });
-  return { craftable, recipes, removed, unparsedRemovals: unparsed, scriptRecipes: additions.recipes, itemTags: tags };
+}
+
+/** Le todas as fontes, aplica condicoes e remocoes do kubejs. `catalogIds` so filtra o que vai para o report. */
+export function collectRecipes(ctx: Pick<PipelineContext, "reader" | "report">, catalogIds?: ReadonlySet<string>): RecipeCollection {
+  const collection = gatherRecipes(ctx);
+  reportRecipes(ctx, collection, catalogIds);
+  return collection;
 }
 
 /** itemId -> conjunto de tipos de receita ("minecraft:crafting_shaped", "create:pressing", ...). */

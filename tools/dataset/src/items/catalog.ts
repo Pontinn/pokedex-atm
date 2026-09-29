@@ -19,6 +19,8 @@ export interface CatalogEntry {
   fromLang: boolean;
   /** U7d: id que so entrou por referencia (drop/evolucao/forma/fossil/treinador), nao pelo lang (nome + textura ou tooltip) */
   referenceOnly: boolean;
+  /** spawn-bait: entrou so pela fonte de referencia de isca (spawn_bait_effects ou saida de receita de isca da panela) */
+  viaBait: boolean;
 }
 
 const LANG_ITEM_NAMESPACES = ["cobblemon", "allthemons", "mega_showdown"] as const;
@@ -100,6 +102,8 @@ export interface BuildCatalogDeps {
   fossilItemIds: ReadonlySet<string>;
   /** U8: nome do jogo para item sem chave no ctx.lang (lang dos outros jars + vanilla; ex. `minecraft:*`) */
   gameItemName?: (id: string) => LocalizedText | null;
+  /** spawn-bait: ids de spawn_bait_effects (jar + kubejs) uniao saidas das receitas de isca da panela */
+  baitItemIds?: ReadonlySet<string>;
 }
 
 /** Catalogo final: ids do lang (com textura OU tooltip) uniao ids referenciados (SPEC B4.1 passo 1). */
@@ -119,6 +123,9 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
   }
   const fromLangKeys = new Set(allIds);
   for (const id of referenced) allIds.add(id);
+  // spawn-bait: iscas que nenhuma outra fonte traria entram como referenceOnly (regra do fantasma continua valendo)
+  const baitOnly = new Set([...(deps.baitItemIds ?? [])].filter((id) => !allIds.has(id)));
+  for (const id of baitOnly) allIds.add(id);
 
   const gameDescription = createGameDescriptionResolver(deps.lang);
   const catalog: CatalogEntry[] = [];
@@ -146,6 +153,7 @@ export function buildCatalog(ctx: PipelineContext, deps: BuildCatalogDeps): Cata
       texture: texture ? `assets/items/${texture}` : null,
       fromLang: ownName !== null,
       referenceOnly: !fromLangKeys.has(id),
+      viaBait: baitOnly.has(id),
     });
   }
   return catalog.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
