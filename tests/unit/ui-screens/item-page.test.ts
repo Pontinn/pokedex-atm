@@ -23,7 +23,8 @@ describe("F9.3 item page", () => {
 
   it("recipe types become readable labels without repeats; never the recipe", () => {
     expect(recipeLabels(["minecraft:crafting_shaped", "minecraft:crafting_shapeless", "minecraft:smelting"], "pt")).toEqual(["Bancada de trabalho", "Fornalha"]);
-    expect(recipeLabels(["cobblemon:brewing_stand", "cobblemon:cooking_pot_shapeless"], "en")).toEqual(["Brewing stand", "Cooking pot"]);
+    expect(recipeLabels(["cobblemon:brewing_stand", "cobblemon:cooking_pot_shapeless"], "en")).toEqual(["Brewing stand", "Campfire Pot"]);
+    expect(recipeLabels(["cobblemon:cooking_pot"], "pt")).toEqual(["Panela de Fogueira"]);
     expect(recipeLabels(["foo:weird_machine"], "en")).toEqual(["Weird machine"]);
   });
 

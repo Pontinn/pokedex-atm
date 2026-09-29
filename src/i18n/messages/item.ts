@@ -78,4 +78,5 @@ export const ITEM_MESSAGES = {
   "ip.ingredientTag.milk": { pt: "Qualquer leite", en: "Any milk" },
   "ip.ingredientTag.mushrooms": { pt: "Qualquer cogumelo", en: "Any mushroom" },
   "ip.ingredientTag.any": { pt: "Qualquer {name}", en: "Any {name}" },
+  "ip.station.campfirePot": { pt: "Panela de Fogueira", en: "Campfire Pot" },
 } as const satisfies Record<string, Message>;

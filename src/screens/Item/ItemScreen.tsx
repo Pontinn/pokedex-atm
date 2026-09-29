@@ -21,7 +21,7 @@ import { usePreferencesStore, useTermsLanguage } from "../../state/preferences-s
 import type { UiLanguage } from "../../storage/types";
 import { ballMultiplier } from "../Balls/ball-model";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
-import { BaitEffectsPanel } from "./BaitParts";
+import { BaitEffectsPanel, PotRecipeList } from "./BaitParts";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
@@ -153,7 +153,25 @@ export function Row({ icon, title, children, none, index, kind }: { icon: ReactN
   );
 }
 
-function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { route: ItemObtainRoute; index: number; lang: UiLanguage; uiLang: UiLanguage; species: Map<number, SpeciesSummary>; biomes: BiomeLabels | null; series: SeriesFile | null }) {
+function ObtainRow({
+  route,
+  index,
+  lang,
+  uiLang,
+  species,
+  biomes,
+  series,
+  items,
+}: {
+  route: ItemObtainRoute;
+  index: number;
+  lang: UiLanguage;
+  uiLang: UiLanguage;
+  species: Map<number, SpeciesSummary>;
+  biomes: BiomeLabels | null;
+  series: SeriesFile | null;
+  items: Record<string, ItemInfo>;
+}) {
   const t = useT();
   switch (route.kind) {
     case "craftable":
@@ -162,6 +180,7 @@ function ObtainRow({ route, index, lang, uiLang, species, biomes, series }: { ro
           <span className="badge badge-uncommon">
             {route.recipeTypes.length ? t("ip.craftTypes", { types: recipeLabels(route.recipeTypes, uiLang).join(", ") }) : t("ip.craftYes")}
           </span>
+          {route.potRecipes?.length ? <PotRecipeList recipes={route.potRecipes} items={items} lang={lang} /> : null}
         </Row>
       );
     case "drop":
@@ -407,7 +426,7 @@ function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; it
         <h3>{t("ip.obtain")}</h3>
         <div className="ob-list">
           {obtainRows(item).map((r, i) => (
-            <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} series={series} />
+            <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} series={series} items={items} />
           ))}
         </div>
       </section>

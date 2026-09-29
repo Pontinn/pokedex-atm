@@ -64,3 +64,11 @@ html[data-theme="green"] .item-screen .mon-chip b, html[data-theme="blue"] .item
 .app.mobile .item-screen .ob-body { flex: 1 1 calc(100% - 48px); }
 /* Efeitos de isca (spawn-bait F2.1): valores em <b> no tom de .mon-chip b (reservado; o texto do jogo vem inteiro) */
 .item-screen .item-bait .bait-effect-text b { color: var(--secondary); }
+/* Ingredientes da receita da Panela de Fogueira (spawn-bait F2.2): pilulas no padrao de .mon-chip */
+.item-screen .pot-recipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 6px; min-width: 0; width: 100%; }
+.item-screen .pot-ing { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px 3px 6px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--border); font-size: 12px; font-weight: 800; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+.item-screen .pot-ing b { color: var(--secondary); }
+html[data-theme="green"] .item-screen .pot-ing b, html[data-theme="blue"] .item-screen .pot-ing b { color: var(--primary); }
+.item-screen .pot-item { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: var(--text); text-align: left; min-width: 0; }
+.item-screen .pot-item:hover span { text-decoration: underline; }
+.item-screen .pot-seasoning, .item-screen .pot-label { font-size: 12.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere; }

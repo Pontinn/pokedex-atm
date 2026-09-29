@@ -1,5 +1,7 @@
 // Regras de exibicao da pagina do item (F9.3), puras e testaveis com o dataset real.
 import type { ItemInfo, ItemNamedRef, ItemObtainRoute, ItemQuestRef, ItemTrader, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
+import { ITEM_MESSAGES } from "../../i18n/messages/item";
+import type { TranslateFn } from "../../i18n/useT";
 import { humanizeId } from "../Trainers/trainer-model";
 
 /** Rota "sem rota" quando o item nao tem nenhuma rota conhecida (RF-69). */
@@ -17,7 +19,8 @@ const RECIPE_LABELS: ReadonlyArray<[RegExp, LocalizedText]> = [
   [/:stonecutting$/, { pt: "Cortador de pedras", en: "Stonecutter" }],
   [/:smithing/, { pt: "Mesa de ferraria", en: "Smithing table" }],
   [/brewing_stand$/, { pt: "Suporte de poções", en: "Brewing stand" }],
-  [/cooking_pot/, { pt: "Panela de cozinha", en: "Cooking pot" }],
+  // spawn-bait RF-31/RF-47: nome do jogo (cobblemon.container.campfire_pot), texto so no dicionario
+  [/cooking_pot/, ITEM_MESSAGES["ip.station.campfirePot"]],
 ];
 
 const SMITHING_TABLE: LocalizedText = { pt: "Mesa de ferraria", en: "Smithing table" };
@@ -123,6 +126,14 @@ export function recipeLabels(types: readonly string[], lang: "pt" | "en"): strin
     if (!out.includes(label)) out.push(label);
   }
   return out;
+}
+
+/** Rotulo humano das tags de ingrediente da Panela de Fogueira (spawn-bait RF-30): nunca o id cru. */
+export const INGREDIENT_TAG_KEYS: Readonly<Record<string, string>> = { "c:drinks/milk": "ip.ingredientTag.milk", "c:mushrooms": "ip.ingredientTag.mushrooms" };
+
+export function ingredientTagLabel(tag: string, t: TranslateFn): string {
+  const key = INGREDIENT_TAG_KEYS[tag];
+  return key ? t(key) : t("ip.ingredientTag.any", { name: humanizeId(tag.replace(/^#/, "")) });
 }
 
 /** Nome legivel de uma tabela de loot ("ruins/gilded_chests/base" -> "Ruins: Gilded chests (base)"). */
