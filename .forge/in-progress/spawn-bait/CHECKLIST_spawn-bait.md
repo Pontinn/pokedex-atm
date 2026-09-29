@@ -61,10 +61,10 @@
 
 ### Fase F1: Ficha do Pokemon (bloco "Iscas" e pesca na linha do spawn)
 
-- [ ] **F1.1** Textos i18n do bloco, da pesca e dos efeitos `[category: frontend]`
+- [x] **F1.1** Textos i18n do bloco, da pesca e dos efeitos `[category: frontend]`
   - Done when: `npx vitest run tests/unit/ui-foundation/i18n.test.tsx tests/unit/ui-shell/i18n-modules.test.ts` verde; `npm run lint` limpo; captura headless (regra geral) da ficha do Charizard sem mudanca visual (as chaves ainda nao sao usadas): `after-detail-charizard-i18n-pt.png` igual a `detail-where-charizard-pt.png`.
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(i18n): textos do bloco de iscas)
+  - status: done
 
 - [ ] **F1.2** Regra das 3 melhores bagas (dominio puro) `[category: outro]`
   - Done when: com o `items.json` publicado (B2.3) e as fichas reais, um teste rapido em node (`npx tsx -e` importando `src/domain/bait.ts`) imprime: dex 6 -> `occa_berry(fire), coba_berry(flying), lum_berry(dragon/monster)`; 130 -> `passho, coba, aspear`; 95 -> `charti, shuca, persim`; 129 -> `passho, aspear, lum`; 120 -> `passho, pecha` (2); 132 -> `chilan` (1); 172 -> `wacan` (1); 194 -> `passho, shuca, aspear`; 349 -> `passho, aspear, lum`; `baitContexts` 6 -> snack so, 349 -> rod so, 129 -> ambos, 1011 -> null; boosters = 7 ids (`allthemodium:allthemodium_apple`, `allthemodium:allthemodium_carrot`, `cobblemon:starf_berry`, `minecraft:enchanted_golden_apple`, `minecraft:glistering_melon_slice`, `minecraft:golden_apple`, `minecraft:golden_carrot`); pior tempo de `recommendBerries` nas 1027 fichas < 5 ms e `buildBaitIndex` < 5 ms. Os testes definitivos sao T1.1.
@@ -158,6 +158,8 @@
 - T1.3: +1 it em published-schemas.test.ts (poke_snack com potRecipes passa; campo extra em potRecipes/fishing rejeitado) e +5 its em join.test.ts (951 itens, 9 bait, efeitos, 2 potRecipes, Staryu-10, 0 Lure tipado em extra, bytes e texturas). `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` 19 arquivos / 245 testes verdes.
 
 - T1.6 (parte backend): passos 5 (auditoria 0 divergencias, 46558 checks), 6 (byte a byte instancia x snapshot: items.json + 1027 species iguais), 7 (determinismo: 2a execucao = mesma datasetVersion 2ef2f512) e 8 (`git grep USERPROFILE|Usuario` em data-source/tools/src: nada) rodados verdes em B2.3. T1.6 fica [ ] ate a regressao final com o frontend (e2e, build/PWA).
+
+- F1.1 (frontend): 16 chaves where.* em detail.ts e 24 ip.* em item.ts (PT com acento). i18n.test + i18n-modules verdes, lint/typecheck limpos. Captura after-detail-charizard-i18n-pt.png comparada pixel a pixel com detail-where-charizard-pt.png: 0 pixels diferentes.
 
 ## Bugs encontrados
 
