@@ -52,7 +52,7 @@ Commits: F1.1 `240462f8`, F1.2 `b7149fc0`, F1.3 `69b9e398`, F1.4 `08349772`, F2.
 - [A] Clicar numa baga abre a pagina do item e Voltar retorna a mesma ficha. Teste do Charizard (e2e).
 - [A] Nomes de item, tipo e grupo de ovo seguem o toggle PT/EN do card "Onde encontrar"; textos da interface seguem o idioma global. `detail-bait.test.tsx` ("names follow the card toggle", "interface in EN").
 - [A] Carregando o catalogo: linhas de contexto aparecem e as bagas/reforços ficam em esqueleto (sem piscar vazio). `detail-bait.test.tsx` ("items loading shows skeletons").
-- [ ] Conferir a olho que o bloco parece nativo do painel (mesma superficie das entradas de spawn, rotulo "ISCAS" no estilo de "DROPS", pilulas das bagas como as do "Como obter") nos 7 temas, principalmente `black`, `green` e `blue` (as capturas automaticas sao do `classic`).
+- [x] Conferir a olho que o bloco parece nativo do painel (mesma superficie das entradas de spawn, rotulo "ISCAS" no estilo de "DROPS", pilulas das bagas como as do "Como obter") nos 7 temas, principalmente `black`, `green` e `blue` (as capturas automaticas sao do `classic`). (Stage 5: 7 temas via data-theme, capturas `test-detail-where-charizard-theme-*.png`; black, green, blue, classic vistos, sem desvio de identidade)
 - [ ] Conferir se o texto "ou baga na vara" ao lado da Pokéisca e a dica de cada linha ficam claros para quem nao conhece a mecanica (UX de texto; automacao so confere a presenca).
 
 ### Ficha do Pokemon: pesca na linha do spawn
@@ -60,7 +60,7 @@ Commits: F1.1 `240462f8`, F1.2 `b7149fc0`, F1.3 `69b9e398`, F1.4 `08349772`, F2.
 - [A] Wooper (194) apos "Mostrar todas": spawn 17 com "Isca exigida: Doce Amor" clicavel (abre o item, Voltar volta); spawn 16 com "Pokévara com boia: Bola Amor" + "Lure 2 a 2: x3" + "Lure 3+: x5"; bloco Iscas continua com Passho/Shuca/Aspear. `detail.spec.ts` "Wooper (CA-14/15)".
 - [A] Staryu (120): "Lure 1+" e "Lure 3+: x3" nas entradas de pesca; contagens de selo/tag/bioma/condicao por entrada iguais as de antes. `detail.spec.ts` "Staryu (CA-16/17)"; `detail-bait.test.tsx` ("fishing chips do not change the counts").
 - [A] Goomy de Hisui (704) spawn 13 "Lure 2 a 2" / "Lure 2 to 2" com a interface em EN. `detail-bait.test.tsx` ("Goomy range in EN").
-- [ ] Olhar Whiscash (340): entradas com a vara da Master Ball ("Pokévara com boia:" + a bola, no idioma do card) e clicar na bola.
+- [x] Olhar Whiscash (340): entradas com a vara da Master Ball ("Pokévara com boia:" + a bola, no idioma do card) e clicar na bola. (Stage 5: clique na Master Ball abre a pagina do item, sem erro de console)
 
 ### Pagina do item
 
