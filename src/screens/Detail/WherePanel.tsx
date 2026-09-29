@@ -8,13 +8,14 @@ import { ArrowRight, Cloud, Info, MapPin, Moon, Sun } from "../../components/Ico
 import { TermsToggle } from "../../components/TermsToggle";
 import { loadBiomes } from "../../data/loaders";
 import type { BiomeLabels, ItemsFile, LocalizedText, ObtainRoute, RarityBucket, SpawnEntry, SpeciesDetail, SpeciesDrop } from "../../data/types";
-import { hasMessage, useT, type TranslateFn } from "../../i18n/useT";
+import { hasMessage, translate, useT, type TranslateFn } from "../../i18n/useT";
 import { useNavigationActions } from "../../navigation/useNavigation";
 import { useTermsLanguage } from "../../state/preferences-store";
 import type { UiLanguage } from "../../storage/types";
 import { RARITY_BADGE } from "../Dex/PokemonCard";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { useSpeciesByDex } from "../Home/TeamSlots";
+import { BaitBlock } from "./BaitBlock";
 import { methodParts, tradePartner, useItems, usePartnerName } from "./EvolutionPanel";
 import { ItemLink, itemDisplayName } from "./ItemLink";
 
@@ -39,6 +40,12 @@ export function contextText(context: string, t: TranslateFn): string {
 export function eggGroupText(group: string, t: TranslateFn): string {
   const key = `egg.${group}`;
   return hasMessage(key) ? t(key) : group.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/** Grupo de ovo no idioma do toggle do card (spawn-bait RF-48), nao no da interface. */
+export function eggGroupLabel(group: string, lang: UiLanguage): string {
+  const key = `egg.${group}`;
+  return hasMessage(key) ? translate(lang, key) : group.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function addonText(addon: string, t: TranslateFn): string {
@@ -329,6 +336,7 @@ export const WherePanel = memo(function WherePanel({ detail }: { detail: Species
             </div>
           ) : null}
           {spawns.length ? <SpawnList spawns={spawns} biomes={biomes} lang={lang} /> : null}
+          {spawns.length ? <BaitBlock detail={detail} items={items} lang={lang} /> : null}
           <Drops drops={drops} items={items} lang={lang} />
         </div>
       ) : null}

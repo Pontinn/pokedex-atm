@@ -191,6 +191,25 @@ button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
 .drop .drop-bar i { display: block; height: 100%; background: var(--secondary); width: var(--w); transform-origin: left; animation: growX 1s var(--ease-out); }
 .drop .pct { color: var(--secondary); }
 html[data-theme="green"] .drop .pct, html[data-theme="blue"] .drop .pct { color: var(--primary); }
+
+/* ---------- Iscas (spawn-bait F1.3): classes proprias bait-*, visual de .spawn-entry/.ob-ico/.ob-link/.badge-sm ---------- */
+.bait { display: grid; gap: 8px; min-width: 0; }
+.bait .k { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.bait-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--border); animation: cardIn .4s var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 8) * 40ms); min-width: 0; }
+.bait-ico { width: 36px; height: 36px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--secondary-soft); color: var(--text); }
+.bait-ico svg { width: 18px; height: 18px; }
+.bait-name, .bait-berry-link, .bait-boost-link { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-weight: 800; color: var(--text); text-align: left; min-width: 0; }
+.bait-name { font-size: 13px; }
+.bait-name:hover span, .bait-berry-link:hover span, .bait-boost-link:hover span { text-decoration: underline; }
+.bait-hint, .bait-or, .bait-why, .bait-label, .bait-empty { font-size: 12.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere; }
+.bait-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.bait-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; min-width: 0; }
+.bait-berry, .bait-boost { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--border); font-size: 12px; min-width: 0; transition: border-color .2s; }
+.bait-berry:hover, .bait-boost:hover { border-color: var(--secondary); }
+.bait-badge { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 8px; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; flex: none; }
+.bait-badge-rarity { background: var(--secondary-soft); color: var(--text); }
+.bait-badge-shiny { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+.app.mobile .bait-row { align-items: flex-start; }
 .ob-head { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
 .ob-list { display: grid; gap: 8px; }
 .ob-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--border); transition: transform .2s var(--ease-out); animation: cardIn .4s var(--ease-out) both; }
