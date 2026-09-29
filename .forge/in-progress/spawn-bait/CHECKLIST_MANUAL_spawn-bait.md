@@ -38,3 +38,74 @@ Como rodar:
 - `npx vitest run tests/unit/dataset tests/unit/data` (backend inteiro)
 - `npx vitest run --coverage` (limites do `vitest.config.ts`; `tools/dataset/src/**` ficou em 93,77% linhas / 84,56% branches)
 - `npx tsx tools/dataset/audit/run.ts` (auditoria no dataset publicado; reescreve `AUDIT_REPORT.md`, restaurar com `git checkout` e manter so a nota da rodada)
+
+## Frontend
+
+Commits: F1.1 `240462f8`, F1.2 `b7149fc0`, F1.3 `69b9e398`, F1.4 `08349772`, F2.1 `ac94533e`, F2.2 `930663e6`, T1.1 `b876e065`, T1.4 `95960154`, T1.5 `45e1f377`, T1.6 `1be8ac8b`. Capturas "depois" em `ui-refs/after-*.png` (comparar com as "antes" de mesmo alvo). Como abrir: `npm run dev`, busca da Home pelo numero da dex (ficha) ou Itens & Comidas + busca (pagina do item).
+
+### Ficha do Pokemon: bloco "Iscas" em "Onde encontrar"
+
+- [A] Charizard (6, so terra): bloco entre as entradas de spawn e os Drops; so a linha Poké-Lanche ("no chão: atrai quem nasce em terra ou na água"); melhores bagas Baga Occa (Fogo), Baga Coba (Voador), Baga Lum (Dragão/Monstro). `detail.spec.ts` "spawn-bait: Iscas e pesca > Charizard (CA-01/05/06/07)"; `detail-bait.test.tsx`.
+- [A] Gyarados (130) Passho/Coba/Aspear com as 2 linhas; Onix (95) Charti/Shuca/Persim; Magikarp (129) Passho/Aspear/Lum com as 2 linhas e o "Mostrar todas (46)" intacto; Feebas (349) so a linha Pokéisca. `detail.spec.ts` "Gyarados, Onix, Magikarp, Feebas, Dipplin".
+- [A] Sem spawn (1011, Dipplin): nenhum bloco, painel igual ao de antes (captura `after-detail-where-no-spawn-1011-*` identica pixel a pixel a de antes). Mesmo teste.
+- [A] Nenhum numero no bloco (sem "x10"); os 7 reforços com selos "raridade"/"shiny" (maca dourada os dois, Starf so shiny, fatia de melancia so raridade). Teste do Charizard (e2e) e `detail-bait.test.tsx`.
+- [A] Clicar numa baga abre a pagina do item e Voltar retorna a mesma ficha. Teste do Charizard (e2e).
+- [A] Nomes de item, tipo e grupo de ovo seguem o toggle PT/EN do card "Onde encontrar"; textos da interface seguem o idioma global. `detail-bait.test.tsx` ("names follow the card toggle", "interface in EN").
+- [A] Carregando o catalogo: linhas de contexto aparecem e as bagas/reforços ficam em esqueleto (sem piscar vazio). `detail-bait.test.tsx` ("items loading shows skeletons").
+- [ ] Conferir a olho que o bloco parece nativo do painel (mesma superficie das entradas de spawn, rotulo "ISCAS" no estilo de "DROPS", pilulas das bagas como as do "Como obter") nos 7 temas, principalmente `black`, `green` e `blue` (as capturas automaticas sao do `classic`).
+- [ ] Conferir se o texto "ou baga na vara" ao lado da Pokéisca e a dica de cada linha ficam claros para quem nao conhece a mecanica (UX de texto; automacao so confere a presenca).
+
+### Ficha do Pokemon: pesca na linha do spawn
+
+- [A] Wooper (194) apos "Mostrar todas": spawn 17 com "Isca exigida: Doce Amor" clicavel (abre o item, Voltar volta); spawn 16 com "Pokévara com boia: Bola Amor" + "Lure 2 a 2: x3" + "Lure 3+: x5"; bloco Iscas continua com Passho/Shuca/Aspear. `detail.spec.ts` "Wooper (CA-14/15)".
+- [A] Staryu (120): "Lure 1+" e "Lure 3+: x3" nas entradas de pesca; contagens de selo/tag/bioma/condicao por entrada iguais as de antes. `detail.spec.ts` "Staryu (CA-16/17)"; `detail-bait.test.tsx` ("fishing chips do not change the counts").
+- [A] Goomy de Hisui (704) spawn 13 "Lure 2 a 2" / "Lure 2 to 2" com a interface em EN. `detail-bait.test.tsx` ("Goomy range in EN").
+- [ ] Olhar Whiscash (340): entradas com a vara da Master Ball ("Pokévara com boia:" + a bola, no idioma do card) e clicar na bola.
+
+### Pagina do item
+
+- [A] Baga Occa: painel "Efeitos de isca" abaixo de "Como obter" com o texto do jogo ("...Pokémon do Tipo Fogo" / "100% - 10× Chance for Fire Types" pelo toggle do card) e a linha "Tempero da Panela de Fogueira: Aceito como tempero..."; "Como obter" com as mesmas 4 linhas. `item.spec.ts` "spawn-bait: item page > Occa (CA-18)"; `item-bait.test.tsx`.
+- [A] Maçã Dourada Encantada: chip "Iscas", efeitos Tempo de mordida, Raridade (+10) e Shiny (6×). `item.spec.ts` "enchanted golden apple (CA-19)".
+- [A] Poké-Lanche: chip "Iscas", sem aviso de "efeito pendente", Craftável "Sim, tem receita (Panela de Fogueira)" com "Ingredientes: 3x Qualquer leite, 2x Frasco de Mel, 1x Brotovital, 3x Grãos Saudáveis" (itens clicaveis) e a nota "mais até 3 temperos...". `item.spec.ts` "Poké Snack (CA-20)".
+- [A] Pokéisca: chip "Iscas" (antes "Outros"), "1x Trigo" como texto (sem link), "1x Qualquer cogumelo", sem painel de efeitos. `item.spec.ts` "Poké Bait (CA-21)".
+- [A] Estação "Panela de Fogueira" / "Campfire Pot" (ex.: Doce Amor) pelo idioma da interface. `item.spec.ts` "Love Sweet (CA-22)"; `item-bait.test.tsx`.
+- [A] Baga fora da tag de tempero mostraria "Só na vara..." (caso sintetico, nao ha no dataset hoje). `item-bait.test.tsx` ("seasoning false shows the rod only line").
+- [ ] Ler os textos do jogo em PT de 3 ou 4 bagas (ex. "100% - de probabilidade de aumentar o grupo de raridade em +10 níveis" na maçã encantada tem o "- de" do proprio jogo): decidir se o texto do jogo fica como esta.
+
+### Lista Itens & Comidas
+
+- [A] Aba "Iscas" lista os 8 itens novos e a Pokéisca com chip "Iscas" e textura; bagas continuam com chip "Berries" e aparecem na aba pela tag. `items.spec.ts` "spawn-bait (CA-23/24)".
+- [ ] Rolar a aba "Iscas" inteira no celular e conferir a ordem e as texturas dos itens novos (a maçã dourada encantada usa a textura da maçã dourada, sem o brilho do jogo).
+
+### Responsivo, temas e idiomas
+
+- [A] `#where-panel` do Gyarados sem sobreposicao nem rolagem horizontal a 360/390/1280, PT e EN, temas `classic` e `black`. `detail.spec.ts` "Gyarados where panel with Iscas without overlap at <w>px".
+- [A] Paginas do Poké-Lanche, Pokéisca e Maçã Dourada Encantada sem sobreposicao a 360/390/1280. `item.spec.ts` "bait item pages without overlap at <w>px".
+- [A] Painel "Onde encontrar" do Mewtwo sem sobreposicao (teste existente, continua verde). `detail.spec.ts` "where panel without overlap at <w>px".
+- [ ] Celular real (390): conferir o toque nas pilulas das bagas e nos chips de pesca (area de toque) e que a linha da Pokéisca quebra bem.
+
+### O que a automacao nao cobre
+
+- Percepcao visual nos 7 temas (so `classic` e `black` testados por sobreposicao; capturas so no `classic`).
+- Clareza dos textos para o jogador (o bloco explica "onde usar" cada isca).
+- Conferencia no jogo de que a recomendacao (3 melhores bagas) realmente ajuda no spawn; a regra segue o PRD, nao foi testada in-game.
+- PWA offline com a ficha/pagina do item novas abertas sem rede (o `pwa-offline.spec.ts` cobre o app em geral; nada de rede novo foi adicionado).
+
+### Testes automatizados do frontend
+
+| Arquivo | O que cobre |
+|---|---|
+| `tests/unit/domain/bait.test.ts` | regra das 3 melhores (exemplos do PRD no dataset real), contextos, 7 reforços, WeakMap, desempenho, casos sinteticos, `lureRange` |
+| `tests/unit/ui-screens/detail-bait.test.tsx` | `BaitBlock`, `FishingConds`, `eggGroupLabel`, `WherePanel` (ordem e contagens) |
+| `tests/unit/ui-screens/item-bait.test.tsx` | `BaitEffectsPanel`, `PotRecipeList`, rotulo da estacao, `ingredientTagLabel` |
+| `tests/unit/ui-screens/item-page.test.ts` | `recipeLabels` cooking_pot = "Campfire Pot" / "Panela de Fogueira" |
+| `tests/e2e/detail.spec.ts` | describe "spawn-bait: Iscas e pesca" (7 testes) |
+| `tests/e2e/item.spec.ts` | describe "spawn-bait: item page" (8 testes) |
+| `tests/e2e/items.spec.ts` | "spawn-bait (CA-23/24)" |
+
+Como rodar: `npx vitest run tests/unit/domain/bait.test.ts tests/unit/ui-screens`; e2e em build + preview: `npx playwright test tests/e2e/detail.spec.ts tests/e2e/item.spec.ts tests/e2e/items.spec.ts`.
+
+### Testes existentes com falha preexistente (nao causada pela feature)
+
+- [!] `tests/e2e/items.spec.ts` "F9.2 no overlap <lang> <w>px (long names)": intermitente (grade medida durante a animacao de entrada); reproduzido antes do frontend (commit `1006b753`).
+- [!] `tests/e2e/dex.spec.ts` "text, filters and scroll are restored after Back from the detail": scroll restaurado 1529 em vez de 1500; falha tambem no commit `1006b753`.

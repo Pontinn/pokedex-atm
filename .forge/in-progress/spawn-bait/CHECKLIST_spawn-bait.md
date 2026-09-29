@@ -132,7 +132,7 @@
 - [x] **T1.6** Regressao completa, qualidade, PWA, auditoria e byte a byte `[category: teste]`
   - escrito por: backend + frontend (regressao final, so anotacoes no STATE)
   - Done when: todos os 9 passos verdes e os numeros (testes, cobertura, checks da auditoria, sha256 dos `items.json`) anotados no STATE.
-  - commit: (ver commit test: regressao completa do spawn-bait)
+  - commit: 1be8ac8b
   - status: done
 
 ## Notas por fase
