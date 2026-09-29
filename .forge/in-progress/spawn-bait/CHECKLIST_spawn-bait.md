@@ -126,14 +126,14 @@
 - [x] **T1.5** e2e headless (ficha, pagina do item, lista) sem quebrar contagens existentes `[category: teste]`
   - escrito por: frontend
   - Done when: `npx playwright test tests/e2e/detail.spec.ts tests/e2e/item.spec.ts tests/e2e/items.spec.ts` (build + preview, headless) verde, incluindo TODOS os testes existentes desses arquivos.
-  - commit: (ver commit test(e2e): iscas na ficha)
+  - commit: 45e1f377
   - status: done
 
-- [ ] **T1.6** Regressao completa, qualidade, PWA, auditoria e byte a byte `[category: teste]`
+- [x] **T1.6** Regressao completa, qualidade, PWA, auditoria e byte a byte `[category: teste]`
   - escrito por: backend + frontend (regressao final, so anotacoes no STATE)
   - Done when: todos os 9 passos verdes e os numeros (testes, cobertura, checks da auditoria, sha256 dos `items.json`) anotados no STATE.
-  - commit: 
-  - status: pending
+  - commit: (ver commit test: regressao completa do spawn-bait)
+  - status: done
 
 ## Notas por fase
 
@@ -177,9 +177,12 @@
 
 - T1.5: detail.spec.ts describe 'spawn-bait: Iscas e pesca' (7: Charizard CA-01/05/06/07, Gyarados/Onix/Magikarp/Feebas/Dipplin CA-02/03/04/08/09 com 6/46 .spawn-entry, Wooper CA-14/15, Staryu CA-16/17 com contagens por spawn, Gyarados sem sobreposicao 360/390/1280 PT/EN classic/black CA-33); item.spec.ts (8: Occa CA-18, maca encantada CA-19, Poke-Lanche CA-20, Pokeisca CA-21, Doce Amor CA-22, sem sobreposicao 360/390/1280); items.spec.ts (1: aba Iscas CA-23/24). Build + preview dos 3 arquivos: 76 verdes, 8 skipped (dev-only existentes), 1 falha no teste EXISTENTE 'F9.2 no overlap pt 1280px' de items.spec.ts: flake preexistente (ver Bugs), todos os testes novos e os demais existentes verdes.
 
+- T1.6 (regressao final, frontend): (1) typecheck e lint limpos; (2) vitest --coverage 84 arquivos / 694 testes (baseline 79/618), limites ok: global 94,29 linhas / 87,57 branches, src/components 93,99, src/domain 99,61, tools/dataset/src 91,28/81,03, src/screens/Detail e Item acima de 70; (3) npx playwright test inteiro (build + preview): 236 verdes, 16 skipped (dev-only existentes), 1 falha no teste EXISTENTE dex.spec.ts 'text, filters and scroll are restored after Back from the detail' (scroll 1529 vs 1500): preexistente, falha 3/3 tambem no commit 1006b753 (antes do frontend), ver Bugs; o flake de items.spec F9.2 nao apareceu nesta rodada; responsive (7 temas, snapshots da Home e do Charizard) e pwa-offline verdes; (4) npm run build: dist/sw.js sem nenhuma URL assets/items/ (0) e runtimeCaching de itens com maxEntries 1200 mantido; (5) auditoria no publicado: 46558 checks, divergencias {} (AUDIT_REPORT.md restaurado); (6)/(7) byte a byte e determinismo: rodados verdes pelo backend em B2.3 (frontend nao toca pipeline nem dataset); (8) git grep USERPROFILE|Usuario em data-source/tools/src: nada; (9) nenhum fetch em src/domain/bait.ts, BaitBlock.tsx e BaitParts.tsx. Build regenera src/assets/types/*.svg e types.generated.css so com fim de linha (sem diff real): restaurados com git checkout.
+
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Fix / commit |
 |---|---|---|---|
 | B2.2 | auditoria acusou MISSING 7 (texture arquivo) no dataset de teste | compare.ts so procurava o PNG em public/, datasetDir e raiz do repo | candidato novo <datasetDir>/../../<textura> (raiz do --publish-dir), no commit do B2.2 |
 | T1.5 | tests/e2e/items.spec.ts `F9.2 no overlap <lang> <w>px (long names)` (existente, nao tocado) falha de forma intermitente: p.item-desc de um card sobrepoe o .item-link do card seguinte | preexistente: o teste mede a grade sem esperar a animacao cardIn da troca de aba/busca; reproduzido no commit 1006b753 (antes de todo o frontend do spawn-bait): 4 falhas em 21 com --repeat-each=3; no HEAD do frontend 1 falha em 16 com --workers=1. A tela Itens e o CSS da grade nao foram alterados por esta feature | nao corrigido (teste existente fora do escopo; nao afrouxar). Sugestao: esperar as animacoes finitas (settle) antes do expectNoOverlap. Registrado para o Pontin decidir |
+| T1.6 | tests/e2e/dex.spec.ts `F3.2 ... text, filters and scroll are restored after Back from the detail` (existente, nao tocado) falha: scrollTop restaurado 1529 em vez de 1500 (tolerancia 2) | preexistente: 3/3 falhas no commit 1006b753 (antes de todo o frontend do spawn-bait) e 2/2 no HEAD; a Pokedex e a restauracao de scroll nao foram tocadas por esta feature | nao corrigido (fora do escopo; nao afrouxar). Registrado para o Pontin decidir |
