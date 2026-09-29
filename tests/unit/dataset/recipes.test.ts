@@ -7,6 +7,8 @@ import {
   buildRecipeIndex,
   collectRecipes,
   evalConditions,
+  gatherRecipes,
+  reportRecipes,
   parseKubejsAdditions,
   parseKubejsRemovals,
   recipeOutputs,
@@ -158,5 +160,45 @@ describe("collectRecipes on the snapshot", () => {
     expect(craftable.get("minecraft:clock")?.has("minecraft:crafting_shaped")).toBe(true);
     expect(craftable.get("mega_showdown:zygarde_cube")?.has("oritech:assembler")).toBe(true);
     expect(warnings).not.toContain("W_RECIPE_VANILLA_MISSING");
+  });
+});
+
+// spawn-bait T1.2 (4): receitas lidas uma vez (gatherRecipes) e reportadas depois do catalogo (reportRecipes)
+describe("gatherRecipes + reportRecipes on the snapshot", () => {
+  const { reader } = openSource(snapshot, () => {});
+  const sectionsOf = () => {
+    const sections: Record<string, unknown> = {};
+    return { sections, report: { warn: () => {}, section: (name: string, data: unknown) => (sections[name] = data), warnings: [], sections: {} } };
+  };
+  const catalogIds = new Set(["cobblemon:poke_ball", "cobblemon:poke_snack", "cobblemon:poke_bait", "zamega:baxcalibrite", "minecraft:clock"]);
+
+  it("the recipes report is the same with and without the split, for the same catalogIds", () => {
+    const joined = sectionsOf();
+    collectRecipes({ reader, report: joined.report } as never, catalogIds);
+    const split = sectionsOf();
+    const collection = gatherRecipes({ reader, report: split.report } as never);
+    expect(split.sections.recipes).toBeUndefined();
+    reportRecipes({ report: split.report } as never, collection, catalogIds);
+    expect(split.sections.recipes).toEqual(joined.sections.recipes);
+    expect((split.sections.recipes as { potRecipes: string[] }).potRecipes).toEqual(["cobblemon:poke_bait", "cobblemon:poke_snack"]);
+  });
+
+  it("potRecipes has exactly the Poke Snack and the Poke Bait, with the recipe of each", () => {
+    const { potRecipes } = gatherRecipes({ reader, report: sectionsOf().report } as never);
+    expect([...potRecipes.keys()].sort()).toEqual(["cobblemon:poke_bait", "cobblemon:poke_snack"]);
+    expect(potRecipes.get("cobblemon:poke_snack")).toEqual([
+      {
+        recipeId: "cobblemon:campfire_pot/poke_snack",
+        recipeType: "cobblemon:cooking_pot",
+        seasoningTag: "cobblemon:recipe_filters/bait_seasoning",
+        ingredients: [
+          { kind: "tag", id: "c:drinks/milk", count: 3 },
+          { kind: "item", id: "minecraft:honey_bottle", count: 2 },
+          { kind: "item", id: "cobblemon:vivichoke", count: 1 },
+          { kind: "item", id: "cobblemon:hearty_grains", count: 3 },
+        ],
+      },
+    ]);
+    expect(potRecipes.get("cobblemon:poke_bait")?.[0]?.recipeType).toBe("cobblemon:cooking_pot_shapeless");
   });
 });

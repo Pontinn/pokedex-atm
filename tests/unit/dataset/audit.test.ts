@@ -86,6 +86,29 @@ describe("audit: esperado derivado do snapshot cru", () => {
     expect(e.species.get(550)!.spawnsAll.filter((s) => s.source === "cobblemon").every((s) => s.shadowedBy === "kubejs")).toBe(true);
     expect([...e.species.values()].flatMap((s) => s.spawnsAll).filter((s) => s.unorderedWith.length)).toEqual([]);
   });
+
+  // spawn-bait T1.2 (7): esperado de isca, tempero, receita da panela e pesca, reescrito sem tools/dataset/src
+  it("spawn-bait: 80 itens com efeito de isca (81 arquivos, kubejs vence), tempero do allthemodium pelo script do kubejs", () => {
+    expect(e.baitItems.size).toBe(80);
+    expect(e.baitItems.get("minecraft:enchanted_golden_apple")?.effects.map((x) => [x.kind, x.value])).toEqual([
+      ["biteTime", 0.1],
+      ["rarityBucket", 10],
+      ["shinyReroll", 5],
+    ]);
+    expect(e.baitItems.get("allthemodium:allthemodium_carrot")?.seasoning).toBe(true);
+    expect(e.baitItems.get("cobblemon:occa_berry")?.effects).toEqual([{ kind: "typing", subcategory: "fire", chance: 1, value: 10 }]);
+    expect(e.baitItems.get("cobblemon:poke_bait")).toMatchObject({ effects: [], seasoning: false });
+    expect(e.baitItems.has("allthemons:mythical_pecha_berry")).toBe(false);
+  });
+
+  it("spawn-bait: 2 receitas de isca da panela e a pesca do Staryu-10 igual ao exemplo da SPEC 5.3", () => {
+    expect([...e.potRecipes.keys()].sort()).toEqual(["cobblemon:poke_bait", "cobblemon:poke_snack"]);
+    expect(e.potRecipes.get("cobblemon:poke_snack")?.ingredients.map((i) => i.count)).toEqual([3, 2, 1, 3]);
+    const staryu = e.species.get(120)?.spawnsAll.find((s) => s.id === "staryu-10");
+    expect(staryu?.fishing).toEqual({ bait: null, rodType: null, rodBall: null, minLureLevel: 1, maxLureLevel: null, lureMultipliers: [{ lureMin: 3, lureMax: null, multiplier: 3 }] });
+    const wooper = e.species.get(194)?.spawnsAll.find((s) => s.id === "wooper-true-16");
+    expect(wooper?.fishing?.rodBall).toBe("cobblemon:love_ball");
+  });
 });
 
 describe("audit: ordem de carga dos mods (neoforge.mods.toml)", () => {
