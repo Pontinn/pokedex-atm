@@ -1,18 +1,18 @@
 ---
 feature: spawn-bait
-stage: spec
-status: done
+stage: impl
+status: in-progress
 language: pt-BR
 branch: feature/spawn-bait
 mode: full
 top_model: opus
-running_agent: none
+running_agent: forge-checklist (sonnet) - criando CHECKLIST_spawn-bait.md
 baselines:
-  CONTEXT: { commit: 5cf52024, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
-  PRD:     { commit: 5cf52024, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
-  UISPEC:  { commit: ff3a26b0, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
-  SPEC:    { commit: ff3a26b0, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
-updated: 2026-09-29 03:30
+  CONTEXT: { commit: e76ec23a, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
+  PRD:     { commit: e76ec23a, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
+  UISPEC:  { commit: e76ec23a, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
+  SPEC:    { commit: e76ec23a, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
+updated: 2026-09-29 03:35
 ---
 ## 2026-09-29 - ideia criada
 - Pontin pediu iscas de spawn na tela do Pokemon. Investigacao do orquestrador nos dados do pack + wiki: o bolo e o Poke-Lanche (poke_snack), nao o Poke-Bolo. Escopo: Poke-Lanche + Pokeisca. 5 assuncoes aprovadas.
@@ -60,3 +60,6 @@ updated: 2026-09-29 03:30
 ## 2026-09-29 03:30 - Stage 3 CONCLUIDA (spec-done)
 - forge-spec revisao: 8 itens aplicados (9 itens categoria bait via viaBait, janela B1.1->B2.3 declarada e frontend so apos B2.3, rotulo ip.station.campfirePot, .bait-badge, ItemInfo.bait, capturas em ingles). forge-review re-revisao: PASS. PRD rev 5 (CA-19 6x, RF-47, categoria em RF-33/37/CA-23).
 - Gate aprovado por autonomia. Commit de SPEC + UISPEC + ui-refs + PRD rev 5 + IDEA + STATE a seguir; depois forge-checklist (sonnet, nunca haiku) e Stage 4.
+
+## 2026-09-29 03:35 - Stage 4 pre-flight e inicio
+- Baselines alinhadas ao commit e76ec23a (artefatos consistentes, fingerprints conferidos pelo revisor). Drift check dos deps da SPEC: sem drift. Gate de idioma dos identificadores: revisor confirmou ingles. Feature movida ideas/ -> in-progress/. MODE: autonomous (Pontin). forge-checklist disparado (sonnet).
