@@ -170,7 +170,7 @@ test.describe("mobile shell", () => {
     await page.locator(".tabbar .tab-more").click();
     const sheet = page.locator(".more-sheet");
     await expect(sheet).toHaveClass(/open/);
-    await expect(sheet.locator(".sheet-item-label")).toHaveText(["Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações"]);
+    await expect(sheet.locator(".sheet-item-label")).toHaveText(["Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações", "Feito por Pontin", "GitHub"]);
     await expect(sheet.locator(".sheet-panel")).toBeInViewport({ ratio: 1 });
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/mobile-nav-mais-sheet.png` });
     await sheet.locator(".sheet-item", { hasText: "Configurações" }).click();

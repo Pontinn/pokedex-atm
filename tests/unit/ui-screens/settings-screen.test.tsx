@@ -122,6 +122,26 @@ describe("SettingsScreen", () => {
     expect(card("about").querySelector("[data-info='counts']")).toBeNull();
   });
 
+  it("Sobre tem 'feito por Pontin', o botao do portfolio e o do GitHub em nova aba (PT e EN)", () => {
+    const { unmount } = renderSettings();
+    const about = card("about");
+    expect(within(about).getByText(tr("about.madeBy"))).toBeTruthy();
+    const link = within(about).getByRole("link", { name: /^Ver meu portfólio/ });
+    expect(link.textContent).toBe(tr("about.portfolio"));
+    expect(link.getAttribute("href")).toBe("https://portfolio.pontin.dev");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    const gh = within(about).getByRole("link", { name: /GitHub/ });
+    expect(gh.getAttribute("href")).toBe("https://github.com/Pontinn");
+    expect(gh.getAttribute("target")).toBe("_blank");
+    expect(gh.getAttribute("rel")).toBe("noopener noreferrer");
+    unmount();
+    usePreferencesStore.getState().setUiLanguage("en");
+    renderSettings();
+    expect(within(card("about")).getByText("Pontindex, made by Pontin.")).toBeTruthy();
+    expect(within(card("about")).getByRole("link", { name: /^See my portfolio/ })).toBeTruthy();
+  });
+
   it("Exportar gera o download do backup e mostra toast backup.exported", async () => {
     const createUrl = vi.fn(() => "blob:x");
     Object.assign(URL, { createObjectURL: createUrl, revokeObjectURL: vi.fn() });

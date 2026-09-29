@@ -25,6 +25,9 @@
 .card-info .card-info-title { color: var(--text); }
 .info-line { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
 .info-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); flex: none; }
+.about-portfolio { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
+.about-made-by { margin: 0; color: var(--text); flex-basis: 100%; }
+.about-portfolio .btn { text-decoration: none; }
 
 /* Blocos novos (F10.2): backup, apagar dados, snapshots. Mesmo padrao .card/.btn. */
 .settings-actions { display: flex; flex-wrap: wrap; gap: 10px; }

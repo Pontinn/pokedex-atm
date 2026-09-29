@@ -1,6 +1,8 @@
 // Sobre (F10.1, RF-104): versao do app, versao do dataset (lida do manifesto, nunca fixa), contagens e
-// armazenamento persistente. Bloco .card-info/.info-line do prototipo (index.html:230-234).
+// armazenamento persistente, e os links do portfolio e do GitHub (quick sw-legacy-button L2). Bloco .card-info/.info-line do prototipo (index.html:230-234).
 import { memo, useEffect, useState } from "react";
+import { ExternalLink, Github } from "../../components/Icon";
+import { GITHUB_URL, PORTFOLIO_URL } from "../../components/MadeBy";
 import { useT } from "../../i18n/useT";
 import { useDatasetStore } from "../../state/dataset-store";
 import { getPersistenceResult, requestPersistence } from "../../storage";
@@ -61,6 +63,31 @@ export const AboutCard = memo(function AboutCard() {
       <InfoLine testId="persist" text={t("about.persistent", { v: persistText })} />
       <InfoLine text={t("settings.local")} />
       <InfoLine text={t("settings.images")} />
+      <div className="about-portfolio">
+        <p className="about-made-by">{t("about.madeBy")}</p>
+        <a
+          className="btn btn-primary"
+          href={PORTFOLIO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("about.portfolioLabel")}
+          data-portfolio=""
+        >
+          <ExternalLink aria-hidden="true" />
+          {t("about.portfolio")}
+        </a>
+        <a
+          className="btn btn-ghost"
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("shell.githubLabel")}
+          data-github=""
+        >
+          <Github aria-hidden="true" />
+          {t("shell.github")}
+        </a>
+      </div>
     </div>
   );
 });

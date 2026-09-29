@@ -1,5 +1,6 @@
 // Shell do app (F1.4): sidebar no desktop; topbar-aparelho + tab bar + sheet "Mais" no mobile (< 900 px).
 // <main id="main"> e o container de rolagem da pilha de navegacao (MAIN_SCROLL_ID, F1.3).
+// No mobile a linha "Feito por Pontin · GitHub" fica no fim do conteudo rolavel do <main> (nao flutua).
 import { Suspense, useEffect } from "react";
 import { useNavigationStore } from "../navigation/navigation-store";
 import { SCREENS } from "../screens/registry";
@@ -8,6 +9,7 @@ import { usePreferencesStore } from "../state/preferences-store";
 import { useShellStore } from "../state/shell-store";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { InlineError } from "./InlineError";
+import { MadeByLinks } from "./MadeBy";
 import { MoreSheet } from "./MoreSheet";
 import { PokeballSpinner } from "./PokeballSpinner";
 import { ScreenRouter } from "./ScreenRouter";
@@ -64,6 +66,11 @@ export function AppShell() {
             <ScreenRouter screens={SCREENS} />
           </Suspense>
         </ErrorBoundary>
+        {mobile ? (
+          <footer className="main-foot">
+            <MadeByLinks variant="foot" />
+          </footer>
+        ) : null}
       </main>
       <TabBar />
       <MoreSheet />

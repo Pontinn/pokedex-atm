@@ -15,6 +15,9 @@ export {
   Copy,
   CornerDownRight,
   Download,
+  ExternalLink,
+  // marca: o Pontin pediu o icone do GitHub no link do perfil (L2)
+  Github,
   Ellipsis,
   Heart,
   HeartPulse,

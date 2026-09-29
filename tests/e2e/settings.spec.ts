@@ -46,7 +46,7 @@ async function openSettings(page: Page, width: number, height = 900) {
   await waitBooted(page);
   if (width < 900) {
     await page.locator(".tabbar .tab-more").click();
-    await page.locator(".more-sheet .sheet-item").last().click();
+    await page.locator(".more-sheet [data-nav=settings]").click();
   } else {
     await page.locator(".sidebar .nav-item").last().click();
   }

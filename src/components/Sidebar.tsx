@@ -3,6 +3,7 @@ import pokeballUrl from "../assets/pokeball.webp";
 import { useT } from "../i18n/useT";
 import { useNavigationStore } from "../navigation/navigation-store";
 import { useDatasetStore } from "../state/dataset-store";
+import { MadeByLinks } from "./MadeBy";
 import { SIDEBAR_ITEMS, navOwner } from "./nav-items";
 import { PokedexLens } from "./PokedexLens";
 import { LanguageToggle, SoundToggle, ThemeToggle } from "./ShellToggles";
@@ -58,6 +59,7 @@ export function Sidebar() {
           <ThemeToggle />
         </div>
         <DatasetVersion />
+        <MadeByLinks variant="sidebar" />
       </div>
     </aside>
   );

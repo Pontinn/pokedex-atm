@@ -66,4 +66,7 @@ export const SETTINGS_MESSAGES = {
   "about.restoreConfirm": { pt: "Restaurar este snapshot? Os dados atuais serão trocados pelos dele.", en: "Restore this snapshot? Your current data will be replaced by it." },
   "about.restored": { pt: "Snapshot restaurado", en: "Snapshot restored" },
   "about.install": { pt: "Instalar app", en: "Install app" },
+  "about.madeBy": { pt: "Pontindex, feito por Pontin.", en: "Pontindex, made by Pontin." },
+  "about.portfolio": { pt: "Ver meu portfólio", en: "See my portfolio" },
+  "about.portfolioLabel": { pt: "Ver meu portfólio (abre em nova aba)", en: "See my portfolio (opens in a new tab)" },
 } as const satisfies Record<string, Message>;

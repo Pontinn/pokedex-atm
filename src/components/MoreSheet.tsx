@@ -1,8 +1,11 @@
-// Sheet "Mais" do mobile (index.html:250-259 do prototipo): Treinadores, Pokebolas, Itens, Sincronizar, Configuracoes.
+// Sheet "Mais" do mobile (index.html:250-259 do prototipo): Treinadores, Pokebolas, Itens, Sincronizar, Configuracoes
+// e, por ultimo, os links do portfolio e do GitHub (nova aba).
 import { useEffect } from "react";
 import { useT } from "../i18n/useT";
 import { useNavigationStore } from "../navigation/navigation-store";
 import { useShellStore } from "../state/shell-store";
+import { ExternalLink, Github } from "./Icon";
+import { GITHUB_URL, PORTFOLIO_URL, shortUrl } from "./MadeBy";
 import { MORE_ITEMS, navOwner } from "./nav-items";
 
 export function MoreSheet() {
@@ -46,6 +49,34 @@ export function MoreSheet() {
             </button>
           );
         })}
+        <a
+          className="sheet-item sheet-item-portfolio"
+          href={PORTFOLIO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={open ? 0 : -1}
+          aria-label={t("shell.madeByLabel")}
+          data-portfolio=""
+          onClick={() => setMoreOpen(false)}
+        >
+          <ExternalLink aria-hidden="true" />
+          <span className="sheet-item-label">{t("shell.madeBy")}</span>
+          <small className="sheet-item-sub">{shortUrl(PORTFOLIO_URL)}</small>
+        </a>
+        <a
+          className="sheet-item sheet-item-portfolio"
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={open ? 0 : -1}
+          aria-label={t("shell.githubLabel")}
+          data-github=""
+          onClick={() => setMoreOpen(false)}
+        >
+          <Github aria-hidden="true" />
+          <span className="sheet-item-label">{t("shell.github")}</span>
+          <small className="sheet-item-sub">{shortUrl(GITHUB_URL)}</small>
+        </a>
       </div>
     </div>
   );
