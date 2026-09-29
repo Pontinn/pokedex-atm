@@ -93,3 +93,6 @@ updated: 2026-09-29 06:30
 - Relatorios persistidos pelo orquestrador (harness bloqueou o agente): REPORT_TEST_API (contrato de dados) e REPORT_TEST_UI. LESSONS.md criado com 6 regras.
 - Ficou para o Pontin: 4 itens manuais de UX/celular + validar no jogo + PWA offline (ver REPORT_TEST_UI). Sem push, sem merge: so com pedido explicito.
 - Branch feature/spawn-bait: 26 commits de codigo/dados/testes + artefatos. Base: main 5cf52024.
+
+## 2026-09-29 06:45 - merge e push (pedido explicito do Pontin: "pd fazer")
+- main fast-forward 5cf52024 -> a922a701, push de main e de feature/spawn-bait para origin. Vercel publica a partir da main.
