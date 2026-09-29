@@ -105,7 +105,7 @@ Commits: F1.1 `240462f8`, F1.2 `b7149fc0`, F1.3 `69b9e398`, F1.4 `08349772`, F2.
 
 Como rodar: `npx vitest run tests/unit/domain/bait.test.ts tests/unit/ui-screens`; e2e em build + preview: `npx playwright test tests/e2e/detail.spec.ts tests/e2e/item.spec.ts tests/e2e/items.spec.ts`.
 
-### Testes existentes com falha preexistente (nao causada pela feature)
+### Testes existentes que falhavam antes da feature (corrigidos)
 
-- [!] `tests/e2e/items.spec.ts` "F9.2 no overlap <lang> <w>px (long names)": intermitente (grade medida durante a animacao de entrada); reproduzido antes do frontend (commit `1006b753`).
-- [!] `tests/e2e/dex.spec.ts` "text, filters and scroll are restored after Back from the detail": scroll restaurado 1529 em vez de 1500; falha tambem no commit `1006b753`.
+- [A] `tests/e2e/items.spec.ts` "F9.2 no overlap <lang> <w>px (long names)": era intermitente (grade medida durante a animacao de entrada e linha escondida pelo line-clamp contada pelo harness); corrigido em `fix(e2e)` (settle por playState + harness so com texto visivel).
+- [A] `tests/e2e/dex.spec.ts` "text, filters and scroll are restored after Back from the detail": falhava tambem no main (correcao de medida da grade virtual depois do scroll do teste); corrigido em `fix(e2e)` (espera a posicao assentar), produto inalterado.

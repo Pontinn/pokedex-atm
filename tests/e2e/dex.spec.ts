@@ -36,6 +36,24 @@ async function scrollMain(page: Page, y: number | "end") {
   await page.locator("#main").evaluate((m, top) => m.scrollTo({ top: top === "end" ? m.scrollHeight : top, behavior: "instant" }), y);
 }
 
+/**
+ * Rola #main ate y e espera a posicao FICAR em y. A grade virtualizada (@tanstack/react-virtual) mede as linhas que
+ * acabaram de entrar no DOM e, quando uma linha ACIMA da area visivel tem altura diferente da estimativa, corrige o
+ * scrollTop pelo delta (applyScrollAdjustment: o conteudo visivel nao pula). Essa correcao chega 1 a 2 frames depois
+ * do scroll (ex. 1500 -> 1529). Reaplica y ate a posicao se manter por alguns frames sem correcao pendente.
+ */
+async function scrollMainSettled(page: Page, y: number) {
+  await expect
+    .poll(() =>
+      page.locator("#main").evaluate(async (m, top) => {
+        m.scrollTo({ top, behavior: "instant" });
+        for (let i = 0; i < 6; i++) await new Promise((r) => requestAnimationFrame(r));
+        return m.scrollTop;
+      }, y),
+    )
+    .toBe(y);
+}
+
 /** Rola a grade virtualizada ate o card existir no DOM (passos de 1 tela, sem esperas fixas). */
 async function scrollToCard(page: Page, dex: number) {
   const card = page.locator(`.pcard[data-dex='${dex}']`);
@@ -207,7 +225,8 @@ test.describe("F3.2 combinable filters and search", () => {
     await page.locator("[data-ftype='water']").click();
     await expect(page.locator("#dex-count")).not.toHaveText(afterText);
     const count = await page.locator("#dex-count").textContent();
-    await scrollMain(page, 1_500);
+    // espera a correcao de medida da grade virtual assentar: o scroll salvo no clique e o que o usuario ve
+    await scrollMainSettled(page, 1_500);
     await expect.poll(() => page.locator("#main").evaluate((m) => m.scrollTop)).toBe(1_500);
     // dispatchEvent: um clique normal rolaria ate o card (linha de overscan) e mudaria o scroll salvo
     await page.locator(".pcard").nth(4).dispatchEvent("click");

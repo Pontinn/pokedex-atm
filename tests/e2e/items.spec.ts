@@ -38,6 +38,24 @@ async function setLanguage(page: Page, lang: "pt" | "en") {
   await expect(page.locator("html")).toHaveAttribute("lang", lang === "en" ? "en" : "pt-BR");
 }
 
+/**
+ * Espera as animacoes finitas (cardIn da grade, disparada ao abrir a tela, trocar de aba ou buscar) terminarem: durante
+ * a entrada os cards ainda estao deslocados (translateY) e o .item-desc de um card cruza o .item-link do seguinte.
+ * Confere o playState a cada frame em vez de aguardar a promessa finished: a transicao de hover desfeita (mouse sobre o
+ * card apos o scrollIntoView) vira "idle" sem nunca resolver nem rejeitar essa promessa.
+ */
+async function settle(page: Page) {
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        const busy = () =>
+          document.getAnimations().some((a) => (a.playState === "running" || a.pending) && a.effect?.getComputedTiming().iterations !== Infinity);
+        const tick = () => (busy() ? requestAnimationFrame(tick) : resolve());
+        tick();
+      }),
+  );
+}
+
 const card = (page: Page, id: string) => page.locator(`.item-card[data-item="${id}"]`);
 
 test.beforeEach(async ({ page }) => {
@@ -102,7 +120,9 @@ for (const lang of ["pt", "en"] as const) {
       const errors = trackConsoleErrors(page);
       await openItems(page, width, 800);
       await setLanguage(page, lang);
+      await settle(page);
       await expectNoOverlap(page, ".items-screen .item-top");
+      await settle(page);
       await expectNoOverlap(page, "#item-grid");
       await page.locator("#item-tabs button[data-icat='held']").click();
       await expect(card(page, "cobblemon:choice_scarf")).toBeVisible();
@@ -110,21 +130,29 @@ for (const lang of ["pt", "en"] as const) {
       for (const id of ["cobblemon:choice_scarf", "cobblemon:leftovers"]) {
         const c = card(page, id);
         await c.scrollIntoViewIfNeeded();
+        await settle(page);
         await expectNoOverlap(page, `.item-card[data-item="${id}"]`);
         // nome em no maximo 1 linha a mais que o necessario: "Choice Scarf"/"Leftovers" cabem numa linha
         const lines = await c.locator(".item-name").evaluate((el) => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)));
         expect(lines).toBe(1);
       }
+      await settle(page);
       await expectNoOverlap(page, "#item-grid");
       await page.locator("#item-q").fill("mecanismo");
+      // a busca (com debounce) desmarca a aba: so entao a grade nova entra e anima
+      await expect(page.locator("#item-tabs button.active")).toHaveCount(0);
+      await settle(page);
       await expectNoOverlap(page, "#item-grid");
       await page.locator("#item-q").fill("zzzzqq");
+      await expect(page.locator(".items-screen .empty-state")).toBeVisible();
+      await settle(page);
       await expectNoOverlap(page, ".items-screen .empty-state");
       if (SHOTS) await page.screenshot({ path: `${SHOTS}/items-${lang}-${width}.png` });
       expect(errors).toEqual([]);
     });
   }
 }
+
 test("spawn-bait (CA-23/24): Iscas tab lists the 8 new bait items and the Poke Bait with the Iscas chip and texture; berries keep their chip", async ({ page }) => {
   const errors = trackConsoleErrors(page);
   await openItems(page);

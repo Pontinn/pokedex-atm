@@ -61,7 +61,33 @@ export async function findOverlaps(page: Page, root: string | Locator, opts: NoO
       const boxes: Box[] = [];
       const inViewport = (r: DOMRect) => r.width > 0 && r.height > 0 && r.bottom > 0 && r.right > 0 && r.top < innerHeight && r.left < innerWidth;
 
-      // textos: um retangulo por linha de cada no de texto nao vazio
+      // Parte VISIVEL do retangulo: recorta pelos ancestrais com overflow diferente de visible (ex. linhas escondidas
+      // por line-clamp + overflow:hidden continuam em getClientRects, mas o usuario nao as ve). null = nada visivel.
+      const clipRect = (el: Element, r: DOMRect): DOMRect | null => {
+        let left = r.left;
+        let top = r.top;
+        let right = r.right;
+        let bottom = r.bottom;
+        for (let n: Element | null = el; n && n !== document.documentElement; n = n.parentElement) {
+          const cs = getComputedStyle(n);
+          const clipX = cs.overflowX !== "visible";
+          const clipY = cs.overflowY !== "visible";
+          if (!clipX && !clipY) continue;
+          const c = n.getBoundingClientRect();
+          if (clipX) {
+            left = Math.max(left, c.left);
+            right = Math.min(right, c.right);
+          }
+          if (clipY) {
+            top = Math.max(top, c.top);
+            bottom = Math.min(bottom, c.bottom);
+          }
+          if (right - left <= 0 || bottom - top <= 0) return null;
+        }
+        return new DOMRect(left, top, right - left, bottom - top);
+      };
+
+      // textos: um retangulo por linha de cada no de texto nao vazio (so a parte visivel)
       const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT);
       for (let n = walker.nextNode(); n; n = walker.nextNode()) {
         if (!n.textContent || !n.textContent.trim()) continue;
@@ -69,8 +95,9 @@ export async function findOverlaps(page: Page, root: string | Locator, opts: NoO
         if (!parent || isIgnored(parent) || !visible(parent)) continue;
         const range = document.createRange();
         range.selectNodeContents(n);
-        for (const r of Array.from(range.getClientRects())) {
-          if (inViewport(r)) boxes.push({ el: parent, r, kind: "text", node: n });
+        for (const raw of Array.from(range.getClientRects())) {
+          const r = clipRect(parent, raw);
+          if (r && inViewport(r)) boxes.push({ el: parent, r, kind: "text", node: n });
         }
       }
       // controles
