@@ -1,18 +1,18 @@
 ---
 feature: spawn-bait
-stage: testing
-status: in-progress
+stage: complete
+status: done
 language: pt-BR
 branch: feature/spawn-bait
 mode: full
 top_model: opus
-running_agent: forge-test (sonnet) - Stage 5
+running_agent: none
 baselines:
   CONTEXT: { commit: e76ec23a, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
   PRD:     { commit: e76ec23a, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
   UISPEC:  { commit: e76ec23a, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
   SPEC:    { commit: e76ec23a, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
-updated: 2026-09-29 05:45
+updated: 2026-09-29 06:30
 ---
 ## 2026-09-29 - ideia criada
 - Pontin pediu iscas de spawn na tela do Pokemon. Investigacao do orquestrador nos dados do pack + wiki: o bolo e o Poke-Lanche (poke_snack), nao o Poke-Bolo. Escopo: Poke-Lanche + Pokeisca. 5 assuncoes aprovadas.
@@ -87,3 +87,9 @@ updated: 2026-09-29 05:45
 ## 2026-09-29 05:45 - Stage 4 CONCLUIDA, Stage 5 iniciada
 - Falhas e2e: 96af2763 (fix(e2e)). dex scroll: preexistente (provado na main 5cf52024, 3/3), causa = react-virtual corrigindo scrollTop 1-2 frames depois; fix so no teste (scrollMainSettled). items overlap: 3 causas (animacao, promise finished pendurada, harness contava texto clampado); fix no teste + harness no-overlap.ts (clip a overflow). Suite completa: 237 verdes / 16 skipped / 0 falhas. Nada de produto mudou.
 - forge-test disparado (sonnet). Timer 1h.
+
+## 2026-09-29 06:30 - Stage 5 CONCLUIDA, feature COMPLETA (movida para complete/)
+- forge-test (sonnet, ~43 min): regressao typecheck/lint ok, vitest 84/694 (limites ok), e2e 236 verdes / 1 flaky preexistente (home.spec undo+reload) / 16 skipped; contrato de dados 21/21; UI ~95 checks (PT/EN, 1280/390/360/768, 7 temas, fluxos, a11y, higiene) sem erro de console nem 404; 53 prints test-*. Achados: F-01 Low e F-02 Medium (testes flaky preexistentes fora da feature), F-03 Low (anel de foco padrao). Nenhum Critical/High.
+- Relatorios persistidos pelo orquestrador (harness bloqueou o agente): REPORT_TEST_API (contrato de dados) e REPORT_TEST_UI. LESSONS.md criado com 6 regras.
+- Ficou para o Pontin: 4 itens manuais de UX/celular + validar no jogo + PWA offline (ver REPORT_TEST_UI). Sem push, sem merge: so com pedido explicito.
+- Branch feature/spawn-bait: 26 commits de codigo/dados/testes + artefatos. Base: main 5cf52024.
