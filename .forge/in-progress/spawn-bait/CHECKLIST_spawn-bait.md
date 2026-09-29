@@ -63,13 +63,13 @@
 
 - [x] **F1.1** Textos i18n do bloco, da pesca e dos efeitos `[category: frontend]`
   - Done when: `npx vitest run tests/unit/ui-foundation/i18n.test.tsx tests/unit/ui-shell/i18n-modules.test.ts` verde; `npm run lint` limpo; captura headless (regra geral) da ficha do Charizard sem mudanca visual (as chaves ainda nao sao usadas): `after-detail-charizard-i18n-pt.png` igual a `detail-where-charizard-pt.png`.
-  - commit: (ver commit feat(i18n): textos do bloco de iscas)
+  - commit: 240462f8
   - status: done
 
-- [ ] **F1.2** Regra das 3 melhores bagas (dominio puro) `[category: outro]`
+- [x] **F1.2** Regra das 3 melhores bagas (dominio puro) `[category: outro]`
   - Done when: com o `items.json` publicado (B2.3) e as fichas reais, um teste rapido em node (`npx tsx -e` importando `src/domain/bait.ts`) imprime: dex 6 -> `occa_berry(fire), coba_berry(flying), lum_berry(dragon/monster)`; 130 -> `passho, coba, aspear`; 95 -> `charti, shuca, persim`; 129 -> `passho, aspear, lum`; 120 -> `passho, pecha` (2); 132 -> `chilan` (1); 172 -> `wacan` (1); 194 -> `passho, shuca, aspear`; 349 -> `passho, aspear, lum`; `baitContexts` 6 -> snack so, 349 -> rod so, 129 -> ambos, 1011 -> null; boosters = 7 ids (`allthemodium:allthemodium_apple`, `allthemodium:allthemodium_carrot`, `cobblemon:starf_berry`, `minecraft:enchanted_golden_apple`, `minecraft:glistering_melon_slice`, `minecraft:golden_apple`, `minecraft:golden_carrot`); pior tempo de `recommendBerries` nas 1027 fichas < 5 ms e `buildBaitIndex` < 5 ms. Os testes definitivos sao T1.1.
-  - commit: 
-  - status: pending
+  - commit: (ver commit feat(domain): regra das 3 melhores bagas)
+  - status: done
 
 - [ ] **F1.3** Bloco "Iscas" no painel "Onde encontrar" `[category: frontend]`
   - Done when: dev server + spec temporario (regra geral): capturas `after-detail-where-charizard-{pt,en,pt-mobile}.png`, `after-detail-where-magikarp-fishing-{pt,en,pt-mobile}.png`, `after-detail-where-staryu-lure-{pt,en,pt-mobile}.png`, `after-detail-where-wooper-fishing-{pt,en,pt-mobile}.png`, `after-detail-where-no-spawn-1011-{pt,en,pt-mobile}.png` em `ui-refs/`; comparadas com as "antes" do UISPEC secao 2: tudo o que existia igual e o bloco novo entre spawns e drops; no spec temporario: Charizard `[data-bait-berry]` = `occa_berry, coba_berry, lum_berry` na ordem e texto do bloco com "(Fogo)", "(Voador)", "(Dragão/Monstro)"; Magikarp 2 `[data-bait-row]`; 1011 `[data-bait]` count 0; o texto de `[data-bait]` nao casa `/x\d/`; e os asserts existentes de `tests/e2e/detail.spec.ts` bloco "F5.1" (linhas 413-490) rodados com `PW_DEV=1 PW_PORT=4177 npx playwright test tests/e2e/detail.spec.ts -g "F5.1"` verdes; `expectNoOverlap` em `#where-panel` a 360/390/1280 PT e EN (ja coberto pelo teste "where panel without overlap", que usa o Mewtwo; rodar tambem manualmente no spec temporario para o Gyarados).
@@ -160,6 +160,8 @@
 - T1.6 (parte backend): passos 5 (auditoria 0 divergencias, 46558 checks), 6 (byte a byte instancia x snapshot: items.json + 1027 species iguais), 7 (determinismo: 2a execucao = mesma datasetVersion 2ef2f512) e 8 (`git grep USERPROFILE|Usuario` em data-source/tools/src: nada) rodados verdes em B2.3. T1.6 fica [ ] ate a regressao final com o frontend (e2e, build/PWA).
 
 - F1.1 (frontend): 16 chaves where.* em detail.ts e 24 ip.* em item.ts (PT com acento). i18n.test + i18n-modules verdes, lint/typecheck limpos. Captura after-detail-charizard-i18n-pt.png comparada pixel a pixel com detail-where-charizard-pt.png: 0 pixels diferentes.
+
+- F1.2: npx tsx no dataset publicado: 6 occa(fire)/coba(flying)/lum(dragon/monster); 130 passho/coba/aspear; 95 charti/shuca/persim(mineral/amorphous); 129 passho/aspear/lum; 120 passho/pecha; 132 chilan; 172 wacan; 194 passho/shuca/aspear; 349 passho/aspear/lum; contextos 6 snack, 349 rod, 129 ambos, 1011 null; 7 reforcos iguais a SPEC; buildBaitIndex 0,56 ms; pior recommendBerries nas 1027 fichas 0,023 ms. Exporta tambem baitBoosters(items) (citado no T1.1).
 
 ## Bugs encontrados
 
