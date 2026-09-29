@@ -6,13 +6,13 @@ language: pt-BR
 branch: feature/spawn-bait
 mode: full
 top_model: opus
-running_agent: forge-imp-backend (opus, autonomous) - sprints B1 e B2 + testes T1.2/T1.3
+running_agent: forge-imp-frontend (opus, autonomous) - sprints F1 e F2 + testes T1.1/T1.4/T1.5/T1.6
 baselines:
   CONTEXT: { commit: e76ec23a, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
   PRD:     { commit: e76ec23a, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
   UISPEC:  { commit: e76ec23a, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
   SPEC:    { commit: e76ec23a, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
-updated: 2026-09-29 03:45
+updated: 2026-09-29 04:30
 ---
 ## 2026-09-29 - ideia criada
 - Pontin pediu iscas de spawn na tela do Pokemon. Investigacao do orquestrador nos dados do pack + wiki: o bolo e o Poke-Lanche (poke_snack), nao o Poke-Bolo. Escopo: Poke-Lanche + Pokeisca. 5 assuncoes aprovadas.
@@ -70,3 +70,8 @@ updated: 2026-09-29 03:45
 
 ## 2026-09-29 - forge-imp-backend: B2.3 republicado (numeros RNF-01/02)
 - datasetVersion atm1.3.0-cobblemon1.7.3-20260929-2ef2f512; items.json 1.499.586 bytes (meta <= 1.659.908); species 5.246.713 bytes (meta <= 5.693.585); 931 texturas distintas (meta <= 931, < 1200); sha256 items.json 6bca7e9d942632f828cd825f5139997c070a5732d0d4510efe768bb578118a95 (publicado = snapshot = instancia). Auditoria 46558 checks, 0 divergencias.
+
+## 2026-09-29 04:30 - Backend (pipeline) CONCLUIDO, frontend disparado
+- forge-imp-backend (opus, ~38 min): 10 features verdes, commits fd0291ab..2f1ab0d3 + cb3313c2 (handoff + checklist manual). Dataset novo atm1.3.0-cobblemon1.7.3-20260929-2ef2f512 (1a7afcba removida), items.json e 1027 species byte a byte iguais entre instancia real e snapshot, auditoria 46558 checks / 0 divergencias, vitest 81 arquivos / 648 testes, cobertura tools/dataset 93,8% linhas. 951 itens, 931 texturas.
+- Desvios registrados: datasetVersion difere entre instancia e snapshot por design (manifest com mtime/tamanho dos jars); itens com efeito de isca sao 80 (kubejs sobrescreve a maca dourada encantada).
+- forge-imp-frontend (opus, autonomous) disparado. Timer 1h.
