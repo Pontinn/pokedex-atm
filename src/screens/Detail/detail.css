@@ -210,6 +210,11 @@ html[data-theme="green"] .drop .pct, html[data-theme="blue"] .drop .pct { color:
 .bait-badge-rarity { background: var(--secondary-soft); color: var(--text); }
 .bait-badge-shiny { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
 .app.mobile .bait-row { align-items: flex-start; }
+/* Pesca na linha do spawn (spawn-bait F1.4): mesma aparencia do .cond, classe propria */
+.fish-conds { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-width: 0; }
+.fish-cond { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--secondary-soft); font-size: 12px; font-weight: 800; overflow-wrap: anywhere; min-width: 0; }
+.fish-item { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: var(--text); text-align: left; min-width: 0; }
+.fish-item:hover span { text-decoration: underline; }
 .ob-head { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
 .ob-list { display: grid; gap: 8px; }
 .ob-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--border); transition: transform .2s var(--ease-out); animation: cardIn .4s var(--ease-out) both; }

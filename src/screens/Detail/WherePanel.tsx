@@ -15,7 +15,7 @@ import type { UiLanguage } from "../../storage/types";
 import { RARITY_BADGE } from "../Dex/PokemonCard";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { useSpeciesByDex } from "../Home/TeamSlots";
-import { BaitBlock } from "./BaitBlock";
+import { BaitBlock, FishingConds } from "./BaitBlock";
 import { methodParts, tradePartner, useItems, usePartnerName } from "./EvolutionPanel";
 import { ItemLink, itemDisplayName } from "./ItemLink";
 
@@ -84,7 +84,19 @@ function TimeIcon({ range }: { range: SpawnEntry["timeRange"] }) {
   return <Cloud aria-hidden="true" />;
 }
 
-const SpawnEntryRow = memo(function SpawnEntryRow({ entry, biomes, lang, index }: { entry: SpawnEntry; biomes: BiomeLabels | null; lang: UiLanguage; index: number }) {
+const SpawnEntryRow = memo(function SpawnEntryRow({
+  entry,
+  biomes,
+  items,
+  lang,
+  index,
+}: {
+  entry: SpawnEntry;
+  biomes: BiomeLabels | null;
+  items: ItemsFile | null;
+  lang: UiLanguage;
+  index: number;
+}) {
   const t = useT();
   const conds: ReactNode[] = [];
   conds.push(
@@ -128,18 +140,19 @@ const SpawnEntryRow = memo(function SpawnEntryRow({ entry, biomes, lang, index }
         ))}
       </div>
       <div className="chips">{conds}</div>
+      {entry.fishing ? <FishingConds fishing={entry.fishing} items={items} lang={lang} /> : null}
     </div>
   );
 });
 
-function SpawnList({ spawns, biomes, lang }: { spawns: readonly SpawnEntry[]; biomes: BiomeLabels | null; lang: UiLanguage }) {
+function SpawnList({ spawns, biomes, items, lang }: { spawns: readonly SpawnEntry[]; biomes: BiomeLabels | null; items: ItemsFile | null; lang: UiLanguage }) {
   const t = useT();
   const [all, setAll] = useState(false);
   const shown = all ? spawns : spawns.slice(0, SPAWN_COLLAPSE_AFTER);
   return (
     <div className="spawn-list">
       {shown.map((e, i) => (
-        <SpawnEntryRow key={e.id} entry={e} biomes={biomes} lang={lang} index={i} />
+        <SpawnEntryRow key={e.id} entry={e} biomes={biomes} items={items} lang={lang} index={i} />
       ))}
       {spawns.length > SPAWN_COLLAPSE_AFTER ? (
         <button type="button" className="btn btn-ghost spawn-more" onClick={() => setAll((v) => !v)}>
@@ -335,7 +348,7 @@ export const WherePanel = memo(function WherePanel({ detail }: { detail: Species
               </div>
             </div>
           ) : null}
-          {spawns.length ? <SpawnList spawns={spawns} biomes={biomes} lang={lang} /> : null}
+          {spawns.length ? <SpawnList spawns={spawns} biomes={biomes} items={items} lang={lang} /> : null}
           {spawns.length ? <BaitBlock detail={detail} items={items} lang={lang} /> : null}
           <Drops drops={drops} items={items} lang={lang} />
         </div>
