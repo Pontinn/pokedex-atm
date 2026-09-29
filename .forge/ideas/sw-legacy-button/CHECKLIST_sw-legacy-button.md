@@ -1,0 +1,1 @@
+- [ ] L1 SW trata SKIP_WAITING recarregando a aba de origem; teste em producao; merge + push.
