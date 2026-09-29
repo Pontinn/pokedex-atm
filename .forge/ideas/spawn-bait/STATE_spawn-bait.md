@@ -1,6 +1,6 @@
 ---
 feature: spawn-bait
-stage: prd
+stage: spec
 status: done
 language: pt-BR
 branch: feature/spawn-bait
@@ -10,7 +10,9 @@ running_agent: none
 baselines:
   CONTEXT: { commit: 5cf52024, deps: [IDEA_spawn-bait.md, tools/dataset/src/items/stage.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/species/spawns.ts, tools/dataset/src/species/stage-derive.ts, tools/dataset/src/species/index-writer.ts, tools/dataset/src/context.ts, src/data/types.ts, src/data/schemas.ts, src/data/loaders.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Detail/ItemLink.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Items/item-model.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts] }
   PRD:     { commit: 5cf52024, deps: [IDEA_spawn-bait.md, CONTEXT_spawn-bait.md] }
-updated: 2026-09-29 02:20
+  UISPEC:  { commit: ff3a26b0, deps: [src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item.css, src/styles/components.css, src/components/Badge.tsx, src/screens/Detail/ItemLink.tsx] }
+  SPEC:    { commit: ff3a26b0, deps: [PRD_spawn-bait.md, CONTEXT_spawn-bait.md, UISPEC_spawn-bait.md, data-source/README.md, data-source/atm-1.3.0/MANIFEST.json, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/detail.ts, src/i18n/messages/item.ts, src/i18n/useT.ts, src/screens/Detail/ItemLink.tsx, src/screens/Detail/WherePanel.tsx, src/screens/Detail/detail.css, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/item-model.ts, tests/e2e/detail.spec.ts, tests/unit/data/published-schemas.test.ts, tests/unit/dataset/join.test.ts, tests/unit/ui-screens/item-page.test.ts, tools/dataset/README.md, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts, tools/dataset/audit/raw.ts, tools/dataset/src/items/catalog.ts, tools/dataset/src/items/categories.ts, tools/dataset/src/items/recipes.ts, tools/dataset/src/items/ref-names.ts, tools/dataset/src/items/stage.ts, tools/dataset/src/media/vanilla-textures.ts, tools/dataset/src/species/spawns.ts, vite.config.ts] }
+updated: 2026-09-29 03:30
 ---
 ## 2026-09-29 - ideia criada
 - Pontin pediu iscas de spawn na tela do Pokemon. Investigacao do orquestrador nos dados do pack + wiki: o bolo e o Poke-Lanche (poke_snack), nao o Poke-Bolo. Escopo: Poke-Lanche + Pokeisca. 5 assuncoes aprovadas.
@@ -40,3 +42,21 @@ updated: 2026-09-29 02:20
 - forge-prd (sonnet): PRD rev 1 (54 RF) -> rev 2 (7 perguntas respondidas pelo orquestrador) -> rev 3 (3 WARNING + 4 NIT da revisao: 7 reforcos, RNF-02 por items.json, Lure weightMultipliers no escopo) -> rev 4 (weightMultiplier singular + renumeracao). Final: RF-01..55, RNF-01..11, CA-01..34, 0 perguntas.
 - forge-review (opus) no PRD: rev 2 NEEDS-CHANGES, rev 3 NEEDS-CHANGES (1 WARNING), rev 4 PASS.
 - Fingerprints: IDEA 0773bf058e17, CONTEXT 6ea22e108cb8, PRD 84ba0da04b1c. Gate aprovado por autonomia. Commit dos artefatos a seguir. Proximo: Stage 3b (forge-ui-recon) e Stage 3 (forge-spec, opus).
+
+## 2026-09-29 02:25 - Stage 3b iniciada
+- Commit ff3a26b0 (IDEA, CONTEXT, PRD rev 4, STATE). forge-ui-recon disparado (sonnet, Playwright headless, dev server proprio). Timer 1h. Depois: forge-spec (opus).
+
+## 2026-09-29 02:35 - Stage 3b CONCLUIDA, Stage 3 iniciada
+- forge-ui-recon (sonnet, ~6 min): UISPEC_spawn-bait.md render-captured, 10 alvos, 34 PNGs (2,5 MB) em ui-refs/ (versionado). Tokens do tema classic, anatomia recomendada do bloco Iscas (.bait-*), classes a evitar (contadas pelo e2e). Dev server parado. Fingerprint UISPEC 1eae152da70b.
+- forge-spec (opus) disparado. Timer 1h.
+
+## 2026-09-29 03:05 - SPEC escrita, revisao disparada
+- forge-spec (opus, ~25 min): SPEC 893 linhas, 5 sprints (B1 contrato+pipeline, B2 snapshot/auditoria/publicacao, F1 ficha do Pokemon, F2 pagina do item, T1 testes), 20 features, ~55 arquivos (12 novos), 66/66 requisitos cobertos, 10 assuncoes (nenhuma bloqueante). Decisao do orquestrador: poke_bait tambem vira categoria bait (assuncao 7 da SPEC a corrigir). forge-review no SPEC disparado.
+
+## 2026-09-29 03:15 - forge-review no SPEC: NEEDS-CHANGES (3 WARNING, 5 NIT, 0 BLOCKER)
+- Linhas, hashes, matriz 66/66, identificadores en, regra das 3 melhores e Lure conferidos OK. WARNINGs: poke_bait ficava em Outros (decisao: poke_bait, poke_snack e os 7 novos = categoria bait); B1.1 Done when inatingivel (join.test valida o dataset real; decisao: B1.x excluem join/published-schemas ate B2.3, frontend so comeca depois de B2.3); rotulo da estacao vai para o i18n central (RF-47). NITs: CA-19 6x, Badge dentro do bloco, ItemInfo.bait, categoria dos 7, nomes de captura em ingles.
+- Cascata feita pelo orquestrador: UISPEC linha 93 e IDEA atualizadas. forge-prd (rev 5) e forge-spec (revisao) rodando em paralelo. Timer 1h.
+
+## 2026-09-29 03:30 - Stage 3 CONCLUIDA (spec-done)
+- forge-spec revisao: 8 itens aplicados (9 itens categoria bait via viaBait, janela B1.1->B2.3 declarada e frontend so apos B2.3, rotulo ip.station.campfirePot, .bait-badge, ItemInfo.bait, capturas em ingles). forge-review re-revisao: PASS. PRD rev 5 (CA-19 6x, RF-47, categoria em RF-33/37/CA-23).
+- Gate aprovado por autonomia. Commit de SPEC + UISPEC + ui-refs + PRD rev 5 + IDEA + STATE a seguir; depois forge-checklist (sonnet, nunca haiku) e Stage 4.

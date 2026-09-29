@@ -10,15 +10,16 @@ status: draft
 
 | Data | Revisao | O que mudou |
 |---|---|---|
-| 2026-09-29 | 1 | Criacao do PRD a partir da IDEA (bf71782d53ff; 9418c23e99eb na revisao 3; 0773bf058e17 na revisao 4) e do CONTEXT (6ea22e108cb8). |
+| 2026-09-29 | 1 | Criacao do PRD a partir da IDEA (bf71782d53ff; 9418c23e99eb na revisao 3; 0773bf058e17 na revisao 4; 3121bd574c08 na revisao 5) e do CONTEXT (6ea22e108cb8). |
 | 2026-09-29 | 2 | Respostas do orquestrador (autonomia total do usuario) incorporadas: mythical_pecha_berry confirmado fora; 2 itens de Allthemodium como excecao curada de tempero; texturas de Allthemodium confirmadas; limites numericos aceitos; exemplo do Magikarp aceito; textos de UI vao para SPEC/UISPEC; auditoria virou requisito. Perguntas em aberto reduzidas a 0. |
 | 2026-09-29 | 3 | Correcoes do reviewer: reforcos genericos passam a 7 itens (regra governa, lista ilustrativa); RNF-02 mede texturas referenciadas por `items.json`; `weightMultipliers` por Lure entram no escopo (RF-40, RF-55, RF-56, CA-34); RF-45 fundido em RF-09; CA-02 corrigido (agua/superficie e pesca); nota do teste `item-page.test.ts` (RF-30, RNF-03); RNF renumerados em ordem crescente; fingerprint da IDEA atualizado. |
 | 2026-09-29 | 4 | `weightMultiplier` singular e lista `weightMultipliers` de Lure unificados no mesmo campo tipado (RF-46, CA-17), outras condicoes seguem em `extra`; RF de UI dos multiplicadores movido para a secao 4.2 (RF-24); RF e CA RENUMERADOS em ordem crescente (o antigo RF-45 "removido" foi eliminado; ids das revisoes anteriores nao valem mais); fingerprint da IDEA atualizado. |
+| 2026-09-29 | 5 | CA-19 separa texto da UI ("6x" do proprio jogo) do dado publicado (`value` 5); RF-47 explicita que o rotulo da estacao vive no dicionario i18n central, sem excecao; categoria dos itens de isca esclarecida em RF-33, RF-37 e CA-23; fingerprint da IDEA atualizado. |
 
 ## Baseline (drift anchor)
 
 - `HEAD`: `5cf52024`
-- `IDEA_spawn-bait.md` (`git hash-object`, 12 chars): `0773bf058e17`
+- `IDEA_spawn-bait.md` (`git hash-object`, 12 chars): `3121bd574c08`
 - `CONTEXT_spawn-bait.md` (`git hash-object`, 12 chars): `6ea22e108cb8`
 
 ## 1. Objetivo e visao
@@ -103,11 +104,11 @@ Restricoes tecnicas registradas na IDEA (constraints, nao expandir): efeitos das
 
 ### 4.4 Novos itens no catalogo
 
-- **RF-33** `[MUST]` O sistema deve incluir no catalogo (aba Itens, categoria "Iscas", tag `bait`) os 8 itens: `minecraft:golden_apple`, `minecraft:enchanted_golden_apple`, `minecraft:golden_carrot`, `minecraft:glistering_melon_slice`, `minecraft:glow_berries`, `allthemodium:allthemodium_apple`, `allthemodium:allthemodium_carrot` e `cobblemon:poke_snack`, cada um com pagina e link.
+- **RF-33** `[MUST]` O sistema deve incluir no catalogo (aba Itens, categoria "Iscas" (`bait`), tag `bait`) os 8 itens: `minecraft:golden_apple`, `minecraft:enchanted_golden_apple`, `minecraft:golden_carrot`, `minecraft:glistering_melon_slice`, `minecraft:glow_berries`, `allthemodium:allthemodium_apple`, `allthemodium:allthemodium_carrot` e `cobblemon:poke_snack`, cada um com pagina e link. Berries mantem a propria categoria e aparecem na aba "Iscas" pela tag `bait`.
 - **RF-34** `[MUST]` O sistema deve exibir cada um dos 8 itens com textura real do jogo (nenhum item do catalogo pode ficar sem textura). Os 5 itens vanilla usam modelo e textura copiados do jar vanilla para o snapshot `data-source/` (registrados em `MANIFEST.json` `additions`); os 2 de Allthemodium usam a textura do jar real da instancia copiada para o snapshot, com a midia estendida. Decidido (confirmado pelo orquestrador).
 - **RF-35** `[MUST]` O sistema deve exibir o nome PT/EN dos 8 itens (regra atual: EN obrigatorio, PT cai para EN quando ausente; `poke_snack`: PT "Poke-lanche", EN "Poke Snack"; Allthemodium com o PT do kubejs).
 - **RF-36** `[MUST]` O sistema deve classificar o Poke-Lanche na categoria "Iscas" e NAO na categoria "cozinha", portanto sem a nota de "efeito pendente" da cozinha.
-- **RF-37** `[MUST]` O sistema deve manter `cobblemon:poke_bait` (Pokeisca) no catalogo, agora na aba "Iscas" com a receita de RF-28.
+- **RF-37** `[MUST]` O sistema deve manter `cobblemon:poke_bait` (Pokeisca) no catalogo, agora com categoria "Iscas" (`bait`) e com a receita de RF-28. Portanto `poke_bait`, `poke_snack` e os 7 itens novos tem categoria "Iscas".
 
 ### 4.5 Pipeline e dataset
 
@@ -123,7 +124,7 @@ Restricoes tecnicas registradas na IDEA (constraints, nao expandir): efeitos das
 
 ### 4.6 i18n
 
-- **RF-47** `[MUST]` O sistema deve ter todo texto novo (rotulos do bloco, linhas Poke-Lanche/Pokeisca, condicoes de pesca, reforcos "raridade"/"shiny", painel de efeitos, rotulo da estacao, nota dos 3 temperos) no dicionario central em PT e EN, sem texto literal no JSX.
+- **RF-47** `[MUST]` O sistema deve ter todo texto novo (rotulos do bloco, linhas Poke-Lanche/Pokeisca, condicoes de pesca, reforcos "raridade"/"shiny", painel de efeitos, rotulo da estacao, nota dos 3 temperos) no dicionario central em PT e EN, sem texto literal no JSX. Isso vale sem excecao para o rotulo da estacao "Panela de Fogueira"/"Campfire Pot" (RF-31), que vive no mesmo dicionario central como os demais textos de UI.
 - **RF-48** `[MUST]` O sistema deve respeitar o toggle de idioma dos termos do card (`where`/`itempage`) para nomes de item e de tipo/grupo no bloco.
 
 ### 4.7 Casos de borda
@@ -177,13 +178,13 @@ Formato Dado/Quando/Entao. Cada criterio cita os RF/RNF que valida.
 
 **Pagina do item (RF-25 a RF-32)**
 - **CA-18** Dado Occa Berry; quando abro a pagina; entao ve o efeito de tipo Fogo com o multiplicador, com o texto do jogo em PT e EN conforme o idioma, e nao ha lista de Pokemon. (RF-25, 26)
-- **CA-19** Dado a maca dourada encantada; quando abro a pagina; entao os efeitos refletem o kubejs (raridade +10, shiny x5) e nao o jar. (RF-38, 39)
+- **CA-19** Dado a maca dourada encantada; quando abro a pagina; entao os efeitos refletem o kubejs e nao o jar: no DADO publicado a raridade e +10 e o `shiny_reroll` tem `value` 5; na UI o texto do proprio jogo mostra "6x" para shiny (o jogo soma 1 ao valor publicado, verificado no bytecode do jar pela SPEC), e o `value` publicado continua 5. (RF-38, 39, 25)
 - **CA-20** Dado a pagina do Poke-Lanche; quando a abro; entao mostra textura, nome ("Poke-lanche"/"Poke Snack"), categoria "Iscas", estacao "Panela de Fogueira" e os ingredientes 3 leite, 2 mel, 1 Vivichoke, 3 Graos Robustos, com Vivichoke, Graos Robustos e mel clicaveis, leite com rotulo legivel, e a nota de ate 3 temperos; sem nota de "efeito pendente". (RF-28 a RF-32, 36)
 - **CA-21** Dado a pagina da Pokeisca; quando a abro; entao mostra mel + cogumelo + trigo, com trigo como texto simples sem link e cogumelo com rotulo legivel. (RF-28, 29, 30, 37)
 - **CA-22** Dado qualquer pagina que mostrava "Panela de cozinha"; quando a abro; entao o rotulo agora e "Panela de Fogueira" (EN "Campfire Pot"). (RF-31)
 
 **Catalogo (RF-33 a RF-37)**
-- **CA-23** Dado a aba Itens, categoria "Iscas"; quando a abro; entao os 8 itens novos aparecem, cada um com textura, nome PT/EN e pagina, e `poke_bait` e `poke_snack` estao na aba. (RF-33 a RF-37)
+- **CA-23** Dado a aba Itens, categoria "Iscas"; quando a abro; entao os 8 itens novos e `poke_bait` aparecem, todos com categoria "Iscas" (`bait`), textura, nome PT/EN e pagina; as berries continuam na propria categoria e tambem aparecem na aba pela tag `bait`. (RF-33 a RF-37)
 - **CA-24** Dado o `items.json` publicado; quando conto itens sem textura; entao sao 0 entre os 8 novos. (RF-34)
 
 **Pipeline (RF-38 a RF-46)**
