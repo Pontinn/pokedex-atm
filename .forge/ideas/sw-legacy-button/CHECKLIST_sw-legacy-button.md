@@ -1,2 +1,2 @@
-- [ ] L1 SW trata SKIP_WAITING recarregando a aba de origem; teste em producao; merge + push.
+- [x] L1 SW trata SKIP_WAITING recarregando a aba de origem; teste em producao; merge + push. `ca9a514f` (public/sw-skip-waiting.js via workbox.importScripts `/sw-skip-waiting.js?v=<hash8 do conteudo>`, fora do precache, no-cache no vercel.json; unit 4 + vercel-headers; e2e pwa-offline --repeat-each=2 20/20 em producao; typecheck/lint 0; vitest 80/623; build ok, precache igual (68). Merge + push: orquestrador.)
 - [ ] L2 Link do portfolio (rodape lateral, fim das telas no mobile, sheet Mais, card Sobre).
