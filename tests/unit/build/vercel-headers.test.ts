@@ -30,4 +30,7 @@ describe("vercel.json Cache-Control (U11)", () => {
   it("keeps sw.js no-cache", () => {
     expect(cacheControl("/sw.js")).toEqual(["no-cache"]);
   });
+  it("keeps the script imported by sw.js no-cache (sw-legacy-button)", () => {
+    expect(cacheControl("/sw-skip-waiting.js")).toEqual(["no-cache"]);
+  });
 });

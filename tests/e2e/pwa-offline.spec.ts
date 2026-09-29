@@ -303,6 +303,36 @@ test.describe("F12.1 PWA installable and cache", () => {
     }
   });
 
+  // sw-legacy-button: aba do build antigo (registerType "prompt") clica "Atualizar" -> manda SKIP_WAITING ao SW
+  // que ja assumiu a aba. O SW novo (public/sw-skip-waiting.js via importScripts) recarrega essa aba uma vez.
+  test("SKIP_WAITING from a tab (legacy Update button) reloads that tab exactly once", async ({ page }) => {
+    const server = await serveDist(() => 0);
+    try {
+      const errors = trackPageErrors(page);
+      await installAndControl(page, server.url);
+      let loads = 0;
+      page.on("load", () => loads++);
+      await page.evaluate(() => {
+        (window as unknown as { __before: boolean }).__before = true;
+      });
+      // como o botao antigo: postMessage direto no ServiceWorker (o que estava em espera e agora e o ativo)
+      await page.evaluate(async () => {
+        const reg = await navigator.serviceWorker.getRegistration();
+        reg!.active!.postMessage({ type: "SKIP_WAITING" });
+      });
+      await expect.poll(() => loads, { timeout: 30_000 }).toBe(1);
+      await bootHome(page);
+      expect(await page.evaluate(() => (window as unknown as { __before?: boolean }).__before === true)).toBe(false);
+      // a pagina nova segue controlada e nao recarrega de novo (sem loop)
+      await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
+      await page.evaluate(() => navigator.serviceWorker.ready.then(() => undefined));
+      expect(loads).toBe(1);
+      expect(errors).toEqual([]);
+    } finally {
+      await server.close();
+    }
+  });
+
   // U1b: aba aberta num build antigo pede um chunk lazy cujo hash ja saiu do ar. Sem SW (o page.route ve o pedido
   // do chunk direto) e com o chunk da tela Sincronizar abortado, simulando o 404 pos-deploy.
   test.describe("stale lazy chunk after a deploy", () => {

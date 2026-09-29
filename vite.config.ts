@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
@@ -19,6 +20,14 @@ function readDatasetVersion(): string | null {
 }
 
 const datasetVersion = readDatasetVersion();
+
+// sw-legacy-button: handler de SKIP_WAITING importado pelo sw.js. O hash do conteudo vai na query, entao mudar o
+// arquivo muda o sw.js (e o navegador instala o SW novo), sem depender de cache HTTP do script importado.
+const SW_SKIP_WAITING = "sw-skip-waiting.js";
+const swSkipWaitingHash = createHash("sha256")
+  .update(readFileSync(new URL(`./public/${SW_SKIP_WAITING}`, import.meta.url)))
+  .digest("hex")
+  .slice(0, 8);
 
 export default defineConfig({
   plugins: [
@@ -59,6 +68,10 @@ export default defineConfig({
           ...(datasetVersion ? [`data/${datasetVersion}/{dataset-manifest,species-index,type-chart}.json`] : []),
           "assets/sfx/*.ogg",
         ],
+        // o script importado e baixado e guardado pelo proprio navegador junto com o sw.js: fora do precache
+        globIgnores: ["**/node_modules/**/*", SW_SKIP_WAITING],
+        // aba do build antigo clicando "Atualizar" (SKIP_WAITING) recarrega pelo SW novo (fix sw-legacy-button)
+        importScripts: [`/${SW_SKIP_WAITING}?v=${swSkipWaitingHash}`],
         maximumFileSizeToCacheInBytes: 4_000_000,
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/data\//, /^\/assets\//],
