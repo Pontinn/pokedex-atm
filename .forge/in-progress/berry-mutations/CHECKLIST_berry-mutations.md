@@ -121,12 +121,12 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
   - commit: 98169952
   - status: feito
 
-- [ ] **T1.3** Regras puras com o dataset real
+- [x] **T1.3** Regras puras com o dataset real
   - categoria: outro
   - lado: frontend (inferido: tests/unit/ui-screens, funcoes de src/screens)
   - Done when: `npx vitest run tests/unit/ui-screens/berry-model.test.ts` verde; as funcoes novas com >= 95% de linhas cobertas.
-  - commit: 
-  - status: pendente
+  - commit: 65e88bcb
+  - status: feito
 
 - [ ] **T1.4** RTL da pagina do item e da listagem
   - categoria: outro
