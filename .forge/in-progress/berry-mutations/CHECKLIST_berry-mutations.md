@@ -35,11 +35,11 @@ Janela quebrada planejada (SPEC 2.4 item 11): de B1.1 ate B2.2 `tests/unit/data/
 
 ## Fase B2: Auditoria e publicacao
 
-- [ ] **B2.1** Auditoria com checks de origem e cruzamento
+- [x] **B2.1** Auditoria com checks de origem e cruzamento
   - categoria: outro
   - Done when: `run.ts` contra `_bm_pub` imprime `divergencias {}` (0 em todas as severidades) com numero de checks MAIOR que 46558 (baseline da Rodada 5) e pelo menos 210 checks novos (70 x 3); `AUDIT_REPORT.md` com a Rodada 6 toda 0; `npx vitest run tests/unit/dataset/audit.test.ts` verde.
-  - commit: 
-  - status: pendente
+  - commit: ea3aa9a1
+  - status: feito
 
 - [ ] **B2.2** Paridade, determinismo e republicacao do dataset
   - categoria: build
@@ -155,6 +155,7 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 
 - B1.1: janela quebrada ABERTA neste commit: tests/unit/data/published-schemas.test.ts fica excluido (npx vitest run --exclude tests/unit/data/published-schemas.test.ts) e nenhum e2e roda ate B2.2. Verificado: typecheck e lint limpos; vitest 83 arquivos / 681 testes verdes (sem published-schemas); pipeline no snapshot (_bm_stage/_bm_pub) sem erro, 951 itens todos com berry null como ultima chave.
 - B1.2: pipeline no snapshot: items.json 1.533.158 bytes (teto 1.659.908); 70 com berry (todas category berry); 31/40/77/154 iguais ao recalculo independente dos 70 arquivos crus (script node lendo data-source/.../berries); Cheri, Lum e Liechi byte a byte iguais a SPEC 5.3; report.json sem W_BERRY_* e secao berries {items 70, withSpawn 31, spawnVariants 28/2/1, mutationResults 40, pairs 77, uses 154, bothOrigins [liechi]}; plantable das 110 identica ao publicado 2ef2f512; vitest 83/681 verde (janela). Pastas _bm_stage/_bm_pub mantidas ate B2.2 (B2.1 audita _bm_pub), apagadas no fim da B2.2.
+- B2.1: run.ts contra _bm_pub: 46768 checks (46558 + 210 novos = 70 x 3), divergencias {}; AUDIT_REPORT.md: o run.ts reescreve o arquivo inteiro, entao (padrao da Rodada 5) o arquivo foi restaurado e so a nota da Rodada 6 foi acrescentada no topo; audit.test.ts 14/14 verde; typecheck e lint limpos.
 
 ## Bugs encontrados
 
