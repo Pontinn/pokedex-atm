@@ -142,12 +142,12 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
   - commit: 53b2875c
   - status: feito
 
-- [ ] **T1.6** Regressao completa, qualidade, auditoria e byte a byte
+- [x] **T1.6** Regressao completa, qualidade, auditoria e byte a byte
   - categoria: outro
   - lado: ambos (inferido: regressao completa, sem arquivo de codigo; numeros vao para o STATE)
   - Done when: os 9 passos verdes e os numeros (testes, cobertura, checks da auditoria, sha256 do `items.json`, bytes) anotados no STATE.
-  - commit: 
-  - status: pendente
+  - commit: n/a (sem arquivo de codigo; evidencia nas notas T1.6)
+  - status: feito
 
 ---
 
@@ -166,7 +166,7 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 - T1.3: `berry-model.test.ts` 13 testes, conjuntos derivados dos 70 arquivos crus; funcoes novas 100% das linhas (as linhas nao cobertas de `item-model.ts`/`item-page-model.ts` sao de funcoes antigas).
 - T1.4: `item-berry.test.tsx` (11) e `items-origin.test.tsx` (6); `tests/unit/ui-screens` 38 arquivos / 262 testes; cobertura `src/screens/**` 89,33% linhas / 88,81% branches.
 - T1.5: blocos novos no fim de `item.spec.ts` (8), `items.spec.ts` (7) e 1 teste em `pwa-offline.spec.ts`; so insercoes (0 linhas removidas). Done when (build + preview, 6 arquivos): 121 passed / 0 failed / 16 skipped (skips preexistentes). CA-43 (parceiro fora do catalogo) fica no RTL (T1.4). O teste CA-25..27 ganhou `test.setTimeout(120_000)` (percorre todas as abas 2 vezes); nenhum assert afrouxado.
-- T1.6 (parte frontend, feita no codigo final 53b2875c): passo 1 typecheck e lint limpos; passo 2 `npx vitest run --coverage` 88 arquivos / 744 testes verdes, global 94,39% linhas / 87,76% branches, limites do vitest.config.ts ok; passo 3 `npx playwright test` inteiro (build + preview) 253 passed / 0 failed / 16 skipped (baseline 237/0/16; +16 novos); passo 4 `git diff main -- tests/` sem assert existente mudado alem de `item.spec.ts:259` (as outras linhas removidas sao imports/fixtures do backend B1.1/T1.1); passo 8 sem caminho de usuario em `src` e sem `fetch(` novo em `BerryParts.tsx`/`src/screens/Items`; passo 9 nenhum U+2014 nos arquivos tocados. PENDENTE para fechar o item: passo 7 (conferir no `dist/sw.js` que o precache nao ganhou URL de dado nova; o teste offline da T1.5 ja prova que nenhuma requisicao nova sai) e anotar os numeros no STATE (STATE estava modificado por outro processo no working tree; nao mexi). Passos 5 e 6 ja verdes pelo backend e o pipeline nao mudou desde entao.
+- T1.6 (parte frontend, feita no codigo final 53b2875c): passo 1 typecheck e lint limpos; passo 2 `npx vitest run --coverage` 88 arquivos / 744 testes verdes, global 94,39% linhas / 87,76% branches, limites do vitest.config.ts ok; passo 3 `npx playwright test` inteiro (build + preview) 253 passed / 0 failed / 16 skipped (baseline 237/0/16; +16 novos); passo 4 `git diff main -- tests/` sem assert existente mudado alem de `item.spec.ts:259` (as outras linhas removidas sao imports/fixtures do backend B1.1/T1.1); passo 8 sem caminho de usuario em `src` e sem `fetch(` novo em `BerryParts.tsx`/`src/screens/Items`; passo 9 nenhum U+2014 nos arquivos tocados. Passo 7: `npm run build` no codigo final; `vite.config.ts` sem diferenca contra a main (mesmo `globPatterns`); `dist/sw.js` com 68 URLs no precache e so 4 de dado, exatamente as que o padrao ja permitia: `data/current.json` e `data/atm1.3.0-cobblemon1.7.3-20260930-1949ea67/{dataset-manifest,species-index,type-chart}.json` (`items.json` segue so no runtime CacheFirst, como antes). Numeros no STATE ficam com o orquestrador (STATE commitado por ele). Passos 5 e 6 ja verdes pelo backend e o pipeline nao mudou desde entao.
 
 ## Bugs encontrados
 
