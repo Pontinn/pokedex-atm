@@ -377,4 +377,42 @@ test.describe("F12.1 PWA installable and cache", () => {
       expect(loads).toBe(2);
     });
   });
+
+  // berry-mutations T1.5 (CA-41, RNF-05/12): listagem com tag/filtro de origem e a Lum com "Como cruzar" funcionam
+  // offline depois de vistas online; nenhuma URL nova alem de items/biomes/balls/series e texturas de itens.
+  test("offline items listing keeps origin tags and filter, and Lum keeps Como cruzar (berry-mutations)", async ({ page, context }) => {
+    const errors = trackPageErrors(page);
+    await installAndControl(page);
+    const requested: string[] = [];
+    page.on("request", (r) => requested.push(r.url()));
+    const openLum = async () => {
+      await page.locator('[data-nav="items"]:visible').first().click();
+      await expect(page.locator("#item-grid .item-card").first()).toBeVisible({ timeout: 30_000 });
+      await page.locator("#item-tabs button[data-icat='berry']").click();
+      await expect(page.locator(".item-card[data-item='cobblemon:liechi_berry'] .item-origin")).toHaveCount(2);
+      await page.locator(".item-origin-filter button", { hasText: "Mutação" }).click();
+      await expect(page.locator(".item-card[data-item='cobblemon:occa_berry']")).toHaveCount(0);
+      await expect(page.locator(".item-card[data-item='cobblemon:lum_berry']")).toHaveCount(1);
+      await page.locator(".item-card[data-item='cobblemon:lum_berry'] .item-link").click();
+      await expect(page.locator(".item-body[data-item='cobblemon:lum_berry'] [data-row='mutation']")).toBeVisible({ timeout: 30_000 });
+    };
+    await openLum();
+    const origin = new URL(page.url()).origin;
+    const extra = requested.filter((u) => {
+      const url = new URL(u);
+      if (url.origin !== origin) return true;
+      if (url.pathname.startsWith("/data/")) return !/^\/data\/[^/]+\/(items|biomes|balls|series)\.json$/.test(url.pathname);
+      return !/^\/(assets\/items\/|assets\/sfx\/|assets\/[^/]+\.(js|css|woff2?)$|src\/|@|node_modules\/)/.test(url.pathname);
+    });
+    expect(extra).toEqual([]);
+
+    await context.setOffline(true);
+    await page.reload();
+    await bootHome(page);
+    expect(await page.evaluate(() => navigator.onLine)).toBe(false);
+    await openLum();
+    await expect(page.locator(".item-used [data-row='mutationUses']")).toBeVisible();
+    expect(errors).toEqual([]);
+    await context.setOffline(false);
+  });
 });

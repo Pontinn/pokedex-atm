@@ -1,8 +1,12 @@
 // F9.2: Itens & Comidas com o dataset REAL, headless, sem slowMo, sem esperas fixas. PW_DEV=1 PW_PORT=4175.
+import { readFileSync, readdirSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoOverlap } from "../harness/no-overlap";
+import { THEME_IDS } from "../../src/styles/themes";
+import { writeDoc } from "./idb-helpers";
 
 const SHOTS = process.env.ITEMS_SHOTS_DIR;
+const DEV = process.env.PW_DEV === "1";
 
 function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -183,4 +187,223 @@ test("spawn-bait (CA-23/24): Iscas tab lists the 8 new bait items and the Poke B
   await apple.scrollIntoViewIfNeeded();
   await expect(apple).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+// berry-mutations T1.5: contagens DERIVADAS dos 70 arquivos crus de berries do snapshot (LESSONS). Headless, sem esperas fixas.
+const BERRIES_DIR = new URL("../../data-source/atm-1.3.0/mods/Cobblemon-neoforge-1.7.3+1.21.1.jar/data/cobblemon/berries/", import.meta.url);
+function berryOriginSets(): { all: string[]; mutation: Set<string>; world: Set<string> } {
+  const all: string[] = [];
+  const mutation = new Set<string>();
+  const world = new Set<string>();
+  for (const f of readdirSync(BERRIES_DIR).filter((x) => x.endsWith(".json"))) {
+    const id = `cobblemon:${f.replace(/\.json$/, "")}`;
+    const raw = JSON.parse(readFileSync(new URL(f, BERRIES_DIR), "utf8")) as { spawnConditions?: unknown[]; mutations?: Record<string, string> };
+    all.push(id);
+    if ((raw.spawnConditions ?? []).length > 0) world.add(id);
+    for (const result of Object.values(raw.mutations ?? {})) mutation.add(result);
+  }
+  return { all, mutation, world };
+}
+
+async function itemTab(page: Page, cat: string) {
+  await page.locator(`#item-tabs button[data-icat='${cat}']`).click();
+  await expect(page.locator(`#item-tabs button[data-icat='${cat}']`)).toHaveAttribute("aria-selected", "true");
+  await settle(page);
+}
+const originButton = (page: Page, label: RegExp) => page.locator(".item-origin-filter button", { hasText: label });
+const gridIds = (page: Page) => page.locator("#item-grid .item-card").evaluateAll((els) => els.map((e) => e.getAttribute("data-item")!));
+async function showLiechi(page: Page) {
+  await card(page, "cobblemon:liechi_berry").evaluate((e) => e.scrollIntoView({ block: "center", behavior: "instant" }));
+  await page.evaluate(() => new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r()))));
+  await settle(page);
+}
+
+test.describe("berry-mutations: origin tag and filter", () => {
+  test("origin tags on berry cards only, in Berries, Iscas and search (CA-21..CA-24)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const sets = berryOriginSets();
+    await openItems(page);
+    await itemTab(page, "berry");
+    const ids = await gridIds(page);
+    expect(ids.slice().sort()).toEqual(sets.all.slice().sort());
+    const expectedTags = sets.all.reduce((n, id) => n + (sets.mutation.has(id) ? 1 : 0) + (sets.world.has(id) ? 1 : 0), 0);
+    await expect(page.locator("#item-grid .item-origin")).toHaveCount(expectedTags);
+    for (const id of sets.all) {
+      const want = [...(sets.mutation.has(id) ? ["mutation"] : []), ...(sets.world.has(id) ? ["world"] : [])];
+      expect(await card(page, id).locator(".item-origin").evaluateAll((els) => els.map((e) => e.getAttribute("data-origin"))), id).toEqual(want);
+    }
+    await expect(card(page, "cobblemon:liechi_berry").locator(".item-origin")).toHaveText(["Mutação", "Mundo"]);
+    const occa = card(page, "cobblemon:occa_berry");
+    await expect(occa.locator(".item-names > *").first()).toHaveClass("tag item-tag");
+    await expect(occa.locator(".item-tag")).toHaveText(/berries/i);
+    const tagBox = (await occa.locator(".item-tag").boundingBox())!;
+    const nameBox = (await occa.locator(".item-name").boundingBox())!;
+    expect(tagBox.y + tagBox.height).toBeLessThanOrEqual(nameBox.y + 1);
+    await itemTab(page, "bait");
+    const baitIds = await gridIds(page);
+    for (const id of baitIds) expect(await card(page, id).locator(".item-origins").count(), id).toBe(sets.all.includes(id) ? 1 : 0);
+    await page.locator("#item-q").fill("ber");
+    await settle(page);
+    await expect(page.locator("#item-grid .item-card").first()).toBeVisible();
+    for (const id of await gridIds(page)) expect(await card(page, id).locator(".item-origins").count(), id).toBe(sets.all.includes(id) ? 1 : 0);
+    for (const [q, id] of [
+      ["Red Apricorn", "cobblemon:red_apricorn"],
+      ["Adamant Mint", "cobblemon:adamant_mint"],
+      ["Golden Apple", "minecraft:golden_apple"],
+    ] as const) {
+      await page.locator("#item-q").fill(q);
+      await expect(card(page, id)).toBeVisible();
+      await expect(card(page, id).locator(".item-origins")).toHaveCount(0);
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("origin filter counts, Todos unchanged, empty state (CA-25..CA-27)", async ({ page }) => {
+    test.setTimeout(DEV ? 300_000 : 120_000);
+    const errors = trackConsoleErrors(page);
+    const sets = berryOriginSets();
+    await openItems(page);
+    await expect(page.locator(".item-origin-filter")).toHaveAttribute("role", "group");
+    await expect(page.locator(".item-origin-filter button")).toHaveCount(3);
+    await expect(originButton(page, /^Todos$/)).toHaveAttribute("aria-pressed", "true");
+    const cats = await page.locator("#item-tabs button[data-icat]").evaluateAll((els) => els.map((e) => e.getAttribute("data-icat")!));
+    const before: Record<string, number> = {};
+    for (const c of cats) {
+      await itemTab(page, c);
+      before[c] = Number(await page.locator("#item-grid").getAttribute("data-count"));
+    }
+    await itemTab(page, "bait");
+    const baitIds = await gridIds(page);
+    await itemTab(page, "berry");
+    await originButton(page, /^Mutação$/).click();
+    await expect(page.locator("#item-grid")).toHaveAttribute("data-count", String(sets.mutation.size));
+    await originButton(page, /^Mundo$/).click();
+    await expect(page.locator("#item-grid")).toHaveAttribute("data-count", String(sets.world.size));
+    await expect(card(page, "cobblemon:liechi_berry")).toHaveCount(sets.world.has("cobblemon:liechi_berry") ? 1 : 0);
+    await itemTab(page, "bait");
+    await originButton(page, /^Mutação$/).click();
+    await expect(page.locator("#item-grid")).toHaveAttribute("data-count", String(baitIds.filter((id) => sets.mutation.has(id)).length));
+    await itemTab(page, "medicine");
+    await expect(page.locator(".items-screen .empty-state")).toBeVisible();
+    await expect(page.locator("#item-grid")).toHaveCount(0);
+    await page.locator("#item-q").fill("zzzzqq");
+    await originButton(page, /^Mundo$/).click();
+    await expect(page.locator(".items-screen .empty-state")).toContainText('"zzzzqq"');
+    await page.locator("#item-q").fill("");
+    await originButton(page, /^Todos$/).click();
+    for (const c of cats) {
+      await itemTab(page, c);
+      await expect(page.locator("#item-grid")).toHaveAttribute("data-count", String(before[c]));
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("filter, tab and search restored after opening an item and going back (CA-28)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const sets = berryOriginSets();
+    await openItems(page);
+    await itemTab(page, "berry");
+    await originButton(page, /^Mutação$/).click();
+    await page.locator(".item-card[data-item='cobblemon:sitrus_berry'] .item-link").click();
+    await expect(page.locator(".item-body[data-item='cobblemon:sitrus_berry'] .item-hero")).toBeVisible();
+    await page.goBack();
+    await expect(originButton(page, /^Mutação$/)).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator("#item-tabs button[data-icat='berry']")).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator("#item-grid")).toHaveAttribute("data-count", String(sets.mutation.size));
+    await page.locator("#item-q").fill("ber");
+    await originButton(page, /^Mundo$/).click();
+    const count = await page.locator("#item-grid").getAttribute("data-count");
+    await page.locator(".item-card[data-item='cobblemon:occa_berry'] .item-link").click();
+    await expect(page.locator(".item-body[data-item='cobblemon:occa_berry'] .item-hero")).toBeVisible();
+    await page.goBack();
+    await expect(page.locator("#item-q")).toHaveValue("ber");
+    await expect(originButton(page, /^Mundo$/)).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator("#item-grid")).toHaveAttribute("data-count", count!);
+    expect(errors).toEqual([]);
+  });
+
+  for (const width of [360, 390, 1280]) {
+    test(`Berries tab with Liechi visible, no overlap at ${width}px in PT and EN (CA-29/RF-44)`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      await openItems(page, width, 800);
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await itemTab(page, "berry");
+        await showLiechi(page);
+        await expectNoOverlap(page, "#item-grid");
+        await page.locator("#main").evaluate((m) => m.scrollTo({ top: 0, behavior: "instant" }));
+        await settle(page);
+        await expectNoOverlap(page, ".items-screen .item-top");
+        expect(await page.locator(".item-origin-filter").evaluate((e) => e.scrollHeight <= e.clientHeight + 1)).toBe(true);
+      }
+      expect(errors).toEqual([]);
+    });
+  }
+
+  test("all themes: origin tag contrast >= 4.5, no overlap; keyboard reaches the filter and a crossbreed chip (CA-42/RNF-03)", async ({ page }) => {
+    test.setTimeout(DEV ? 400_000 : 120_000);
+    const errors = trackConsoleErrors(page);
+    await openItems(page);
+    for (const theme of THEME_IDS) {
+      await writeDoc(page, "preferences", { schemaVersion: 1, theme, uiLanguage: "pt", termsLanguage: "pt", termsOverrides: {}, soundEnabled: false, reduceMotion: true });
+      await page.reload();
+      await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+      await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+      await go(page, "items");
+      await itemTab(page, "berry");
+      await showLiechi(page);
+      const ratio = await card(page, "cobblemon:liechi_berry")
+        .locator(".item-origin")
+        .first()
+        .evaluate((el) => {
+          const parse = (c: string) => (c.match(/[\d.]+/g) ?? []).map(Number);
+          const blend = (fg: number[], bg: number[]) => {
+            const a = fg[3] ?? 1;
+            return [0, 1, 2].map((i) => fg[i]! * a + bg[i]! * (1 - a));
+          };
+          // fundo efetivo: sobe pelos ancestrais ate achar cor opaca e compoe as camadas translucidas
+          const layers: number[][] = [];
+          for (let n: Element | null = el; n; n = n.parentElement) {
+            const c = parse(getComputedStyle(n).backgroundColor);
+            if (c.length && (c[3] ?? 1) > 0) {
+              layers.push(c);
+              if ((c[3] ?? 1) >= 1) break;
+            }
+          }
+          let bg = [255, 255, 255];
+          for (const l of layers.reverse()) bg = blend(l, bg);
+          const fg = blend(parse(getComputedStyle(el).color), bg);
+          const lum = (rgb: number[]) => {
+            const [r, g, b] = rgb.map((v) => {
+              const s = v / 255;
+              return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+            });
+            return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
+          };
+          const [l1, l2] = [lum(fg), lum(bg)].sort((x, y) => y - x);
+          return (l1! + 0.05) / (l2! + 0.05);
+        });
+      expect(ratio, theme).toBeGreaterThanOrEqual(4.5);
+      await expectNoOverlap(page, "#item-grid");
+    }
+    await page.locator("#main").evaluate((m) => m.scrollTo({ top: 0, behavior: "instant" }));
+    await page.locator("#item-q").focus();
+    let reached = false;
+    for (let i = 0; i < 12 && !reached; i++) {
+      await page.keyboard.press("Tab");
+      reached = await page.evaluate(() => !!document.activeElement?.closest(".item-origin-filter"));
+    }
+    expect(reached).toBe(true);
+    expect(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)).not.toBe("none");
+    await page.keyboard.press("Enter");
+    await page.locator(".item-card[data-item='cobblemon:lum_berry'] .item-link").click();
+    await expect(page.locator(".item-body[data-item='cobblemon:lum_berry'] .item-hero")).toBeVisible();
+    const chip = page.locator(".item-obtain [data-row='mutation'] button.mut-berry").first();
+    await chip.focus();
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Tab");
+    await expect(chip).toBeFocused();
+    expect(await chip.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe("solid");
+    expect(errors).toEqual([]);
+  });
 });

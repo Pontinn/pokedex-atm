@@ -128,12 +128,12 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
   - commit: 65e88bcb
   - status: feito
 
-- [ ] **T1.4** RTL da pagina do item e da listagem
+- [x] **T1.4** RTL da pagina do item e da listagem
   - categoria: outro
   - lado: frontend (inferido: RTL de telas)
   - Done when: `npx vitest run tests/unit/ui-screens` verde; cobertura `src/screens/**` >= 70/70.
-  - commit: 
-  - status: pendente
+  - commit: 96207def
+  - status: feito
 
 - [ ] **T1.5** e2e headless (pagina, listagem, temas, offline) sem quebrar os existentes
   - categoria: outro

@@ -1,5 +1,6 @@
 // F9.3: pagina do item com o dataset REAL, headless, sem slowMo, sem esperas fixas. PW_DEV=1 PW_PORT=4175.
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { readFileSync, readdirSync } from "node:fs";
 import { expectNoOverlap } from "../harness/no-overlap";
 
 const SHOTS = process.env.ITEM_SHOTS_DIR;
@@ -335,4 +336,179 @@ test.describe("spawn-bait: item page (bait effects and Campfire Pot recipe)", ()
       }
     });
   }
+});
+
+// berry-mutations T1.5: conjuntos DERIVADOS dos 70 arquivos crus de berries do snapshot (LESSONS), nomes/rotas do
+// items.json publicado. Headless, sem slowMo, sem esperas fixas.
+const BERRIES_DIR = new URL("../../data-source/atm-1.3.0/mods/Cobblemon-neoforge-1.7.3+1.21.1.jar/data/cobblemon/berries/", import.meta.url);
+type RawBerry = { spawnConditions?: unknown[]; mutations?: Record<string, string> };
+function rawBerries(): Map<string, RawBerry> {
+  const out = new Map<string, RawBerry>();
+  for (const f of readdirSync(BERRIES_DIR).filter((x) => x.endsWith(".json"))) {
+    out.set(`cobblemon:${f.replace(/\.json$/, "")}`, JSON.parse(readFileSync(new URL(f, BERRIES_DIR), "utf8")) as RawBerry);
+  }
+  return out;
+}
+type PubItem = { name: { pt: string; en: string }; obtain: { kind: string }[]; berry: unknown };
+function publishedItems(): Record<string, PubItem> {
+  const cur = JSON.parse(readFileSync(new URL("../../public/data/current.json", import.meta.url), "utf8")) as { datasetVersion: string };
+  return JSON.parse(readFileSync(new URL(`../../public/data/${cur.datasetVersion}/items.json`, import.meta.url), "utf8")) as Record<string, PubItem>;
+}
+const obtainRowsOf = (page: Page) => page.locator(".item-obtain .ob-row").evaluateAll((els) => els.map((e) => e.getAttribute("data-row")));
+const NEW_OBTAIN_ROWS = ["berryWorld", "berryGrowth", "mutation"];
+
+test.describe("berry-mutations: item page", () => {
+  test("Lum (CA-01/CA-09): grouped pairs, chance with Surprise Mulch and mechanic in PT and EN", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:lum_berry", "Lum");
+    const row = page.locator(".item-obtain [data-row='mutation']");
+    await expect(row.locator(".ob-title")).toHaveText("Como cruzar");
+    await expect(row.locator("[data-mut-fixed='cobblemon:oran_berry'] button[data-item]")).toHaveCount(6);
+    await expect(row.locator(".mut-hint")).toHaveText("uma destas:");
+    const chance = row.locator("[data-mut-chance]");
+    await expect(chance).toContainText("12,5%");
+    await expect(chance).toContainText("50% com");
+    await expect(chance.locator("button[data-item='cobblemon:surprise_mulch']")).toContainText("Adubo Surpresa");
+    expect((await chance.textContent())!.replace(/\s+/g, " ")).toContain("50% com Adubo Surpresa");
+    await expect(row.locator(".mut-how")).toContainText("diagonal");
+    await expect(row.locator(".ob-more, .mon-chip, .tag")).toHaveCount(0);
+    await setLanguage(page, "en");
+    await page.locator("[data-tcard='itempage'] [data-tl='en']").click();
+    await expect(row.locator(".ob-title")).toHaveText("How to crossbreed");
+    await expect(chance).toContainText("12.5%");
+    await expect(chance).toContainText("50% with");
+    await expect(chance.locator("button[data-item='cobblemon:surprise_mulch']")).toContainText("Surprise Mulch");
+    await expect(row.locator("button[data-item='cobblemon:oran_berry']")).toContainText("Oran Berry");
+    await setLanguage(page, "pt");
+    await page.locator("[data-tcard='itempage'] [data-tl='pt']").click();
+    expect(errors).toEqual([]);
+  });
+
+  test("Figy one pair (CA-02); Oran + Cheri once per page (CA-03); Cheri, Red Apricorn and Adamant Mint without the row (CA-08)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:figy_berry", "Figy");
+    await expect(page.locator("[data-row='mutation'] .mut-pair")).toHaveCount(1);
+    await expect(page.locator("[data-mut-fixed='cobblemon:cheri_berry'] button[data-item='cobblemon:persim_berry']")).toHaveCount(1);
+    await expect(page.locator("[data-row='mutation'] .mut-hint")).toHaveCount(0);
+    await openItem(page, "cobblemon:lum_berry", "Lum");
+    await expect(page.locator(".item-obtain [data-row='mutation'] button[data-item='cobblemon:cheri_berry']")).toHaveCount(1);
+    await openItem(page, "cobblemon:oran_berry", "Oran");
+    await expect(page.locator(".item-used [data-mut-result='cobblemon:lum_berry'] button[data-item='cobblemon:cheri_berry']")).toHaveCount(1);
+    await openItem(page, "cobblemon:cheri_berry", "Cheri");
+    await expect(page.locator(".item-used [data-mut-result='cobblemon:lum_berry'] button[data-item='cobblemon:oran_berry']")).toHaveCount(1);
+    for (const [id, q] of [
+      ["cobblemon:cheri_berry", "Cheri"],
+      ["cobblemon:red_apricorn", "Red Apricorn"],
+      ["cobblemon:adamant_mint", "Adamant Mint"],
+    ] as const) {
+      await openItem(page, id, q);
+      await expect(page.locator("[data-row='mutation']")).toHaveCount(0);
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("Starf -> Pomeg -> Sitrus -> Lum -> Oran and back step by step (CA-04)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openItem(page, "cobblemon:starf_berry", "Starf");
+    for (const c of ["pomeg", "sitrus", "lum", "oran"]) {
+      await page.locator(`.item-obtain [data-row='mutation'] button[data-item='cobblemon:${c}_berry']`).first().click();
+      await expect(page.locator(`.item-body[data-item="cobblemon:${c}_berry"] .item-hero`)).toBeVisible();
+      await expect(page.locator(".item-obtain [data-row='mutation']")).toHaveCount(c === "oran" ? 0 : 1);
+    }
+    await expect(page.locator(".item-obtain [data-row='berryWorld']")).toHaveCount(1);
+    for (const c of ["lum", "sitrus", "pomeg", "starf"]) {
+      await page.goBack();
+      await expect(page.locator(`.item-body[data-item="cobblemon:${c}_berry"] .item-hero`)).toBeVisible();
+    }
+    expect(errors).toEqual([]);
+  });
+
+  for (const width of [360, 390]) {
+    test(`Enigma with all partners visible, no overlap and no horizontal scroll at ${width}px (CA-05)`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      await boot(page, width, 900);
+      await openItem(page, "cobblemon:enigma_berry", "Enigma");
+      await settle(page);
+      const btns = page.locator(".item-obtain [data-row='mutation'] [data-mut-fixed='cobblemon:hopo_berry'] button[data-item]");
+      await expect(btns).toHaveCount(19);
+      for (const b of await btns.all()) await expect(b).toBeVisible();
+      await expect(page.locator("[data-row='mutation'] .ob-more")).toHaveCount(0);
+      await expectNoOverlap(page, ".item-screen");
+      expect(await page.locator("#main").evaluate((m) => m.scrollWidth <= m.clientWidth)).toBe(true);
+      expect(errors).toEqual([]);
+    });
+  }
+
+  test("Liechi world + mutation (CA-06/CA-14), Eggant only gains growth + mutation (CA-07), apricorn and mint keep Plantavel (CA-16)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const items = publishedItems();
+    await boot(page);
+    await openItem(page, "cobblemon:liechi_berry", "Liechi");
+    await expect(page.locator("[data-row='berryWorld']")).toContainText("Mirage Ilha");
+    await expect(page.locator("[data-row='mutation'] [data-mut-fixed='cobblemon:kelpsy_berry'] button[data-item='cobblemon:pamtre_berry']")).toHaveCount(1);
+    await openItem(page, "cobblemon:eggant_berry", "Eggant");
+    const eggantBefore = items["cobblemon:eggant_berry"]!.obtain.map((r) => r.kind).filter((k) => k !== "none" && k !== "plantable");
+    expect(await obtainRowsOf(page)).toEqual([...eggantBefore, "berryGrowth", "mutation"]);
+    for (const [id, q] of [
+      ["cobblemon:red_apricorn", "Red Apricorn"],
+      ["cobblemon:adamant_mint", "Adamant Mint"],
+    ] as const) {
+      await openItem(page, id, q);
+      expect(await obtainRowsOf(page)).toEqual(items[id]!.obtain.map((r) => r.kind).filter((k) => k !== "none"));
+      await expect(page.locator("[data-row='plantable'] .ob-title")).toHaveText("Plantável");
+      await expect(page.locator("[data-row='plantable']")).toContainText("Pode ser plantado");
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("all 70 berries: mutation iff result, berryWorld iff spawn, berryGrowth always, mutationUses iff used (CA-10..CA-15, CA-20)", async ({ page }) => {
+    test.setTimeout(DEV ? 900_000 : 300_000);
+    const errors = trackConsoleErrors(page);
+    const raw = rawBerries();
+    const results = new Set<string>();
+    const used = new Set<string>();
+    for (const [id, b] of raw) {
+      for (const [partner, result] of Object.entries(b.mutations ?? {})) {
+        results.add(result);
+        used.add(id);
+        used.add(partner);
+      }
+    }
+    const items = publishedItems();
+    expect(raw.size).toBe(70);
+    await boot(page);
+    for (const id of [...raw.keys()].sort()) {
+      await openItem(page, id, items[id]!.name.en);
+      const rows = await obtainRowsOf(page);
+      expect(rows.includes("mutation"), `${id} mutation`).toBe(results.has(id));
+      expect(rows.includes("berryWorld"), `${id} berryWorld`).toBe((raw.get(id)!.spawnConditions ?? []).length > 0);
+      expect(rows.includes("berryGrowth"), `${id} berryGrowth`).toBe(true);
+      expect(rows.includes("plantable"), `${id} plantable`).toBe(false);
+      expect(await page.locator(".item-used [data-row='mutationUses']").count(), `${id} mutationUses`).toBe(used.has(id) ? 1 : 0);
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("existing rows keep their relative order (CA-38): Occa, Fire Stone, Enchanted Golden Apple", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const items = publishedItems();
+    await boot(page);
+    for (const [id, q] of [
+      ["cobblemon:occa_berry", "Occa"],
+      ["cobblemon:fire_stone", "fire stone"],
+      ["minecraft:enchanted_golden_apple", "Enchanted Golden Apple"],
+    ] as const) {
+      await openItem(page, id, q);
+      const it = items[id]!;
+      const before = it.obtain.map((r) => r.kind).filter((k) => k !== "none" && (it.berry === null || k !== "plantable"));
+      const rows = await obtainRowsOf(page);
+      expect(rows.filter((r) => !NEW_OBTAIN_ROWS.includes(r!)), id).toEqual(before.length ? before : ["none"]);
+      if (it.berry === null) expect(rows.some((r) => NEW_OBTAIN_ROWS.includes(r!)), id).toBe(false);
+    }
+    expect(await page.locator(".item-used [data-row='mutationUses']").count()).toBe(0);
+    expect(errors).toEqual([]);
+  });
 });
