@@ -135,12 +135,12 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
   - commit: 96207def
   - status: feito
 
-- [ ] **T1.5** e2e headless (pagina, listagem, temas, offline) sem quebrar os existentes
+- [x] **T1.5** e2e headless (pagina, listagem, temas, offline) sem quebrar os existentes
   - categoria: outro
   - lado: frontend (inferido: e2e da UI)
   - Done when: `npx playwright test tests/e2e/item.spec.ts tests/e2e/items.spec.ts tests/e2e/item-obtain-v2.spec.ts tests/e2e/detail.spec.ts tests/e2e/responsive.spec.ts tests/e2e/pwa-offline.spec.ts` (build + preview, headless) verde, incluindo TODOS os testes existentes desses arquivos.
-  - commit: 
-  - status: pendente
+  - commit: 53b2875c
+  - status: feito
 
 - [ ] **T1.6** Regressao completa, qualidade, auditoria e byte a byte
   - categoria: outro
@@ -161,8 +161,16 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 - T1.2: 1 teste novo no fim do bloco spawn-bait de published-schemas.test.ts e describe novo no fim de join.test.ts (5 testes; conjuntos derivados dos arquivos crus; teto de bytes continua no assert existente da linha 322, nenhum assert novo mais frouxo). npx vitest run tests/unit/data tests/unit/dataset/join.test.ts: 20 arquivos / 265 testes verdes.
 - T1.6 (parte backend, adiantada): passos 5 e 6 ja verdes no codigo final do backend (auditoria no publicado 46768 checks, 0 divergencias; byte a byte instancia = snapshot = repeticao = publicado, sha256 464846fc...d558, 1.533.158 bytes). O item fica [ ] porque depende de F1/F2 e dos passos de frontend; refazer os passos 5 e 6 no fim se o pipeline mudar. Backend 100% (B1.1, B1.2, B2.1, B2.2, T1.1, T1.2); HANDOFF_backend.md e secao Backend do CHECKLIST_MANUAL escritos.
 
+
+- F1.1..F2.2 (frontend): cada feature renderizada headless no dev server proprio (porta 4178) por um spec temporario `tests/e2e/zz-berry-mutations-capture.spec.ts` (apagado antes do commit, nunca versionado), com os asserts do Done when, `expectNoOverlap` a 360/390/1280 e 0 erro de console; capturas `after-*` em `ui-refs/` conferidas contra os `recon-*` (mesma identidade: `.ob-row`, chips `.biome`, pilulas no molde de `.pot-ing`, `SegmentedControl` no molde de `BallFilters`, so variaveis de tema). F1.3: `item.spec.ts` inteiro verde (24/24, com o 5 da linha 259). F2.1: `items.spec.ts` 8/8 sem mudar assert. F2.2: `items.spec.ts` + `responsive.spec.ts` 26/26; vitest inteiro 85/714. Desvio de teste (nao de produto): no spec temporario da F1.4 a volta passo a passo usou o botao Voltar da pagina; o `page.goBack()` do navegador ficou provado no e2e definitivo (T1.5, CA-04) e na F2.2.
+- T1.3: `berry-model.test.ts` 13 testes, conjuntos derivados dos 70 arquivos crus; funcoes novas 100% das linhas (as linhas nao cobertas de `item-model.ts`/`item-page-model.ts` sao de funcoes antigas).
+- T1.4: `item-berry.test.tsx` (11) e `items-origin.test.tsx` (6); `tests/unit/ui-screens` 38 arquivos / 262 testes; cobertura `src/screens/**` 89,33% linhas / 88,81% branches.
+- T1.5: blocos novos no fim de `item.spec.ts` (8), `items.spec.ts` (7) e 1 teste em `pwa-offline.spec.ts`; so insercoes (0 linhas removidas). Done when (build + preview, 6 arquivos): 121 passed / 0 failed / 16 skipped (skips preexistentes). CA-43 (parceiro fora do catalogo) fica no RTL (T1.4). O teste CA-25..27 ganhou `test.setTimeout(120_000)` (percorre todas as abas 2 vezes); nenhum assert afrouxado.
+- T1.6 (parte frontend, feita no codigo final 53b2875c): passo 1 typecheck e lint limpos; passo 2 `npx vitest run --coverage` 88 arquivos / 744 testes verdes, global 94,39% linhas / 87,76% branches, limites do vitest.config.ts ok; passo 3 `npx playwright test` inteiro (build + preview) 253 passed / 0 failed / 16 skipped (baseline 237/0/16; +16 novos); passo 4 `git diff main -- tests/` sem assert existente mudado alem de `item.spec.ts:259` (as outras linhas removidas sao imports/fixtures do backend B1.1/T1.1); passo 8 sem caminho de usuario em `src` e sem `fetch(` novo em `BerryParts.tsx`/`src/screens/Items`; passo 9 nenhum U+2014 nos arquivos tocados. PENDENTE para fechar o item: passo 7 (conferir no `dist/sw.js` que o precache nao ganhou URL de dado nova; o teste offline da T1.5 ja prova que nenhuma requisicao nova sai) e anotar os numeros no STATE (STATE estava modificado por outro processo no working tree; nao mexi). Passos 5 e 6 ja verdes pelo backend e o pipeline nao mudou desde entao.
+
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Correcao / commit |
 |---|---|---|---|
 | T1.1 (regressao sob --coverage) | Flake de tempo observado so no `npx vitest run --coverage` (suite inteira, maquina carregada): run 1 `tests/unit/ui-screens/detail-screen.test.tsx:183` (calc-out null logo apos o act), run 2 `tests/unit/domain/bait.test.ts:106` (recommendBerries 8,4 ms > 5 ms); run 3 tudo verde (85/708). Isolados passam 4/4; `npx vitest run` sem coverage verde nas 3 execucoes completas desta sessao | Timing sob instrumentacao de coverage; arquivos e codigo testado nao tocados pelo berry-mutations (Detail/calculadora e regra de iscas nao leem `berry`) | Nao corrigido (fora do escopo do backend; nada afrouxado). Registrar para a T1.6/orquestrador decidir |
+| T1.4 (sob --coverage, maquina carregada por um build e2e em paralelo) | `tests/unit/ui-screens/items-screen.test.tsx:72` (caret/openItemId, teste existente) falhou 1 vez em `npx vitest run tests/unit/ui-screens --coverage`; 3 execucoes isoladas e a repeticao com coverage verdes; `npx vitest run --coverage` inteiro verde depois (88/744) | Timing sob instrumentacao e carga (mesmo padrao dos flakes registrados em T1.1); nao reproduzido | Nao corrigido, nada afrouxado; registrar junto dos flakes de T1.1 |

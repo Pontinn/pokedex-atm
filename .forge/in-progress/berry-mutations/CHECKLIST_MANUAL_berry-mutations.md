@@ -55,4 +55,46 @@ Como rodar:
 
 ## Frontend
 
-(preenchido pelo agente de frontend)
+Commits: F1.1 `7e2c8c5b`, F1.2 `b0623b17`, F1.3 `75d7ade4`, F1.4 `ca290bc5`, F1.5 `16edd960`, F2.1 `91a01fca`, F2.2 `e013fcc3`, T1.3 `65e88bcb`, T1.4 `96207def`, T1.5 `53b2875c`.
+
+Capturas `after-*` em `ui-refs/` (comparar com os `recon-*` do mesmo alvo). Testes: `tests/unit/ui-screens/berry-model.test.ts` (regras puras no dataset real), RTL `item-berry.test.tsx`/`items-origin.test.tsx` (T1.4), e2e nos blocos `berry-mutations` de `item.spec.ts`/`items.spec.ts` e no teste offline de `pwa-offline.spec.ts` (T1.5).
+
+### Pagina do item (fluxo feliz)
+
+- [ ] Abrir Itens > aba Berries > Baga Lum: em "Como obter" aparece "Como cruzar" com "Baga Oran + uma destas: Aspear, Cheri, Chesto, Pecha, Rawst", a linha "Chance: 12,5% por colheita; 50% com Adubo Surpresa" e a explicacao dos 4 vizinhos. Conferir se o texto le bem para quem joga.
+- [ ] Clicar numa baga do par (ex. Cheri): abre a pagina dela; Voltar volta para a Lum.
+- [ ] Clicar em "Adubo Surpresa": abre a pagina do adubo; Voltar volta.
+- [ ] Starf -> Pomeg -> Sitrus -> Lum -> Oran pelos botoes do "Como cruzar"; Voltar volta passo a passo (e2e usa o botao Voltar da pagina; conferir tambem o Voltar do navegador/gesto do celular).
+- [ ] Baga Occa: "Plantavel" some; no fim de "Como obter" aparecem "Encontrada no mundo" (Nasce sozinha em: Selva, Arenoso, Termal, Vulcanico) e "Cresce melhor em" (Rende mais frutas nos biomas: os mesmos 4). Conferir se a repeticao dos mesmos biomas nas duas linhas fica clara (hoje todas as bagas `preferredBiome` repetem, por regra do jogo).
+- [ ] Baga Oran: "Nasce sozinha em qualquer bioma" sem chips; em "Usado em" a linha "Usada em cruzamento" com 2 grupos (= Leppa, = Lum).
+- [ ] Baga Liechi: "Encontrada no mundo" com "Mirage Ilha" e tambem "Como cruzar" (Kelpsy + Pamtre).
+- [ ] Baga Sitrus: sem "Encontrada no mundo"; com "Cresce melhor em" e "Como cruzar".
+- [ ] Baga Enigma a 360 px (celular real): Hopo + 18 bagas quebrando em varias linhas, sem vazar nem "e mais N".
+- [ ] Baga Hopo a 360 px: "Usada em cruzamento" com 18 parceiras e "= Baga Enigma", sem vazar.
+- [ ] Trocar a interface para EN e o toggle PT/EN do card: titulos seguem a interface ("How to crossbreed", "12.5%", "50% with"), nomes das bagas seguem o toggle do card.
+
+### Pagina do item (sem mudanca)
+
+- [A] Red Apricorn e Adamant Mint: "Plantavel / Pode ser plantado" identico ao de antes, sem linha nova.
+- [A] Fire Stone, Enchanted Golden Apple e qualquer item nao-baga: paineis e linhas iguais aos de antes.
+- [ ] Olhar 2 ou 3 paginas de itens nao-baga ao acaso e confirmar que nada mudou visualmente.
+
+### Listagem de itens
+
+- [ ] Aba Berries: cada card de baga mostra MUTACAO ou MUNDO abaixo do nome; Liechi mostra as duas; o selo "BERRIES" continua em cima do nome, igual a antes.
+- [ ] Apricorns, mentas e nao-bagas sem selo novo.
+- [ ] Filtro "Todos / Mutacao / Mundo" entre a busca e as abas: Berries + Mutacao = 40, Berries + Mundo = 31, Iscas + Mutacao = 40, Medicina + Mutacao = estado vazio.
+- [ ] Com "Todos" a listagem e exatamente a de antes (mesma contagem por aba).
+- [ ] Filtro + aba + busca voltam iguais depois de abrir uma baga e usar Voltar.
+- [ ] Celular (360/390): o filtro vira uma faixa de largura total acima das abas, sem cortar e sem rolagem vertical; conferir se nao confunde com as abas.
+- [ ] Temas (7): selos de origem legiveis em todos, principalmente black e os claros; foco por teclado visivel nos botoes do filtro e nos chips de baga.
+
+### Offline e desempenho
+
+- [ ] Com o app instalado (PWA), modo aviao: listagem com selos e filtro e a pagina da Lum com "Como cruzar" funcionam.
+- [ ] Nenhuma requisicao nova na aba Network ao abrir listagem e pagina (so `items.json`, `biomes.json`, `balls.json` e texturas).
+
+### Casos que a automacao nao cobre
+
+- [ ] Julgamento visual: o selo de origem (neutro, `--surface-2`) nao compete com o selo de categoria; "uma destas:" e o "=" leem bem em PT e EN.
+- [ ] Leitor de tela: o grupo do filtro anuncia "Filtrar bagas por origem" e o estado pressionado.
