@@ -71,6 +71,26 @@ describe.skipIf(!hasData)("schemas vs dataset publicado", () => {
     expect(spawnEntrySchema.safeParse({ ...staryu, fishing: null }).success).toBe(true);
   });
 
+  // berry-mutations T1.2: berry obrigatorio e estrito (campo desconhecido ou variante fora do enum rejeita o item)
+  it("berry-mutations: lum_berry passes; extra field in berry, spawn or mutationPairs and unknown variant are rejected; berry null passes; missing key is rejected", () => {
+    const items = readJson(new URL(f.items, base)) as Record<string, Record<string, unknown>>;
+    const lum = items["cobblemon:lum_berry"]!;
+    const liechi = items["cobblemon:liechi_berry"]!;
+    expectParses(itemInfoSchema, lum, "items[cobblemon:lum_berry]");
+    expectParses(itemInfoSchema, liechi, "items[cobblemon:liechi_berry]");
+    const lumBerry = lum.berry as { mutationPairs: Record<string, unknown>[] };
+    const liechiBerry = liechi.berry as { spawn: Record<string, unknown>[] };
+    expect(lumBerry.mutationPairs.length).toBeGreaterThan(0);
+    expect(liechiBerry.spawn.length).toBeGreaterThan(0);
+    expect(itemInfoSchema.safeParse({ ...lum, berry: { ...lumBerry, extra: 1 } }).success).toBe(false);
+    expect(itemInfoSchema.safeParse({ ...liechi, berry: { ...liechiBerry, spawn: [{ ...liechiBerry.spawn[0], extra: 1 }] } }).success).toBe(false);
+    expect(itemInfoSchema.safeParse({ ...lum, berry: { ...lumBerry, mutationPairs: [{ ...lumBerry.mutationPairs[0], extra: 1 }] } }).success).toBe(false);
+    expect(itemInfoSchema.safeParse({ ...liechi, berry: { ...liechiBerry, spawn: [{ ...liechiBerry.spawn[0], variant: "x" }] } }).success).toBe(false);
+    expect(itemInfoSchema.safeParse({ ...lum, berry: null }).success).toBe(true);
+    const { berry: _berry, ...withoutKey } = lum;
+    expect(itemInfoSchema.safeParse(withoutKey).success).toBe(false);
+  });
+
   it("balls: todas as 48 bolas, incluindo fast_ball e net_ball", () => {
     const balls = ballsFileSchema.parse(readJson(new URL(f.balls, base)));
     expect(balls).toHaveLength(manifest.counts.balls);

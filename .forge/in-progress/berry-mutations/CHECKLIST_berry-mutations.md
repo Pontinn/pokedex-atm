@@ -107,12 +107,12 @@ O Frontend so comeca depois de B2.2 verde.
 
 Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depois de B2.2; T1.6 fica para o fim). O SPEC nao declara explicitamente o lado dono de cada T1.x (a secao 6 diz apenas "Sprint final T1: testes"); o campo `lado` abaixo e inferido dos arquivos da feature.
 
-- [ ] **T1.1** Pipeline e auditoria (origem e cruzamentos)
+- [x] **T1.1** Pipeline e auditoria (origem e cruzamentos)
   - categoria: outro
   - lado: backend (inferido: tests/unit/dataset, pipeline e auditoria)
   - Done when: `npx vitest run tests/unit/dataset/berry-mutations.test.ts tests/unit/dataset/audit.test.ts` verde; cobertura de `tools/dataset/src/**` >= 80/80.
-  - commit: 
-  - status: pendente
+  - commit: 6895614b
+  - status: feito
 
 - [ ] **T1.2** Contrato publicado e dataset real
   - categoria: outro
@@ -157,6 +157,7 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 - B1.2: pipeline no snapshot: items.json 1.533.158 bytes (teto 1.659.908); 70 com berry (todas category berry); 31/40/77/154 iguais ao recalculo independente dos 70 arquivos crus (script node lendo data-source/.../berries); Cheri, Lum e Liechi byte a byte iguais a SPEC 5.3; report.json sem W_BERRY_* e secao berries {items 70, withSpawn 31, spawnVariants 28/2/1, mutationResults 40, pairs 77, uses 154, bothOrigins [liechi]}; plantable das 110 identica ao publicado 2ef2f512; vitest 83/681 verde (janela). Pastas _bm_stage/_bm_pub mantidas ate B2.2 (B2.1 audita _bm_pub), apagadas no fim da B2.2.
 - B2.1: run.ts contra _bm_pub: 46768 checks (46558 + 210 novos = 70 x 3), divergencias {}; AUDIT_REPORT.md: o run.ts reescreve o arquivo inteiro, entao (padrao da Rodada 5) o arquivo foi restaurado e so a nota da Rodada 6 foi acrescentada no topo; audit.test.ts 14/14 verde; typecheck e lint limpos.
 - B2.2: JANELA QUEBRADA FECHADA. current.json = atm1.3.0-cobblemon1.7.3-20260930-1949ea67 (pasta 2ef2f512 removida pelo write.ts). items.json sha256 464846fcfeded8de70dfc810d21500e198af3fc5c812ab161bcaece91cd4d558 igual em instancia real (datasetVersion ...-2da90a76, difere so pelo manifest com fontes/mtimes, desvio conhecido), snapshot, repeticao (mesma versao 1949ea67) e publicado. Nao-perda: 951 ids, 0 diferencas item a item sem a chave berry; demais arquivos do dataset byte a byte iguais. 1.533.158 bytes (teto 1.659.908). Auditoria no publicado 46768 checks, divergencias {} (AUDIT_REPORT restaurado depois do run). published-schemas + join 41/41; vitest inteiro 85/708 verde. HANDOFF_backend.md criado. Pastas _bm_* apagadas.
+- T1.1: tests/unit/dataset/berry-mutations.test.ts (12 testes: fixtures sinteticas de buildBerryOrigins com os 4 avisos W_BERRY_*, ordem por code unit e mutations nao-objeto; collectBerryOrigins no snapshot comparado ao recalculo dos 70 arquivos crus; Cheri/Lum/Liechi da SPEC 5.3; collectBerryPlantable inalterado na Occa) e 2 testes novos no fim de audit.test.ts (buildExpected().berries; compare sobre copia adulterada do dataset publicado acusa WRONG DATA na Lum e EXTRA no red_apricorn). 28/28 verdes. Cobertura (vitest --coverage, suite inteira, 85/708 verde): global linhas 94,33% / branches 87,58%; tools/dataset/src linhas 93,87% / branches 84,67%; berries.ts 100% / 90,41%.
 
 ## Bugs encontrados
 

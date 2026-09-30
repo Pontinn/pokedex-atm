@@ -4,7 +4,7 @@
 // como B3.3 e artwork-ids ja rodaram de verdade contra a rede antes deste commit (ver HANDOFF_join.md),
 // o cache em tools/dataset/.cache/{pokeapi,sprites}/ ja esta quente e --offline garante 0 chamadas de
 // rede aqui (regra do ambiente: testes unitarios nunca tocam rede).
-import { existsSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { runPipeline } from "../../../tools/dataset/src/index";
@@ -345,5 +345,67 @@ describe("item obtain routes and used-in index (B4.2)", () => {
     const sinew = items["silentgear:sinew"];
     const dropRoute = sinew?.obtain.find((r) => r.kind === "drop");
     expect(dropRoute && "from" in dropRoute ? dropRoute.from.some((f) => f.dex === 179) : false).toBe(true);
+  });
+});
+
+describe("berry-mutations: berry origin and crossbreeding", () => {
+  // Esperado DERIVADO dos arquivos crus do snapshot (LESSONS), nunca copiado da SPEC.
+  const berriesDir = path.join(REPO_ROOT, "data-source/atm-1.3.0/mods/Cobblemon-neoforge-1.7.3+1.21.1.jar/data/cobblemon/berries");
+  type RawBerry = { preferredBiomeTags?: string[]; spawnConditions?: { variant?: string; biome?: string }[]; mutations?: Record<string, string> };
+  const raw = new Map<string, RawBerry>(
+    readdirSync(berriesDir)
+      .filter((f) => f.endsWith(".json"))
+      .map((f) => [`cobblemon:${f.replace(/\.json$/, "")}`, JSON.parse(readFileSync(path.join(berriesDir, f), "utf8")) as RawBerry]),
+  );
+
+  it("only the items with a berries/*.json file have berry, all berries with cobblemon:*_berry ids; every other item has berry null", () => {
+    const withBerry = Object.values(items).filter((it) => it.berry !== null);
+    expect(raw.size).toBeGreaterThan(0);
+    expect(withBerry.map((it) => it.id).sort()).toEqual([...raw.keys()].sort());
+    for (const it of withBerry) {
+      expect(it.category).toBe("berry");
+      expect(it.id).toMatch(/^cobblemon:[a-z_]+_berry$/);
+    }
+    const rest = Object.values(items).filter((it) => it.berry === null);
+    expect(rest.length).toBe(Object.keys(items).length - raw.size);
+    for (const it of rest) expect(it).toHaveProperty("berry", null);
+    const apricornsAndMints = rest.filter((it) => it.obtain.some((r) => r.kind === "plantable"));
+    expect(apricornsAndMints.length).toBeGreaterThan(0);
+    for (const it of apricornsAndMints) expect(it.category === "mint" || it.tags.includes("apricorn")).toBe(true);
+  });
+
+  it("origin sets equal the raw files: mutations values = with pairs, non-empty spawnConditions = with spawn", () => {
+    const results = new Set<string>();
+    for (const j of raw.values()) for (const r of Object.values(j.mutations ?? {})) results.add(r);
+    const spawns = [...raw].filter(([, j]) => (j.spawnConditions ?? []).length > 0).map(([id]) => id).sort();
+    const berries = Object.values(items).filter((it) => it.berry !== null);
+    expect(berries.filter((it) => it.berry!.mutationPairs.length > 0).map((it) => it.id).sort()).toEqual([...results].sort());
+    expect(berries.filter((it) => it.berry!.spawn.length > 0).map((it) => it.id).sort()).toEqual(spawns);
+  });
+
+  it("the 3 spawn variants are published and Liechi is specificBiome cobblemon:is_mirage_island", () => {
+    const variants = new Set(Object.values(items).flatMap((it) => it.berry?.spawn.map((s) => s.variant) ?? []));
+    expect([...variants].sort()).toEqual(["allBiome", "preferredBiome", "specificBiome"]);
+    expect(items["cobblemon:liechi_berry"]?.berry?.spawn).toEqual([{ variant: "specificBiome", biomeTags: ["cobblemon:is_mirage_island"] }]);
+  });
+
+  it("plantable route unchanged: biomeTags = preferredBiomeTags for berries and [] for apricorns and mints", () => {
+    const plantable = Object.values(items).filter((it) => it.obtain.some((r) => r.kind === "plantable"));
+    const apricornsAndMints = plantable.filter((it) => !raw.has(it.id));
+    expect(plantable.length).toBe(raw.size + apricornsAndMints.length);
+    for (const it of plantable) {
+      const route = it.obtain.find((r) => r.kind === "plantable");
+      const tags = route && route.kind === "plantable" ? route.biomeTags : undefined;
+      const berry = raw.get(it.id);
+      if (berry) expect(tags).toEqual(berry.preferredBiomeTags ?? []);
+      else {
+        expect(it.category === "mint" || it.tags.includes("apricorn")).toBe(true);
+        expect(tags).toEqual([]);
+      }
+    }
+  });
+
+  it("dataset version differs from the one before berry-mutations", () => {
+    expect(datasetVersion).not.toBe("atm1.3.0-cobblemon1.7.3-20260929-2ef2f512");
   });
 });
