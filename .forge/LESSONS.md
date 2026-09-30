@@ -10,3 +10,7 @@ Lidas por forge-prd, forge-spec, forge-review, forge-imp-backend e forge-imp-fro
 - "Sem textura no snapshot" foi afirmado sem conferir o texture-manifest -> antes de dizer que falta midia/lang de um item, conferir `texture-manifest.json`, `public/assets/items` e as chaves `item.`/`block.` no lang.
 - Dois testes e2e antigos ja falhavam na main por timing (grade virtual corrigindo o scroll; grade medida durante a animacao) -> na Stage 4, rodar a suite completa uma vez ANTES de implementar (ou provar na main via worktree) para separar flake preexistente de regressao; corrigir flake pela causa, nunca afrouxando o assert.
 - A instancia real do pack esta neste PC (CurseForge, pasta "All the Mons - ATMons") e o jar vanilla 1.21.1 em `Install/versions/` -> a checagem byte a byte e a copia de assets para o snapshot sao sempre possiveis aqui; registrar toda copia em `MANIFEST.json additions` e no `data-source/README.md`.
+
+## 2026-09-30 - berry-mutations (cruzamento de bagas)
+
+- A IDEA dizia que o sorteio da mutacao acontece "a cada colheita" (wiki e sites de guia); o codigo do Cobblemon sorteia quando a arvore FLORESCE (MATURE_AGE 3 -> FLOWER_AGE 4), uma vez por ciclo -> todo texto que explica uma MECANICA do jogo (quando, quanto, chance) e conferido no codigo-fonte ou no bytecode do mod antes do PRD; wiki so serve de pista.

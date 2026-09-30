@@ -1,18 +1,18 @@
 ---
 feature: berry-mutations
-stage: impl
-status: in-progress
+stage: complete
+status: done
 language: pt-BR
 branch: feature/berry-mutations (base main 3134cd43)
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend (opus) - fechando T1.6 passo 7 (sw.js)
+running_agent: none
 baselines:
   CONTEXT: { commit: 3134cd43, deps: [IDEA_berry-mutations.md, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, src/data/schemas.ts, src/data/types.ts, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/i18n/messages/item.ts] }
   PRD:     { commit: 3134cd43, deps: [IDEA_berry-mutations.md, CONTEXT_berry-mutations.md] }
   SPEC:    { commit: bc113bd9, deps: [PRD_berry-mutations.md, CONTEXT_berry-mutations.md, UISPEC_berry-mutations.md, src/components/EmptyState.tsx, src/components/SegmentedControl.tsx, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/item.ts, src/i18n/messages/items.ts, src/navigation/types.ts, src/screens/Detail/ItemLink.tsx, src/screens/Item/BaitParts.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/ItemsScreen.tsx, src/screens/Items/item-model.ts, src/screens/Items/items.css, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts] }
   UISPEC:  { commit: bc113bd9, deps: [src/screens/Item/item.css, src/screens/Items/items.css, src/styles/themes.css, src/components/SegmentedControl.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Items/ItemsScreen.tsx] }
-updated: 2026-09-30 13:25
+updated: 2026-09-30
 ---
 ## 2026-09-30 10:55 - ideia criada (Stage 1)
 - Pesquisa feita pelo orquestrador nos dados reais (31 bagas naturais / 39 so por cruzamento; chance 12,5%, x4 com Surprise Mulch). Registrada na IDEA secao 7.
@@ -110,3 +110,13 @@ updated: 2026-09-30 13:25
 - Regressao: typecheck/lint ok; vitest --coverage 88 arquivos / 744 testes (94,39% linhas); Playwright completo 253 ok / 0 falha / 16 skipped (antes 237/0/16). git diff main -- tests/: unico assert existente alterado item.spec.ts:259. T1.5 teste de contagem em todas as abas com setTimeout 120 s (sem afrouxar assert).
 - Flake visto 1x: items-screen.test.tsx:72 com --coverage durante build e2e em paralelo (e o mesmo visto na main); nao alterado.
 - Falta: T1.6 passo 7 (dist/sw.js sem URL de dado nova no precache). Pedido ao mesmo agente.
+
+## 2026-09-30 - Stage 4 CONCLUIDA, Stage 5 iniciada
+- T1.6 fechado (19de7925): precache do sw.js so com os 4 JSON de dados que o padrao da main ja permitia; vite.config.ts igual a main. Checklist 100%.
+- forge-test (sonnet) disparado, escopo enxuto (flake loop 10x, render das bagas-chave PT/EN 390/1280 temas, navegacao, tag e filtro).
+
+## 2026-09-30 - Stage 5 CONCLUIDA, feature COMPLETA (movida para complete/)
+- forge-test (sonnet, enxuto): flake detail-screen/bait/items-screen 10/10 cada na branch (com --coverage restrito o exit 1 e so limiar de cobertura; todos os testes passaram). Smoke de UI em Sitrus, Liechi, Enigma, Cheri, Occa, Eggant, Red Apricorn, Adamant Mint; 1280/390/360; classic/black/green/blue; PT/EN: tudo conforme; filtro 70/40/31; navegacao parceiro + Voltar ok; sem erro de console, sem 4xx, sem overflow. Achados: nenhum (0 Critical/High/Medium/Low). Relatorio REPORT_TEST_UI (eabbfdb6), 15 prints test-*.
+- Fica para o Pontin (julgamento humano / celular real): texto do Lum, repeticao de biomas na Occa, Voltar por gesto no celular, Enigma/Hopo em 360 no aparelho, toggle PT/EN, 2-3 nao-bagas ao acaso, filtro no celular vs abas.
+- LESSONS: 1 regra nova (mecanica do jogo conferida no codigo-fonte, nao na wiki).
+- Sem push e sem merge (so com pedido explicito do Pontin).
