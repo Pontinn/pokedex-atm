@@ -12,6 +12,7 @@ status: draft
 |---|---|---|
 | 2026-09-30 | 1 | Criacao do PRD a partir da IDEA (addbd84d16af) e do CONTEXT (5328d71ac277). Escopo = secoes 2 e 3 da IDEA, tudo aditivo. |
 | 2026-09-30 | 2 | Correcoes do forge-review: regra de resultado do filtro de origem (RF-30, CA-25); tag de origem como regra em qualquer aba/visao/busca (RF-28, CA-22); verificacao por tema e nova, nao existente (RF-44, RNF-03, RNF-04); RF-35 so `preferredBiomeTags` alimenta "Cresce melhor em"; RNF-10/CA-44 sem HOW de memoizacao; CA-37 marcado como criterio de processo. |
+| 2026-09-30 | 3 | Notas da SPEC: RF-47 e CA-39 (unico assert existente que muda e `tests/e2e/item.spec.ts:259`; `item-screen.test.tsx` nao e afetado); RNF-01 (`tests/unit/dataset/join.test.ts:322` e o teto efetivo). |
 
 ## Baseline (drift anchor)
 
@@ -130,7 +131,7 @@ Restricoes tecnicas herdadas da IDEA e do codigo (nao expandir): os pares e a cl
 - **RF-44** `[MUST]` O sistema deve manter sem sobreposicao os cards da listagem em 360, 390 e 1280 px, em PT e EN, inclusive com nomes longos, com a tag de origem presente (duas tags na Liechi). Os testes de nao sobreposicao existentes cobrem esses tres tamanhos e os dois idiomas; verificacao por tema e nova e definida pela SPEC/testes.
 - **RF-45** `[MUST]` O sistema deve manter o comportamento da tela de item e da listagem offline (PWA) e sem nova chamada de rede: tudo sai do dataset empacotado ja carregado.
 - **RF-46** `[MUST]` O sistema deve tratar id de parceiro ou resultado fora do `items.json` como texto simples (comportamento do `ItemLink` atual), sem quebrar a pagina.
-- **RF-47** `[MUST]` O sistema deve manter todos os testes existentes verdes (vitest, e2e), ajustando SOMENTE os asserts diretamente afetados pela correcao aprovada do "Plantavel": contagem de `.ob-row` da Occa em `tests/e2e/item.spec.ts` e a linha `plantable` em `tests/unit/ui-screens/item-screen.test.tsx`. Nenhum outro assert pode ser afrouxado.
+- **RF-47** `[MUST]` O sistema deve manter todos os testes existentes verdes (vitest, e2e), ajustando SOMENTE os asserts diretamente afetados pela correcao aprovada do "Plantavel". A SPEC verificou que o UNICO assert existente que muda e `tests/e2e/item.spec.ts:259` (contagem de `.item-obtain .ob-row` da Occa, 4 -> 5, pela divisao do Plantavel); `tests/unit/ui-screens/item-screen.test.tsx` nao e afetado (a fixture nao tem dado de baga), entao ajusta-lo nao e necessario. Nenhum outro assert pode ser afrouxado.
 
 ### 4.8 Exemplos trabalhados (regras)
 
@@ -145,7 +146,7 @@ Restricoes tecnicas herdadas da IDEA e do codigo (nao expandir): os pares e a cl
 
 ## 5. Requisitos nao funcionais
 
-- **RNF-01 (Tamanho do dataset)** `[MUST]` Publicar so o necessario (ids de par e classificacao; o nome vem do `items[id]` ja carregado). Meta: `items.json` (hoje 1.499.586 bytes) cresce no maximo 15% (mesmo teto do spawn-bait); cada par publicado uma unica vez (A+B = B+A). [ASSUMPTION: a IDEA deixou o teto para a SPEC; 15% e o precedente do projeto e forca publicar so o necessario, ajustavel pela SPEC.]
+- **RNF-01 (Tamanho do dataset)** `[MUST]` Publicar so o necessario (ids de par e classificacao; o nome vem do `items[id]` ja carregado). Meta: `items.json` (hoje 1.499.586 bytes) cresce no maximo 15% (mesmo teto do spawn-bait); cada par publicado uma unica vez (A+B = B+A). Nota da SPEC: o assert existente `tests/unit/dataset/join.test.ts:322` (`items.json` <= 1.659.908 bytes) e o teto efetivo, mais estrito que os 15%. [ASSUMPTION: a IDEA deixou o teto para a SPEC; 15% e o precedente do projeto e forca publicar so o necessario, ajustavel pela SPEC.]
 - **RNF-02 (i18n)** `[MUST]` Todo texto novo em PT e EN no dicionario central; nomes de bagas localizados; sem literal no JSX.
 - **RNF-03 (Acessibilidade)** `[MUST]` Parceiros e resultados sao links/botoes navegaveis por teclado (mesmo componente `ItemLink`); tag de origem legivel com contraste nos 4 temas (verificacao por tema e nova, definida pela SPEC/testes) e nao depende so de cor (tem texto); controle do filtro acessivel por teclado com rotulo.
 - **RNF-04 (Responsividade)** `[MUST]` Pagina do item e listagem sem sobreposicao nem vazamento horizontal em 360, 390 e 1280 px, PT e EN (medidos nos testes existentes de nao sobreposicao, que nao variam tema); a verificacao nos 4 temas e nova e definida pela SPEC/testes.
@@ -212,7 +213,7 @@ Formato Dado/Quando/Entao; cada criterio cita os RF/RNF que valida.
 
 **Nao-regressao, i18n e nao funcionais**
 - **CA-38** Dado uma pagina de item existente (ex. Occa, fire_stone, um item com isca); quando comparo antes e depois; entao todas as linhas existentes, exceto o "Plantavel" das bagas, estao identicas em conteudo, ordem e `data-row`. (RF-42)
-- **CA-39** Dado a suite completa; quando rodo vitest, e2e, typecheck, lint e cobertura; entao tudo verde, com ajuste somente em `item.spec.ts` (contagem de `.ob-row` da Occa) e `item-screen.test.tsx` (linha plantable), e nenhum outro assert afrouxado. (RF-47, RNF-06, 07, 08)
+- **CA-39** Dado a suite completa; quando rodo vitest, e2e, typecheck, lint e cobertura; entao tudo verde, com ajuste somente em `tests/e2e/item.spec.ts:259` (contagem de `.item-obtain .ob-row` da Occa, 4 -> 5; verificado pela SPEC como o unico assert existente que muda; `item-screen.test.tsx` nao e afetado), e nenhum outro assert afrouxado. (RF-47, RNF-06, 07, 08)
 - **CA-40** Dado o app em PT e EN; quando percorro pagina de baga e listagem; entao nenhum texto novo esta sem traducao nem literal no JSX (lint verde). (RF-40, RNF-02)
 - **CA-41** Dado o app offline apos a primeira carga; quando abro a pagina de uma baga e a listagem; entao tudo funciona, sem chamada de rede nova. (RF-45, RNF-05)
 - **CA-42** Dado a navegacao por teclado e os 4 temas; quando percorro links de parceiros, tag e filtro; entao todos sao alcancaveis, com foco visivel e contraste legivel. (RNF-03)

@@ -1,16 +1,18 @@
 ---
 feature: berry-mutations
-stage: prd
-status: done
+stage: impl
+status: in-progress
 language: pt-BR
 branch: feature/berry-mutations (base main 3134cd43)
 mode: full
 top_model: opus
-running_agent: none
+running_agent: forge-checklist (sonnet) - criando o checklist
 baselines:
   CONTEXT: { commit: 3134cd43, deps: [IDEA_berry-mutations.md, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, src/data/schemas.ts, src/data/types.ts, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/i18n/messages/item.ts] }
   PRD:     { commit: 3134cd43, deps: [IDEA_berry-mutations.md, CONTEXT_berry-mutations.md] }
-updated: 2026-09-30 11:50
+  SPEC:    { commit: bc113bd9, deps: [PRD_berry-mutations.md, CONTEXT_berry-mutations.md, UISPEC_berry-mutations.md, src/components/EmptyState.tsx, src/components/SegmentedControl.tsx, src/data/schemas.ts, src/data/types.ts, src/i18n/messages/item.ts, src/i18n/messages/items.ts, src/navigation/types.ts, src/screens/Detail/ItemLink.tsx, src/screens/Item/BaitParts.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/screens/Item/item.css, src/screens/Items/ItemsScreen.tsx, src/screens/Items/item-model.ts, src/screens/Items/items.css, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, tools/dataset/audit/compare.ts, tools/dataset/audit/expected.ts] }
+  UISPEC:  { commit: bc113bd9, deps: [src/screens/Item/item.css, src/screens/Items/items.css, src/styles/themes.css, src/components/SegmentedControl.tsx, src/screens/Item/ItemScreen.tsx, src/screens/Items/ItemsScreen.tsx] }
+updated: 2026-09-30 13:25
 ---
 ## 2026-09-30 10:55 - ideia criada (Stage 1)
 - Pesquisa feita pelo orquestrador nos dados reais (31 bagas naturais / 39 so por cruzamento; chance 12,5%, x4 com Surprise Mulch). Registrada na IDEA secao 7.
@@ -51,3 +53,37 @@ updated: 2026-09-30 11:50
 
 ## 2026-09-30 11:50 - Stage 2 CONCLUIDA (prd-done)
 - PRD rev 2 aplicada (6 pontos da revisao). Gate aprovado por autonomia. Commit de IDEA + CONTEXT + PRD + STATE (primeiro commit da branch).
+
+## 2026-09-30 11:55 - commit bc113bd9; Stage 3b iniciada
+- Commit dos artefatos Stage 1/2 (sem Co-Authored-By, regra do Pontin). forge-ui-recon disparado (sonnet): item page (Cheri, Sitrus, Liechi, Occa, Enigma) + listagem (Berries, Iscas, busca), temas claro/escuro, 1280/390/360.
+
+## 2026-09-30 12:10 - Stage 3b CONCLUIDA; forge-spec disparado
+- forge-ui-recon (sonnet, ~13 min): UISPEC render-captured, 32 prints recon-* (temas classic/black/purple; os outros 4 por tokens de themes.css). Reuso: SegmentedControl (.seg, como ball-filters) para o filtro de origem; Row/.ob-row + ItemLink na pagina; tag de origem com classe propria (nao dentro de .item-tag); EmptyState item.none. Gap: bloco de cruzamento, tag e filtro ainda nao existem para renderizar (serao mostrados na Stage 4).
+- forge-spec (opus) disparado. Timer 1h.
+- Pontin: "imp deve rodar no modelo opus tbm". forge-imp-backend e forge-imp-frontend = opus (ja era o top_model).
+- Pontin: "pode paralelizar o maximo de coisas possivel desde que nao tenha risco de estragar/quebrar nada". Regra: paralelo so para trabalho independente e isolado (sem arquivo compartilhado); backend antes do frontend (frontend depende do dataset republicado, LESSONS).
+- 12:15 em paralelo com a SPEC: forge-review do UISPEC (opus, so leitura) e suite completa de referencia na main 3134cd43 em worktree isolado (sonnet), exigencia do LESSONS antes da Stage 4.
+
+## 2026-09-30 12:20 - forge-review do UISPEC
+- NEEDS-CHANGES sem BLOCKER: 3 WARNING (encaixe da tag, anatomia da pagina, posicao do filtro) + 3 NIT. Opcoes fixadas pelo orquestrador (as mais aditivas, sem mexer no existente): tag de origem em elemento proprio em linha propria, .item-tag intocado; linhas novas como Row dentro de .item-obtain apos as existentes e "Usada em cruzamento" como Row dentro de UsedIn, sem painel novo; filtro SegmentedControl em .item-top em linha propria. Patch pedido ao forge-ui-recon; mesma nota enviada ao forge-spec em andamento.
+
+## 2026-09-30 12:35 - suite de referencia na main 3134cd43 (worktree isolado, removido)
+- typecheck ok; lint ok; vitest 83/84 arquivos, 666 ok / 0 falha / 28 skipped; Playwright 237 ok / 0 falha / 0 flaky / 16 skipped (3,1 min).
+- Unica falha: tests/unit/dataset/join.test.ts inteiro, E_POKEAPI_UNAVAILABLE (sem rede e sem cache da PokeAPI no worktree novo; cache gitignored so existe na pasta principal). Ambiental, consistente. O forge-imp-backend deve confirmar que passa na pasta principal ANTES de implementar.
+- forge-ui-recon aplicou a revisao 2 da UISPEC; nenhum servidor sobrando.
+
+## 2026-09-30 12:50 - forge-spec voltou (~40 min)
+- SPEC: 6 sprints, 17 features (B1.1-B1.2, B2.1-B2.2, F1.1-F1.5, F2.1-F2.2, T1.1-T1.6), 60/60 RF+RNF cobertos. Unico assert existente que muda: item.spec.ts:259 (Occa 4 -> 5). Janela quebrada B1.1 -> B2.2 (so published-schemas.test excluido); frontend so apos B2.2. Tamanho estimado +2,24% (teto +15% = 1.724.523 bytes).
+- ASSUMPTIONS: sorteio acontece ao frutificar (idade 3->4, apos cada colheita), texto mantem "12,5% por colheita" explicando quando; linhas novas apos todas as existentes; pares agrupados pela baga comum, sem colapsar (Enigma 18); item-screen.test.tsx nao muda (fixture fire_stone com berry null); rotulos do filtro Todos/Mutacao/Mundo; testes nos 7 temas.
+- forge-review da SPEC disparado (opus).
+
+## 2026-09-30 13:05 - forge-review da SPEC
+- NEEDS-CHANGES, 0 BLOCKER, 5 WARNING, 3 NIT. Confirmou: 60/60 cobertos, linhas conferidas, so item.spec.ts:259 muda, janela quebrada ok, identificadores em ingles.
+- Correcao factual: o sorteio acontece quando a arvore FLORESCE (MATURE_AGE 3 -> FLOWER_AGE 4; frutos em 5; colheita volta a 3), uma vez por ciclo. Texto do usuario corrigido para "floresce".
+- Decisao do orquestrador (sem mudar nada existente): tag de origem = versao da SPEC (span.item-origins ultimo filho de .item-names, tags lado a lado, .item-tag intocado), menor aumento de altura do card; UISPEC alinhado (rev 3).
+- Correcoes em paralelo: forge-spec (SPEC + UISPEC) e forge-prd (nota rev 3 em RF-47/CA-39/RNF-01).
+
+## 2026-09-30 13:25 - Stage 3 CONCLUIDA (spec-done), Stage 4 iniciada
+- SPEC revisao 2 conferida pelo orquestrador direto no arquivo (7 pontos, sem travessao); sem segunda rodada de revisao (Pontin pediu mais velocidade). UISPEC rev 3, PRD rev 3. Gate aprovado por autonomia.
+- Pre-flight: drift check dos deps da SPEC contra bc113bd9 sem drift; gate de idioma dos identificadores: revisor confirmou ingles. Feature movida ideas/ -> in-progress/. MODE autonomous.
+- forge-checklist (sonnet) disparado; depois forge-imp-backend (opus).
