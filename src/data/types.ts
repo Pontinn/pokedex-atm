@@ -489,6 +489,37 @@ export interface ItemUsedIn {
   ball: boolean;
 }
 
+/** berry-mutations: variante de spawn natural da baga (spawnConditions[].variant sem namespace, em camelCase). */
+export type BerrySpawnVariant = "preferredBiome" | "allBiome" | "specificBiome";
+
+export interface BerrySpawn {
+  variant: BerrySpawnVariant;
+  /** preferredBiome = preferredBiomeTags da baga; specificBiome = [biome] (tag); allBiome = [] */
+  biomeTags: string[];
+}
+
+/** Par nao ordenado que gera a baga (a < b por code unit). */
+export interface BerryMutationPair {
+  a: string;
+  b: string;
+}
+
+/** Cruzamento em que a baga e ingrediente: esta baga + partner = result. */
+export interface BerryMutationUse {
+  partner: string;
+  result: string;
+}
+
+/** Origem e cruzamentos da baga (data/cobblemon/berries/<id>.json); null em todo item sem esse arquivo. */
+export interface ItemBerry {
+  /** spawnConditions resolvidas; [] = nao nasce no mundo */
+  spawn: BerrySpawn[];
+  /** pares que geram esta baga, cada par uma vez, ordenados por a e depois b */
+  mutationPairs: BerryMutationPair[];
+  /** cruzamentos em que esta baga entra, ordenados por partner e depois result */
+  mutationUses: BerryMutationUse[];
+}
+
 export interface ItemInfo {
   /** id completo, ex. "cobblemon:potion" */
   id: string;
@@ -507,6 +538,8 @@ export interface ItemInfo {
   cooking: { effectNote: "pending" } | null;
   /** efeitos de isca (spawn_bait_effects); null quando o item nao tem arquivo de efeito */
   bait: ItemBait | null;
+  /** berry-mutations: origem e cruzamentos; null quando o item nao tem arquivo em data/cobblemon/berries/ */
+  berry: ItemBerry | null;
 }
 
 export type ItemsFile = Record<string, ItemInfo>;

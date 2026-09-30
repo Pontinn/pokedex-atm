@@ -217,6 +217,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
       bait: baitOf(entry.id),
+      berry: null,
     } satisfies ItemInfo;
   }
 

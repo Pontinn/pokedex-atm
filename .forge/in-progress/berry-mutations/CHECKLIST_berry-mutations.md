@@ -10,7 +10,8 @@ Legenda: `[ ]` pendente · `[~]` em andamento · `[x]` feito (commit existe) · 
 
 ## Pre-flight
 
-- [ ] Rodar a suite completa uma vez antes de implementar (baseline da main 3134cd43 ja registrado no STATE: tudo verde exceto join.test.ts por falta de cache da PokeAPI no worktree; confirmar que passa na pasta principal)
+- [x] Rodar a suite completa uma vez antes de implementar (baseline da main 3134cd43 ja registrado no STATE: tudo verde exceto join.test.ts por falta de cache da PokeAPI no worktree; confirmar que passa na pasta principal)
+  - 2026-09-30, pasta principal, HEAD 5b7e4396 (so artefatos .forge acima da main): typecheck ok; lint ok; vitest 84/84 arquivos, 694 testes ok, 0 falha (join.test.ts verde, cache da PokeAPI presente); Playwright 237 ok / 0 falha / 16 skipped (3,0 min). Nenhum flake; nenhuma falha preexistente.
 
 Janela quebrada planejada (SPEC 2.4 item 11): de B1.1 ate B2.2 `tests/unit/data/published-schemas.test.ts` falha e fica excluido (`npx vitest run --exclude tests/unit/data/published-schemas.test.ts`); nenhum e2e roda na janela; o Frontend so comeca depois de B2.2 verde.
 

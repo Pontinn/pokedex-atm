@@ -88,6 +88,7 @@ const items: ItemsFile = {
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
     bait: null,
+    berry: null,
   },
 };
 

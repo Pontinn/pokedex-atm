@@ -27,6 +27,7 @@ function mockItem(id: string, obtain: unknown[]) {
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
     bait: null,
+    berry: null,
   };
 }
 

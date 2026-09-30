@@ -248,6 +248,12 @@ const recipeIngredientSchema = z.union([
   z.object({ kind: z.literal("tag"), id: z.string(), count: z.number() }).strict(),
 ]);
 const potRecipeSchema = z.object({ recipeId: z.string(), recipeType: z.string(), seasoningTag: z.string(), ingredients: z.array(recipeIngredientSchema) }).strict();
+/** berry-mutations: origem e cruzamentos da baga (objetos estritos). */
+const itemBerrySchema = z.object({
+  spawn: z.array(z.object({ variant: z.enum(["preferredBiome", "allBiome", "specificBiome"]), biomeTags: z.array(z.string()) }).strict()),
+  mutationPairs: z.array(z.object({ a: z.string(), b: z.string() }).strict()),
+  mutationUses: z.array(z.object({ partner: z.string(), result: z.string() }).strict()),
+}).strict();
 
 export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
   id: z.string(),
@@ -311,6 +317,7 @@ export const itemInfoSchema: z.ZodType<ItemInfo> = z.object({
   }),
   cooking: z.object({ effectNote: z.literal("pending") }).nullable(),
   bait: z.object({ effects: z.array(z.object({ kind: baitEffectKindSchema, subcategory: z.string().nullable(), chance: z.number(), value: z.number().nullable(), text: localizedTextSchema.strict() }).strict()), seasoning: z.boolean() }).strict().nullable(),
+  berry: itemBerrySchema.nullable(),
 });
 export const itemsFileSchema: z.ZodType<ItemsFile> = z.record(z.string(), itemInfoSchema);
 

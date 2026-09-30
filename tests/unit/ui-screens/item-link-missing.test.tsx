@@ -20,6 +20,7 @@ function item(id: string, pt: string, en: string): ItemInfo {
     usedIn: { evolutions: [], fossils: [], forms: [], ball: false },
     cooking: null,
     bait: null,
+    berry: null,
   };
 }
 
