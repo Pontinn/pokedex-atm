@@ -157,6 +157,14 @@ export interface ExpPotRecipe {
   file: string;
 }
 
+/** berry-mutations: origem e cruzamentos esperados de uma baga (data/cobblemon/berries/<id>.json). */
+export interface ExpBerry {
+  spawn: { variant: string; biomeTags: string[] }[];
+  mutationPairs: { a: string; b: string }[];
+  mutationUses: { partner: string; result: string }[];
+  file: string;
+}
+
 export interface ExpEdge {
   id: string;
   toSlug: string;
@@ -235,6 +243,8 @@ export interface Expected {
   baitItems: Map<string, ExpBaitItem>;
   /** spawn-bait: item de saida -> receita da panela com seasoningTag bait_seasoning (fonte cobblemon) */
   potRecipes: Map<string, ExpPotRecipe>;
+  /** berry-mutations: item -> spawn, pares e usos (data/cobblemon/berries, ultima fonte vence) */
+  berries: Map<string, ExpBerry>;
   notes: string[]; // achados estruturais descobertos durante a leitura (sombreamento, enabled:false, adicoes fora da SPEC)
 }
 
@@ -667,6 +677,7 @@ export function buildExpected(src: string = DEFAULT_SRC): Expected {
     itemTextures,
     baitItems: buildBaitItems(src, srcs),
     potRecipes: buildPotRecipes(srcs),
+    berries: buildBerries(srcs),
     notes,
   };
 }
@@ -906,4 +917,59 @@ function readLevelCap(src: string): Expected["levelCap"] {
     initialSeries: String(get("initialSeries")).replace(/^"|"$/g, ""),
     freeroamRequiresCompletedSeries: get("freeroamRequiresCompletedSeries") === "true",
   };
+}
+
+// ---------------------------------------------------------------------------------------------
+// berry-mutations: origem (spawnConditions) e cruzamento (mutations) das bagas (regra da SPEC 2.4 itens 2 e 3, reescrita aqui)
+// ---------------------------------------------------------------------------------------------
+const BERRY_VARIANT: Record<string, string> = { preferred_biome: "preferredBiome", all_biome: "allBiome", specific_biome: "specificBiome" };
+const cu = (x: string, y: string) => (x < y ? -1 : x > y ? 1 : 0);
+const strList = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : []);
+
+function buildBerries(srcs: RawSource[]): Map<string, ExpBerry> {
+  const raw = new Map<string, { j: Record<string, unknown>; file: string }>();
+  for (const s of srcs) {
+    for (const f of datapackFiles(s, "berries").filter((x) => x.ns === "cobblemon")) {
+      const j = readJson<unknown>(f.file);
+      if (!isObj(j)) continue;
+      const relName = f.rl.slice("cobblemon:berries/".length).replace(/\.json$/, "");
+      raw.set(`cobblemon:${relName}`, { j, file: rel(f.file) });
+    }
+  }
+  const out = new Map<string, ExpBerry>();
+  for (const [id, { j, file }] of raw) {
+    const spawn: ExpBerry["spawn"] = [];
+    for (const c of Array.isArray(j.spawnConditions) ? j.spawnConditions : []) {
+      if (!isObj(c)) continue;
+      const v = BERRY_VARIANT[String(c.variant).replace(/^cobblemon:/, "")];
+      if (v === "preferredBiome") spawn.push({ variant: v, biomeTags: strList(j.preferredBiomeTags) });
+      else if (v === "allBiome") spawn.push({ variant: v, biomeTags: [] });
+      else if (v === "specificBiome" && typeof c.biome === "string") spawn.push({ variant: v, biomeTags: [c.biome] });
+    }
+    out.set(id, { spawn, mutationPairs: [], mutationUses: [], file });
+  }
+  // pares nao ordenados por resultado
+  const pairs = new Map<string, Map<string, { a: string; b: string }>>();
+  for (const [x, { j }] of raw) {
+    if (!isObj(j.mutations)) continue;
+    for (const [y, result] of Object.entries(j.mutations)) {
+      if (typeof result !== "string" || !out.has(result)) continue;
+      const [a, b] = x < y ? [x, y] : [y, x];
+      const m = pairs.get(result) ?? new Map<string, { a: string; b: string }>();
+      pairs.set(result, m);
+      m.set(`${a}|${b}`, { a, b });
+    }
+  }
+  for (const [result, m] of pairs) {
+    const e = out.get(result)!;
+    e.mutationPairs = [...m.values()].sort((p, q) => cu(p.a, q.a) || cu(p.b, q.b));
+    for (const { a, b } of e.mutationPairs) {
+      for (const [owner, partner] of [[a, b], [b, a]] as const) {
+        const o = out.get(owner);
+        if (o && !o.mutationUses.some((u) => u.partner === partner && u.result === result)) o.mutationUses.push({ partner, result });
+      }
+    }
+  }
+  for (const e of out.values()) e.mutationUses.sort((p, q) => cu(p.partner, q.partner) || cu(p.result, q.result));
+  return out;
 }

@@ -252,6 +252,23 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
     }
     checks++;
     if (items["allthemons:mythical_pecha_berry"]) push({ severity: "EXTRA", scope: "item allthemons:mythical_pecha_berry", field: "items.json", expected: "ausente (sem spawn_bait_effects nem rota)", actual: "presente", evidence: "spawn_bait_effects do cobblemon", published: pub(itemsFile) });
+    // berry-mutations: origem e cruzamento das bagas (arquivo de baga <-> campo berry do item)
+    for (const [id, e] of exp.berries) {
+      const it = items[id];
+      if (!it) {
+        checks++;
+        push({ severity: "MISSING", scope: `item ${id}`, field: "items.json", expected: "presente (arquivo de baga)", actual: "ausente", evidence: e.file, published: pub(itemsFile) });
+        continue;
+      }
+      eq(`item ${id}`, "berry.spawn", e.spawn, it.berry?.spawn, e.file, pub(itemsFile));
+      eq(`item ${id}`, "berry.mutationPairs", e.mutationPairs, it.berry?.mutationPairs, e.file, pub(itemsFile));
+      eq(`item ${id}`, "berry.mutationUses", e.mutationUses, it.berry?.mutationUses, e.file, pub(itemsFile));
+    }
+    for (const [id, it] of Object.entries(items)) {
+      if (it.berry == null || exp.berries.has(id)) continue;
+      checks++;
+      push({ severity: "EXTRA", scope: `item ${id}`, field: "berry", expected: "null (sem arquivo em data/cobblemon/berries/)", actual: J(it.berry), evidence: "data/cobblemon/berries/", published: pub(itemsFile) });
+    }
   } else push({ severity: "MISSING", scope: "items", field: "arquivo", expected: itemsFile, actual: "ausente", evidence: "-", published: pub(itemsFile) });
 
   return { datasetDir, checks, speciesChecked, divergences: out };

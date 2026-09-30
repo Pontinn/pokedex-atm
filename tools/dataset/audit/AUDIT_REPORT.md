@@ -1,5 +1,15 @@
 # Relatorio de auditoria do dataset (A1)
 
+## Rodada 6 (2026-09-30, berry-mutations)
+
+Dataset: `tools/dataset/out/_bm_pub/data/atm1.3.0-cobblemon1.7.3-20260930-1949ea67` (pipeline no snapshot, antes da republicacao). Ferramenta: checks novos de origem e cruzamento das bagas, derivados do cru sem ler `tools/dataset/src`: para cada arquivo `data/cobblemon/berries/<id>.json` (fontes em ordem, a ultima vence), o item existe e `berry.spawn` (`spawnConditions` com a variante com ou sem namespace: `preferred_biome` = `preferredBiomeTags` da baga, `all_biome` = `[]`, `specific_biome` = `[biome]`), `berry.mutationPairs` (par nao ordenado por code unit, uma vez por resultado) e `berry.mutationUses` (derivados dos pares) iguais ao esperado, inclusive a ordem; item com `berry` nao nulo sem arquivo de baga = EXTRA. 70 bagas x 3 = 210 checks novos.
+
+| WRONG DATA | MISSING | EXTRA | SPEC x JOGO | SEM ORDEM | COSMETIC |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | 0 |
+
+46768 checks, 1027 fichas.
+
 ## Rodada 5 (2026-09-29, spawn-bait)
 
 Dataset: `tools/dataset/out/_sb_snap/data/atm1.3.0-cobblemon1.7.3-20260929-a7736f6b` (pipeline no snapshot, antes da republicacao). Ferramenta: checks novos de isca e pesca, derivados do cru sem ler `tools/dataset/src`: `spawn * fishing` (condition.bait/rodType/min e maxLureLevel, multiplicadores so de Lure, `rodBall` de `data/cobblemon/pokerods`); por item com `spawn_bait_effects` no catalogo, `bait.effects` (kind, subcategoria sem namespace, chance, value; kubejs vence), `bait.seasoning` (tag `cobblemon:recipe_filters/bait_seasoning` resolvida + ids do `.add(...)` em `kubejs/server_scripts`, conferindo o arquivo curado de forma independente) e `tags has bait`; `potRecipes ingredients` do Poke-Lanche e da Pokeisca; os 8 ids novos presentes e com textura; `allthemons:mythical_pecha_berry` ausente. A conferencia do arquivo de textura passou a olhar tambem a raiz do `--publish-dir` (dataset de teste fora de `public/`).

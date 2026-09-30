@@ -27,11 +27,11 @@ Janela quebrada planejada (SPEC 2.4 item 11): de B1.1 ate B2.2 `tests/unit/data/
   - commit: e5ba8bb0
   - status: feito
 
-- [ ] **B1.2** Origem e cruzamentos das bagas no pipeline
+- [x] **B1.2** Origem e cruzamentos das bagas no pipeline
   - categoria: build
   - Done when: pipeline no snapshot (regra geral); em `tools/dataset/out/_bm_pub/data/<versao>/items.json`: `cobblemon:cheri_berry`, `cobblemon:lum_berry` e `cobblemon:liechi_berry` com `berry` byte a byte igual a secao 5.3; script inline (node) sobre o arquivo: 70 itens com `berry` nao nulo, todos com `category === "berry"`; 31/40/77/154 (spawn/resultados/pares/usos) iguais ao recalculo independente direto dos 70 arquivos do snapshot (o script le `data-source/.../berries/*.json`, nao o pipeline); `tools/dataset/out/_bm_stage/report.json` sem nenhum aviso `W_BERRY_*`; rota `plantable` das 110 com `plantable` identica a do `items.json` publicado atual (comparacao por id); tamanho do `items.json` <= 1.659.908 bytes; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde.
-  - commit: 
-  - status: pendente
+  - commit: ff17d2ce
+  - status: feito
 
 ## Fase B2: Auditoria e publicacao
 
@@ -154,6 +154,7 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 ## Notas por fase
 
 - B1.1: janela quebrada ABERTA neste commit: tests/unit/data/published-schemas.test.ts fica excluido (npx vitest run --exclude tests/unit/data/published-schemas.test.ts) e nenhum e2e roda ate B2.2. Verificado: typecheck e lint limpos; vitest 83 arquivos / 681 testes verdes (sem published-schemas); pipeline no snapshot (_bm_stage/_bm_pub) sem erro, 951 itens todos com berry null como ultima chave.
+- B1.2: pipeline no snapshot: items.json 1.533.158 bytes (teto 1.659.908); 70 com berry (todas category berry); 31/40/77/154 iguais ao recalculo independente dos 70 arquivos crus (script node lendo data-source/.../berries); Cheri, Lum e Liechi byte a byte iguais a SPEC 5.3; report.json sem W_BERRY_* e secao berries {items 70, withSpawn 31, spawnVariants 28/2/1, mutationResults 40, pairs 77, uses 154, bothOrigins [liechi]}; plantable das 110 identica ao publicado 2ef2f512; vitest 83/681 verde (janela). Pastas _bm_stage/_bm_pub mantidas ate B2.2 (B2.1 audita _bm_pub), apagadas no fim da B2.2.
 
 ## Bugs encontrados
 
