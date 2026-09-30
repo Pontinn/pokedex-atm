@@ -1,8 +1,11 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { cpSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { buildExpected, type Expected } from "../../../tools/dataset/audit/expected";
 import { MANUAL_SAMPLE } from "../../../tools/dataset/audit/sample";
-import { abilityPairs } from "../../../tools/dataset/audit/compare";
-import { buildLoadOrder, DEFAULT_SRC, loadOrder, parseModsToml } from "../../../tools/dataset/audit/raw";
+import { abilityPairs, compare } from "../../../tools/dataset/audit/compare";
+import { buildLoadOrder, DEFAULT_SRC, loadOrder, parseModsToml, REPO_ROOT } from "../../../tools/dataset/audit/raw";
+import type { ItemsFile } from "../../../src/data/types";
 
 // Fatos conhecidos da SPEC/handoffs, conferidos contra o construtor de esperado da auditoria (A1).
 describe("audit: esperado derivado do snapshot cru", () => {
@@ -163,4 +166,47 @@ ordering="BEFORE"
     expect(o.cmp("cobblemon", "zamega")).toBe(-1);
     expect(o.cmp("zamega", ccc)).toBe(0);
   });
+});
+
+// berry-mutations T1.1: esperado das bagas e deteccao de adulteracao do campo berry (dataset publicado copiado para pasta temporaria)
+describe("audit: berry origin and crossbreeding (berry-mutations)", () => {
+  let e: Expected;
+  const tmpRoot = path.join(REPO_ROOT, "tools/dataset/out/_audit_berry_test");
+  beforeAll(() => {
+    e = buildExpected();
+  }, 60_000);
+  afterAll(() => {
+    rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  it("buildExpected exposes one berry per raw berries/*.json file and Liechi as specificBiome", () => {
+    const dir = path.join(DEFAULT_SRC, "mods/Cobblemon-neoforge-1.7.3+1.21.1.jar/data/cobblemon/berries");
+    const count = readdirSync(dir).filter((f) => f.endsWith(".json")).length;
+    expect(count).toBeGreaterThan(0);
+    expect(e.berries.size).toBe(count);
+    expect(e.berries.get("cobblemon:liechi_berry")?.spawn).toEqual([{ variant: "specificBiome", biomeTags: ["cobblemon:is_mirage_island"] }]);
+    expect(e.berries.get("cobblemon:oran_berry")?.spawn).toEqual([{ variant: "allBiome", biomeTags: [] }]);
+    expect(e.berries.has("cobblemon:red_apricorn")).toBe(false);
+  });
+
+  it("compare flags a pair removed from Lum as WRONG DATA and a non-null berry on an apricorn as EXTRA", () => {
+    const pointer = JSON.parse(readFileSync(path.join(REPO_ROOT, "public/data/current.json"), "utf8")) as { datasetVersion: string };
+    const tmp = path.join(tmpRoot, "data", pointer.datasetVersion);
+    rmSync(tmpRoot, { recursive: true, force: true });
+    cpSync(path.join(REPO_ROOT, "public/data", pointer.datasetVersion), tmp, { recursive: true });
+    const clean = compare(e, tmp);
+    expect(clean.divergences.filter((d) => d.field.startsWith("berry"))).toEqual([]);
+    const itemsFile = path.join(tmp, "items.json");
+    const items = JSON.parse(readFileSync(itemsFile, "utf8")) as ItemsFile;
+    const lum = items["cobblemon:lum_berry"]!;
+    items["cobblemon:lum_berry"] = { ...lum, berry: { ...lum.berry!, mutationPairs: lum.berry!.mutationPairs.slice(1) } };
+    items["cobblemon:red_apricorn"] = { ...items["cobblemon:red_apricorn"]!, berry: { spawn: [], mutationPairs: [], mutationUses: [] } };
+    writeFileSync(itemsFile, JSON.stringify(items));
+    const res = compare(e, tmp);
+    expect(res.checks).toBe(clean.checks + 1);
+    expect(res.divergences.filter((d) => d.field.startsWith("berry")).map((d) => [d.severity, d.scope, d.field])).toEqual([
+      ["WRONG DATA", "item cobblemon:lum_berry", "berry.mutationPairs"],
+      ["EXTRA", "item cobblemon:red_apricorn", "berry"],
+    ]);
+  }, 120_000);
 });

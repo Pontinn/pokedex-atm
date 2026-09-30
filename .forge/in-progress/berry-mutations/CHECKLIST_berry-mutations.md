@@ -41,11 +41,11 @@ Janela quebrada planejada (SPEC 2.4 item 11): de B1.1 ate B2.2 `tests/unit/data/
   - commit: ea3aa9a1
   - status: feito
 
-- [ ] **B2.2** Paridade, determinismo e republicacao do dataset
+- [x] **B2.2** Paridade, determinismo e republicacao do dataset
   - categoria: build
   - Done when: `current.json` com `datasetVersion` nova (diferente de `...-2ef2f512`); `published-schemas.test.ts` e `join.test.ts` verdes; `items.json` instancia = snapshot = publicado (sha256 anotado no HANDOFF); passo 4 sem diferenca; tamanho dentro do teto; auditoria 0; `npx vitest run` inteiro verde.
-  - commit: 
-  - status: pendente
+  - commit: 89840201
+  - status: feito
 
 ---
 
@@ -156,8 +156,10 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 - B1.1: janela quebrada ABERTA neste commit: tests/unit/data/published-schemas.test.ts fica excluido (npx vitest run --exclude tests/unit/data/published-schemas.test.ts) e nenhum e2e roda ate B2.2. Verificado: typecheck e lint limpos; vitest 83 arquivos / 681 testes verdes (sem published-schemas); pipeline no snapshot (_bm_stage/_bm_pub) sem erro, 951 itens todos com berry null como ultima chave.
 - B1.2: pipeline no snapshot: items.json 1.533.158 bytes (teto 1.659.908); 70 com berry (todas category berry); 31/40/77/154 iguais ao recalculo independente dos 70 arquivos crus (script node lendo data-source/.../berries); Cheri, Lum e Liechi byte a byte iguais a SPEC 5.3; report.json sem W_BERRY_* e secao berries {items 70, withSpawn 31, spawnVariants 28/2/1, mutationResults 40, pairs 77, uses 154, bothOrigins [liechi]}; plantable das 110 identica ao publicado 2ef2f512; vitest 83/681 verde (janela). Pastas _bm_stage/_bm_pub mantidas ate B2.2 (B2.1 audita _bm_pub), apagadas no fim da B2.2.
 - B2.1: run.ts contra _bm_pub: 46768 checks (46558 + 210 novos = 70 x 3), divergencias {}; AUDIT_REPORT.md: o run.ts reescreve o arquivo inteiro, entao (padrao da Rodada 5) o arquivo foi restaurado e so a nota da Rodada 6 foi acrescentada no topo; audit.test.ts 14/14 verde; typecheck e lint limpos.
+- B2.2: JANELA QUEBRADA FECHADA. current.json = atm1.3.0-cobblemon1.7.3-20260930-1949ea67 (pasta 2ef2f512 removida pelo write.ts). items.json sha256 464846fcfeded8de70dfc810d21500e198af3fc5c812ab161bcaece91cd4d558 igual em instancia real (datasetVersion ...-2da90a76, difere so pelo manifest com fontes/mtimes, desvio conhecido), snapshot, repeticao (mesma versao 1949ea67) e publicado. Nao-perda: 951 ids, 0 diferencas item a item sem a chave berry; demais arquivos do dataset byte a byte iguais. 1.533.158 bytes (teto 1.659.908). Auditoria no publicado 46768 checks, divergencias {} (AUDIT_REPORT restaurado depois do run). published-schemas + join 41/41; vitest inteiro 85/708 verde. HANDOFF_backend.md criado. Pastas _bm_* apagadas.
 
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Correcao / commit |
 |---|---|---|---|
+| T1.1 (regressao sob --coverage) | Flake de tempo observado so no `npx vitest run --coverage` (suite inteira, maquina carregada): run 1 `tests/unit/ui-screens/detail-screen.test.tsx:183` (calc-out null logo apos o act), run 2 `tests/unit/domain/bait.test.ts:106` (recommendBerries 8,4 ms > 5 ms); run 3 tudo verde (85/708). Isolados passam 4/4; `npx vitest run` sem coverage verde nas 3 execucoes completas desta sessao | Timing sob instrumentacao de coverage; arquivos e codigo testado nao tocados pelo berry-mutations (Detail/calculadora e regra de iscas nao leem `berry`) | Nao corrigido (fora do escopo do backend; nada afrouxado). Registrar para a T1.6/orquestrador decidir |
