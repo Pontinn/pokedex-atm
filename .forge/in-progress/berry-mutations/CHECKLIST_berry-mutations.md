@@ -87,11 +87,11 @@ O Frontend so comeca depois de B2.2 verde.
 
 ## Fase F2: Listagem de itens (tag e filtro de origem)
 
-- [ ] **F2.1** Tag de origem nos cards das bagas
+- [x] **F2.1** Tag de origem nos cards das bagas
   - categoria: frontend
   - Done when: capturas `after-items-berries-{pt,en,pt-360,pt-390}.png`, `after-items-berries-pt-black.png`, `after-items-iscas-pt.png`, `after-items-search-ber-pt.png` em `ui-refs/` (comparar com `recon-items-*`); no spec temporario: aba Berries com 70 cards e `.item-origin` = 71 (70 + a segunda da Liechi); Occa `[data-origin='world']`, Sitrus `[data-origin='mutation']`, Liechi os dois; cards de apricorn e mint sem `.item-origins`; `.item-tag` da Occa "Berries" acima de `.item-name` (mesma medida de `items.spec.ts:74-76`); `expectNoOverlap("#item-grid")` a 360/390/1280 PT e EN na aba Berries; `PW_DEV=1 PW_PORT=4178 npx playwright test tests/e2e/items.spec.ts` verde sem mudar nenhum assert.
-  - commit: 
-  - status: pendente
+  - commit: 91a01fca
+  - status: feito
 
 - [ ] **F2.2** Filtro de origem na listagem
   - categoria: frontend

@@ -75,7 +75,7 @@ export interface UiStateMap {
   compare: { left: number | null; right: number | null };
   trainers: { seriesId: string | null; openTrainerId: string | null; filters: ListFilters };
   balls: { filter: string; filters: ListFilters };
-  items: { category: string; query: string; openItemId: string | null };
+  items: { category: string; query: string; openItemId: string | null; origin: string };
   item: Record<string, never>;
   settings: { openCard: string | null };
   sync: { mode: "generate" | "receive" | null };
@@ -111,7 +111,7 @@ export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
     compare: () => ({ left: null, right: null }),
     trainers: () => ({ seriesId: null, openTrainerId: null, filters: { query: "" } }),
     balls: () => ({ filter: "all", filters: { query: "" } }),
-    items: () => ({ category: "all", query: "", openItemId: null }),
+    items: () => ({ category: "all", query: "", openItemId: null, origin: "all" }),
     item: () => ({}),
     settings: () => ({ openCard: null }),
     sync: () => ({ mode: null }),

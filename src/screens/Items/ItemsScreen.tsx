@@ -12,6 +12,7 @@ import { Backpack, ChevronDown, CircleDot, HeartPulse, Package, Sparkle, Sparkle
 import { InlineError } from "../../components/InlineError";
 import { ItemTile } from "../../components/ItemTile";
 import { PokeballSpinner } from "../../components/PokeballSpinner";
+import { SegmentedControl } from "../../components/SegmentedControl";
 import { TermsToggle } from "../../components/TermsToggle";
 import type { ItemCategory, ItemInfo, ItemsFile } from "../../data/types";
 import { loadItems } from "../../data/loaders";
@@ -21,7 +22,7 @@ import { usePreferencesStore, useTermsLanguage } from "../../state/preferences-s
 import type { UiLanguage } from "../../storage/types";
 import { ListSearch, useListQuery } from "../Trainers/ListSearch";
 import { useLoader } from "../Trainers/use-loader";
-import { CATEGORY_CLASS, CATEGORY_LABEL, berryOrigins, effectiveTab, filterItems, visibleTabs } from "./item-model";
+import { CATEGORY_CLASS, CATEGORY_LABEL, ORIGIN_FILTERS, berryOrigins, effectiveTab, filterByOrigin, filterItems, isOriginFilter, visibleTabs } from "./item-model";
 
 /** Icone por categoria quando o item nao tem textura (app.js:1149-1151). */
 const CATEGORY_ICON: Readonly<Record<ItemCategory, ComponentType<{ "aria-hidden"?: boolean }>>> = {
@@ -110,7 +111,8 @@ const ItemGrid = memo(function ItemGrid({ items, tab }: { items: readonly ItemIn
   const openId = useScreenUi("items", "openItemId");
   const lang = useTermsLanguage("items");
   const uiLang = usePreferencesStore((s) => s.uiLanguage);
-  const shown = useMemo(() => filterItems(items, tab, query, lang), [items, tab, query, lang]);
+  const origin = useScreenUi("items", "origin");
+  const shown = useMemo(() => filterByOrigin(filterItems(items, tab, query, lang), isOriginFilter(origin) ? origin : "all"), [items, tab, query, lang, origin]);
   if (shown.length === 0) {
     return (
       <EmptyState messageKey="item.none">{query.trim() ? <p className="empty-query">{`"${query.trim()}"`}</p> : null}</EmptyState>
@@ -144,6 +146,23 @@ const ItemTabs = memo(function ItemTabs({ tabs, active }: { tabs: readonly ItemC
   );
 });
 
+/** Filtro de origem das bagas (berry-mutations F2.2), molde de BallFilters; vive na entrada da pilha (volta com Voltar). */
+const OriginFilter = memo(function OriginFilter() {
+  const t = useT();
+  const raw = useScreenUi("items", "origin");
+  const { updateUi } = useNavigationActions();
+  const options = useMemo(() => ORIGIN_FILTERS.map((f) => ({ value: f, label: t(`item.origin.${f}`) })), [t]);
+  return (
+    <SegmentedControl
+      className="seg-tabs item-origin-filter"
+      ariaLabel={t("item.origin.filter")}
+      options={options}
+      value={isOriginFilter(raw) ? raw : "all"}
+      onChange={(v) => updateUi<"items">({ origin: v })}
+    />
+  );
+});
+
 function ItemsBody({ file }: { file: ItemsFile }) {
   const items = useMemo(() => Object.values(file), [file]);
   const tabs = useMemo(() => visibleTabs(items), [items]);
@@ -151,6 +170,7 @@ function ItemsBody({ file }: { file: ItemsFile }) {
   const tab = effectiveTab(saved, tabs);
   return (
     <>
+      <OriginFilter />
       <ItemTabs tabs={tabs} active={tab} />
       <ItemGrid items={items} tab={tab} />
     </>
