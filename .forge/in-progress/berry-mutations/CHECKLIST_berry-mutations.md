@@ -21,11 +21,11 @@ Janela quebrada planejada (SPEC 2.4 item 11): de B1.1 ate B2.2 `tests/unit/data/
 
 ## Fase B1: Contrato e pipeline
 
-- [ ] **B1.1** Contrato do dataset (tipo, zod, placeholder e fixtures)
+- [x] **B1.1** Contrato do dataset (tipo, zod, placeholder e fixtures)
   - categoria: estrutura
   - Done when: `npm run typecheck` e `npm run lint` limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde (janela quebrada aberta: `published-schemas.test.ts` le o `items.json` publicado sem `berry` e so volta em B2.2; nenhum e2e roda ate B2.2; anotar no checklist e no HANDOFF); pipeline no snapshot (regra geral) roda sem erro e todo item do `items.json` gerado tem `"berry":null`.
-  - commit: 
-  - status: pendente
+  - commit: e5ba8bb0
+  - status: feito
 
 - [ ] **B1.2** Origem e cruzamentos das bagas no pipeline
   - categoria: build
@@ -153,7 +153,7 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 
 ## Notas por fase
 
-(vazio, preenchido pelo agente de implementacao: desvios e bloqueios)
+- B1.1: janela quebrada ABERTA neste commit: tests/unit/data/published-schemas.test.ts fica excluido (npx vitest run --exclude tests/unit/data/published-schemas.test.ts) e nenhum e2e roda ate B2.2. Verificado: typecheck e lint limpos; vitest 83 arquivos / 681 testes verdes (sem published-schemas); pipeline no snapshot (_bm_stage/_bm_pub) sem erro, 951 itens todos com berry null como ultima chave.
 
 ## Bugs encontrados
 

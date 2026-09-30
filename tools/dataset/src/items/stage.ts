@@ -7,7 +7,7 @@ import { collectFossils, resolveFossils } from "../species/fossils";
 import { buildCatalog, collectFossilReferencedIds } from "./catalog";
 import { categorize } from "./categories";
 import { applyCuratedDescriptions, loadCuratedDescriptions } from "./descriptions";
-import { collectBerryPlantable } from "./berries";
+import { collectBerryOrigins, collectBerryPlantable } from "./berries";
 import { gatherRecipes, reportRecipes, type PotRecipeRecord } from "./recipes";
 import { buildDropsIndex } from "./drops-index";
 import { collectLoot } from "./loot";
@@ -114,6 +114,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
   }
   const dropsIndex = buildDropsIndex(ctx);
   const berryPlantable = collectBerryPlantable(ctx);
+  const berryOrigins = collectBerryOrigins(ctx);
   const loot = collectLoot(ctx, new Set(catalog.map((e) => e.id)));
   const balls = readJsonIfExists<BallsFile>(ctx.dataPath("balls.json")) ?? [];
   const usedInIndex = buildUsedInIndex(ctx, fossils, balls);
@@ -217,7 +218,7 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
       usedIn: usedInIndex.get(entry.id) ?? { evolutions: [], fossils: [], forms: [], ball: false },
       cooking: category === "cooking" ? { effectNote: "pending" } : null,
       bait: baitOf(entry.id),
-      berry: null,
+      berry: berryOrigins.get(entry.id) ?? null,
     } satisfies ItemInfo;
   }
 
@@ -245,6 +246,19 @@ export async function runItemsStage(ctx: PipelineContext): Promise<void> {
     withTyping: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "typing")).length,
     withEggGroup: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "eggGroup")).length,
     boosters: withBait.filter((it) => it.bait?.effects.some((e) => e.kind === "rarityBucket" || e.kind === "shinyReroll")).map((it) => it.id).sort(),
+  });
+  const withBerry = Object.values(items).filter((it) => it.berry !== null);
+  const withSpawn = withBerry.filter((it) => (it.berry?.spawn.length ?? 0) > 0);
+  const withPairs = withBerry.filter((it) => (it.berry?.mutationPairs.length ?? 0) > 0);
+  const spawnVariant = (v: string) => withBerry.filter((it) => it.berry?.spawn.some((sp) => sp.variant === v)).length;
+  ctx.report.section("berries", {
+    items: withBerry.length,
+    withSpawn: withSpawn.length,
+    spawnVariants: { preferredBiome: spawnVariant("preferredBiome"), allBiome: spawnVariant("allBiome"), specificBiome: spawnVariant("specificBiome") },
+    mutationResults: withPairs.length,
+    pairs: withBerry.reduce((n, it) => n + (it.berry?.mutationPairs.length ?? 0), 0),
+    uses: withBerry.reduce((n, it) => n + (it.berry?.mutationUses.length ?? 0), 0),
+    bothOrigins: withPairs.filter((it) => (it.berry?.spawn.length ?? 0) > 0).map((it) => it.id).sort(),
   });
   ctx.setCount("items", Object.keys(items).length);
   const withoutDescription = catalog.filter((e) => e.description === null).length;
