@@ -120,3 +120,6 @@ updated: 2026-09-30
 - Fica para o Pontin (julgamento humano / celular real): texto do Lum, repeticao de biomas na Occa, Voltar por gesto no celular, Enigma/Hopo em 360 no aparelho, toggle PT/EN, 2-3 nao-bagas ao acaso, filtro no celular vs abas.
 - LESSONS: 1 regra nova (mecanica do jogo conferida no codigo-fonte, nao na wiki).
 - Sem push e sem merge (so com pedido explicito do Pontin).
+
+## 2026-09-30 - merge e push (pedido explicito do Pontin: "pode dar merge e push")
+- main fast-forward 3134cd43 -> ponta da feature/berry-mutations, push de main e de feature/berry-mutations para origin. Vercel publica a partir da main.
