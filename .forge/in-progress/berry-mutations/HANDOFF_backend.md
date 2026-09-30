@@ -5,7 +5,7 @@ Para o agente de frontend. Tudo abaixo foi conferido no dataset publicado (nao s
 ## Estado
 
 - Dataset publicado: `public/data/atm1.3.0-cobblemon1.7.3-20260930-1949ea67/` (`current.json` aponta para ele; a pasta `...-2ef2f512` foi removida pelo `write.ts`, padrao do projeto).
-- Commits do backend (branch `feature/berry-mutations`): B1.1 `e5ba8bb0`, B1.2 `ff17d2ce`, B2.1 `ea3aa9a1`, B2.2 = commit `feat(data): dataset republicado com origem e cruzamentos das bagas` (hash no CHECKLIST). T1.1 e T1.2 vem depois (hashes no CHECKLIST).
+- Commits do backend (branch `feature/berry-mutations`): B1.1 `e5ba8bb0`, B1.2 `ff17d2ce`, B2.1 `ea3aa9a1`, B2.2 `89840201`, T1.1 `6895614b`, T1.2 `98169952`.
 - Janela quebrada B1.1 -> B2.2: FECHADA. `tests/unit/data/published-schemas.test.ts` e `tests/unit/dataset/join.test.ts` passam de novo; o app e o e2e podem abrir. `npx vitest run` inteiro verde (85 arquivos / 708 testes, ja com os testes novos do backend).
 - Contrato em `src/data/types.ts` (`ItemBerry`, `BerrySpawn`, `BerrySpawnVariant`, `BerryMutationPair`, `BerryMutationUse`, `ItemInfo.berry`) e `src/data/schemas.ts` (`itemBerrySchema`, estrito). Congelado; nao mudar sem voltar ao backend.
 - Nenhum desvio da SPEC secao 5.

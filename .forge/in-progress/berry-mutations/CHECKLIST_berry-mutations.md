@@ -114,12 +114,12 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
   - commit: 6895614b
   - status: feito
 
-- [ ] **T1.2** Contrato publicado e dataset real
+- [x] **T1.2** Contrato publicado e dataset real
   - categoria: outro
   - lado: backend (inferido: contrato de dados e dataset publicado)
   - Done when: `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` verde.
-  - commit: 
-  - status: pendente
+  - commit: 98169952
+  - status: feito
 
 - [ ] **T1.3** Regras puras com o dataset real
   - categoria: outro
@@ -158,6 +158,8 @@ Prerequisito: B1, B2, F1, F2 completos (T1.1 e T1.2 podem ser escritos logo depo
 - B2.1: run.ts contra _bm_pub: 46768 checks (46558 + 210 novos = 70 x 3), divergencias {}; AUDIT_REPORT.md: o run.ts reescreve o arquivo inteiro, entao (padrao da Rodada 5) o arquivo foi restaurado e so a nota da Rodada 6 foi acrescentada no topo; audit.test.ts 14/14 verde; typecheck e lint limpos.
 - B2.2: JANELA QUEBRADA FECHADA. current.json = atm1.3.0-cobblemon1.7.3-20260930-1949ea67 (pasta 2ef2f512 removida pelo write.ts). items.json sha256 464846fcfeded8de70dfc810d21500e198af3fc5c812ab161bcaece91cd4d558 igual em instancia real (datasetVersion ...-2da90a76, difere so pelo manifest com fontes/mtimes, desvio conhecido), snapshot, repeticao (mesma versao 1949ea67) e publicado. Nao-perda: 951 ids, 0 diferencas item a item sem a chave berry; demais arquivos do dataset byte a byte iguais. 1.533.158 bytes (teto 1.659.908). Auditoria no publicado 46768 checks, divergencias {} (AUDIT_REPORT restaurado depois do run). published-schemas + join 41/41; vitest inteiro 85/708 verde. HANDOFF_backend.md criado. Pastas _bm_* apagadas.
 - T1.1: tests/unit/dataset/berry-mutations.test.ts (12 testes: fixtures sinteticas de buildBerryOrigins com os 4 avisos W_BERRY_*, ordem por code unit e mutations nao-objeto; collectBerryOrigins no snapshot comparado ao recalculo dos 70 arquivos crus; Cheri/Lum/Liechi da SPEC 5.3; collectBerryPlantable inalterado na Occa) e 2 testes novos no fim de audit.test.ts (buildExpected().berries; compare sobre copia adulterada do dataset publicado acusa WRONG DATA na Lum e EXTRA no red_apricorn). 28/28 verdes. Cobertura (vitest --coverage, suite inteira, 85/708 verde): global linhas 94,33% / branches 87,58%; tools/dataset/src linhas 93,87% / branches 84,67%; berries.ts 100% / 90,41%.
+- T1.2: 1 teste novo no fim do bloco spawn-bait de published-schemas.test.ts e describe novo no fim de join.test.ts (5 testes; conjuntos derivados dos arquivos crus; teto de bytes continua no assert existente da linha 322, nenhum assert novo mais frouxo). npx vitest run tests/unit/data tests/unit/dataset/join.test.ts: 20 arquivos / 265 testes verdes.
+- T1.6 (parte backend, adiantada): passos 5 e 6 ja verdes no codigo final do backend (auditoria no publicado 46768 checks, 0 divergencias; byte a byte instancia = snapshot = repeticao = publicado, sha256 464846fc...d558, 1.533.158 bytes). O item fica [ ] porque depende de F1/F2 e dos passos de frontend; refazer os passos 5 e 6 no fim se o pipeline mudar. Backend 100% (B1.1, B1.2, B2.1, B2.2, T1.1, T1.2); HANDOFF_backend.md e secao Backend do CHECKLIST_MANUAL escritos.
 
 ## Bugs encontrados
 
