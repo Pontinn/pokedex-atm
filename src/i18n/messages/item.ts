@@ -79,4 +79,18 @@ export const ITEM_MESSAGES = {
   "ip.ingredientTag.mushrooms": { pt: "Qualquer cogumelo", en: "Any mushroom" },
   "ip.ingredientTag.any": { pt: "Qualquer {name}", en: "Any {name}" },
   "ip.station.campfirePot": { pt: "Panela de Fogueira", en: "Campfire Pot" },
+  "ip.berryWorld": { pt: "Encontrada no mundo", en: "Found in the world" },
+  "ip.berryWorldText": { pt: "Nasce sozinha em:", en: "Grows wild in:" },
+  "ip.berryWorldAny": { pt: "Nasce sozinha em qualquer bioma", en: "Grows wild in any biome" },
+  "ip.berryGrowth": { pt: "Cresce melhor em", en: "Grows best in" },
+  "ip.berryGrowthText": { pt: "Rende mais frutas nos biomas:", en: "Yields more fruit in biomes:" },
+  // berry-mutations: mecanica do jogo (BerryBlock.determineMutation, Cobblemon 1.7.3): 4 vizinhos ortogonais, 125/1000, x4 com Surprise Mulch
+  "ip.mut.title": { pt: "Como cruzar", en: "How to crossbreed" },
+  "ip.mut.plus": { pt: "+", en: "+" },
+  "ip.mut.equals": { pt: "=", en: "=" },
+  "ip.mut.oneOf": { pt: "uma destas:", en: "one of:" },
+  "ip.mut.chance": { pt: "Chance: 12,5% por colheita;", en: "Chance: 12.5% per harvest;" },
+  "ip.mut.chanceMulch": { pt: "50% com", en: "50% with" },
+  "ip.mut.how": { pt: "Plante as duas árvores lado a lado: norte, sul, leste ou oeste (diagonal não vale). Cada vez que uma delas floresce (a primeira vez e de novo depois de cada colheita), o jogo tenta o cruzamento; se der certo, uma das frutas dessa árvore vira esta baga.", en: "Plant both trees side by side: north, south, east or west (diagonals don't count). Each time one of them flowers (the first time and again after every harvest), the game tries the crossbreed; if it works, one of that tree's fruits becomes this berry." },
+  "ip.mut.uses": { pt: "Usada em cruzamento", en: "Used in crossbreeding" },
 } as const satisfies Record<string, Message>;

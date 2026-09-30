@@ -18,4 +18,8 @@ export const ITEMS_MESSAGES = {
   "item.cat.fossil": { pt: "Fósseis", en: "Fossils" },
   "item.cat.mint": { pt: "Mentas", en: "Mints" },
   "item.cat.other": { pt: "Outros", en: "Other" },
+  "item.origin.mutation": { pt: "Mutação", en: "Mutation" },
+  "item.origin.world": { pt: "Mundo", en: "World" },
+  "item.origin.all": { pt: "Todos", en: "All" },
+  "item.origin.filter": { pt: "Filtrar bagas por origem", en: "Filter berries by origin" },
 } as const satisfies Record<string, Message>;
