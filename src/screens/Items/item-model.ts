@@ -90,3 +90,31 @@ export function filterItems(items: readonly ItemInfo[], tab: ItemCategory | null
   const key = (it: ItemInfo) => it.name[lang] || it.name.en || it.id;
   return list.sort((a, b) => key(a).localeCompare(key(b), lang === "pt" ? "pt-BR" : "en"));
 }
+
+/** berry-mutations: origem de uma baga (derivada de `item.berry`, uma so regra para listagem e pagina). */
+export type BerryOrigin = "mutation" | "world";
+
+/** Origens da baga na ordem fixa mutation, world; `[]` para item sem `berry` (SPEC 2.4 item 4). */
+export function berryOrigins(item: Pick<ItemInfo, "berry">): BerryOrigin[] {
+  const berry = item.berry;
+  if (berry == null) return [];
+  const out: BerryOrigin[] = [];
+  if (berry.mutationPairs.length > 0) out.push("mutation");
+  if (berry.spawn.length > 0) out.push("world");
+  return out;
+}
+
+export type OriginFilter = "all" | BerryOrigin;
+
+/** Opcoes do filtro de origem da listagem, na ordem do controle. */
+export const ORIGIN_FILTERS: readonly OriginFilter[] = ["all", "mutation", "world"];
+
+export function isOriginFilter(v: unknown): v is OriginFilter {
+  return typeof v === "string" && (ORIGIN_FILTERS as readonly string[]).includes(v);
+}
+
+/** "all" devolve a MESMA lista (listagem identica a de hoje); senao so os itens com essa origem, na mesma ordem. */
+export function filterByOrigin<T extends Pick<ItemInfo, "berry">>(list: T[], origin: OriginFilter): T[] {
+  if (origin === "all") return list;
+  return list.filter((it) => berryOrigins(it).includes(origin));
+}

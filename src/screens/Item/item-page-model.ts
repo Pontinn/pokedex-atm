@@ -1,5 +1,5 @@
 // Regras de exibicao da pagina do item (F9.3), puras e testaveis com o dataset real.
-import type { ItemInfo, ItemNamedRef, ItemObtainRoute, ItemQuestRef, ItemTrader, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
+import type { BerryMutationPair, BerryMutationUse, BerrySpawn, ItemInfo, ItemNamedRef, ItemObtainRoute, ItemQuestRef, ItemTrader, ItemUnobtainableReason, LocalizedText, SeriesInfo } from "../../data/types";
 import { ITEM_MESSAGES } from "../../i18n/messages/item";
 import type { TranslateFn } from "../../i18n/useT";
 import { humanizeId } from "../Trainers/trainer-model";
@@ -233,4 +233,86 @@ export function uniqueEvolutions(evolutions: ItemInfo["usedIn"]["evolutions"]): 
     seen.add(key);
     return true;
   });
+}
+
+// berry-mutations: linhas de origem e cruzamento das bagas (SPEC 2.4 itens 6 e 8).
+
+export const SURPRISE_MULCH_ID = "cobblemon:surprise_mulch";
+
+export type BerryObtainExtra = "berryWorld" | "berryGrowth" | "plantable" | "mutation";
+
+/** Comparador por code unit (mesmo do pipeline), sem localeCompare. */
+const byCodeUnit = (x: string, y: string) => (x < y ? -1 : x > y ? 1 : 0);
+
+/** Linhas de baga que entram DEPOIS das rotas existentes em .item-obtain; `[]` para item sem `berry`. */
+export function berryObtainExtras(item: Pick<ItemInfo, "obtain" | "berry"> | null): BerryObtainExtra[] {
+  const berry = item?.berry;
+  if (!berry) return [];
+  const out: BerryObtainExtra[] = [];
+  if (berry.spawn.length > 0) out.push("berryWorld");
+  const plant = item.obtain.find((r) => r.kind === "plantable");
+  if (plant) out.push(plant.biomeTags.length > 0 ? "berryGrowth" : "plantable");
+  if (berry.mutationPairs.length > 0) out.push("mutation");
+  return out;
+}
+
+/** Rotas existentes da pagina: sem `berry` = `obtainRows` (caminho de hoje); com `berry` a rota `plantable` sai. */
+export function pageObtainRoutes(item: Pick<ItemInfo, "obtain" | "berry"> | null): ItemObtainRoute[] {
+  if (!item?.berry) return obtainRows(item);
+  const kept = item.obtain.filter((r) => r.kind !== "none" && r.kind !== "plantable");
+  if (kept.length === 0 && berryObtainExtras(item).length === 0) return [{ kind: "none" }];
+  return kept;
+}
+
+/** Biomas de "Encontrada no mundo": `any` se ha allBiome; demais tags unidas sem repeticao, na ordem. */
+export function berryWorldBiomes(spawn: readonly BerrySpawn[]): { any: boolean; biomeTags: string[] } {
+  const any = spawn.some((s) => s.variant === "allBiome");
+  const tags: string[] = [];
+  for (const s of spawn) {
+    if (s.variant === "allBiome") continue;
+    for (const b of s.biomeTags) if (!tags.includes(b)) tags.push(b);
+  }
+  return { any, biomeTags: tags };
+}
+
+/** Agrupa os pares pelo parceiro mais frequente (empate: menor id); parceiros ordenados. */
+export function groupMutationPairs(pairs: readonly BerryMutationPair[]): { fixed: string; partners: string[] }[] {
+  const seen = new Set<string>();
+  let rest = pairs.filter((p) => {
+    const key = `${p.a}|${p.b}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const groups: { fixed: string; partners: string[] }[] = [];
+  while (rest.length) {
+    const count = new Map<string, number>();
+    for (const p of rest) {
+      count.set(p.a, (count.get(p.a) ?? 0) + 1);
+      count.set(p.b, (count.get(p.b) ?? 0) + 1);
+    }
+    let fixed = "";
+    let best = -1;
+    for (const [id, n] of count) {
+      if (n > best || (n === best && byCodeUnit(id, fixed) < 0)) {
+        fixed = id;
+        best = n;
+      }
+    }
+    const partners = rest.filter((p) => p.a === fixed || p.b === fixed).map((p) => (p.a === fixed ? p.b : p.a));
+    groups.push({ fixed, partners: [...new Set(partners)].sort(byCodeUnit) });
+    rest = rest.filter((p) => p.a !== fixed && p.b !== fixed);
+  }
+  return groups;
+}
+
+/** Agrupa os usos por resultado (grupos e parceiros ordenados). */
+export function groupMutationUses(uses: readonly BerryMutationUse[]): { result: string; partners: string[] }[] {
+  const byResult = new Map<string, Set<string>>();
+  for (const u of uses) {
+    const set = byResult.get(u.result) ?? new Set<string>();
+    set.add(u.partner);
+    byResult.set(u.result, set);
+  }
+  return [...byResult.keys()].sort(byCodeUnit).map((result) => ({ result, partners: [...byResult.get(result)!].sort(byCodeUnit) }));
 }

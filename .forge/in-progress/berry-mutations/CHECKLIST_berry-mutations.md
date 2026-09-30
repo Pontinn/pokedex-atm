@@ -55,11 +55,11 @@ O Frontend so comeca depois de B2.2 verde.
 
 ## Fase F1: Pagina do item (Encontrada no mundo, Cresce melhor em, Como cruzar, Usada em cruzamento)
 
-- [ ] **F1.1** Textos i18n (pagina e listagem)
+- [x] **F1.1** Textos i18n (pagina e listagem)
   - categoria: frontend
   - Done when: `npx vitest run tests/unit/ui-foundation/i18n.test.tsx tests/unit/ui-shell/i18n-modules.test.ts` verde; `npm run lint` e `npm run typecheck` limpos; captura headless (regra geral) da pagina da Occa `after-f11-occa-pt.png` sem nenhuma mudanca visual (as chaves ainda nao sao usadas).
-  - commit: 
-  - status: pendente
+  - commit: 7e2c8c5b
+  - status: feito
 
 - [ ] **F1.2** Regras puras de origem, linhas e agrupamento
   - categoria: outro
