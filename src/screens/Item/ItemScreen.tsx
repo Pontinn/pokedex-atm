@@ -22,7 +22,7 @@ import type { UiLanguage } from "../../storage/types";
 import { ballMultiplier } from "../Balls/ball-model";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { BaitEffectsPanel, PotRecipeList } from "./BaitParts";
-import { BerryObtainRow } from "./BerryParts";
+import { BerryObtainRow, BerryUsesRow } from "./BerryParts";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
@@ -321,7 +321,7 @@ function ObtainRow({
   }
 }
 
-function UsedIn({ item, ball, lang, uiLang, species }: { item: ItemInfo; ball: BallInfo | undefined; lang: UiLanguage; uiLang: UiLanguage; species: Map<number, SpeciesSummary> }) {
+function UsedIn({ item, ball, lang, uiLang, species, items }: { item: ItemInfo; ball: BallInfo | undefined; lang: UiLanguage; uiLang: UiLanguage; species: Map<number, SpeciesSummary>; items: Record<string, ItemInfo> }) {
   const t = useT();
   const rows: ReactNode[] = [];
   const u = item.usedIn;
@@ -379,6 +379,7 @@ function UsedIn({ item, ball, lang, uiLang, species }: { item: ItemInfo; ball: B
       </Row>,
     );
   }
+  if (item.berry?.mutationUses.length) rows.push(<BerryUsesRow key="mutationUses" uses={item.berry.mutationUses} items={items} lang={lang} index={rows.length} />);
   if (!rows.length) return null;
   return (
     <section className="panel item-used" style={{ ["--i" as string]: 2 }}>
@@ -438,7 +439,7 @@ function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; it
         </div>
       </section>
       {item?.bait && item.bait.effects.length ? <BaitEffectsPanel bait={item.bait} lang={lang} /> : null}
-      {item ? <UsedIn item={item} ball={ball} lang={lang} uiLang={uiLang} species={species} /> : null}
+      {item ? <UsedIn item={item} ball={ball} lang={lang} uiLang={uiLang} species={species} items={items} /> : null}
     </div>
   );
 }

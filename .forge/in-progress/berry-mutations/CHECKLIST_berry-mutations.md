@@ -73,11 +73,11 @@ O Frontend so comeca depois de B2.2 verde.
   - commit: 75d7ade4
   - status: feito
 
-- [ ] **F1.4** Linha "Como cruzar" (pares clicaveis, chance e mecanica)
+- [x] **F1.4** Linha "Como cruzar" (pares clicaveis, chance e mecanica)
   - categoria: frontend
   - Done when: capturas `after-item-lum-{pt,en,pt-390}.png`, `after-item-enigma-{pt,pt-390,pt-360}.png`, `after-item-eggant-pt.png`, `after-item-starf-pt.png`, `after-item-liechi-pt.png` (refeita) em `ui-refs/`; no spec temporario: Lum `[data-row='mutation'] [data-mut-fixed='cobblemon:oran_berry']` com 6 `button[data-item]` (Oran + 5), asserts POR PARTES: `[data-mut-chance]` contem "12,5%" e "50% com" e `[data-mut-chance] button[data-item='cobblemon:surprise_mulch']` contem "Adubo Surpresa"; em EN (interface e card) `[data-mut-chance]` contem "12.5%" e "50% with" e o botao da mulch contem "Surprise Mulch"; e o `textContent` de `[data-mut-chance]` normalizado (`replace(/\s+/g, " ")`) contem "50% com Adubo Surpresa"; Enigma com 19 `button[data-item]` no grupo (Hopo + 18), todos visiveis e sem `.ob-more`; Figy com 1 grupo Cheri + Persim; Starf -> clique Pomeg -> Sitrus -> Lum -> Oran, cada pagina com a propria linha (Oran sem `mutation` e com `berryWorld`), e `page.goBack()` volta passo a passo; `expectNoOverlap(".item-screen")` da Enigma a 360/390/1280.
-  - commit: 
-  - status: pendente
+  - commit: ca290bc5
+  - status: feito
 
 - [ ] **F1.5** "Usada em cruzamento" no Usado em
   - categoria: frontend

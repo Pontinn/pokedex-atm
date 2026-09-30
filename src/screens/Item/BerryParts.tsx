@@ -1,13 +1,13 @@
 // Partes de baga da pagina do item (berry-mutations F1.3..F1.5): "Encontrada no mundo" e "Cresce melhor em" no lugar do
-// "Plantavel" das bagas, dentro de .item-obtain (depois das rotas existentes).
-import { Dna, Sprout, Trees } from "lucide-react";
-import type { BiomeLabels, ItemInfo } from "../../data/types";
+// "Plantavel" das bagas, dentro de .item-obtain (depois das rotas existentes), e "Usada em cruzamento" no Usado em.
+import { Combine, Dna, Sprout, Trees } from "lucide-react";
+import type { BerryMutationUse, BiomeLabels, ItemInfo } from "../../data/types";
 import { useT } from "../../i18n/useT";
 import type { UiLanguage } from "../../storage/types";
 import { ItemLink } from "../Detail/ItemLink";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { LabelChips, Row } from "./ItemScreen";
-import { SURPRISE_MULCH_ID, berryWorldBiomes, groupMutationPairs, type BerryObtainExtra } from "./item-page-model";
+import { SURPRISE_MULCH_ID, berryWorldBiomes, groupMutationPairs, groupMutationUses, type BerryObtainExtra } from "./item-page-model";
 
 export function BerryObtainRow({
   kind,
@@ -83,4 +83,24 @@ export function BerryObtainRow({
     default:
       return null;
   }
+}
+
+/** "Usada em cruzamento" (F1.5): esta baga + parceira = resultado, agrupado por resultado, sem colapso. */
+export function BerryUsesRow({ uses, items, lang, index }: { uses: readonly BerryMutationUse[]; items: Record<string, ItemInfo>; lang: UiLanguage; index: number }) {
+  const t = useT();
+  return (
+    <Row icon={<Combine />} title={t("ip.mut.uses")} index={index} kind="mutationUses">
+      {groupMutationUses(uses).map((g) => (
+        <span key={g.result} className="mut-use" data-mut-result={g.result}>
+          <span className="mut-op">{t("ip.mut.plus")}</span>
+          {g.partners.length > 1 ? <span className="mut-hint">{t("ip.mut.oneOf")}</span> : null}
+          {g.partners.map((p) => (
+            <ItemLink key={p} id={p} items={items} lang={lang} className="mut-berry it-link" />
+          ))}
+          <span className="mut-op">{t("ip.mut.equals")}</span>
+          <ItemLink id={g.result} items={items} lang={lang} className="mut-berry it-link" />
+        </span>
+      ))}
+    </Row>
+  );
 }
