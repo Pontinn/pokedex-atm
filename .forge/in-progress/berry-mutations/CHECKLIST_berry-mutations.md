@@ -93,11 +93,11 @@ O Frontend so comeca depois de B2.2 verde.
   - commit: 91a01fca
   - status: feito
 
-- [ ] **F2.2** Filtro de origem na listagem
+- [x] **F2.2** Filtro de origem na listagem
   - categoria: frontend
   - Done when: capturas `after-items-filter-mutation-pt.png`, `after-items-filter-world-pt-390.png`, `after-items-filter-empty-pt.png` (Medicina + Mutacao), `after-items-filter-pt-360.png` em `ui-refs/`; no spec temporario: `#item-grid[data-count]` = 40 (Berries + Mutacao), 31 (Berries + Mundo) e 40 (Iscas + Mutacao); Medicina + Mutacao mostra `.items-screen .empty-state`; com "Todos" a contagem de cada aba e igual a de antes; abrir Sitrus com filtro Mutacao e `page.goBack()` volta com o botao Mutacao `aria-pressed="true"` e a mesma aba; `expectNoOverlap(".items-screen .item-top")` a 360/390/1280 PT/EN; `.item-origin-filter` sem rolagem vertical; `PW_DEV=1 PW_PORT=4178 npx playwright test tests/e2e/items.spec.ts tests/e2e/responsive.spec.ts` verde sem mudar assert.
-  - commit: 
-  - status: pendente
+  - commit: e013fcc3
+  - status: feito
 
 ---
 
