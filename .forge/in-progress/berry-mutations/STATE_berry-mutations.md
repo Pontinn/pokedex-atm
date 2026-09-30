@@ -6,7 +6,7 @@ language: pt-BR
 branch: feature/berry-mutations (base main 3134cd43)
 mode: full
 top_model: opus
-running_agent: forge-imp-backend (opus) - B1, B2, T1.1, T1.2 e parte backend de T1.6; inicio 13:45, limite 1h
+running_agent: forge-imp-frontend (opus) - fechando T1.6 passo 7 (sw.js)
 baselines:
   CONTEXT: { commit: 3134cd43, deps: [IDEA_berry-mutations.md, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, src/data/schemas.ts, src/data/types.ts, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/i18n/messages/item.ts] }
   PRD:     { commit: 3134cd43, deps: [IDEA_berry-mutations.md, CONTEXT_berry-mutations.md] }
@@ -92,3 +92,21 @@ updated: 2026-09-30 13:25
 - Movida para in-progress (e7b7e25c; git mv arquivo a arquivo porque o diretorio de trabalho da sessao segurava a pasta; cronometro da SPEC parado e 3 sleep orfaos encerrados).
 - forge-checklist (sonnet): 5 fases, 17 tarefas + item de pre-flight, tudo [ ]. Lado dos T1.x inferido: T1.1/T1.2 backend, T1.3/T1.4/T1.5 frontend, T1.6 os dois.
 - forge-imp-backend (opus, autonomous) disparado. Timer 1h.
+
+## 2026-09-30 14:15 - Backend CONCLUIDO, frontend disparado
+- forge-imp-backend (opus, ~25 min): B1.1 e5ba8bb0, B1.2 ff17d2ce, B2.1 ea3aa9a1, B2.2 89840201, T1.1 6895614b, T1.2 98169952, docs 4282beec. Sem desvio da SPEC. Pre-flight na pasta principal: typecheck/lint ok, vitest 84/694, Playwright 237/16 skipped, join.test ok (cache presente).
+- Dataset novo atm1.3.0-cobblemon1.7.3-20260930-1949ea67; items.json 1.533.158 bytes (antes 1.499.586; teto 1.659.908); auditoria 46768 checks, 0 divergencias; items.json igual entre instancia, snapshot, repeticao e publicado. Apos republicar: vitest 85/708, Playwright 237/16 skipped.
+- Flakes so com --coverage (1 em 3): detail-screen.test.tsx:183 e bait.test.ts:106 (<5 ms). Nao tocam berry. Checagem na main em worktree isolado disparada (sonnet).
+- forge-imp-frontend (opus, autonomous) disparado. Timer 1h.
+
+## 2026-09-30 14:35 - checagem de flake na main (worktree isolado, removido)
+- NAO reproduzido na main 3134cd43: detail-screen.test.tsx e bait.test.ts passaram 40/40 (suite com coverage 5x, arquivo com coverage 10x, sem coverage 5x). Outro flake visto uma vez na main: items-screen.test.tsx "caret abre/fecha a descricao (openItemId)" (1 em 5 com coverage).
+- Causa provavel: bait.test.ts:106 mede o pior de 1027 chamadas com performance.now() (<5 ms), fragil sob instrumentacao; detail-screen.test.tsx waitFor com timeout padrao de 1 s.
+- Pendente para a Stage 5 (forge-test): rodar esses dois arquivos 10x com coverage na branch da feature para decidir se a feature aumentou a carga; nao afrouxar assert.
+- Pontin: "essa feature e consideravelmente menor que a ultima". Stage 5 proporcional: sem repetir o que o T1.6 ja cobre (suite completa, auditoria, byte a byte); foco em render das bagas-chave (Sitrus, Liechi, Enigma, Cheri, Occa) PT/EN, 390/1280, alguns temas, navegacao parceiro + Voltar, tag e filtro da listagem, e o loop dos 2 testes instaveis.
+
+## 2026-09-30 - Frontend CONCLUIDO (falta so T1.6 passo 7)
+- forge-imp-frontend (opus): F1.1 7e2c8c5b, F1.2 b0623b17, F1.3 75d7ade4, F1.4 ca290bc5, F1.5 16edd960, F2.1 91a01fca, F2.2 e013fcc3, T1.3 65e88bcb, T1.4 96207def, T1.5 53b2875c, docs de15eb19. Nada bloqueado.
+- Regressao: typecheck/lint ok; vitest --coverage 88 arquivos / 744 testes (94,39% linhas); Playwright completo 253 ok / 0 falha / 16 skipped (antes 237/0/16). git diff main -- tests/: unico assert existente alterado item.spec.ts:259. T1.5 teste de contagem em todas as abas com setTimeout 120 s (sem afrouxar assert).
+- Flake visto 1x: items-screen.test.tsx:72 com --coverage durante build e2e em paralelo (e o mesmo visto na main); nao alterado.
+- Falta: T1.6 passo 7 (dist/sw.js sem URL de dado nova no precache). Pedido ao mesmo agente.
