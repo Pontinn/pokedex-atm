@@ -256,7 +256,8 @@ test.describe("spawn-bait: item page (bait effects and Campfire Pot recipe)", ()
     await expect(panel.locator("h3")).toHaveText("Efeitos de isca");
     await expect(panel).toContainText("Tipo Fogo");
     await expect(panel.locator("[data-row='bait-seasoning']")).toContainText("Aceito como tempero");
-    await expect(page.locator(".item-obtain .ob-row")).toHaveCount(4);
+    // berry-mutations RF-13: Plantavel da baga vira Encontrada no mundo + Cresce melhor em
+    await expect(page.locator(".item-obtain .ob-row")).toHaveCount(5);
     await page.locator("[data-tcard='itempage'] [data-tl='en']").click();
     await expect(panel).toContainText("Fire Types");
     expect(errors).toEqual([]);

@@ -61,11 +61,11 @@ O Frontend so comeca depois de B2.2 verde.
   - commit: 7e2c8c5b
   - status: feito
 
-- [ ] **F1.2** Regras puras de origem, linhas e agrupamento
+- [x] **F1.2** Regras puras de origem, linhas e agrupamento
   - categoria: outro
   - Done when: teste rapido em node (`npx tsx -e` importando os dois modelos e o `items.json` publicado de B2.2) imprime: `berryOrigins` com contagens 30/39/1 (so world/so mutation/ambas) e 0 para nao-bagas; `pageObtainRoutes` da Occa = `craftable, drop, structureLoot` e `berryObtainExtras` = `berryWorld, berryGrowth`; Eggant extras = `berryGrowth, mutation`; Red Apricorn com `pageObtainRoutes` identico a `obtainRows` e extras `[]`; `groupMutationPairs` de Lum, Figy, Enigma e `groupMutationUses` de Cheri, Oran, Lum iguais aos exemplos da secao 2.4 item 8; `filterByOrigin(list, "all") === list`; `npm run typecheck` limpo.
-  - commit: 
-  - status: pendente
+  - commit: b0623b17
+  - status: feito
 
 - [ ] **F1.3** "Encontrada no mundo" e "Cresce melhor em" no lugar do "Plantavel" das bagas
   - categoria: frontend

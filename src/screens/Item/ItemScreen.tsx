@@ -22,16 +22,18 @@ import type { UiLanguage } from "../../storage/types";
 import { ballMultiplier } from "../Balls/ball-model";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { BaitEffectsPanel, PotRecipeList } from "./BaitParts";
+import { BerryObtainRow } from "./BerryParts";
 import { CATEGORY_CLASS, CATEGORY_LABEL } from "../Items/item-model";
 import { biomeLabel } from "../Trainers/trainer-model";
 import { useLoader } from "../Trainers/use-loader";
 import {
+  berryObtainExtras,
   capList,
   chanceLabel,
   idLabels,
   lootLabels,
   namedRefLabels,
-  obtainRows,
+  pageObtainRoutes,
   questLabel,
   recipeLabels,
   seriesTitle,
@@ -135,7 +137,7 @@ function CappedList({ entries, className }: { entries: { key: string; node: Reac
 }
 
 /** Chips de texto (.biome) com limite. */
-function LabelChips({ labels }: { labels: readonly string[] }) {
+export function LabelChips({ labels }: { labels: readonly string[] }) {
   return <CappedList className="chips" entries={labels.map((l) => ({ key: l, node: <span className="biome">{l}</span> }))} />;
 }
 
@@ -419,14 +421,19 @@ function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; it
   const unknown = item === null;
   const name = termPair(item ? item.name : unknownItemName(itemId), lang);
   const ball = useMemo(() => (item?.usedIn.ball ? balls.find((b) => b.itemId === itemId) : undefined), [item, balls, itemId]);
+  const routes = pageObtainRoutes(item);
+  const extras = berryObtainExtras(item);
   return (
     <div className="item-body" data-item={itemId}>
       <ItemHero item={item} name={name} lang={lang} uiLang={uiLang} unknown={unknown} />
       <section className="panel item-obtain" style={{ ["--i" as string]: 1 }}>
         <h3>{t("ip.obtain")}</h3>
         <div className="ob-list">
-          {obtainRows(item).map((r, i) => (
+          {routes.map((r, i) => (
             <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} series={series} items={items} />
+          ))}
+          {extras.map((k, j) => (
+            <BerryObtainRow key={k} kind={k} item={item!} index={routes.length + j} biomes={biomes} uiLang={uiLang} />
           ))}
         </div>
       </section>
