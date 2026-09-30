@@ -67,11 +67,11 @@ O Frontend so comeca depois de B2.2 verde.
   - commit: b0623b17
   - status: feito
 
-- [ ] **F1.3** "Encontrada no mundo" e "Cresce melhor em" no lugar do "Plantavel" das bagas
+- [x] **F1.3** "Encontrada no mundo" e "Cresce melhor em" no lugar do "Plantavel" das bagas
   - categoria: frontend
   - Done when: capturas `after-item-occa-{pt,en,pt-390}.png`, `after-item-oran-pt.png`, `after-item-liechi-pt.png`, `after-item-sitrus-pt.png`, `after-item-red_apricorn-pt.png` em `ui-refs/`; no spec temporario: Occa `.item-obtain .ob-row` = 5 com `data-row` na ordem `craftable, drop, structureLoot, berryWorld, berryGrowth`; Occa `[data-row='berryWorld']` contem "Nasce sozinha em:"; Oran `[data-row='berryWorld']` contem "qualquer bioma" e 0 `.biome`; Liechi `[data-row='berryWorld']` contem "Mirage Ilha"; Sitrus 0 `[data-row='berryWorld']` e 1 `[data-row='berryGrowth']`; Red Apricorn com `[data-row='plantable']` e texto "Pode ser plantado" iguais aos de hoje e 0 linhas novas; `expectNoOverlap(".item-screen")` a 360/390/1280; `npx vitest run tests/unit/ui-screens` verde; `PW_DEV=1 PW_PORT=4178 npx playwright test tests/e2e/item.spec.ts` verde (com o 5 da linha 259).
-  - commit: 
-  - status: pendente
+  - commit: 75d7ade4
+  - status: feito
 
 - [ ] **F1.4** Linha "Como cruzar" (pares clicaveis, chance e mecanica)
   - categoria: frontend

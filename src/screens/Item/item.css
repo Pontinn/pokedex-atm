@@ -72,3 +72,11 @@ html[data-theme="green"] .item-screen .pot-ing b, html[data-theme="blue"] .item-
 .item-screen .pot-item { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: var(--text); text-align: left; min-width: 0; }
 .item-screen .pot-item:hover span { text-decoration: underline; }
 .item-screen .pot-seasoning, .item-screen .pot-label { font-size: 12.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere; }
+/* Como cruzar / Usada em cruzamento (berry-mutations F1.4/F1.5): pilulas no padrao de .pot-ing, sem colapso */
+.item-screen .mut-pair, .item-screen .mut-use, .item-screen .mut-chance { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; width: 100%; min-width: 0; }
+.item-screen .mut-op { font-weight: 800; color: var(--text); }
+.item-screen .mut-hint { color: var(--muted); }
+.item-screen .mut-berry { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px 3px 4px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--border); font: inherit; font-size: 12px; font-weight: 800; color: var(--text); text-align: left; min-width: 0; max-width: 100%; overflow-wrap: anywhere; transition: border-color .2s; }
+.item-screen button.mut-berry:hover { border-color: var(--secondary); }
+.item-screen button.mut-berry:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+.item-screen .mut-how { width: 100%; overflow-wrap: anywhere; }

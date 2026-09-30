@@ -433,7 +433,7 @@ function ItemBody({ itemId, items, balls, biomes, series }: { itemId: string; it
             <ObtainRow key={`${r.kind}-${i}`} route={r} index={i} lang={lang} uiLang={uiLang} species={species} biomes={biomes} series={series} items={items} />
           ))}
           {extras.map((k, j) => (
-            <BerryObtainRow key={k} kind={k} item={item!} index={routes.length + j} biomes={biomes} uiLang={uiLang} />
+            <BerryObtainRow key={k} kind={k} item={item!} index={routes.length + j} biomes={biomes} uiLang={uiLang} items={items} lang={lang} />
           ))}
         </div>
       </section>
