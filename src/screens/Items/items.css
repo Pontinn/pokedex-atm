@@ -36,3 +36,6 @@ html[data-theme="black"] .item-tile-wrap .it-tile { background: #1F1D14; }
 .items-screen .empty-query { margin: 4px 0 0; font-weight: 800; overflow-wrap: anywhere; }
 .app.mobile .item-grid { grid-template-columns: 1fr; }
 .app.mobile .items-screen .item-tools .terms-tgl { margin-left: auto; }
+/* Tag de origem das bagas (berry-mutations F2.1): linha propria no fim de .item-names; .item-tag intocado */
+.item-origins { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; max-width: 100%; }
+.item-origin { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 8px; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }

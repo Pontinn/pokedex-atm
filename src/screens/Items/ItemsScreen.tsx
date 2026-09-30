@@ -21,7 +21,7 @@ import { usePreferencesStore, useTermsLanguage } from "../../state/preferences-s
 import type { UiLanguage } from "../../storage/types";
 import { ListSearch, useListQuery } from "../Trainers/ListSearch";
 import { useLoader } from "../Trainers/use-loader";
-import { CATEGORY_CLASS, CATEGORY_LABEL, effectiveTab, filterItems, visibleTabs } from "./item-model";
+import { CATEGORY_CLASS, CATEGORY_LABEL, berryOrigins, effectiveTab, filterItems, visibleTabs } from "./item-model";
 
 /** Icone por categoria quando o item nao tem textura (app.js:1149-1151). */
 const CATEGORY_ICON: Readonly<Record<ItemCategory, ComponentType<{ "aria-hidden"?: boolean }>>> = {
@@ -65,6 +65,7 @@ const ItemCard = memo(function ItemCard({ item, index, lang, uiLang, open }: { i
   const { navigate, updateUi } = useNavigationActions();
   const name = termPair(item.name, lang);
   const desc = item.description ? item.description[uiLang] || item.description.en : null;
+  const origins = berryOrigins(item);
   return (
     <article className={`item-card${open ? " open" : ""}`} style={{ ["--i" as string]: Math.min(index, 16) }} data-item={item.id}>
       <div className="item-head">
@@ -74,6 +75,15 @@ const ItemCard = memo(function ItemCard({ item, index, lang, uiLang, open }: { i
             <span className="tag item-tag">{t(CATEGORY_LABEL[item.category])}</span>
             <span className="item-name">{name.primary}</span>
             {name.secondary ? <span className="item-alt">{name.secondary}</span> : null}
+            {origins.length ? (
+              <span className="item-origins">
+                {origins.map((o) => (
+                  <span key={o} className="item-origin" data-origin={o}>
+                    {t(`item.origin.${o}`)}
+                  </span>
+                ))}
+              </span>
+            ) : null}
           </span>
         </button>
         {desc ? (

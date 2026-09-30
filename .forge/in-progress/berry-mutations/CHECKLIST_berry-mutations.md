@@ -79,11 +79,11 @@ O Frontend so comeca depois de B2.2 verde.
   - commit: ca290bc5
   - status: feito
 
-- [ ] **F1.5** "Usada em cruzamento" no Usado em
+- [x] **F1.5** "Usada em cruzamento" no Usado em
   - categoria: frontend
   - Done when: capturas `after-item-cheri-{pt,en}.png`, `after-item-hopo-pt-360.png`, `after-item-oran-used-pt.png`, `after-item-lum-used-pt.png` em `ui-refs/`; no spec temporario: Cheri `.item-used [data-row='mutationUses'] [data-mut-result]` = 2 (`cobblemon:figy_berry`, `cobblemon:lum_berry`, nessa ordem) e clicar Oran abre a Oran e `goBack()` volta a Cheri; Oran com 2 grupos (leppa, lum) de 5 parceiros cada; Lum tem `[data-row='mutation']` em `.item-obtain` e `[data-row='mutationUses']` em `.item-used`; Starf com 0 `mutationUses`; `.item-used [data-row]` da Occa comeca pelas mesmas linhas de hoje e termina em `mutationUses`; `expectNoOverlap(".item-screen")` do Hopo a 360/390/1280.
-  - commit: 
-  - status: pendente
+  - commit: 16edd960
+  - status: feito
 
 ## Fase F2: Listagem de itens (tag e filtro de origem)
 
