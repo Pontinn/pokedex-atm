@@ -6,7 +6,7 @@ language: pt-BR
 branch: feature/berry-mutations (base main 3134cd43)
 mode: full
 top_model: opus
-running_agent: forge-checklist (sonnet) - criando o checklist
+running_agent: forge-imp-backend (opus) - B1, B2, T1.1, T1.2 e parte backend de T1.6; inicio 13:45, limite 1h
 baselines:
   CONTEXT: { commit: 3134cd43, deps: [IDEA_berry-mutations.md, tools/dataset/src/items/berries.ts, tools/dataset/src/items/stage.ts, src/data/schemas.ts, src/data/types.ts, src/screens/Item/ItemScreen.tsx, src/screens/Item/item-page-model.ts, src/i18n/messages/item.ts] }
   PRD:     { commit: 3134cd43, deps: [IDEA_berry-mutations.md, CONTEXT_berry-mutations.md] }
@@ -87,3 +87,8 @@ updated: 2026-09-30 13:25
 - SPEC revisao 2 conferida pelo orquestrador direto no arquivo (7 pontos, sem travessao); sem segunda rodada de revisao (Pontin pediu mais velocidade). UISPEC rev 3, PRD rev 3. Gate aprovado por autonomia.
 - Pre-flight: drift check dos deps da SPEC contra bc113bd9 sem drift; gate de idioma dos identificadores: revisor confirmou ingles. Feature movida ideas/ -> in-progress/. MODE autonomous.
 - forge-checklist (sonnet) disparado; depois forge-imp-backend (opus).
+
+## 2026-09-30 13:45 - checklist criado, backend disparado
+- Movida para in-progress (e7b7e25c; git mv arquivo a arquivo porque o diretorio de trabalho da sessao segurava a pasta; cronometro da SPEC parado e 3 sleep orfaos encerrados).
+- forge-checklist (sonnet): 5 fases, 17 tarefas + item de pre-flight, tudo [ ]. Lado dos T1.x inferido: T1.1/T1.2 backend, T1.3/T1.4/T1.5 frontend, T1.6 os dois.
+- forge-imp-backend (opus, autonomous) disparado. Timer 1h.
