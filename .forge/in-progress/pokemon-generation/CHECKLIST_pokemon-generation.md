@@ -50,10 +50,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
 
 > auditoria independente dos campos novos e republicacao com provas de paridade, determinismo, "so acrescimos" e orcamento.
 
-- [ ] **B2.1 - Auditoria com geracao dos nos e fatos de jogos** (categoria: outro)
+- [x] **B2.1 - Auditoria com geracao dos nos e fatos de jogos** (categoria: outro)
   - Done when: `run.ts` contra `_pg_pub` imprime `divergencias {}` com `checks` > 46.768 e com pelo menos 1027 x 2 + (numero total de nos) + 4 checks novos; `npx vitest run tests/unit/dataset/audit.test.ts` verde (testes existentes inalterados); Rodada 7 no `AUDIT_REPORT.md`.
-  - commit:
-  - status: pendente
+  - commit: f7ba7273
+  - status: concluida
 
 - [ ] **B2.2 - Republicacao, provas e HANDOFF** (categoria: build)
   - Done when: `current.json` com `datasetVersion` nova (diferente de `atm1.3.0-cobblemon1.7.3-20260930-1949ea67`); passos 1 a 7 verdes; numeros no HANDOFF e no STATE.
@@ -202,6 +202,11 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Report `games.perGame` = coluna "especies" da SPEC 5.3 inteira (151, 151, 251, 251, 202, 202, 151, 151, 210, 256, 156, 301, 457, 211, 302, 403, 153, 584, 151, 242, 664, 364); `packOnly` [9901, 9902]; `officialWithoutGame` [].
 - report.json: 190 avisos, identicos (codigo + mensagem) aos de uma execucao com o index-writer de antes (nenhum aviso novo).
 - typecheck/lint limpos; vitest (sem published-schemas) 87 / 730 verdes.
+
+### B2.1 - concluida (2026-10-12)
+
+- `run.ts` contra `_pg_pub` (`-20261012-78568233`): `checks 51146, especies 1027, divergencias {}` (46.768 + 4.378 novos = 2.316 nos + 1027 x 2 + 8 do catalogo).
+- `npx vitest run tests/unit/dataset/audit.test.ts` = 16/16 (existentes inalterados); suite sem published-schemas 87 / 730 verde. Rodada 7 escrita no topo do `AUDIT_REPORT.md`.
 
 ---
 
