@@ -149,12 +149,16 @@ test.describe("navigation", () => {
     await openTypes(page);
     await pick(page, "fire");
     await tab(page, "defend");
-    // rolagem pedida: 400 px (ou o maximo); o valor guardado e o lido depois que a pagina assenta
-    await page.locator("#main").evaluate((m) => {
-      m.scrollTop = Math.min(400, m.scrollHeight - m.clientHeight);
-    });
+    // rolagem pedida: 400 px (ou o maximo). #main tem scroll-behavior: smooth (base.css:41), entao o valor so e
+    // guardado depois que a rolagem chega ao alvo (settle espera animacoes, nao a rolagem suave)
     await settle(page);
-    const saved = await page.locator("#main").evaluate((m) => m.scrollTop);
+    const target = await page.locator("#main").evaluate((m) => {
+      const t = Math.min(400, m.scrollHeight - m.clientHeight);
+      m.scrollTop = t;
+      return t;
+    });
+    await expect.poll(() => page.locator("#main").evaluate((m) => m.scrollTop)).toBe(target);
+    const saved = target;
     expect(saved).toBeGreaterThan(0);
     await go(page, "dex");
     await expect(page.locator(".dex-screen")).toBeVisible();
