@@ -89,10 +89,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: 6b398719
   - status: concluida
 
-- [ ] **F1.2 - Rotulo e componente do selo de geracao** (categoria: frontend)
+- [x] **F1.2 - Rotulo e componente do selo de geracao** (categoria: frontend)
   - Done when: `npm run typecheck`/`lint` limpos; `npx vitest run tests/unit/ui-screens` verde (nenhum teste usa o componente ainda, prova que `Badge` sem `label` nao mudou nada); captura headless `after-f12-dex-pt.png` igual a `dex-cards-desktop.png` (sem mudanca visual).
-  - commit:
-  - status: pendente
+  - commit: 94e4f6c7
+  - status: concluida
 
 - [ ] **F1.3 - Geracao no card no lugar da raridade e no Hero** (categoria: frontend)
   - Done when: capturas `after-f13-dex-{desktop,phone}.png` (comparar com `dex-cards-*.png`), `after-f13-captured-{desktop,phone}.png` (com `captured-*.png`, semeando o IndexedDB como `tests/e2e/captured.spec.ts:39-43`), `after-f13-hero-{mewtwo,charizard}-{desktop,phone}.png` (com `detail-hero-*.png`), `after-f13-dex-meltan-phone.png` (card do 808 a 360); no spec temporario: cards 41/169/808/899/9901 com "Gen 1"/"Gen 2"/"Gen 7 (Let's Go)"/"Gen 8 (Arceus)"/"Pack"; nenhuma classe de raridade em `.pcard`; `npx vitest run tests/unit/ui-screens/pokemon-card.test.tsx tests/unit/ui-screens/detail-hero.test.ts` verde; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/dex.spec.ts tests/e2e/detail.spec.ts tests/e2e/captured.spec.ts` verde (com os 3 ajustes e nenhum outro assert mexido).
@@ -237,6 +237,12 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Chaves novas (valores exatos da SPEC): `dex.game`, `dex.genBadge`, `dex.genBadge7b`, `dex.genBadge8a`, `dex.genBadgePack`; `detail.genDiff`, `detail.games`, `games.availableIn`, `games.note`, `games.none`, `games.packOnly`; `settings.pokeapi`.
 - `i18n-modules.test.ts` + `i18n.test.tsx` = 14/14; lint e typecheck limpos.
 - Captura `ui-refs/impl/after-f11-dex-pt.png` (dev 4179, headless, 1366x768): igual a `dex-cards-desktop.png`, 0 erro de console. Capturas do frontend ficam em `ui-refs/impl/` (pedido do orquestrador; a SPEC dizia `ui-refs/`).
+
+### F1.2 - concluida (2026-10-12)
+
+- `src/screens/Dex/GenerationBadge.tsx` (`generationLabel`, `GenerationBadge`, `GenerationForm`); `Badge` ganhou `label?` (role="img" + aria-label so com label); `.badge-gen` em `components.css` (`--secondary-soft` + `--text`).
+- typecheck/lint limpos; `npx vitest run tests/unit/ui-screens` = 38 arquivos / 262 testes verdes.
+- `after-f12-dex-pt.png` byte a byte igual a `after-f11-dex-pt.png` (que bate com `dex-cards-desktop.png`): sem mudanca visual.
 
 ---
 
