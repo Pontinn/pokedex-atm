@@ -88,3 +88,7 @@ updated: 2026-10-12 16:33
 - T1.3 [~]: tests/e2e/types.spec.ts escrito, untracked; 24/25 em dev; falha o teste de voltar/avancar: apos page.goForward() a .dex-screen nao aparece. Proximo agente: conferir src/navigation/history-bridge.ts (se Forward e tratado) ANTES de mexer no teste; rodar tambem em build+preview.
 - Pre-existentes: items.spec.ts:123 flaky (1 falha na suite, 3/3 sozinho); build/vitest deixam type-css.test.ts.snap e types.generated.css so com fim de linha (git checkout --); join.test.ts falhava no worktree por falta do cache tools/dataset/.cache (gitignored, so na arvore principal): orquestrador copiou o cache para o worktree as 16:32.
 - Lembrete: 8 commits docs(forge) do orquestrador nesta branch (ex. f0a82aa3, 04b73988, cb669791) carregam Co-Authored-By; oferecer limpeza ao Pontin antes do push.
+## 2026-10-12 16:45 - frontend #2 parou na T1.3: plan-reality mismatch (Avancar)
+- types.spec.ts em build + preview: 36 de 37 verdes (pwa-offline.spec.ts todo verde, incl. o nth deslocado em :341). Falha so o passo de Avancar, igual ao dev.
+- Causa: src/navigation/history-bridge.ts trata todo popstate como goBack(true). Home -> Tipos -> Pokedex, Voltar restaura Tipos (Fogo, Defendendo, scroll a 2 px); Avancar dispara popstate -> goBack -> Home. O app nunca teve Avancar (nenhum e2e usa goForward). SPEC T1.3 passo 3 e PRD CA-31 pedem Avancar -> mismatch; sem patch.
+- T1.3 [!], T1.4 e T1.5 pendentes (T1.4 depende da suite e2e verde). Decisao pendente: corrigir SPEC/PRD para o contrato real ou implementar Avancar na ponte (fora do escopo).
