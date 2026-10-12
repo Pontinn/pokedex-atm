@@ -5,7 +5,7 @@ Para o agente de frontend. Tudo abaixo foi conferido no dataset publicado (nao s
 ## Estado
 
 - Dataset publicado: `public/data/atm1.3.0-cobblemon1.7.3-20261012-78568233/` (`current.json` aponta para ele; a pasta `...-20260930-1949ea67` foi removida pelo `write.ts`, padrao do projeto).
-- Commits do backend (branch `feature/pokemon-generation`): S0.1 `748cbeba` (docs), B1.1 `64e0b4f1`, B1.2 `11423420`, B1.3 `89c1b8cf`, B2.1 `f7ba7273`, B2.2 (este commit, ver checklist), T1.1 e T1.2 (ver checklist).
+- Commits do backend (branch `feature/pokemon-generation`): S0.1 `748cbeba` (docs), B1.1 `64e0b4f1`, B1.2 `11423420`, B1.3 `89c1b8cf`, B2.1 `f7ba7273`, B2.2 `a4d1cf4e`, T1.1 `4bc9dc74`, T1.2 `bdda90a3`.
 - Janela quebrada B1.1 -> B2.2: FECHADA. `tests/unit/data/published-schemas.test.ts` e `tests/unit/dataset/join.test.ts` passam de novo (47 testes); `npx vitest run` inteiro verde (88 arquivos / 744 testes, antes dos testes novos de T1). O app e o e2e abrem de novo.
 - Portao de nao-regressao do dado (UI ainda intocada): `npm run build` + `npx playwright test` inteiro = 269 testes, 253 ok, 16 pulados (dev-only), 0 falha, 0 flaky: IGUAL a linha de base da S0.1. Os 7 testes visuais de `responsive.spec.ts:186` (14 comparacoes, Home + Charizard) passaram sem atualizar baseline.
 - Contrato em `src/data/types.ts` (`GameInfo`, `DatasetManifest.games`, `SpeciesSummary.games`, `EvolutionChainNode.generation`) e `src/data/schemas.ts` (catalogo `.strict()`, `games` e `generation` obrigatorios). Congelado; nao mudar sem voltar ao backend.
@@ -70,6 +70,12 @@ Para o agente de frontend. Tudo abaixo foi conferido no dataset publicado (nao s
 - Auditoria no publicado: `checks 51146, especies 1027, divergencias {}` (46.768 + 4.378 novos). Rodada 7 no `tools/dataset/audit/AUDIT_REPORT.md`.
 - "So acrescimos" contra o publicado anterior: mesma lista de 1044 arquivos; 15 arquivos fora de indice/fichas/manifest byte a byte iguais; cada entrada do indice sem `games` identica e na mesma ordem; cada ficha sem `games` e sem `nodes[].generation` identica; manifest igual sem `datasetVersion`/`generatedAt`/`sources`/`games`, `sources` antigo = prefixo; geracoes 151/100/135/107/156/72/86/2/89/7/120/2.
 - Determinismo: 2a execucao no mesmo dia = mesma `datasetVersion` e os 1044 arquivos iguais (manifest so difere em `generatedAt`).
+
+## Testes do backend (T1.1, T1.2)
+
+- Novos: `tests/unit/dataset/game-availability.test.ts`, `tests/unit/data/precache-budget.test.ts`; blocos novos em `audit.test.ts`, `join.test.ts`, `published-schemas.test.ts` (lista no `CHECKLIST_MANUAL_pokemon-generation.md`, secao Backend).
+- Suite inteira depois de T1.2: 90 arquivos / 772 testes. 3 rodadas: 2 verdes, 1 com falha no teste de TEMPO preexistente `tests/unit/domain/bait.test.ts:106` (pior `recommendBerries` 5,17 ms > 5 ms sob carga paralela; isolado 3/3 verde; nao le campo novo). Registrado em Bugs do checklist, assert nao mexido. Se aparecer no T1.5, e esse flake, nao regressao do frontend.
+- Cobertura: global 94,37 / 87,93; `tools/dataset/src` 93,84 / 85,18.
 
 ## Linha de base da S0.1 (para comparar no fim)
 
