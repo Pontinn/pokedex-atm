@@ -1,5 +1,5 @@
 // Bloco do tipo escolhido (RF-13..RF-18, RF-22, RF-23): icone grande, nome, frase de intuicao,
-// abas Atacando/Defendendo e faixas coloridas por vantagem do ponto de vista da aba.
+// abas Atacando/Defendendo, faixas coloridas por vantagem do ponto de vista da aba e 2o tipo opcional na defesa (RF-37..RF-39).
 import { memo, useMemo } from "react";
 import { SegmentedControl } from "../../components/SegmentedControl";
 import { TypeIcon } from "../../components/TypeIcon";
@@ -9,15 +9,38 @@ import { useT } from "../../i18n/useT";
 import type { TypesTab } from "../../navigation/types";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
 import { usePreferencesStore } from "../../state/preferences-store";
-import { HINT_KEYS, TYPE_NAME_JOIN, attackGroups, defendGroups } from "./types-model";
+import { HINT_KEYS, TYPE_NAME_JOIN, attackGroups, defendGroups, parseSecond, secondOptions } from "./types-model";
+
+function SecondTypeSelect({ first }: { first: TypeId }) {
+  const t = useT();
+  const lang = usePreferencesStore((s) => s.uiLanguage);
+  const { updateUi } = useNavigationActions();
+  const second = useScreenUi("types", "second");
+  return (
+    <label className="tp-second">
+      <span>{t("types.secondLabel")}</span>
+      <select id="tp-second" value={second ?? ""} onChange={(e) => updateUi<"types">({ second: parseSecond(e.target.value, first) })}>
+        <option value="">{t("types.none")}</option>
+        {secondOptions(first).map((ty) => (
+          <option key={ty} value={ty}>
+            {typeName(ty, lang)}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
 
 export const TypeFocus = memo(function TypeFocus({ type }: { type: TypeId }) {
   const t = useT();
   const lang = usePreferencesStore((s) => s.uiLanguage);
   const { updateUi } = useNavigationActions();
   const tab = useScreenUi("types", "tab");
-  const groups = useMemo(() => (tab === "attack" ? attackGroups(type) : defendGroups([type])), [tab, type]);
-  const heroTypes: TypeId[] = [type];
+  const second = useScreenUi("types", "second");
+  // o 2o tipo so vale na aba Defendendo (RF-37); fica guardado no ui ao trocar de aba
+  const defenders = useMemo<TypeId[]>(() => (tab === "defend" && second !== null ? [type, second] : [type]), [tab, type, second]);
+  const groups = useMemo(() => (tab === "attack" ? attackGroups(type) : defendGroups(defenders)), [tab, type, defenders]);
+  const heroTypes = defenders;
   return (
     <>
       <div className={`panel tp-hero t-${type}`} data-hero={type}>
@@ -42,6 +65,7 @@ export const TypeFocus = memo(function TypeFocus({ type }: { type: TypeId }) {
           ]}
           onChange={(v) => updateUi<"types">({ tab: v })}
         />
+        {tab === "defend" ? <SecondTypeSelect first={type} /> : null}
       </div>
       <div className="tp-bands" data-tab={tab}>
         {groups.map((g) => (

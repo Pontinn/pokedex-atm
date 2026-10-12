@@ -60,3 +60,8 @@ html[data-theme="green"] .types-screen :focus-visible, html[data-theme="blue"] .
 .types-screen .tp-matrix td.is-col { box-shadow: inset 2px 0 0 var(--text), inset -2px 0 0 var(--text), inset 3px 0 0 var(--surface), inset -3px 0 0 var(--surface); }
 .types-screen .tp-matrix tr.is-sel > td.is-col { box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 3px var(--surface); }
 .types-screen .tp-head:focus-visible, .types-screen .tp-matrix-scroll:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+/* [COULD] defesa com 2 tipos: x4 e x1/4 (UISPEC 3.2b, origem .mult-4 e .mult-quarter) */
+.types-screen .tone-dis-strong { background: #FFD9D9; color: #A10F0F; }
+.types-screen .tone-adv-strong { background: #C9EED6; color: #0F5A2C; }
+.types-screen .tp-second { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; }
+.types-screen .tp-second select:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }

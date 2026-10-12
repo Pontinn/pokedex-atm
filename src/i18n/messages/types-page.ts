@@ -53,4 +53,9 @@ export const TYPES_PAGE_MESSAGES = {
   "types.hint.dark": { pt: "Sombrio vence Psíquico e Fantasma, mas Lutador vence Sombrio", en: "Dark beats Psychic and Ghost, but Fighting beats Dark" },
   "types.hint.steel": { pt: "Aço vence Gelo, Pedra e Fada, mas Fogo vence Aço", en: "Steel beats Ice, Rock and Fairy, but Fire beats Steel" },
   "types.hint.fairy": { pt: "Fada vence Dragão, mas Veneno vence Fada", en: "Fairy beats Dragon, but Poison beats Fairy" },
+  "types.legend4": { pt: "x4 = causa o quádruplo de dano", en: "x4 = deals quadruple damage" },
+  "types.legendQuarter": { pt: "x1/4 = causa um quarto do dano", en: "x1/4 = deals a quarter of the damage" },
+  "types.def4": { pt: "Muito fraco contra (recebe x4)", en: "Very weak to (takes x4)" },
+  "types.defQuarter": { pt: "Resiste muito a (recebe x1/4)", en: "Strongly resists (takes x1/4)" },
+  "types.secondLabel": { pt: "Segundo tipo", en: "Second type" },
 } as const satisfies Record<string, Message>;

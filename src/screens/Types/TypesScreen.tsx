@@ -19,6 +19,8 @@ function TypesLegend() {
         <li>{t("types.legend2")}</li>
         <li>{t("types.legendHalf")}</li>
         <li>{t("types.legend0")}</li>
+        <li>{t("types.legend4")}</li>
+        <li>{t("types.legendQuarter")}</li>
       </ul>
       <p className="tp-legend-color">
         <span className="tp-swatches" aria-hidden="true">

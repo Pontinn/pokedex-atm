@@ -63,6 +63,14 @@ const DEFEND_SINGLE_SPEC: readonly GroupSpec[] = [
   { multiplier: 0, tone: "zero", titleKey: "types.def0" },
 ];
 
+const DEFEND_DUAL_SPEC: readonly GroupSpec[] = [
+  { multiplier: 4, tone: "dis-strong", titleKey: "types.def4" },
+  { multiplier: 2, tone: "dis", titleKey: "types.def2" },
+  { multiplier: 0.5, tone: "adv", titleKey: "types.defHalf" },
+  { multiplier: 0.25, tone: "adv-strong", titleKey: "types.defQuarter" },
+  { multiplier: 0, tone: "zero", titleKey: "types.def0" },
+];
+
 export function isTypeId(v: unknown): v is TypeId {
   return typeof v === "string" && (TYPE_IDS as readonly string[]).includes(v);
 }
@@ -86,10 +94,13 @@ export function attackGroups(type: TypeId): TypeGroup[] {
   return ATTACK_SPEC.map((g) => ({ ...g, types: TYPE_IDS.filter((d) => singleMultiplier(type, d) === g.multiplier) }));
 }
 
-/** Grupos do(s) tipo(s) defendendo: quem causa x2, x1/2, x0 neles (sempre os 3, nunca omitidos). */
+/** Grupos do(s) tipo(s) defendendo: 1 tipo = x2, x1/2, x0; 2 tipos = x4, x2, x1/2, x1/4, x0 (nunca omitidos). */
 export function defendGroups(defenders: readonly TypeId[]): TypeGroup[] {
-  // F4.1: ramo de 2 tipos
-  const first = defenders[0];
+  const [first, second] = defenders;
+  if (first !== undefined && second !== undefined) {
+    const e2 = effectivenessAgainst([first, second]);
+    return DEFEND_DUAL_SPEC.map((g) => ({ ...g, types: TYPE_IDS.filter((a) => e2[a] === g.multiplier) }));
+  }
   const e = effectivenessAgainst(first !== undefined ? [first] : []);
   return DEFEND_SINGLE_SPEC.map((g) => ({ ...g, types: TYPE_IDS.filter((a) => e[a] === g.multiplier) }));
 }
