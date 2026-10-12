@@ -51,3 +51,4 @@ updated: 2026-10-12 15:51
 ## 2026-10-12 15:51 - Stage 4 iniciada (impl-in-progress)
 - CHECKLIST (haiku, 1 min): 7 fases, 15 tarefas, tudo pendente, zero U+2014; commit 579d6adf. Pasta movida para .forge/in-progress/ (74d3c3d7). Drift check contra d991de5a: sem drift (so .forge/ mudou).
 - forge-imp-frontend #1 disparado no worktree, modo autonomo, janela de 50 min; retoma pelo primeiro item desmarcado do CHECKLIST. Regras no brief: sem Co-Authored-By, sem U+2014, Playwright headless sem sleeps, nunca tocar a arvore principal Projetos/pokedex.
+- Correcao: o drift-check acusou PRD/CONTEXT/UISPEC so por causa do git mv de ideas/ para in-progress/; blobs identicos conferidos (172e7154, 5cbb8e52, c5127ca9). Sem drift real.
