@@ -129,7 +129,7 @@ export const BestBallPanel = memo(function BestBallPanel({ detail }: { detail: S
   const part = useMemo(() => (balls ? partitionBalls(detail, balls, { captured }) : null), [balls, detail, captured]);
   const shown = part ? (all ? part.ranked : part.ranked.slice(0, BEST_BALL_TOP)) : [];
   return (
-    <div className="panel best-panel" id="best-panel" style={{ "--i": 7 } as CSSProperties}>
+    <div className="panel best-panel" id="best-panel" style={{ "--i": 8 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("ball.best")}</h3>
         <div className="ph-right">

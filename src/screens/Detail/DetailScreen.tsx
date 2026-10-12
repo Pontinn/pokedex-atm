@@ -27,6 +27,7 @@ import { WherePanel } from "./WherePanel";
 import { BestBallPanel } from "./BestBallPanel";
 import { CalculatorsPanel } from "./StatsCalculator";
 import { FormsPanel } from "./FormsPanel";
+import { GamesPanel } from "./GamesPanel";
 import { StatsPanel } from "./StatsPanel";
 import { useSpeciesDetail } from "./use-species-detail";
 import { WeaknessPanel } from "./WeaknessPanel";
@@ -145,6 +146,7 @@ export function DetailScreen({ params }: ScreenProps) {
             <AbilitiesPanel abilities={detail.abilities} />
             <MovesPanel moves={detail.moves} />
             <WherePanel detail={detail} />
+            <GamesPanel detail={detail} />
             <BestBallPanel detail={detail} />
             <FormsPanel detail={detail} />
             <CalculatorsPanel baseStats={detail.baseStats} types={detail.types} />

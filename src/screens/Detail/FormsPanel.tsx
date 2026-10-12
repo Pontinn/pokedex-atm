@@ -92,7 +92,7 @@ export const FormsPanel = memo(function FormsPanel({ detail }: { detail: Species
   const t = useT();
   if (detail.forms.length === 0) return null;
   return (
-    <div className="panel forms-panel" id="forms-panel" style={{ "--i": 8 } as CSSProperties}>
+    <div className="panel forms-panel" id="forms-panel" style={{ "--i": 9 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.forms")}</h3>
         <TermsToggle cardKey="forms" />

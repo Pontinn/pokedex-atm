@@ -223,7 +223,7 @@ export const CalculatorsPanel = memo(function CalculatorsPanel({ baseStats, type
     <details
       className="panel calc"
       id="calc"
-      style={{ "--i": 9 } as CSSProperties}
+      style={{ "--i": 10 } as CSSProperties}
       open={open}
       onToggle={(e) => {
         const next = (e.currentTarget as HTMLDetailsElement).open;

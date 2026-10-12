@@ -181,6 +181,11 @@ html[data-theme="green"] .evo .badge.evo-gen-diff, html[data-theme="blue"] .evo 
 .kv .k, .drops .k { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .kv .chips, .spawn-entry .chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; min-width: 0; }
 .badge.badge-sm { font-size: 9.5px; padding: 2px 7px; }
+/* pokemon-generation: painel Jogos (chip com a aparencia de .method, nota com a tipografia de .k) */
+.games-list { list-style: none; margin: 0; padding: 0; }
+.game-chip { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.games-note { margin: 10px 0 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.games-empty { margin: 0; }
 .spawn-list { display: grid; gap: 8px; }
 .spawn-entry { display: grid; gap: 8px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--border); animation: cardIn .4s var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 8) * 40ms); }
 .spawn-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; font-weight: 700; }
