@@ -11,6 +11,7 @@
   "evolutionMethods": ["none"],
   "hasSprite": true,
   "artworkId": 6,
+  "games": [1, 2, 3, 4, 7, 10, 15, 19, 20, 25, 30],
   "pokedexText": { "pt": "Cospe fogo.", "en": "Spits fire." },
   "height": 17,
   "weight": 905,
@@ -29,9 +30,9 @@
   "evolutionChain": {
     "root": 4,
     "nodes": [
-      { "dex": 4, "slug": "charmander", "name": { "pt": "Charmander", "en": "Charmander" }, "types": ["fire"] },
-      { "dex": 5, "slug": "charmeleon", "name": { "pt": "Charmeleon", "en": "Charmeleon" }, "types": ["fire"] },
-      { "dex": 6, "slug": "charizard", "name": { "pt": "Charizard", "en": "Charizard" }, "types": ["fire", "flying"] }
+      { "dex": 4, "slug": "charmander", "name": { "pt": "Charmander", "en": "Charmander" }, "types": ["fire"], "generation": "gen1" },
+      { "dex": 5, "slug": "charmeleon", "name": { "pt": "Charmeleon", "en": "Charmeleon" }, "types": ["fire"], "generation": "gen1" },
+      { "dex": 6, "slug": "charizard", "name": { "pt": "Charizard", "en": "Charizard" }, "types": ["fire", "flying"], "generation": "gen1" }
     ],
     "edges": [
       { "id": "charmeleon-charizard", "from": 5, "to": 6, "toSlug": "charizard", "variant": "level_up", "requiredItem": null, "requirements": [{ "kind": "level", "minLevel": 36 }] }

@@ -156,7 +156,10 @@ const MethodChip = memo(function MethodChip({ edge, items, lang }: { edge: Evolu
   );
 });
 
-function EvoNode({ node, current, known, lang }: { node: EvolutionChainNode; current: boolean; known: boolean; lang: UiLanguage }) {
+/** pokemon-generation: no da cadeia como a tela usa; o no sintetico do fallback nao tem geracao (null). */
+type ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null };
+
+function EvoNode({ node, current, known, lang }: { node: ChainNodeView; current: boolean; known: boolean; lang: UiLanguage }) {
   const { navigate } = useNavigationActions();
   const body = (
     <>
@@ -187,7 +190,7 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
   const outgoing = new Map<number, EvolutionEdge[]>();
   for (const e of chain.edges) outgoing.set(e.from, [...(outgoing.get(e.from) ?? []), e]);
   const isKnown = (dex: number) => (known ? known.has(dex) : true);
-  const node = (dex: number) => byDex.get(dex) ?? { dex, slug: String(dex), name: { pt: String(dex), en: String(dex) }, types: [] };
+  const node = (dex: number) => byDex.get(dex) ?? { dex, slug: String(dex), name: { pt: String(dex), en: String(dex) }, types: [], generation: null };
 
   if (chain.edges.length === 0) return <p className="muted evo-none">{t("evo.none")}</p>;
 

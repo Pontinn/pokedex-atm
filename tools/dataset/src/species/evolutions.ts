@@ -156,7 +156,7 @@ export function buildChain(
     visited.add(dex);
     const ms = species.get(dex);
     if (!ms) continue;
-    nodes.push({ dex: ms.dex, slug: ms.slug, name: ms.name, types: ms.types });
+    nodes.push({ dex: ms.dex, slug: ms.slug, name: ms.name, types: ms.types, generation: ms.generation });
     for (const edge of edgesByDex.get(dex) ?? []) {
       edges.push(edge);
       if (!visited.has(edge.to)) queue.push(edge.to);

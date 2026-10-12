@@ -88,7 +88,7 @@ const { resetPreferencesStore } = await import("../../../src/state/preferences-s
 const tr = (key: string, vars?: Record<string, string | number>) => translate("pt", key, vars);
 
 function sp(dex: number, pt: string): SpeciesSummary {
-  return { dex, slug: pt.toLowerCase(), name: { pt, en: pt }, searchKey: "", types: ["fire"], generation: "gen1", labels: [], bst: 1, rarity: { primary: null, secondary: [] }, evolutionMethods: ["none"], hasSprite: true, artworkId: dex };
+  return { dex, slug: pt.toLowerCase(), name: { pt, en: pt }, searchKey: "", types: ["fire"], generation: "gen1", labels: [], bst: 1, rarity: { primary: null, secondary: [] }, evolutionMethods: ["none"], hasSprite: true, artworkId: dex, games: [] };
 }
 
 beforeEach(() => {

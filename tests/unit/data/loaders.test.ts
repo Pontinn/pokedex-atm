@@ -31,6 +31,7 @@ const manifest = {
     items: "items.json", balls: "balls.json", series: "series.json", fossils: "fossils.json", biomes: "biomes.json",
     speciesDir: "species", trainersDir: "trainers",
   },
+  games: [],
 };
 
 type Route = unknown | (() => Response | Promise<Response>);

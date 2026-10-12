@@ -19,6 +19,7 @@ function sp(dex: number, pt: string, en: string, types: SpeciesSummary["types"],
     evolutionMethods: evo,
     hasSprite: true,
     artworkId: dex,
+    games: [],
   };
 }
 

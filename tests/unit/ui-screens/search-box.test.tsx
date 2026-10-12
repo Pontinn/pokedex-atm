@@ -20,6 +20,7 @@ const charizard: SpeciesSummary = {
   evolutionMethods: ["level"],
   hasSprite: true,
   artworkId: 6,
+  games: [1],
 };
 
 describe("SearchBox", () => {

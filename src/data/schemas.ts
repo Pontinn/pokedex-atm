@@ -93,6 +93,7 @@ export const datasetManifestSchema: z.ZodType<DatasetManifest> = z.object({
     speciesDir: z.string(),
     trainersDir: z.string(),
   }),
+  games: z.array(z.object({ id: z.number().int().positive(), slug: z.string().min(1), name: z.string().min(1) }).strict()),
 });
 
 const summaryShape = {
@@ -108,6 +109,7 @@ const summaryShape = {
   evolutionMethods: z.array(z.enum(["level", "item", "friendship", "trade", "move", "other", "none"])),
   hasSprite: z.boolean(),
   artworkId: z.number().nullable(),
+  games: z.array(z.number().int().positive()).nullable(),
 };
 
 export const speciesSummarySchema: z.ZodType<SpeciesSummary> = z.object(summaryShape);
@@ -187,7 +189,9 @@ export const speciesDetailSchema: z.ZodType<SpeciesDetail> = z.object({
   preEvolution: z.object({ dex: z.number(), slug: z.string() }).nullable(),
   evolutionChain: z.object({
     root: z.number(),
-    nodes: z.array(z.object({ dex: z.number(), slug: z.string(), name: localizedTextSchema, types: z.array(typeIdSchema) })),
+    nodes: z.array(
+      z.object({ dex: z.number(), slug: z.string(), name: localizedTextSchema, types: z.array(typeIdSchema), generation: z.string() }),
+    ),
     edges: z.array(evolutionEdgeSchema),
   }),
   forms: z.array(

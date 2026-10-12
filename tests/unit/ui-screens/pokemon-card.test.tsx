@@ -21,6 +21,7 @@ function species(overrides: Partial<SpeciesSummary> = {}): SpeciesSummary {
     evolutionMethods: ["none"],
     hasSprite: false,
     artworkId: null,
+    games: null,
     ...overrides,
   };
 }

@@ -16,6 +16,7 @@ const sp = (dex: number, slug: string, pt: string, en: string): SpeciesSummary =
   evolutionMethods: ["none"],
   hasSprite: true,
   artworkId: dex,
+  games: [],
 });
 
 const INDEX = [

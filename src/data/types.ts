@@ -90,6 +90,16 @@ export interface PackInfo {
   minecraft: string;
 }
 
+/** pokemon-generation: jogo principal = version-group da PokeAPI (recorte curado), no catalogo do manifest. */
+export interface GameInfo {
+  /** id do version-group na PokeAPI (ex. 7 = firered-leafgreen); e o valor guardado em SpeciesSummary.games */
+  id: number;
+  /** nome do version-group na PokeAPI (ex. "firered-leafgreen") */
+  slug: string;
+  /** nomes em ingles das versoes do grupo unidos por " / " (ex. "FireRed / LeafGreen"); nome proprio, igual em PT e EN */
+  name: string;
+}
+
 export interface DatasetManifest {
   /** ex. "atm1.3.0-cobblemon1.7.3-20260923-3f9a1c2b" */
   datasetVersion: string;
@@ -105,6 +115,8 @@ export interface DatasetManifest {
   levelCapConfig: LevelCapConfig;
   media: MediaTotals;
   files: DatasetFiles;
+  /** pokemon-generation: jogos principais em ordem cronologica (version-group.order) */
+  games: GameInfo[];
 }
 
 /** public/data/current.json */
@@ -147,6 +159,8 @@ export interface SpeciesSummary {
   hasSprite: boolean;
   /** id da PokeAPI para artwork (== dex; null para custom) */
   artworkId: number | null;
+  /** pokemon-generation: ids de GameInfo em que a especie consta (ordem do catalogo); [] = oficial sem jogo; null = so no pack (custom) */
+  games: number[] | null;
 }
 
 export type SpeciesIndexFile = SpeciesSummary[];
@@ -204,6 +218,8 @@ export interface EvolutionChainNode {
   slug: string;
   name: LocalizedText;
   types: TypeId[];
+  /** pokemon-generation: geracao da especie do no (mesmo valor de SpeciesSummary.generation) */
+  generation: string;
 }
 
 export interface EvolutionChain {

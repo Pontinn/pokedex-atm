@@ -90,6 +90,7 @@ function buildSpeciesDetail(ctx: PipelineContext, merged: DerivedSpecies): Speci
     evolutionMethods: evolutionMethods(merged.evolutions),
     hasSprite,
     artworkId,
+    games: null,
   };
 
   return {
@@ -157,6 +158,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
       evolutionMethods: methods,
       hasSprite,
       artworkId,
+      games,
     }): SpeciesSummary => ({
       dex,
       slug,
@@ -170,6 +172,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
       evolutionMethods: methods,
       hasSprite,
       artworkId,
+      games,
     }),
   );
   const indexCheck = speciesIndexSchema.safeParse(index);
@@ -220,6 +223,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
       speciesDir: "species",
       trainersDir: "trainers",
     },
+    games: [],
   };
   const datasetVersion = buildDatasetVersion(
     ctx.source.pack.version,

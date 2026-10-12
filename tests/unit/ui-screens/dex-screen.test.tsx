@@ -31,6 +31,7 @@ function sp(dex: number, pt: string, en: string, types: TypeId[], generation: st
     evolutionMethods: evo,
     hasSprite: true,
     artworkId: dex,
+    games: [],
   };
 }
 

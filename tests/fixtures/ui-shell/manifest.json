@@ -7,5 +7,6 @@
   "counts": { "species": 0, "spawnEntries": 0, "fossilRoutes": 0, "moves": 0, "abilities": 0, "items": 0, "balls": 0, "trainers": 0, "keyTrainers": {}, "series": 0, "cries": 0, "itemTextures": 0, "sprites": 0 },
   "levelCapConfig": { "initialLevelCap": 15, "relativeLevelCap": 0, "initialSeries": "empty", "freeroamRequiresCompletedSeries": true },
   "media": { "criesBytes": 0, "sfxBytes": 0, "itemTexturesBytes": 0, "spritesBytes": 0, "totalBytes": 0 },
-  "files": { "speciesIndex": "species-index.json", "typeChart": "type-chart.json", "moves": "moves.json", "abilities": "abilities.json", "items": "items.json", "balls": "balls.json", "series": "series.json", "fossils": "fossils.json", "biomes": "biomes.json", "speciesDir": "species", "trainersDir": "trainers" }
+  "files": { "speciesIndex": "species-index.json", "typeChart": "type-chart.json", "moves": "moves.json", "abilities": "abilities.json", "items": "items.json", "balls": "balls.json", "series": "series.json", "fossils": "fossils.json", "biomes": "biomes.json", "speciesDir": "species", "trainersDir": "trainers" },
+  "games": []
 }

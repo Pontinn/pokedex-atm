@@ -129,7 +129,7 @@ const tr = (key: string) => translate("pt", key);
 let played: string[] = [];
 
 function species(dex: number, pt: string, en: string): SpeciesSummary {
-  return { dex, slug: en.toLowerCase(), name: { pt, en }, searchKey: "", types: ["rock", "ground"], generation: "gen1", labels: [], bst: 300, rarity: { primary: null, secondary: [] }, evolutionMethods: ["none"], hasSprite: true, artworkId: dex };
+  return { dex, slug: en.toLowerCase(), name: { pt, en }, searchKey: "", types: ["rock", "ground"], generation: "gen1", labels: [], bst: 300, rarity: { primary: null, secondary: [] }, evolutionMethods: ["none"], hasSprite: true, artworkId: dex, games: [] };
 }
 
 function renderScreen() {
