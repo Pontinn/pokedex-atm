@@ -1,12 +1,13 @@
 // Filtros da Pokedex (F3.2; porta renderFilters app.js:729-732 e os selects de index.html:120-147): chips de tipo
-// (multi; .on = selecionado, contorno = nao), geracao, metodo de evolucao, ordenacao e status. Estado em
+// (multi; .on = selecionado, contorno = nao), geracao, jogo (pokemon-generation: catalogo do manifest), metodo de
+// evolucao, ordenacao e status. Estado em
 // current.ui (pilha, RF-01/02); este bloco nao depende da lista, entao nao re-renderiza a cada filtro (mantem o foco).
 import { memo, useMemo } from "react";
 import { Check } from "../../components/Icon";
 import { SegmentedControl } from "../../components/SegmentedControl";
 import { TypeIcon } from "../../components/TypeIcon";
 import { typeName } from "../../components/TypeChip";
-import type { TypeId } from "../../data/types";
+import type { GameInfo, TypeId } from "../../data/types";
 import { TYPE_IDS } from "../../domain/type-chart";
 import { useT } from "../../i18n/useT";
 import { useNavigationStore } from "../../navigation/navigation-store";
@@ -17,6 +18,7 @@ import { ListSearch } from "./ListSearch";
 import { EVOLUTION_FILTERS, sortGenerations } from "./use-filtered-species";
 
 type DexUi = { filters: DexFiltersState; sort: DexSort; status: DexStatusFilter };
+const NO_GAMES: readonly GameInfo[] = [];
 
 function dexUi(): DexUi {
   return useNavigationStore.getState().current.ui as DexUi;
@@ -85,6 +87,8 @@ const SelectsAndStatus = memo(function SelectsAndStatus() {
   const t = useT();
   const index = useDatasetStore((s) => s.speciesIndex);
   const generation = useNavigationStore((s) => (s.current.ui as DexUi).filters?.generation ?? null);
+  const game = useNavigationStore((s) => (s.current.ui as DexUi).filters?.game ?? null);
+  const games = useDatasetStore((s) => s.manifest?.games ?? NO_GAMES);
   const evolution = useNavigationStore((s) => (s.current.ui as DexUi).filters?.evolution ?? null);
   const sort = useNavigationStore((s) => (s.current.ui as DexUi).sort ?? "num");
   const status = useNavigationStore((s) => (s.current.ui as DexUi).status ?? "all");
@@ -99,6 +103,21 @@ const SelectsAndStatus = memo(function SelectsAndStatus() {
           {gens.map((g) => (
             <option key={g} value={g}>
               {genLabel(g, t)}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="filter-group">
+        <label htmlFor="f-game">{t("dex.game")}</label>
+        <select
+          id="f-game"
+          value={game === null ? "all" : String(game)}
+          onChange={(e) => patchFilters({ game: e.target.value === "all" ? null : Number(e.target.value) })}
+        >
+          <option value="all">{t("dex.all")}</option>
+          {games.map((g) => (
+            <option key={g.id} value={String(g.id)}>
+              {g.name}
             </option>
           ))}
         </select>

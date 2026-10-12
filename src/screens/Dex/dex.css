@@ -62,7 +62,7 @@
 .filters { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 18px; display: grid; gap: 12px; min-width: 0; }
 .filter-group { display: grid; gap: 6px; min-width: 0; }
 .filter-group label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-.filter-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
+.filter-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
 .filter-row select { width: 100%; min-width: 0; }
 .dex-empty-query { font-weight: 800; margin: 4px 0 0; overflow-wrap: anywhere; }
 .app.mobile .filters { padding: 12px; margin: 0 0 14px; }

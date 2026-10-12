@@ -50,6 +50,8 @@ export type DexSort = "num" | "name" | "bst";
 export interface DexFilters {
   types: TypeId[];
   generation: string | null;
+  /** pokemon-generation: id do jogo (GameInfo.id) ou null = todos */
+  game: number | null;
   evolution: string | null;
   query: string;
 }
@@ -97,7 +99,7 @@ export interface NavEntry<S extends ScreenId = ScreenId> {
 export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
   const defaults: { [K in ScreenId]: () => UiStateMap[K] } = {
     home: () => ({ query: "" }),
-    dex: () => ({ filters: { types: [], generation: null, evolution: null, query: "" }, sort: "num", status: "all" }),
+    dex: () => ({ filters: { types: [], generation: null, game: null, evolution: null, query: "" }, sort: "num", status: "all" }),
     detail: () => ({
       moveTab: "level",
       formIndex: 0,

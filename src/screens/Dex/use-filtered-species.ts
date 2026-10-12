@@ -1,5 +1,6 @@
 // Filtro da Pokedex (F3.2; RF-11..14, RF-53, RF-07): texto (numero ou nome PT/EN sem acento, B6.5) E tipos (OR entre
-// tipos, app.js:736) E geracao E metodo de evolucao E status capturado, mantendo a ordenacao escolhida.
+// tipos, app.js:736) E geracao E jogo (pokemon-generation: SpeciesSummary.games) E metodo de evolucao E status
+// capturado, mantendo a ordenacao escolhida.
 // Funcao pura (testada em unidade) + hook memoizado que le so o proprio slice da pilha e dos capturados (RF-04).
 import { useMemo } from "react";
 import type { SpeciesSummary } from "../../data/types";
@@ -41,10 +42,12 @@ export interface FilterOptions {
 
 export function filterSpecies(index: readonly SpeciesSummary[], opts: FilterOptions): SpeciesSummary[] {
   const { filters, status, captured } = opts;
+  const game = filters.game ?? null;
   const out = index.filter(
     (s) =>
       (filters.types.length === 0 || s.types.some((t) => filters.types.includes(t))) &&
       (filters.generation === null || s.generation === filters.generation) &&
+      (game === null || (s.games !== null && s.games.includes(game))) &&
       (filters.evolution === null || s.evolutionMethods.includes(filters.evolution as SpeciesSummary["evolutionMethods"][number])) &&
       (status === "all" || (status === "caught") === String(s.dex) in captured) &&
       matchesQuery(s, filters.query),

@@ -151,7 +151,7 @@ describe("DexScreen", () => {
   });
 
   it("texto restaurado da pilha volta no campo de busca", () => {
-    useNavigationStore.getState().updateUi<"dex">({ filters: { types: [], generation: null, evolution: null, query: "bulba" } });
+    useNavigationStore.getState().updateUi<"dex">({ filters: { types: [], generation: null, game: null, evolution: null, query: "bulba" } });
     renderDex();
     expect((document.getElementById("dex-search") as HTMLInputElement).value).toBe("bulba");
     expect(count()).toBe(1);

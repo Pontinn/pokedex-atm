@@ -33,7 +33,7 @@ const INDEX = [
   sp(9901, "Creepyon", "Creepyon", ["ghost"], "custom", ["none"], 400),
 ];
 
-const base = { filters: { types: [], generation: null, evolution: null, query: "" }, sort: "num" as const, status: "all" as const, captured: {}, lang: "pt" as const };
+const base = { filters: { types: [], generation: null, game: null, evolution: null, query: "" }, sort: "num" as const, status: "all" as const, captured: {}, lang: "pt" as const };
 const dexes = (list: SpeciesSummary[]) => list.map((s) => s.dex);
 
 describe("filterSpecies", () => {
