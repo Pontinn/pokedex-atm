@@ -302,4 +302,13 @@ describe("SettingsScreen", () => {
     });
     await waitFor(() => expect(toasts()).toContain("backup.failed"));
   });
+
+  it("about card credits the PokeAPI as the source of the games (data-info=pokeapi, PT and EN)", () => {
+    renderSettings();
+    const line = card("about").querySelector("[data-info='pokeapi']")!;
+    expect(line.textContent).toBe("Jogos de cada Pokémon: PokeAPI (recorte no build)");
+    expect(within(card("about")).getByText(tr("settings.images"))).toBeTruthy();
+    act(() => usePreferencesStore.setState({ uiLanguage: "en" }));
+    expect(card("about").querySelector("[data-info='pokeapi']")!.textContent).toBe("Games each Pokémon appears in: PokeAPI (snapshot at build time)");
+  });
 });

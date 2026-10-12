@@ -1,6 +1,8 @@
 // F3.2: filtro combinavel da Pokedex (funcao pura; o e2e cobre a UI com o dataset real).
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { SpeciesSummary } from "../../../src/data/types";
+import type { DexFilters } from "../../../src/navigation/types";
 import { normalizeSearch } from "../../../src/domain/search";
 import { filterSpecies, matchesQuery, sortGenerations } from "../../../src/screens/Dex/use-filtered-species";
 import { gridColumns } from "../../../src/screens/Dex/DexGrid";
@@ -78,5 +80,56 @@ describe("helpers", () => {
     expect(gridColumns(964, false)).toBe(4);
     expect(gridColumns(150, false)).toBe(1);
     expect(gridColumns(1200, true)).toBe(2);
+  });
+});
+
+describe("filterSpecies by game (pokemon-generation)", () => {
+  const GAMES: Record<number, number[] | null> = { 4: [1, 7], 6: [1, 7], 25: [7], 133: [1], 155: [3], 195: [3, 7], 9901: null };
+  const G = INDEX.map((s) => ({ ...s, games: GAMES[s.dex] ?? [] }));
+  const withGame = (game: number | null, extra: Partial<DexFilters> = {}) =>
+    dexes(filterSpecies(G, { ...base, filters: { ...base.filters, ...extra, game } }));
+
+  it("game null gives the same result as before for every existing combination (no filter)", () => {
+    const combos: Partial<DexFilters>[] = [{}, { types: ["fire"], generation: "gen1" }, { types: ["fire", "electric"] }, { evolution: "item" }, { types: ["fire"], query: "char" }, { query: "pantano" }];
+    for (const c of combos) {
+      const { game: _omit, ...legacy } = { ...base.filters, ...c };
+      void _omit;
+      const before = dexes(filterSpecies(G, { ...base, filters: legacy as DexFilters }));
+      expect(withGame(null, c)).toEqual(before);
+    }
+    expect(withGame(null)).toEqual(dexes(G));
+  });
+
+  it("game AND type AND generation AND text; custom species never match a game", () => {
+    expect(withGame(7)).toEqual([4, 6, 25, 195]);
+    expect(withGame(7, { types: ["fire"] })).toEqual([4, 6]);
+    expect(withGame(7, { generation: "gen2" })).toEqual([195]);
+    expect(withGame(7, { query: "pika" })).toEqual([25]);
+    expect(withGame(3, { types: ["fire"] })).toEqual([155]);
+    expect(withGame(99)).toEqual([]);
+    for (const id of [1, 3, 7]) expect(withGame(id)).not.toContain(9901);
+  });
+
+  it("real index and catalog: FireRed / LeafGreen = the species whose games include its id (151); median of 20 runs < 5 ms", () => {
+    const version = (JSON.parse(readFileSync("public/data/current.json", "utf8")) as { datasetVersion: string }).datasetVersion;
+    const index = JSON.parse(readFileSync(`public/data/${version}/species-index.json`, "utf8")) as SpeciesSummary[];
+    const manifest = JSON.parse(readFileSync(`public/data/${version}/dataset-manifest.json`, "utf8")) as { games: { id: number; slug: string }[] };
+    const frlg = manifest.games.find((g) => g.slug === "firered-leafgreen")!.id;
+    const opts = { ...base, filters: { ...base.filters, game: frlg } };
+    const got = dexes(filterSpecies(index, opts));
+    const want = index.filter((s) => s.games !== null && s.games.includes(frlg)).map((s) => s.dex);
+    expect(got).toEqual(want);
+    expect(got.length).toBe(151);
+    expect(got).toContain(41);
+    expect(got).toContain(42);
+    expect(got).not.toContain(169);
+    const times: number[] = [];
+    for (let i = 0; i < 20; i++) {
+      const t0 = performance.now();
+      filterSpecies(index, opts);
+      times.push(performance.now() - t0);
+    }
+    times.sort((a, b) => a - b);
+    expect(times[10]!).toBeLessThan(5);
   });
 });

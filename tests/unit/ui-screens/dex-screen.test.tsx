@@ -156,4 +156,53 @@ describe("DexScreen", () => {
     expect((document.getElementById("dex-search") as HTMLInputElement).value).toBe("bulba");
     expect(count()).toBe(1);
   });
+
+  it("#f-game (pokemon-generation): label Jogo, Todos + catalog names in order, writes filters.game and filters the count", () => {
+    const games = [
+      { id: 1, slug: "red-blue", name: "Red / Blue" },
+      { id: 7, slug: "firered-leafgreen", name: "FireRed / LeafGreen" },
+      { id: 3, slug: "gold-silver", name: "Gold / Silver" },
+    ];
+    const withGames: Record<number, number[] | null> = { 6: [1, 7], 1: [1, 7], 133: [1], 152: [3], 9901: null };
+    useDatasetStore.setState({
+      manifest: { games } as never,
+      speciesIndex: index.map((s) => ({ ...s, games: withGames[s.dex] ?? [] })),
+    });
+    renderDex();
+    const select = screen.getByLabelText(tr("dex.game")) as HTMLSelectElement;
+    expect(select.id).toBe("f-game");
+    expect([...select.options].map((o) => o.textContent)).toEqual([tr("dex.all"), "Red / Blue", "FireRed / LeafGreen", "Gold / Silver"]);
+    expect([...select.options].map((o) => o.value)).toEqual(["all", "1", "7", "3"]);
+    expect(select.value).toBe("all");
+    expect(count()).toBe(5);
+    fireEvent.change(select, { target: { value: "7" } });
+    expect((ui().filters as { game?: unknown }).game).toBe(7);
+    expect(count()).toBe(2);
+    fireEvent.change(document.getElementById("f-gen")!, { target: { value: "gen2" } });
+    expect(count()).toBe(0);
+    fireEvent.change(document.getElementById("f-gen")!, { target: { value: "all" } });
+    fireEvent.change(select, { target: { value: "3" } });
+    expect(count()).toBe(1);
+    fireEvent.change(select, { target: { value: "all" } });
+    expect((ui().filters as { game?: unknown }).game).toBeNull();
+    expect(count()).toBe(5);
+    // #f-gen com as mesmas opcoes de antes (RF-18)
+    expect([...(document.getElementById("f-gen") as HTMLSelectElement).options].map((o) => o.value)).toEqual(["all", "gen1", "gen2", "custom"]);
+  });
+
+  it("#f-game without catalog (manifest null) shows only Todos", () => {
+    useDatasetStore.setState({ manifest: null });
+    renderDex();
+    const select = document.getElementById("f-game") as HTMLSelectElement;
+    expect([...select.options].map((o) => o.value)).toEqual(["all"]);
+    expect(count()).toBe(5);
+  });
+
+  it("filters.game restored from the stack selects the game", () => {
+    useDatasetStore.setState({ manifest: { games: [{ id: 7, slug: "firered-leafgreen", name: "FireRed / LeafGreen" }] } as never });
+    useNavigationStore.getState().updateUi<"dex">({ filters: { types: [], generation: null, game: 7, evolution: null, query: "" } });
+    renderDex();
+    expect((document.getElementById("f-game") as HTMLSelectElement).value).toBe("7");
+    expect(count()).toBe(0);
+  });
 });
