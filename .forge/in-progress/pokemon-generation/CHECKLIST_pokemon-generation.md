@@ -103,10 +103,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 > selo em cada estagio, destaque nao cromatico quando difere da raiz.
 
-- [ ] **F2.1 - Selo de geracao no EvoNode** (categoria: frontend)
+- [x] **F2.1 - Selo de geracao no EvoNode** (categoria: frontend)
   - Done when: capturas `after-f21-evo-zubat-{desktop,phone}.png` e `after-f21-evo-tyrogue-{desktop,phone}.png` (comparar com `detail-evolution-*.png`), `after-f21-evo-pichu-desktop.png`, `after-f21-evo-eevee-phone.png`; no spec temporario: Zubat/Golbat sem `.evo-gen-diff`, Crobat com; Tyrogue (raiz gen2) sem, Hitmonlee e Hitmonchan (gen1) com destaque, Hitmontop (gen2) sem (esperado DERIVADO no spec do `generation` de cada no da ficha publicada, nunca lista a mao, LESSONS 2026-09-29); Pichu sem, Pikachu e Raichu com; Charmander/Charmeleon/Charizard sem nenhum; `aria-label` do Crobat = "Geração 2, diferente da base"; `expectNoOverlap("#evo-panel")` a 360/390/1280 PT e EN para 41, 236, 172, 133 e 6; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/detail.spec.ts tests/e2e/navigation.spec.ts` verde sem mudar assert.
-  - commit:
-  - status: pendente
+  - commit: 74a6032e
+  - status: concluida
 
 ### Sprint F3 - Jogos (filtro, painel) e credito
 
@@ -250,6 +250,13 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - 3 ajustes de assert da SPEC 2.7 (pokemon-card.test.tsx, detail.spec.ts:82, dex.spec.ts:114), nenhum outro assert mexido.
 - Spec temporario: cards 41/169/808/899/9901 = "Gen 1"/"Gen 2"/"Gen 7 (Let's Go)"/"Gen 8 (Arceus)"/"Pack"; 0 classe de raridade em `.pcard` (Dex desktop/phone e Capturados com 6 semeados); Hero Mewtwo = Lendario + "Geração 1" + Ultra-raro; Charizard = "Geração 1" + Ultra-raro; 0 erro de console. Capturas `after-f13-*` (9) conferidas com `dex-cards-*`, `captured-*`, `detail-hero-*`: mesmas metricas do selo que substitui.
 - vitest pokemon-card + detail-hero = 8/8; `PW_DEV=1 PW_PORT=4179` dex + detail + captured = 71/71.
+
+### F2.1 - concluida (2026-10-12)
+
+- Passo 1 ja estava feito (B1.1): `ChainNodeView` + `generation: null` no fallback conferidos. Passos 2 a 4: `rootGeneration` em toda chamada de `EvoNode`; `.evo-label` (nome + `badge badge-gen evo-gen`), `evo-gen-diff` com outline `--secondary` (`--primary` em green/blue/purple, D2), aria-label longo / "..., diferente da base".
+- Spec temporario (esperado DERIVADO do `generation` dos nos da ficha publicada): Zubat/Golbat sem destaque, Crobat com; Tyrogue sem, Hitmonlee e Hitmonchan com, Hitmontop sem; Pichu sem, Pikachu e Raichu com (a cadeia do Pichu tem 2 nos 26: Raichu e Raichu de Alola, ambos destacados); Charmander/Charmeleon/Charizard sem; aria-label do Crobat "Geração 2, diferente da base"; `expectNoOverlap("#evo-panel")` 360/390/1280 PT e EN para 41, 236, 172, 133, 6 ok; 0 erro de console.
+- Capturas `after-f21-*` (6) conferidas com `detail-evolution-*`: selo em fluxo abaixo do nome, sem sobrepor sprite, caixa ~22 px mais alta.
+- `PW_DEV=1 PW_PORT=4179` detail + navigation = 55/55 sem mudar assert; vitest ui-screens verde.
 
 ---
 
