@@ -96,3 +96,17 @@ updated: 2026-10-12 16:36
 - frontend #2 (2 min) parou certo: SPEC T1.3 passo 3 e CA-31 pediam page.goForward() -> .dex-screen, mas src/navigation/history-bridge.ts trata todo popstate como goBack (herdado do prototipo app.js); nenhum spec do app usa goForward. Em build+preview: 36/37 (types.spec + pwa-offline.spec, inclusive a linha 341 deslocada); a unica falha era o Avancar.
 - Decisao do orquestrador (sob delegacao; nao muda rumo decidido, o Avancar nunca foi pedido pelo Pontin e nao estava na IDEA): Avancar fora do contrato. PRD rev 5.3 (CA-31 so Voltar), SPEC T1.3 sem goForward + fingerprints (PRD 7178dd7a, IDEA novo), IDEA [16:36]. Commits a608e111, 9e596e42 e este. Implementar Avancar fica anotado como possivel feature futura do app.
 - Agente #2 retomado por mensagem para fechar T1.3 (teste termina no Voltar), T1.4, T1.5 e o CHECKLIST_MANUAL.
+## 2026-10-12 17:00 - T1.4 regressao completa contra a linha de base (forge-imp-frontend #2)
+- Passo 1 (RNF-08): npm run typecheck rc=0; npm run lint rc=0.
+- Passo 2 (RNF-09): npx vitest run --coverage rc=0: 96 arquivos, 823 testes, 0 falhas (S0.1: 93 arquivos, 763 + 37 pulados; +3 arquivos e +23 testes do type-chart: 12 + 4 + 7). Com o cache da PokeAPI no worktree, join.test.ts passa. Cobertura global 94,59% linhas / 88,46% branches; src/domain 99,61/98,13; src/components 94,03/92,88; src/screens/Types 100/100; limites do vitest.config.ts respeitados (rc=0).
+- Passo 3 (RNF-10, CA-45, CA-06, CA-07): npm run build rc=0. npx playwright test (build + preview, porta 4185 para nao chocar com a arvore principal): 317 testes, 299 passaram, 16 pulados, 2 falharam, os dois FORA do type-chart e preexistentes na main:
+  - dex.spec.ts:324 "Meltan and Wyrdeer seals never wrap at 360px" (timeout 30 s). Sozinho no worktree: 1 falha em 8 (390px) e depois 9/9. Na main (worktree temporario em cee51235, porta 4186, --repeat-each=5): 4 de 15 falharam (timeout e o mesmo assert). Flake preexistente.
+  - items.spec.ts:69 "F9.2 tabs, tag above the name..." linha 81 (img.complete lido sem polling). Sozinho: 3/3. Na main (--repeat-each=8): 3 de 8 falharam na mesma linha 81. Flake preexistente.
+  - items.spec.ts:123 (flake da S0.1): passou na suite e 3/3 sozinho.
+  - Inalterados verdes na suite: detail, dex (fora o flake acima), captured, compare, home, navigation, responsive (14 baselines de F1.3), shell, pwa-offline, sync, types.
+  - Nenhum dos 3 flakes foi mexido (fora do escopo; decisao do Pontin, como bait.test.ts:106).
+- Passo 4 (CA-06): git diff main -- tests/unit/ui-shell tests/e2e/shell.spec.ts = as 4 listas de 2.7 (rotulos completos com "Tipos") + os 2 indices nth deslocados de shell.spec.ts ja registrados em F1.2; nenhuma contagem nova, nenhum assert removido.
+- Passo 5 (CA-43, RNF-01): git diff main -- package.json package-lock.json src/domain/type-chart.ts src/screens/Detail/TypeCalculator.tsx vite.config.ts vazio. dist/assets: js 1080407 + css 168836 = 1249243 bytes; S0.1 1231061; diferenca +18182 bytes cru (< 30 KB).
+- Passo 6 (CA-46, RNF-11): grep de segredos e de fetch( nas pastas do type-chart vazio.
+- Passo 7 (CA-44): git grep U+2014 em src, tests e na pasta da feature vazio.
+- Efeito colateral do build/vitest (fim de linha em types.generated.css e type-css.test.ts.snap) restaurado com git checkout.

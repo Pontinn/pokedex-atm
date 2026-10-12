@@ -103,10 +103,10 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
   - commit: 3ed74317
   - status: done. Dev (PW_DEV=1 PW_PORT=4183) 25/25; build + preview (PW_PORT=4185, --repeat-each 2) 50/50; pwa-offline.spec.ts inteiro verde em build + preview (incl. o nth deslocado em :341). Avancar: plan-reality resolvido pela opcao (a), PRD rev 5.3 CA-31 / SPEC T1.3 passo 3 (a608e111): o teste termina no Voltar (Fogo, Defendendo, scroll a 2 px, caminho da URL igual). Flake achado e corrigido pela causa: ver Notas por fase.
 
-- [ ] **T1.4** Regressao completa contra a linha de base (categoria: outro)
+- [x] **T1.4** Regressao completa contra a linha de base (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, bytes) no STATE.
-  - commit: 
-  - status: pending
+  - commit: (STATE, commit deste passo)
+  - status: done. 7 passos verdes (numeros no STATE 17:00): vitest 96 arquivos / 823 testes, global 94,59/88,46; e2e build + preview 299 ok, 16 pulados, 2 falhas preexistentes provadas na main (dex.spec.ts:324 Meltan/Wyrdeer 4 de 15 falham na main; items.spec.ts:69 linha 81, 3 de 8 falham na main); bundle +18182 bytes.
 
 - [ ] **T1.5** Porte: inventario (categoria: outro)
   - Done when: inventario no STATE e o passo 1 batendo.
@@ -128,4 +128,5 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 | F1.2 | SPEC 2.7 listava 4 asserts afetados; 5 outros asserts/cliques por indice (nth) quebrariam com o 10o item | Lista da SPEC feita por texto de lista, sem grep por `.nth(` nos seletores de navegacao | Indices deslocados +1 em shell.spec.ts:232,235, sync.spec.ts:65,67, pwa-offline.spec.ts:341 / 621b6a71 |
 | F1.3 | Baselines do responsive ja estavam velhas no HEAD (rodape da sidebar e arte do Charizard), escondidas pela tolerancia de 2% | Mudancas anteriores do app nao regeneraram as baselines | Efeito do item isolado regenerando com o codigo anterior; baselines regravadas / 0aafba5a |
 | T1.3 | Teste de Avancar falha: apos page.goForward() aparece a Home, nao a .dex-screen | history-bridge.ts trata todo popstate como Voltar; a SPEC T1.3 passo 3 e o PRD CA-31 pedem Avancar, que o app nao suporta | BLOQUEADO: plan-reality mismatch, aguardando decisao (sem patch) |
+| T1.4 | dex.spec.ts:324 (Meltan/Wyrdeer 360/390) e items.spec.ts:69 (linha 81) falharam na suite | Flakes preexistentes: na main falham 4/15 e 3/8 (timeout sob carga; img.complete lido sem polling) | Nao mexidos (fora do escopo); registrados no STATE |
 | S0.1 | tests/unit/dataset/join.test.ts falha no worktree | Cache da PokeAPI (gitignored) so existe na arvore principal | Preexistente de ambiente; nao mexido |
