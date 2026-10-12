@@ -93,10 +93,10 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
   - commit: 29131372
   - status: done. types-model.test.ts 12 testes + types-hints.test.ts 4 testes verdes (16/16), incl. COULD (306 pares). Ajuste: o teste de isolamento ignora comentarios do CSS (os comentarios que a propria SPEC pos em types.css citam detail.css .mult-* como origem dos hex).
 
-- [ ] **T1.2** Tela com Testing Library (categoria: outro)
+- [x] **T1.2** Tela com Testing Library (categoria: outro)
   - Done when: `npx vitest run tests/unit/ui-screens/types-screen.test.tsx` verde; `npx vitest run --coverage` com `src/screens/**` >= 70/70 e global >= 80/80 (`vitest.config.ts`).
-  - commit: 
-  - status: pending
+  - commit: 986eb0b9
+  - status: done. types-screen.test.tsx 7/7. Cobertura (vitest --coverage com tests/unit/dataset/join.test.ts excluido, pois falha so por falta do cache da PokeAPI no worktree, ver S0.1; com ele a suite fica vermelha e o vitest nao imprime cobertura): 95 arquivos, 786 testes; global linhas 90.41% / branches 88.38%; src/screens/** 95.25% / 89.61%; os 5 arquivos de src/screens/Types 100/100; limites do vitest.config.ts respeitados.
 
 - [ ] **T1.3** e2e headless da pagina (categoria: outro)
   - Done when: `PW_DEV=1 PW_PORT=4183 npx playwright test tests/e2e/types.spec.ts` verde e `npx playwright test tests/e2e/types.spec.ts` (build + preview) verde.
