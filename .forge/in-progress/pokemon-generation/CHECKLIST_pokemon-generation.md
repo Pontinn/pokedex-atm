@@ -155,10 +155,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: f514e80f
   - status: concluida
 
-- [ ] **T1.5 - Regressao completa contra a linha de base** (categoria: outro)
+- [x] **T1.5 - Regressao completa contra a linha de base** (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, checks da auditoria, bytes gzip) no STATE.
-  - commit:
-  - status: pendente
+  - commit: sem codigo (SPEC: so docs); numeros no STATE
+  - status: concluida
 
 ---
 
@@ -312,6 +312,11 @@ Suite + build: nenhum arquivo mudou nesta feature; o verde de F3.3 vale (rodada 
 - Novos: `dex.spec.ts` describe `pokemon-generation: generation seal and game filter` (CA-01, CA-03..CA-06, CA-25, CA-44, CA-46..CA-53, CA-64); `detail.spec.ts` describe `pokemon-generation: hero, chain, games panel and themes` (CA-07..CA-09, CA-11..CA-16, CA-27, CA-28, CA-40..CA-43, CA-62); `captured.spec.ts` (CA-03), `settings.spec.ts` (CA-54), `pwa-offline.spec.ts` no describe F12.1 (CA-61). Nenhum teste existente mexido.
 - DESVIO (CA-53 e o "foco visivel no #f-game" do CA-62): o "outline nao none" nao e verificavel porque todo `select` do app tem `outline: 0` (`components.css:118`, preexistente, igual no `#f-gen`). O teste confere Tab -> `:focus-visible`, label "Jogo" resolve o select, ArrowDown opera e a mesma regra de foco do `#f-gen`. Mudar o foco de todos os selects esta fora do escopo.
 - Done when: 139 testes = 138 ok + 1 pulado (`detail.spec.ts:155`, so roda com PW_DEV, preexistente), 0 falha, 1,9 min. Spec temporario `zz-pokemon-generation-capture.spec.ts` apagado (capturas ficam em `ui-refs/impl/`). Nenhum PNG de baseline novo.
+
+### T1.5 - concluida (2026-10-12)
+
+- typecheck/lint limpos; vitest 93 arquivos / 800 testes, 0 falha (S0.1 88/744), limites de cobertura ok (global 94,47/88,30); build ok (`sw.js` 6.467 bytes, so a versao nova no precache); e2e inteiro 276 ok / 16 pulados / 0 falha / 0 flaky (S0.1 253/16/0); auditoria 51.146 checks, 0 divergencias; greps de segredo, `fetch(` em `src/screens` e U+2014 sem ocorrencia; `git diff main -- tests/` so com as mudancas permitidas (lista no STATE).
+- Flake `bait.test.ts:106` nao reproduziu nesta rodada (vitest rodado sem e2e em paralelo). Segue registrado como preexistente, nao regressao.
 
 ---
 

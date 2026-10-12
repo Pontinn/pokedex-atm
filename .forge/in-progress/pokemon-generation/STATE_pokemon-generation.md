@@ -81,3 +81,15 @@ Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc7
 
 ## 2026-10-12 03:35 - frontend #1 parado pela regra de 1h
 - Em 1h o agente #1 fechou F1.1..F4.2 e T1.3 (10 de 12), commits 6b398719..dcdc5f0b. Estava no T1.4 (e2e): edicoes nao commitadas em tests/e2e/{captured,detail,dex,pwa-offline,settings}.spec.ts + spec temporario tests/e2e/zz-pokemon-generation-capture.spec.ts (capturas por tema). Assets de tipo regenerados pelo build restaurados com git checkout. Agente #2 disparado com contexto zerado para retomar do T1.4 a partir do disco.
+
+## 2026-10-12 - T1.4 e T1.5 (frontend #2, retomada do disco)
+- T1.4 `f514e80f` (+ docs `3fc8178b`): blocos do agente #1 revisados e mantidos; subset do Done when = 139 testes, 138 ok + 1 pulado (dev-only), 0 falha. Spec temporario apagado. Desvio: CA-53 / foco do `#f-game` no CA-62 sem "outline nao none" (todo `select` tem `outline: 0`, preexistente); coberto por `:focus-visible` + paridade com `#f-gen`.
+- T1.5 (regressao contra a S0.1):
+  1. `npm run typecheck` e `npm run lint`: limpos (exit 0).
+  2. `npx vitest run --coverage`: 93 arquivos, 800 testes, 0 falhas (S0.1: 88 / 744). Limites do `vitest.config.ts` atendidos (exit 0). Cobertura linhas/branches: global 94,47/88,30; `src/domain` 99,61/98,12; `src/storage` 96,40/90,57; `src/sync` 99,50/91,98; `src/components` 94,03/92,48. O flake de `bait.test.ts:106` NAO apareceu nesta rodada (suite rodada sozinha, sem e2e em paralelo).
+  3. `npm run build`: ok; `dist/sw.js` 6.467 bytes; URLs de dado: `data/current.json` + `data/atm1.3.0-cobblemon1.7.3-20261012-78568233/{dataset-manifest,species-index,type-chart}.json`. `npm run test:e2e` inteiro (build + preview, headless): 292 testes = 276 ok, 16 pulados (os mesmos dev-only da S0.1), 0 falha, 0 flaky, 3,7 min (S0.1: 253 / 16 / 0; +23 testes novos do T1.4). Visuais de `responsive.spec.ts` verdes sem atualizar baseline.
+  4. `git diff main -- tests/`: fora dos arquivos/blocos novos so: fixtures de B1.1 (`games` em `rules-storage/species-6.json`, `ui-shell/manifest.json`, `loaders.test.ts`, `search.test.ts`, `item-screen.test.tsx`, `search-box.test.tsx`, `trainers-screen.test.tsx`; `generation` nos nos de `species-6.json`), os 2 `game: null` de F3.1 (`dex-filter.test.ts`, `dex-screen.test.tsx`), os 3 ajustes de F1.3 (`pokemon-card.test.tsx`, `detail.spec.ts:82`, `dex.spec.ts:114`), o import ampliado do `audit.test.ts` e os 7 `detail-charizard-*` de F4.2. Nenhum outro assert mudou; nenhum `home-*` mudou.
+  5. Auditoria: `checks 51146, especies 1027, divergencias {}`; `AUDIT_REPORT.md` restaurado.
+  6. `git grep` de segredo em `src tools/dataset/src tools/dataset/curated`: 0 (main: 0). `git grep "fetch(" -- src/screens`: 0 (main: 0).
+  7. U+2014: 0 nos arquivos versionados de `src tools tests README.md data-source/README.md` e da pasta da feature.
+  - Gzip do precache: 88 / 1.434 / 38.336 / 547 = 40.405 (+2.654 sobre 37.751; `precache-budget.test.ts` verde).
