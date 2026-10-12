@@ -36,6 +36,7 @@ export {
   RotateCcw,
   Search,
   Settings,
+  Shapes,
   Shield,
   SlidersHorizontal,
   Sparkle,

@@ -62,9 +62,9 @@ async function openSync(page: Page, width: number, seed?: Docs) {
   }
   if (width < 900) {
     await page.locator(".tabbar .tab-more").click();
-    await page.locator(".more-sheet .sheet-item").nth(3).click();
+    await page.locator(".more-sheet .sheet-item").nth(4).click();
   } else {
-    await page.locator(".sidebar .nav-item").nth(7).click();
+    await page.locator(".sidebar .nav-item").nth(8).click();
   }
   // 1o acesso ao chunk lazy no dev server compila qrcode/fflate: pode passar do timeout padrao
   await expect(page.locator(".sync-screen")).toBeVisible({ timeout: 60_000 });

@@ -111,7 +111,7 @@ describe("desktop sidebar", () => {
     await act(() => useDatasetStore.getState().load());
     const sidebar = document.querySelector(".sidebar") as HTMLElement;
     const labels = [...sidebar.querySelectorAll(".nav-item")].map((b) => b.textContent);
-    expect(labels).toEqual(["Início", "Pokédex", "Capturados", "Comparar", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações"]);
+    expect(labels).toEqual(["Início", "Pokédex", "Capturados", "Comparar", "Tipos", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações"]);
     expect(sidebar.querySelector(".sidebar-version")?.textContent).toBe("Dados: All the Mons 1.3.0 / Cobblemon 1.7.3");
     fireEvent.click(within(sidebar).getByText("Treinadores"));
     expect(useNavigationStore.getState().current.screen).toBe("trainers");
@@ -144,7 +144,7 @@ describe("mobile shell", () => {
     expect(sheet.className).not.toContain("open");
     fireEvent.click(within(tabbar).getByText("Mais"));
     expect(sheet.className).toContain("open");
-    expect([...sheet.querySelectorAll(".sheet-item-label")].map((l) => l.textContent)).toEqual(["Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações", "Feito por Pontin", "GitHub"]);
+    expect([...sheet.querySelectorAll(".sheet-item-label")].map((l) => l.textContent)).toEqual(["Tipos", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações", "Feito por Pontin", "GitHub"]);
     fireEvent.click(within(sheet as HTMLElement).getByText("Pokébolas"));
     expect(useNavigationStore.getState().current.screen).toBe("balls");
     expect(sheet.className).not.toContain("open");

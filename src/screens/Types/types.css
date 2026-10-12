@@ -1,0 +1,4 @@
+/* Pagina Tipos (type-chart). Carregado SO por TypesScreen.tsx. Cores de efetividade COPIADAS de UISPEC 3.2b
+   (origem detail.css .mult-*), nunca importadas. Toda regra com escopo .types-screen. */
+.types-screen { display: grid; gap: 16px; min-width: 0; }
+.types-screen .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }

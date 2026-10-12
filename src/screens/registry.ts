@@ -13,6 +13,7 @@ import { ItemScreen } from "./Item/ItemScreen";
 import { ItemsScreen } from "./Items/ItemsScreen";
 import { SettingsScreen } from "./Settings/SettingsScreen";
 import { TrainersScreen } from "./Trainers/TrainersScreen";
+import { TypesScreen } from "./Types/TypesScreen";
 
 const SyncScreen = lazy(() => import("./Sync/SyncScreen").then((m) => ({ default: m.SyncScreen })));
 
@@ -22,6 +23,7 @@ export const SCREENS = {
   detail: DetailScreen,
   captured: CapturedScreen,
   compare: CompareScreen,
+  types: TypesScreen,
   trainers: TrainersScreen,
   balls: BallsScreen,
   items: ItemsScreen,

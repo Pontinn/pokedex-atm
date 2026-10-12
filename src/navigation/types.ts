@@ -7,6 +7,7 @@ export type ScreenId =
   | "detail"
   | "captured"
   | "compare"
+  | "types"
   | "trainers"
   | "balls"
   | "items"
@@ -20,6 +21,7 @@ export const SCREEN_IDS: readonly ScreenId[] = [
   "detail",
   "captured",
   "compare",
+  "types",
   "trainers",
   "balls",
   "items",
@@ -34,6 +36,7 @@ export interface ScreenParamsMap {
   detail: { dex: number };
   captured: Record<string, never>;
   compare: { left?: number; right?: number };
+  types: Record<string, never>;
   trainers: Record<string, never>;
   balls: Record<string, never>;
   items: Record<string, never>;
@@ -46,6 +49,8 @@ export type DetailMoveTab = "level" | "tm" | "egg" | "tutor";
 export type WeakFilter = "all" | "weak" | "res";
 export type DexStatusFilter = "all" | "caught" | "missing";
 export type DexSort = "num" | "name" | "bst";
+export type TypesView = "byType" | "chart";
+export type TypesTab = "attack" | "defend";
 
 export interface DexFilters {
   types: TypeId[];
@@ -75,6 +80,7 @@ export interface UiStateMap {
   };
   captured: { tab: string; filters: ListFilters };
   compare: { left: number | null; right: number | null };
+  types: { view: TypesView; selected: TypeId | null; tab: TypesTab; second: TypeId | null };
   trainers: { seriesId: string | null; openTrainerId: string | null; filters: ListFilters };
   balls: { filter: string; filters: ListFilters };
   items: { category: string; query: string; openItemId: string | null; origin: string };
@@ -111,6 +117,7 @@ export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
     }),
     captured: () => ({ tab: "all", filters: { query: "" } }),
     compare: () => ({ left: null, right: null }),
+    types: () => ({ view: "byType", selected: null, tab: "attack", second: null }),
     trainers: () => ({ seriesId: null, openTrainerId: null, filters: { query: "" } }),
     balls: () => ({ filter: "all", filters: { query: "" } }),
     items: () => ({ category: "all", query: "", openItemId: null, origin: "all" }),
