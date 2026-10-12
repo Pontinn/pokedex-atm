@@ -52,3 +52,33 @@ updated: 2026-10-12 15:51
 - CHECKLIST (haiku, 1 min): 7 fases, 15 tarefas, tudo pendente, zero U+2014; commit 579d6adf. Pasta movida para .forge/in-progress/ (74d3c3d7). Drift check contra d991de5a: sem drift (so .forge/ mudou).
 - forge-imp-frontend #1 disparado no worktree, modo autonomo, janela de 50 min; retoma pelo primeiro item desmarcado do CHECKLIST. Regras no brief: sem Co-Authored-By, sem U+2014, Playwright headless sem sleeps, nunca tocar a arvore principal Projetos/pokedex.
 - Correcao: o drift-check acusou PRD/CONTEXT/UISPEC so por causa do git mv de ideas/ para in-progress/; blobs identicos conferidos (172e7154, 5cbb8e52, c5127ca9). Sem drift real.
+## 2026-10-12 15:51-15:57 - Baseline (Sprint 0) (forge-imp-frontend #1)
+- Passo 1: HEAD 966e0048 (so .forge/ acima de main cee51235); git status vazio.
+- Passo 2: npm run typecheck rc=0; npm run lint rc=0.
+- Passo 3: npx vitest run --coverage: 93 arquivos, 92 passaram, 1 falhou; 763 testes passaram, 37 pulados. Falha: tests/unit/dataset/join.test.ts (suite inteira): "PokeapiError: E_POKEAPI_UNAVAILABLE: sem rede e sem cache para https://pokeapi.co/api/v2/move?limit=2000" (tools/dataset/src/pokeapi/client.ts:139). Causa: o worktree nao tem o cache da PokeAPI (gitignored, existe so na arvore principal). Preexistente de ambiente, nao ligada ao type-chart. Com a suite vermelha o vitest nao imprimiu a tabela de cobertura (medir de novo em T1.4). bait.test.ts:106 passou.
+- Passo 4: npm run build rc=0; dist/assets: js 1067147 + css 163914 = 1231061 bytes. Efeito colateral do prebuild (gen:assets): src/styles/types.generated.css e tests/unit/build/__snapshots__/type-css.test.ts.snap aparecem modificados SO por fim de linha (diff de conteudo vazio); restaurados com git checkout.
+- Passo 5: npx playwright test (build + preview do dist da linha de base, porta 4184, 8 workers): 292 testes, 275 passaram, 16 pulados, 1 falhou: items.spec.ts:123 "F9.2 no overlap en 390px (long names)" (timeout de 30 s no boot sob carga). Sozinho com --repeat-each=3: 3/3 passaram -> flake preexistente. Os 7 testes "theme <tema>: Home and Charizard detail screenshots" passaram; os 15 de shell.spec.ts passaram.
+- Passo 6: blobs conferidos no HEAD: src/domain/type-chart.ts 523b99cd7ceb, src/screens/Detail/TypeCalculator.tsx 0906d2d74663, package.json 3244a616e4a9.
+## 2026-10-12 16:05 - F1.3 baselines do responsive (protocolo do passo 4 com uma investigacao a mais)
+- Passo 1: os 7 testes de tema PASSARAM sem regenerar (diferenca abaixo de maxDiffPixelRatio 0.02).
+- Passo 4 contra as baselines do HEAD: FALHA em todas (pixels diferentes fora de x < 236). Investigado: as baselines commitadas ja estavam velhas ANTES da feature (sem "Feito por Pontin"/"GitHub" no rodape da sidebar e com diferenca na arte do Charizard, x 344-585), dentro da tolerancia de 2%. Prova: regenerei com o codigo de 48a70443 (antes do item novo; git checkout so de src/, depois restaurado) e comparei velha x linha-de-base-regenerada: mesma diferenca fora da sidebar (detail 32022 px em x 344-585; home ~10000 px em x 16-1211). Portanto a comparacao que isola o efeito do item e linha-de-base-regenerada x nova.
+- Linha-de-base-regenerada x nova (2a regeneracao, a commitada):
+
+| arquivo | pixels diferentes | caixa | resultado |
+|---|---|---|---|
+| detail-charizard-black-chromium-win32.png | 5823 | x 31-176, y 352-610 | OK |
+| detail-charizard-blue-chromium-win32.png | 6100 | x 31-176, y 352-610 | OK |
+| detail-charizard-classic-chromium-win32.png | 6056 | x 31-176, y 352-610 | OK |
+| detail-charizard-green-chromium-win32.png | 6241 | x 31-176, y 352-610 | OK |
+| detail-charizard-orange-chromium-win32.png | 5885 | x 31-176, y 352-610 | OK |
+| detail-charizard-purple-chromium-win32.png | 5991 | x 31-176, y 352-610 | OK |
+| detail-charizard-white-chromium-win32.png | 5713 | x 31-176, y 352-610 | OK |
+| home-black-chromium-win32.png | 5647 | x 31-176, y 352-610 | OK |
+| home-blue-chromium-win32.png | 5890 | x 31-176, y 352-610 | OK |
+| home-classic-chromium-win32.png | 5923 | x 31-176, y 352-610 | OK |
+| home-green-chromium-win32.png | 5799 | x 31-176, y 352-610 | OK |
+| home-orange-chromium-win32.png | 5883 | x 31-277, y 259-610 | FALHA |
+| home-purple-chromium-win32.png | 5761 | x 31-176, y 352-610 | OK |
+| home-white-chromium-win32.png | 5145 | x 31-176, y 352-610 | OK |
+- home-orange: os 2 pixels fora da sidebar estao em x 276-277, y 259-261 (canto do cartao do heroi da Home). E ruido de renderizacao: a mesma diferenca de 2 pixels aparece entre duas regeneracoes do MESMO codigo (1a x 2a regeneracao, em home-blue e home-green). Fora esse ruido, 100% dos pixels diferentes estao em x < 236 (sidebar: "Tipos" em 5o com Shapes, itens seguintes uma linha abaixo).
+- Passo 5: revisao visual de home-classic e detail-charizard-purple velha x nova: "Tipos" em 5o, rodape intacto, #main igual. Passo 6: os 7 testes verdes sem --update-snapshots; git status = exatamente os 14 PNGs; tests/e2e/responsive.spec.ts sem diff (maxDiffPixelRatio 0.02).
