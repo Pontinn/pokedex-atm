@@ -23,6 +23,7 @@ import { publish } from "../write";
 import { buildTypeChartFile } from "../type-chart";
 import type { DerivedSpecies } from "./stage-derive";
 import { collectFossils, resolveFossils } from "./fossils";
+import { buildGameAvailability, deriveGames, gameSnapshotSource, gamesForSpecies, loadGameSnapshot } from "../games/availability";
 
 const MAX_SPRITE_DEX = 1025;
 
@@ -70,7 +71,7 @@ function assertCountsComplete(ctx: PipelineContext): DatasetCounts {
   return ctx.counts as DatasetCounts;
 }
 
-function buildSpeciesDetail(ctx: PipelineContext, merged: DerivedSpecies): SpeciesDetail {
+function buildSpeciesDetail(ctx: PipelineContext, merged: DerivedSpecies, games: number[] | null): SpeciesDetail {
   const dex = merged.dex;
   const hasSprite = dex <= MAX_SPRITE_DEX && existsSync(ctx.assetPath("sprites", `${dex}.png`));
   const artworkId = dex <= MAX_SPRITE_DEX ? dex : null;
@@ -90,7 +91,7 @@ function buildSpeciesDetail(ctx: PipelineContext, merged: DerivedSpecies): Speci
     evolutionMethods: evolutionMethods(merged.evolutions),
     hasSprite,
     artworkId,
-    games: null,
+    games,
   };
 
   return {
@@ -121,6 +122,11 @@ function buildSpeciesDetail(ctx: PipelineContext, merged: DerivedSpecies): Speci
 
 export async function runWriteStage(ctx: PipelineContext): Promise<void> {
   const counts = assertCountsComplete(ctx);
+  // pokemon-generation: jogos do recorte curado (sem rede), antes de escrever qualquer ficha (falha = nada escrito).
+  const gameSnapshot = loadGameSnapshot();
+  const derivedGames = deriveGames(gameSnapshot);
+  const availability = buildGameAvailability(gameSnapshot, derivedGames);
+  const speciesIds = new Set(gameSnapshot.pokemonSpeciesIds);
 
   // 1) species-index.json + species/<dex>.json (dex asc, custom 9901/9902 no fim).
   const dexes = [...ctx.species.keys()].sort((a, b) => {
@@ -133,7 +139,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
   const details: SpeciesDetail[] = [];
   for (const dex of dexes) {
     const merged = ctx.species.get(dex) as DerivedSpecies;
-    details.push(buildSpeciesDetail(ctx, merged));
+    details.push(buildSpeciesDetail(ctx, merged, gamesForSpecies(merged.dex, merged.generation, availability, speciesIds)));
   }
 
   for (const detail of details) {
@@ -193,6 +199,15 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
   // 4) biomes.json.
   writeJsonAtomic(ctx.dataPath("biomes.json"), buildBiomeLabels(ctx));
 
+  // pokemon-generation: resumo dos jogos no report.
+  ctx.report.section("games", {
+    games: derivedGames.map((g) => g.slug),
+    perGame: Object.fromEntries(derivedGames.map((g) => [g.slug, details.filter((d) => d.games?.includes(g.id)).length])),
+    packOnly: details.filter((d) => d.games === null).map((d) => d.dex),
+    officialWithoutGame: details.filter((d) => d.games !== null && d.games.length === 0).map((d) => d.dex),
+    capturedAt: gameSnapshot.source.capturedAt,
+  });
+
   // 5) dataset-manifest.json.
   const media = ctx.media.totals();
   if (media.totalBytes > MEDIA_BUDGET_BYTES) {
@@ -206,7 +221,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
   const manifestContent: ManifestContent = {
     pack: ctx.source.pack,
     cobblemonVersion: ctx.source.cobblemonVersion,
-    sources: ctx.source.sources,
+    sources: [...ctx.source.sources, gameSnapshotSource(gameSnapshot)],
     counts,
     levelCapConfig: ctx.levelCapConfig,
     media,
@@ -223,7 +238,7 @@ export async function runWriteStage(ctx: PipelineContext): Promise<void> {
       speciesDir: "species",
       trainersDir: "trainers",
     },
-    games: [],
+    games: derivedGames.map(({ id, slug, name }) => ({ id, slug, name })),
   };
   const datasetVersion = buildDatasetVersion(
     ctx.source.pack.version,
