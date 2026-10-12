@@ -41,10 +41,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
   - commit: 11423420
   - status: concluida
 
-- [ ] **B1.3 - Jogos por especie e catalogo no dataset** (categoria: build)
+- [x] **B1.3 - Jogos por especie e catalogo no dataset** (categoria: build)
   - Done when: pipeline de teste (regra geral); em `_pg_pub/data/<versao>/`: Zubat, Crobat, Tyrogue, Hitmonlee, Charizard, Piglich e Creepyon iguais a secao 5.3 (script inline); `manifest.games` = 22 entradas da secao 5.3 na ordem; contagem por jogo do report igual a coluna "especies" da secao 5.3 (anotar no checklist; divergencia = parar); `officialWithoutGame` = `[]`, `packOnly` = `[9901, 9902]`; ultima entrada de `sources` canonica; `report.json` sem aviso novo; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde.
-  - commit:
-  - status: pendente
+  - commit: 89c1b8cf
+  - status: concluida
 
 ### Sprint B2 - Auditoria e publicacao
 
@@ -194,6 +194,14 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - `deriveGames`: 22 jogos na ordem da SPEC 5.3 (ids 1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,23,24,25,30); `kanto.species` = 1..151; `pokemonSpeciesIds` = 1..1025.
 - 2a execucao sem `--fresh` (`--out` no scratchpad): 0 requisicoes de rede, conteudo igual exceto `capturedAt`.
 - typecheck/lint limpos; vitest (sem published-schemas) 87 arquivos / 730 testes verdes; `git grep -n "games/snapshot" -- tools/dataset/src ':!tools/dataset/src/games'` vazio; sem travessao no recorte.
+
+### B1.3 - concluida (2026-10-12)
+
+- Pipeline de teste `_pg_pub` (`-20261012-...`): Zubat, Crobat, Tyrogue, Hitmonlee, Charizard, 9901 e 9902 iguais a SPEC 5.3 no indice e na ficha (`games` ultima chave do resumo, logo depois de `artworkId`); cadeia do Zubat 41:gen1 42:gen1 169:gen2.
+- `manifest.games` = 22 entradas da SPEC 5.3 na ordem (ultima chave). Ultima entrada de `sources` canonica: `{ file: tools/dataset/curated/pokeapi-game-availability.json, sizeBytes: 46877, mtime: 2026-10-12T05:08:37.859Z }` (12 sources).
+- Report `games.perGame` = coluna "especies" da SPEC 5.3 inteira (151, 151, 251, 251, 202, 202, 151, 151, 210, 256, 156, 301, 457, 211, 302, 403, 153, 584, 151, 242, 664, 364); `packOnly` [9901, 9902]; `officialWithoutGame` [].
+- report.json: 190 avisos, identicos (codigo + mensagem) aos de uma execucao com o index-writer de antes (nenhum aviso novo).
+- typecheck/lint limpos; vitest (sem published-schemas) 87 / 730 verdes.
 
 ---
 
