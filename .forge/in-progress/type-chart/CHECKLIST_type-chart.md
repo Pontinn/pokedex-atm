@@ -98,10 +98,10 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
   - commit: 986eb0b9
   - status: done. types-screen.test.tsx 7/7. Cobertura (vitest --coverage com tests/unit/dataset/join.test.ts excluido, pois falha so por falta do cache da PokeAPI no worktree, ver S0.1; com ele a suite fica vermelha e o vitest nao imprime cobertura): 95 arquivos, 786 testes; global linhas 90.41% / branches 88.38%; src/screens/** 95.25% / 89.61%; os 5 arquivos de src/screens/Types 100/100; limites do vitest.config.ts respeitados.
 
-- [!] **T1.3** e2e headless da pagina (categoria: outro)
+- [x] **T1.3** e2e headless da pagina (categoria: outro)
   - Done when: `PW_DEV=1 PW_PORT=4183 npx playwright test tests/e2e/types.spec.ts` verde e `npx playwright test tests/e2e/types.spec.ts` (build + preview) verde.
-  - commit: (pendente)
-  - status: BLOQUEADO (frontend #2, plan-reality mismatch). tests/e2e/types.spec.ts segue untracked (nao commitado: nao esta verde). Build + preview (PW_PORT=4185): 36 de 37 verdes, incl. pwa-offline.spec.ts inteiro (o indice nth deslocado em :341 passa). Unica falha: 'back restores type, tab and scroll; forward returns' em types.spec.ts:166-167, igual ao dev. Causa conferida no codigo: src/navigation/history-bridge.ts trata TODO popstate como goBack(true); nao ha caminho de Avancar. Sequencia real: Home -> Tipos -> Pokedex; Voltar = Tipos com Fogo, Defendendo e scroll restaurados (passa); Avancar dispara popstate -> goBack -> Home (snapshot da falha mostra a Home, nao a .dex-screen). A SPEC T1.3 passo 3 manda `page.goForward() -> .dex-screen` e o PRD CA-31 diz 'volto e avanco de novo', contrato que o app nunca teve (nenhum outro e2e usa goForward). Decisao do Pontin/orquestrador: (a) corrigir SPEC/PRD para o contrato real (Avancar nao e suportado; o teste para no Voltar ou afirma o comportamento real) ou (b) implementar Avancar na ponte de historico (mudanca de navegacao fora do escopo desta feature).
+  - commit: 3ed74317
+  - status: done. Dev (PW_DEV=1 PW_PORT=4183) 25/25; build + preview (PW_PORT=4185, --repeat-each 2) 50/50; pwa-offline.spec.ts inteiro verde em build + preview (incl. o nth deslocado em :341). Avancar: plan-reality resolvido pela opcao (a), PRD rev 5.3 CA-31 / SPEC T1.3 passo 3 (a608e111): o teste termina no Voltar (Fogo, Defendendo, scroll a 2 px, caminho da URL igual). Flake achado e corrigido pela causa: ver Notas por fase.
 
 - [ ] **T1.4** Regressao completa contra a linha de base (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, bytes) no STATE.
@@ -116,6 +116,9 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 ---
 
 ## Notas por fase
+
+- T1.3 (frontend #2): o app nunca teve Avancar do navegador (history-bridge.ts trata todo popstate como Voltar). Plan-reality resolvido pela opcao (a): PRD rev 5.3 CA-31 e SPEC T1.3 passo 3 sem goForward (a608e111); o teste termina no Voltar.
+- T1.3 (frontend #2): 'Fire bands' falhou 1 em 8 rodadas: html.reduce-motion poe transition-duration .001s em todo elemento (base.css:70; transition-property padrao = all) e a faixa reaproveitada (key = multiplicador) troca de tom com 1 ms de transicao; getComputedStyle no mesmo frame devolvia a cor anterior. Correcao no teste (mesmo assert): leitura do fundo por expect.poll e contraste dos 7 temas em toPass. 32/32 com --repeat-each 4 depois.
 
 
 ## Bugs encontrados
