@@ -6,7 +6,7 @@ language: pt-BR
 branch: feature/type-chart
 mode: full
 top_model: opus
-running_agent: forge-test (sonnet) - regressao completa + CHECKLIST_MANUAL + smoke visual via Playwright headless; iniciado 2026-10-12 17:03 (hora real). Cronometro 1h: 17:03 -> 18:03
+running_agent: forge-imp-frontend #2 (opus, retomado por mensagem) - ajuste Low: legenda compacta no celular (so CSS); retomado 2026-10-12 17:12 (hora real). Cronometro 1h: 17:12 -> 18:12
 worktree: C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart (repo pokedex; a arvore principal em Projetos/pokedex fica intocada em cee51235 porque o agente da pontindex-base le dela)
 user_gate: autonomo ate o fim (Pontin 2026-10-12: "pode continuar ai, ate o fim"; "faz do jeito q achar q vai ficar melhor"). Push/merge so com "P"/autorizacao explicita.
 baselines:
@@ -14,7 +14,7 @@ baselines:
   UISPEC:  { commit: 4410016f, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: 04b73988, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
   SPEC:    { commit: 9e596e42, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 17:03
+updated: 2026-10-12 17:12
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -124,3 +124,8 @@ updated: 2026-10-12 17:03
 - T1.4: typecheck/lint limpos; vitest 96 arquivos / 823 testes, cobertura global 94,59% linhas / 88,46% branches (limiares ok); bundle +18.182 B bruto (limite 30 KB); e2e build+preview 299 ok, 16 skip, 2 falhas PRE-EXISTENTES na main (conferido em worktree temporario da main, removido): dex.spec.ts:324 Meltan/Wyrdeer (4/15 falham na main) e items.spec.ts:69 l.81 leitura de imagem sem polling (3/8 na main). Nao tocadas; ficam para o Pontin decidir (fora desta feature).
 - T1.5 inventario do porte (detalhe na entrada 17:03 do agente, acima): copiar 7 arquivos de codigo + 4 testes; repetir edicoes em nav-items.ts, Icon.tsx, navigation/types.ts (6 insercoes), registry.ts, messages.ts; ajustar no alvo listas de rotulos da shell, todo .nth( de itens de nav/folha e baselines visuais; conferir por hash ScreenRouter.tsx e data/types.ts alem da lista da SPEC; types.spec.ts precisa de tests/harness/no-overlap.ts e tests/e2e/idb-helpers.ts no alvo.
 - forge-test (sonnet) disparado. Depois: achados -> frontend; git mv para complete/; LESSONS; porte no pontindex depois da base.
+## 2026-10-12 17:12 - forge-test (sonnet, 7 min): sem falha nova, sem achado Critical/High
+- Regressao: typecheck/lint limpos; vitest 96/823 (94,59% linhas); e2e build+preview 301 ok, 16 skip, 0 falha (as 2 pre-existentes passaram desta vez); harness 7. Console 0 erros, 0 4xx; localStorage vazio, IndexedDB so meta e preferences. Dados conferidos contra type-chart.ts (Fogo>Planta x2, Agua>Fogo x2, Eletrico>Terra x0, Normal defendendo vs Fantasma x0, Agua+Terra x4/x1/4). Visual sem desvio de identidade.
+- CHECKLIST_MANUAL: 6 de 11 itens manuais executados e ok; 5 ficam para o Pontin (frases EN, troca de aba sem piscar, arrastar com o dedo no celular, leitor de tela numa celula, olhar os 7 temas; 28 capturas test-theme-* ja tiradas). REPORT_TEST_UI_type-chart.md + 46 capturas test-*.png em ui-refs/.
+- Achados Low: (1) legenda grande no celular (~40% da primeira tela), empurra os chips para baixo; (2) roda horizontal simulada nao rolou a matriz em 360 px (scroll por script funciona), conferir com o dedo.
+- Decisao do orquestrador (olhei test-bytype-fire-attack-phone.png e -desktop.png): o (1) contraria o objetivo "bater o olho" no celular; frontend #2 retomado para compactar a legenda SO no celular e SO com CSS (textos exatos da RF-21 inalterados, legenda continua no topo e sempre visivel). (2) fica para o Pontin no celular real.

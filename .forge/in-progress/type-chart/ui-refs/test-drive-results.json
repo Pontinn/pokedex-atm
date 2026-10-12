@@ -1,0 +1,211 @@
+{
+ "res": [
+  {
+   "name": "sidebar ativo",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "18 chips + instrucao",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "Fogo hero+hint+3 faixas",
+   "ok": true,
+   "note": "Fogo queima Planta e Gelo, mas Água apaga Fogo | Forte contra (x2) / Pouco efetivo contra (x1/2) / Não afeta (x0)"
+  },
+  {
+   "name": "hints PT fire/water/ghost/normal",
+   "ok": true,
+   "note": "fire: Fogo queima Planta e Gelo, mas Água apaga Fogo | water: Água apaga Fogo, mas Planta bebe Água | ghost: Fantasma vence Psíquico, mas não afeta Normal | normal: Normal não acerta Fantasma, e Lutador vence Normal"
+  },
+  {
+   "name": "Normal atacando: faixa x2 Nenhum",
+   "ok": true,
+   "note": "\"Forte contra (x2)\\n\\nnenhum\" none=nenhum"
+  },
+  {
+   "name": "tocar Fogo de novo mantem",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "abas e cores Defendendo",
+   "ok": true,
+   "note": "Fraco contra (recebe x2) / Resiste a (recebe x1/2) / Imune a (x0)"
+  },
+  {
+   "name": "Normal defendendo: x0 contem Fantasma",
+   "ok": true,
+   "note": "Imune a (x0) Fantasma"
+  },
+  {
+   "name": "Agua atacando x2 Fogo; Eletrico x0 Terra",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "select 2o tipo so em Defendendo",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "Agua+Terra x4 e x1/4",
+   "ok": true,
+   "note": "Muito fraco contra (recebe x4) / Fraco contra (recebe x2) / Resiste a (recebe x1/2) / Resiste muito a (recebe x1/4) / Imune a (x0)"
+  },
+  {
+   "name": "trocar 1o tipo para o do 2o: coerente",
+   "ok": true,
+   "note": "second=\"\" hero=Terra"
+  },
+  {
+   "name": "voltar Nenhum = tipo unico",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "troca de aba repetida",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "Tabela completa matriz",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "cabecalho seleciona e destaca",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "cabecalho por teclado (Enter)",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "teclado: Tab com anel de foco",
+   "ok": true,
+   "note": "active:solid 2px | tp-matrix-scroll:solid 3px | tp-head:solid 3px | tp-head:solid 3px | tp-head:solid 3px | tp-head:solid 3px"
+  },
+  {
+   "name": "back restaura (desktop)",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "Charizard ficha: fraquezas",
+   "ok": true,
+   "note": "painel de fraquezas presente"
+  },
+  {
+   "name": "phone: Mais > Tipos",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "phone Fogo atacando/defendendo",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "phone matriz scroll horizontal + sticky",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "phone wheel horizontal na tabela",
+   "ok": true,
+   "note": "href igual=true scrollLeft=0 (gesto de dedo real segue para o usuario)"
+  },
+  {
+   "name": "EN: sem PT esquecido",
+   "ok": true,
+   "note": "sem PT; amostra: Types Legend x2 = deals double damage x1/2 = deals half damage x0 = has no effect x4 = deals quadruple damage x1/4 = deals a quarter of the damage  In the bands: green = advantage for the chosen type,"
+  },
+  {
+   "name": "EN rotulo de celula",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema classic desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema classic phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema black desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema black phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema green desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema green phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema blue desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema blue phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema purple desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema purple phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema white desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema white phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema orange desktop",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "tema orange phone",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "name": "higiene: localStorage/IDB/DOM",
+   "ok": true,
+   "note": "ls=[] idb={\"names\":[\"backups\",\"documents\"],\"k\":[\"meta\",\"preferences\"]} domSensitive=false"
+  }
+ ],
+ "errs": [],
+ "bad": []
+}

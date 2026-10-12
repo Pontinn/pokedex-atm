@@ -1,0 +1,231 @@
+Types
+Legend
+x2 = deals double damage
+x1/2 = deals half damage
+x0 = has no effect
+x4 = deals quadruple damage
+x1/4 = deals a quarter of the damage
+
+In the bands: green = advantage for the chosen type, orange = disadvantage, gray = no effect
+
+In the table: the row attacks the column; green = advantage for the attacker, orange = disadvantage for the attacker, gray = no effect
+
+By type
+Full chart
+Normal
+Fire
+Water
+Electric
+Grass
+Ice
+Fighting
+Poison
+Ground
+Flying
+Psychic
+Bug
+Rock
+Ghost
+Dragon
+Dark
+Steel
+Fairy
+
+Pick a type
+Types
+Legend
+x2 = deals double damage
+x1/2 = deals half damage
+x0 = has no effect
+x4 = deals quadruple damage
+x1/4 = deals a quarter of the damage
+
+In the bands: green = advantage for the chosen type, orange = disadvantage, gray = no effect
+
+In the table: the row attacks the column; green = advantage for the attacker, orange = disadvantage for the attacker, gray = no effect
+
+By type
+Full chart
+Normal
+Fire
+Water
+Electric
+Grass
+Ice
+Fighting
+Poison
+Ground
+Flying
+Psychic
+Bug
+Rock
+Ghost
+Dragon
+Dark
+Steel
+Fairy
+Fire
+
+Fire burns Grass and Ice, but Water puts out Fire
+
+Attacking
+Defending
+Strong against (x2)
+Grass
+Ice
+Bug
+Steel
+Not very effective against (x1/2)
+Fire
+Water
+Rock
+Dragon
+No effect on (x0)
+
+none
+Types
+Legend
+x2 = deals double damage
+x1/2 = deals half damage
+x0 = has no effect
+x4 = deals quadruple damage
+x1/4 = deals a quarter of the damage
+
+In the bands: green = advantage for the chosen type, orange = disadvantage, gray = no effect
+
+In the table: the row attacks the column; green = advantage for the attacker, orange = disadvantage for the attacker, gray = no effect
+
+By type
+Full chart
+Normal
+Fire
+Water
+Electric
+Grass
+Ice
+Fighting
+Poison
+Ground
+Flying
+Psychic
+Bug
+Rock
+Ghost
+Dragon
+Dark
+Steel
+Fairy
+Water / Ground
+
+Water puts out Fire, but Grass drinks Water
+
+Attacking
+Defending
+Second type
+none
+Normal
+Fire
+Electric
+Grass
+Ice
+Fighting
+Poison
+Ground
+Flying
+Psychic
+Bug
+Rock
+Ghost
+Dragon
+Dark
+Steel
+Fairy
+Very weak to (takes x4)
+Grass
+Weak to (takes x2)
+
+none
+
+Resists (takes x1/2)
+Fire
+Poison
+Rock
+Steel
+Strongly resists (takes x1/4)
+
+none
+
+Immune to (x0)
+Electric
+Types
+Legend
+x2 = deals double damage
+x1/2 = deals half damage
+x0 = has no effect
+x4 = deals quadruple damage
+x1/4 = deals a quarter of the damage
+
+In the bands: green = advantage for the chosen type, orange = disadvantage, gray = no effect
+
+In the table: the row attacks the column; green = advantage for the attacker, orange = disadvantage for the attacker, gray = no effect
+
+By type
+Full chart
+
+Rows = attacker, columns = defender
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+													1/2	0			1/2	
+
+		1/2	1/2		2	2						2	1/2		1/2		2	
+
+		2	1/2		1/2				2				2		1/2			
+
+			2	1/2	1/2				0	2					1/2			
+
+		1/2	2		1/2			1/2	2	1/2		1/2	2		1/2		1/2	
+
+		1/2	1/2		2	1/2			2	2					2		1/2	
+
+	2					2		1/2		1/2	1/2	1/2	2	0		2	2	1/2
+
+					2			1/2	1/2				1/2	1/2			0	2
+
+		2		2	1/2			2		0		1/2	2				2	
+
+				1/2	2		2					2	1/2				1/2	
+
+							2	2			1/2					0	1/2	
+
+		1/2			2		1/2	1/2		1/2	2			1/2		2	1/2	1/2
+
+		2				2	1/2		1/2	2		2					1/2	
+
+	0										2			2		1/2		
+
+															2		1/2	0
+
+							1/2				2			2		1/2		1/2
+
+		1/2	1/2	1/2		2							2				1/2	2
+
+		1/2					2	1/2							2	2	1/2	
