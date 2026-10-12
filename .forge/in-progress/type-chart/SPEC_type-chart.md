@@ -27,7 +27,7 @@ Convencoes de leitura e regras fixas:
 ## 1. Baseline (ancora de drift)
 
 - `HEAD`: `76cf8454` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `23308678a2516e4043906f4ce78caaa6f97f9407` (`git diff 23308678..2c334cce -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
-- PRD: `FEATURE_DIR/PRD_type-chart.md` = `7178dd7aef51134734115e73f8dc3c060a3ad206` (rev 5.3, commit a-commitar; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
+- PRD: `FEATURE_DIR/PRD_type-chart.md` = `7178dd7aef51134734115e73f8dc3c060a3ad206` (rev 5.3, commit a608e111; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
 - CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `5cbb8e52f5ef5531d0381f029764d3191572efe3`
 - UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `c5127ca91db4daae03593dfe552feb9cf64d8001`
 - IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `1d1a4121ebb8d443ea1f898bba8b7f466210fadf` (decisoes [14:58] e [15:25])
