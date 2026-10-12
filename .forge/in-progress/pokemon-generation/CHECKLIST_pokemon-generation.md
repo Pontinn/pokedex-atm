@@ -84,10 +84,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 > textos PT/EN, rotulos e componente do selo, card com geracao no lugar da raridade, Hero com geracao + raridade.
 
-- [ ] **F1.1 - Textos i18n** (categoria: frontend)
+- [x] **F1.1 - Textos i18n** (categoria: frontend)
   - Done when: `npx vitest run tests/unit/ui-shell/i18n-modules.test.ts tests/unit/ui-foundation/i18n.test.tsx` verde; `npm run lint` e `npm run typecheck` limpos; captura headless `after-f11-dex-pt.png` da Dex sem nenhuma mudanca visual (as chaves ainda nao sao usadas).
-  - commit:
-  - status: pendente
+  - commit: 6b398719
+  - status: concluida
 
 - [ ] **F1.2 - Rotulo e componente do selo de geracao** (categoria: frontend)
   - Done when: `npm run typecheck`/`lint` limpos; `npx vitest run tests/unit/ui-screens` verde (nenhum teste usa o componente ainda, prova que `Badge` sem `label` nao mudou nada); captura headless `after-f12-dex-pt.png` igual a `dex-cards-desktop.png` (sem mudanca visual).
@@ -231,6 +231,12 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - `join.test.ts`: novo describe com 4 testes sobre o pipeline em pasta temporaria (catalogo = regra reimplementada sobre o recorte; `games` de TODA especie = derivado por numero; `null` sse custom; indice = ficha; todo no com a geracao da especie; contagem de geracoes = `buildExpected()` da auditoria; ultima `sources` canonica; versao diferente de `...-1949ea67`).
 - `precache-budget.test.ts` (novo): `BASELINE_GZIP` 91/913/36.200/547 (= 37.751) e crescimento <= 10.240 (hoje +2.654); glob de dado do `vite.config.ts` fixado.
 - `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` = 22 arquivos / 293 testes verdes. Suite inteira: 90 arquivos / 772 testes; 3 execucoes, 1 com falha no teste de tempo preexistente `tests/unit/domain/bait.test.ts:106` (worst 5,17 ms > 5 ms sob carga paralela), ver Bugs.
+
+### F1.1 - concluida (2026-10-12)
+
+- Chaves novas (valores exatos da SPEC): `dex.game`, `dex.genBadge`, `dex.genBadge7b`, `dex.genBadge8a`, `dex.genBadgePack`; `detail.genDiff`, `detail.games`, `games.availableIn`, `games.note`, `games.none`, `games.packOnly`; `settings.pokeapi`.
+- `i18n-modules.test.ts` + `i18n.test.tsx` = 14/14; lint e typecheck limpos.
+- Captura `ui-refs/impl/after-f11-dex-pt.png` (dev 4179, headless, 1366x768): igual a `dex-cards-desktop.png`, 0 erro de console. Capturas do frontend ficam em `ui-refs/impl/` (pedido do orquestrador; a SPEC dizia `ui-refs/`).
 
 ---
 
