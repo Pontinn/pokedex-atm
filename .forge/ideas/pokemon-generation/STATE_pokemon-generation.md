@@ -1,13 +1,13 @@
 ---
 feature: pokemon-generation
 stage: spec
-status: in-progress
+status: done
 language: pt-BR
 branch: feature/pokemon-generation (base main b7ae68d7)
 mode: full
 impl_mode: autonomous
 top_model: opus
-running_agent: forge-spec (opus) - escrevendo SPEC
+running_agent: forge-checklist (haiku)
 baselines:
   CONTEXT: { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, deps: [IDEA_pokemon-generation.md, tools/dataset/src/pokeapi/client.ts, tools/dataset/src/pokeapi/stage.ts, vite.config.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/HeroCard.tsx, src/screens/Dex/PokemonCard.tsx, src/screens/Dex/DexFilters.tsx, src/screens/Dex/use-filtered-species.ts, src/screens/Detail/EvolutionPanel.tsx, src/components/SpeciesBadges.tsx, tools/dataset/src/species/merge.ts, tools/dataset/src/species/index-writer.ts, src/data/schemas.ts, src/data/types.ts] }
   PRD:     { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, context_hash: b16864921badb7ad2c37f2f183af29f1625a9253, prd_hash: 30137dd92cd3f1605155a9ec1d4e9ef4ea5b94f9, deps: [IDEA_pokemon-generation.md, CONTEXT_pokemon-generation.md] }
@@ -43,3 +43,12 @@ updated: 2026-10-12
 
 ## 2026-10-12 - prd-done + UISPEC corrigido; Stage 3 iniciada
 - PRD rev 3: 52 RF, 9 RNF, 65 CA (duplicatas fundidas, HOW/processo movidos para restricoes, predicado dos jogos e exclusoes por tipo, correspondencia definida, teto 10.240 bytes gzip). UISPEC corrigido (source: mixed). Gate de PRD aprovado por delegacao (modo autonomo). Commit 1 dos artefatos feito na branch. forge-spec (opus) disparado.
+
+## 2026-10-12 - SPEC escrita (forge-spec, ~30 min)
+- 9 sprints (S0 pre-voo, B1 contrato/regra/juncao, B2 auditoria/publicacao, F1 selo, F2 cadeia, F3 jogos+credito, F4 limpeza+baseline visual, T1 testes), 20 features, ~65 arquivos, 61/61 requisitos cobertos. Representacao: `games: number[] | null` (ids de version-group) no SpeciesSummary; catalogo de jogos dentro do dataset-manifest.json (ja precacheado), +2.662 bytes gzip (base 37.751, teto 10.240). `generation` entra nos nos da evolutionChain. Desvios do UISPEC aceitos pelo orquestrador: D1 selo em fluxo abaixo do nome (no cresce ~22 px; overlay quebraria o harness de sobreposicao em detail.spec.ts:306-318), D2 outline em --primary (contraste). UISPEC atualizado (eba48d5a). Possivel bloqueio: capturar o recorte exige internet. forge-review (spec, opus) disparado.
+
+## 2026-10-12 - revisao da SPEC
+- forge-review (spec): NEEDS-CHANGES, 0 blocker, 5 warnings (Hitmontop e gen2 e NAO leva destaque; fixtures game:null fora de ordem B1.1 vs F3.1; grep "snapshot" nunca vazio; regra D2 divergente entre SPEC e UISPEC, a da SPEC e a correta: --secondary padrao e --primary so em green/blue/purple; frase de lookup no indice ainda no UISPEC), 6 nits. ~40 alvos arquivo:linha conferidos, cobertura 61/61, identificadores em ingles, provas de D1 e D2 reais. UISPEC corrigido (11539eed). forge-spec reativado para aplicar e re-ancorar.
+
+## 2026-10-12 - spec-done
+- SPEC corrigida (88de2b9c), re-ancorada em PRD 30137dd9 / CONTEXT b1686492 / UISPEC 11539eed. Gate de linguagem de identificadores: PASS (sem identificador em portugues; deriveGames, GamesPanel, GenerationBadge, badge-gen, evo-gen...). Gate de SPEC aprovado por delegacao. Commit 2 (SPEC + UISPEC). forge-checklist (haiku) disparado.
