@@ -112,10 +112,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 > select "Jogo" na Pokedex, painel "Jogos" no Detail, credito da PokeAPI.
 
-- [ ] **F3.1 - Filtro por jogo na Pokedex** (categoria: frontend)
+- [x] **F3.1 - Filtro por jogo na Pokedex** (categoria: frontend)
   - Done when: capturas `after-f31-filters-{desktop,desktop-en,phone}.png` (comparar com `dex-filters-*.png`), `after-f31-frlg-desktop.png` (Jogo = FireRed / LeafGreen), `after-f31-frlg-gen2-empty.png`; no spec temporario: `#dex-count` = 151 com FRLG, opcoes do `#f-game` = "Todos" + os 22 nomes do manifest na ordem, Voltar do Zubat mantem FRLG; `expectNoOverlap("#filters")` a 360/390/1280 PT e EN; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/dex.spec.ts tests/e2e/navigation.spec.ts` verde; `npx vitest run tests/unit/ui-screens/dex-filter.test.ts tests/unit/ui-screens/dex-screen.test.tsx` verde sem mudar assert.
-  - commit:
-  - status: pendente
+  - commit: 66cc9532
+  - status: concluida
 
 - [ ] **F3.2 - Painel "Jogos" no Detail** (categoria: frontend)
   - Done when: capturas `after-f32-games-zubat-{desktop,phone}.png`, `after-f32-games-crobat-desktop.png`, `after-f32-games-piglich-desktop.png`, `after-f32-games-zubat-en-phone.png` (comparar com `detail-where-zubat-*.png`: mesma identidade de painel); no spec temporario: `#games-panel` logo depois de `#where-panel` no DOM; Zubat inclui `[data-game='firered-leafgreen']`, Crobat nao; 9901 mostra `[data-games='pack']` "Só no pack"; nota presente so com lista; `expectNoOverlap("#games-panel")` e `scrollWidth <= clientWidth` do `#main` a 360/390/1280 PT/EN; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/detail.spec.ts` verde.
@@ -257,6 +257,13 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Spec temporario (esperado DERIVADO do `generation` dos nos da ficha publicada): Zubat/Golbat sem destaque, Crobat com; Tyrogue sem, Hitmonlee e Hitmonchan com, Hitmontop sem; Pichu sem, Pikachu e Raichu com (a cadeia do Pichu tem 2 nos 26: Raichu e Raichu de Alola, ambos destacados); Charmander/Charmeleon/Charizard sem; aria-label do Crobat "Geração 2, diferente da base"; `expectNoOverlap("#evo-panel")` 360/390/1280 PT e EN para 41, 236, 172, 133, 6 ok; 0 erro de console.
 - Capturas `after-f21-*` (6) conferidas com `detail-evolution-*`: selo em fluxo abaixo do nome, sem sobrepor sprite, caixa ~22 px mais alta.
 - `PW_DEV=1 PW_PORT=4179` detail + navigation = 55/55 sem mudar assert; vitest ui-screens verde.
+
+### F3.1 - concluida (2026-10-12)
+
+- `DexFilters.game` (default null), `filterSpecies` com `games.includes` (E logico), `#f-game` irmao logo depois de `#f-gen` ("Todos" + `manifest.games`), desktop `1fr 1fr 1fr 1fr auto`; fixtures `game: null` em dex-filter.test.ts e dex-screen.test.tsx (so dado).
+- Spec temporario: opcoes = "Todos" + 22 nomes do manifest na ordem; FRLG -> `#dex-count` 151; FRLG + Geracao 2 -> EmptyState; Voltar do Zubat mantem FRLG (valor 7) e 151; `expectNoOverlap("#filters")` + sem scroll horizontal 360/390/1280 PT/EN; 0 erro de console.
+- Capturas `after-f31-*` (5) conferidas com `dex-filters-*`: mesmos selects/rotulos; phone Geracao | Jogo, Evolucao | Ordenar, Status linha inteira.
+- vitest dex-filter + dex-screen = 16/16 sem mudar assert; `PW_DEV=1` dex + navigation = 14/14.
 
 ---
 
