@@ -31,10 +31,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
 
 > congela o contrato (jogos por especie, catalogo, geracao nos nos), cria o modulo de jogos com o recorte curado capturado da PokeAPI e liga tudo no `write`.
 
-- [ ] **B1.1 - Contrato do dataset (tipos, zod, geracao nos nos, placeholders e fixtures)** (categoria: estrutura)
+- [!] **B1.1 - Contrato do dataset (tipos, zod, geracao nos nos, placeholders e fixtures)** (categoria: estrutura)
   - Done when: `npm run typecheck` e `npm run lint` limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde (inclui `join.test.ts`, que roda o pipeline com os placeholders e valida contra o schema novo); pipeline de teste (regra geral) roda sem erro e TODO no de `species/*.json` gerado tem `generation` igual ao `generation` da especie do no no indice gerado (script node inline sobre `_pg_pub`); janela quebrada ABERTA anotada no checklist e no HANDOFF (nenhum e2e ate B2.2).
   - commit:
-  - status: pendente
+  - status: BLOQUEADA (plan-reality mismatch, ver Notas por fase B1.1). Edicoes de B1.1 aplicadas no working tree, sem commit.
 
 - [ ] **B1.2 - Regra dos jogos e recorte curado da PokeAPI** (categoria: build)
   - Done when: o JSON existe, passa em `gameSnapshotSchema`, `deriveGames` devolve os 22 jogos da secao 5.3 na mesma ordem (script node inline via `npx tsx -e`), `kanto.species` = 1..151, `pokemonSpeciesIds` = 1..1025; segunda execucao sem `--fresh` faz 0 requisicoes (contar no log/cache) e gera o mesmo conteudo exceto `capturedAt`; `npm run typecheck`/`lint` limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde; `git grep -n "games/snapshot" -- tools/dataset/src ':!tools/dataset/src/games'` vazio (nenhum modulo do pipeline importa o coletor nem o CLI; a palavra "snapshot" sozinha ja aparece em `species/collect.ts`, `forms.ts` e `spawns.ts` e nao serve de criterio).
@@ -175,6 +175,12 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Auditoria: 46.768 checks, 1027 especies, 0 divergencias.
 - Ambiente: build (prebuild gen:assets) regrava 17 arquivos de tipo so com LF (sem diff de conteudo); restaurar com git checkout depois de cada build. Rodada e2e com 246 "worker exited 0xC0000142" foi falha de processo do Windows, repetida limpa.
 
+
+### B1.1 - BLOQUEADA (2026-10-12)
+
+- Tipos (5.1), zod (5.2), `generation` em `buildChain`, placeholders do `index-writer` e as 10 fixtures da lista aplicados. `npm run lint` limpo; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` = 87 arquivos, 730 testes, 0 falhas (inclui join.test.ts com o schema novo).
+- `npm run typecheck` FALHA fora do escopo do backend: `src/screens/Detail/EvolutionPanel.tsx:190` monta um no sintetico `{ dex, slug, name, types: [] }` (fallback de `EvolutionChainView`) que deixa de ser `EvolutionChainNode` quando `generation: string` vira obrigatorio; erros TS2322 nas linhas 202, 204, 216 e 246. A SPEC so trata esse fallback em F2.1 passo 1 (`ChainNodeView` + `generation: null`), mas exige typecheck limpo ja em B1.1. Tela React e do Frontend: nao mexido.
+- Proposta: antecipar para B1.1 SO o passo 1 de F2.1 (tipo local `ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null }` no fallback e na prop de `EvoNode`), sem efeito visual; ou o orquestrador autorizar outra saida. B1.2 (modulo de jogos) ja tem rascunho e a captura da PokeAPI foi testada com sucesso (22 jogos iguais a SPEC 5.3, 123 GETs), mas nada disso foi commitado.
 
 ---
 
