@@ -5,7 +5,7 @@ import { buildExpected, type Expected } from "../../../tools/dataset/audit/expec
 import { MANUAL_SAMPLE } from "../../../tools/dataset/audit/sample";
 import { abilityPairs, compare } from "../../../tools/dataset/audit/compare";
 import { buildLoadOrder, DEFAULT_SRC, loadOrder, parseModsToml, REPO_ROOT } from "../../../tools/dataset/audit/raw";
-import type { ItemsFile } from "../../../src/data/types";
+import type { DatasetManifest, ItemsFile, SpeciesDetail, SpeciesIndexFile } from "../../../src/data/types";
 
 // Fatos conhecidos da SPEC/handoffs, conferidos contra o construtor de esperado da auditoria (A1).
 describe("audit: esperado derivado do snapshot cru", () => {
@@ -208,5 +208,81 @@ describe("audit: berry origin and crossbreeding (berry-mutations)", () => {
       ["WRONG DATA", "item cobblemon:lum_berry", "berry.mutationPairs"],
       ["EXTRA", "item cobblemon:red_apricorn", "berry"],
     ]);
+  }, 120_000);
+});
+
+describe("audit: generation in the chain and games (pokemon-generation)", () => {
+  let e: Expected;
+  const tmpRoot = path.join(REPO_ROOT, "tools/dataset/out/_audit_pg_test");
+  const isNew = (d: { scope: string; field: string }) =>
+    d.field.startsWith("evolutionChain.node") || d.field.startsWith("games") || d.scope.startsWith("game ") || (d.scope === "manifest" && d.field === "games");
+  beforeAll(() => {
+    e = buildExpected();
+  }, 60_000);
+  afterAll(() => {
+    rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  function copyPublished(): string {
+    const pointer = JSON.parse(readFileSync(path.join(REPO_ROOT, "public/data/current.json"), "utf8")) as { datasetVersion: string };
+    const tmp = path.join(tmpRoot, "data", pointer.datasetVersion);
+    rmSync(tmpRoot, { recursive: true, force: true });
+    cpSync(path.join(REPO_ROOT, "public/data", pointer.datasetVersion), tmp, { recursive: true });
+    return tmp;
+  }
+  const readJ = <T,>(f: string): T => JSON.parse(readFileSync(f, "utf8")) as T;
+
+  it("clean copy: 0 divergences in the new checks; chain generation, index = detail and custom-only null are WRONG DATA when tampered", () => {
+    const tmp = copyPublished();
+    const clean = compare(e, tmp);
+    expect(clean.divergences.filter(isNew)).toEqual([]);
+    const nodes = readdirSync(path.join(tmp, "species")).reduce((n, f) => n + readJ<SpeciesDetail>(path.join(tmp, "species", f)).evolutionChain.nodes.length, 0);
+    expect(clean.checks).toBeGreaterThanOrEqual(46768 + 1027 * 2 + nodes + 4);
+
+    const zubatFile = path.join(tmp, "species", "41.json");
+    const zubat = readJ<SpeciesDetail>(zubatFile);
+    const crobatNode = zubat.evolutionChain.nodes.find((n) => n.dex === 169)!;
+    crobatNode.generation = crobatNode.generation === "gen1" ? "gen2" : "gen1";
+    writeFileSync(zubatFile, JSON.stringify(zubat));
+    const indexFile = path.join(tmp, "species-index.json");
+    const index = readJ<SpeciesIndexFile>(indexFile);
+    const frlg = readJ<DatasetManifest>(path.join(tmp, "dataset-manifest.json")).games.find((g) => g.slug === "firered-leafgreen")!.id;
+    const redBlue = readJ<DatasetManifest>(path.join(tmp, "dataset-manifest.json")).games.find((g) => g.slug === "red-blue")!.id;
+    const zubatIdx = index.find((s) => s.dex === 41)!;
+    zubatIdx.games = zubatIdx.games!.filter((id) => id !== frlg);
+    index.find((s) => s.dex === 9901)!.games = [redBlue];
+    writeFileSync(indexFile, JSON.stringify(index));
+    const piglichFile = path.join(tmp, "species", "9901.json");
+    writeFileSync(piglichFile, JSON.stringify({ ...readJ<SpeciesDetail>(piglichFile), games: [redBlue] }));
+
+    const res = compare(e, tmp);
+    expect(res.checks).toBe(clean.checks);
+    const got = res.divergences.filter(isNew).map((d) => [d.severity, d.scope, d.field]);
+    expect(got).toEqual([
+      ["WRONG DATA", "species 41 zubat", "evolutionChain.node 169 generation"],
+      ["WRONG DATA", "species 41 zubat", "games (indice = ficha)"],
+      ["WRONG DATA", "species 9901 piglich", "games null so no custom"],
+      ["WRONG DATA", "game red-blue", "especies"],
+      ["WRONG DATA", "game red-blue", "conjunto = range"],
+      ["WRONG DATA", "game firered-leafgreen", "especies"],
+      ["WRONG DATA", "game firered-leafgreen", "conjunto = range"],
+    ]);
+  }, 120_000);
+
+  it("catalog without a known game -> MISSING; species ids outside the catalog -> EXTRA; no catalog -> MISSING", () => {
+    const tmp = copyPublished();
+    const manifestFile = path.join(tmp, "dataset-manifest.json");
+    const manifest = readJ<DatasetManifest>(manifestFile);
+    const gold = manifest.games.find((g) => g.slug === "gold-silver")!;
+    writeFileSync(manifestFile, JSON.stringify({ ...manifest, games: manifest.games.filter((g) => g.slug !== "gold-silver") }));
+    const withGold = readJ<SpeciesIndexFile>(path.join(tmp, "species-index.json")).filter((s) => s.games?.includes(gold.id)).length;
+    const res = compare(e, tmp).divergences.filter(isNew);
+    expect(res.filter((d) => d.severity === "MISSING").map((d) => [d.scope, d.field])).toEqual([["game gold-silver", "catalogo"]]);
+    expect(res.filter((d) => d.severity === "EXTRA")).toHaveLength(withGold);
+    expect(res.every((d) => d.severity !== "EXTRA" || d.field === "games (id fora do catalogo)")).toBe(true);
+
+    const { games: _games, ...noGames } = manifest;
+    writeFileSync(manifestFile, JSON.stringify(noGames));
+    expect(compare(e, tmp).divergences.filter(isNew).map((d) => [d.severity, d.scope, d.field])).toEqual([["MISSING", "manifest", "games"]]);
   }, 120_000);
 });
