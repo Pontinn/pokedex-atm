@@ -22,3 +22,12 @@ Lidas por forge-prd, forge-spec, forge-review, forge-imp-backend e forge-imp-fro
 - O UISPEC propos selo sobreposto a imagem do EvoNode; o harness `tests/harness/no-overlap.ts` trata `img` e `.badge` como controles e reprovaria -> antes de propor overlay de texto/selo sobre imagem ou controle, o forge-ui-recon le o harness de sobreposicao e os e2e que o usam; o design nasce compativel com o teste, em vez de o teste ser afrouxado.
 - O PRD prometeu "outline do foco != none" para o select novo, mas todo select do app ja tem `outline: 0` (components.css:118) e so usa `:focus-visible` -> criterio de aceite de a11y/visual cita a propriedade real do CSS existente (conferida por grep), nunca uma propriedade "esperada".
 - `tests/unit/domain/bait.test.ts:106` (pior chamada < 5 ms) falhou 1 em 3 rodadas sob carga paralela e passou sozinho 3 de 3 -> teste de tempo absoluto em unitario flakeia sob carga; registrar como preexistente na linha de base S0 e nao mexer dentro de outra feature (decisao do Pontin se afrouxa, mede de outro jeito ou move para benchmark).
+
+## 2026-10-12 - type-chart (pagina Tipos)
+
+- Testes de shell selecionavam itens de navegacao por indice (`.nth(n)`); a SPEC listou 2 linhas e havia 7 -> antes de inserir item de navegacao, `grep -n "\.nth(" tests/` e listar TODAS na SPEC; testes novos usam `[data-nav=...]` ou `.last()`.
+- `scroll-behavior: smooth` em `#main` (base.css:41) e `html.reduce-motion` com transicao de 1 ms (base.css:70) fizeram testes lerem scrollTop/cor no meio da animacao -> leitura de posicao ou cor apos acao sempre com `expect.poll`/`toPass`.
+- Baselines do responsive.spec ja estavam defasadas (rodape "Feito por Pontin", arte) escondidas pela tolerancia de 2% -> ao regenerar, provar o isolamento contra baselines regeneradas no commit anterior e revisar cada PNG.
+- A SPEC pediu `page.goForward()`, mas o app trata todo popstate como Voltar (history-bridge.ts) -> ler a ponte de historico antes de escrever teste de navegacao do navegador.
+- Pagina estatica passou pelo pipeline completo do forge (planejamento 1h15 > implementacao 1h10) -> feature sem backend e sem dado novo vai de `--quick`.
+- Bug herdado encontrado no repo oficial e que existe aqui tambem: `useTeamStore.setSlots` e `useCapturedStore.mark/unmark` mostram na UI antes do `await` da escrita no IndexedDB; reload poucos ms depois perde o dado (6/10 no repro). Corrigido no pontindex em 5d67dbc (write-through pela fila do store) -> portar a correcao para ca com `--quick`.
