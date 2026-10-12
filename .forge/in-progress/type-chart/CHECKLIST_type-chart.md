@@ -26,27 +26,27 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 ### Fase S0: Pre-voo (linha de base antes de qualquer mudanca)
 
-- [ ] **S0.1** Linha de base completa (categoria: outro)
+- [x] **S0.1** Linha de base completa (categoria: outro)
   - Done when: STATE e checklist com os 6 passos e os numeros; `git status` sem mudanca de codigo.
-  - commit: 
-  - status: pending
+  - commit: (docs no commit do checklist; STATE em 0aafba5a)
+  - status: done. typecheck/lint ok; vitest 92/93 arquivos (join.test.ts falha por falta do cache da PokeAPI no worktree, preexistente de ambiente); build ok, 1231061 bytes js+css; e2e 275 ok/16 skip/1 falha (items.spec.ts:123, flake: 3/3 sozinho). Detalhes no STATE.
 
 ### Fase F1: Navegacao e registro da tela
 
-- [ ] **F1.1** Modulo i18n da pagina (categoria: frontend)
+- [x] **F1.1** Modulo i18n da pagina (categoria: frontend)
   - Done when: `npx vitest run tests/unit/ui-shell/i18n-modules.test.ts tests/unit/ui-foundation` verde; `npm run typecheck` e `npm run lint` limpos; `node -e` (ou `npx tsx -e`) imprime `Object.keys(TYPES_PAGE_MESSAGES).length === 45`; captura `after-f11-home-classic-desktop.png` sem nenhuma mudanca visual em relacao a `shell-sidebar-classic-desktop.png` (as chaves ainda nao sao usadas).
-  - commit: 
-  - status: pending
+  - commit: 48a70443
+  - status: done. 45 chaves; i18n-modules + ui-foundation 34/34; typecheck/lint ok; after-f11 igual a shell-sidebar (sem mudanca visual).
 
-- [ ] **F1.2** Tela registrada, estado, item de navegacao e testes do shell (categoria: frontend)
+- [x] **F1.2** Tela registrada, estado, item de navegacao e testes do shell (categoria: frontend)
   - Done when: `npm run typecheck`, `npm run lint` limpos; `npx vitest run tests/unit/ui-shell` verde (inclui l.66 paridade e as 2 listas novas); `PW_DEV=1 PW_PORT=4183 npx playwright test tests/e2e/shell.spec.ts tests/e2e/navigation.spec.ts` verde (as 2 listas novas e `toBeInViewport` da folha); captura headless: `after-f12-sidebar-{classic,black}-desktop.png` (comparar com `shell-sidebar-*-desktop.png`: "Tipos" em 5o com icone proprio, ativo ao clicar, rodape visivel), `after-f12-more-sheet-{classic,black}-phone.png` (com `shell-more-sheet-*-phone.png`: "Tipos" + "Quem vence quem" em 1o) e `after-f12-tabbar-classic-phone.png` (com `shell-tabbar-*-phone.png`: "Mais" ativo com "Tipos" aberto); no spec temporario: `history.length` sobe 1 ao abrir "Tipos" pela sidebar e `page.url()` nao muda de caminho. `responsive.spec.ts` NAO roda aqui (F1.3, logo em seguida).
-  - commit: 
-  - status: pending
+  - commit: 621b6a71
+  - status: done. ui-shell 20/20; shell+navigation+sync e2e 32/32; capturas after-f12-* conferidas (Tipos 5o com Shapes, ativo, rodape visivel; folha Mais com Tipos + Quem vence quem em 1o); history.length +1, caminho igual. DESVIO DA SPEC 2.7 (lista incompleta): alem das 4 listas, 4 asserts por INDICE deslocados +1 pelo item novo: shell.spec.ts:232 (sheet nth 2->3) e :235 (sidebar nth 6->7), sync.spec.ts:65 (sheet-item nth 3->4) e :67 (nav-item nth 7->8), pwa-offline.spec.ts:341 (nav-item nth 7->8); mesma forca, so o indice. pwa-offline so roda em build+preview: conferir em T1.4.
 
-- [ ] **F1.3** Baselines visuais do responsive (10o item da sidebar) (categoria: outro)
+- [x] **F1.3** Baselines visuais do responsive (10o item da sidebar) (categoria: outro)
   - Done when: os 7 testes de tema verdes sem `--update-snapshots`; diff = 14 PNGs; tabela do passo 7 no STATE com 100% dos pixels diferentes em `x < 236`; `maxDiffPixelRatio` continua `0.02` (`git diff -- tests/e2e/responsive.spec.ts` vazio).
-  - commit: 
-  - status: pending
+  - commit: 0aafba5a
+  - status: done. 7 testes verdes sem update; 14 PNGs; maxDiffPixelRatio intocado. As baselines do HEAD ja eram velhas antes da feature (rodape sem Feito por Pontin/GitHub, arte do Charizard): diff contra elas falha fora da sidebar; isolado regenerando com o codigo de 48a70443: efeito do item 100% em x < 236, exceto 2 px de ruido de antialias (x 276-277, y 259-261, aparece entre duas regeneracoes do mesmo codigo). Tabela no STATE.
 
 ### Fase F2: Visao por tipo (principal)
 
@@ -122,3 +122,6 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 | Fase/Feature | Descricao | Causa | Correcao / commit |
 |---|---|---|---|
+| F1.2 | SPEC 2.7 listava 4 asserts afetados; 5 outros asserts/cliques por indice (nth) quebrariam com o 10o item | Lista da SPEC feita por texto de lista, sem grep por `.nth(` nos seletores de navegacao | Indices deslocados +1 em shell.spec.ts:232,235, sync.spec.ts:65,67, pwa-offline.spec.ts:341 / 621b6a71 |
+| F1.3 | Baselines do responsive ja estavam velhas no HEAD (rodape da sidebar e arte do Charizard), escondidas pela tolerancia de 2% | Mudancas anteriores do app nao regeneraram as baselines | Efeito do item isolado regenerando com o codigo anterior; baselines regravadas / 0aafba5a |
+| S0.1 | tests/unit/dataset/join.test.ts falha no worktree | Cache da PokeAPI (gitignored) so existe na arvore principal | Preexistente de ambiente; nao mexido |
