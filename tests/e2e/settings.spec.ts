@@ -359,3 +359,14 @@ test.describe("F10.2 backup, delete data and snapshot restore", () => {
     expect(after.captured).toEqual(snapDocs.captured);
   });
 });
+
+test("pokemon-generation: about card credits the PokeAPI for the games (PT and EN) (CA-54)", async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  await openSettings(page, 1280, 800);
+  const about = page.locator("[data-card=about]");
+  await expect(about.locator("[data-info=pokeapi]")).toHaveText("Jogos de cada Pokémon: PokeAPI (recorte no build)");
+  await expect(about.getByText("Imagens: PokeAPI (online)")).toBeVisible();
+  await page.locator(".settings-screen .lang-seg button", { hasText: "English" }).click();
+  await expect(about.locator("[data-info=pokeapi]")).toHaveText("Games each Pokémon appears in: PokeAPI (snapshot at build time)");
+  expect(errors).toEqual([]);
+});

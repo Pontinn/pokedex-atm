@@ -415,4 +415,46 @@ test.describe("F12.1 PWA installable and cache", () => {
     expect(errors).toEqual([]);
     await context.setOffline(false);
   });
+
+  test("pokemon-generation: offline the game filter and the games panel keep working with the new dataset (CA-61)", async ({ page, context }) => {
+    const errors = trackPageErrors(page);
+    const hosts = new Set<string>();
+    page.on("request", (r) => hosts.add(new URL(r.url()).host));
+    await routeArtwork(context);
+    await installAndControl(page);
+    // visita online: Dex e a ficha do Zubat (species/41.json entra no runtime cache "dataset")
+    await page.locator("#btn-open-dex").click();
+    await expect(page.locator(".dex-screen .pcard").first()).toBeVisible({ timeout: 30_000 });
+    await page.locator('[data-nav="home"]:visible').first().click();
+    await page.locator("#search-input").fill("41");
+    await page.locator(".search-dd .dd-item[data-dex='41']").click();
+    await expect(page.locator(".detail-screen[data-dex='41'] #games-panel")).toBeVisible();
+    await expect
+      .poll(() =>
+        page.evaluate(async () => {
+          const keys = await (await caches.open("dataset")).keys();
+          return keys.some((r) => r.url.endsWith("/species/41.json"));
+        }),
+      )
+      .toBe(true);
+
+    await context.unroute(ARTWORK);
+    await context.setOffline(true);
+    await page.reload();
+    await bootHome(page);
+    expect(await page.evaluate(() => navigator.onLine)).toBe(false);
+    await page.locator("#btn-open-dex").click();
+    await expect(page.locator(".dex-screen .pcard").first()).toBeVisible({ timeout: 30_000 });
+    await page.locator("#f-game").selectOption({ label: "FireRed / LeafGreen" });
+    await expect(page.locator("#dex-count")).toHaveText("151");
+    await page.locator('[data-nav="home"]:visible').first().click();
+    await page.locator("#search-input").fill("41");
+    await page.locator(".search-dd .dd-item[data-dex='41']").click();
+    await expect(page.locator(".detail-screen[data-dex='41'] #games-panel [data-game='firered-leafgreen']")).toBeVisible();
+    await expect(page.locator("#evo-panel .evo-gen-diff")).toHaveCount(1);
+    expect(errors).toEqual([]);
+    // nenhum dominio novo: so a propria origem e o artwork da PokeAPI que ja existia
+    expect([...hosts].filter((h) => !/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(h) && h !== "raw.githubusercontent.com")).toEqual([]);
+    await context.setOffline(false);
+  });
 });

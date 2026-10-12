@@ -160,3 +160,17 @@ test.describe("F6.2 captured list", () => {
     });
   }
 });
+
+test("pokemon-generation: captured cards show the generation seal and no rarity class (CA-03)", async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  await boot(page);
+  await seed(page);
+  await goCaptured(page);
+  const cards = page.locator(".captured-results .pcard");
+  await expect(cards).toHaveCount(SEED.length);
+  await expect(page.locator(".captured-results .pcard .badge-gen")).toHaveCount(SEED.length);
+  await expect(page.locator(".captured-results .pcard").locator(".badge-common, .badge-uncommon, .badge-rare, .badge-ultra")).toHaveCount(0);
+  await expect(page.locator(".captured-results .pcard[data-dex='448'] .badge-gen")).toHaveText("Gen 4");
+  await expect(page.locator(".captured-results .pcard[data-dex='94'] .badge-gen")).toHaveText("Gen 1");
+  expect(errors).toEqual([]);
+});

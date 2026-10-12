@@ -843,3 +843,217 @@ test.describe("F5.4 calculators", () => {
     });
   }
 });
+
+// pokemon-generation (T1.4): Hero, cadeia, painel "Jogos" e temas. Esperados DERIVADOS da ficha/manifest publicados
+// lidos via fetch (o mesmo arquivo que o app carrega), nunca listas a mao (LESSONS 2026-09-29).
+type PgNode = { dex: number; generation: string };
+type PgDetail = { games: number[] | null; evolutionChain: { root: number; nodes: PgNode[] } };
+type PgGame = { id: number; slug: string; name: string };
+
+async function pgFetch(page: Page, dex: number): Promise<{ detail: PgDetail; games: PgGame[] }> {
+  return page.evaluate(async (d) => {
+    const current = (await (await fetch("/data/current.json")).json()) as { datasetVersion: string };
+    const base = `/data/${current.datasetVersion}`;
+    const detail = await (await fetch(`${base}/species/${d}.json`)).json();
+    const manifest = (await (await fetch(`${base}/dataset-manifest.json`)).json()) as { games: PgGame[] };
+    return { detail, games: manifest.games };
+  }, dex);
+}
+
+async function pgCheckChain(page: Page, dex: number) {
+  const { detail } = await pgFetch(page, dex);
+  const chain = detail.evolutionChain;
+  const rootGen = chain.nodes.find((n) => n.dex === chain.root)!.generation;
+  const panel = page.locator("#evo-panel");
+  let highlighted = 0;
+  for (const n of chain.nodes) {
+    const total = await panel.locator(`[data-evo='${n.dex}']`).count();
+    expect(total, `node ${n.dex}`).toBeGreaterThan(0);
+    await expect(panel.locator(`[data-evo='${n.dex}'] .evo-gen`)).toHaveCount(total);
+    const diff = n.generation !== rootGen;
+    await expect(panel.locator(`[data-evo='${n.dex}'] .evo-gen-diff`)).toHaveCount(diff ? total : 0);
+    if (diff) highlighted += total;
+  }
+  await expect(panel.locator(".evo-gen-diff")).toHaveCount(highlighted);
+  await expect(panel.locator("[data-game], .game-chip")).toHaveCount(0);
+  return highlighted;
+}
+
+function luminance(rgb: number[]): number {
+  const [r, g, b] = rgb.map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
+}
+function contrast(a: number[], b: number[]): number {
+  const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p);
+  return (x! + 0.05) / (y! + 0.05);
+}
+
+/** cor do texto, fundo proprio e (para o destaque) cor do outline e o primeiro fundo opaco do ancestral. */
+async function colorsOf(page: Page, selector: string) {
+  return page.locator(selector).first().evaluate((el) => {
+    const rgb = (s: string) => (s.match(/[\d.]+/g) ?? []).map(Number);
+    const opaque = (s: string) => {
+      const v = rgb(s);
+      return v.length >= 3 && (v.length < 4 || v[3]! > 0.99);
+    };
+    let up: Element | null = el.parentElement;
+    let bg = "rgb(255, 255, 255)";
+    while (up) {
+      const c = getComputedStyle(up).backgroundColor;
+      if (opaque(c)) {
+        bg = c;
+        break;
+      }
+      up = up.parentElement;
+    }
+    const cs = getComputedStyle(el);
+    return { color: rgb(cs.color), bg: rgb(cs.backgroundColor), outline: rgb(cs.outlineColor), around: rgb(bg), outlineStyle: cs.outlineStyle, outlineWidth: cs.outlineWidth };
+  });
+}
+
+test.describe("pokemon-generation: hero, chain, games panel and themes", () => {
+  test("hero: Charizard long generation + rarity (PT/EN), Mewtwo legendary + generation + rarity (CA-07, CA-08, CA-09)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 6);
+    const hero = page.locator(".hero-card");
+    await expect(hero.locator(".seal .badge-gen")).toHaveText("Geração 1");
+    await expect(hero.locator(".seal .badge")).toHaveCount(2);
+    await expect(hero.locator(".seal .badge").nth(1)).toHaveClass(/badge-ultra|badge-rare|badge-uncommon|badge-common/);
+    await setLanguage(page, "en");
+    await expect(hero.locator(".seal .badge-gen")).toHaveText("Generation 1");
+    await setLanguage(page, "pt");
+    await openDetail(page, 150);
+    const seals = page.locator(".hero-card .seal .badge");
+    await expect(seals).toHaveCount(3);
+    await expect(seals.nth(0)).toHaveClass(/badge-legendary/);
+    await expect(seals.nth(1)).toHaveClass(/badge-gen/);
+    await expect(seals.nth(1)).toHaveText("Geração 1");
+    await expect(seals.nth(2)).toHaveClass(/badge-ultra|badge-rare|badge-uncommon|badge-common/);
+    expect(errors).toEqual([]);
+  });
+
+  test("chain: highlight derived from each node generation for Zubat, Crobat, Tyrogue and Charmander (CA-11..CA-14, CA-16)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 41);
+    expect(await pgCheckChain(page, 41)).toBe(1);
+    await expect(page.locator("#evo-panel [data-evo='169'] .evo-gen-diff")).toHaveAttribute("aria-label", "Geração 2, diferente da base");
+    await openDetail(page, 169);
+    expect(await pgCheckChain(page, 169)).toBe(1);
+    await openDetail(page, 236);
+    expect(await pgCheckChain(page, 236)).toBe(2);
+    await expect(page.locator("#evo-panel [data-evo='106'] .evo-gen-diff")).toHaveCount(1);
+    await expect(page.locator("#evo-panel [data-evo='107'] .evo-gen-diff")).toHaveCount(1);
+    await expect(page.locator("#evo-panel [data-evo='237'] .evo-gen-diff")).toHaveCount(0);
+    await openDetail(page, 4);
+    expect(await pgCheckChain(page, 4)).toBe(0);
+    expect(errors).toEqual([]);
+  });
+
+  test("highlight is not chromatic only: 2px solid outline and accessible name, also in grayscale (CA-15)", async ({ page }) => {
+    await boot(page);
+    await openDetail(page, 41);
+    const diff = page.locator("#evo-panel .evo-gen-diff");
+    await expect(diff).toHaveCSS("outline-style", "solid");
+    await expect(diff).toHaveCSS("outline-width", "2px");
+    await expect(diff).toHaveAttribute("role", "img");
+    await expect(diff).toHaveAttribute("aria-label", /diferente da base/);
+    await page.addStyleTag({ content: "html { filter: grayscale(1) }" });
+    await expect(diff).toHaveCSS("outline-style", "solid");
+    await expect(page.locator("#evo-panel [data-evo='42'] .evo-gen")).toHaveCSS("outline-style", "none");
+  });
+
+  test("games panel: Zubat in manifest order with the note, Crobat without FRLG, Hitmonlee with, Tyrogue without, 9901 pack only (CA-27, CA-28, CA-40, CA-41)", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await boot(page);
+    await openDetail(page, 41);
+    const ids = await page.locator(".detail-right > [id]").evaluateAll((els) => els.map((e) => e.id));
+    expect(ids[ids.indexOf("where-panel") + 1]).toBe("games-panel");
+    const { detail, games } = await pgFetch(page, 41);
+    const want = games.filter((g) => detail.games!.includes(g.id));
+    await expect(page.locator("#games-panel .game-chip")).toHaveText(want.map((g) => g.name));
+    expect(await page.locator("#games-panel .game-chip").evaluateAll((els) => els.map((e) => e.getAttribute("data-game")))).toEqual(want.map((g) => g.slug));
+    await expect(page.locator("#games-panel .games-note")).toHaveText("Lista pela Pokédex regional de cada jogo; a National Dex do pós-jogo não entra");
+    await expect(page.locator("#games-panel [data-game='firered-leafgreen']")).toHaveCount(1);
+    await openDetail(page, 169);
+    await expect(page.locator("#games-panel .game-chip").first()).toBeVisible();
+    await expect(page.locator("#games-panel [data-game='firered-leafgreen']")).toHaveCount(0);
+    await openDetail(page, 106);
+    await expect(page.locator("#games-panel [data-game='firered-leafgreen']")).toHaveCount(1);
+    await openDetail(page, 236);
+    await expect(page.locator("#games-panel .game-chip").first()).toBeVisible();
+    await expect(page.locator("#games-panel [data-game='firered-leafgreen']")).toHaveCount(0);
+    await openDetail(page, 9901);
+    await expect(page.locator("#games-panel [data-games='pack']")).toHaveText("Só no pack");
+    await expect(page.locator("#games-panel .games-note")).toHaveCount(0);
+    await expect(page.locator("#games-panel .game-chip")).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+
+  test("games panel in EN: title, label and note; names are data (CA-43)", async ({ page }) => {
+    await boot(page);
+    await setLanguage(page, "en");
+    await openDetail(page, 41);
+    await expect(page.locator("#games-panel h3")).toHaveText("Games");
+    await expect(page.locator("#games-panel .k")).toHaveText("Available in");
+    await expect(page.locator("#games-panel .games-note")).toHaveText("Listed by each game's regional Pokédex; the post-game National Dex is not counted");
+    await expect(page.locator("#games-panel [data-game='firered-leafgreen']")).toHaveText("FireRed / LeafGreen");
+  });
+
+  for (const width of [360, 390]) {
+    test(`Zubat games list fully visible, no overlap, no horizontal scroll at ${width}px (PT and EN) (CA-42)`, async ({ page }) => {
+      await boot(page, width, 800);
+      for (const lang of ["pt", "en"] as const) {
+        await setLanguage(page, lang);
+        await openDetail(page, 41);
+        const panel = page.locator("#games-panel");
+        await panel.scrollIntoViewIfNeeded();
+        await settle(page);
+        const pBox = (await panel.boundingBox())!;
+        const { detail } = await pgFetch(page, 41);
+        const chips = page.locator("#games-panel .game-chip");
+        await expect(chips).toHaveCount(detail.games!.length);
+        for (const box of await chips.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as DOMRect))) {
+          expect(box.width).toBeGreaterThan(0);
+          expect(box.left).toBeGreaterThanOrEqual(pBox.x - 1);
+          expect(box.right).toBeLessThanOrEqual(pBox.x + pBox.width + 1);
+        }
+        await expectNoOverlap(page, panel);
+        expect(await page.locator("#main").evaluate((m) => m.scrollWidth <= m.clientWidth)).toBe(true);
+      }
+    });
+  }
+
+  test("7 themes: generation seal contrast >= 4.5 (hero and stage) and highlight outline >= 3 (CA-62)", async ({ page }) => {
+    test.setTimeout(180_000);
+    await boot(page);
+    for (const theme of ["classic", "black", "green", "blue", "purple", "white", "orange"]) {
+      await writeDoc(page, "preferences", {
+        schemaVersion: 1,
+        theme,
+        uiLanguage: "pt",
+        termsLanguage: "pt",
+        termsOverrides: {},
+        soundEnabled: false,
+        reduceMotion: true,
+      });
+      await page.reload();
+      await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+      await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+      await openDetail(page, 41);
+      const hero = await colorsOf(page, ".hero-card .seal .badge-gen");
+      expect(contrast(hero.color, hero.bg), `${theme} hero`).toBeGreaterThanOrEqual(4.5);
+      const stage = await colorsOf(page, "#evo-panel [data-evo='42'] .evo-gen");
+      expect(contrast(stage.color, stage.bg), `${theme} stage`).toBeGreaterThanOrEqual(4.5);
+      const cur = await colorsOf(page, "#evo-panel [data-evo='41'] .evo-gen");
+      expect(contrast(cur.color, cur.bg), `${theme} current stage`).toBeGreaterThanOrEqual(4.5);
+      const diff = await colorsOf(page, "#evo-panel .evo-gen-diff");
+      expect(diff.outlineStyle).toBe("solid");
+      expect(contrast(diff.outline, diff.around), `${theme} outline`).toBeGreaterThanOrEqual(3);
+    }
+  });
+});
