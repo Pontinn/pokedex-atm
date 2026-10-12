@@ -117,10 +117,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: 66cc9532
   - status: concluida
 
-- [ ] **F3.2 - Painel "Jogos" no Detail** (categoria: frontend)
+- [x] **F3.2 - Painel "Jogos" no Detail** (categoria: frontend)
   - Done when: capturas `after-f32-games-zubat-{desktop,phone}.png`, `after-f32-games-crobat-desktop.png`, `after-f32-games-piglich-desktop.png`, `after-f32-games-zubat-en-phone.png` (comparar com `detail-where-zubat-*.png`: mesma identidade de painel); no spec temporario: `#games-panel` logo depois de `#where-panel` no DOM; Zubat inclui `[data-game='firered-leafgreen']`, Crobat nao; 9901 mostra `[data-games='pack']` "Só no pack"; nota presente so com lista; `expectNoOverlap("#games-panel")` e `scrollWidth <= clientWidth` do `#main` a 360/390/1280 PT/EN; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/detail.spec.ts` verde.
-  - commit:
-  - status: pendente
+  - commit: e2f49362
+  - status: concluida
 
 - [ ] **F3.3 - Credito da PokeAPI (Configuracoes e README)** (categoria: frontend)
   - Done when: capturas `after-f33-credits-{desktop,phone}.png` (comparar com `settings-credits-*.png`); `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/settings.spec.ts` verde; `npx vitest run tests/unit/ui-screens/settings-screen.test.tsx` verde.
@@ -265,6 +265,13 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Capturas `after-f31-*` (5) conferidas com `dex-filters-*`: mesmos selects/rotulos; phone Geracao | Jogo, Evolucao | Ordenar, Status linha inteira.
 - vitest dex-filter + dex-screen = 16/16 sem mudar assert; `PW_DEV=1` dex + navigation = 14/14.
 
+### F3.2 - concluida (2026-10-12)
+
+- `GamesPanel.tsx` (`gamesOf`, `GamesPanel`) logo depois do `WherePanel`, `--i` 7; best 8, forms 9, calc 10. CSS `.games-list`, `.game-chip`, `.games-note`, `.games-empty`.
+- Spec temporario: `#games-panel` logo depois de `#where-panel`; Zubat = jogos do manifest com o id na ficha, na ordem, inclui `firered-leafgreen`, com nota; Crobat sem FRLG; 9901 `[data-games='pack']` "Só no pack" sem nota; EN "Games"; `expectNoOverlap("#games-panel")` + sem scroll horizontal do `#main` 360/390/1280 PT/EN (41 e 9901); 0 erro de console.
+- Capturas `after-f32-*` (5) conferidas com `detail-where-zubat-*`: mesma identidade de painel (h3 + barra, `.k`, chips como `.method`).
+- `PW_DEV=1` detail.spec.ts = 53/53 (ver Bugs: 1a rodada com 1 falha de HMR do dev server, nao regressao).
+
 ---
 
 ## Bugs encontrados
@@ -272,3 +279,4 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 | Fase/Feature | Descricao | Causa | Correcao / commit |
 |---|---|---|---|
 | T1.2 (suite inteira) | `tests/unit/domain/bait.test.ts:106` ("buildBaitIndex and recommendBerries ... stay under 5 ms") falhou 1 de 3 rodadas da suite inteira: worst 5,17 ms > 5 ms. Isolado 3/3 verde; suite inteira 2/3 verde. | Assert de tempo de parede (pior chamada isolada) sensivel a carga: roda em paralelo com o pipeline real do `join.test.ts` (8 workers). O caminho medido (`recommendBerries`) nao le `games` nem `generation`. Nao reproduziu na S0 (2 rodadas). | Nao corrigido (fora do escopo do backend, assert nao afrouxado). Flake registrado para o T1.5 comparar; se voltar, investigar a causa (isolamento do teste de tempo), nunca subir o limite. |
+| F3.2 (e2e dev) | `detail.spec.ts:155` ("unknown dex ... not-found", so PW_DEV) falhou 1 vez: `.ob-none` nao apareceu. | O teste navega por `import("/src/navigation/navigation-store.ts")` no page.evaluate; depois de editar `navigation/types.ts` (F3.1) com o mesmo dev server de pe, o HMR deixou uma instancia nova do modulo e a navegacao foi para outra store. Artefato do dev server reaproveitado, nao do codigo. | Dev server reiniciado: detail.spec.ts 53/53, o teste passou. Nada mudado no teste. |
