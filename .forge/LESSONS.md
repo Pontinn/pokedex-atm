@@ -14,3 +14,11 @@ Lidas por forge-prd, forge-spec, forge-review, forge-imp-backend e forge-imp-fro
 ## 2026-09-30 - berry-mutations (cruzamento de bagas)
 
 - A IDEA dizia que o sorteio da mutacao acontece "a cada colheita" (wiki e sites de guia); o codigo do Cobblemon sorteia quando a arvore FLORESCE (MATURE_AGE 3 -> FLOWER_AGE 4), uma vez por ciclo -> todo texto que explica uma MECANICA do jogo (quando, quanto, chance) e conferido no codigo-fonte ou no bytecode do mod antes do PRD; wiki so serve de pista.
+
+## 2026-10-12 - pokemon-generation (geracao e jogos)
+
+- O orquestrador escreveu "Hitmontop destacado" no UISPEC sem olhar o dado (Hitmontop e gen2, igual a raiz Tyrogue); a revisao da SPEC pegou -> todo exemplo trabalhado de IDEA/UISPEC/PRD que cita especies concretas e conferido no `species-index.json`/ficha ANTES de ser escrito (um `node -e` basta); e os testes derivam o esperado do dado, nunca da frase.
+- Tornar `generation` obrigatorio num tipo compartilhado (no da cadeia) quebrou o typecheck num placeholder do frontend (EvolutionPanel.tsx:190) no meio do sprint de backend -> quando um sprint de backend muda um tipo compartilhado com o frontend (campo novo obrigatorio, union, rename), a SPEC faz `grep` de todo construtor/literal desse tipo em `src/` e poe o ajuste SOMENTE de tipo no mesmo sprint do contrato, nao no sprint de UI.
+- O UISPEC propos selo sobreposto a imagem do EvoNode; o harness `tests/harness/no-overlap.ts` trata `img` e `.badge` como controles e reprovaria -> antes de propor overlay de texto/selo sobre imagem ou controle, o forge-ui-recon le o harness de sobreposicao e os e2e que o usam; o design nasce compativel com o teste, em vez de o teste ser afrouxado.
+- O PRD prometeu "outline do foco != none" para o select novo, mas todo select do app ja tem `outline: 0` (components.css:118) e so usa `:focus-visible` -> criterio de aceite de a11y/visual cita a propriedade real do CSS existente (conferida por grep), nunca uma propriedade "esperada".
+- `tests/unit/domain/bait.test.ts:106` (pior chamada < 5 ms) falhou 1 em 3 rodadas sob carga paralela e passou sozinho 3 de 3 -> teste de tempo absoluto em unitario flakeia sob carga; registrar como preexistente na linha de base S0 e nao mexer dentro de outra feature (decisao do Pontin se afrouxa, mede de outro jeito ou move para benchmark).

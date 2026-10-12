@@ -46,7 +46,7 @@ Como rodar:
 - [x] Aberta em B1.1 (`64e0b4f1`): `published-schemas.test.ts` excluido; nenhum e2e rodado ate a republicacao.
 - [x] Fechada em B2.2 (`a4d1cf4e`): `published-schemas.test.ts` + `join.test.ts` verdes (47); `npx vitest run` inteiro verde (88 / 744 antes dos testes de T1).
 - [x] Portao de nao-regressao do dado com a UI intocada: `npm run build` + `npx playwright test` inteiro = 253 ok, 16 pulados, 0 falha, 0 flaky (igual a S0.1); 7 visuais de `responsive.spec.ts` sem atualizar baseline.
-- [ ] Manual (opcional, sem regressao esperada): abrir o app com `npm run dev`, Pokedex e ficha do Charizard carregam com o dataset novo (sem tela de erro de boot).
+- [x] Manual (opcional): app aberto (build + `vite preview` 4173, headless 1366x768 e 390x844), Pokedex e fichas 41/236/172/133/9901 carregam com o dataset novo, 0 erros de console e 0 respostas 4xx (REPORT_TEST_UI).
 
 ### Observacao
 
@@ -67,7 +67,7 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Capturados: os cards semeados mostram o selo de geracao e nenhuma raridade (`captured.spec.ts`).
 - [A] Hero do Charizard: "Geração 1" + raridade; em EN "Generation 1"; Mewtwo: Lendario + "Geração 1" + raridade (`detail.spec.ts`).
 - [A] Raridade continua no painel "Onde encontrar" (`detail.spec.ts`, testes existentes de `.where-rarity`).
-- [ ] Manual: no celular (ou DevTools 390x844), rolar a Pokedex inteira e conferir visualmente que nenhum selo fica cortado.
+- [x] Manual: Pokedex inteira rolada a 390x844 e 360x740 (1027 cards vistos em cada): todo card tem selo de geracao, nenhum selo fora do card, truncado ou sobreposto ao numero; capturas `ui-refs/test/dex-cards-phone.png`, `dex-mewtwo-phone.png`.
 
 ### Cadeia de evolucao
 
@@ -76,7 +76,7 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Charmander: nenhum destaque (todos Gen 1) (`detail.spec.ts`).
 - [A] Destaque nao depende so de cor: contorno solido de 2px, continua com o app em tons de cinza (`detail.spec.ts`).
 - [A] Nenhum nome de jogo aparece na cadeia nem nos cards (`detail.spec.ts`, `dex.spec.ts`).
-- [ ] Manual: abrir Eevee (133) e Pichu (172) e conferir que a cadeia larga continua legivel no celular, selo abaixo do nome sem cobrir o sprite.
+- [x] Manual: Eevee (133) e Pichu (172) a 390x844: selo abaixo do nome, sem cobrir sprite, `findOverlaps` = 0; destaque correto (Pikachu e Raichu, as duas ocorrencias do Raichu); `ui-refs/test/detail-133-evo-phone.png`, `detail-172-evo-phone.png`.
 
 ### Filtro "Jogo" na Pokedex
 
@@ -88,7 +88,7 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Filtros sem sobreposicao nem rolagem horizontal a 360/390/1280 PT/EN (`dex.spec.ts`).
 - [A] Teclado: Tab do "Geração" chega no "Jogo", rotulo resolve, seta para baixo troca o valor (`dex.spec.ts`).
 - [A] Trocar o jogo nao baixa nenhum arquivo de dado novo (`dex.spec.ts`).
-- [ ] Manual (infeliz): escolher um jogo e digitar uma busca sem resultado; a tela mostra o estado vazio e limpar a busca volta a lista do jogo.
+- [x] Manual (infeliz): FRLG + busca "zzzzqq": estado vazio `.ob-none` com o termo; limpar a busca volta a 151; `ui-refs/test/dex-frlg-empty-{desktop,phone}.png`.
 
 ### Painel "Jogos" no Detail
 
@@ -98,7 +98,7 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Especie oficial sem jogo: "Não aparece nos jogos oficiais"; manifest ausente: painel nao aparece (`games-panel.test.tsx`).
 - [A] EN: "Games", "Available in" e a nota em ingles (`detail.spec.ts`).
 - [A] Celular 360/390: todos os chips visiveis dentro do painel, sem sobreposicao nem rolagem horizontal (`detail.spec.ts`).
-- [ ] Manual: conferir que o painel fica logo abaixo de "Onde encontrar" e acima de "Melhores" no desktop e no celular.
+- [x] Manual: ordem dos paineis a 1366 e 390: `where-panel`, `games-panel`, `best-panel` consecutivos; `ui-refs/test/detail-41-games-{desktop,phone}.png`.
 
 ### Credito, idioma e temas
 
@@ -106,12 +106,12 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Toggle PT/EN troca todos os textos novos (selo, cadeia, filtro, painel, credito) (`dex.spec.ts`, `detail.spec.ts`, `settings.spec.ts`, `generation-badge.test.tsx`).
 - [A] 7 temas: contraste do selo >= 4,5:1 no Hero e nos estagios e do contorno do destaque >= 3:1 (`detail.spec.ts`).
 - [A] Baselines visuais: 7 `home-*` inalterados, 7 `detail-charizard-*` regravados com o selo (`responsive.spec.ts`).
-- [ ] Manual: percorrer os 7 temas (Configuracoes > Tema) na Pokedex e no Zubat e conferir legibilidade do selo e do contorno a olho.
+- [x] Manual: 7 temas pelo seletor de Configuracoes, ficha do Zubat: contorno do Crobat solido, contraste classic 4,82 / black 11,58 / green 4,04 / blue 6,09 / purple 6,63 / white 5,09 / orange 14,14 (>= 3); capturas `ui-refs/test/theme-<tema>-evo.png` conferidas a olho (green e black vistos).
 
 ### PWA offline com o dataset novo
 
 - [A] Com o service worker ativo, offline: Pokedex com o filtro FRLG mostra 151 e o Zubat ja visitado mostra o painel Jogos e o destaque do Crobat; nenhum dominio novo (`pwa-offline.spec.ts`).
-- [ ] Manual: no celular, instalar o app, abrir a Pokedex e o Zubat, ativar modo aviao, reabrir e repetir o filtro FRLG.
+- [ ] Manual: USUARIO: no celular real, instalar o app (PWA), abrir a Pokedex e o Zubat, ativar modo aviao, fechar e reabrir o app e repetir o filtro FRLG. Esperado: 151 cards, selos de geracao, Zubat com painel Jogos e Crobat destacado. (Simulado offline no Playwright com SW ativo: passou; so um aparelho real confirma a instalacao e a atualizacao do SW.)
 
 ### Regressao
 
