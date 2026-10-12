@@ -2,3 +2,32 @@
    (origem detail.css .mult-*), nunca importadas. Toda regra com escopo .types-screen. */
 .types-screen { display: grid; gap: 16px; min-width: 0; }
 .types-screen .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+/* tons de efetividade (UISPEC 3.2b): fundo E texto juntos, iguais em todos os temas */
+.types-screen .tone-adv { background: #E1F5E7; color: #1B6B3A; }
+.types-screen .tone-dis { background: #FFE9D6; color: #9A4A00; }
+.types-screen .tone-zero { background: #E6E7EC; color: #444A5C; }
+/* legenda: linhas de multiplicador sem cor; amostras decorativas so ao lado das frases de cor */
+.types-screen .tp-legend h3 { margin-bottom: 10px; }
+.types-screen .tp-legend-list { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-weight: 700; font-size: 14px; }
+.types-screen .tp-legend-color { display: flex; align-items: center; gap: 10px; margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+.types-screen .tp-swatches { display: inline-flex; gap: 3px; flex: none; }
+.types-screen .tp-swatches i { display: block; width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .12); }
+.types-screen .tp-view { justify-self: start; max-width: 100%; }
+/* grade dos 18 tipos: chip-botao do Dex, quebrando linha; anel + check do .chips-scroll .chip.on (components.css:80-82) */
+.types-screen .tp-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.types-screen .tp-pick { cursor: pointer; flex: none; }
+.types-screen .tp-pick.on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); transform: translateY(-1px); }
+.types-screen .tp-pick.on .chip-check { display: inline-block; width: 12px; height: 12px; margin-left: -2px; }
+.types-screen .tp-instr { margin: 12px 0 0; font-weight: 700; color: var(--muted); }
+/* heroi: tipo grande + frase de intuicao */
+.types-screen .tp-hero { display: flex; align-items: center; gap: 16px; border-left: 6px solid var(--tc, var(--secondary)); }
+.types-screen .tp-hero-icons { display: flex; gap: 8px; flex: none; }
+.types-screen .ti.tp-ti-xl { width: 64px; height: 64px; }
+.types-screen .tp-hero-text { display: grid; gap: 4px; min-width: 0; }
+.types-screen .tp-hero h3 { margin: 0; font-size: 24px; overflow-wrap: anywhere; }
+.types-screen .tp-hero h3::before { content: none; }
+.types-screen .tp-hint { margin: 0; font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+.app.mobile .types-screen .ti.tp-ti-xl { width: 56px; height: 56px; }
+/* foco visivel (precedente item.css:81 e trainers.css:81); green, blue e purple usam --primary (precedente detail.css:121) */
+.types-screen .tp-pick:focus-visible, .types-screen .seg button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+html[data-theme="green"] .types-screen :focus-visible, html[data-theme="blue"] .types-screen :focus-visible, html[data-theme="purple"] .types-screen :focus-visible { outline-color: var(--primary); }
