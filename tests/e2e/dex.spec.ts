@@ -111,11 +111,13 @@ test.describe("F3.1 virtualized grid", () => {
     expect(errors).toEqual([]);
   });
 
-  test("legendary card has the special seal and rarity; clicking a card opens the detail", async ({ page }) => {
+  test("legendary card has the special seal and the generation seal (no rarity); clicking a card opens the detail", async ({ page }) => {
     await openDex(page);
     const mewtwo = await scrollToCard(page, 150);
     await expect(mewtwo).toHaveClass(/rar-legendary/);
     await expect(mewtwo.locator(".badge-legendary")).toBeVisible();
+    await expect(mewtwo.locator(".badge-gen")).toHaveText("Gen 1");
+    await expect(mewtwo.locator(".badge-common, .badge-uncommon, .badge-rare, .badge-ultra")).toHaveCount(0);
     await mewtwo.click();
     await expect(page.locator("[data-screen='detail']")).toBeVisible();
   });

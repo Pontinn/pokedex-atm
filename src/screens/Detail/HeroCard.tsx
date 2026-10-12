@@ -15,6 +15,7 @@ import { useNavigationActions, useScreenUi } from "../../navigation/useNavigatio
 import { useCapturedHydrated, useCapturedStore, useIsCaptured } from "../../state/captured-store";
 import { usePreferencesStore } from "../../state/preferences-store";
 import { useIsInTeam, useTeamHydrated, useTeamStore } from "../../state/team-store";
+import { generationLabel } from "../Dex/GenerationBadge";
 import { SpeciesBadges, specialLabel } from "../Dex/PokemonCard";
 import { formatDex } from "../Home/SpeciesSprite";
 import { ArtworkImage } from "./ArtworkImage";
@@ -159,11 +160,12 @@ function HeroArtwork({ detail }: { detail: SpeciesDetail }) {
 }
 
 export const HeroCard = memo(function HeroCard({ detail, onCapture }: { detail: SpeciesDetail; onCapture?: CaptureStarter }) {
+  const t = useT();
   const lang = usePreferencesStore((s) => s.uiLanguage);
   const special = specialLabel(detail.labels);
   const type1 = detail.types[0];
   const hasCry = detail.cry !== null;
-  const hasSeal = special !== null || detail.rarity.primary !== null;
+  const hasSeal = special !== null || detail.rarity.primary !== null || generationLabel(detail.generation, "long", t) !== null;
   return (
     <div className={`card hero-card g-${type1}${special ? ` hero-${special}` : ""}`} data-dex={detail.dex}>
       <div className={`hero-art${hasCry ? " has-cry" : ""}`}>
@@ -182,7 +184,7 @@ export const HeroCard = memo(function HeroCard({ detail, onCapture }: { detail: 
           <ShinyButton />
         </div>
         <div className={`seal${hasSeal ? "" : " seal-empty"}`}>
-          <SpeciesBadges species={detail} />
+          <SpeciesBadges species={detail} variant="hero" />
         </div>
         <div className="hero-title">
           <div className="dex-num">{formatDex(detail.dex)}</div>

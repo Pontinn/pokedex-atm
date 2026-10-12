@@ -79,7 +79,9 @@ test.describe("F4.1 hero", () => {
     await expect(hero).not.toHaveClass(/hero-legendary|hero-mythical/);
     await expect(hero.locator(".hero-title h2")).toHaveText("Charizard");
     await expect(hero.locator(".hero-title .dex-num")).toHaveText("#0006");
-    await expect(hero.locator(".seal .badge")).toHaveCount(1);
+    await expect(hero.locator(".seal .badge")).toHaveCount(2);
+    await expect(hero.locator(".seal .badge-gen")).toHaveText("Geração 1");
+    await expect(hero.locator(".seal .badge:not(.badge-gen)")).toHaveCount(1);
     await expect(hero.locator(".badge-nospawn")).toHaveCount(0);
     await expect(hero.locator(".chip")).toHaveText(["Fogo", "Voador"]);
     await expect(hero.locator("#cry-btn")).toBeVisible();

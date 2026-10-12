@@ -56,13 +56,17 @@ describe("PokemonCard", () => {
     expect(container.querySelector(".badge-mythical")).toBeNull();
   });
 
-  it("badge de raridade so aparece quando primary != null", () => {
+  it("card shows the generation seal in place of rarity (rarity never on the card)", () => {
+    const badgeClasses = (root: HTMLElement) => [...root.querySelectorAll('[class*="badge-"]')].map((el) => el.className);
     const { container: none } = render(<PokemonCard species={species()} onOpen={vi.fn()} />);
-    expect(none.querySelector('[class*="badge-"]')).toBeNull();
+    expect(badgeClasses(none)).toEqual(["badge badge-gen"]);
+    expect(none.querySelector(".badge-gen")?.textContent).toBe("Pack");
     const { container: rare } = render(
-      <PokemonCard species={species({ dex: 7, rarity: { primary: "rare", secondary: [] } })} onOpen={vi.fn()} />,
+      <PokemonCard species={species({ dex: 7, generation: "gen1", rarity: { primary: "rare", secondary: [] } })} onOpen={vi.fn()} />,
     );
-    expect(rare.querySelector(".badge-rare")).not.toBeNull();
+    expect(rare.querySelector(".badge-rare")).toBeNull();
+    expect(badgeClasses(rare)).toEqual(["badge badge-gen"]);
+    expect(rare.querySelector(".badge-gen")?.textContent).toBe("Gen 1");
   });
 
   it("marca de capturado so aparece quando o dex esta em captured-store", () => {

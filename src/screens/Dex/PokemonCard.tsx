@@ -1,6 +1,7 @@
 // Card de Pokemon da grade (F3.1; porta pcard() de design/prototipo/app.js:685-694, style.css:406-423).
 // Cores por tipo via .g-<tipo1> (--g1/--g2/--tc, RF-117); selos em linha propria acima do nome (RF-121, regra
 // "Sem sobreposicao de texto"); marca de capturado dentro da area da imagem (nunca por cima dos selos).
+// pokemon-generation: o card mostra o selo de geracao no lugar da raridade (a raridade fica no Hero e no WherePanel).
 // Reutilizado pelos Capturados (F6.2) com `footer` (data de captura e botao desmarcar).
 import { memo, type CSSProperties, type ReactNode } from "react";
 import pokeballUrl from "../../assets/pokeball.webp";
@@ -12,6 +13,7 @@ import { gameName, useT } from "../../i18n/useT";
 import { useIsCaptured } from "../../state/captured-store";
 import { usePreferencesStore } from "../../state/preferences-store";
 import { formatDex, SpeciesSprite } from "../Home/SpeciesSprite";
+import { GenerationBadge } from "./GenerationBadge";
 
 /** Classe do badge por bucket de spawn (RF-27). */
 export const RARITY_BADGE: Record<RarityBucket, { cls: string; key: string }> = {
@@ -28,8 +30,17 @@ export function specialLabel(labels: readonly string[]): "legendary" | "mythical
   return null;
 }
 
-/** Selo Lendario/Mitico + badge de raridade (omitido se primary == null, RF-10). */
-export function SpeciesBadges({ species }: { species: Pick<SpeciesSummary, "labels" | "rarity"> }) {
+/**
+ * Selo Lendario/Mitico + selo de geracao + badge de raridade (omitido se primary == null, RF-10).
+ * variant "card": especial + geracao curta (raridade nunca no card); "hero": especial + geracao longa + raridade.
+ */
+export function SpeciesBadges({
+  species,
+  variant,
+}: {
+  species: Pick<SpeciesSummary, "labels" | "rarity" | "generation">;
+  variant: "card" | "hero";
+}) {
   const t = useT();
   const special = specialLabel(species.labels);
   const rarity = species.rarity.primary ? RARITY_BADGE[species.rarity.primary] : null;
@@ -41,7 +52,8 @@ export function SpeciesBadges({ species }: { species: Pick<SpeciesSummary, "labe
           {t(`rarity.${special}`)}
         </Badge>
       ) : null}
-      {rarity ? <Badge className={rarity.cls}>{t(rarity.key)}</Badge> : null}
+      <GenerationBadge generation={species.generation} form={variant === "card" ? "short" : "long"} />
+      {variant === "hero" && rarity ? <Badge className={rarity.cls}>{t(rarity.key)}</Badge> : null}
     </>
   );
 }
@@ -76,7 +88,7 @@ export const PokemonCard = memo(function PokemonCard({ species, enterIndex = 0, 
         <span className="pcard-top">
           <span className="dex-num">{formatDex(species.dex)}</span>
           <span className="pcard-badges">
-            <SpeciesBadges species={species} />
+            <SpeciesBadges species={species} variant="card" />
           </span>
         </span>
         <span className="pcard-art">
