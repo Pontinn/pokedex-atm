@@ -7,7 +7,7 @@ branch: feature/pokemon-generation (base main b7ae68d7)
 mode: full
 impl_mode: autonomous
 top_model: opus
-running_agent: forge-imp-backend (opus, autonomous) - S0 pre-voo, B1, B2, T1 backend
+running_agent: forge-imp-frontend #2 (opus, autonomous, contexto zerado) - retoma em T1.4; iniciado 03:40
 baselines:
   CONTEXT: { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, deps: [IDEA_pokemon-generation.md, tools/dataset/src/pokeapi/client.ts, tools/dataset/src/pokeapi/stage.ts, vite.config.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/HeroCard.tsx, src/screens/Dex/PokemonCard.tsx, src/screens/Dex/DexFilters.tsx, src/screens/Dex/use-filtered-species.ts, src/screens/Detail/EvolutionPanel.tsx, src/components/SpeciesBadges.tsx, tools/dataset/src/species/merge.ts, tools/dataset/src/species/index-writer.ts, src/data/schemas.ts, src/data/types.ts] }
   PRD:     { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, context_hash: b16864921badb7ad2c37f2f183af29f1625a9253, prd_hash: 30137dd92cd3f1605155a9ec1d4e9ef4ea5b94f9, deps: [IDEA_pokemon-generation.md, CONTEXT_pokemon-generation.md] }
@@ -75,3 +75,9 @@ Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc7
 - B1.1 `64e0b4f1`, B1.2 `11423420`, B1.3 `89c1b8cf`, B2.1 `f7ba7273`. Nova versao `atm1.3.0-cobblemon1.7.3-20261012-78568233` publicada; `...-1949ea67` removida.
 - So acrescimos OK (1044 arquivos, 15 iguais byte a byte, indice/fichas/manifest iguais sem os campos novos). Determinismo OK (mesma versao, mesmos arquivos). Gzip precache 88 / 1.434 / 38.336 / 547 = 40.405 (+2.654 sobre 37.751; teto 47.991). Auditoria 51.146 checks, 0 divergencias.
 - Janela quebrada FECHADA: published-schemas + join verdes; vitest inteiro 88 / 744 verde. e2e inteiro = linha de base (253 ok, 16 pulados, 0 falha, visuais ok sem atualizar baseline).
+
+## 2026-10-12 02:34 - backend 100%; frontend disparado
+- Backend: S0.1 748cbeba, B1.1 64e0b4f1, B1.2 11423420, B1.3 89c1b8cf, B2.1 f7ba7273, B2.2 a4d1cf4e, T1.1 4bc9dc74, T1.2 bdda90a3 (+ commits docs do checklist/handoff, ultimo 4db99cce). Dataset novo `atm1.3.0-cobblemon1.7.3-20261012-78568233`: so acrescimos, reproduzivel no mesmo dia, 22 jogos iguais a SPEC 5.3, gzip precache 40.405 (+2.654 sobre 37.751, teto 47.991), auditoria 51.146 checks 0 divergencias, e2e com UI intocada igual a linha de base. Flake preexistente observado: tests/unit/domain/bait.test.ts:106 (timing < 5 ms, 1 em 3 rodadas sob carga; nao mexido). HANDOFF_backend.md e secao Backend do CHECKLIST_MANUAL escritos. forge-imp-frontend (opus) disparado.
+
+## 2026-10-12 03:35 - frontend #1 parado pela regra de 1h
+- Em 1h o agente #1 fechou F1.1..F4.2 e T1.3 (10 de 12), commits 6b398719..dcdc5f0b. Estava no T1.4 (e2e): edicoes nao commitadas em tests/e2e/{captured,detail,dex,pwa-offline,settings}.spec.ts + spec temporario tests/e2e/zz-pokemon-generation-capture.spec.ts (capturas por tema). Assets de tipo regenerados pelo build restaurados com git checkout. Agente #2 disparado com contexto zerado para retomar do T1.4 a partir do disco.
