@@ -1,13 +1,13 @@
 ---
 feature: pokemon-generation
-stage: spec
-status: done
+stage: impl
+status: in-progress
 language: pt-BR
 branch: feature/pokemon-generation (base main b7ae68d7)
 mode: full
 impl_mode: autonomous
 top_model: opus
-running_agent: forge-checklist (haiku)
+running_agent: forge-imp-backend (opus, autonomous) - S0 pre-voo, B1, B2, T1 backend
 baselines:
   CONTEXT: { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, deps: [IDEA_pokemon-generation.md, tools/dataset/src/pokeapi/client.ts, tools/dataset/src/pokeapi/stage.ts, vite.config.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/HeroCard.tsx, src/screens/Dex/PokemonCard.tsx, src/screens/Dex/DexFilters.tsx, src/screens/Dex/use-filtered-species.ts, src/screens/Detail/EvolutionPanel.tsx, src/components/SpeciesBadges.tsx, tools/dataset/src/species/merge.ts, tools/dataset/src/species/index-writer.ts, src/data/schemas.ts, src/data/types.ts] }
   PRD:     { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, context_hash: b16864921badb7ad2c37f2f183af29f1625a9253, prd_hash: 30137dd92cd3f1605155a9ec1d4e9ef4ea5b94f9, deps: [IDEA_pokemon-generation.md, CONTEXT_pokemon-generation.md] }
@@ -52,3 +52,6 @@ updated: 2026-10-12
 
 ## 2026-10-12 - spec-done
 - SPEC corrigida (88de2b9c), re-ancorada em PRD 30137dd9 / CONTEXT b1686492 / UISPEC 11539eed. Gate de linguagem de identificadores: PASS (sem identificador em portugues; deriveGames, GamesPanel, GenerationBadge, badge-gen, evo-gen...). Gate de SPEC aprovado por delegacao. Commit 2 (SPEC + UISPEC). forge-checklist (haiku) disparado.
+
+## 2026-10-12 - Stage 4 iniciada
+- Checklist criado (20 tarefas: 8 backend incl. S0 e T1.1-T1.2; 12 frontend incl. T1.3-T1.5). Pre-voo: drift check PASS (57 arquivos, baseline 979fc78f), re-review da SPEC PASS nos 11 itens + 1 warning (lista do T1.5 passo 4 faltava os 2 fixtures de F3.1) e 1 nit (nota do HEAD), ambos aplicados pelo orquestrador na SPEC. Gate de identificadores PASS. Feature movida ideas/ -> in-progress/. MODE = autonomous (delegado pelo Pontin). forge-imp-backend (opus) disparado.

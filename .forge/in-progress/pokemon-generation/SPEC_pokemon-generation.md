@@ -25,7 +25,7 @@ Convencoes de leitura e regras fixas:
 
 ## 1. Baseline (ancora de drift)
 
-- `HEAD`: `979fc78fced0785e969b306da38f518d489ddd00` (branch `feature/pokemon-generation`; so artefatos `.forge` acima de `main` `b7ae68d7`).
+- `HEAD`: `979fc78fced0785e969b306da38f518d489ddd00` (branch `feature/pokemon-generation`; so artefatos `.forge` acima de `main` `b7ae68d7`). Ancora de CODIGO: `979fc78f`; os commits seguintes ate `228e7ed3` so tocaram `.forge/` (SPEC/UISPEC/STATE/CHECKLIST), nenhum arquivo de codigo mudou..
 - PRD: `FEATURE_DIR/PRD_pokemon-generation.md` = `30137dd92cd3f1605155a9ec1d4e9ef4ea5b94f9` (rev 3)
 - CONTEXT: `FEATURE_DIR/CONTEXT_pokemon-generation.md` = `b16864921badb7ad2c37f2f183af29f1625a9253`
 - UISPEC: `FEATURE_DIR/UISPEC_pokemon-generation.md` = `11539eed64cc51c3e75a4a7ab312ce2895cc2444` (revisado apos a revisao da SPEC: D1/D2 incorporados)
@@ -838,7 +838,7 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
   1. RNF-08: `npm run typecheck` e `npm run lint` limpos (inclui `no-literal-jsx-text` e o travessao).
   2. RNF-09: `npx vitest run --coverage`: arquivos/testes >= linha de base da S0.1 + os novos; limites do `vitest.config.ts` (global 80/80, `tools/dataset/src/**` 80/80, `src/screens/**` 70/70, `src/domain/**` 95/95).
   3. RF-56/RF-54/CA-56: `npm run build` e `npx playwright test` inteiro (build + preview, headless), comparado com a S0.1: so as falhas/flakes ja registradas la podem falhar; qualquer outra falha = regressao (corrigir a causa no codigo da feature, nunca o teste). Suites que provam RF-54 sem mudanca: `items.spec.ts`, `item.spec.ts`, `item-obtain-v2.spec.ts`, `balls.spec.ts`, `compare.spec.ts`, `home.spec.ts`, `trainers.spec.ts`, `team-history.spec.ts`, `capture.spec.ts`, `sync.spec.ts`, `shell.spec.ts`, `perf.spec.ts`, e os blocos existentes de `dex.spec.ts`/`detail.spec.ts`.
-  4. RF-56: `git diff main -- tests/` mostra, fora dos arquivos criados e dos blocos novos, so: fixtures de B1.1, os 3 ajustes de F1.3 e os 7 PNGs de F4.2 (conferir linha a linha que nenhum outro assert mudou).
+  4. RF-56: `git diff main -- tests/` mostra, fora dos arquivos criados e dos blocos novos, so: fixtures de B1.1, os 2 fixtures `game: null` de F3.1 (`dex-filter.test.ts:35`, `dex-screen.test.tsx:153`, ver secao 2.7), os 3 ajustes de F1.3 e os 7 PNGs de F4.2 (conferir linha a linha que nenhum outro assert mudou).
   5. RF-49: `npx tsx tools/dataset/audit/run.ts` = 0 divergencias (restaurar o `AUDIT_REPORT.md` com `git checkout`).
   6. RNF-12/CA-63: `git grep -nIE "(api[_-]?key|token|secret|password)\s*[:=]" -- src tools/dataset/src tools/dataset/curated` sem ocorrencia nova; `git grep -n "fetch(" -- src/screens` sem ocorrencia nova.
   7. Nenhum U+2014 nos arquivos tocados (`git grep -nP "\x{2014}" -- src tools tests README.md data-source/README.md .forge/ideas/pokemon-generation`).
