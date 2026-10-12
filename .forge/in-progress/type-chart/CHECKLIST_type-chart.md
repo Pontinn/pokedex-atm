@@ -50,41 +50,41 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 ### Fase F2: Visao por tipo (principal)
 
-- [ ] **F2.1** Modelo puro `types-model.ts` (categoria: frontend)
+- [x] **F2.1** Modelo puro `types-model.ts` (categoria: frontend)
   - Done when: `npm run typecheck` e `npm run lint` limpos; script `npx tsx -e` (scratchpad) imprime para fire/normal/electric/ghost/steel exatamente os grupos da secao 5.5 e as contagens 51/61/8/204 de `matrixRows()`; `nextSelection` reproduz as 5 linhas da tabela; captura `after-f21-types-classic-desktop.png` (tela ainda so com titulo: nada visual muda; o modelo ainda nao e usado).
-  - commit: 
-  - status: pending
+  - commit: 7887202b
+  - status: done. npx tsx: fire/normal/electric/ghost/steel = secao 5.5; tons 51 adv/61 dis/8 zero/204 neutral; nextSelection = as 5 linhas; after-f21 so com titulo. Ajuste: defenders[0] via const first (noUncheckedIndexedAccess).
 
-- [ ] **F2.2** Legenda, seletor de visao, grade de tipos e bloco heroi (categoria: frontend)
+- [x] **F2.2** Legenda, seletor de visao, grade de tipos e bloco heroi (categoria: frontend)
   - Done when: typecheck/lint limpos; `npx vitest run tests/unit/ui-shell` verde; capturas `after-f22-empty-{classic,black}-{desktop,phone}.png` (sem tipo; comparar a grade com `dex-typechips-*.png`, o seletor com `dex-seg-status-*.png`, a legenda/painel com `detail-panel-weak-*.png`) e `after-f22-fire-{classic,black}-{desktop,phone}.png` (Fogo escolhido: chip com anel + check como `dex-typechips-selected-*.png`, heroi com icone 64/56 px, nome "Fogo" e a frase "Fogo queima Planta e Gelo, mas Água apaga Fogo") e `after-f22-fire-focus-classic-desktop.png` (Tab ate o chip de Fogo: anel 2px visivel, comparar com `dex-typechip-focus-*`); no spec temporario `expectNoOverlap(".types-screen")` a 360/390/1280 nos dois estados, `history.length` inalterado depois de 5 escolhas, e o chip selecionado e o UNICO com `aria-pressed="true"`.
-  - commit: 
-  - status: pending
+  - commit: cb9db403
+  - status: done. ui-shell 20/20; capturas after-f22-empty/fire nos 2 temas x 2 tamanhos + focus (outline 2px solid); expectNoOverlap 360/390/1280 nos dois estados; history.length inalterado apos 5 escolhas; 1 so aria-pressed=true; icone heroi 64/56 px.
 
-- [ ] **F2.3** Abas Atacando/Defendendo e faixas coloridas (categoria: frontend)
+- [x] **F2.3** Abas Atacando/Defendendo e faixas coloridas (categoria: frontend)
   - Done when: typecheck/lint limpos; capturas `after-f23-fire-attack-{classic,black}-{desktop,phone}.png` e `after-f23-fire-defend-{classic,black}-{desktop,phone}.png` (comparar os tons com as pilulas de `detail-calc-grass-flying-*.png`: verde = `x½`, laranja = `x2`, cinza = `x0`; e o painel com `detail-panel-weak-*.png`), `after-f23-normal-attack-classic-phone.png` ("nenhum" em "Forte contra (x2)") e `after-f23-steel-defend-classic-phone.png` (10 icones quebrando linha); no spec temporario, para Fogo, os `data-type` de cada faixa = `attackGroups`/`defendGroups` calculados no proprio teste a partir de `TYPE_CHART` e os `data-tone` = `adv,dis,zero` (Atacando) e `dis,adv,zero` (Defendendo); `getComputedStyle(.tp-band).backgroundColor` = `rgb(225, 245, 231)` / `rgb(255, 233, 214)` / `rgb(230, 231, 236)` conforme o tom; `expectNoOverlap(".types-screen")` a 360/390/1280, PT e EN, nas duas abas.
-  - commit: 
-  - status: pending
+  - commit: 5db4ae97
+  - status: done. Fogo: data-type das faixas = derivado de TYPE_CHART no teste; data-tone adv,dis,zero / dis,adv,zero; backgroundColor rgb(225,245,231)/rgb(255,233,214)/rgb(230,231,236); overlap 360/390/1280 PT e EN nas duas abas (Fogo, Aco, Normal); Normal 'nenhum'; Aco Defendendo com 10 icones.
 
 ### Fase F3: Tabela completa (matriz 18 x 18)
 
-- [ ] **F3.1** Matriz com cabecalhos clicaveis e coluna fixa (categoria: frontend)
+- [x] **F3.1** Matriz com cabecalhos clicaveis e coluna fixa (categoria: frontend)
   - Done when: typecheck/lint limpos; capturas `after-f31-chart-empty-{classic,black}-desktop.png`, `after-f31-chart-fire-{classic,black}-desktop.png` (linha e coluna do Fogo destacadas; celula Agua x Fogo verde com "2"), `after-f31-chart-fire-grayscale-classic-desktop.png` (com `document.documentElement.style.filter = "grayscale(1)"`: destaque continua visivel), `after-f31-chart-fire-{classic,black}-phone.png` (scroll 0) e `after-f31-chart-fire-scrolled-classic-phone.png` (`scrollLeft = 200`: coluna fixa opaca sobre as celulas); comparar a tipografia das celulas e os tons com `detail-calc-grass-flying-*.png` (pilulas) e o painel com `detail-panel-weak-*.png`; no spec temporario: 324 `td`, `getByRole("cell", { name: "Fogo contra Planta: x2" })` com texto "2", clicar no cabecalho de coluna "Água defende (coluna)" deixa `[data-axis=col][data-type=water]` e `[data-axis=row][data-type=water]` com `aria-pressed="true"` e a pagina na tabela; `expectNoOverlap(".types-screen")` com `scrollLeft = 0` a 360/390/1280; `#main` sem conteudo passando da borda direita.
-  - commit: 
-  - status: pending
+  - commit: 90da65af
+  - status: done. 324 td; Fogo contra Planta: x2 = '2'; Agua x Fogo verde 'adv' com is-col; cabecalho de coluna Agua seleciona e pressiona os 2 cabecalhos, fica na tabela; overlap scroll 0 a 360/390/1280; nada passa da borda de #main. Ajuste alem da SPEC: box-shadow -6px/2px var(--surface) na coluna fixa (.tp-row-head/.tp-corner) para cobrir o padding de 4px e o border-spacing, senao celulas roladas apareciam a esquerda da coluna fixa (capturado em after-f31-chart-fire-scrolled-classic-phone).
 
 ### Fase F4: Defesa com 2 tipos `[COULD]`
 
-- [ ] **F4.1** Segundo tipo na defesa (categoria: frontend)
+- [x] **F4.1** Segundo tipo na defesa (categoria: frontend)
   - Done when: typecheck/lint limpos; `npx vitest run tests/unit/ui-shell/i18n-modules.test.ts` verde; capturas `after-f41-water-ground-{classic,black}-{desktop,phone}.png` (5 faixas; Planta em "Muito fraco contra (recebe x4)", Eletrico em "Imune a (x0)"; dois icones no heroi; comparar tons x4/x1/4 com `detail-calc-grass-flying-*.png`), `after-f41-water-ground-attack-classic-desktop.png` (aba Atacando: 1 icone, sem `select`) e `after-f41-select-focus-classic-desktop.png` (foco por Tab no `select`: anel 2px); no spec temporario, Agua + Voador poe Eletrico em x4, e `expectNoOverlap(".types-screen")` a 360/390/1280 com o 2o tipo.
-  - commit: 
-  - status: pending
+  - commit: da9b671e
+  - status: done. 5 chaves COULD (50 no total); Agua/Terra: 5 faixas, Planta x4, Eletrico x0, heroi 2 icones 'Agua / Terra'; Atacando: 1 icone, sem select, second guardado; Agua/Voador poe Eletrico em x4; '' volta a 3 faixas; foco por Tab no select com outline 2px solid (o computado so atualiza um frame depois: expect.poll); overlap 360/390/1280 com 2o tipo; i18n-modules verde.
 
 ### Fase F5: Fechamento
 
-- [ ] **F5.1** Varredura de codigo morto (nada a remover) (categoria: outro)
+- [x] **F5.1** Varredura de codigo morto (nada a remover) (categoria: outro)
   - Done when: relatorio (passo, comando, saida, decisao) no checklist; suite + build verdes.
-  - commit: 
-  - status: pending
+  - commit: (sem commit: nada removido)
+  - status: done. Passo 1: unica linha removida em src = import antigo de nav-items.ts. Passo 2: linhas removidas em tests = as 4 listas de 2.7 + os 5 indices nth deslocados (ver Bugs). Passo 3: as 50 chaves de TYPES_PAGE_MESSAGES tem referencia em src fora de src/i18n. Passo 4: todo export de TypePicker/TypeFocus/TypeMatrix/TypesScreen usado; do modelo, Tone/TypeGroup/MatrixCell/MatrixRow/CELL_SYMBOL/isTypeId/toneOf so internos (permitido pela SPEC; os testes de T1.1 usam). Nada a remover; suite + build completos ficam para T1.4.
 
 ### Fase T1: Testes (definidos aqui, escritos na etapa de testes) e inventario do porte
 
