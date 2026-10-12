@@ -51,3 +51,68 @@ Como rodar:
 ### Observacao
 
 - [!] Flake de tempo preexistente fora da feature: `tests/unit/domain/bait.test.ts:106` (pior chamada de `recommendBerries` < 5 ms) falhou 1 de 3 rodadas da suite inteira (5,17 ms) sob carga paralela; isolado 3/3 verde. `recommendBerries` nao le `games` nem `generation`. Registrado em "Bugs encontrados" do checklist; nenhum assert mexido.
+
+## Frontend
+
+Commits: F1.1 `6b398719`, F1.2 `94e4f6c7`, F1.3 `cd8979f1`, F2.1 `74a6032e`, F3.1 `66cc9532`, F3.2 `e2f49362`, F3.3 `043dc2ea`, F4.2 `3072a77c`, T1.3 `f9bfe94d`, T1.4 `f514e80f`.
+
+Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && npx vite preview` (para o PWA). Testes: `npx vitest run tests/unit/ui-screens`; `npx playwright test tests/e2e/dex.spec.ts tests/e2e/detail.spec.ts tests/e2e/captured.spec.ts tests/e2e/settings.spec.ts tests/e2e/pwa-offline.spec.ts tests/e2e/responsive.spec.ts tests/e2e/navigation.spec.ts`.
+
+### Selo de geracao (card, Capturados, Hero)
+
+- [A] Pokedex: cada card mostra o selo curto no lugar da raridade: Zubat "Gen 1", Pichu (169) "Gen 2", Meltan (808) "Gen 7 (Let's Go)", Wyrdeer (899) "Gen 8 (Arceus)", especie do pack (9901) "Pack" (`dex.spec.ts`, `generation-badge.test.tsx`).
+- [A] Nenhum card mostra raridade (Comum/Incomum/Raro/Ultra-raro) em nenhuma posicao da rolagem (`dex.spec.ts`, `generation-badge.test.tsx` nas 1027 especies).
+- [A] Mewtwo e Mew: selo especial (Lendario/Mitico) antes do selo de geracao (`dex.spec.ts`).
+- [A] Selos nunca quebram linha nem sobrepoem o numero, com Meltan e Wyrdeer a 360/390/1280 em PT e EN (`dex.spec.ts`).
+- [A] Capturados: os cards semeados mostram o selo de geracao e nenhuma raridade (`captured.spec.ts`).
+- [A] Hero do Charizard: "Geração 1" + raridade; em EN "Generation 1"; Mewtwo: Lendario + "Geração 1" + raridade (`detail.spec.ts`).
+- [A] Raridade continua no painel "Onde encontrar" (`detail.spec.ts`, testes existentes de `.where-rarity`).
+- [ ] Manual: no celular (ou DevTools 390x844), rolar a Pokedex inteira e conferir visualmente que nenhum selo fica cortado.
+
+### Cadeia de evolucao
+
+- [A] Zubat: Zubat e Golbat sem destaque, Crobat (Gen 2) destacado com contorno; aria-label "Geração 2, diferente da base" (`detail.spec.ts`, `detail-generation.test.tsx`).
+- [A] Tyrogue: Hitmonlee e Hitmonchan destacados, Hitmontop NAO (`detail.spec.ts`, `detail-generation.test.tsx`).
+- [A] Charmander: nenhum destaque (todos Gen 1) (`detail.spec.ts`).
+- [A] Destaque nao depende so de cor: contorno solido de 2px, continua com o app em tons de cinza (`detail.spec.ts`).
+- [A] Nenhum nome de jogo aparece na cadeia nem nos cards (`detail.spec.ts`, `dex.spec.ts`).
+- [ ] Manual: abrir Eevee (133) e Pichu (172) e conferir que a cadeia larga continua legivel no celular, selo abaixo do nome sem cobrir o sprite.
+
+### Filtro "Jogo" na Pokedex
+
+- [A] Select "Jogo" logo depois de "Geração", com "Todos" + os 22 jogos na ordem do catalogo (`dex.spec.ts`, `dex-screen.test.tsx`).
+- [A] FireRed / LeafGreen = 151 cards, exatamente as especies com o jogo; Zubat e Golbat aparecem, Pichu nao (`dex.spec.ts`).
+- [A] Combinado: FRLG + Veneno reduz por E logico; FRLG + Geração 2 = estado vazio (`dex.spec.ts`).
+- [A] FRLG + Fogo, abrir Charizard e voltar (Voltar do navegador): o jogo e o chip de tipo continuam selecionados e a contagem e a mesma (`dex.spec.ts`).
+- [A] "Todos" volta a 1027 (`dex.spec.ts`).
+- [A] Filtros sem sobreposicao nem rolagem horizontal a 360/390/1280 PT/EN (`dex.spec.ts`).
+- [A] Teclado: Tab do "Geração" chega no "Jogo", rotulo resolve, seta para baixo troca o valor (`dex.spec.ts`).
+- [A] Trocar o jogo nao baixa nenhum arquivo de dado novo (`dex.spec.ts`).
+- [ ] Manual (infeliz): escolher um jogo e digitar uma busca sem resultado; a tela mostra o estado vazio e limpar a busca volta a lista do jogo.
+
+### Painel "Jogos" no Detail
+
+- [A] Zubat: lista na ordem do catalogo com FireRed / LeafGreen e a nota da Pokedex regional (`detail.spec.ts`, `games-panel.test.tsx`).
+- [A] Crobat e Tyrogue sem FRLG; Hitmonlee com (`detail.spec.ts`).
+- [A] Especie do pack (9901): "Só no pack", sem nota e sem chips (`detail.spec.ts`).
+- [A] Especie oficial sem jogo: "Não aparece nos jogos oficiais"; manifest ausente: painel nao aparece (`games-panel.test.tsx`).
+- [A] EN: "Games", "Available in" e a nota em ingles (`detail.spec.ts`).
+- [A] Celular 360/390: todos os chips visiveis dentro do painel, sem sobreposicao nem rolagem horizontal (`detail.spec.ts`).
+- [ ] Manual: conferir que o painel fica logo abaixo de "Onde encontrar" e acima de "Melhores" no desktop e no celular.
+
+### Credito, idioma e temas
+
+- [A] Configuracoes > Sobre: "Jogos de cada Pokémon: PokeAPI (recorte no build)" e em EN "Games each Pokémon appears in: PokeAPI (snapshot at build time)"; credito de imagens intacto (`settings.spec.ts`, `settings-screen.test.tsx`).
+- [A] Toggle PT/EN troca todos os textos novos (selo, cadeia, filtro, painel, credito) (`dex.spec.ts`, `detail.spec.ts`, `settings.spec.ts`, `generation-badge.test.tsx`).
+- [A] 7 temas: contraste do selo >= 4,5:1 no Hero e nos estagios e do contorno do destaque >= 3:1 (`detail.spec.ts`).
+- [A] Baselines visuais: 7 `home-*` inalterados, 7 `detail-charizard-*` regravados com o selo (`responsive.spec.ts`).
+- [ ] Manual: percorrer os 7 temas (Configuracoes > Tema) na Pokedex e no Zubat e conferir legibilidade do selo e do contorno a olho.
+
+### PWA offline com o dataset novo
+
+- [A] Com o service worker ativo, offline: Pokedex com o filtro FRLG mostra 151 e o Zubat ja visitado mostra o painel Jogos e o destaque do Crobat; nenhum dominio novo (`pwa-offline.spec.ts`).
+- [ ] Manual: no celular, instalar o app, abrir a Pokedex e o Zubat, ativar modo aviao, reabrir e repetir o filtro FRLG.
+
+### Regressao
+
+- [A] Suite completa (vitest + e2e) igual ou melhor que a linha de base S0.1 (T1.5: vitest 800/800, e2e 276 ok / 16 pulados / 0 falha; numeros no STATE).
