@@ -6,7 +6,7 @@ language: pt-BR
 branch: feature/type-chart
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend #2 (opus, retomado por mensagem) - ajuste Low: legenda compacta no celular (so CSS); retomado 2026-10-12 17:12 (hora real). Cronometro 1h: 17:12 -> 18:12
+running_agent: forge-imp-frontend #2 (opus, retomado por mensagem apos erro 429 as ~17:35) - verificar e commitar a legenda compacta (types.css ja editado em disco); retomado 2026-10-12 17:42. Cronometro 1h: 17:42 -> 18:42
 worktree: C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart (repo pokedex; a arvore principal em Projetos/pokedex fica intocada em cee51235 porque o agente da pontindex-base le dela)
 user_gate: autonomo ate o fim (Pontin 2026-10-12: "pode continuar ai, ate o fim"; "faz do jeito q achar q vai ficar melhor"). Push/merge so com "P"/autorizacao explicita.
 baselines:
@@ -14,7 +14,7 @@ baselines:
   UISPEC:  { commit: 4410016f, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: 04b73988, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
   SPEC:    { commit: 9e596e42, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 17:12
+updated: 2026-10-12 17:42
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -129,3 +129,5 @@ updated: 2026-10-12 17:12
 - CHECKLIST_MANUAL: 6 de 11 itens manuais executados e ok; 5 ficam para o Pontin (frases EN, troca de aba sem piscar, arrastar com o dedo no celular, leitor de tela numa celula, olhar os 7 temas; 28 capturas test-theme-* ja tiradas). REPORT_TEST_UI_type-chart.md + 46 capturas test-*.png em ui-refs/.
 - Achados Low: (1) legenda grande no celular (~40% da primeira tela), empurra os chips para baixo; (2) roda horizontal simulada nao rolou a matriz em 360 px (scroll por script funciona), conferir com o dedo.
 - Decisao do orquestrador (olhei test-bytype-fire-attack-phone.png e -desktop.png): o (1) contraria o objetivo "bater o olho" no celular; frontend #2 retomado para compactar a legenda SO no celular e SO com CSS (textos exatos da RF-21 inalterados, legenda continua no topo e sempre visivel). (2) fica para o Pontin no celular real.
+## 2026-10-12 17:42 - agente derrubado por limite de uso (429) no meio do ajuste da legenda; retomado
+- Em disco antes da retomada: types.css com 6 linhas novas (.app.mobile, legenda 207 px = 25,9% da tela segundo o agente), captura after-legend-compact-phone.png untracked, checks ainda nao rodados. types.generated.css restaurado pelo orquestrador.
