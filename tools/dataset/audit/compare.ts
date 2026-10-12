@@ -53,6 +53,14 @@ export const SPAWN_BAIT_NEW_ITEMS = [
   "minecraft:golden_carrot",
 ] as const;
 
+/** pokemon-generation: fatos fixos dos jogos (Kanto, Johto, Hoenn), independentes do recorte da PokeAPI. */
+export const KNOWN_GAME_DEX = [
+  { slug: "red-blue", size: 151, range: [1, 151] },
+  { slug: "firered-leafgreen", size: 151, range: [1, 151] },
+  { slug: "gold-silver", size: 251, range: [1, 251] },
+  { slug: "ruby-sapphire", size: 202, range: null },
+] as const;
+
 const J = (v: unknown) => (v === undefined ? "undefined" : JSON.stringify(v));
 const sortStr = (a: string[]) => [...a].sort();
 const canonSource = (s: string) => (/^(ccc|complete)/.test(s) ? "ccc" : /^cobblemon/i.test(s) ? "cobblemon" : s.split(/[-_]neoforge|-\d/)[0]!);
@@ -109,6 +117,33 @@ export function compare(exp: Expected, datasetDir: string): CompareResult {
     const a = readJson<Partial<SpeciesDetail>>(f);
     const idx = idxByDex.get(e.dex);
     compareSpecies(e, a, idx, scope, pf, exp, eq, push);
+  }
+
+  // ---- jogos (pokemon-generation): catalogo no manifest e fatos fixos por jogo, contados no indice publicado
+  const games = manifest.games;
+  if (!Array.isArray(games) || games.length === 0) {
+    push({ severity: "MISSING", scope: "manifest", field: "games", expected: "catalogo de jogos", actual: J(games), evidence: "SPEC pokemon-generation 5.1", published: pub("dataset-manifest.json") });
+  } else {
+    const bySlug = new Map(games.map((g) => [g.slug, g]));
+    for (const k of KNOWN_GAME_DEX) {
+      const game = bySlug.get(k.slug);
+      if (!game) {
+        push({ severity: "MISSING", scope: `game ${k.slug}`, field: "catalogo", expected: "presente", actual: "ausente", evidence: "fato fixo do jogo", published: pub("dataset-manifest.json") });
+        continue;
+      }
+      const dexes = index.filter((s) => s.games?.includes(game.id)).map((s) => s.dex).sort((a, b) => a - b);
+      eq(`game ${k.slug}`, "especies", k.size, dexes.length, "fato fixo do jogo", pub(idxFile));
+      if (k.range) {
+        const [from, to] = k.range;
+        eq(`game ${k.slug}`, "conjunto = range", J(Array.from({ length: to - from + 1 }, (_, i) => from + i)), J(dexes), "fato fixo do jogo", pub(idxFile));
+      }
+    }
+    const ids = new Set(games.map((g) => g.id));
+    checks++;
+    for (const s of index) {
+      const unknown = (s.games ?? []).filter((id) => !ids.has(id));
+      if (unknown.length > 0) push({ severity: "EXTRA", scope: `species ${s.dex} ${s.slug}`, field: "games (id fora do catalogo)", expected: "ids do manifest.games", actual: J(unknown), evidence: "dataset-manifest.json games", published: pub(idxFile) });
+    }
   }
 
   // ---- fosseis
@@ -299,6 +334,10 @@ function compareSpecies(
   }
   eq(scope, "types", e.types, a.types, ev, pf);
   eq(scope, "generation", e.generation, a.generation, ev, pf, "COSMETIC");
+  // pokemon-generation: geracao de cada no da cadeia (esperado do pack cru) e jogos coerentes entre indice e ficha
+  for (const n of a.evolutionChain?.nodes ?? []) eq(scope, `evolutionChain.node ${n.dex} generation`, exp.species.get(n.dex)?.generation, n.generation, ev, pf);
+  eq(scope, "games (indice = ficha)", idx?.games, a.games, "species-index.json", pf);
+  eq(scope, "games null so no custom", e.generation === "custom", a.games === null, ev, pf);
   for (const l of ["legendary", "mythical", "ultra_beast", "custom"]) eq(scope, `labels has ${l}`, e.labels.includes(l), (a.labels ?? []).includes(l), ev, pf);
   eq(scope, "baseStats", e.baseStats, a.baseStats, ev, pf, "WRONG DATA", e.touchedBy.length > 1 ? `especie alterada por ${e.touchedBy.join(" + ")}; SPEC: base do Cobblemon vence` : undefined);
   eq(scope, "bst", Object.values(e.baseStats).reduce((s, n) => s + n, 0), a.bst, ev, pf);

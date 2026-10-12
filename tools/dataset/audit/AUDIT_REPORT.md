@@ -1,5 +1,15 @@
 # Relatorio de auditoria do dataset (A1)
 
+## Rodada 7 (2026-10-12, pokemon-generation)
+
+Dataset: `tools/dataset/out/_pg_pub/data/atm1.3.0-cobblemon1.7.3-20261012-78568233` (pipeline no snapshot, antes da republicacao). Ferramenta: checks novos, sem ler `tools/dataset/src` nem o recorte curado da PokeAPI: em cada ficha, `evolutionChain.node <dex> generation` igual a geracao da especie do no no pack cru (2316 nos), `games (indice = ficha)` e `games null so no custom` (1027 x 2); no catalogo, `manifest.games` presente e os fatos fixos `KNOWN_GAME_DEX` contados no indice publicado (Red / Blue e FireRed / LeafGreen = 1..151, Gold / Silver = 1..251, Ruby / Sapphire = 202 especies) e todo id de `games` das especies existente no catalogo. 4378 checks novos.
+
+| WRONG DATA | MISSING | EXTRA | SPEC x JOGO | SEM ORDEM | COSMETIC |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | 0 |
+
+51146 checks, 1027 fichas.
+
 ## Rodada 6 (2026-09-30, berry-mutations)
 
 Dataset: `tools/dataset/out/_bm_pub/data/atm1.3.0-cobblemon1.7.3-20260930-1949ea67` (pipeline no snapshot, antes da republicacao). Ferramenta: checks novos de origem e cruzamento das bagas, derivados do cru sem ler `tools/dataset/src`: para cada arquivo `data/cobblemon/berries/<id>.json` (fontes em ordem, a ultima vence), o item existe e `berry.spawn` (`spawnConditions` com a variante com ou sem namespace: `preferred_biome` = `preferredBiomeTags` da baga, `all_biome` = `[]`, `specific_biome` = `[biome]`), `berry.mutationPairs` (par nao ordenado por code unit, uma vez por resultado) e `berry.mutationUses` (derivados dos pares) iguais ao esperado, inclusive a ordem; item com `berry` nao nulo sem arquivo de baga = EXTRA. 70 bagas x 3 = 210 checks novos.
