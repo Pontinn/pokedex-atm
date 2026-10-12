@@ -4,7 +4,7 @@ language: pt-BR
 generated: 2026-10-12
 stack: React 19.1 + TypeScript 5.8 + Vite 6 PWA (vite-plugin-pwa), Zustand 5 (pilha de navegacao propria), Vitest 3 + Testing Library (jsdom), Playwright 1.63 headless, CSS puro por tela
 status: spec
-prd_source: PRD_type-chart.md @ 172e7154a386569d12434cca19e42ecff6e19582
+prd_source: PRD_type-chart.md @ 7178dd7aef51134734115e73f8dc3c060a3ad206
 ---
 
 # SPEC - type-chart (pagina "Tipos": quem vence quem, didatica e legivel de relance)
@@ -27,7 +27,7 @@ Convencoes de leitura e regras fixas:
 ## 1. Baseline (ancora de drift)
 
 - `HEAD`: `76cf8454` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `23308678a2516e4043906f4ce78caaa6f97f9407` (`git diff 23308678..2c334cce -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
-- PRD: `FEATURE_DIR/PRD_type-chart.md` = `172e7154a386569d12434cca19e42ecff6e19582` (rev 5.2, commit `2c334cce`; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
+- PRD: `FEATURE_DIR/PRD_type-chart.md` = `7178dd7aef51134734115e73f8dc3c060a3ad206` (rev 5.3, commit a-commitar; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
 - CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `5cbb8e52f5ef5531d0381f029764d3191572efe3`
 - UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `c5127ca91db4daae03593dfe552feb9cf64d8001`
 - IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `1d1a4121ebb8d443ea1f898bba8b7f466210fadf` (decisoes [14:58] e [15:25])
@@ -1053,7 +1053,7 @@ N/A. Nao ha servidor, API, pipeline de dataset nem mudanca de contrato de dados:
 - **Steps**:
   1. Sidebar (CA-01, CA-03, CA-04): 1280 x 800, `.sidebar .nav-item` = os 10 rotulos PT na ordem; em EN o 5o e "Types"; clicar "Tipos" -> `.types-screen` visivel, `.sidebar .nav-item.active` = "Tipos" com `aria-current="page"`; o `svg` de `[data-nav=types]` tem a classe `lucide-shapes` e nenhum outro item a tem.
   2. Phone (CA-02, CA-03, CA-50): 390 x 844, tabbar = 5 rotulos de hoje; abrir "Mais": 1o `.sheet-item-label` = "Tipos" e seu `.sheet-item-sub` = "Quem vence quem" (EN "Who beats whom"); clicar -> `.types-screen`, `.tabbar .tab-more` com classe `active`.
-  3. Voltar/avancar (CA-05, CA-31): phone; Fogo + "Defendendo"; `#main.scrollTop = 400` (ou o maximo, se menor; anotar o valor); clicar Pokedex (`[data-nav=dex]`); `page.goBack()` -> Fogo pressionado, "Defendendo" pressionado, `expect.poll(scrollTop)` a 2 px do salvo; `page.goForward()` -> `.dex-screen`; o caminho de `page.url()` nao muda em nenhum passo.
+  3. Voltar/avancar (CA-05, CA-31): phone; Fogo + "Defendendo"; `#main.scrollTop = 400` (ou o maximo, se menor; anotar o valor); clicar Pokedex (`[data-nav=dex]`); `page.goBack()` -> Fogo pressionado, "Defendendo" pressionado, `expect.poll(scrollTop)` a 2 px do salvo; sem `page.goForward()` (o app trata todo popstate como Voltar, history-bridge.ts; PRD rev 5.3, CA-31): o teste termina no Voltar; o caminho de `page.url()` nao muda em nenhum passo.
   4. Descarte (CA-30, CA-33): Fogo + "Defendendo", clicar Pokedex e depois "Tipos" -> nenhum `.tp-pick[aria-pressed=true]`, `.tp-instr` visivel; escolher Fogo -> "Atacando" pressionada; `page.reload()` + abrir "Tipos" -> estado inicial.
   5. Historico (CA-32): `history.length` igual antes e depois de 6 escolhas, 4 trocas de aba e 2 trocas de visao.
   6. Faixas e cores (CA-12, CA-47, CA-36): Fogo: listas de `data-type` por faixa = derivadas; `backgroundColor` das faixas `rgb(225, 245, 231)` (adv), `rgb(255, 233, 214)` (dis), `rgb(230, 231, 236)` (zero) conforme RF-46 nas duas abas; para os 7 temas (`setTheme` + reload): contraste WCAG (calculado no teste a partir de `getComputedStyle`) do `h4` e do `.tp-band-name` contra o fundo da faixa >= 4,5:1, do texto da legenda contra o `.panel` >= 4,5:1, e as celulas `adv/dis/zero` da matriz com as mesmas cores em todo tema.

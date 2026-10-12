@@ -40,6 +40,8 @@ Todas decididas pelo orquestrador em 2026-10-12 por delegacao explicita do Ponti
 
 - [15:25, apos a revisao do UISPEC] Semantica de COR das faixas e da matriz (decisao do orquestrador; corrige o "verde = x2" de 14:34): a cor codifica VANTAGEM para o ponto de vista da visao, nao o multiplicador fixo. Verde = vantagem para o tipo escolhido; laranja = desvantagem; cinza = nao afeta (x0). Aba Atacando: "Forte contra (x2)" verde, "Pouco efetivo contra (x1/2)" laranja, "Nao afeta (x0)" cinza. Aba Defendendo: "Fraco contra (recebe x2)" laranja, "Resiste a (recebe x1/2)" verde, "Imune a (x0)" cinza. Matriz 18x18: ponto de vista de quem ATACA (a linha): x2 verde, x1/2 laranja, x0 cinza, x1 neutro sem texto; a legenda diz isso em uma frase. Hex: reusar a paleta pastel ja existente da calculadora da ficha, sem cor nova: verde = os valores de `.mult-half` (#E1F5E7 fundo / #1B6B3A texto), laranja = os de `.mult-2` (#FFE9D6 / #9A4A00), cinza = os de `.mult-0`; x4 e x1/4 (defesa dupla, nice) usam `.mult-4` e `.mult-quarter`. Os valores sao copiados para o CSS proprio da pagina (`types.css`), nunca importados de `detail.css`. Coerencia com a calculadora da ficha: la a otica e sempre a do defensor (x2 laranja = perigo), o que bate com a aba Defendendo desta pagina. Cor SEMPRE acompanhada do simbolo (x2, x1/2, x0).
 
+- [16:36] Avancar do navegador fora do contrato: a ponte de historico (src/navigation/history-bridge.ts) trata todo popstate como Voltar, desde o prototipo; nenhuma tela do app suporta Avancar. CA-31 e T1.3 passam a exercitar so o Voltar. Implementar Avancar seria mudanca de navegacao do app inteiro, fora desta feature (decisao do orquestrador sob delegacao; fica anotado como possivel feature futura).
+
 ## 3. Escopo
 
 In-scope:
