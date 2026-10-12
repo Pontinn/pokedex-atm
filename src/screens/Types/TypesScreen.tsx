@@ -7,6 +7,7 @@ import { useT } from "../../i18n/useT";
 import type { TypesView } from "../../navigation/types";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
 import { TypeFocus } from "./TypeFocus";
+import { TypeMatrix } from "./TypeMatrix";
 import { TypePicker } from "./TypePicker";
 
 function TypesLegend() {
@@ -73,7 +74,7 @@ export function TypesScreen(_props: ScreenProps) {
         ]}
         onChange={(v) => updateUi<"types">({ view: v })}
       />
-      {view === "byType" ? <ByTypeView /> : null}
+      {view === "byType" ? <ByTypeView /> : <TypeMatrix />}
     </section>
   );
 }
