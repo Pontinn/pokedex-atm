@@ -30,7 +30,7 @@ Convencoes de leitura e regras fixas:
 - PRD: `FEATURE_DIR/PRD_type-chart.md` = `7178dd7aef51134734115e73f8dc3c060a3ad206` (rev 5.3, commit a608e111; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
 - CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `5cbb8e52f5ef5531d0381f029764d3191572efe3`
 - UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `c5127ca91db4daae03593dfe552feb9cf64d8001`
-- IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `1d1a4121ebb8d443ea1f898bba8b7f466210fadf` (decisoes [14:58] e [15:25])
+- IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `c648af069a1221deba0451200299e81d3ad0a33f` (decisoes [14:58] e [15:25])
 - LESSONS: `ROOT/.forge/LESSONS.md` = `753caf6ced364872b59c6d5595642dcbccaa128e`
 
 Arquivos de codigo de que este SPEC depende (`git hash-object`, 12 chars, working tree = HEAD):

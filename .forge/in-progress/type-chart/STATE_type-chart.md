@@ -6,15 +6,15 @@ language: pt-BR
 branch: feature/type-chart
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend #2 (opus, contexto zerado) - retoma na T1.3 pelo CHECKLIST (tests/e2e/types.spec.ts untracked); a disparar 2026-10-12 16:33 (hora real). Cronometro 1h: 16:33 -> 17:33
+running_agent: forge-imp-frontend #2 (opus, retomado por mensagem) - T1.3 com o contrato corrigido (so Voltar), depois T1.4, T1.5, CHECKLIST_MANUAL; retomado 2026-10-12 16:36 (hora real; o agente gastou 2 min antes). Cronometro 1h: 16:36 -> 17:36
 worktree: C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart (repo pokedex; a arvore principal em Projetos/pokedex fica intocada em cee51235 porque o agente da pontindex-base le dela)
 user_gate: autonomo ate o fim (Pontin 2026-10-12: "pode continuar ai, ate o fim"; "faz do jeito q achar q vai ficar melhor"). Push/merge so com "P"/autorizacao explicita.
 baselines:
-  PRD:     { commit: 2c334cce, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md] }
+  PRD:     { commit: a608e111, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md] }
   UISPEC:  { commit: 4410016f, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: 04b73988, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
-  SPEC:    { commit: d991de5a, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 16:33
+  SPEC:    { commit: 9e596e42, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
+updated: 2026-10-12 16:36
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -92,3 +92,7 @@ updated: 2026-10-12 16:33
 - types.spec.ts em build + preview: 36 de 37 verdes (pwa-offline.spec.ts todo verde, incl. o nth deslocado em :341). Falha so o passo de Avancar, igual ao dev.
 - Causa: src/navigation/history-bridge.ts trata todo popstate como goBack(true). Home -> Tipos -> Pokedex, Voltar restaura Tipos (Fogo, Defendendo, scroll a 2 px); Avancar dispara popstate -> goBack -> Home. O app nunca teve Avancar (nenhum e2e usa goForward). SPEC T1.3 passo 3 e PRD CA-31 pedem Avancar -> mismatch; sem patch.
 - T1.3 [!], T1.4 e T1.5 pendentes (T1.4 depende da suite e2e verde). Decisao pendente: corrigir SPEC/PRD para o contrato real ou implementar Avancar na ponte (fora do escopo).
+## 2026-10-12 16:36 - T1.3 bloqueada por plan-reality (Avancar do navegador) e desbloqueada por correcao dos artefatos
+- frontend #2 (2 min) parou certo: SPEC T1.3 passo 3 e CA-31 pediam page.goForward() -> .dex-screen, mas src/navigation/history-bridge.ts trata todo popstate como goBack (herdado do prototipo app.js); nenhum spec do app usa goForward. Em build+preview: 36/37 (types.spec + pwa-offline.spec, inclusive a linha 341 deslocada); a unica falha era o Avancar.
+- Decisao do orquestrador (sob delegacao; nao muda rumo decidido, o Avancar nunca foi pedido pelo Pontin e nao estava na IDEA): Avancar fora do contrato. PRD rev 5.3 (CA-31 so Voltar), SPEC T1.3 sem goForward + fingerprints (PRD 7178dd7a, IDEA novo), IDEA [16:36]. Commits a608e111, 9e596e42 e este. Implementar Avancar fica anotado como possivel feature futura do app.
+- Agente #2 retomado por mensagem para fechar T1.3 (teste termina no Voltar), T1.4, T1.5 e o CHECKLIST_MANUAL.
