@@ -36,10 +36,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
   - commit: 64e0b4f1
   - status: concluida (janela quebrada aberta)
 
-- [ ] **B1.2 - Regra dos jogos e recorte curado da PokeAPI** (categoria: build)
+- [x] **B1.2 - Regra dos jogos e recorte curado da PokeAPI** (categoria: build)
   - Done when: o JSON existe, passa em `gameSnapshotSchema`, `deriveGames` devolve os 22 jogos da secao 5.3 na mesma ordem (script node inline via `npx tsx -e`), `kanto.species` = 1..151, `pokemonSpeciesIds` = 1..1025; segunda execucao sem `--fresh` faz 0 requisicoes (contar no log/cache) e gera o mesmo conteudo exceto `capturedAt`; `npm run typecheck`/`lint` limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde; `git grep -n "games/snapshot" -- tools/dataset/src ':!tools/dataset/src/games'` vazio (nenhum modulo do pipeline importa o coletor nem o CLI; a palavra "snapshot" sozinha ja aparece em `species/collect.ts`, `forms.ts` e `spawns.ts` e nao serve de criterio).
-  - commit:
-  - status: pendente
+  - commit: 11423420
+  - status: concluida
 
 - [ ] **B1.3 - Jogos por especie e catalogo no dataset** (categoria: build)
   - Done when: pipeline de teste (regra geral); em `_pg_pub/data/<versao>/`: Zubat, Crobat, Tyrogue, Hitmonlee, Charizard, Piglich e Creepyon iguais a secao 5.3 (script inline); `manifest.games` = 22 entradas da secao 5.3 na ordem; contagem por jogo do report igual a coluna "especies" da secao 5.3 (anotar no checklist; divergencia = parar); `officialWithoutGame` = `[]`, `packOnly` = `[9901, 9902]`; ultima entrada de `sources` canonica; `report.json` sem aviso novo; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` verde.
@@ -187,6 +187,13 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Decisao do orquestrador (opcao a, SPEC revisada em 8cfc236c): F2.1 passo 1 antecipado, so tipo: `ChainNodeView` local em `EvolutionPanel.tsx` (prop do `EvoNode`) e `generation: null` no no sintetico do fallback. Nada mais mexido no arquivo.
 - typecheck e lint limpos; `npx vitest run --exclude tests/unit/data/published-schemas.test.ts` = 87 arquivos, 730 testes, 0 falhas; pipeline de teste em `_pg_pub` (versao `-715d43b3`): 1027 fichas, 2316 nos, 0 nos com `generation` diferente do indice.
 - JANELA QUEBRADA ABERTA desde este commit: `published-schemas.test.ts` excluido e nenhum e2e ate B2.2 (o app rejeita o manifest publicado sem `games`).
+
+### B1.2 - concluida (2026-10-12)
+
+- Recorte capturado com `npm run dataset:snapshot-games -- --fresh`: 32 version-groups, 35 Pokedexes, 1025 especies, 123 URLs, 123 requisicoes de rede; `capturedAt` 2026-10-12T05:08:37.859Z; arquivo 132.314 bytes (pretty).
+- `deriveGames`: 22 jogos na ordem da SPEC 5.3 (ids 1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,23,24,25,30); `kanto.species` = 1..151; `pokemonSpeciesIds` = 1..1025.
+- 2a execucao sem `--fresh` (`--out` no scratchpad): 0 requisicoes de rede, conteudo igual exceto `capturedAt`.
+- typecheck/lint limpos; vitest (sem published-schemas) 87 arquivos / 730 testes verdes; `git grep -n "games/snapshot" -- tools/dataset/src ':!tools/dataset/src/games'` vazio; sem travessao no recorte.
 
 ---
 
