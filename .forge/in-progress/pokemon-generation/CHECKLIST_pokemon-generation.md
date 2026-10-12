@@ -64,10 +64,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
 
 > unitarios do modulo de jogos e da auditoria, contrato publicado, orcamento, regras puras e RTL, e2e headless e regressao completa.
 
-- [ ] **T1.1 - Modulo de jogos (regra, recorte, coletor, CLI) e auditoria** (categoria: outro)
+- [x] **T1.1 - Modulo de jogos (regra, recorte, coletor, CLI) e auditoria** (categoria: outro)
   - Done when: `npx vitest run tests/unit/dataset/game-availability.test.ts tests/unit/dataset/audit.test.ts` verde; cobertura de `tools/dataset/src/**` >= 80/80.
-  - commit:
-  - status: pendente
+  - commit: 4bc9dc74
+  - status: concluida
 
 - [ ] **T1.2 - Contrato publicado, juncao e orcamento do precache** (categoria: outro)
   - Done when: `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` verde.
@@ -218,6 +218,12 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Passo 6 janela FECHADA: published-schemas + join = 47 testes verdes; `npx vitest run` = 88 / 744 verde.
 - Passo 7: build ok (SW precache com a versao nova); `npx playwright test` = 253 ok, 16 pulados, 0 falha, 0 flaky (igual a S0.1); visuais ok sem atualizar baseline.
 - HANDOFF_backend.md escrito (contrato real, numeros, desvio F2.1 passo 1 antecipado).
+
+### T1.1 - concluida (2026-10-12)
+
+- `tests/unit/dataset/game-availability.test.ts` (19 testes): loadGameSnapshot (ausente/JSON quebrado/campo extra); deriveGames no recorte REAL contra a regra reimplementada no teste, exclusoes, DLC fundido, conjuntos iguais separados, nome FRLG, ordem; sinteticos (desempate por id, espelho quebrado nos dois sentidos, Pokedex inexistente, id duplicado, nenhum jogo); FRLG = kanto (1..151), Zubat/Golbat sim, Crobat nao, Hitmonlee sim, Tyrogue nao; custom null / custom colidindo / oficial fora / oficial sem jogo; sem rede no build (fetch trocado nunca chamado); coletor com msw (objeto esperado, urls ordenadas, `source.api` real, 0 requisicoes com cache, paginacao, sem nome EN, espelho, 404, URL de especie fora do padrao); CLI (`parseSnapshotArgs`, `runSnapshotCli` com cliente injetado e `--out`); separacao do coletor, scripts npm, origem e segredos.
+- `tests/unit/dataset/audit.test.ts`: novo describe com 2 testes (copia limpa sem divergencia nos checks novos e checks >= 46.768 + 1027 x 2 + nos + 4; adulteracoes -> lista exata de WRONG DATA; catalogo sem jogo -> MISSING e ids fora -> EXTRA; sem catalogo -> MISSING). Testes existentes inalterados.
+- `npx vitest run --coverage`: 89 arquivos / 765 testes verdes; `tools/dataset/src` 93,84 / 85,18 (availability 100/98,68, snapshot 94,25/92,85, snapshot-cli 74,19/76,92: so o caminho de rede real e a guarda de execucao direta ficam fora). Global 94,37 / 87,93.
 
 ---
 
