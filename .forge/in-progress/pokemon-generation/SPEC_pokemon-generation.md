@@ -459,6 +459,8 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
 - **Files** (soma da sprint; detalhe por feature): `src/data/types.ts`, `src/data/schemas.ts`, `tools/dataset/src/species/evolutions.ts`, `tools/dataset/src/species/index-writer.ts`, `tools/dataset/src/lib/errors.ts`, `tools/dataset/src/games/{availability,snapshot,snapshot-cli}.ts` (criar), `tools/dataset/curated/pokeapi-game-availability.json` (criar), `package.json`, `tools/dataset/README.md`, `data-source/README.md`, fixtures de teste.
 
 #### Feature B1.1: Contrato do dataset (tipos, zod, geracao nos nos, placeholders e fixtures) `[category: estrutura]`
+
+> **Revisao 2026-10-12 (orquestrador, blocker do forge-imp-backend):** com `EvolutionChainNode.generation` obrigatorio no tipo, o placeholder de `src/screens/Detail/EvolutionPanel.tsx:190` (`{ dex, slug, name, types: [] }`) quebra o `typecheck` (TS2322 nas linhas 202, 204, 216 e 246), e o Done when de B1.1 exige typecheck limpo. O passo 1 de F2.1 (tipo local `ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null }` e `generation: null` no fallback da linha 190) passa a fazer parte de B1.1: e um ajuste SOMENTE de tipo, sem mudanca visual nem de comportamento, feito pelo agente de backend no mesmo commit do contrato. F2.1 comeca do passo 2 e reutiliza `ChainNodeView`. Alternativa rejeitada: `generation` opcional so no TS (divergiria do zod e do contrato 5.1).
 - **Traces**: RF-12 (dado), RF-45 (forma), RF-48 (forma), RF-25, RNF-08.
 - **Files**:
   - `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex/src/data/types.ts` (modificar: `GameInfo` entre as linhas 91 e 93; `games` depois da linha 107; `games` depois da linha 149; `generation` depois da linha 206)
@@ -659,7 +661,7 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
   - `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex/src/screens/Detail/EvolutionPanel.tsx` (modificar: `EvoNode` linhas 159-179; `EvolutionChainView` linhas 181-251 (fallback da linha 190 e as 4 chamadas de `EvoNode` nas linhas 202, 204, 216 e 246); imports das linhas 9-21)
   - `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex/src/screens/Detail/detail.css` (acrescentar depois da linha 116 `.evo .evo-name` e depois da linha 134 `.evo-branch .evo .evo-name`)
 - **Steps**:
-  1. Tipo local `type ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null };` e fallback da linha 190 com `generation: null`.
+  1. (JA FEITO em B1.1, ver revisao 2026-10-12; apenas conferir que existe) Tipo local `type ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null };` e fallback da linha 190 com `generation: null`.
   2. `EvolutionChainView`: `const rootGeneration = byDex.get(chain.root)?.generation ?? null;` passado a TODA chamada de `EvoNode` (`rootGeneration={rootGeneration}`).
   3. `EvoNode({ node, current, known, lang, rootGeneration }: { node: ChainNodeView; ...; rootGeneration: string | null })`: `const t = useT(); const long = node.generation ? generationLabel(node.generation, "long", t) : null; const diff = long !== null && rootGeneration !== null && node.generation !== rootGeneration;` e `body` = `<SpeciesSprite .../>` + `<span className="evo-label"><span className="evo-name">{gameName(node, lang)}</span><GenerationBadge generation={node.generation} form="short" className={\`evo-gen${diff ? " evo-gen-diff" : ""}\`} label={long ? (diff ? t("detail.genDiff", { gen: long }) : long) : undefined} /></span>`.
   4. CSS (depois da linha 116): `.evo-label { display: grid; justify-items: center; gap: 4px; min-width: 0; }`, `.evo .badge.evo-gen { font-size: 9px; letter-spacing: 0; padding: 3px 6px; }`, `.evo .badge.evo-gen-diff { outline: 2px solid var(--secondary); outline-offset: 1px; }`, `html[data-theme="green"] .evo .badge.evo-gen-diff, html[data-theme="blue"] .evo .badge.evo-gen-diff, html[data-theme="purple"] .evo .badge.evo-gen-diff { outline-color: var(--primary); }`; depois da linha 134: `.evo-branch .evo .evo-label { justify-items: start; }`.
@@ -917,6 +919,8 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
 Total: 52 RF + 9 RNF = 61 requisitos; 61 cobertos; 0 orfaos (lacunas de numeracao do PRD: RF-20, 27, 34, 55, 57; RNF-02, 04, 07, 10). CA-01..CA-65 exercitados em S0.1, B2.2 e T1.1..T1.5 (CA-36 e CA-59 sao criterios de processo: secao 2.5 item 12 e S0.1).
 
 ## 9. Assuncoes e perguntas em aberto
+
+- [REVISAO 2026-10-12] F2.1 passo 1 movido para B1.1 (ver nota em B1.1): ajuste de tipo em `EvolutionPanel.tsx` exigido pelo typecheck do contrato; sem mudanca visual.
 
 Desvios do UISPEC original (ja incorporados no UISPEC revisado `11539eed64cc`; a implementacao segue ESTE SPEC):
 - **D1 (posicao do selo da cadeia)**: em fluxo, abaixo do nome, dentro de `.evo-label`, em vez de sobreposto ao canto da imagem (UISPEC secao 4 e Don't "aumentar a caixa do EvoNode"). Prova: `tests/harness/no-overlap.ts` trata `img` como controle (linha 30) e o teste existente `tests/e2e/detail.spec.ts:306-318` reprovaria o overlay; o motivo do overlay sumiu com a geracao na ficha (2.4). Custo: +22 px de altura na caixa.
