@@ -94,10 +94,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: 94e4f6c7
   - status: concluida
 
-- [ ] **F1.3 - Geracao no card no lugar da raridade e no Hero** (categoria: frontend)
+- [x] **F1.3 - Geracao no card no lugar da raridade e no Hero** (categoria: frontend)
   - Done when: capturas `after-f13-dex-{desktop,phone}.png` (comparar com `dex-cards-*.png`), `after-f13-captured-{desktop,phone}.png` (com `captured-*.png`, semeando o IndexedDB como `tests/e2e/captured.spec.ts:39-43`), `after-f13-hero-{mewtwo,charizard}-{desktop,phone}.png` (com `detail-hero-*.png`), `after-f13-dex-meltan-phone.png` (card do 808 a 360); no spec temporario: cards 41/169/808/899/9901 com "Gen 1"/"Gen 2"/"Gen 7 (Let's Go)"/"Gen 8 (Arceus)"/"Pack"; nenhuma classe de raridade em `.pcard`; `npx vitest run tests/unit/ui-screens/pokemon-card.test.tsx tests/unit/ui-screens/detail-hero.test.ts` verde; `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/dex.spec.ts tests/e2e/detail.spec.ts tests/e2e/captured.spec.ts` verde (com os 3 ajustes e nenhum outro assert mexido).
-  - commit:
-  - status: pendente
+  - commit: cd8979f1
+  - status: concluida
 
 ### Sprint F2 - Geracao na cadeia de evolucao
 
@@ -243,6 +243,13 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - `src/screens/Dex/GenerationBadge.tsx` (`generationLabel`, `GenerationBadge`, `GenerationForm`); `Badge` ganhou `label?` (role="img" + aria-label so com label); `.badge-gen` em `components.css` (`--secondary-soft` + `--text`).
 - typecheck/lint limpos; `npx vitest run tests/unit/ui-screens` = 38 arquivos / 262 testes verdes.
 - `after-f12-dex-pt.png` byte a byte igual a `after-f11-dex-pt.png` (que bate com `dex-cards-desktop.png`): sem mudanca visual.
+
+### F1.3 - concluida (2026-10-12)
+
+- `SpeciesBadges` com `variant` ("card": especial + geracao curta; "hero": especial + geracao longa + raridade); `HeroCard.hasSeal` conta a geracao. `RARITY_BADGE`/`specialLabel` intocados.
+- 3 ajustes de assert da SPEC 2.7 (pokemon-card.test.tsx, detail.spec.ts:82, dex.spec.ts:114), nenhum outro assert mexido.
+- Spec temporario: cards 41/169/808/899/9901 = "Gen 1"/"Gen 2"/"Gen 7 (Let's Go)"/"Gen 8 (Arceus)"/"Pack"; 0 classe de raridade em `.pcard` (Dex desktop/phone e Capturados com 6 semeados); Hero Mewtwo = Lendario + "Geração 1" + Ultra-raro; Charizard = "Geração 1" + Ultra-raro; 0 erro de console. Capturas `after-f13-*` (9) conferidas com `dex-cards-*`, `captured-*`, `detail-hero-*`: mesmas metricas do selo que substitui.
+- vitest pokemon-card + detail-hero = 8/8; `PW_DEV=1 PW_PORT=4179` dex + detail + captured = 71/71.
 
 ---
 
