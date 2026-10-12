@@ -12,7 +12,11 @@ export type PipelineErrorCode =
   | "E_SPECIES_INVALID"
   | "E_OUT_DIR_UNSAFE"
   | "E_PUBLISH_FORBIDDEN"
-  | "E_WRITE_FAILED";
+  | "E_WRITE_FAILED"
+  | "E_GAME_SNAPSHOT_MISSING"
+  | "E_GAME_SNAPSHOT_INVALID"
+  | "E_GAMES_NO_SOURCE"
+  | "E_GAMES_CUSTOM_IN_SOURCE";
 
 export class PipelineError extends Error {
   readonly code: PipelineErrorCode;
