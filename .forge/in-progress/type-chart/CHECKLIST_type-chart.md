@@ -88,10 +88,10 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 ### Fase T1: Testes (definidos aqui, escritos na etapa de testes) e inventario do porte
 
-- [ ] **T1.1** Modelo puro, frases de intuicao e i18n (unitarios) (categoria: outro)
+- [x] **T1.1** Modelo puro, frases de intuicao e i18n (unitarios) (categoria: outro)
   - Done when: `npx vitest run tests/unit/ui-screens/types-model.test.ts tests/unit/ui-screens/types-hints.test.ts` verde.
-  - commit: 
-  - status: pending
+  - commit: 29131372
+  - status: done. types-model.test.ts 12 testes + types-hints.test.ts 4 testes verdes (16/16), incl. COULD (306 pares). Ajuste: o teste de isolamento ignora comentarios do CSS (os comentarios que a propria SPEC pos em types.css citam detail.css .mult-* como origem dos hex).
 
 - [ ] **T1.2** Tela com Testing Library (categoria: outro)
   - Done when: `npx vitest run tests/unit/ui-screens/types-screen.test.tsx` verde; `npx vitest run --coverage` com `src/screens/**` >= 70/70 e global >= 80/80 (`vitest.config.ts`).
