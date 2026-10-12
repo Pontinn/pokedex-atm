@@ -1,5 +1,7 @@
 // Cadeia de evolucao (F4.3; porta evoHTML app.js:839-850, style.css:530-564). Linear quando cada no tem <= 1 saida;
-// ramificada (Eevee) quando algum no tem > 1. Cada aresta mostra o metodo EXATO do Cobblemon (RF-19): item clicavel
+// ramificada (Eevee) quando algum no tem > 1; se a cadeia ramifica depois (Poliwag), cada passo anterior ao no que
+// ramifica tambem mostra seta + metodo (.evo-pre-edge), e o ramo que continua evoluindo segue na mesma linha
+// (.evo-next-edge), para todo passo dizer como acontece. Cada aresta mostra o metodo EXATO do Cobblemon (RF-19): item clicavel
 // (RF-71), nivel, amizade, horario, golpe de tipo, item segurado, troca; "Condicao especial" com o raw no tooltip.
 // U9: item fora do items.json vira texto simples (sem link); em aresta de troca o `requiredItem` do Cobblemon e a
 // especie parceira da troca (ex. Karrablast <-> Shelmet), nao um item: "Troca com <especie>", link para a ficha.
@@ -224,27 +226,68 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
   if (branching) {
     const rootDex = [...outgoing.entries()].find(([, list]) => list.length > 1)?.[0] ?? chain.root;
     const pre = chain.edges.filter((e) => e.to === rootDex);
+    // ramo que continua evoluindo (Wurmple -> Silcoon -> Beautifly): segue as saidas UNICAS do alvo do ramo, na mesma
+    // linha; para em no sem saida, com 2+ saidas (Silvally) ou em ciclo.
+    const continuation = (from: number): EvolutionEdge[] => {
+      const out: EvolutionEdge[] = [];
+      const visited = new Set([rootDex, from]);
+      for (let cur = from; ; ) {
+        const list = outgoing.get(cur);
+        const next = list?.length === 1 ? list[0] : undefined;
+        if (!next || visited.has(next.to)) break;
+        out.push(next);
+        visited.add(next.to);
+        cur = next.to;
+      }
+      return out;
+    };
     return (
       <div className="evo-branching">
         <div className="evo-root">
           {pre.map((e) => (
-            <EvoNode key={e.from} node={node(e.from)} current={e.from === currentDex} known={isKnown(e.from)} lang={lang} rootGeneration={rootGeneration} />
-          ))}
-          <EvoNode node={node(rootDex)} current={rootDex === currentDex} known={isKnown(rootDex)} lang={lang} rootGeneration={rootGeneration} />
-          <span className="evo-root-label">{t("evo.branches")}</span>
-        </div>
-        <div className="evo-branches">
-          {(outgoing.get(rootDex) ?? []).map((e, i) => (
-            <div className="evo-branch" key={e.id} style={{ "--i": i } as CSSProperties} data-to={e.to}>
-              <div className="evo-edge">
+            <Fragment key={e.id}>
+              <EvoNode node={node(e.from)} current={e.from === currentDex} known={isKnown(e.from)} lang={lang} rootGeneration={rootGeneration} />
+              <div className="evo-edge evo-pre-edge" data-to={e.to}>
                 <span className="arr">
                   <ArrowRight />
                 </span>
                 <MethodChip edge={e} items={items} lang={lang} />
               </div>
-              <EvoNode node={node(e.to)} current={e.to === currentDex} known={isKnown(e.to)} lang={lang} rootGeneration={rootGeneration} />
-            </div>
+            </Fragment>
           ))}
+          <EvoNode node={node(rootDex)} current={rootDex === currentDex} known={isKnown(rootDex)} lang={lang} rootGeneration={rootGeneration} />
+          <span className="evo-root-label">{t("evo.branches")}</span>
+        </div>
+        <div className="evo-branches">
+          {(outgoing.get(rootDex) ?? []).map((e, i) => {
+            const step = (edge: EvolutionEdge, className: string) => (
+              <>
+                <div className={className} data-to={className === "evo-edge" ? undefined : edge.to}>
+                  <span className="arr">
+                    <ArrowRight />
+                  </span>
+                  <MethodChip edge={edge} items={items} lang={lang} />
+                </div>
+                <EvoNode node={node(edge.to)} current={edge.to === currentDex} known={isKnown(edge.to)} lang={lang} rootGeneration={rootGeneration} />
+              </>
+            );
+            const rest = continuation(e.to);
+            // sem continuacao: marcacao de sempre (Eevee identico); com continuacao, cada passo e um grupo que quebra inteiro
+            return rest.length === 0 ? (
+              <div className="evo-branch" key={e.id} style={{ "--i": i } as CSSProperties} data-to={e.to}>
+                {step(e, "evo-edge")}
+              </div>
+            ) : (
+              <div className="evo-branch evo-branch-long" key={e.id} style={{ "--i": i } as CSSProperties} data-to={e.to}>
+                <div className="evo-step">{step(e, "evo-edge")}</div>
+                {rest.map((c) => (
+                  <div className="evo-step" key={c.id}>
+                    {step(c, "evo-edge evo-next-edge")}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     );

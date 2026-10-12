@@ -162,3 +162,65 @@ describe("hero seals (published species)", () => {
     expect(r.container.querySelector(".seal")!.classList.contains("seal-empty")).toBe(true);
   });
 });
+
+// fix evo-pre-edge-label: cadeia linear que ramifica depois (Poliwag -> Poliwhirl -> Poliwrath | Politoed). Todo passo
+// diz como acontece: o metodo do primeiro passo fica ENTRE Poliwag e Poliwhirl, e os dois ramos mantem o seu.
+describe("branching chain with a linear first step (published Poliwag chain)", () => {
+  const before = (a: Element, b: Element) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+
+  it("first-step method sits between Poliwag and Poliwhirl; both branch methods are shown", () => {
+    const chain = detail(60).evolutionChain;
+    expect(chain.edges.map((e) => e.id)).toEqual(["poliwag_poliwhirl", "poliwhirl_poliwrath", "poliwhirl_politoed"]);
+    const { container } = renderChain(chain, 60);
+    const poliwag = container.querySelector("[data-evo='60']")!;
+    const poliwhirl = container.querySelector("[data-evo='61']")!;
+    const pre = container.querySelector(".evo-root .evo-pre-edge")!;
+    expect(pre).not.toBeNull();
+    expect(pre.querySelector(".arr svg")).not.toBeNull();
+    expect(pre.querySelector("[data-edge='poliwag_poliwhirl']")!.textContent).toBe("Nível 25");
+    expect(before(poliwag, pre)).toBe(true);
+    expect(before(pre, poliwhirl)).toBe(true);
+    const branches = [...container.querySelectorAll(".evo-branches .evo-edge")];
+    expect(branches.length).toBe(2);
+    expect(container.querySelector(".evo-branches [data-edge='poliwhirl_poliwrath']")!.textContent).toBe("Water Stone");
+    expect(container.querySelector(".evo-branches [data-edge='poliwhirl_politoed']")!.textContent).toBe("Troca + segurando Kings Rock");
+    expect(container.querySelectorAll(".evo-edge").length).toBe(chain.edges.length);
+    expect(container.querySelector(".evo-next-edge")).toBeNull();
+  });
+
+  it("Wurmple: each branch keeps evolving on its own row (Silcoon -> method -> Beautifly; Cascoon -> method -> Dustox)", () => {
+    const chain = detail(265).evolutionChain;
+    const { container } = renderChain(chain, 265);
+    const rows = [...container.querySelectorAll(".evo-branches .evo-branch")];
+    expect(rows.map((r) => r.getAttribute("data-to"))).toEqual(["266", "268"]);
+    for (const [row, mid, last, id] of [
+      [rows[0]!, 266, 267, "silcoon_beautifly"],
+      [rows[1]!, 268, 269, "cascoon_dustox"],
+    ] as const) {
+      const next = row.querySelector(".evo-next-edge")!;
+      expect(next.getAttribute("data-to")).toBe(String(last));
+      expect(next.querySelector(`[data-edge='${id}']`)!.textContent).toBe("Nível 10");
+      expect(before(row.querySelector(`[data-evo='${mid}']`)!, next)).toBe(true);
+      expect(before(next, row.querySelector(`[data-evo='${last}']`)!)).toBe(true);
+      expect(row.querySelectorAll(".evo-edge").length).toBe(2);
+    }
+    expect(container.querySelectorAll(".evo-edge").length).toBe(chain.edges.length);
+  });
+
+  it("Silvally (branch node loops onto itself): no continuation, one edge per branch", () => {
+    const chain = detail(772).evolutionChain;
+    const { container } = renderChain(chain, 773);
+    expect(container.querySelector(".evo-next-edge")).toBeNull();
+    expect(container.querySelectorAll(".evo-branches .evo-edge").length).toBe(chain.edges.filter((e) => e.from === 773).length);
+  });
+
+  it("Eevee (root is the branching node, no previous step): same edges as before, no pre edge", () => {
+    const chain = detail(133).evolutionChain;
+    const { container } = renderChain(chain, 133);
+    expect(container.querySelector(".evo-pre-edge")).toBeNull();
+    expect(container.querySelectorAll(".evo-root .evo-edge").length).toBe(0);
+    expect(container.querySelectorAll(".evo-edge").length).toBe(chain.edges.filter((e) => e.from === 133).length);
+    expect(container.querySelectorAll(".evo-root > .evo").length).toBe(1);
+    expect(container.querySelector(".evo-next-edge")).toBeNull();
+  });
+});

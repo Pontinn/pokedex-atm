@@ -140,6 +140,13 @@ html[data-theme="green"] .evo .badge.evo-gen-diff, html[data-theme="blue"] .evo 
 .evo-branch .evo .evo-label { justify-items: start; }
 .evo-edge { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 800; flex: 1; min-width: 0; }
 .evo-edge .method { white-space: normal; text-align: left; flex: 0 1 auto; min-width: 0; padding: 3px 9px; }
+/* passo antes do no que ramifica (Poliwag -> Poliwhirl): empilhado na coluna da raiz, seta para baixo + metodo, como o .evo-arrow da cadeia linear */
+.evo-root .evo-pre-edge { flex: none; flex-direction: column; justify-content: center; gap: 2px; text-align: center; max-width: 100%; }
+.evo-root .evo-pre-edge .arr { transform: rotate(90deg); }
+.evo-root .evo-pre-edge .method { text-align: center; justify-content: center; }
+/* ramo que continua evoluindo (Wurmple -> Silcoon -> Beautifly): cada passo (seta + metodo + no) e um grupo; quebra de linha inteiro */
+.evo-branch-long { flex-wrap: wrap; row-gap: 4px; }
+.evo-step { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: 1 1 260px; min-width: 0; }
 .app.mobile .evo-branching { grid-template-columns: 1fr; }
 .app.mobile .evo-branch { padding: 4px 0; }
 .app.mobile .evo-edge { flex-wrap: wrap; }
