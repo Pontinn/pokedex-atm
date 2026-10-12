@@ -67,3 +67,11 @@ Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc7
 7. Gzip do precache (metodo SPEC 2.3): 91 / 913 / 36.200 / 547 = 37.751 bytes (igual a SPEC; constantes de T1.2 confirmadas).
 8. Auditoria: `checks 46768, especies 1027, divergencias {}`; `AUDIT_REPORT.md` restaurado.
 9. `tools/dataset/out/_pg_base*` apagadas.
+
+## 2026-10-12 02:10 - backend: S0 verde, blocker em B1.1 resolvido
+- S0.1 (748cbeba): linha de base limpa (744 vitest, 253 e2e, 0 falha/flake, dataset identico, auditoria 0 divergencias, gzip precache 37.751). B1.1 bloqueou: `generation` obrigatorio no no quebra typecheck no placeholder de EvolutionPanel.tsx:190 (F2.1 passo 1). Decisao do orquestrador: (a) ajuste de tipo absorvido em B1.1 (SPEC revisada, 8cfc236c). Captura da PokeAPI ja testada com sucesso (22 jogos iguais a SPEC 5.3). forge-imp-backend retomado via SendMessage (~17 min decorridos; cronometro de 1h segue).
+
+## 2026-10-12 - backend: dataset republicado (B2.2)
+- B1.1 `64e0b4f1`, B1.2 `11423420`, B1.3 `89c1b8cf`, B2.1 `f7ba7273`. Nova versao `atm1.3.0-cobblemon1.7.3-20261012-78568233` publicada; `...-1949ea67` removida.
+- So acrescimos OK (1044 arquivos, 15 iguais byte a byte, indice/fichas/manifest iguais sem os campos novos). Determinismo OK (mesma versao, mesmos arquivos). Gzip precache 88 / 1.434 / 38.336 / 547 = 40.405 (+2.654 sobre 37.751; teto 47.991). Auditoria 51.146 checks, 0 divergencias.
+- Janela quebrada FECHADA: published-schemas + join verdes; vitest inteiro 88 / 744 verde. e2e inteiro = linha de base (253 ok, 16 pulados, 0 falha, visuais ok sem atualizar baseline).
