@@ -105,3 +105,6 @@ Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc7
 ## 2026-10-12 07:25 - revisao do Pontin apos ver no navegador
 - "coloca esse card dos jogos mais pra cima, coloca abaixo da fraqueza": painel Jogos movido para depois de Fraquezas (ordem stats, weak, games, evo, abilities, moves, where, best, forms, calc). Commits ccf49cb4 (codigo, e2e re-apontado, 7 baselines do Charizard) e 19f4cc5b (UISPEC, SPEC F3.2, checklists, 2 screenshots). Suites: vitest 800/800, e2e 276 ok / 16 pulados / 0 falha. Flake observado 1x: tests/e2e/home.spec.ts:241 (undo do time + reload, 5/6 em vez de 6/6), passou 5/5 sozinho e a suite inteira ficou verde na 2a rodada; Home nao foi tocada; ja conhecido de spawn-bait (2026-09-29).
 - Direcao futura decidida (memoria do Claude): app OFICIAL em repositorio novo, pontindex.pontin.dev vira o oficial e o pack vai para cobblemon.pontin.dev; sem necessidade de migrar dados locais.
+
+## 2026-10-12 - push
+- Pontin: "ja pode dar push". Branch feature/pokemon-generation pushada para origin (20941af5). Merge na main ainda NAO autorizado.
