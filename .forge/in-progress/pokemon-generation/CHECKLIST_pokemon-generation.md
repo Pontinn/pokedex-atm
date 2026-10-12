@@ -150,10 +150,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: f9bfe94d
   - status: concluida
 
-- [ ] **T1.4 - e2e headless (Dex, Capturados, Detail, temas, Configuracoes, offline)** (categoria: outro)
+- [x] **T1.4 - e2e headless (Dex, Capturados, Detail, temas, Configuracoes, offline)** (categoria: outro)
   - Done when: `npx playwright test tests/e2e/dex.spec.ts tests/e2e/detail.spec.ts tests/e2e/captured.spec.ts tests/e2e/settings.spec.ts tests/e2e/pwa-offline.spec.ts tests/e2e/responsive.spec.ts tests/e2e/navigation.spec.ts` (build + preview, headless) verde, incluindo TODOS os testes existentes desses arquivos.
-  - commit:
-  - status: pendente
+  - commit: f514e80f
+  - status: concluida
 
 - [ ] **T1.5 - Regressao completa contra a linha de base** (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, checks da auditoria, bytes gzip) no STATE.
@@ -305,6 +305,13 @@ Suite + build: nenhum arquivo mudou nesta feature; o verde de F3.3 vale (rodada 
 - Novos: `generation-badge.test.tsx` (7: tabela RF-05/RF-08 PT/EN, gen10, desconhecido -> null/sem selo, toda geracao do indice publicado com rotulo, `PokemonCard` das 1027 especies com o selo esperado e sem classe de raridade, ordem card/hero, `Badge` sem label = HTML de antes); `detail-generation.test.tsx` (7: cadeias reais 41/169/236/172/4/133 com destaque DERIVADO do `generation` dos nos, aria-label PT/EN, indice ausente, no sintetico, nenhum texto de jogo; Hero Charizard/Mewtwo/9901 e `seal-empty`); `games-panel.test.tsx` (7: `gamesOf`, lista semantica com `aria-labelledby`, Crobat/Hitmonlee/Tyrogue, "Só no pack", "Não aparece nos jogos oficiais", manifest nulo, EN).
 - Blocos novos no fim de `dex-filter.test.ts` (3: game null = antes, E logico, custom nunca, indice real FRLG = 151 e mediana de 20 < 5 ms), `dex-screen.test.tsx` (3: `#f-game` por label, opcoes, grava `filters.game`, sem catalogo, restaurado da pilha) e `settings-screen.test.tsx` (1: `data-info=pokeapi` PT/EN). Nenhum teste existente mexido.
 - `npx vitest run tests/unit/ui-screens` = 41 arquivos / 290 testes. `npx vitest run --coverage` inteiro = 93 arquivos / 800 testes verdes; cobertura linhas/branches: global 94,48/88,29; `src/screens/**` 94,99/89,17; `tools/dataset/src/**` 93,85/85,18 (limites 80/80, 70/70).
+
+### T1.4 - concluida (2026-10-12)
+
+- Retomada por agente novo (o frontend #1 parou no limite de 1h com os blocos ja escritos e sem commit). Blocos revisados contra os passos 1 a 5 da SPEC; esperados derivados do indice/manifest/ficha publicados via `fetch`.
+- Novos: `dex.spec.ts` describe `pokemon-generation: generation seal and game filter` (CA-01, CA-03..CA-06, CA-25, CA-44, CA-46..CA-53, CA-64); `detail.spec.ts` describe `pokemon-generation: hero, chain, games panel and themes` (CA-07..CA-09, CA-11..CA-16, CA-27, CA-28, CA-40..CA-43, CA-62); `captured.spec.ts` (CA-03), `settings.spec.ts` (CA-54), `pwa-offline.spec.ts` no describe F12.1 (CA-61). Nenhum teste existente mexido.
+- DESVIO (CA-53 e o "foco visivel no #f-game" do CA-62): o "outline nao none" nao e verificavel porque todo `select` do app tem `outline: 0` (`components.css:118`, preexistente, igual no `#f-gen`). O teste confere Tab -> `:focus-visible`, label "Jogo" resolve o select, ArrowDown opera e a mesma regra de foco do `#f-gen`. Mudar o foco de todos os selects esta fora do escopo.
+- Done when: 139 testes = 138 ok + 1 pulado (`detail.spec.ts:155`, so roda com PW_DEV, preexistente), 0 falha, 1,9 min. Spec temporario `zz-pokemon-generation-capture.spec.ts` apagado (capturas ficam em `ui-refs/impl/`). Nenhum PNG de baseline novo.
 
 ---
 
