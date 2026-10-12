@@ -69,10 +69,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
   - commit: 4bc9dc74
   - status: concluida
 
-- [ ] **T1.2 - Contrato publicado, juncao e orcamento do precache** (categoria: outro)
+- [x] **T1.2 - Contrato publicado, juncao e orcamento do precache** (categoria: outro)
   - Done when: `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` verde.
-  - commit:
-  - status: pendente
+  - commit: bdda90a3
+  - status: concluida
 
 ---
 
@@ -225,9 +225,17 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - `tests/unit/dataset/audit.test.ts`: novo describe com 2 testes (copia limpa sem divergencia nos checks novos e checks >= 46.768 + 1027 x 2 + nos + 4; adulteracoes -> lista exata de WRONG DATA; catalogo sem jogo -> MISSING e ids fora -> EXTRA; sem catalogo -> MISSING). Testes existentes inalterados.
 - `npx vitest run --coverage`: 89 arquivos / 765 testes verdes; `tools/dataset/src` 93,84 / 85,18 (availability 100/98,68, snapshot 94,25/92,85, snapshot-cli 74,19/76,92: so o caminho de rede real e a guarda de execucao direta ficam fora). Global 94,37 / 87,93.
 
+### T1.2 - concluida (2026-10-12)
+
+- `published-schemas.test.ts`: novo `it` (ficha 41 e manifest passam sem campo descartado; campo extra em `games[0]`, manifest sem `games`, entrada do indice sem `games`, `games: [1.5]` e `[0]`, no sem `generation` rejeitados; `games: null` e `[]` passam). Existentes inalterados.
+- `join.test.ts`: novo describe com 4 testes sobre o pipeline em pasta temporaria (catalogo = regra reimplementada sobre o recorte; `games` de TODA especie = derivado por numero; `null` sse custom; indice = ficha; todo no com a geracao da especie; contagem de geracoes = `buildExpected()` da auditoria; ultima `sources` canonica; versao diferente de `...-1949ea67`).
+- `precache-budget.test.ts` (novo): `BASELINE_GZIP` 91/913/36.200/547 (= 37.751) e crescimento <= 10.240 (hoje +2.654); glob de dado do `vite.config.ts` fixado.
+- `npx vitest run tests/unit/data tests/unit/dataset/join.test.ts` = 22 arquivos / 293 testes verdes. Suite inteira: 90 arquivos / 772 testes; 3 execucoes, 1 com falha no teste de tempo preexistente `tests/unit/domain/bait.test.ts:106` (worst 5,17 ms > 5 ms sob carga paralela), ver Bugs.
+
 ---
 
 ## Bugs encontrados
 
 | Fase/Feature | Descricao | Causa | Correcao / commit |
 |---|---|---|---|
+| T1.2 (suite inteira) | `tests/unit/domain/bait.test.ts:106` ("buildBaitIndex and recommendBerries ... stay under 5 ms") falhou 1 de 3 rodadas da suite inteira: worst 5,17 ms > 5 ms. Isolado 3/3 verde; suite inteira 2/3 verde. | Assert de tempo de parede (pior chamada isolada) sensivel a carga: roda em paralelo com o pipeline real do `join.test.ts` (8 workers). O caminho medido (`recommendBerries`) nao le `games` nem `generation`. Nao reproduziu na S0 (2 rodadas). | Nao corrigido (fora do escopo do backend, assert nao afrouxado). Flake registrado para o T1.5 comparar; se voltar, investigar a causa (isolamento do teste de tempo), nunca subir o limite. |
