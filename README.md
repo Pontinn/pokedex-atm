@@ -26,7 +26,7 @@ O Pontindex resolve isso com quatro regras:
 
 - **Estetica de Pokemon**: cores de Pokedex, cards com gradiente por tipo, sons do jogo, animacao de captura. Um layout para desktop e outro para celular.
 - **Plug and play**: sem conta, sem login, sem servidor. Os dados de cada pessoa ficam so no aparelho dela.
-- **Dados 100% do modpack**: os jars e configs da instancia sao lidos uma vez, no build, e viram JSON, texturas, sons e traducoes PT/EN dentro do app. Em runtime so o artwork grande vem da PokeAPI.
+- **Dados do modpack (e jogos pela PokeAPI)**: os jars e configs da instancia sao lidos uma vez, no build, e viram JSON, texturas, sons e traducoes PT/EN dentro do app. A lista de jogos principais de cada Pokemon vem de um recorte da PokeAPI congelado no repositorio (`tools/dataset/curated/`) e embutido no build. Em runtime so o artwork grande vem da PokeAPI.
 - **Custo zero**: site estatico, nenhuma API paga.
 
 ## O que o app faz
@@ -113,4 +113,4 @@ O pipeline le por padrao o snapshot em `data-source/atm-1.3.0/`. Para usar uma i
 
 ## Creditos
 
-Pokemon pertence a Nintendo, Game Freak e The Pokemon Company. Dados, sons e texturas vem do Cobblemon e dos addons do All the Mons; sprites e artwork da PokeAPI; icones de tipo baseados em `duiker101/pokemon-type-svg-icons`. Projeto de fa, pessoal e sem fins lucrativos.
+Pokemon pertence a Nintendo, Game Freak e The Pokemon Company. Dados, sons e texturas vem do Cobblemon e dos addons do All the Mons; sprites e artwork da PokeAPI; jogos principais de cada Pokemon da PokeAPI (recorte versionado); icones de tipo baseados em `duiker101/pokemon-type-svg-icons`. Projeto de fa, pessoal e sem fins lucrativos.

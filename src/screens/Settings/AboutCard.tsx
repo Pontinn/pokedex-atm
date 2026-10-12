@@ -63,6 +63,7 @@ export const AboutCard = memo(function AboutCard() {
       <InfoLine testId="persist" text={t("about.persistent", { v: persistText })} />
       <InfoLine text={t("settings.local")} />
       <InfoLine text={t("settings.images")} />
+      <InfoLine testId="pokeapi" text={t("settings.pokeapi")} />
       <div className="about-portfolio">
         <p className="about-made-by">{t("about.madeBy")}</p>
         <a
