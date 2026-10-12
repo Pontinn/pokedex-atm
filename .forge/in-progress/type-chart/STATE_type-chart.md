@@ -6,7 +6,7 @@ language: pt-BR
 branch: feature/type-chart
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend #1 (opus, autonomo) - Sprint 0 em diante, orcamento 50 min; iniciado 2026-10-12 15:51 (hora real). Cronometro 1h ate 16:51
+running_agent: forge-imp-frontend #2 (opus, contexto zerado) - retoma na T1.3 pelo CHECKLIST (tests/e2e/types.spec.ts untracked); a disparar 2026-10-12 16:33 (hora real). Cronometro 1h: 16:33 -> 17:33
 worktree: C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart (repo pokedex; a arvore principal em Projetos/pokedex fica intocada em cee51235 porque o agente da pontindex-base le dela)
 user_gate: autonomo ate o fim (Pontin 2026-10-12: "pode continuar ai, ate o fim"; "faz do jeito q achar q vai ficar melhor"). Push/merge so com "P"/autorizacao explicita.
 baselines:
@@ -14,7 +14,7 @@ baselines:
   UISPEC:  { commit: 4410016f, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: 04b73988, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
   SPEC:    { commit: d991de5a, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 15:51
+updated: 2026-10-12 16:33
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -82,3 +82,9 @@ updated: 2026-10-12 15:51
 | home-white-chromium-win32.png | 5145 | x 31-176, y 352-610 | OK |
 - home-orange: os 2 pixels fora da sidebar estao em x 276-277, y 259-261 (canto do cartao do heroi da Home). E ruido de renderizacao: a mesma diferenca de 2 pixels aparece entre duas regeneracoes do MESMO codigo (1a x 2a regeneracao, em home-blue e home-green). Fora esse ruido, 100% dos pixels diferentes estao em x < 236 (sidebar: "Tipos" em 5o com Shapes, itens seguintes uma linha abaixo).
 - Passo 5: revisao visual de home-classic e detail-charizard-purple velha x nova: "Tipos" em 5o, rodape intacto, #main igual. Passo 6: os 7 testes verdes sem --update-snapshots; git status = exatamente os 14 PNGs; tests/e2e/responsive.spec.ts sem diff (maxDiffPixelRatio 0.02).
+## 2026-10-12 16:31 - frontend #1 parou no teto de tempo (40 min): 11 de 15 itens
+- Verdes: S0.1 (baseline em STATE, 0aafba5a/b7cdfd2c), F1.1 48a70443, F1.2 621b6a71, F1.3 0aafba5a, F2.1 7887202b, F2.2 cb9db403, F2.3 5db4ae97, F3.1 90da65af, F4.1 da9b671e, F5.1 (sem commit: nada a remover, relatorio no checklist), T1.1 29131372, T1.2 986eb0b9. Capturas after-* em ui-refs/. Cobertura (sem join.test.ts): global 90,41% linhas / 88,38% branches; src/screens/Types/* 100%/100%.
+- Desvios anotados no checklist: F1.2 mais 5 linhas de teste com nth de item (shell.spec 232/235, sync.spec 65/67, pwa-offline.spec 341, esta so roda em build+preview, ainda nao rodada); F1.3 baselines antigas ja estavam defasadas (rodape "Feito por Pontin"/GitHub, arte do Charizard) escondidas pela tolerancia de 2%, entao a prova "todo pixel mudado na sidebar" foi feita contra baselines regeneradas em 48a70443 (100% em x < 236, fora 2 px de antialias em home-orange que tambem variam entre duas rodadas iguais); F3.1 box-shadow na coluna fixa (celulas vazavam por baixo no celular); T1.1 teste de isolamento de CSS ignora comentarios (a propria SPEC poe .mult-* em comentario do types.css).
+- T1.3 [~]: tests/e2e/types.spec.ts escrito, untracked; 24/25 em dev; falha o teste de voltar/avancar: apos page.goForward() a .dex-screen nao aparece. Proximo agente: conferir src/navigation/history-bridge.ts (se Forward e tratado) ANTES de mexer no teste; rodar tambem em build+preview.
+- Pre-existentes: items.spec.ts:123 flaky (1 falha na suite, 3/3 sozinho); build/vitest deixam type-css.test.ts.snap e types.generated.css so com fim de linha (git checkout --); join.test.ts falhava no worktree por falta do cache tools/dataset/.cache (gitignored, so na arvore principal): orquestrador copiou o cache para o worktree as 16:32.
+- Lembrete: 8 commits docs(forge) do orquestrador nesta branch (ex. f0a82aa3, 04b73988, cb669791) carregam Co-Authored-By; oferecer limpeza ao Pontin antes do push.
