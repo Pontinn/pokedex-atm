@@ -105,13 +105,13 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 - [x] **T1.4** Regressao completa contra a linha de base (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, bytes) no STATE.
-  - commit: (STATE, commit deste passo)
+  - commit: 82a1d59a
   - status: done. 7 passos verdes (numeros no STATE 17:00): vitest 96 arquivos / 823 testes, global 94,59/88,46; e2e build + preview 299 ok, 16 pulados, 2 falhas preexistentes provadas na main (dex.spec.ts:324 Meltan/Wyrdeer 4 de 15 falham na main; items.spec.ts:69 linha 81, 3 de 8 falham na main); bundle +18182 bytes.
 
-- [ ] **T1.5** Porte: inventario (categoria: outro)
+- [x] **T1.5** Porte: inventario (categoria: outro)
   - Done when: inventario no STATE e o passo 1 batendo.
-  - commit: 
-  - status: pending
+  - commit: (inventario, commit deste passo)
+  - status: done. Inventario no STATE 17:03. Passo 1 bate: 11 A + 9 M (os 7 da SPEC + sync.spec.ts e pwa-offline.spec.ts do desvio de F1.2) + 14 PNGs. Pre-condicoes com hash; +ScreenRouter.tsx e data/types.ts achados pelos imports.
 
 ---
 
