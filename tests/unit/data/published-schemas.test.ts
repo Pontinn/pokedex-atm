@@ -91,6 +91,31 @@ describe.skipIf(!hasData)("schemas vs dataset publicado", () => {
     expect(itemInfoSchema.safeParse(withoutKey).success).toBe(false);
   });
 
+  // pokemon-generation T1.2: catalogo estrito, games e generation obrigatorios (campo desconhecido ou ausente rejeita)
+  it("pokemon-generation: Zubat detail passes; extra field in games[0], index entry without games, games [1.5] and node without generation are rejected; games null and [] pass", () => {
+    const zubat = readJson(new URL(`${f.speciesDir.replace(/\/$/, "")}/41.json`, base)) as Record<string, unknown> & {
+      evolutionChain: { nodes: Record<string, unknown>[] };
+    };
+    expectParses(speciesDetailSchema, zubat, "species/41");
+    const rawManifest = readJson(new URL("dataset-manifest.json", base)) as { games: Record<string, unknown>[] };
+    expect(rawManifest.games.length).toBeGreaterThan(0);
+    expectParses(datasetManifestSchema, rawManifest, "dataset-manifest");
+    expect(datasetManifestSchema.safeParse({ ...rawManifest, games: [{ ...rawManifest.games[0], extra: 1 }, ...rawManifest.games.slice(1)] }).success).toBe(false);
+    const { games: _noCatalog, ...manifestWithoutGames } = rawManifest;
+    expect(datasetManifestSchema.safeParse(manifestWithoutGames).success).toBe(false);
+    const index = readJson(new URL(f.speciesIndex, base)) as Record<string, unknown>[];
+    const entry = index.find((s) => s.dex === 41)!;
+    const { games: _games, ...withoutGames } = entry;
+    expect(speciesIndexSchema.safeParse([withoutGames]).success).toBe(false);
+    expect(speciesIndexSchema.safeParse([{ ...entry, games: [1.5] }]).success).toBe(false);
+    expect(speciesIndexSchema.safeParse([{ ...entry, games: [0] }]).success).toBe(false);
+    expect(speciesIndexSchema.safeParse([{ ...entry, games: null }]).success).toBe(true);
+    expect(speciesIndexSchema.safeParse([{ ...entry, games: [] }]).success).toBe(true);
+    const { generation: _gen, ...nodeWithoutGeneration } = zubat.evolutionChain.nodes[0]!;
+    const tampered = { ...zubat, evolutionChain: { ...zubat.evolutionChain, nodes: [nodeWithoutGeneration, ...zubat.evolutionChain.nodes.slice(1)] } };
+    expect(speciesDetailSchema.safeParse(tampered).success).toBe(false);
+  });
+
   it("balls: todas as 48 bolas, incluindo fast_ball e net_ball", () => {
     const balls = ballsFileSchema.parse(readJson(new URL(f.balls, base)));
     expect(balls).toHaveLength(manifest.counts.balls);

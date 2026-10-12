@@ -409,3 +409,81 @@ describe("berry-mutations: berry origin and crossbreeding", () => {
     expect(datasetVersion).not.toBe("atm1.3.0-cobblemon1.7.3-20260929-2ef2f512");
   });
 });
+
+// pokemon-generation T1.2: jogos por especie e geracao na cadeia, conferidos contra o recorte curado (regra
+// reimplementada aqui, juncao so por numero) e contra a auditoria (geracao do pack cru).
+describe("pokemon-generation: games and chain generation", () => {
+  interface RawSnapshot {
+    source: { capturedAt: string };
+    pokemonSpeciesIds: number[];
+    versionGroups: { id: number; name: string; order: number; pokedexes: string[]; versions: { nameEn: string }[] }[];
+    pokedexes: { name: string; isMainSeries: boolean; species: number[] }[];
+  }
+  const SNAPSHOT_REL = "tools/dataset/curated/pokeapi-game-availability.json";
+  const snapshot = readJson<RawSnapshot>(SNAPSHOT_REL);
+
+  /** Regra da IDEA secao 2: Pokedex main series fora de national/conquest-gallery; grupo fora das 3 exclusoes; DLC = subconjunto proprio. */
+  function expectedCatalog() {
+    const eligible = new Set(snapshot.pokedexes.filter((p) => p.isMainSeries && !["national", "conquest-gallery"].includes(p.name)).map((p) => p.name));
+    const candidates = snapshot.versionGroups
+      .filter((g) => !["red-green-japan", "blue-japan", "champions"].includes(g.name))
+      .map((g) => ({ g, d: g.pokedexes.filter((n) => eligible.has(n)) }))
+      .filter((c) => c.d.length > 0);
+    return candidates
+      .filter((c) => !candidates.some((o) => o !== c && o.d.length > c.d.length && c.d.every((x) => o.d.includes(x))))
+      .sort((a, b) => a.g.order - b.g.order || a.g.id - b.g.id)
+      .map((c) => ({ id: c.g.id, slug: c.g.name, name: c.g.versions.map((v) => v.nameEn).join(" / "), dexes: c.d }));
+  }
+
+  it("manifest.games is the catalog derived from the curated snapshot, in order, as the last key", () => {
+    expect(manifest.games).toEqual(expectedCatalog().map(({ id, slug, name }) => ({ id, slug, name })));
+    expect(Object.keys(manifest).at(-1)).toBe("games");
+  });
+
+  it("every species: games = catalog games whose eligible Pokedexes list its number (CA-29); null iff custom; index = detail", () => {
+    const catalog = expectedCatalog();
+    const speciesOf = new Map(snapshot.pokedexes.map((p) => [p.name, new Set(p.species)]));
+    for (const s of index) {
+      const detail = speciesFile(s.dex);
+      expect(detail.games, `ficha ${s.dex}`).toEqual(s.games);
+      if (s.generation === "custom") {
+        expect(s.games, `custom ${s.dex}`).toBeNull();
+        expect(snapshot.pokemonSpeciesIds).not.toContain(s.dex);
+        continue;
+      }
+      const expected = catalog.filter((g) => g.dexes.some((d) => speciesOf.get(d)?.has(s.dex))).map((g) => g.id);
+      expect(s.games, `especie ${s.dex}`).toEqual(expected);
+      expect(Object.keys(s).at(-1)).toBe("games");
+    }
+    expect(index.filter((s) => s.games === null).map((s) => s.dex)).toEqual(index.filter((s) => s.generation === "custom").map((s) => s.dex));
+  }, 120_000);
+
+  it("every node of every chain carries the generation of its species (CA-19); counts match the audit's raw pack", async () => {
+    const generationOf = new Map(index.map((s) => [s.dex, s.generation]));
+    let nodes = 0;
+    for (const s of index) {
+      for (const n of speciesFile(s.dex).evolutionChain.nodes) {
+        nodes++;
+        expect(n.generation, `ficha ${s.dex} no ${n.dex}`).toBe(generationOf.get(n.dex));
+      }
+    }
+    expect(nodes).toBeGreaterThan(index.length);
+    const { buildExpected } = await import("../../../tools/dataset/audit/expected");
+    const exp = buildExpected();
+    const count = (gens: Iterable<string>) => {
+      const out: Record<string, number> = {};
+      for (const g of gens) out[g] = (out[g] ?? 0) + 1;
+      return out;
+    };
+    expect(count(index.map((s) => s.generation))).toEqual(count([...exp.species.values()].map((e) => e.generation)));
+  }, 120_000);
+
+  it("last source is the canonical snapshot entry and the dataset version moved past the one before pokemon-generation (CA-35)", () => {
+    expect(manifest.sources.at(-1)).toEqual({
+      file: SNAPSHOT_REL,
+      sizeBytes: Buffer.byteLength(JSON.stringify(snapshot)),
+      mtime: snapshot.source.capturedAt,
+    });
+    expect(datasetVersion).not.toBe("atm1.3.0-cobblemon1.7.3-20260930-1949ea67");
+  });
+});
