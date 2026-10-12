@@ -21,11 +21,11 @@ status: ready-for-review
 
 ## Baseline (drift anchor)
 
-- `HEAD`: `04b739884fe2bc95c7fe47c310b0b2b0792b6b3f` (branch `feature/type-chart`; codigo identico a main `cee51235`; a nota abaixo trata dos commits posteriores)
+- `HEAD`: `b4144dfeb332f7bf83c323ad49200aeac57ce379` (branch `feature/type-chart`; codigo identico a main `cee51235`; a nota abaixo trata dos commits posteriores)
 - Nota: depois do HEAD `b4144dfe` entraram so commits em `.forge/` (IDEA, UISPEC, STATE, PRD); `git diff b4144dfe..HEAD` em `src`, `tests`, `tools`, `public`, `package.json` e `vite.config.ts` esta vazio, entao a baseline de codigo continua valida.
-- `IDEA_type-chart.md` (`git hash-object`): `1d1a4121ebb8d443ea1f898bba8b7f466210fadf`
-- `UISPEC_type-chart.md` (`git hash-object`): `c5127ca91db4daae03593dfe552feb9cf64d8001` (RF-17 e RF-37 espelham a sua secao 3.2b)
-- `CONTEXT_type-chart.md` (`git hash-object`): `5cbb8e52f5ef5531d0381f029764d3191572efe3`
+- `IDEA_type-chart.md` (`git hash-object`): `c648af069a1221deba0451200299e81d3ad0a33f`
+- `UISPEC_type-chart.md` (`git hash-object`): `f2dcdd584d8a87b2d69dcadf2720fe615bc0cbae` (RF-17 e RF-37 espelham a sua secao 3.2b)
+- `CONTEXT_type-chart.md` (`git hash-object`): `6a4b28c4d90a0923097c4924c22fafd87bf15404`
 
 ## 1. Objetivo e visao
 

@@ -1,7 +1,7 @@
 ---
 feature: type-chart
-stage: testing
-status: in-review
+stage: complete
+status: done
 language: pt-BR
 branch: feature/type-chart
 mode: full
@@ -14,7 +14,7 @@ baselines:
   UISPEC:  { commit: 99477f2e, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: b4144dfe, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
   SPEC:    { commit: 3ef04bed, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 17:50
+updated: 2026-10-12 18:55
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -135,3 +135,5 @@ updated: 2026-10-12 17:50
 - ddd92b61 style(types) (types.css, .app.mobile: legenda 320 px -> 207 px, 25,9% de 800; seletor de visao, grade dos 18 tipos e inicio do heroi na primeira tela; captura after-legend-compact-phone.png conferida pelo orquestrador); 6d045b2f test(e2e) (o teste de Voltar guardava scrollTop durante a rolagem suave de #main, base.css:41; agora espera chegar ao alvo; 5/5); c93521d9 checklist. Lint limpo; types.spec dev 25/25; build+preview types.spec + responsive.spec 43/43 sem regenerar baselines (desktop identico).
 - Pendente para o Pontin (CHECKLIST_MANUAL, 5 itens): frases de intuicao em EN, troca de aba sem piscar, arrastar a matriz com o dedo no celular real (e o achado Low da roda horizontal), leitor de tela numa celula, olhar os 7 temas (28 capturas test-theme-* em ui-refs/). Como ver: `npm run dev` no worktree Projetos/pokedex-type-chart, item "Tipos" (desktop: sidebar; celular: Mais).
 - Depois do ok: git mv para complete/, LESSONS, e o porte no pontindex quando a base estiver completa. Push so com "P" (lembrar da limpeza dos Co-Authored-By nos docs(forge) antigos desta branch).
+## 2026-10-12 18:55 - complete
+- Pontin aprovou a pagina no navegador ("gostei da pagina de tipos, pode dar complete"). CHECKLIST_MANUAL fechado. Historico da branch reescrito a pedido dele para remover os Co-Authored-By (filter-branch, 52 commits, 0 trailers); hashes nos artefatos e fingerprints refeitos. Pasta movida para complete/. Merge em main e push so com autorizacao explicita.

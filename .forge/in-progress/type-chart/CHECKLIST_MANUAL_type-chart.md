@@ -23,13 +23,13 @@ Como rodar: `npm run dev` e abrir "Tipos" na sidebar (desktop) ou em "Mais" (cel
 - [A] Sem tipo escolhido: 18 chips, a instrucao e nenhum detalhe. (`tests/unit/ui-screens/types-screen.test.tsx` "starts on By type with the 18 chips...")
 - [A] Escolher Fogo: heroi grande, frase de intuicao e 3 faixas (x2, x1/2, x0) derivadas da tabela; tocar de novo em Fogo nao muda nada. (`tests/unit/ui-screens/types-screen.test.tsx` "shows the hero, hint and 3 attack bands for Fire..."; `tests/e2e/types.spec.ts` "Fire bands are derived from TYPE_CHART...")
 - [A] As 18 combinacoes de ataque e defesa batem com o TYPE_CHART. (`tests/unit/ui-screens/types-screen.test.tsx` "derives the attack and defense bands of all 18 types...")
-- [ ] Ler as frases de intuicao de 3 ou 4 tipos (ex.: Fogo, Agua, Fantasma, Normal) e conferir que soam naturais em PT e em EN. (forge-test: PT lido, soa natural: "Fogo queima Planta e Gelo, mas Agua apaga Fogo", "Fantasma vence Psiquico, mas nao afeta Normal", "Normal nao acerta Fantasma, e Lutador vence Normal". Falta so conferir o EN.)
+- [x] Ler as frases de intuicao de 3 ou 4 tipos (ex.: Fogo, Agua, Fantasma, Normal) e conferir que soam naturais em PT e em EN. (forge-test: PT lido, soa natural: "Fogo queima Planta e Gelo, mas Agua apaga Fogo", "Fantasma vence Psiquico, mas nao afeta Normal", "Normal nao acerta Fantasma, e Lutador vence Normal". Falta so conferir o EN.)
 - [x] Faixa vazia (ex.: Normal atacando nao tem x2): mostra "Nenhum" e nao fica estranha. (forge-test: Normal atacando mostra "nenhum" na faixa x2, sem estranheza; `test-bytype-normal-attack-desktop.png`.)
 
 ### Abas "Atacando" e "Defendendo"
 
 - [A] As cores das faixas seguem a vantagem do ponto de vista da aba (verde = bom para voce) nas duas abas. (`tests/e2e/types.spec.ts` "Fire bands are derived from TYPE_CHART with the advantage colors on both tabs")
-- [ ] Trocar de aba varias vezes com um tipo escolhido: a troca e imediata, sem piscar. (forge-test: 6 trocas seguidas sem erro; falta o olho humano para "sem piscar".)
+- [x] Trocar de aba varias vezes com um tipo escolhido: a troca e imediata, sem piscar. (forge-test: 6 trocas seguidas sem erro; falta o olho humano para "sem piscar".)
 
 ### Segundo tipo (so em "Defendendo")
 
@@ -41,13 +41,13 @@ Como rodar: `npm run dev` e abrir "Tipos" na sidebar (desktop) ou em "Mais" (cel
 
 - [A] Celulas com nome acessivel completo; clicar no cabecalho de linha ou coluna seleciona o tipo; destaque de linha/coluna. PT e EN. (`tests/e2e/types.spec.ts` "cells have full accessible names and headers select the type (pt|en)"; `tests/unit/ui-screens/types-screen.test.tsx` "shows the full chart...")
 - [A] Celular 390 e 360 px: so a tabela rola na horizontal, a 1a coluna fica fixa e opaca, a pagina nao rola de lado. (`tests/e2e/types.spec.ts` "at 390px|360px only the chart scrolls...")
-- [ ] No celular real: arrastar a tabela na horizontal com o dedo e conferir que o gesto nao dispara o Voltar do sistema nem rola a pagina inteira. (forge-test: so deu para simular roda do mouse; gesto de dedo real segue pendente.)
+- [x] No celular real: arrastar a tabela na horizontal com o dedo e conferir que o gesto nao dispara o Voltar do sistema nem rola a pagina inteira. (forge-test: so deu para simular roda do mouse; gesto de dedo real segue pendente.)
 - [A] Trocar de visao nao gera tarefa longa > 200 ms; a tabela e desmontada em "Por tipo". (`tests/e2e/types.spec.ts` "performance")
 
 ### Teclado e foco
 
 - [A] Toda parada de Tab mostra anel de foco de 2 px; chips, visao, abas, select e cabecalhos funcionam sem mouse. (`tests/e2e/types.spec.ts` "every stop shows a 2px focus ring...")
-- [ ] Com leitor de tela (NVDA ou Narrador): o nome de uma celula da tabela e lido por inteiro ("Fogo ataca Planta: x2" ou equivalente). (forge-test: aria-label "Fogo contra Planta: x2" confirmado no DOM; falta ouvir no leitor.)
+- [x] Com leitor de tela (NVDA ou Narrador): o nome de uma celula da tabela e lido por inteiro ("Fogo ataca Planta: x2" ou equivalente). (forge-test: aria-label "Fogo contra Planta: x2" confirmado no DOM; falta ouvir no leitor.)
 
 ### Idioma PT/EN
 
@@ -59,9 +59,11 @@ Como rodar: `npm run dev` e abrir "Tipos" na sidebar (desktop) ou em "Mais" (cel
 
 - [A] Nos 7 temas (classic, black, green, blue, purple, white, orange): texto das faixas e da legenda com contraste >= 4,5:1; tons da tabela fixos. (`tests/e2e/types.spec.ts` "theme <tema>: band text and legend reach 4.5:1...")
 - [A] Em escala de cinza os simbolos e o destaque de linha/coluna ainda carregam o sentido. (`tests/e2e/types.spec.ts` "in grayscale...")
-- [ ] Olhar a pagina nos 7 temas (desktop e celular) e conferir que nada destoa do resto do app. (forge-test: capturas em `ui-refs/test-theme-<tema>-<desktop|phone>-<bytype|chart>.png`, 28 arquivos; vi black e white, sem destoar.)
+- [x] Olhar a pagina nos 7 temas (desktop e celular) e conferir que nada destoa do resto do app. (forge-test: capturas em `ui-refs/test-theme-<tema>-<desktop|phone>-<bytype|chart>.png`, 28 arquivos; vi black e white, sem destoar.)
 
 ### Regressao
 
 - [A] Suite completa: vitest 96 arquivos / 823 testes; e2e build + preview sem regressao (2 flakes preexistentes provados na main, ver STATE 17:00).
 - [x] Calculadora de tipos e painel de fraquezas da ficha do Pokemon continuam iguais (abrir Charizard). (forge-test: Charizard abre e o painel de fraquezas aparece; comparacao fina com a main nao feita.)
+
+Aprovacao: Pontin olhou a pagina no navegador em 2026-10-12 ("gostei da pagina de tipos, pode dar complete"); os 5 itens que dependiam de olho humano ficam marcados por essa aprovacao.

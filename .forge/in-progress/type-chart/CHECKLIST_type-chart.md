@@ -9,11 +9,11 @@
 
 **Baseline (SPEC secao 1):**
 
-- `HEAD`: `2b9dd126` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `23308678a2516e4043906f4ce78caaa6f97f9407` (`git diff 6aa3ffd5..86c4bde5 -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
-- PRD: `FEATURE_DIR/PRD_type-chart.md` = `172e7154a386569d12434cca19e42ecff6e19582` (rev 5.2, commit `86c4bde5`; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
-- CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `5cbb8e52f5ef5531d0381f029764d3191572efe3`
-- UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `c5127ca91db4daae03593dfe552feb9cf64d8001`
-- IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `1d1a4121ebb8d443ea1f898bba8b7f466210fadf` (decisoes [14:58] e [15:25])
+- `HEAD`: `2b9dd126` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `6aa3ffd5e441f298a9632eeb58e25b573b3ff9b3` (`git diff 6aa3ffd5..86c4bde5 -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
+- PRD: `FEATURE_DIR/PRD_type-chart.md` = `f1a043ff6ca54bb6940219f0f526ef2759e3348d` (rev 5.2, commit `86c4bde5`; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
+- CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `6a4b28c4d90a0923097c4924c22fafd87bf15404`
+- UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `f2dcdd584d8a87b2d69dcadf2720fe615bc0cbae`
+- IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `c648af069a1221deba0451200299e81d3ad0a33f` (decisoes [14:58] e [15:25])
 - LESSONS: `ROOT/.forge/LESSONS.md` = `753caf6ced364872b59c6d5595642dcbccaa128e`
 
 **Legenda:** `[ ]` pendente · `[~]` em andamento · `[x]` concluido (commit existe) · `[!]` bloqueado

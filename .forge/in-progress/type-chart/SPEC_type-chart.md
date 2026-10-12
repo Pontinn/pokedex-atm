@@ -4,7 +4,7 @@ language: pt-BR
 generated: 2026-10-12
 stack: React 19.1 + TypeScript 5.8 + Vite 6 PWA (vite-plugin-pwa), Zustand 5 (pilha de navegacao propria), Vitest 3 + Testing Library (jsdom), Playwright 1.63 headless, CSS puro por tela
 status: spec
-prd_source: PRD_type-chart.md @ 7178dd7aef51134734115e73f8dc3c060a3ad206
+prd_source: PRD_type-chart.md @ f1a043ff6ca54bb6940219f0f526ef2759e3348d
 ---
 
 # SPEC - type-chart (pagina "Tipos": quem vence quem, didatica e legivel de relance)
@@ -26,10 +26,10 @@ Convencoes de leitura e regras fixas:
 
 ## 1. Baseline (ancora de drift)
 
-- `HEAD`: `2b9dd126` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `23308678a2516e4043906f4ce78caaa6f97f9407` (`git diff 6aa3ffd5..86c4bde5 -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
-- PRD: `FEATURE_DIR/PRD_type-chart.md` = `7178dd7aef51134734115e73f8dc3c060a3ad206` (rev 5.3, commit e81371db; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
-- CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `5cbb8e52f5ef5531d0381f029764d3191572efe3`
-- UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `c5127ca91db4daae03593dfe552feb9cf64d8001`
+- `HEAD`: `2b9dd126` (PRD rev 5.2; depois dele so `.forge/`); ancora de CODIGO `6aa3ffd5e441f298a9632eeb58e25b573b3ff9b3` (`git diff 6aa3ffd5..86c4bde5 -- src tests tools public package.json vite.config.ts` vazio) (branch `feature/type-chart`; so commits em `.forge/` acima de `main` `cee51235`; `git diff cee51235..HEAD -- src tests tools public package.json vite.config.ts` vazio, entao o codigo e o de `main`).
+- PRD: `FEATURE_DIR/PRD_type-chart.md` = `f1a043ff6ca54bb6940219f0f526ef2759e3348d` (rev 5.3, commit e81371db; cascata do review da SPEC: CA-50 so na folha "Mais", RF-37 icones do heroi so em Defendendo, acento em RF-21/CA-18)
+- CONTEXT: `FEATURE_DIR/CONTEXT_type-chart.md` = `6a4b28c4d90a0923097c4924c22fafd87bf15404`
+- UISPEC: `FEATURE_DIR/UISPEC_type-chart.md` = `f74e5183b6f319098bcc3a3b0326df8e172c410e`
 - IDEA: `FEATURE_DIR/IDEA_type-chart.md` = `c648af069a1221deba0451200299e81d3ad0a33f` (decisoes [14:58] e [15:25])
 - LESSONS: `ROOT/.forge/LESSONS.md` = `753caf6ced364872b59c6d5595642dcbccaa128e`
 
