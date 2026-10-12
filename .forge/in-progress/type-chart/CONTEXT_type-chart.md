@@ -10,7 +10,7 @@ stack: React 19.1 + TypeScript 5.8 + Vite 6 PWA (vite-plugin-pwa), Zustand 5 (pi
 
 ## 0. Baseline (drift anchor)
 
-- HEAD: `9e848ad1327214fee40e2a5c77b2579dadaa619c` (branch `feature/type-chart`; codigo identico a f0a82aa3 e a main cee51235; so a IDEA/STATE mudaram; os blobs de codigo abaixo continuam validos)
+- HEAD: `9e848ad1327214fee40e2a5c77b2579dadaa619c` (branch `feature/type-chart`; codigo identico a 647dfa95 e a main cee51235; so a IDEA/STATE mudaram; os blobs de codigo abaixo continuam validos)
 - IDEA fingerprint: `git hash-object .forge/ideas/type-chart/IDEA_type-chart.md` = `6f07242ebd3424357b886d815ba30f7daf7cd5da` (inclui a decisao [14:58])
 - Arquivos analisados (`path - blob hash`, via `git rev-parse HEAD:<path>`):
   - src/domain/type-chart.ts - 523b99cd7cebbdd5734c8472a3f9a26fd0b19d5d

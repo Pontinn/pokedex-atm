@@ -22,7 +22,7 @@ status: ready-for-review
 ## Baseline (drift anchor)
 
 - `HEAD`: `04b739884fe2bc95c7fe47c310b0b2b0792b6b3f` (branch `feature/type-chart`; codigo identico a main `cee51235`; a nota abaixo trata dos commits posteriores)
-- Nota: depois do HEAD `04b73988` entraram so commits em `.forge/` (IDEA, UISPEC, STATE, PRD); `git diff 04b73988..HEAD` em `src`, `tests`, `tools`, `public`, `package.json` e `vite.config.ts` esta vazio, entao a baseline de codigo continua valida.
+- Nota: depois do HEAD `b4144dfe` entraram so commits em `.forge/` (IDEA, UISPEC, STATE, PRD); `git diff b4144dfe..HEAD` em `src`, `tests`, `tools`, `public`, `package.json` e `vite.config.ts` esta vazio, entao a baseline de codigo continua valida.
 - `IDEA_type-chart.md` (`git hash-object`): `1d1a4121ebb8d443ea1f898bba8b7f466210fadf`
 - `UISPEC_type-chart.md` (`git hash-object`): `c5127ca91db4daae03593dfe552feb9cf64d8001` (RF-17 e RF-37 espelham a sua secao 3.2b)
 - `CONTEXT_type-chart.md` (`git hash-object`): `5cbb8e52f5ef5531d0381f029764d3191572efe3`
@@ -137,7 +137,7 @@ Convencoes: "tipo" = um dos 18 `TYPE_IDS`; "multiplicador" = `singleMultiplier(a
 - **RF-22** `[MUST]` Com um tipo selecionado, a pagina deve mostrar a frase de intuicao daquele tipo (tabela de RF-23) dentro do bloco heroi, em uma linha curta, visivel nas duas abas, no idioma da interface. Sem tipo selecionado, nenhuma frase e mostrada.
 - **RF-23** `[MUST]` As 18 frases sao exatamente as da tabela abaixo (escritas a mao, no maximo 12 palavras cada). Cada frase cita SOMENTE relacoes que existem em `TYPE_CHART` (atacante x2 sobre defensor, ou atacante x0 sobre defensor, conforme a coluna de relacoes).
 
-  **Verificadas.** As 49 relacoes citadas abaixo foram conferidas uma a uma contra `TYPE_CHART` em `src/domain/type-chart.ts` (HEAD `04b73988`) com `node`: todas batem. Notacao da coluna: `A>D=m` significa "tipo atacante A contra defensor D tem multiplicador m".
+  **Verificadas.** As 49 relacoes citadas abaixo foram conferidas uma a uma contra `TYPE_CHART` em `src/domain/type-chart.ts` (HEAD `b4144dfe`) com `node`: todas batem. Notacao da coluna: `A>D=m` significa "tipo atacante A contra defensor D tem multiplicador m".
 
   | Tipo | PT | EN | Relacoes citadas (verificadas) |
   |---|---|---|---|
@@ -194,7 +194,7 @@ Entra se couber no mesmo sprint sem complicar a tela; se nao entrar, nada nos de
 
 ### 4.8 Exemplos trabalhados (conferidos)
 
-Todos conferidos contra `TYPE_CHART` com `node` (HEAD `04b73988`); os testes derivam o esperado do dado, nao destas listas.
+Todos conferidos contra `TYPE_CHART` com `node` (HEAD `b4144dfe`); os testes derivam o esperado do dado, nao destas listas.
 
 - **RF-40** `[MUST]` Fogo. Atacando: forte contra Planta, Gelo, Inseto, Aço; pouco efetivo contra Fogo, Água, Pedra, Dragão; não afeta: nenhum. Defendendo: fraco contra Água, Terra, Pedra; resiste a Fogo, Planta, Gelo, Inseto, Aço, Fada; imune a: nenhum.
 - **RF-41** `[MUST]` Normal. Atacando: forte contra: nenhum; pouco efetivo contra Pedra, Aço; não afeta Fantasma. Defendendo: fraco contra Lutador; resiste a: nenhum; imune a Fantasma. (Exercita o grupo vazio de RF-18.)

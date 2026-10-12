@@ -13,7 +13,7 @@ Identidade unica: a do app (Pontindex/cobblemon-pokedex, tema `classic`, depois 
 
 ## 1. Baseline (drift anchor)
 
-- Worktree `pokedex-type-chart`, branch `feature/type-chart`, HEAD `fed7dd2b32931490497ebd7e96daf7e057b966de` (apos o commit da decisao [15:25] do IDEA; capturas feitas em `04b73988`, sem mudanca de codigo desde entao). Fingerprint do `IDEA_type-chart.md` (git hash-object, 12 chars): `9ff24568d3b1`. O codigo de aplicacao e o de `main` cee51235 (commits acima dele sao so `.forge/`).
+- Worktree `pokedex-type-chart`, branch `feature/type-chart`, HEAD `fed7dd2b32931490497ebd7e96daf7e057b966de` (apos o commit da decisao [15:25] do IDEA; capturas feitas em `b4144dfe`, sem mudanca de codigo desde entao). Fingerprint do `IDEA_type-chart.md` (git hash-object, 12 chars): `9ff24568d3b1`. O codigo de aplicacao e o de `main` cee51235 (commits acima dele sao so `.forge/`).
 - UISPEC irmao reutilizado: `C:/Users/Usuario/Desktop/Pessoais/Projetos/pontindex/.forge/in-progress/pontindex-base/UISPEC_pontindex-base.md`, repo `pontindex` HEAD `7c85cba782225ac2ffcb4051f216c320c65cc7b2`.
 - `git hash-object` (12 chars) dos arquivos por tras das capturas:
 

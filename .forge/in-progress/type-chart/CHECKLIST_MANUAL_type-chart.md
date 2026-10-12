@@ -6,7 +6,7 @@ Backend: N/A (feature so de frontend).
 
 ## Frontend
 
-Branch `feature/type-chart` (worktree `Projetos/pokedex-type-chart`). Commits de codigo: F1.1 `48a70443`, F1.2 `621b6a71`, F1.3 `0aafba5a`, F2.1 `7887202b`, F2.2 `cb9db403`, F2.3 `5db4ae97`, F3.1 `90da65af`, F4.1 `da9b671e`, T1.1 `29131372`, T1.2 `986eb0b9`, T1.3 `3ed74317`.
+Branch `feature/type-chart` (worktree `Projetos/pokedex-type-chart`). Commits de codigo: F1.1 `96de719a`, F1.2 `9d3873a8`, F1.3 `98546721`, F2.1 `346e58a7`, F2.2 `3fdafe0c`, F2.3 `a69b6817`, F3.1 `d8fda432`, F4.1 `85d1d473`, T1.1 `9c9bf1d5`, T1.2 `f212d5a3`, T1.3 `77cd0217`.
 
 Como rodar: `npm run dev` e abrir "Tipos" na sidebar (desktop) ou em "Mais" (celular). Testes: `npx vitest run tests/unit/ui-screens/types-*` e `npx playwright test tests/e2e/types.spec.ts` (build + preview).
 
