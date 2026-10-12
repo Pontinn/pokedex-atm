@@ -31,3 +31,13 @@
 /* foco visivel (precedente item.css:81 e trainers.css:81); green, blue e purple usam --primary (precedente detail.css:121) */
 .types-screen .tp-pick:focus-visible, .types-screen .seg button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
 html[data-theme="green"] .types-screen :focus-visible, html[data-theme="blue"] .types-screen :focus-visible, html[data-theme="purple"] .types-screen :focus-visible { outline-color: var(--primary); }
+/* abas + faixas: cor = vantagem do ponto de vista da aba (tons acima), simbolo no titulo */
+.types-screen .tp-tabs-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.types-screen .tp-bands { display: grid; gap: 12px; }
+.types-screen .tp-band { border-radius: var(--radius-md); padding: 12px 14px; border: 1px solid rgba(0, 0, 0, .08); min-width: 0; }
+.types-screen .tp-band h4 { margin: 0 0 10px; font-size: 16px; font-weight: 700; color: inherit; }
+.types-screen .tp-band-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 14px; }
+.types-screen .tp-band-item { display: grid; justify-items: center; gap: 4px; width: 64px; }
+.types-screen .ti.tp-ti-lg { width: 44px; height: 44px; }
+.types-screen .tp-band-name { font-size: 12px; font-weight: 800; text-align: center; line-height: 1.15; overflow-wrap: anywhere; }
+.types-screen .tp-none { margin: 0; font-size: 14px; font-weight: 800; }
