@@ -69,7 +69,7 @@ const AbilityList = memo(function AbilityList({ abilities }: { abilities: readon
 export const AbilitiesPanel = memo(function AbilitiesPanel({ abilities }: { abilities: readonly AbilityRef[] }) {
   const t = useT();
   return (
-    <div className="panel abilities-panel" id="abilities-panel" style={{ "--i": 4 } as CSSProperties}>
+    <div className="panel abilities-panel" id="abilities-panel" style={{ "--i": 5 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.abilities")}</h3>
         <TermsToggle cardKey="abilities" />

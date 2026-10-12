@@ -330,7 +330,7 @@ export const WherePanel = memo(function WherePanel({ detail }: { detail: Species
   const biomes = useBiomes();
   const { rarity, spawns, drops, obtain } = detail;
   return (
-    <div className="panel where-panel" id="where-panel" style={{ "--i": 6 } as CSSProperties}>
+    <div className="panel where-panel" id="where-panel" style={{ "--i": 7 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.where")}</h3>
         <TermsToggle cardKey="where" />

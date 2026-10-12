@@ -17,7 +17,7 @@ export const GamesPanel = memo(function GamesPanel({ detail }: { detail: Species
   const list = useMemo(() => (catalog ? gamesOf(detail.games, catalog) : []), [catalog, detail.games]);
   if (catalog === null) return null;
   return (
-    <div className="panel games-panel" id="games-panel" style={{ "--i": 7 } as CSSProperties}>
+    <div className="panel games-panel" id="games-panel" style={{ "--i": 3 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.games")}</h3>
       </div>

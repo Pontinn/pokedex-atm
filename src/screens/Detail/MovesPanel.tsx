@@ -186,7 +186,7 @@ const MovesTable = memo(function MovesTable({ moves }: { moves: SpeciesMoves }) 
 export const MovesPanel = memo(function MovesPanel({ moves }: { moves: SpeciesMoves }) {
   const t = useT();
   return (
-    <div className="panel moves-panel" id="moves-panel" style={{ "--i": 5 } as CSSProperties}>
+    <div className="panel moves-panel" id="moves-panel" style={{ "--i": 6 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.moves")}</h3>
         <TermsToggle cardKey="moves" />

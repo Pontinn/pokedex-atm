@@ -286,7 +286,7 @@ export const EvolutionPanel = memo(function EvolutionPanel({ chain, currentDex }
     if (evolves) playSfx("evolution_ui");
   }, [evolves]);
   return (
-    <div className="panel evo-panel" id="evo-panel" style={{ "--i": 3 } as CSSProperties}>
+    <div className="panel evo-panel" id="evo-panel" style={{ "--i": 4 } as CSSProperties}>
       <div className="panel-head">
         <h3>{t("detail.evo")}</h3>
         <TermsToggle cardKey="evo" />

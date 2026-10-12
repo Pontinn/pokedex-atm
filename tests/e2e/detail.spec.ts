@@ -972,7 +972,9 @@ test.describe("pokemon-generation: hero, chain, games panel and themes", () => {
     await boot(page);
     await openDetail(page, 41);
     const ids = await page.locator(".detail-right > [id]").evaluateAll((els) => els.map((e) => e.id));
-    expect(ids[ids.indexOf("where-panel") + 1]).toBe("games-panel");
+    // Jogos logo depois de Fraquezas e antes da Evolucao (revisao 2026-10-12 a pedido do usuario)
+    expect(ids[ids.indexOf("weak-panel") + 1]).toBe("games-panel");
+    expect(ids[ids.indexOf("games-panel") + 1]).toBe("evo-panel");
     const { detail, games } = await pgFetch(page, 41);
     const want = games.filter((g) => detail.games!.includes(g.id));
     await expect(page.locator("#games-panel .game-chip")).toHaveText(want.map((g) => g.name));

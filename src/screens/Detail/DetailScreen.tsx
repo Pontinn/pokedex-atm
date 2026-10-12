@@ -142,11 +142,11 @@ export function DetailScreen({ params }: ScreenProps) {
         {detail ? (
           <div className="detail-right">
             <WeaknessPanel types={detail.types} />
+            <GamesPanel detail={detail} />
             <EvolutionPanel chain={detail.evolutionChain} currentDex={detail.dex} />
             <AbilitiesPanel abilities={detail.abilities} />
             <MovesPanel moves={detail.moves} />
             <WherePanel detail={detail} />
-            <GamesPanel detail={detail} />
             <BestBallPanel detail={detail} />
             <FormsPanel detail={detail} />
             <CalculatorsPanel baseStats={detail.baseStats} types={detail.types} />
