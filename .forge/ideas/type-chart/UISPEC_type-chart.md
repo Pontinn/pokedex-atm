@@ -9,11 +9,11 @@ source: render-captured (62 capturas PNG e valores via getComputedStyle, Playwri
 
 # UISPEC type-chart (nova tela "Tipos")
 
-Identidade unica: a do app (Pontindex/cobblemon-pokedex, tema `classic`, depois `black`). Este documento so traz o DELTA. Tokens globais, temas, tipografia e shell: ver `C:/Users/Usuario/Desktop/Pessoais/Projetos/pontindex/.forge/in-progress/pontindex-base/UISPEC_pontindex-base.md` (secoes 3.1 paleta por tema, 3.2 tipografia e componentes, 4 inventario, 5 layout), que foi capturado do mesmo codigo e nao mudou (os hashes abaixo de `tokens.css`, `themes.css`, `components.css`, `mobile.css`... batem com os dele).
+Identidade unica: a do app (Pontindex/cobblemon-pokedex, tema `classic`, depois `black`). Este documento so traz o DELTA. Tokens globais, temas, tipografia e shell: ver `C:/Users/Usuario/Desktop/Pessoais/Projetos/pontindex/.forge/in-progress/pontindex-base/UISPEC_pontindex-base.md` (secoes 3.1 paleta por tema, 3.2 tipografia e componentes, 4 inventario, 5 layout), que foi capturado do mesmo codigo. Os hashes abaixo de `tokens.css`, `themes.css`, `components.css`, `mobile.css`... batem com os dele SO no HEAD `7c85cba7` do repo `pontindex`; esse repo ja avancou (HEAD atual `cf788f8`) e o CSS dele ja diverge (ex.: commit "style: remove modpack css blocks"). Isso importa para o porte: este repo (`pokedex`) e a fonte de verdade desta tela, e o CSS do `pontindex` deve ser conferido por hash antes de copiar.
 
 ## 1. Baseline (drift anchor)
 
-- Worktree `pokedex-type-chart`, branch `feature/type-chart`, HEAD `04b739884fe2bc95c7fe47c310b0b2b0792b6b3f`. O codigo de aplicacao e o de `main` cee51235 (commits acima dele sao so `.forge/`).
+- Worktree `pokedex-type-chart`, branch `feature/type-chart`, HEAD `fed7dd2b32931490497ebd7e96daf7e057b966de` (apos o commit da decisao [15:25] do IDEA; capturas feitas em `04b73988`, sem mudanca de codigo desde entao). Fingerprint do `IDEA_type-chart.md` (git hash-object, 12 chars): `9ff24568d3b1`. O codigo de aplicacao e o de `main` cee51235 (commits acima dele sao so `.forge/`).
 - UISPEC irmao reutilizado: `C:/Users/Usuario/Desktop/Pessoais/Projetos/pontindex/.forge/in-progress/pontindex-base/UISPEC_pontindex-base.md`, repo `pontindex` HEAD `7c85cba782225ac2ffcb4051f216c320c65cc7b2`.
 - `git hash-object` (12 chars) dos arquivos por tras das capturas:
 
@@ -53,7 +53,7 @@ Todos em `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart/.forge/i
 | Sheet "Mais" aberto, painel recortado, tabbar | phone, `[data-nav="more"]` | `shell-more-sheet-*-phone`, `shell-more-sheet-panel-*-phone`, `shell-tabbar-*-phone` |
 | EmptyState (Dex sem resultado, busca "zzzzqq") | Dex, `#dex-search` | `empty-state-dex-*` |
 
-Total: 62 PNG (desktop: 31, phone: 31 menos hover = ver `capture-types.log.txt`). As capturas do UISPEC irmao (home, temas, settings, ficha completa, Compare vazio) continuam validas e NAO foram copiadas: consultar `.../pontindex-base/ui-refs/` (ex.: `detail-calc-charizard-*`, `detail-weak-charizard-*`, `compare-empty-*`).
+Total: 62 PNG (30 desktop, 32 phone; lista em `capture-types.log.txt`). As capturas do UISPEC irmao (home, temas, settings, ficha completa, Compare vazio) continuam validas e NAO foram copiadas: consultar `.../pontindex-base/ui-refs/` (ex.: `detail-calc-charizard-*`, `detail-weak-charizard-*`, `compare-empty-*`).
 
 ## 3. Tokens de design (so o delta)
 
@@ -101,6 +101,23 @@ Fonte Fredoka 700; `.tc-cell .mult` = 13px, padding 2px 8px, raio 8px (altura 20
 
 Conclusao verificada no render: no tema black as pilulas pastel fixas (fundo claro, texto escuro) leem bem sobre a celula escura `.tc-cell` (fundo `#1C1B15`, `--surface-2`), ver `detail-calc-grass-flying-black-*`. Nao dependem so de cor: cada pilula tem o texto x4/x2/x1/x½/x¼/x0, e x4 vs x2 e x½ vs x¼ diferem tambem pelo texto, nao so pelo tom. Pares x2/x4 (vermelho/laranja palido) sao proximos em matiz: o simbolo textual e obrigatorio.
 
+### 3.2b Semantica de cor da pagina Tipos (decisao IDEA [15:25])
+
+A cor codifica VANTAGEM do ponto de vista da visao, nao o multiplicador fixo. Os hex sao COPIADOS dos valores de `.mult-*` para o CSS da propria pagina (`src/screens/Types/types.css`); nunca importados de `detail.css`. Sempre acompanhados do simbolo/texto.
+
+| faixa | aba Atacando (tipo escolhido ataca) | aba Defendendo (tipo escolhido recebe) | fundo / texto (hex) | origem |
+|---|---|---|---|---|
+| x2 | verde ("Forte contra") | laranja ("Fraco contra, recebe x2") | verde #E1F5E7 / #1B6B3A; laranja #FFE9D6 / #9A4A00 | verde = `.mult-half`; laranja = `.mult-2` |
+| x1/2 | laranja ("Pouco efetivo contra") | verde ("Resiste a, recebe x1/2") | laranja #FFE9D6 / #9A4A00; verde #E1F5E7 / #1B6B3A | idem |
+| x0 | cinza ("Nao afeta") | cinza ("Imune a") | #E6E7EC / #444A5C | `.mult-0` |
+| x4 (defesa dupla) | n/a | laranja forte | #FFD9D9 / #A10F0F | `.mult-4` |
+| x1/4 (defesa dupla) | n/a | verde forte | #C9EED6 / #0F5A2C | `.mult-quarter` |
+| x1 | neutro, sem texto na matriz | idem | `var(--surface)` + borda `var(--border)` | `.mult-1` (tematico) |
+
+Matriz 18x18: ponto de vista de quem ATACA (a linha): x2 verde, x1/2 laranja, x0 cinza, x1 neutro sem texto; a legenda explica isso numa frase.
+
+Consistencia com a calculadora da Ficha: la a visao e a do DEFENSOR (o "meu Pokemon" recebe), e `.mult-2` (recebe x2) e laranja e `.mult-half` (recebe x1/2) e verde. Isso e exatamente a aba Defendendo daqui, entao as duas telas dizem o mesmo; so a aba Atacando inverte, porque la vantagem e do atacante.
+
 ### 3.3 Chip, seg, panel, calculadora (computado, classic, desktop)
 
 | elemento | valores |
@@ -127,7 +144,7 @@ Conclusao verificada no render: no tema black as pilulas pastel fixas (fundo cla
 
 ### 3.4 Foco
 
-`base.css` e `components.css` NAO definem `:focus-visible` para botoes e chips: o anel e o `outline: auto` padrao do Chrome (computado: `outline-style: auto`, 1px, `rgb(16,16,16)`, offset 0; `:focus-visible` = true) em `.chip` e `.seg button`. Excecoes: `.toast-close:focus-visible` e `.made-by:focus-visible` (shell.css). Select: `outline-width 0` no estado normal. Ver `dex-typechip-focus-*`.
+`base.css` e `components.css` NAO definem `:focus-visible` para botoes e chips: o anel e o `outline: auto` padrao do Chrome (computado: `outline-style: auto`, 1px, `rgb(16,16,16)`, offset 0; `:focus-visible` = true) em `.chip` e `.seg button`. Excecoes: `.toast-close:focus-visible` e `.made-by:focus-visible` (shell.css). Precedentes de anel proprio, todos `outline: 2px solid var(--secondary); outline-offset: 2px`: `src/screens/Item/item.css:81` (`.item-screen button.mut-berry:focus-visible`) e `src/screens/Trainers/trainers.css:81` (`.tr-check input:focus-visible + span`); `src/screens/Home/home.css:73` so revela `.slot-remove` no foco (sem anel). Esses sao o precedente para o anel proposto na secao 7. Select: `outline-width 0` no estado normal. Ver `dex-typechip-focus-*`.
 
 ## 4. Inventario de componentes (reusar)
 
@@ -137,7 +154,7 @@ Conclusao verificada no render: no tema black as pilulas pastel fixas (fundo cla
 - Grade de chips: `.chips-scroll` + `.chip.on` + `.chip-check` (`components.css:78-82`).
 - `.panel` / `.panel-head` / `.ph-right` / `h3`: padrao de secao (Detail: `WeaknessPanel.tsx`). Usar `style={{ "--i": n }}` para a animacao escalonada.
 - `EmptyState` (`src/components/EmptyState.tsx`): `<EmptyState messageKey="..."> {filhos} </EmptyState>` (`.empty-state.ob-none`), usado em Dex, Compare, Balls, Items, Captured, Detail, Home.
-- Padrao de icones (`src/components/Icon.tsx`): reexporta SO os icones lucide usados (tree-shaking). Item de nav novo exige adicionar o icone ao reexport e usar `import { X } from "./Icon"`; nunca importar `lucide-react` direto. Icones ja reexportados que servem a um item "Tipos": `Zap`, `Shield`, `Swords` (ja usado por Treinadores), `Target`, `Sparkles`, `Flame` NAO existe no reexport (adicionar se for usado).
+- Padrao de icones (`src/components/Icon.tsx`): reexporta SO os icones lucide usados (tree-shaking). Item de nav novo exige adicionar o icone ao reexport e usar `import { X } from "./Icon"`; nunca importar `lucide-react` direto. Icone do item de nav "Tipos": `Shapes` (fallback `Layers`). Ambos existem em `lucide-react` 0.577.0 (`declare const Shapes`/`Layers` em `dist/lucide-react.d.ts`) e NAO estao no reexport de `Icon.tsx` ainda: adicionar `Shapes` (e `Layers` se for o fallback) ao `export { ... }`. `Swords` ja e usado por Treinadores, nao reutilizar.
 - `src/components/nav-items.ts`: `SIDEBAR_ITEMS` (9 itens), `TAB_SCREENS = [home, dex, captured, compare]`, `MORE_ITEMS = SIDEBAR_ITEMS menos TAB_SCREENS`.
 
 NAO importar na nova pagina: `EFFECT_LABEL` nem `TypeCalculator` de `src/screens/Detail/TypeCalculator.tsx`, nem as classes `.mult-*`, `.tc-cell`, `.type-calc*` (escopo da Ficha). A pagina Tipos define o proprio CSS (arquivo proprio da tela, tokens do tema; cores fixas pastel so se replicadas de forma deliberada, ver 3.2). Nomes de tipo: SEMPRE `uiLanguage` (`usePreferencesStore((s) => s.uiLanguage)`, como `TypeChips` em `DexFilters.tsx`), nunca o toggle de termos (`useTermsLanguage("calc")` / `TermsToggle`, que a Ficha usa).
@@ -159,8 +176,8 @@ Area unica: o app inteiro (tema `classic` por padrao, `black` como tema de alto 
 ## 7. Do / Don't
 
 Do:
-- Cor E simbolo sempre. Chip selecionado = anel + check (nao so cor); efetividade = texto x4/x2/x1/x½/x¼/x0 mais a cor; a ausencia de dano (x0) tem texto proprio. No tema black nada pode depender so de matiz.
-- Reusar a paleta de tipo existente (`--t-*`, `--type-*-a/b`, `.t-<tipo>`); nenhuma paleta nova. Bandas/titulos de efetividade usam icones grandes: `TypeIcon` e chip `lg` (28px) ou tamanho maior via CSS proprio, nao so o chip `sm` 18px.
+- Cor E simbolo sempre. Chip selecionado = anel + check (nao so cor); efetividade = texto (x4/x2/x1/x½/x¼/x0) mais a cor, onde a cor codifica VANTAGEM do ponto de vista da visao (secao 3.2b); a ausencia de dano (x0) tem texto proprio. No tema black nada pode depender so de matiz.
+- Reusar a paleta de tipo existente (`--t-*`, `--type-*-a/b`, `.t-<tipo>`); nenhuma paleta nova. Bandas/titulos de efetividade usam icones grandes: `TypeIcon` e chip `lg` (28px) ou tamanho maior, nao so o chip `sm` 18px. Conforme a decisao U7 do IDEA, o tamanho grande do `TypeIcon` e definido em `src/screens/Types/types.css` (CSS da propria tela, ex. `.ti` ampliado dentro das bandas), nao por chip `lg` importado.
 - Usar tokens do tema (`--surface`, `--surface-2`, `--border`, `--text`, `--muted`, `--secondary`, `--on-secondary`, `--radius-*`, `--shadow-sm`) para fundos de painel, celulas e texto; funciona em classic e black (7 temas existem: classic, black, green, blue, purple, white, orange).
 - Anel de foco visivel nos controles novos (celulas de matriz clicaveis, seletores): se a pagina tornar celulas focaveis, definir um `:focus-visible` explicito (2px `var(--text)` ou `var(--secondary)`, offset 2px) em vez de depender do `outline: auto` padrao.
 - Texto visivel por `t(...)` / chaves de i18n (regra `pontindex/no-literal-jsx-text` = error em `eslint.config.*`): nenhum texto literal em JSX, tudo via `MessageKey`. Rotulos de multiplicador ("x2", "x½") vem de constante/formatador, nao de texto solto em JSX.
@@ -172,7 +189,7 @@ Don't:
 - Nao usar opacidade para "desligado" em chips (regra RNF-07 do `TypeChip`): contorno/`.on`.
 - Nao sobrepor controles: `tests/harness/no-overlap.ts` trata `button, [role=button], a[href], input, select, textarea, img, svg, .badge, .chip, .tag, .tgl, .seg, .switch` como controles; nenhum texto visivel pode cruzar outro texto nem um desses elementos (tolerancia 1px). Isso inclui rotulos de linha/coluna da matriz 18x18, icones sobre celulas e legendas fixas; texto sobre um `.chip`/`img` so se for descendente dele. Testar em 1280x800 e 390x844.
 - Nao editar `src/styles/types.generated.css` (gerado por `npm run gen:assets`).
-- Nao hardcodar cores novas fora das fixas ja documentadas em 3.2; nao criar gradiente novo.
+- Nao criar cor nova: a semantica de cor de efetividade e a da secao 3.2b (verde = vantagem, laranja = desvantagem, cinza = x0), com os hex copiados para `src/screens/Types/types.css`. Nunca usar "verde = x2" fixo, nem importar de `detail.css`. Nao criar gradiente novo.
 - Nao usar o travessao (U+2014) em texto, comentarios ou strings.
 
 ## 8. Lacunas
