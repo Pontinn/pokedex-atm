@@ -131,15 +131,15 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 > varredura de codigo morto com protocolo seguro e revisao das 7 baselines visuais do Detail do Charizard.
 
-- [ ] **F4.1 - Varredura de codigo morto** (categoria: outro)
+- [x] **F4.1 - Varredura de codigo morto** (categoria: outro)
   - Done when: relatorio no checklist (candidato, referencias encontradas, decisao); suite + build verdes.
-  - commit:
-  - status: pendente
+  - commit: sem commit de codigo (nada removido; relatorio abaixo)
+  - status: concluida
 
-- [ ] **F4.2 - Baselines visuais do Detail do Charizard** (categoria: outro)
+- [x] **F4.2 - Baselines visuais do Detail do Charizard** (categoria: outro)
   - Done when: os 14 testes visuais verdes; diff de snapshots = 7 arquivos.
-  - commit:
-  - status: pendente
+  - commit: 3072a77c
+  - status: concluida
 
 ### Sprint T1 (frontend) - Testes de regras puras, RTL, e2e headless e regressao final
 
@@ -277,6 +277,28 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - `<InfoLine testId="pokeapi" text={t("settings.pokeapi")} />` logo depois de `settings.images` (texto existente intocado); README linhas 29 e 116 ajustadas sem apagar creditos.
 - Spec temporario: `[data-info='pokeapi']` PT "Jogos de cada Pokémon: PokeAPI (recorte no build)" e EN; capturas `after-f33-credits-{desktop,phone}.png` conferidas com `settings-credits-*` (mesma `.info-line`); 0 erro.
 - `PW_DEV=1` settings.spec.ts = 14/14; settings-screen.test.tsx = 11/11.
+
+### F4.1 - concluida (2026-10-12): varredura de codigo morto
+
+Protocolo: `git grep -n` em `src`, `tests`, `tools` (inclui CSS), sem contar o spec temporario. Nada removido.
+
+| candidato | referencias vivas | decisao |
+|---|---|---|
+| `RARITY_BADGE` | `WherePanel.tsx:15,73`, `PokemonCard.tsx:46` (variant hero) | kept: still referenced by WherePanel.tsx e SpeciesBadges (Hero) |
+| ramo de raridade de `SpeciesBadges` | `HeroCard.tsx` (`variant="hero"`) | kept: Hero |
+| chaves `rarity.common/uncommon/rare/ultra/legendary/mythical` | `RARITY_BADGE` (key), `PokemonCard.tsx:52` (`rarity.${special}`) | kept: Hero, WherePanel, selo especial |
+| CSS `.badge-common/-uncommon/-rare/-ultra` | `RARITY_BADGE`, `ItemScreen.tsx:182,401`, `item.css:57` | kept: Hero/WherePanel/Item |
+| `.pcard-top .badge` (`dex.css:25,26,48`) | selo de geracao e especial no card | kept |
+| `genLabel`, `dex.genCustom` | `DexFilters.tsx:105`, `dex-screen.test.tsx:108` | kept: filtro `#f-gen` (RF-18) |
+| classe `seal-empty` | `HeroCard.tsx:186` (alcancavel com geracao desconhecida e sem raridade/especial) | kept (sem regra CSS, fato preexistente) |
+
+Suite + build: nenhum arquivo mudou nesta feature; o verde de F3.3 vale (rodada completa em T1.5).
+
+### F4.2 - concluida (2026-10-12)
+
+- 1a rodada `PW_DEV=1 ... -g "Home and Charizard detail screenshots"`: os 7 `home-*` passaram; `detail-charizard-{classic,blue,white,orange}` falharam (selo "Geração 1" no Hero e "GEN 1" nos 3 estagios); black/green/purple passaram dentro dos 2% de tolerancia.
+- Revisados os actual/novos de classic, black e purple: so o selo de geracao no Hero e nos estagios mudou (o painel Jogos fica abaixo da dobra no print de 1280x800).
+- DESVIO de comando: `--update-snapshots` (modo "changed") so regravaria os 4 que falharam e deixaria 3 baselines sem o selo. Usado `--update-snapshots=all` limitado ao teste + `git checkout` dos 7 `home-*` (regravados sem mudanca visual); diff final = exatamente os 7 `detail-charizard-*`. 2a rodada sem update: 7/7 (14 comparacoes) verdes.
 
 ---
 
