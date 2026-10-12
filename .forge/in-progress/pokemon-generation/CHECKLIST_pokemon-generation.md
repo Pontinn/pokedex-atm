@@ -122,10 +122,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
   - commit: e2f49362
   - status: concluida
 
-- [ ] **F3.3 - Credito da PokeAPI (Configuracoes e README)** (categoria: frontend)
+- [x] **F3.3 - Credito da PokeAPI (Configuracoes e README)** (categoria: frontend)
   - Done when: capturas `after-f33-credits-{desktop,phone}.png` (comparar com `settings-credits-*.png`); `PW_DEV=1 PW_PORT=4179 npx playwright test tests/e2e/settings.spec.ts` verde; `npx vitest run tests/unit/ui-screens/settings-screen.test.tsx` verde.
-  - commit:
-  - status: pendente
+  - commit: 043dc2ea
+  - status: concluida
 
 ### Sprint F4 - Limpeza e baseline visual
 
@@ -271,6 +271,12 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 - Spec temporario: `#games-panel` logo depois de `#where-panel`; Zubat = jogos do manifest com o id na ficha, na ordem, inclui `firered-leafgreen`, com nota; Crobat sem FRLG; 9901 `[data-games='pack']` "Só no pack" sem nota; EN "Games"; `expectNoOverlap("#games-panel")` + sem scroll horizontal do `#main` 360/390/1280 PT/EN (41 e 9901); 0 erro de console.
 - Capturas `after-f32-*` (5) conferidas com `detail-where-zubat-*`: mesma identidade de painel (h3 + barra, `.k`, chips como `.method`).
 - `PW_DEV=1` detail.spec.ts = 53/53 (ver Bugs: 1a rodada com 1 falha de HMR do dev server, nao regressao).
+
+### F3.3 - concluida (2026-10-12)
+
+- `<InfoLine testId="pokeapi" text={t("settings.pokeapi")} />` logo depois de `settings.images` (texto existente intocado); README linhas 29 e 116 ajustadas sem apagar creditos.
+- Spec temporario: `[data-info='pokeapi']` PT "Jogos de cada Pokémon: PokeAPI (recorte no build)" e EN; capturas `after-f33-credits-{desktop,phone}.png` conferidas com `settings-credits-*` (mesma `.info-line`); 0 erro.
+- `PW_DEV=1` settings.spec.ts = 14/14; settings-screen.test.tsx = 11/11.
 
 ---
 
