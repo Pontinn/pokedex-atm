@@ -17,6 +17,7 @@ export const SETTINGS_MESSAGES = {
   "settings.data": { pt: "Dados: Cobblemon 1.7.3", en: "Data: Cobblemon 1.7.3" },
   "settings.local": { pt: "Tudo local neste aparelho. Sem conta, sem servidor.", en: "Everything local on this device. No account, no server." },
   "settings.images": { pt: "Imagens: PokeAPI (online)", en: "Images: PokeAPI (online)" },
+  "settings.pokeapi": { pt: "Jogos de cada Pokémon: PokeAPI (recorte no build)", en: "Games each Pokémon appears in: PokeAPI (snapshot at build time)" },
   "settings.terms": { pt: "Nomes do jogo em", en: "Game names in" },
   "settings.termsHint": { pt: "Idioma padrão de itens, biomas, golpes, habilidades e bolas. Cada card tem um botão PT | EN para trocar só ali.", en: "Default language for items, biomes, moves, abilities and balls. Each card has a PT | EN switch to change only that card." },
   "settings.termsPt": { pt: "Português", en: "Portuguese" },

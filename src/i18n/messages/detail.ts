@@ -166,4 +166,13 @@ export const DETAIL_MESSAGES = {
   "calc.type1": { pt: "Tipo 1", en: "Type 1" },
   "calc.type2": { pt: "Tipo 2", en: "Type 2" },
   "calc.typeNone": { pt: "Nenhum", en: "None" },
+  "detail.genDiff": { pt: "{gen}, diferente da base", en: "{gen}, different from the base" },
+  "detail.games": { pt: "Jogos", en: "Games" },
+  "games.availableIn": { pt: "Disponível em", en: "Available in" },
+  "games.note": {
+    pt: "Lista pela Pokédex regional de cada jogo; a National Dex do pós-jogo não entra",
+    en: "Listed by each game's regional Pokédex; the post-game National Dex is not counted",
+  },
+  "games.none": { pt: "Não aparece nos jogos oficiais", en: "Not in the official games" },
+  "games.packOnly": { pt: "Só no pack", en: "Pack only" },
 } as const satisfies Record<string, Message>;
