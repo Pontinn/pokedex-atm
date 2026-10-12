@@ -107,6 +107,8 @@ html[data-theme="green"] .link, html[data-theme="blue"] .link { color: var(--pri
 .badge-mythical { background: linear-gradient(135deg, #C79BFF, #7B5CFF); color: #fff; box-shadow: 0 2px 8px rgba(123,92,255,.45); }
 .badge-nospawn { background: #FFE6E6; color: #A11B1B; }
 html[data-theme="black"] .badge-common { background: #2E2E38; color: #C6C8D4; }
+/* pokemon-generation: selo de geracao, so variaveis de tema (metricas do .badge do contexto) */
+.badge-gen { background: var(--secondary-soft); color: var(--text); }
 .tag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 2px 7px; border-radius: 6px; background: var(--secondary-soft); color: var(--text); }
 
 /* Numero da dex */
