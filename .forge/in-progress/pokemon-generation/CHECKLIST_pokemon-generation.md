@@ -55,10 +55,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
   - commit: f7ba7273
   - status: concluida
 
-- [ ] **B2.2 - Republicacao, provas e HANDOFF** (categoria: build)
+- [x] **B2.2 - Republicacao, provas e HANDOFF** (categoria: build)
   - Done when: `current.json` com `datasetVersion` nova (diferente de `atm1.3.0-cobblemon1.7.3-20260930-1949ea67`); passos 1 a 7 verdes; numeros no HANDOFF e no STATE.
-  - commit:
-  - status: pendente
+  - commit: a4d1cf4e
+  - status: concluida (janela quebrada fechada; frontend liberado)
 
 ### Sprint T1 (backend) - Testes de dataset, contrato publicado e orcamento
 
@@ -207,6 +207,17 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 - `run.ts` contra `_pg_pub` (`-20261012-78568233`): `checks 51146, especies 1027, divergencias {}` (46.768 + 4.378 novos = 2.316 nos + 1027 x 2 + 8 do catalogo).
 - `npx vitest run tests/unit/dataset/audit.test.ts` = 16/16 (existentes inalterados); suite sem published-schemas 87 / 730 verde. Rodada 7 escrita no topo do `AUDIT_REPORT.md`.
+
+### B2.2 - concluida (2026-10-12)
+
+- Passo 1 so acrescimos (contra `...-1949ea67`, antes de publicar): mesma lista de 1044 arquivos; 15 iguais byte a byte; indice, fichas e manifest iguais sem os campos novos; `sources` antigo = prefixo (11 -> 12); geracoes 151/100/135/107/156/72/86/2/89/7/120/2.
+- Passo 2: publicado `atm1.3.0-cobblemon1.7.3-20261012-78568233` (`current.json` atualizado; `...-1949ea67` removida; `public/assets` intocado).
+- Passo 3 determinismo: 2a execucao em `_pg_again` = mesma versao, 1044 arquivos iguais (manifest so `generatedAt`).
+- Passo 4 gzip: 88 + 1.434 + 38.336 + 547 = 40.405 (<= 47.991).
+- Passo 5 auditoria no publicado: 51.146 checks, 0 divergencias.
+- Passo 6 janela FECHADA: published-schemas + join = 47 testes verdes; `npx vitest run` = 88 / 744 verde.
+- Passo 7: build ok (SW precache com a versao nova); `npx playwright test` = 253 ok, 16 pulados, 0 falha, 0 flaky (igual a S0.1); visuais ok sem atualizar baseline.
+- HANDOFF_backend.md escrito (contrato real, numeros, desvio F2.1 passo 1 antecipado).
 
 ---
 
