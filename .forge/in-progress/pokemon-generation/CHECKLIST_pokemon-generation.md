@@ -22,10 +22,10 @@ Pipeline `tools/dataset/` (Node 24 + tsx) e contrato `src/data/`. Sprint S0 (pre
 
 > roda a suite completa, o build, o pipeline e a auditoria no branch atual SEM nenhuma mudanca de codigo, para separar flake preexistente de regressao (LESSONS 2026-09-29, CA-59) e congelar as medidas de partida.
 
-- [ ] **S0.1 - Linha de base completa** (categoria: outro)
+- [x] **S0.1 - Linha de base completa** (categoria: outro)
   - Done when: STATE e checklist com os 9 passos e os numeros; `git status` sem mudanca de codigo.
   - commit:
-  - status: pendente
+  - status: concluida (numeros em Notas por fase e no STATE)
 
 ### Sprint B1 - Contrato, regra dos jogos e juncao
 
@@ -163,6 +163,17 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 ---
 
 ## Notas por fase
+
+### S0.1 - Linha de base (2026-10-12)
+
+- HEAD `ff3fbfab` (codigo `979fc78f`), status so `?? .vite/`. typecheck e lint limpos.
+- vitest --coverage: 88 arquivos, 744 testes, 0 falhas. Cobertura linhas/branches: global 94,39/87,76; domain 99,61/98,11; storage 96,77/90,95; sync 99,50/92,01; tools/dataset/src 93,86/84,67; components 93,99/92,42; screens 94,73/88,05.
+- build ok; dist/sw.js 6.467 bytes; precache de dado = current.json + {dataset-manifest,species-index,type-chart}.json da versao 1949ea67.
+- e2e (build + preview, headless): 269 = 253 ok + 16 pulados (dev-only), 0 falha, 0 flaky; os 7 visuais de responsive.spec.ts:186 (14 comparacoes) ok. LINHA DE BASE: nenhuma falha preexistente.
+- Dataset regerado offline: sufixo 1949ea67 igual, 1044 arquivos, 0 diferencas.
+- Gzip precache: 91 + 913 + 36.200 + 547 = 37.751 (teto 47.991).
+- Auditoria: 46.768 checks, 1027 especies, 0 divergencias.
+- Ambiente: build (prebuild gen:assets) regrava 17 arquivos de tipo so com LF (sem diff de conteudo); restaurar com git checkout depois de cada build. Rodada e2e com 246 "worker exited 0xC0000142" foi falha de processo do Windows, repetida limpa.
 
 
 ---

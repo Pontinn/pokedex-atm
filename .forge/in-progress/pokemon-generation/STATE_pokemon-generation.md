@@ -55,3 +55,15 @@ updated: 2026-10-12
 
 ## 2026-10-12 - Stage 4 iniciada
 - Checklist criado (20 tarefas: 8 backend incl. S0 e T1.1-T1.2; 12 frontend incl. T1.3-T1.5). Pre-voo: drift check PASS (57 arquivos, baseline 979fc78f), re-review da SPEC PASS nos 11 itens + 1 warning (lista do T1.5 passo 4 faltava os 2 fixtures de F3.1) e 1 nit (nota do HEAD), ambos aplicados pelo orquestrador na SPEC. Gate de identificadores PASS. Feature movida ideas/ -> in-progress/. MODE = autonomous (delegado pelo Pontin). forge-imp-backend (opus) disparado.
+
+## 2026-10-12 - Baseline (Sprint 0, forge-imp-backend)
+Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc78f`; acima so `.forge`), `git status` so `?? .vite/`.
+1. HEAD/status: conferidos (acima).
+2. `npm run typecheck` e `npm run lint`: limpos (exit 0).
+3. `npx vitest run --coverage`: 88 arquivos, 744 testes, 0 falhas, 57 s. Cobertura (linhas/branches): global 94,39/87,76; `src/domain` 99,61/98,11; `src/storage` 96,77/90,95; `src/sync` 99,50/92,01; `tools/dataset/src` 93,86/84,67; `src/components` 93,99/92,42; `src/screens` 94,73/88,05 (todos acima dos limites do `vitest.config.ts`).
+4. `npm run build`: ok; `dist/sw.js` 6.467 bytes; URLs de dado no SW: `data/current.json`, `data/atm1.3.0-cobblemon1.7.3-20260930-1949ea67/{dataset-manifest,species-index,type-chart}.json`. Fato preexistente: o `prebuild` (`gen:assets`) regrava `src/assets/types/*.svg` e `src/styles/types.generated.css` so com fim de linha LF (sem diff de conteudo, `core.autocrlf=true`); restaurados com `git checkout` depois de cada build.
+5. `npx playwright test` (build + preview, headless, 8 workers): 269 testes = 253 passaram, 16 pulados (dev-only: `detail.spec.ts:153`, 8 de `item-obtain-v2.spec.ts:94/104`, 7 de `item.spec.ts:175/240`), 0 falhas, 0 flaky, 3,5 min. Os 7 testes visuais de `responsive.spec.ts:186` (cada um compara Home + ficha do Charizard = as 14 comparacoes) passaram. Nao houve teste a classificar com `--repeat-each=3`. Nota de ambiente: a 1a tentativa foi abortada por mim (o build do webServer pegou uma edicao de B1.1 feita cedo demais, revertida na hora) e a 2a teve 246 "worker process exited unexpectedly (code=3221225794)" (0xC0000142, falha de criacao de processo do Windows, nao de teste); a 3a, com a arvore limpa e a porta 4173 livre, e a que vale.
+6. Reprodutibilidade: `npm run dataset -- --offline --out tools/dataset/out/_pg_base_stage --publish-dir tools/dataset/out/_pg_base` gerou `atm1.3.0-cobblemon1.7.3-20261012-1949ea67` (sufixo igual ao publicado); 1044 arquivos, mesma lista, 0 diferencas (`Buffer.compare`; manifest sem `datasetVersion`/`generatedAt`).
+7. Gzip do precache (metodo SPEC 2.3): 91 / 913 / 36.200 / 547 = 37.751 bytes (igual a SPEC; constantes de T1.2 confirmadas).
+8. Auditoria: `checks 46768, especies 1027, divergencias {}`; `AUDIT_REPORT.md` restaurado.
+9. `tools/dataset/out/_pg_base*` apagadas.
