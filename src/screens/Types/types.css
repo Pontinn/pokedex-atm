@@ -13,6 +13,12 @@
 .types-screen .tp-swatches { display: inline-flex; gap: 3px; flex: none; }
 .types-screen .tp-swatches i { display: block; width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .12); }
 .types-screen .tp-view { justify-self: start; max-width: 100%; }
+/* legenda compacta no celular (.app.mobile = < 900 px, mobile.css): mesmos textos, linhas quebrando como no desktop e ritmo menor; desktop intocado */
+.app.mobile .types-screen .tp-legend { padding: 10px 12px; }
+.app.mobile .types-screen .tp-legend h3 { margin-bottom: 6px; font-size: 17px; }
+.app.mobile .types-screen .tp-legend-list { gap: 0 14px; margin-bottom: 2px; font-size: 12px; line-height: 1.3; }
+.app.mobile .types-screen .tp-legend-color { gap: 6px; margin-top: 3px; font-size: 12px; line-height: 1.25; }
+.app.mobile .types-screen .tp-swatches i { width: 10px; height: 10px; border-radius: 3px; }
 /* grade dos 18 tipos: chip-botao do Dex, quebrando linha; anel + check do .chips-scroll .chip.on (components.css:80-82) */
 .types-screen .tp-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .types-screen .tp-pick { cursor: pointer; flex: none; }
