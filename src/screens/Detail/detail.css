@@ -114,6 +114,11 @@ button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
 .evo > img { width: 84px; height: 84px; object-fit: contain; image-rendering: pixelated; }
 .evo > img.sprite-fallback { width: 48px; height: 48px; filter: brightness(0); opacity: .45; image-rendering: auto; }
 .evo .evo-name { font-weight: 800; font-size: 13px; }
+/* pokemon-generation: selo de geracao em fluxo abaixo do nome (D1); destaque com outline (D2: --primary em green/blue/purple) */
+.evo-label { display: grid; justify-items: center; gap: 4px; min-width: 0; }
+.evo .badge.evo-gen { font-size: 9px; letter-spacing: 0; padding: 3px 6px; }
+.evo .badge.evo-gen-diff { outline: 2px solid var(--secondary); outline-offset: 1px; }
+html[data-theme="green"] .evo .badge.evo-gen-diff, html[data-theme="blue"] .evo .badge.evo-gen-diff, html[data-theme="purple"] .evo .badge.evo-gen-diff { outline-color: var(--primary); }
 .evo-arrow { display: grid; justify-items: center; gap: 2px; color: var(--muted); font-size: 11px; font-weight: 800; text-align: center; min-width: 0; }
 .evo-arrow .arr, .evo-edge .arr { display: inline-flex; color: var(--secondary); }
 .evo-arrow .arr svg, .evo-edge .arr svg { width: 20px; height: 20px; }
@@ -132,6 +137,7 @@ button.evo:hover { transform: translateY(-4px); background: var(--surface-2); }
 .evo-branch .evo { flex: none; display: flex; align-items: center; gap: 8px; padding: 4px 8px; }
 .evo-branch .evo > img { width: 64px; height: 64px; }
 .evo-branch .evo .evo-name { min-width: 70px; }
+.evo-branch .evo .evo-label { justify-items: start; }
 .evo-edge { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 800; flex: 1; min-width: 0; }
 .evo-edge .method { white-space: normal; text-align: left; flex: 0 1 auto; min-width: 0; padding: 3px 9px; }
 .app.mobile .evo-branching { grid-template-columns: 1fr; }

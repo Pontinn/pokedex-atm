@@ -18,6 +18,7 @@ import { useKnownDexSet } from "../../state/captured-store";
 import { useDatasetStore } from "../../state/dataset-store";
 import { useTermsLanguage } from "../../state/preferences-store";
 import type { UiLanguage } from "../../storage/types";
+import { GenerationBadge, generationLabel } from "../Dex/GenerationBadge";
 import { SpeciesSprite } from "../Home/SpeciesSprite";
 import { hasItemPage } from "./ItemLink";
 
@@ -159,12 +160,36 @@ const MethodChip = memo(function MethodChip({ edge, items, lang }: { edge: Evolu
 /** pokemon-generation: no da cadeia como a tela usa; o no sintetico do fallback nao tem geracao (null). */
 type ChainNodeView = Omit<EvolutionChainNode, "generation"> & { generation: string | null };
 
-function EvoNode({ node, current, known, lang }: { node: ChainNodeView; current: boolean; known: boolean; lang: UiLanguage }) {
+// pokemon-generation: selo de geracao EM FLUXO abaixo do nome (desvio D1); evo-gen-diff quando difere da raiz.
+function EvoNode({
+  node,
+  current,
+  known,
+  lang,
+  rootGeneration,
+}: {
+  node: ChainNodeView;
+  current: boolean;
+  known: boolean;
+  lang: UiLanguage;
+  rootGeneration: string | null;
+}) {
+  const t = useT();
   const { navigate } = useNavigationActions();
+  const long = node.generation ? generationLabel(node.generation, "long", t) : null;
+  const diff = long !== null && rootGeneration !== null && node.generation !== rootGeneration;
   const body = (
     <>
       <SpeciesSprite species={{ dex: node.dex, hasSprite: node.dex < 9000 }} />
-      <span className="evo-name">{gameName(node, lang)}</span>
+      <span className="evo-label">
+        <span className="evo-name">{gameName(node, lang)}</span>
+        <GenerationBadge
+          generation={node.generation}
+          form="short"
+          className={`evo-gen${diff ? " evo-gen-diff" : ""}`}
+          label={long ? (diff ? t("detail.genDiff", { gen: long }) : long) : undefined}
+        />
+      </span>
     </>
   );
   if (!known || current) {
@@ -191,6 +216,7 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
   for (const e of chain.edges) outgoing.set(e.from, [...(outgoing.get(e.from) ?? []), e]);
   const isKnown = (dex: number) => (known ? known.has(dex) : true);
   const node = (dex: number) => byDex.get(dex) ?? { dex, slug: String(dex), name: { pt: String(dex), en: String(dex) }, types: [], generation: null };
+  const rootGeneration = byDex.get(chain.root)?.generation ?? null;
 
   if (chain.edges.length === 0) return <p className="muted evo-none">{t("evo.none")}</p>;
 
@@ -202,9 +228,9 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
       <div className="evo-branching">
         <div className="evo-root">
           {pre.map((e) => (
-            <EvoNode key={e.from} node={node(e.from)} current={e.from === currentDex} known={isKnown(e.from)} lang={lang} />
+            <EvoNode key={e.from} node={node(e.from)} current={e.from === currentDex} known={isKnown(e.from)} lang={lang} rootGeneration={rootGeneration} />
           ))}
-          <EvoNode node={node(rootDex)} current={rootDex === currentDex} known={isKnown(rootDex)} lang={lang} />
+          <EvoNode node={node(rootDex)} current={rootDex === currentDex} known={isKnown(rootDex)} lang={lang} rootGeneration={rootGeneration} />
           <span className="evo-root-label">{t("evo.branches")}</span>
         </div>
         <div className="evo-branches">
@@ -216,7 +242,7 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
                 </span>
                 <MethodChip edge={e} items={items} lang={lang} />
               </div>
-              <EvoNode node={node(e.to)} current={e.to === currentDex} known={isKnown(e.to)} lang={lang} />
+              <EvoNode node={node(e.to)} current={e.to === currentDex} known={isKnown(e.to)} lang={lang} rootGeneration={rootGeneration} />
             </div>
           ))}
         </div>
@@ -246,7 +272,7 @@ const EvolutionChainView = memo(function EvolutionChainView({ chain, currentDex 
               <MethodChip edge={s.edge} items={items} lang={lang} />
             </div>
           ) : null}
-          <EvoNode node={node(s.dex)} current={s.dex === currentDex} known={isKnown(s.dex)} lang={lang} />
+          <EvoNode node={node(s.dex)} current={s.dex === currentDex} known={isKnown(s.dex)} lang={lang} rootGeneration={rootGeneration} />
         </Fragment>
       ))}
     </div>
