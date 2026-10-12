@@ -698,6 +698,7 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
 
 #### Feature F3.2: Painel "Jogos" no Detail `[category: frontend]`
 - **Traces**: RF-15, RF-24, RF-26, RF-28, RF-29, RF-30, RF-31, RF-32, RF-33, RNF-03, RNF-05, RNF-06; UISPEC secao 4 (painel "Jogos": estados a, b, c, d e `--i` 7) e 5 (Detail).
+- **Revisao 2026-10-12 (commit ccf49cb4): painel movido para depois de weak a pedido do usuario; ordem e `--i`: stats 1, weak 2, games 3, evo 4, abilities 5, moves 6, where 7, best 8, forms 9, calc 10.** (Os passos abaixo descrevem a entrega original, logo depois de `WherePanel`.)
 - **Files**:
   - `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex/src/screens/Detail/GamesPanel.tsx` (criar)
   - `C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex/src/screens/Detail/DetailScreen.tsx` (modificar: import depois da linha 26; `<GamesPanel detail={detail} />` depois da linha 147 `<WherePanel detail={detail} />`)
@@ -880,7 +881,7 @@ Sprint final T1: testes (definidos aqui, escritos na etapa de testes).
 | RF-25 | B1.3, T1.2 | Juncao por `dex` x `pokemonSpeciesIds`/`species` |
 | RF-26 | B1.3, F3.1, T1.1, T1.4 | Custom = `null`; nunca no filtro |
 | RF-28 | B1.2, F3.2, T1.1, T1.4 | FRLG = `kanto`; nota no painel |
-| RF-29 | F3.2, T1.4 | `GamesPanel` depois do WherePanel |
+| RF-29 | F3.2, T1.4 | `GamesPanel` depois do WeaknessPanel (revisao 2026-10-12; antes depois do WherePanel) |
 | RF-30 | B1.3, F3.2, T1.3 | `null`/`[]`/falha do build |
 | RF-31 | F3.2, T1.4 | Todos os `li` no DOM com wrap a 360/390 |
 | RF-32 | F3.2, T1.3 | Sem catalogo o painel nao renderiza |

@@ -98,7 +98,8 @@ Como rodar: `npm run dev` (app em http://localhost:5173) ou `npm run build && np
 - [A] Especie oficial sem jogo: "Não aparece nos jogos oficiais"; manifest ausente: painel nao aparece (`games-panel.test.tsx`).
 - [A] EN: "Games", "Available in" e a nota em ingles (`detail.spec.ts`).
 - [A] Celular 360/390: todos os chips visiveis dentro do painel, sem sobreposicao nem rolagem horizontal (`detail.spec.ts`).
-- [x] Manual: ordem dos paineis a 1366 e 390: `where-panel`, `games-panel`, `best-panel` consecutivos; `ui-refs/test/detail-41-games-{desktop,phone}.png`.
+- [x] Manual: ordem dos paineis a 1366 e 390 (revisao 2026-10-12, a pedido do usuario): `weak-panel`, `games-panel`, `evo-panel` consecutivos, Jogos logo abaixo de Fraquezas sem sobreposicao; `ui-refs/impl/detail-41-games-after-weak-{d,p}.png`. Antes: `where-panel`, `games-panel`, `best-panel` (`ui-refs/test/detail-41-games-{desktop,phone}.png`).
+- [A] Ordem `weak-panel` -> `games-panel` -> `evo-panel` (`detail.spec.ts`).
 
 ### Credito, idioma e temas
 

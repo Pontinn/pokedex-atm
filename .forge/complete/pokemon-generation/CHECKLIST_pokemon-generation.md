@@ -268,6 +268,7 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 ### F3.2 - concluida (2026-10-12)
 
 - `GamesPanel.tsx` (`gamesOf`, `GamesPanel`) logo depois do `WherePanel`, `--i` 7; best 8, forms 9, calc 10. CSS `.games-list`, `.game-chip`, `.games-note`, `.games-empty`.
+- Revisao 2026-10-12 (commit ccf49cb4): painel movido para depois de weak a pedido do usuario; ordem e `--i`: stats 1, weak 2, games 3, evo 4, abilities 5, moves 6, where 7, best 8, forms 9, calc 10. `detail.spec.ts` reapontado (`weak-panel` + 1 = `games-panel`, `games-panel` + 1 = `evo-panel`); 7 `detail-charizard-*` regravados, `home-*` intocados; vitest 93/800, e2e inteiro 276 ok / 16 pulados / 0 falha (1a rodada: 1 falha em `home.spec.ts:241`, reload logo apos o desfazer do time, 5/5 isolado e verde na 2a rodada inteira; Home nao tocada); capturas `ui-refs/impl/detail-41-games-after-weak-{d,p}.png`.
 - Spec temporario: `#games-panel` logo depois de `#where-panel`; Zubat = jogos do manifest com o id na ficha, na ordem, inclui `firered-leafgreen`, com nota; Crobat sem FRLG; 9901 `[data-games='pack']` "Só no pack" sem nota; EN "Games"; `expectNoOverlap("#games-panel")` + sem scroll horizontal do `#main` 360/390/1280 PT/EN (41 e 9901); 0 erro de console.
 - Capturas `after-f32-*` (5) conferidas com `detail-where-zubat-*`: mesma identidade de painel (h3 + barra, `.k`, chips como `.method`).
 - `PW_DEV=1` detail.spec.ts = 53/53 (ver Bugs: 1a rodada com 1 falha de HMR do dev server, nao regressao).
