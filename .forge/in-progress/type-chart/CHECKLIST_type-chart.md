@@ -98,10 +98,10 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
   - commit: 986eb0b9
   - status: done. types-screen.test.tsx 7/7. Cobertura (vitest --coverage com tests/unit/dataset/join.test.ts excluido, pois falha so por falta do cache da PokeAPI no worktree, ver S0.1; com ele a suite fica vermelha e o vitest nao imprime cobertura): 95 arquivos, 786 testes; global linhas 90.41% / branches 88.38%; src/screens/** 95.25% / 89.61%; os 5 arquivos de src/screens/Types 100/100; limites do vitest.config.ts respeitados.
 
-- [ ] **T1.3** e2e headless da pagina (categoria: outro)
+- [~] **T1.3** e2e headless da pagina (categoria: outro)
   - Done when: `PW_DEV=1 PW_PORT=4183 npx playwright test tests/e2e/types.spec.ts` verde e `npx playwright test tests/e2e/types.spec.ts` (build + preview) verde.
-  - commit: 
-  - status: pending
+  - commit: (pendente)
+  - status: em andamento (agente #1 parou no limite de 50 min). tests/e2e/types.spec.ts ESCRITO e NAO commitado (fica untracked no worktree; retomar dele). Em dev (PW_DEV=1 PW_PORT=4183): 24 de 25 verdes (navegacao, faixas e cores nos 7 temas com contraste >= 4,5:1, escala de cinza, matriz PT/EN, coluna fixa a 390/360, sem sobreposicao 360/390/1280 PT/EN, teclado, desempenho). Falta: 'back restores type, tab and scroll; forward returns' falha na linha do page.goForward() (.dex-screen nao aparece depois do Avancar): investigar se a ponte de historico do app suporta Avancar (src/navigation/history-bridge.ts) antes de mexer no teste. A volta (tipo, aba e scroll a 2 px) ja passa. Depois: rodar tambem em build + preview (sem PW_DEV).
 
 - [ ] **T1.4** Regressao completa contra a linha de base (categoria: outro)
   - Done when: os 7 passos verdes e os numeros (testes, cobertura, bytes) no STATE.
