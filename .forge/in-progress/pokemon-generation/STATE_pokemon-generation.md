@@ -1,13 +1,13 @@
 ---
 feature: pokemon-generation
-stage: impl
+stage: testing
 status: in-progress
 language: pt-BR
 branch: feature/pokemon-generation (base main b7ae68d7)
 mode: full
 impl_mode: autonomous
 top_model: opus
-running_agent: forge-imp-frontend #2 (opus, autonomous, contexto zerado) - retoma em T1.4; iniciado 03:40
+running_agent: forge-test (sonnet) - Stage 5; iniciado 03:48
 baselines:
   CONTEXT: { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, deps: [IDEA_pokemon-generation.md, tools/dataset/src/pokeapi/client.ts, tools/dataset/src/pokeapi/stage.ts, vite.config.ts, src/screens/Detail/WherePanel.tsx, src/screens/Detail/HeroCard.tsx, src/screens/Dex/PokemonCard.tsx, src/screens/Dex/DexFilters.tsx, src/screens/Dex/use-filtered-species.ts, src/screens/Detail/EvolutionPanel.tsx, src/components/SpeciesBadges.tsx, tools/dataset/src/species/merge.ts, tools/dataset/src/species/index-writer.ts, src/data/schemas.ts, src/data/types.ts] }
   PRD:     { commit: b7ae68d7, idea_hash: 7b81d65ab33a889f056cd3b83e826720a485295e, context_hash: b16864921badb7ad2c37f2f183af29f1625a9253, prd_hash: 30137dd92cd3f1605155a9ec1d4e9ef4ea5b94f9, deps: [IDEA_pokemon-generation.md, CONTEXT_pokemon-generation.md] }
@@ -93,3 +93,6 @@ Rodada no branch `feature/pokemon-generation`, HEAD `ff3fbfab` (codigo = `979fc7
   6. `git grep` de segredo em `src tools/dataset/src tools/dataset/curated`: 0 (main: 0). `git grep "fetch(" -- src/screens`: 0 (main: 0).
   7. U+2014: 0 nos arquivos versionados de `src tools tests README.md data-source/README.md` e da pasta da feature.
   - Gzip do precache: 88 / 1.434 / 38.336 / 547 = 40.405 (+2.654 sobre 37.751; `precache-budget.test.ts` verde).
+
+## 2026-10-12 03:48 - Stage 4 concluida; Stage 5 iniciada
+- Frontend #2 (contexto zerado) fechou T1.4 (f514e80f) e T1.5 (9efe15a6) e a secao Frontend do CHECKLIST_MANUAL (813a8521). Checklist 20/20. Suite final: vitest 93 arquivos / 800 testes / 0 falha; e2e 276 ok / 16 pulados / 0 falha / 0 flaky; build, typecheck, lint, auditoria (51.146, 0 divergencias) e greps limpos; baselines visuais intactos. Desvio registrado: CA-53/CA-62 nao assere "outline != none" porque todo select do app ja tem outline 0 (components.css:118); testa :focus-visible, label, ArrowDown e estilo igual ao #f-gen. Dev server orfao do agente #1 (porta 4179, PID 33400) encerrado pelo orquestrador. forge-test disparado (deep visual aprovado por delegacao).
