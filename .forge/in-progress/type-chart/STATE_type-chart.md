@@ -1,12 +1,12 @@
 ---
 feature: type-chart
-stage: impl
+stage: testing
 status: in-progress
 language: pt-BR
 branch: feature/type-chart
 mode: full
 top_model: opus
-running_agent: forge-imp-frontend #2 (opus, retomado por mensagem) - T1.3 com o contrato corrigido (so Voltar), depois T1.4, T1.5, CHECKLIST_MANUAL; retomado 2026-10-12 16:36 (hora real; o agente gastou 2 min antes). Cronometro 1h: 16:36 -> 17:36
+running_agent: forge-test (sonnet) - regressao completa + CHECKLIST_MANUAL + smoke visual via Playwright headless; iniciado 2026-10-12 17:03 (hora real). Cronometro 1h: 17:03 -> 18:03
 worktree: C:/Users/Usuario/Desktop/Pessoais/Projetos/pokedex-type-chart (repo pokedex; a arvore principal em Projetos/pokedex fica intocada em cee51235 porque o agente da pontindex-base le dela)
 user_gate: autonomo ate o fim (Pontin 2026-10-12: "pode continuar ai, ate o fim"; "faz do jeito q achar q vai ficar melhor"). Push/merge so com "P"/autorizacao explicita.
 baselines:
@@ -14,7 +14,7 @@ baselines:
   UISPEC:  { commit: 4410016f, deps: [IDEA_type-chart.md, CONTEXT_type-chart.md, src/styles/tokens.css, src/styles/themes.css, src/styles/components.css, src/screens/Detail/detail.css, src/styles/mobile.css, src/styles/shell.css, src/styles/types.generated.css, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/components/EmptyState.tsx, src/components/Icon.tsx, src/screens/Detail/TypeCalculator.tsx, src/components/nav-items.ts] }
   CONTEXT: { commit: 04b73988, deps: [IDEA_type-chart.md, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/nav-items.ts, src/components/SegmentedControl.tsx, src/screens/registry.ts, src/navigation/types.ts, src/navigation/navigation-store.ts, src/navigation/useNavigation.ts, src/i18n/messages.ts, src/state/preferences-store.ts, src/screens/Detail/TypeCalculator.tsx, src/styles/mobile.css, src/screens/Detail/detail.css, eslint.config.js] }
   SPEC:    { commit: 9e596e42, deps: [PRD_type-chart.md, CONTEXT_type-chart.md, UISPEC_type-chart.md, IDEA_type-chart.md, src/components/nav-items.ts, src/navigation/types.ts, src/screens/registry.ts, src/components/Icon.tsx, src/i18n/messages.ts, src/domain/type-chart.ts, src/components/TypeChip.tsx, src/components/TypeIcon.tsx, src/components/SegmentedControl.tsx, src/screens/Detail/TypeCalculator.tsx, src/screens/Detail/detail.css, src/styles/mobile.css, src/components/TabBar.tsx, src/components/MoreSheet.tsx, src/components/Sidebar.tsx, tests/unit/ui-shell/shell.test.tsx, tests/e2e/shell.spec.ts, tests/e2e/responsive.spec.ts] }
-updated: 2026-10-12 16:36
+updated: 2026-10-12 17:03
 ---
 ## 2026-10-12 14:42 - ideia criada e fechada (Stage 1); construida AQUI primeiro
 - Pedido: pagina visual e didatica da hierarquia dos tipos, "so de bater o olho"; a mesma pagina nos dois projetos. Decisoes todas por delegacao (IDEA sec. 2).
@@ -118,3 +118,9 @@ updated: 2026-10-12 16:36
 - **Ajustar no repo destino** (nao copiar): as listas de rotulos dos testes de shell de la (shell.spec.ts e ui-shell/shell.test.tsx), TODO assert/clique por indice `.nth(` em itens de navegacao (aqui foram shell.spec.ts, sync.spec.ts e pwa-offline.spec.ts; la fazer grep por `.nth(` nos seletores .nav-item/.sheet-item) e as baselines visuais de la (protocolo de F1.3).
 - **Pre-condicoes a conferir por hash no pontindex antes de copiar** (blobs da main deste repo, git rev-parse main:<arq>): src/domain/type-chart.ts 523b99cd7ceb; src/components/TypeChip.tsx d59123ddeeba; src/components/TypeIcon.tsx d40f9f62779a; src/components/SegmentedControl.tsx fcdbaa78eea6; src/i18n/useT.ts 9ed2b560d188; src/i18n/types.ts 727356b5b237; src/navigation/navigation-store.ts c9d46ab973b0; src/navigation/useNavigation.ts dd286cb65022; src/navigation/types.ts 35630c204dbd (antes das 6 insercoes); src/state/preferences-store.ts 2b32bf0ba65a (uiLanguage); src/styles/components.css 097f1ee4311a (regras .chip, .chip-check, .ti, .seg, .panel, .panel h3, select). A mais que a lista da SPEC, conferido pelos imports da pasta: src/components/ScreenRouter.tsx 154bea7e086e (tipo ScreenProps), src/data/types.ts 479e800f0797 (TypeId, TypeMultiplier), src/i18n/messages.ts (tipo MessageKey; ponto de toque (b)), src/components/Icon.tsx (ponto de toque (a)). Diferenca = avaliar antes de copiar (a pagina nao pode mudar de comportamento).
 - **Nao copiar**: nada de TermsToggle/useTermsLanguage (a pagina nao usa, RF-32; grep vazio na pasta).
+## 2026-10-12 17:03 - Stage 4 completa (15/15); Stage 5 iniciada
+- frontend #2 retomado (26 min): T1.3 3ed74317 (dev 25/25; build+preview 50/50 em 2 repeticoes; pwa-offline ok com a linha 341 deslocada), T1.4 82a1d59a, T1.5 b6e74b63, checklists 1ea43640/9a2f1c83, CHECKLIST_MANUAL 99a0e2ef. Nenhum Co-Authored-By, zero U+2014.
+- Flake achada e corrigida no proprio teste: "Fire bands" 1/8 por causa de html.reduce-motion (base.css:70, transicao de 1 ms em tudo): ler a cor no mesmo frame devolvia o tom antigo; leitura agora com polling e contraste dos 7 temas com toPass (32/32 em 4 repeticoes). Assercoes inalteradas.
+- T1.4: typecheck/lint limpos; vitest 96 arquivos / 823 testes, cobertura global 94,59% linhas / 88,46% branches (limiares ok); bundle +18.182 B bruto (limite 30 KB); e2e build+preview 299 ok, 16 skip, 2 falhas PRE-EXISTENTES na main (conferido em worktree temporario da main, removido): dex.spec.ts:324 Meltan/Wyrdeer (4/15 falham na main) e items.spec.ts:69 l.81 leitura de imagem sem polling (3/8 na main). Nao tocadas; ficam para o Pontin decidir (fora desta feature).
+- T1.5 inventario do porte (detalhe na entrada 17:03 do agente, acima): copiar 7 arquivos de codigo + 4 testes; repetir edicoes em nav-items.ts, Icon.tsx, navigation/types.ts (6 insercoes), registry.ts, messages.ts; ajustar no alvo listas de rotulos da shell, todo .nth( de itens de nav/folha e baselines visuais; conferir por hash ScreenRouter.tsx e data/types.ts alem da lista da SPEC; types.spec.ts precisa de tests/harness/no-overlap.ts e tests/e2e/idb-helpers.ts no alvo.
+- forge-test (sonnet) disparado. Depois: achados -> frontend; git mv para complete/; LESSONS; porte no pontindex depois da base.
