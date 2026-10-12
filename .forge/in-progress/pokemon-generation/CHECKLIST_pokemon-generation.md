@@ -145,10 +145,10 @@ App React em `src/`. Referencia visual: UISPEC secoes 3 a 7 e `ui-refs/`. So com
 
 > unitarios do modulo de jogos e da auditoria, contrato publicado, orcamento, regras puras e RTL, e2e headless e regressao completa.
 
-- [ ] **T1.3 - Regras puras e RTL (selo, cadeia, filtro, painel, credito)** (categoria: outro)
+- [x] **T1.3 - Regras puras e RTL (selo, cadeia, filtro, painel, credito)** (categoria: outro)
   - Done when: `npx vitest run tests/unit/ui-screens` verde; cobertura `src/screens/**` >= 70/70 e global >= 80/80.
-  - commit:
-  - status: pendente
+  - commit: f9bfe94d
+  - status: concluida
 
 - [ ] **T1.4 - e2e headless (Dex, Capturados, Detail, temas, Configuracoes, offline)** (categoria: outro)
   - Done when: `npx playwright test tests/e2e/dex.spec.ts tests/e2e/detail.spec.ts tests/e2e/captured.spec.ts tests/e2e/settings.spec.ts tests/e2e/pwa-offline.spec.ts tests/e2e/responsive.spec.ts tests/e2e/navigation.spec.ts` (build + preview, headless) verde, incluindo TODOS os testes existentes desses arquivos.
@@ -299,6 +299,12 @@ Suite + build: nenhum arquivo mudou nesta feature; o verde de F3.3 vale (rodada 
 - 1a rodada `PW_DEV=1 ... -g "Home and Charizard detail screenshots"`: os 7 `home-*` passaram; `detail-charizard-{classic,blue,white,orange}` falharam (selo "Geração 1" no Hero e "GEN 1" nos 3 estagios); black/green/purple passaram dentro dos 2% de tolerancia.
 - Revisados os actual/novos de classic, black e purple: so o selo de geracao no Hero e nos estagios mudou (o painel Jogos fica abaixo da dobra no print de 1280x800).
 - DESVIO de comando: `--update-snapshots` (modo "changed") so regravaria os 4 que falharam e deixaria 3 baselines sem o selo. Usado `--update-snapshots=all` limitado ao teste + `git checkout` dos 7 `home-*` (regravados sem mudanca visual); diff final = exatamente os 7 `detail-charizard-*`. 2a rodada sem update: 7/7 (14 comparacoes) verdes.
+
+### T1.3 - concluida (2026-10-12)
+
+- Novos: `generation-badge.test.tsx` (7: tabela RF-05/RF-08 PT/EN, gen10, desconhecido -> null/sem selo, toda geracao do indice publicado com rotulo, `PokemonCard` das 1027 especies com o selo esperado e sem classe de raridade, ordem card/hero, `Badge` sem label = HTML de antes); `detail-generation.test.tsx` (7: cadeias reais 41/169/236/172/4/133 com destaque DERIVADO do `generation` dos nos, aria-label PT/EN, indice ausente, no sintetico, nenhum texto de jogo; Hero Charizard/Mewtwo/9901 e `seal-empty`); `games-panel.test.tsx` (7: `gamesOf`, lista semantica com `aria-labelledby`, Crobat/Hitmonlee/Tyrogue, "Só no pack", "Não aparece nos jogos oficiais", manifest nulo, EN).
+- Blocos novos no fim de `dex-filter.test.ts` (3: game null = antes, E logico, custom nunca, indice real FRLG = 151 e mediana de 20 < 5 ms), `dex-screen.test.tsx` (3: `#f-game` por label, opcoes, grava `filters.game`, sem catalogo, restaurado da pilha) e `settings-screen.test.tsx` (1: `data-info=pokeapi` PT/EN). Nenhum teste existente mexido.
+- `npx vitest run tests/unit/ui-screens` = 41 arquivos / 290 testes. `npx vitest run --coverage` inteiro = 93 arquivos / 800 testes verdes; cobertura linhas/branches: global 94,48/88,29; `src/screens/**` 94,99/89,17; `tools/dataset/src/**` 93,85/85,18 (limites 80/80, 70/70).
 
 ---
 
