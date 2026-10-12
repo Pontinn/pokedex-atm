@@ -110,7 +110,7 @@ Regra geral de toda feature de frontend (SPEC secao 7): a feature so fica `[x]` 
 
 - [x] **T1.5** Porte: inventario (categoria: outro)
   - Done when: inventario no STATE e o passo 1 batendo.
-  - commit: (inventario, commit deste passo)
+  - commit: b6e74b63
   - status: done. Inventario no STATE 17:03. Passo 1 bate: 11 A + 9 M (os 7 da SPEC + sync.spec.ts e pwa-offline.spec.ts do desvio de F1.2) + 14 PNGs. Pre-condicoes com hash; +ScreenRouter.tsx e data/types.ts achados pelos imports.
 
 ---
