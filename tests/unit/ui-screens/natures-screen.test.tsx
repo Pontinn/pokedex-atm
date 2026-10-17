@@ -61,7 +61,7 @@ describe("NaturesScreen", () => {
     expect(ui().selected).toBe("adamant");
     expect(q('[data-nature="adamant"]')?.getAttribute("aria-pressed")).toBe("true");
     expect(q('.nt-focus[data-focus="adamant"] h3')?.textContent).toBe("Rígida");
-    expect(q(".nt-focus-en")?.textContent).toBe("Adamant");
+    expect(q(".nt-focus-alt")?.textContent).toBe("Adamant");
     expect(q('[data-chip="up"]')?.textContent).toBe(`+10% ${tr("stat.atk")}`);
     expect(q('[data-chip="down"]')?.textContent).toBe(`-10% ${tr("stat.spa")}`);
     expect(q(".nt-use")?.textContent).toBe(tr("natures.useHint", { up: tr("stat.atk"), down: tr("stat.spa") }));
@@ -76,12 +76,33 @@ describe("NaturesScreen", () => {
     expect(q(".nt-use")?.textContent).toBe(tr("natures.useNeutral"));
   });
 
-  it("English UI shows English names and hides the secondary name", () => {
+  it("the page terms toggle starts on the global terms language and switching to EN inverts the names", () => {
+    mount();
+    expect(q('.page-head [data-tcard="natures"] [data-tl="pt"]')?.getAttribute("aria-pressed")).toBe("true");
+    click(q('[data-tcard="natures"] [data-tl="en"]'));
+    expect(usePreferencesStore.getState().termsOverrides.natures).toBe("en");
+    const cell = q('.nt-table tr[data-up="attack"] td[data-down="specialAttack"] [data-nature]');
+    expect(cell?.textContent).toBe("Adamant");
+    expect(qa(".nt-table").map((e) => e.textContent).join(" ")).not.toContain("Rígida");
+    expect(cell?.getAttribute("aria-label")).toBe(tr("natures.cellLabel", { name: "Adamant", up: tr("stat.atk"), down: tr("stat.spa") }));
+    click(cell);
+    expect(q(".nt-focus h3")?.textContent).toBe("Adamant");
+    expect(q(".nt-focus-alt")?.textContent).toBe("Rígida");
+    click(viewButton(tr("natures.viewByStat")));
+    click(q('[data-stat="attack"]'));
+    expect(q('[data-band="raise"] [data-nature="adamant"] .nt-pick-name')?.textContent).toBe("Adamant");
+  });
+
+  it("follows the global terms language without an override; the UI language alone does not change the names", () => {
     usePreferencesStore.setState({ uiLanguage: "en" });
+    mount();
+    expect(q('[data-nature="adamant"] .nt-pick-name')?.textContent).toBe("Rígida");
+    cleanup();
+    usePreferencesStore.setState({ uiLanguage: "pt", termsLanguage: "en" });
     mount();
     click(q('[data-nature="adamant"]'));
     expect(q(".nt-focus h3")?.textContent).toBe("Adamant");
-    expect(q(".nt-focus-en")).toBeNull();
+    expect(q(".nt-focus-alt")?.textContent).toBe("Rígida");
   });
 
   it("By stat: pick Speed, 4 raise + 4 lower + 5 neutral, and picking one opens the focus", () => {

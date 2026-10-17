@@ -145,7 +145,7 @@ test.describe("table and focus", () => {
       await expect(cell).toHaveAttribute("aria-pressed", "true");
       const focus = page.locator('.nt-focus[data-focus="adamant"]');
       await expect(focus.locator("h3")).toHaveText(adamant.name[lang]);
-      await expect(focus.locator(".nt-focus-en")).toHaveCount(lang === "pt" ? 1 : 0);
+      await expect(focus.locator(".nt-focus-alt")).toHaveText(adamant.name[lang === "pt" ? "en" : "pt"]);
       await expect(focus.locator('[data-chip="up"]')).toHaveText(`+10% ${msg("stat.atk", lang)}`);
       await expect(focus.locator('[data-chip="down"]')).toHaveText(`-10% ${msg("stat.spa", lang)}`);
       await expect(focus.locator('[data-chip="up"]')).toHaveCSS("background-color", BG.adv);
@@ -156,6 +156,51 @@ test.describe("table and focus", () => {
       expect(errors).toEqual([]);
     });
   }
+});
+
+test.describe("terms toggle", () => {
+  test("EN on the page toggle switches the names to English and survives a reload", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await start(page, DESK);
+    await openNatures(page);
+    const adamant = NATURES.find((n) => n.id === "adamant")!;
+    const cell = page.locator('tr[data-up="attack"] td[data-down="specialAttack"] [data-nature]');
+    const toggle = page.locator('.page-head [data-tcard="natures"]');
+    await expect(toggle.locator('[data-tl="pt"]')).toHaveAttribute("aria-pressed", "true");
+    await expect(cell).toHaveText(adamant.name.pt);
+    await toggle.locator('[data-tl="en"]').click();
+    await expect(toggle.locator('[data-tl="en"]')).toHaveAttribute("aria-pressed", "true");
+    await expect(cell).toHaveText(adamant.name.en);
+    await expect(page.locator(".nt-table")).not.toContainText(adamant.name.pt);
+    await cell.click();
+    await expect(page.locator(".nt-focus h3")).toHaveText(adamant.name.en);
+    await expect(page.locator(".nt-focus .nt-focus-alt")).toHaveText(adamant.name.pt);
+    // a UI continua em portugues: so os nomes das naturezas mudam
+    await expect(page.locator(".natures-screen h2")).toHaveText(msg("nav.natures"));
+    await page.reload();
+    await expect(page.locator(".boot")).toHaveCount(0, { timeout: 30_000 });
+    await expect(page.locator("#search-input")).toBeEnabled({ timeout: 30_000 });
+    if ((await page.locator(".natures-screen").count()) === 0) await openNatures(page);
+    await expect(page.locator('.page-head [data-tcard="natures"] [data-tl="en"]')).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator('tr[data-up="attack"] td[data-down="specialAttack"] [data-nature]')).toHaveText(adamant.name.en);
+    expect(errors).toEqual([]);
+  });
+
+  test("360px: the toggle sits in the page head right of the title without overlapping anything", async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await start(page, { w: 360, h: 844 });
+    await openNatures(page);
+    const toggle = page.locator('.page-head [data-tcard="natures"]');
+    await toggle.locator('[data-tl="en"]').click();
+    await page.locator('[data-nature="adamant"]').click();
+    await settle(page);
+    const [h2, tgl] = await Promise.all([page.locator(".natures-screen .page-head h2").boundingBox(), toggle.boundingBox()]);
+    expect(tgl!.x).toBeGreaterThanOrEqual(h2!.x + h2!.width);
+    expect(tgl!.x + tgl!.width).toBeLessThanOrEqual(360);
+    await expectNoOverlap(page, ".natures-screen");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect(errors).toEqual([]);
+  });
 });
 
 test.describe("phone table scroll", () => {

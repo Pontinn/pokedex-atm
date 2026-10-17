@@ -4,7 +4,7 @@
 import { memo } from "react";
 import { useT } from "../../i18n/useT";
 import { useScreenUi } from "../../navigation/useNavigation";
-import { usePreferencesStore } from "../../state/preferences-store";
+import { useTermsLanguage } from "../../state/preferences-store";
 import { MINUS, PLUS, STAT_LABEL, natureGrid, natureName } from "./natures-model";
 import { selectNature } from "./select";
 
@@ -12,7 +12,7 @@ const ROWS = natureGrid();
 
 export const NatureTable = memo(function NatureTable() {
   const t = useT();
-  const lang = usePreferencesStore((s) => s.uiLanguage);
+  const lang = useTermsLanguage("natures");
   const selected = useScreenUi("natures", "selected");
   return (
     <div className="panel nt-table-panel">

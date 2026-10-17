@@ -39,7 +39,7 @@
 .natures-screen .nt-focus { display: grid; gap: 12px; border-left: 6px solid var(--secondary); }
 .natures-screen .nt-focus-name h3 { margin: 0; font-size: 26px; overflow-wrap: anywhere; }
 .natures-screen .nt-focus-name h3::before { content: none; }
-.natures-screen .nt-focus-en { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.natures-screen .nt-focus-alt { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: var(--muted); }
 .natures-screen .nt-focus-chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .natures-screen .nt-big-chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 10px 16px; border-radius: 999px; font-size: 18px; font-weight: 800; }
 .natures-screen .nt-use { margin: 0; font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }

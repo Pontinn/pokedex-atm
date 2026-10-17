@@ -3,6 +3,7 @@
 import "./natures.css";
 import type { ScreenProps } from "../../components/ScreenRouter";
 import { SegmentedControl } from "../../components/SegmentedControl";
+import { TermsToggle } from "../../components/TermsToggle";
 import { useT } from "../../i18n/useT";
 import type { NaturesView } from "../../navigation/types";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
@@ -40,6 +41,7 @@ export function NaturesScreen(_props: ScreenProps) {
     <section className="natures-screen">
       <div className="page-head">
         <h2>{t("nav.natures")}</h2>
+        <TermsToggle cardKey="natures" />
       </div>
       <NaturesLegend />
       <SegmentedControl<NaturesView>

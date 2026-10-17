@@ -5,13 +5,13 @@ import { Check } from "../../components/Icon";
 import type { BattleStatKey, Nature } from "../../domain/natures";
 import { useT } from "../../i18n/useT";
 import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
-import { usePreferencesStore } from "../../state/preferences-store";
+import { useTermsLanguage } from "../../state/preferences-store";
 import { BATTLE_STATS, MINUS, NEUTRAL_NATURES, PLUS, STAT_LABEL, natureName, statGroups } from "./natures-model";
 import { selectNature } from "./select";
 
 function NaturePick({ nature, note }: { nature: Nature; note?: string }) {
   const t = useT();
-  const lang = usePreferencesStore((s) => s.uiLanguage);
+  const lang = useTermsLanguage("natures");
   const selected = useScreenUi("natures", "selected");
   const on = nature.id === selected;
   const name = natureName(nature, lang);
