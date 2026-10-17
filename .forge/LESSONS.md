@@ -31,3 +31,8 @@ Lidas por forge-prd, forge-spec, forge-review, forge-imp-backend e forge-imp-fro
 - A SPEC pediu `page.goForward()`, mas o app trata todo popstate como Voltar (history-bridge.ts) -> ler a ponte de historico antes de escrever teste de navegacao do navegador.
 - Pagina estatica passou pelo pipeline completo do forge (planejamento 1h15 > implementacao 1h10) -> feature sem backend e sem dado novo vai de `--quick`.
 - Bug herdado encontrado no repo oficial e que existe aqui tambem: `useTeamStore.setSlots` e `useCapturedStore.mark/unmark` mostram na UI antes do `await` da escrita no IndexedDB; reload poucos ms depois perde o dado (6/10 no repro). Corrigido no pontindex em 5d67dbc (write-through pela fila do store) -> portar a correcao para ca com `--quick`.
+
+## 2026-10-17 - natures (pagina Naturezas, quick)
+
+- Tabela com 1a coluna sticky e `border-spacing` deixou as celulas que rolam por baixo aparecerem cortadas no vao entre as celulas fixas (capturado so na captura rolada) -> toda tabela com coluna fixa usa padding no lugar de border-spacing, fundo opaco na celula inteira, e a captura/e2e do celular inclui o estado ROLADO ate o fim, nao so o inicial.
+- A quick (plano inline na IDEA, sem PRD/SPEC) entregou a pagina em 34 min com os mesmos gates da type-chart (2h25) -> pagina estatica derivada de dominio existente vai sempre de quick; o brief do agente aponta a pagina irma como referencia de identidade no lugar do UISPEC.
