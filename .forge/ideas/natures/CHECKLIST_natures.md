@@ -6,7 +6,7 @@ Marcar `[x]` + hash do commit quando VERDE (build + render sem erro de console +
 - [x] F2 natures-model + Tabela 5x5 + NatureFocus + natures.css; unit do modelo (1088ad09)
 - [x] F3 visao Por status (chips + faixas + neutras); unit de render da tela (70b535a0)
 - [x] F4 celular 360 sem sobreposicao, temas, a11y, painel compacto (a483aa6c; line-height dos botoes da tabela/faixas corrigido no T1 pelo harness no-overlap)
-- [x] T1 e2e natures.spec + capturas 1280/360 em .forge/ideas/natures/captures/ + suite completa, typecheck, lint, build verdes (HASH_T1; vitest 98 arquivos/842 testes; e2e build+preview 317 passed/16 skipped; natures.spec 16/16; responsive.spec sem baseline regenerada)
+- [x] T1 e2e natures.spec + capturas 1280/360 em .forge/ideas/natures/captures/ + suite completa, typecheck, lint, build verdes (ae2985b0; vitest 98 arquivos/842 testes; e2e build+preview 317 passed/16 skipped; natures.spec 16/16; responsive.spec sem baseline regenerada)
 
 ## Bugs found
 
