@@ -2,8 +2,11 @@
 // Deriva tudo de src/domain/natures.ts via natures-model.ts; estado no ui da entrada "natures" da pilha.
 import "./natures.css";
 import type { ScreenProps } from "../../components/ScreenRouter";
+import { SegmentedControl } from "../../components/SegmentedControl";
 import { useT } from "../../i18n/useT";
-import { useScreenUi } from "../../navigation/useNavigation";
+import type { NaturesView } from "../../navigation/types";
+import { useNavigationActions, useScreenUi } from "../../navigation/useNavigation";
+import { NatureByStat } from "./NatureByStat";
 import { NatureFocus } from "./NatureFocus";
 import { NatureTable } from "./NatureTable";
 
@@ -28,15 +31,29 @@ function NaturesLegend() {
 
 export function NaturesScreen(_props: ScreenProps) {
   const t = useT();
+  const { updateUi } = useNavigationActions();
+  const view = useScreenUi("natures", "view");
+  const stat = useScreenUi("natures", "stat");
   const selected = useScreenUi("natures", "selected");
+  const showPick = view === "table" || stat !== null;
   return (
     <section className="natures-screen">
       <div className="page-head">
         <h2>{t("nav.natures")}</h2>
       </div>
       <NaturesLegend />
-      <NatureTable />
-      {selected !== null ? <NatureFocus id={selected} /> : <p className="nt-instr">{t("natures.pick")}</p>}
+      <SegmentedControl<NaturesView>
+        className="nt-view"
+        ariaLabel={t("natures.viewLabel")}
+        value={view}
+        options={[
+          { value: "table", label: t("natures.viewTable") },
+          { value: "byStat", label: t("natures.viewByStat") },
+        ]}
+        onChange={(v) => updateUi<"natures">({ view: v })}
+      />
+      {view === "table" ? <NatureTable /> : <NatureByStat />}
+      {selected !== null ? <NatureFocus id={selected} /> : showPick ? <p className="nt-instr">{t("natures.pick")}</p> : null}
     </section>
   );
 }

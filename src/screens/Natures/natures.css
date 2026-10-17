@@ -45,3 +45,22 @@
 .natures-screen .nt-focus-chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .natures-screen .nt-big-chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 10px 16px; border-radius: 999px; font-size: 18px; font-weight: 800; }
 .natures-screen .nt-use { margin: 0; font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+/* seletor de visao */
+.natures-screen .nt-view { justify-self: start; max-width: 100%; }
+/* visao Por status: chips de status (anel + check do .chip.on, precedente types.css .tp-pick) e faixas coloridas */
+.natures-screen .nt-stat-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.natures-screen .chip.nt-stat { cursor: pointer; flex: none; padding: 8px 14px; font-size: 14px; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); text-shadow: none; }
+.natures-screen .chip.nt-stat.on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); transform: translateY(-1px); }
+.natures-screen .chip.nt-stat.on .chip-check { display: inline-block; width: 12px; height: 12px; margin-left: -2px; }
+.natures-screen .nt-stat-instr { margin-top: 12px; }
+.natures-screen .nt-bands { display: grid; gap: 12px; }
+.natures-screen .nt-band { border-radius: var(--radius-md); padding: 12px 14px; border: 1px solid rgba(0, 0, 0, .08); min-width: 0; }
+.natures-screen .nt-band h4 { margin: 0 0 10px; font-size: 16px; font-weight: 700; color: inherit; }
+.natures-screen .nt-band-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.natures-screen .nt-band-pick {
+  display: grid; justify-items: start; gap: 2px; min-width: 112px; padding: 8px 12px; border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, .1); background: var(--surface); color: var(--text); font-size: 14px; font-weight: 800; cursor: pointer; line-height: 1.15;
+}
+.natures-screen .nt-band-pick:hover { border-color: var(--text); }
+.natures-screen .nt-band-pick.on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); }
+.natures-screen .nt-band-note { font-size: 12px; font-weight: 700; color: var(--muted); }
