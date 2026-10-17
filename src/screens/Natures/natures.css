@@ -13,21 +13,19 @@
 .natures-screen .nt-swatches { display: inline-flex; gap: 3px; flex: none; }
 .natures-screen .nt-swatches i { display: block; width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .12); }
 .natures-screen .nt-instr { margin: 0; font-weight: 700; color: var(--muted); }
-/* tabela 5 x 5: linha = aumenta (verde), coluna = diminui (laranja); 1a coluna fixa e opaca */
+/* tabela 5 x 5: linha = aumenta (verde), coluna = diminui (laranja). Sem border-spacing: o espaco entre os blocos e
+   padding da celula, entao a 1a coluna fixa tem fundo opaco em toda a largura e nada rolado aparece por baixo dela */
 .natures-screen .nt-caption { margin: 0 0 10px; font-weight: 700; }
 .natures-screen .nt-table-scroll { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 4px; }
-.natures-screen .nt-table { border-collapse: separate; border-spacing: 4px; }
-.natures-screen .nt-table th, .natures-screen .nt-table td { padding: 0; text-align: center; vertical-align: middle; }
-.natures-screen .nt-col-head, .natures-screen .nt-row-head { border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 800; white-space: nowrap; }
-.natures-screen .nt-row-head { text-align: left; }
-.natures-screen .nt-corner { display: table-cell; font-size: 11px; font-weight: 800; color: var(--muted); line-height: 1.4; }
-.natures-screen .nt-corner span { display: block; white-space: nowrap; }
+.natures-screen .nt-table { border-collapse: separate; border-spacing: 0; }
+.natures-screen .nt-table th, .natures-screen .nt-table td { padding: 2px; text-align: center; vertical-align: middle; }
+.natures-screen .nt-head { display: block; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.natures-screen .nt-row-head .nt-head { text-align: left; }
+.natures-screen .nt-corner-box { display: grid; gap: 0; font-size: 11px; font-weight: 800; color: var(--muted); line-height: 1.4; }
+.natures-screen .nt-corner-box span { display: block; white-space: nowrap; }
 .natures-screen .nt-corner-col { text-align: right; }
 .natures-screen .nt-corner-row { text-align: left; }
-.natures-screen .nt-row-head, .natures-screen .nt-corner { position: sticky; left: 0; z-index: 1; }
-.natures-screen .nt-corner { background: var(--surface); box-shadow: -8px 0 0 var(--surface), 4px 0 0 var(--surface); }
-/* cobre o padding do container (4px) e o border-spacing (4px): nenhuma celula rolada aparece em volta da coluna fixa */
-.natures-screen .nt-row-head { box-shadow: -8px 0 0 var(--surface), 4px 0 0 var(--surface); }
+.natures-screen .nt-row-head, .natures-screen .nt-corner { position: sticky; left: 0; z-index: 1; background: var(--surface); }
 .natures-screen .nt-pick {
   display: grid; place-items: center; align-content: center; gap: 0; width: 100%; min-width: 104px; min-height: 48px; padding: 6px 8px;
   border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text);
@@ -75,10 +73,18 @@ html[data-theme="green"] .natures-screen :focus-visible, html[data-theme="blue"]
 .app.mobile .natures-screen .nt-legend-color { gap: 6px; margin-top: 4px; font-size: 12px; line-height: 1.25; }
 .app.mobile .natures-screen .nt-swatches i { width: 10px; height: 10px; border-radius: 3px; }
 .app.mobile .natures-screen .nt-caption { font-size: 13px; }
-.app.mobile .natures-screen .nt-table { border-spacing: 3px; }
-.app.mobile .natures-screen .nt-col-head, .app.mobile .natures-screen .nt-row-head { padding: 6px 6px; font-size: 11px; }
-.app.mobile .natures-screen .nt-corner { font-size: 10px; }
-.app.mobile .natures-screen .nt-pick { min-width: 84px; min-height: 42px; padding: 4px 6px; font-size: 12px; }
+/* tabela no celular: larguras fixas (1a coluna 72 px, colunas de dados 76 px com o padding; 3 colunas inteiras em 360 px), container com largura de
+   colunas inteiras (round) e encaixe por coluna: nenhuma celula fica cortada junto da coluna fixa, nem rolada ate o fim */
+.app.mobile .natures-screen .nt-table-scroll {
+  padding: 0; width: calc(72px + round(down, 100% - 72px, 76px)); scroll-snap-type: x mandatory; scroll-padding-left: 72px;
+}
+.app.mobile .natures-screen .nt-col-head { scroll-snap-align: start; }
+.app.mobile .natures-screen .nt-table-panel { padding: 12px 10px; }
+.app.mobile .natures-screen .nt-row-head .nt-head, .app.mobile .natures-screen .nt-corner-box { width: 68px; box-sizing: border-box; }
+.app.mobile .natures-screen .nt-head { padding: 6px 4px; font-size: 11px; white-space: normal; }
+.app.mobile .natures-screen .nt-col-head .nt-head { width: 72px; padding: 6px 2px; box-sizing: border-box; white-space: nowrap; }
+.app.mobile .natures-screen .nt-corner-box { font-size: 10px; }
+.app.mobile .natures-screen .nt-pick { width: 72px; min-width: 0; min-height: 42px; padding: 4px 2px; font-size: 11px; box-sizing: border-box; }
 .app.mobile .natures-screen .nt-neutral-mark { font-size: 10px; }
 .app.mobile .natures-screen .nt-band { padding: 10px 12px; }
 .app.mobile .natures-screen .nt-band h4 { font-size: 15px; }

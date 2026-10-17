@@ -158,6 +158,49 @@ test.describe("table and focus", () => {
   }
 });
 
+test.describe("phone table scroll", () => {
+  for (const w of [360, 390]) {
+    test(`${w}px: the fixed first column masks everything under it and no cell is cut at either edge`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      await start(page, { w, h: 844 });
+      await openNatures(page);
+      const box = page.locator(".nt-table-scroll");
+      expect(await box.evaluate((e) => e.scrollWidth > e.clientWidth)).toBe(true);
+      // celulas de dados cortadas pela borda direita da coluna fixa ou pela borda direita do container
+      const cut = () =>
+        page.evaluate(() => {
+          const scroller = document.querySelector(".nt-table-scroll")!.getBoundingClientRect();
+          const edge = document.querySelector("tbody tr th")!.getBoundingClientRect().right;
+          return [...document.querySelectorAll(".nt-table td.nt-cell, .nt-table th.nt-col-head")]
+            .map((c) => c.getBoundingClientRect())
+            .filter((r) => (r.left < edge - 1 && r.right > edge + 1) || (r.left < scroller.right - 1 && r.right > scroller.right + 1)).length;
+        });
+      const masked = () =>
+        page.evaluate(() => {
+          const heads = [...document.querySelectorAll(".nt-corner, .nt-row-head")];
+          return heads.every((h) => {
+            const r = h.getBoundingClientRect();
+            const bg = getComputedStyle(h).backgroundColor;
+            // ponto no espaco entre o bloco colorido e a borda direita da celula fixa: tem de ser a propria celula fixa
+            const el = document.elementFromPoint(r.right - 1, r.top + r.height / 2);
+            return /^rgb\(/.test(bg) && !!el && (el === h || h.contains(el));
+          });
+        });
+      expect(await cut()).toBe(0);
+      await box.evaluate((e) => (e.scrollLeft = e.scrollWidth));
+      await expect.poll(() => box.evaluate((e) => e.scrollLeft)).toBeGreaterThan(0);
+      await expect.poll(cut).toBe(0);
+      expect(await masked()).toBe(true);
+      await page.locator('[data-nature="adamant"]').click();
+      await expect.poll(cut).toBe(0);
+      await expect
+        .poll(() => page.locator(".nt-corner-box span").evaluateAll((els) => els.every((e) => e.scrollWidth <= e.clientWidth + 0.5)))
+        .toBe(true);
+      expect(errors).toEqual([]);
+    });
+  }
+});
+
 test.describe("by stat", () => {
   test("Speed shows the 4 natures that raise it, the 4 that lower it and the 5 neutral ones", async ({ page }) => {
     const errors = trackConsoleErrors(page);
@@ -188,8 +231,8 @@ test.describe("themes", () => {
       const errors = trackConsoleErrors(page);
       await start(page, DESK, "pt", theme);
       await openNatures(page);
-      await expect(page.locator(".nt-row-head").first()).toHaveCSS("background-color", BG.adv);
-      await expect(page.locator(".nt-col-head").first()).toHaveCSS("background-color", BG.dis);
+      await expect(page.locator(".nt-row-head .nt-head").first()).toHaveCSS("background-color", BG.adv);
+      await expect(page.locator(".nt-col-head .nt-head").first()).toHaveCSS("background-color", BG.dis);
       await expect(page.locator('[data-neutral="true"]').first()).toHaveCSS("background-color", BG.zero);
       await view(page, "byStat");
       await page.locator('[data-stat="attack"]').click();

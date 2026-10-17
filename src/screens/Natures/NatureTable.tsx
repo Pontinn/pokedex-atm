@@ -1,5 +1,6 @@
 // Tabela 5 x 5 das naturezas: linha = status que aumenta (verde, +), coluna = status que diminui (laranja, -).
-// Celula = botao com o nome; diagonal = natureza neutra em cinza. Primeira coluna fixa; so o container rola.
+// Celula = botao com o nome; diagonal = natureza neutra em cinza. Primeira coluna fixa e opaca (fundo da celula inteira,
+// inclusive o espaco entre os blocos); so o container rola, e no celular ele encaixa coluna a coluna.
 import { memo } from "react";
 import { useT } from "../../i18n/useT";
 import { useScreenUi } from "../../navigation/useNavigation";
@@ -23,22 +24,26 @@ export const NatureTable = memo(function NatureTable() {
           <thead>
             <tr>
               <td className="nt-corner">
-                <span className="nt-corner-col">
-                  {t("natures.cornerCol")} {MINUS}
-                </span>
-                <span className="nt-corner-row">
-                  {t("natures.cornerRow")} {PLUS}
-                </span>
+                <div className="nt-corner-box">
+                  <span className="nt-corner-col">
+                    {t("natures.cornerCol")} {MINUS}
+                  </span>
+                  <span className="nt-corner-row">
+                    {t("natures.cornerRow")} {PLUS}
+                  </span>
+                </div>
               </td>
               {ROWS.map((r) => (
                 <th
                   key={r.up}
                   scope="col"
-                  className="nt-col-head tone-dis"
+                  className="nt-col-head"
                   data-down={r.up}
                   aria-label={t("natures.colHeader", { stat: t(STAT_LABEL[r.up]) })}
                 >
-                  {MINUS} {t(STAT_LABEL[r.up])}
+                  <span className="nt-head tone-dis">
+                    {MINUS} {t(STAT_LABEL[r.up])}
+                  </span>
                 </th>
               ))}
             </tr>
@@ -46,8 +51,10 @@ export const NatureTable = memo(function NatureTable() {
           <tbody>
             {ROWS.map((row) => (
               <tr key={row.up} data-up={row.up}>
-                <th scope="row" className="nt-row-head tone-adv" aria-label={t("natures.rowHeader", { stat: t(STAT_LABEL[row.up]) })}>
-                  {PLUS} {t(STAT_LABEL[row.up])}
+                <th scope="row" className="nt-row-head" aria-label={t("natures.rowHeader", { stat: t(STAT_LABEL[row.up]) })}>
+                  <span className="nt-head tone-adv">
+                    {PLUS} {t(STAT_LABEL[row.up])}
+                  </span>
                 </th>
                 {row.cells.map((c) => {
                   const on = c.nature.id === selected;
