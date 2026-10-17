@@ -338,7 +338,7 @@ test.describe("F12.1 PWA installable and cache", () => {
   test.describe("stale lazy chunk after a deploy", () => {
     test.use({ serviceWorkers: "block", viewport: { width: 1280, height: 900 } });
     const SYNC_CHUNK = /\/assets\/SyncScreen-[^/]+\.js$/;
-    const openSync = (page: Page) => page.locator(".sidebar .nav-item").nth(8).click();
+    const openSync = (page: Page) => page.locator('.sidebar [data-nav="sync"]').click();
 
     test("missing chunk reloads the page once, then the screen opens on the fresh build", async ({ page }) => {
       const errors = trackPageErrors(page);

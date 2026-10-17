@@ -1,5 +1,6 @@
 // Tipos da pilha de navegacao propria (F1.3, RF-01..RF-04).
 import type { TypeId } from "../data/types";
+import type { BattleStatKey } from "../domain/natures";
 
 export type ScreenId =
   | "home"
@@ -8,6 +9,7 @@ export type ScreenId =
   | "captured"
   | "compare"
   | "types"
+  | "natures"
   | "trainers"
   | "balls"
   | "items"
@@ -22,6 +24,7 @@ export const SCREEN_IDS: readonly ScreenId[] = [
   "captured",
   "compare",
   "types",
+  "natures",
   "trainers",
   "balls",
   "items",
@@ -37,6 +40,7 @@ export interface ScreenParamsMap {
   captured: Record<string, never>;
   compare: { left?: number; right?: number };
   types: Record<string, never>;
+  natures: Record<string, never>;
   trainers: Record<string, never>;
   balls: Record<string, never>;
   items: Record<string, never>;
@@ -51,6 +55,7 @@ export type DexStatusFilter = "all" | "caught" | "missing";
 export type DexSort = "num" | "name" | "bst";
 export type TypesView = "byType" | "chart";
 export type TypesTab = "attack" | "defend";
+export type NaturesView = "table" | "byStat";
 
 export interface DexFilters {
   types: TypeId[];
@@ -81,6 +86,7 @@ export interface UiStateMap {
   captured: { tab: string; filters: ListFilters };
   compare: { left: number | null; right: number | null };
   types: { view: TypesView; selected: TypeId | null; tab: TypesTab; second: TypeId | null };
+  natures: { view: NaturesView; selected: string | null; stat: BattleStatKey | null };
   trainers: { seriesId: string | null; openTrainerId: string | null; filters: ListFilters };
   balls: { filter: string; filters: ListFilters };
   items: { category: string; query: string; openItemId: string | null; origin: string };
@@ -118,6 +124,7 @@ export function defaultUi<S extends ScreenId>(screen: S): UiStateMap[S] {
     captured: () => ({ tab: "all", filters: { query: "" } }),
     compare: () => ({ left: null, right: null }),
     types: () => ({ view: "byType", selected: null, tab: "attack", second: null }),
+    natures: () => ({ view: "table", selected: null, stat: null }),
     trainers: () => ({ seriesId: null, openTrainerId: null, filters: { query: "" } }),
     balls: () => ({ filter: "all", filters: { query: "" } }),
     items: () => ({ category: "all", query: "", openItemId: null, origin: "all" }),

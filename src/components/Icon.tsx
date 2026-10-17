@@ -39,6 +39,7 @@ export {
   Shapes,
   Shield,
   SlidersHorizontal,
+  Smile,
   Sparkle,
   Sparkles,
   Star,

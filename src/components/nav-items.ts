@@ -1,6 +1,6 @@
 // Itens de navegacao do shell (index.html:35-59, 241-259 do prototipo) + Sincronizar (RF-72).
 import type { LucideIcon } from "./Icon";
-import { ArrowLeftRight, Backpack, CircleDot, House, List, QrCode, Settings, Shapes, Swords } from "./Icon";
+import { ArrowLeftRight, Backpack, CircleDot, House, List, QrCode, Settings, Shapes, Smile, Swords } from "./Icon";
 import type { MessageKey } from "../i18n/messages";
 import type { ScreenId } from "../navigation/types";
 
@@ -18,6 +18,7 @@ export const SIDEBAR_ITEMS: readonly NavItemDef[] = [
   { screen: "captured", labelKey: "nav.captured", icon: null },
   { screen: "compare", labelKey: "nav.compare", icon: ArrowLeftRight },
   { screen: "types", labelKey: "nav.types", subKey: "nav.typesSub", icon: Shapes },
+  { screen: "natures", labelKey: "nav.natures", subKey: "nav.naturesSub", icon: Smile },
   { screen: "trainers", labelKey: "nav.trainers", subKey: "nav.trainersSub", icon: Swords },
   { screen: "balls", labelKey: "nav.balls", subKey: "nav.ballsSub", icon: CircleDot },
   { screen: "items", labelKey: "nav.items", subKey: "nav.itemsSub", icon: Backpack },

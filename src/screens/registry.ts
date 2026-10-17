@@ -11,6 +11,7 @@ import { DexScreen } from "./Dex/DexScreen";
 import { HomeScreen } from "./Home/HomeScreen";
 import { ItemScreen } from "./Item/ItemScreen";
 import { ItemsScreen } from "./Items/ItemsScreen";
+import { NaturesScreen } from "./Natures/NaturesScreen";
 import { SettingsScreen } from "./Settings/SettingsScreen";
 import { TrainersScreen } from "./Trainers/TrainersScreen";
 import { TypesScreen } from "./Types/TypesScreen";
@@ -24,6 +25,7 @@ export const SCREENS = {
   captured: CapturedScreen,
   compare: CompareScreen,
   types: TypesScreen,
+  natures: NaturesScreen,
   trainers: TrainersScreen,
   balls: BallsScreen,
   items: ItemsScreen,

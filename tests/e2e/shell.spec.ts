@@ -107,7 +107,7 @@ test.describe("desktop shell", () => {
     await expect(page.locator("main#main")).toBeVisible();
     await expect(page.locator(".sidebar-version")).toHaveText("Dados: All the Mons 1.3.0 / Cobblemon 1.7.3");
     await expect(page.locator(".sidebar .nav-item")).toHaveText([
-      "Início", "Pokédex", "Capturados", "Comparar", "Tipos", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações",
+      "Início", "Pokédex", "Capturados", "Comparar", "Tipos", "Naturezas", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações",
     ]);
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/desktop-shell.png`, mask: [page.locator("#main")] });
     const before = (await played(page)).length;
@@ -170,7 +170,7 @@ test.describe("mobile shell", () => {
     await page.locator(".tabbar .tab-more").click();
     const sheet = page.locator(".more-sheet");
     await expect(sheet).toHaveClass(/open/);
-    await expect(sheet.locator(".sheet-item-label")).toHaveText(["Tipos", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações", "Feito por Pontin", "GitHub"]);
+    await expect(sheet.locator(".sheet-item-label")).toHaveText(["Tipos", "Naturezas", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações", "Feito por Pontin", "GitHub"]);
     await expect(sheet.locator(".sheet-panel")).toBeInViewport({ ratio: 1 });
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/mobile-nav-mais-sheet.png` });
     await sheet.locator(".sheet-item", { hasText: "Configurações" }).click();
@@ -229,10 +229,10 @@ test.describe("no text overlap in the shell (PT and EN)", () => {
           await expect(page.locator(".more-sheet")).toHaveClass(/open/);
           await expect(page.locator(".more-sheet .sheet-panel")).toBeInViewport({ ratio: 1 });
           await expectNoOverlap(page, ".more-sheet .sheet-panel");
-          if (lang === "en") await expect(page.locator(".more-sheet .sheet-item-label").nth(3)).toHaveText("Items & Food");
+          if (lang === "en") await expect(page.locator('.more-sheet [data-nav="items"] .sheet-item-label')).toHaveText("Items & Food");
         } else {
           await expectNoOverlap(page, ".sidebar");
-          if (lang === "en") await expect(page.locator(".sidebar .nav-item").nth(7)).toHaveText("Items & Food");
+          if (lang === "en") await expect(page.locator('.sidebar [data-nav="items"]')).toHaveText("Items & Food");
         }
       });
     }

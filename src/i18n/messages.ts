@@ -18,6 +18,7 @@ import { ITEM_MESSAGES } from "./messages/item";
 import { SETTINGS_MESSAGES } from "./messages/settings";
 import { SYNC_MESSAGES } from "./messages/sync";
 import { TYPES_PAGE_MESSAGES } from "./messages/types-page";
+import { NATURES_PAGE_MESSAGES } from "./messages/natures-page";
 
 export type { Message } from "./messages/types";
 
@@ -37,6 +38,7 @@ export const MESSAGE_MODULES = {
   settings: SETTINGS_MESSAGES,
   sync: SYNC_MESSAGES,
   types: TYPES_PAGE_MESSAGES,
+  natures: NATURES_PAGE_MESSAGES,
 } as const;
 
 export const MESSAGES = {
@@ -54,6 +56,7 @@ export const MESSAGES = {
   ...SETTINGS_MESSAGES,
   ...SYNC_MESSAGES,
   ...TYPES_PAGE_MESSAGES,
+  ...NATURES_PAGE_MESSAGES,
 } as const;
 
 export type MessageKey = keyof typeof MESSAGES;

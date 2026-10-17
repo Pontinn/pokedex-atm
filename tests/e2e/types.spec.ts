@@ -113,7 +113,7 @@ test.describe("navigation", () => {
     const errors = trackConsoleErrors(page);
     await start(page, DESK);
     await expect(page.locator(".sidebar .nav-item")).toHaveText([
-      "Início", "Pokédex", "Capturados", "Comparar", "Tipos", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações",
+      "Início", "Pokédex", "Capturados", "Comparar", "Tipos", "Naturezas", "Treinadores", "Pokébolas", "Itens & Comidas", "Sincronizar", "Configurações",
     ]);
     await openTypes(page);
     const item = page.locator('.sidebar [data-nav="types"]');
