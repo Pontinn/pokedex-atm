@@ -68,7 +68,7 @@ export const NatureByStat = memo(function NatureByStat() {
         {stat === null ? <p className="nt-instr nt-stat-instr">{t("natures.statPick")}</p> : null}
       </div>
       {groups ? (
-        <div className="nt-bands" data-stat={groups.stat}>
+        <div className="nt-bands" data-band-stat={groups.stat}>
           <section className="nt-band tone-adv" data-band="raise" aria-labelledby="nt-band-raise">
             <h4 id="nt-band-raise">{t("natures.raise", { stat: label(groups.stat) })}</h4>
             <ul className="nt-band-list">
