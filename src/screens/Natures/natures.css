@@ -64,3 +64,27 @@
 .natures-screen .nt-band-pick:hover { border-color: var(--text); }
 .natures-screen .nt-band-pick.on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); }
 .natures-screen .nt-band-note { font-size: 12px; font-weight: 700; color: var(--muted); }
+/* foco visivel (precedente types.css); green, blue e purple usam --primary (precedente detail.css:121) */
+.natures-screen .nt-pick:focus-visible, .natures-screen .nt-band-pick:focus-visible, .natures-screen .nt-stat:focus-visible,
+.natures-screen .seg button:focus-visible, .natures-screen .nt-table-scroll:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+html[data-theme="green"] .natures-screen :focus-visible, html[data-theme="blue"] .natures-screen :focus-visible, html[data-theme="purple"] .natures-screen :focus-visible { outline-color: var(--primary); }
+/* celular (.app.mobile = < 900 px, mobile.css): painel explicativo compacto, tabela menor (rola so o container, 1a coluna fixa) */
+.app.mobile .natures-screen .nt-legend { padding: 10px 12px; }
+.app.mobile .natures-screen .nt-legend h3 { margin-bottom: 6px; font-size: 17px; }
+.app.mobile .natures-screen .nt-legend-rule { margin-bottom: 2px; font-size: 12px; line-height: 1.3; }
+.app.mobile .natures-screen .nt-legend-color { gap: 6px; margin-top: 4px; font-size: 12px; line-height: 1.25; }
+.app.mobile .natures-screen .nt-swatches i { width: 10px; height: 10px; border-radius: 3px; }
+.app.mobile .natures-screen .nt-caption { font-size: 13px; }
+.app.mobile .natures-screen .nt-table { border-spacing: 3px; }
+.app.mobile .natures-screen .nt-col-head, .app.mobile .natures-screen .nt-row-head { padding: 6px 6px; font-size: 11px; }
+.app.mobile .natures-screen .nt-corner { font-size: 10px; }
+.app.mobile .natures-screen .nt-pick { min-width: 84px; min-height: 42px; padding: 4px 6px; font-size: 12px; }
+.app.mobile .natures-screen .nt-neutral-mark { font-size: 10px; }
+.app.mobile .natures-screen .nt-band { padding: 10px 12px; }
+.app.mobile .natures-screen .nt-band h4 { font-size: 15px; }
+.app.mobile .natures-screen .nt-band-pick { min-width: 0; flex: 1 1 calc(50% - 4px); font-size: 13px; padding: 6px 10px; }
+.app.mobile .natures-screen .nt-band-list > li { display: flex; flex: 1 1 calc(50% - 4px); min-width: 0; }
+.app.mobile .natures-screen .nt-band-list > li > .nt-band-pick { flex: 1 1 auto; }
+.app.mobile .natures-screen .nt-focus-name h3 { font-size: 22px; }
+.app.mobile .natures-screen .nt-big-chip { padding: 8px 12px; font-size: 16px; }
+.app.mobile .natures-screen .nt-use { font-size: 14px; }
